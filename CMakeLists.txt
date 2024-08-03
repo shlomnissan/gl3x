@@ -19,6 +19,7 @@ find_package(fmt REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(glm REQUIRED)
+find_package(glad REQUIRED)
 
 set(CORE_SOURCES
     src/core/mesh.cpp
@@ -28,10 +29,6 @@ set(CORE_SOURCES
     src/core/timer.h
     src/core/window.cpp
     src/core/window.h
-)
-
-set(LIBS_SOURCES
-    libs/glad/glad.c
 )
 
 set(DEMO_SOURCES
@@ -45,4 +42,4 @@ target_include_directories(tetris-3d PRIVATE
     ${CMAKE_SOURCE_DIR}/libs
 )
 
-target_link_libraries(tetris-3d PRIVATE fmt::fmt glfw glm::glm OpenGL::GL)
+target_link_libraries(tetris-3d PRIVATE fmt::fmt glfw glad::glad glm::glm OpenGL::GL)

@@ -14,9 +14,12 @@ Shader::Shader(const std::vector<ShaderInfo>& shaders) {
     for (const auto& shader_info : shaders) {
         auto shader_id = glCreateShader(GetShaderType(shader_info.type));
         auto data = shader_info.source.data();
+
         glShaderSource(shader_id, 1, &data, nullptr);
         glCompileShader(shader_id);
+
         CheckShaderCompileStatus(shader_id, shader_info.type);
+
         glAttachShader(program_, shader_id);
         glDeleteShader(shader_id);
     }
@@ -38,7 +41,7 @@ auto Shader::GetShaderType(ShaderType type) const -> unsigned int {
             return GL_FRAGMENT_SHADER;
             break;
         default:
-            throw ShaderError("Unsupported Shader Type");
+            throw ShaderError {"Unsupported Shader Type"};
     }
 }
 
@@ -85,22 +88,6 @@ auto Shader::CheckProgramLinkStatus() const -> void {
     }
 }
 
-auto Shader::SetInt(std::string_view uniform, int i) const -> void {
-    glUniform1i(GetUniform(uniform), i);
-}
-
-auto Shader::SetFloat(std::string_view uniform, const float f) const -> void {
-    glUniform1f(GetUniform(uniform), f);
-}
-
-auto Shader::SetVec3(std::string_view uniform, const glm::vec3& vec) const -> void {
-    glUniform3fv(GetUniform(uniform), 1, &vec[0]);
-}
-
-auto Shader::SetMat4(std::string_view uniform, const glm::mat4& matrix) const -> void {
-    glUniformMatrix4fv(GetUniform(uniform), 1, GL_FALSE, &matrix[0][0]);
-}
-
 auto Shader::GetUniform(std::string_view name) const -> GLint {
     Use();
     auto loc = glGetUniformLocation(program_, name.data());
@@ -110,6 +97,26 @@ auto Shader::GetUniform(std::string_view name) const -> GLint {
         };
     }
     return loc;
+}
+
+auto Shader::SetUniform(std::string_view uniform, int i) const -> void {
+    glUniform1i(GetUniform(uniform), i);
+}
+
+auto Shader::SetUniform(std::string_view uniform, const float f) const -> void {
+    glUniform1f(GetUniform(uniform), f);
+}
+
+auto Shader::SetUniform(std::string_view uniform, const glm::vec3& vec) const -> void {
+    glUniform3fv(GetUniform(uniform), 1, &vec[0]);
+}
+
+auto Shader::SetUniform(std::string_view uniform, const glm::mat3& matrix) const -> void {
+    glUniformMatrix3fv(GetUniform(uniform), 1, GL_FALSE, &matrix[0][0]);
+}
+
+auto Shader::SetUniform(std::string_view uniform, const glm::mat4& matrix) const -> void {
+    glUniformMatrix4fv(GetUniform(uniform), 1, GL_FALSE, &matrix[0][0]);
 }
 
 Shader::~Shader() {

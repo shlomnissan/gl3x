@@ -27,20 +27,23 @@ public:
     auto Use() const -> void;
 
     auto GetUniform(std::string_view name) const -> GLint;
-    auto SetInt(std::string_view uniform, int i) const -> void;
-    auto SetFloat(std::string_view uniform, const float f) const -> void;
-    auto SetVec3(std::string_view uniform, const glm::vec3& vec) const -> void;
-    auto SetMat4(std::string_view uniform, const glm::mat4& matrix) const -> void;
+
+    auto SetUniform(std::string_view uniform, int i) const -> void;
+    auto SetUniform(std::string_view uniform, const float f) const -> void;
+    auto SetUniform(std::string_view uniform, const glm::vec3& vec) const -> void;
+    auto SetUniform(std::string_view uniform, const glm::mat3& matrix) const -> void;
+    auto SetUniform(std::string_view uniform, const glm::mat4& matrix) const -> void;
 
     ~Shader();
 
 private:
     GLuint program_;
 
+    auto CheckProgramLinkStatus() const -> void;
+    auto CheckShaderCompileStatus(GLuint shader_id, ShaderType type) const -> void;
+
     auto GetShaderType(ShaderType type) const -> GLuint;
     auto GetShaderTypeString(ShaderType type) const -> const char*;
-    auto CheckShaderCompileStatus(GLuint shader_id, ShaderType type) const -> void;
-    auto CheckProgramLinkStatus() const -> void;
 };
 
 struct ShaderError : public std::runtime_error {

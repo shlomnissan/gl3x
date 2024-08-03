@@ -30,7 +30,7 @@ auto main() -> int {
 
     auto updateProjection = [&shader](int width, int height) {
         auto ratio = static_cast<float>(width) / static_cast<float>(height);
-        shader.SetMat4("Projection", glm::perspective(45.0f, ratio, 0.1f, 100.0f));
+        shader.SetUniform("Projection", glm::perspective(45.0f, ratio, 0.1f, 100.0f));
     };
 
     updateProjection(width, height);
@@ -53,7 +53,7 @@ auto main() -> int {
         auto model = glm::mat4{1.0f};
         model = glm::scale(model, {0.3f, 0.3f, 0.3f});
         model = glm::rotate(model, static_cast<float>(glfwGetTime()), {1.0f, 1.0f, 1.0f});
-        shader.SetMat4("ModelView", view * model);
+        shader.SetUniform("ModelView", view * model);
 
         cube.Draw(shader);
     });
