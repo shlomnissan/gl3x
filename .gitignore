@@ -1,0 +1,20 @@
+# vscode
+
+.cache/*
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+*.vsix
+
+# conan/cmake
+
+src/shaders/headers/*.h
+build/*
+CMakeUserPresets.json
+
+# misc
+
+*.xit
