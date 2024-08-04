@@ -5,7 +5,14 @@
 
 namespace engine {
 
-class ENGINE_EXPORT vec3 {
+struct ENGINE_EXPORT Vector3 {
+    float x;
+    float y;
+    float z;
+
+    Vector3();
+    Vector3(float value);
+    Vector3(float x, float y, float z);
 };
 
 };

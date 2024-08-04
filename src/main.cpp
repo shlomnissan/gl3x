@@ -15,7 +15,7 @@
 
 #include "mesh/cube.h"
 
-#include <engine/math/vec3.hpp>
+#include <engine/math/vector3.hpp>
 
 auto main() -> int {
     const auto width = 800;

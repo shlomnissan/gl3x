@@ -3,11 +3,11 @@ set(CURRENT_SOURCE_DIR ${CMAKE_SOURCE_DIR}/engine)
 set(PUBLIC_HEADERS_DIR ${CURRENT_SOURCE_DIR}/include/engine)
 
 set(SOURCE_CODE
-    "math/vec3.cpp"
+    "math/vector3.cpp"
 )
 
 set(PUBLIC_HEADERS
-    "${PUBLIC_HEADERS_DIR}/math/vec3.hpp"
+    "${PUBLIC_HEADERS_DIR}/math/vector3.hpp"
 )
 
 add_library(${TARGET_NAME} ${SOURCE_CODE})
