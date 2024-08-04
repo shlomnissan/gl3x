@@ -15,6 +15,8 @@ message(${CMAKE_SOURCE_DIR}/cmake)
 include(cmake/ShaderString.cmake)
 ShaderString()
 
+add_subdirectory(${CMAKE_SOURCE_DIR}/engine)
+
 find_package(fmt REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
@@ -39,7 +41,14 @@ add_executable(tetris-3d ${LIBS_SOURCES} ${CORE_SOURCES} ${DEMO_SOURCES})
 
 target_include_directories(tetris-3d PRIVATE
     ${CMAKE_SOURCE_DIR}/src
-    ${CMAKE_SOURCE_DIR}/libs
+    ${CMAKE_SOURCE_DIR}/engine/include
 )
 
-target_link_libraries(tetris-3d PRIVATE fmt::fmt glfw glad::glad glm::glm OpenGL::GL)
+target_link_libraries(tetris-3d PRIVATE
+    OpenGL::GL
+    engine
+    fmt::fmt
+    glad::glad
+    glfw
+    glm::glm
+)

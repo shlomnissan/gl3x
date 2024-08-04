@@ -1,8 +1,9 @@
 [requires]
 fmt/8.1.1
-glm/0.9.9.6
-glfw/3.3.8
 glad/0.1.36
+glfw/3.3.8
+glm/0.9.9.6
+gtest/1.15.0
 
 [generators]
 CMakeDeps
