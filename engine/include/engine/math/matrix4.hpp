@@ -5,7 +5,7 @@
 
 #include "engine_export.h"
 
-#include "vector3.hpp"
+#include "vector4.hpp"
 
 namespace engine {
 
@@ -22,12 +22,27 @@ public:
         float n30, float n31, float n32, float n33
     );
 
+    Matrix4(
+        const Vector4& a,
+        const Vector4& b,
+        const Vector4& c,
+        const Vector4& d
+    );
+
     auto& operator()(int i, int j) {
         return n[j][i];
     }
 
     const auto& operator()(int i, int j) const {
         return n[j][i];
+    }
+
+    auto& operator[](int j) {
+        return (*reinterpret_cast<Vector4*>(n[j]));
+    }
+
+    const auto& operator[](int j) const {
+        return (*reinterpret_cast<const Vector4*>(n[j]));
     }
 
 private:

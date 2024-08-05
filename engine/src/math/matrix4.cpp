@@ -25,3 +25,15 @@ Matrix4::Matrix4(
     n[2][0] = n02; n[2][1] = n12; n[2][2] = n22; n[2][3] = n32;
     n[3][0] = n03; n[3][1] = n13; n[3][2] = n23; n[3][3] = n33;
 }
+
+Matrix4::Matrix4(
+    const Vector4& a,
+    const Vector4& b,
+    const Vector4& c,
+    const Vector4& d
+) {
+    n[0][0] = a.x; n[0][1] = a.y; n[0][2] = a.z; n[0][3] = a.w;
+    n[1][0] = b.x; n[1][1] = b.y; n[1][2] = b.z; n[1][3] = b.w;
+    n[2][0] = c.x; n[2][1] = c.y; n[2][2] = c.z; n[2][3] = c.w;
+    n[3][0] = d.x; n[3][1] = d.y; n[3][2] = d.z; n[3][3] = d.w;
+}
