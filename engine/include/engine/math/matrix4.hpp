@@ -12,7 +12,7 @@ namespace engine {
 class ENGINE_EXPORT Matrix4 {
 public:
     Matrix4();
-    
+
     explicit Matrix4(float value);
 
     Matrix4(
@@ -21,6 +21,14 @@ public:
         float n20, float n21, float n22, float n23,
         float n30, float n31, float n32, float n33
     );
+
+    auto& operator()(int i, int j) {
+        return n[j][i];
+    }
+
+    const auto& operator()(int i, int j) const {
+        return n[j][i];
+    }
 
 private:
     float n[4][4];

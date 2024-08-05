@@ -16,7 +16,7 @@ public:
     Vector3();
 
     explicit Vector3(float value);
-    
+
     Vector3(float x, float y, float z);
 };
 
