@@ -5,6 +5,15 @@
 
 using namespace engine;
 
+Matrix4::Matrix4() : Matrix4(0.0f) {}
+
+Matrix4::Matrix4(float value) : Matrix4(
+    value, 0.0f, 0.0f, 0.0f,
+    0.0f, value, 0.0f, 0.0f,
+    0.0f, 0.0f, value, 0.0f,
+    0.0f, 0.0f, 0.0f, value
+) {}
+
 Matrix4::Matrix4(
     float n00, float n01, float n02, float n03,
     float n10, float n11, float n12, float n13,

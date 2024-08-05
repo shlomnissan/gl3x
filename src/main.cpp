@@ -48,6 +48,10 @@ auto main() -> int {
 
     auto cube = Mesh {cube_vertex_0, cube_index_0};
 
+    auto m = glm::mat4{};
+
+
+
     window.Start([&](const double delta){
         glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

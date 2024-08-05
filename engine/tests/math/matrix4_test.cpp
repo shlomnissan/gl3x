@@ -5,6 +5,40 @@
 
 #include <engine/math/matrix4.hpp>
 
+TEST(Matrix4, DefaultConstructor) {
+    auto m = engine::Matrix4 {};
+
+    for (auto i = 0; i < 4; ++i) {
+        for (auto j = 0; j < 4; ++j) {
+            EXPECT_FLOAT_EQ(m(i, j), 0.0f);
+        }
+    }
+}
+
+TEST(Matrix4, SingleParameterConstructor) {
+    auto m = engine::Matrix4 {1.0f};
+
+    EXPECT_FLOAT_EQ(m(0, 0), 1.0f);
+    EXPECT_FLOAT_EQ(m(0, 1), 0.0f);
+    EXPECT_FLOAT_EQ(m(0, 2), 0.0f);
+    EXPECT_FLOAT_EQ(m(0, 3), 0.0f);
+
+    EXPECT_FLOAT_EQ(m(1, 0), 0.0f);
+    EXPECT_FLOAT_EQ(m(1, 1), 1.0f);
+    EXPECT_FLOAT_EQ(m(1, 2), 0.0f);
+    EXPECT_FLOAT_EQ(m(1, 3), 0.0f);
+
+    EXPECT_FLOAT_EQ(m(2, 0), 0.0f);
+    EXPECT_FLOAT_EQ(m(2, 1), 0.0f);
+    EXPECT_FLOAT_EQ(m(2, 2), 1.0f);
+    EXPECT_FLOAT_EQ(m(2, 3), 0.0f);
+
+    EXPECT_FLOAT_EQ(m(3, 0), 0.0f);
+    EXPECT_FLOAT_EQ(m(3, 1), 0.0f);
+    EXPECT_FLOAT_EQ(m(3, 2), 0.0f);
+    EXPECT_FLOAT_EQ(m(3, 3), 1.0f);
+}
+
 TEST(Matrix4, ParameterizedConstructor) {
     auto m = engine::Matrix4 {
          1.0f,  2.0f,  3.0f,  4.0f,
