@@ -3,6 +3,7 @@ set(CURRENT_SOURCE_DIR ${CMAKE_SOURCE_DIR}/engine)
 set(PUBLIC_HEADERS_DIR ${CURRENT_SOURCE_DIR}/include/engine)
 
 set(SOURCE_CODE
+    "math/matrix3.cpp"
     "math/matrix4.cpp"
     "math/matrix_transform.cpp"
     "math/vector3.cpp"
@@ -10,6 +11,7 @@ set(SOURCE_CODE
 )
 
 set(PUBLIC_HEADERS
+    "${PUBLIC_HEADERS_DIR}/math/matrix3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix4.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix_transform.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector3.hpp"
