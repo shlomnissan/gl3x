@@ -25,7 +25,7 @@ inline auto Dot(const Vector3& a, const Vector3& b) {
 }
 
 inline auto Cross(const Vector3& a, const Vector3& b) {
-    return {
+    return Vector3 {
         a.y * b.z - a.z * b.y,
         a.z * b.x - a.x * b.z,
         a.x * b.y - a.y * b.x
