@@ -4,7 +4,6 @@
 #include <gtest/gtest.h>
 
 #include <engine/math/matrix3.hpp>
-#include <engine/math/vector3.hpp>
 
 TEST(Matrix3, DefaultConstructor) {
     auto m = engine::Matrix3 {};
