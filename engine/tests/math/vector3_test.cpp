@@ -5,24 +5,20 @@
 
 #include <engine/math/vector3.hpp>
 
+auto EXPECT_EQ_VEC3(const engine::Vector3&, const engine::Vector3&) -> void;
+
 TEST(Vector3, Constructors) {
     // default constructor
     auto v1 = engine::Vector3 {};
-    EXPECT_EQ(v1.x, 0.0f);
-    EXPECT_EQ(v1.y, 0.0f);
-    EXPECT_EQ(v1.z, 0.0f);
+    EXPECT_EQ_VEC3(v1, {0.0f, 0.0f, 0.0f});
 
     // single parameter
     auto v2 = engine::Vector3 {1.0f};
-    EXPECT_EQ(v2.x, 1.0f);
-    EXPECT_EQ(v2.y, 1.0f);
-    EXPECT_EQ(v2.z, 1.0f);
+    EXPECT_EQ_VEC3(v2, {1.0f, 1.0f, 1.0f});
 
     // parameterized
     auto v3 = engine::Vector3 {1.0f, 2.0f, 3.0f};
-    EXPECT_EQ(v3.x, 1.0f);
-    EXPECT_EQ(v3.y, 2.0f);
-    EXPECT_EQ(v3.z, 3.0f);
+    EXPECT_EQ_VEC3(v3, {1.0f, 2.0f, 3.0f});
 }
 
 TEST(Vector3, DotProduct) {
@@ -65,4 +61,10 @@ TEST(Vector3, DotProduct) {
     auto v15 = engine::Vector3 {1.0f, 0.0f, 0.0f};
     auto v16 = engine::Vector3 {-1.0f, 0.0f, 0.0f};
     EXPECT_FLOAT_EQ(engine::Dot(v15, v16), -1.0f);
+}
+
+auto EXPECT_EQ_VEC3(const engine::Vector3& a, const engine::Vector3& b) -> void {
+    EXPECT_EQ(a.x, b.x);
+    EXPECT_EQ(a.y, b.y);
+    EXPECT_EQ(a.z, b.z);
 }
