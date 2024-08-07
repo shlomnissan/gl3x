@@ -5,20 +5,20 @@
 
 #include <engine/math/vector4.hpp>
 
-auto EXPECT_EQ_VEC4(const engine::Vector4&, const engine::Vector4&) -> void;
+auto EXPECT_VEC4_EQ(const engine::Vector4&, const engine::Vector4&) -> void;
 
 TEST(Vector4, DefaultConstructor) {
     // default constructor
     auto v1 = engine::Vector4 {};
-    EXPECT_EQ_VEC4(v1, {0.0f, 0.0f, 0.0f, 0.0f});
+    EXPECT_VEC4_EQ(v1, {0.0f, 0.0f, 0.0f, 0.0f});
 
     // single parameter
     auto v2 = engine::Vector4 {1.0f};
-    EXPECT_EQ_VEC4(v2, {1.0f, 1.0f, 1.0f, 1.0f});
+    EXPECT_VEC4_EQ(v2, {1.0f, 1.0f, 1.0f, 1.0f});
 
     // parameterized
     auto v3 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0};
-    EXPECT_EQ_VEC4(v3, {1.0f, 2.0f, 3.0f, 4.0});
+    EXPECT_VEC4_EQ(v3, {1.0f, 2.0f, 3.0f, 4.0});
 }
 
 TEST(Vector4, DotProduct) {
@@ -63,7 +63,7 @@ TEST(Vector4, DotProduct) {
     EXPECT_FLOAT_EQ(engine::Dot(v15, v16), -1.0f);
 }
 
-auto EXPECT_EQ_VEC4(const engine::Vector4& a, const engine::Vector4& b) -> void {
+auto EXPECT_VEC4_EQ(const engine::Vector4& a, const engine::Vector4& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);
     EXPECT_EQ(a.z, b.z);
