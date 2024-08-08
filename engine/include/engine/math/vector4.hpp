@@ -21,7 +21,7 @@ public:
     Vector4(float x, float y, float z, float w);
 };
 
-inline ENGINE_EXPORT auto Dot(const Vector4& a, const Vector4& b) {
+inline ENGINE_EXPORT auto dot(const Vector4& a, const Vector4& b) {
     return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
 }
 
