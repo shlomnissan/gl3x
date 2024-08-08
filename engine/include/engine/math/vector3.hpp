@@ -47,4 +47,12 @@ inline ENGINE_EXPORT auto dot(const Vector3& a, const Vector3& b) {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
+inline ENGINE_EXPORT auto normalize(const Vector3& v) {
+    const auto len = v.length();
+    if (len == 0.0f) {
+        return Vector3 {0.0f};
+    }
+    return v * (1.0f / len);
+}
+
 };

@@ -154,6 +154,20 @@ TEST(Vector3, ScalarDivision) {
     EXPECT_VEC3_EQ(v4 / 1.0f, {1.0f, 2.0f, 3.0f});
 }
 
+TEST(Vector3, Normalize) {
+    // non-zero vector
+    auto v1 = engine::Vector3 {3.0f, 4.0f, 0.0f};
+    EXPECT_VEC3_EQ(engine::normalize(v1), {0.6f, 0.8f, 0.0f});
+
+    // normalized vector
+    auto v2 = engine::Vector3 {0.6f, 0.8f, 0.0f};
+    EXPECT_VEC3_EQ(engine::normalize(v2), {0.6f, 0.8f, 0.0f});
+
+    // zero vector
+    auto v3 = engine::Vector3 {0.0f, 0.0f, 0.0f};
+    EXPECT_VEC3_EQ(engine::normalize(v3), {0.0f, 0.0f, 0.0f});
+}
+
 auto EXPECT_VEC3_EQ(const engine::Vector3& a, const engine::Vector3& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);

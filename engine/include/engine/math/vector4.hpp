@@ -40,4 +40,12 @@ inline ENGINE_EXPORT auto dot(const Vector4& a, const Vector4& b) {
     return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
 }
 
+inline ENGINE_EXPORT auto normalize(const Vector4& v) {
+    const auto len = v.length();
+    if (len == 0.0f) {
+        return Vector4 {0.0f};
+    }
+    return v * (1.0f / len);
+}
+
 };
