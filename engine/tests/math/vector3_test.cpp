@@ -5,6 +5,8 @@
 
 #include <engine/math/vector3.hpp>
 
+#include <limits>
+
 auto EXPECT_VEC3_EQ(const engine::Vector3&, const engine::Vector3&) -> void;
 
 TEST(Vector3, Constructors) {
@@ -109,6 +111,47 @@ TEST(Vector3, Length) {
     // unit vector
     auto v4 = engine::Vector3 {1.0f, 0.0f, 0.0f};
     EXPECT_FLOAT_EQ(v4.length(), 1.0f);
+}
+
+TEST(Vector3, ScalarMultiplication) {
+    // positive scalar
+    auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    EXPECT_VEC3_EQ(v1 * 2.0f, {2.0f, 4.0f, 6.0f});
+    EXPECT_VEC3_EQ(2.0f * v1, {2.0f, 4.0f, 6.0f});
+
+    // negative scalar
+    auto v2 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    EXPECT_VEC3_EQ(v2 * -1.0f, {-1.0f, -2.0f, -3.0f});
+    EXPECT_VEC3_EQ(-1.0f * v2, {-1.0f, -2.0f, -3.0f});
+
+    // zero scalar
+    auto v3 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    EXPECT_VEC3_EQ(v3 * 0.0f, {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(0.0f * v3, {0.0f, 0.0f, 0.0f});
+
+    // scalar of one
+    auto v4 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    EXPECT_VEC3_EQ(v4 * 1.0f, {1.0f, 2.0f, 3.0f});
+    EXPECT_VEC3_EQ(1.0f * v4, {1.0f, 2.0f, 3.0f});
+}
+
+TEST(Vector3, ScalarDivision) {
+    // positive scalar
+    auto v1 = engine::Vector3 {2.0f, 4.0f, 6.0f};
+    EXPECT_VEC3_EQ(v1 / 2.0f, {1.0f, 2.0f, 3.0f});
+
+    // negative scalar
+    auto v2 = engine::Vector3 {-2.0f, -4.0f, -6.0f};
+    EXPECT_VEC3_EQ(v2 / -2.0f, {1.0f, 2.0f, 3.0f});
+
+    // zero scalar
+    auto v3 = engine::Vector3 {2.0f, -4.0f, 6.0f};
+    auto inf = std::numeric_limits<float>::infinity();
+    EXPECT_VEC3_EQ(v3 / 0.0f, {inf, -inf, inf});
+
+    // scalar of one
+    auto v4 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    EXPECT_VEC3_EQ(v4 / 1.0f, {1.0f, 2.0f, 3.0f});
 }
 
 auto EXPECT_VEC3_EQ(const engine::Vector3& a, const engine::Vector3& b) -> void {

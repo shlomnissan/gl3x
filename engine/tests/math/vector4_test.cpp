@@ -89,6 +89,47 @@ TEST(Vector4, Length) {
     EXPECT_FLOAT_EQ(v6.length(), std::sqrt(10.0f));
 }
 
+TEST(Vector4, ScalarMultiplication) {
+    // positive scalar
+    auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    EXPECT_VEC4_EQ(v1 * 2.0f, {2.0f, 4.0f, 6.0f, 8.0f});
+    EXPECT_VEC4_EQ(2.0f * v1, {2.0f, 4.0f, 6.0f, 8.0f});
+
+    // negative scalar
+    auto v2 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    EXPECT_VEC4_EQ(v2 * -1.0f, {-1.0f, -2.0f, -3.0f, -4.0f});
+    EXPECT_VEC4_EQ(-1.0f * v2, {-1.0f, -2.0f, -3.0f, -4.0f});
+
+    // zero scalar
+    auto v3 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    EXPECT_VEC4_EQ(v3 * 0.0f, {0.0f, 0.0f, 0.0f, 0.0f});
+    EXPECT_VEC4_EQ(0.0f * v3, {0.0f, 0.0f, 0.0f, 0.0f});
+
+    // scalar of one
+    auto v4 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    EXPECT_VEC4_EQ(v4 * 1.0f, {1.0f, 2.0f, 3.0f, 4.0f});
+    EXPECT_VEC4_EQ(1.0f * v4, {1.0f, 2.0f, 3.0f, 4.0f});
+}
+
+TEST(Vector4, ScalarDivision) {
+    // positive scalar
+    auto v1 = engine::Vector4 {2.0f, 4.0f, 6.0f, 8.0f};
+    EXPECT_VEC4_EQ(v1 / 2.0f, {1.0f, 2.0f, 3.0f, 4.0f});
+
+    // negative scalar
+    auto v2 = engine::Vector4 {-2.0f, -4.0f, -6.0f, -8.0f};
+    EXPECT_VEC4_EQ(v2 / -2.0f, {1.0f, 2.0f, 3.0f, 4.0f});
+
+    // zero scalar
+    auto v3 = engine::Vector4 {2.0f, -4.0f, 6.0f, -8.0f};
+    auto inf = std::numeric_limits<float>::infinity();
+    EXPECT_VEC4_EQ(v3 / 0.0f, {inf, -inf, inf, -inf});
+
+    // scalar of one
+    auto v4 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    EXPECT_VEC4_EQ(v4 / 1.0f, {1.0f, 2.0f, 3.0f, 4.0f});
+}
+
 auto EXPECT_VEC4_EQ(const engine::Vector4& a, const engine::Vector4& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);
