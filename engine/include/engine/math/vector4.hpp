@@ -19,6 +19,8 @@ public:
     explicit Vector4(float value);
 
     Vector4(float x, float y, float z, float w);
+
+    auto length() const -> float;
 };
 
 inline ENGINE_EXPORT auto dot(const Vector4& a, const Vector4& b) {

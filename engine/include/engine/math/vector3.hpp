@@ -18,6 +18,8 @@ public:
     explicit Vector3(float value);
 
     Vector3(float x, float y, float z);
+
+    auto length() const -> float;
 };
 
 inline ENGINE_EXPORT auto cross(const Vector3& a, const Vector3& b) {

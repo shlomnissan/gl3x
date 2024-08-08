@@ -63,6 +63,32 @@ TEST(Vector4, DotProduct) {
     EXPECT_FLOAT_EQ(engine::dot(v15, v16), -1.0f);
 }
 
+TEST(Vector4, Length) {
+    // positive components
+    auto v1 = engine::Vector4 {3.0f, 4.0f, 0.0f, 0.0f};
+    EXPECT_FLOAT_EQ(v1.length(), 5.0f);
+
+    // negative components
+    auto v2 = engine::Vector4 {-3.0f, -4.0f, 0.0f, 0.0f};
+    EXPECT_FLOAT_EQ(v2.length(), 5.0f);
+
+    // zero vector
+    auto v3 = engine::Vector4 {0.0f, 0.0f, 0.0f, 0.0f};
+    EXPECT_FLOAT_EQ(v3.length(), 0.0f);
+
+    // unit vector along x
+    auto v4 = engine::Vector4 {1.0f, 0.0f, 0.0f, 0.0f};
+    EXPECT_FLOAT_EQ(v4.length(), 1.0f);
+
+    // unit vector along w
+    auto v5 = engine::Vector4 {0.0f, 0.0f, 0.0f, 1.0f};
+    EXPECT_FLOAT_EQ(v5.length(), 1.0f);
+
+    // mixed components
+    auto v6 = engine::Vector4 {1.0f, 2.0f, 2.0f, 1.0f};
+    EXPECT_FLOAT_EQ(v6.length(), std::sqrt(10.0f));
+}
+
 auto EXPECT_VEC4_EQ(const engine::Vector4& a, const engine::Vector4& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);
