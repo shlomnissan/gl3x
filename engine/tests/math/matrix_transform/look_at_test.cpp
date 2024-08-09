@@ -11,11 +11,11 @@ TEST(MatrixTransformLookAt, BasicViewMatrix) {
     auto center = engine::Vector3 {0.0f, 0.0f, 0.0f};
     auto up = engine::Vector3 {0.0f, 1.0f, 0.0f};
 
-    auto output = engine::LookAt(eye, center, up);
+    auto output = engine::look_at(eye, center, up);
     EXPECT_MAT4_EQ(output, {
-        1.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, -1.0f, -5.0f,
-        0.0f, 0.0f, 0.0f, 1.0f
+        1.0f, 0.0f, 0.0f,  0.0f,
+        0.0f, 1.0f, 0.0f,  0.0f,
+        0.0f, 0.0f, 1.0f, -5.0f,
+        0.0f, 0.0f, 0.0f,  1.0f
     });
 }
