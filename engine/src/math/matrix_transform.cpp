@@ -20,9 +20,16 @@ auto Translate(const Matrix4& m, const Vector3& v) -> Matrix4 {
     return output;
 }
 
-auto LookAt(const Vector3& eye, const Vector3& target, const Vector3& up) -> Matrix4 {
-    auto output = Matrix4 {};
-    return output;
+auto LookAt(const Vector3& eye, const Vector3& center, const Vector3& up) -> Matrix4 {
+    const auto f = normalize(eye - center);
+    const auto s = normalize(cross(f, up));
+    const auto u  = cross(s, f);
+    return Matrix4 {
+        s.x, s.y, s.z, -dot(s, eye),
+        u.x, u.y, u.z, -dot(u, eye),
+        f.x, f.y, f.z,  dot(f, eye),
+        0,   0,   0,    1.0f
+    };
 }
 
 }

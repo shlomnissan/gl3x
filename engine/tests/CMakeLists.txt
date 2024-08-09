@@ -23,6 +23,7 @@ file(GLOB TEST_SOURCES ${CMAKE_CURRENT_LIST_DIR}/**/*.cpp)
 
 include_directories(${CURRENT_SOURCE_DIR}/include)
 include_directories(${CURRENT_SOURCE_DIR}/src)
+include_directories(${CMAKE_CURRENT_LIST_DIR})
 
 foreach(TEST IN LISTS TEST_SOURCES)
     get_filename_component(FILE_NAME ${TEST} NAME)
@@ -30,7 +31,7 @@ foreach(TEST IN LISTS TEST_SOURCES)
     message(STATUS "🧪 Adding test ${FILE_NAME}")
 
     set(TEST_TARGET run_${NAME_NO_EXT})
-    add_executable(${TEST_TARGET} ${TEST})
+    add_executable(${TEST_TARGET} test_helpers.hpp ${TEST})
     target_link_libraries(${TEST_TARGET} PRIVATE gtest::gtest engine)
     add_test(${NAME_NO_EXT} ${TEST_TARGET})
 endforeach()

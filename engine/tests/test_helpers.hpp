@@ -1,0 +1,57 @@
+// Copyright 2024 Betamark Pty Ltd. All rights reserved.
+// Author: Shlomi Nissan (shlomi@betamark.com)
+
+#pragma once
+
+#include <gtest/gtest.h>
+
+#include <engine/math.hpp>
+
+auto EXPECT_MAT3_EQ(const engine::Matrix3& a, const engine::Matrix3& b) -> void {
+    EXPECT_FLOAT_EQ(a(0, 0), b(0, 0));
+    EXPECT_FLOAT_EQ(a(0, 1), b(0, 1));
+    EXPECT_FLOAT_EQ(a(0, 2), b(0, 2));
+
+    EXPECT_FLOAT_EQ(a(1, 0), b(1, 0));
+    EXPECT_FLOAT_EQ(a(1, 1), b(1, 1));
+    EXPECT_FLOAT_EQ(a(1, 2), b(1, 2));
+
+    EXPECT_FLOAT_EQ(a(2, 0), b(2, 0));
+    EXPECT_FLOAT_EQ(a(2, 1), b(2, 1));
+    EXPECT_FLOAT_EQ(a(2, 2), b(2, 2));
+}
+
+auto EXPECT_MAT4_EQ(const engine::Matrix4& a, const engine::Matrix4& b) -> void {
+    EXPECT_FLOAT_EQ(a(0, 0), b(0, 0));
+    EXPECT_FLOAT_EQ(a(0, 1), b(0, 1));
+    EXPECT_FLOAT_EQ(a(0, 2), b(0, 2));
+    EXPECT_FLOAT_EQ(a(0, 3), b(0, 3));
+
+    EXPECT_FLOAT_EQ(a(1, 0), b(1, 0));
+    EXPECT_FLOAT_EQ(a(1, 1), b(1, 1));
+    EXPECT_FLOAT_EQ(a(1, 2), b(1, 2));
+    EXPECT_FLOAT_EQ(a(1, 3), b(1, 3));
+
+    EXPECT_FLOAT_EQ(a(2, 0), b(2, 0));
+    EXPECT_FLOAT_EQ(a(2, 1), b(2, 1));
+    EXPECT_FLOAT_EQ(a(2, 2), b(2, 2));
+    EXPECT_FLOAT_EQ(a(2, 3), b(2, 3));
+
+    EXPECT_FLOAT_EQ(a(3, 0), b(3, 0));
+    EXPECT_FLOAT_EQ(a(3, 1), b(3, 1));
+    EXPECT_FLOAT_EQ(a(3, 2), b(3, 2));
+    EXPECT_FLOAT_EQ(a(3, 3), b(3, 3));
+}
+
+auto EXPECT_VEC3_EQ(const engine::Vector3& a, const engine::Vector3& b) -> void {
+    EXPECT_EQ(a.x, b.x);
+    EXPECT_EQ(a.y, b.y);
+    EXPECT_EQ(a.z, b.z);
+}
+
+auto EXPECT_VEC4_EQ(const engine::Vector4& a, const engine::Vector4& b) -> void {
+    EXPECT_EQ(a.x, b.x);
+    EXPECT_EQ(a.y, b.y);
+    EXPECT_EQ(a.z, b.z);
+    EXPECT_EQ(a.w, b.w);
+}

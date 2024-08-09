@@ -2,12 +2,11 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include <gtest/gtest.h>
+#include <test_helpers.hpp>
 
 #include <engine/math/vector3.hpp>
 
 #include <limits>
-
-auto EXPECT_VEC3_EQ(const engine::Vector3&, const engine::Vector3&) -> void;
 
 TEST(Vector3, Constructors) {
     // default constructor
@@ -199,10 +198,4 @@ TEST(Vector3, Normalize) {
     // zero vector
     auto v3 = engine::Vector3 {0.0f, 0.0f, 0.0f};
     EXPECT_VEC3_EQ(engine::normalize(v3), {0.0f, 0.0f, 0.0f});
-}
-
-auto EXPECT_VEC3_EQ(const engine::Vector3& a, const engine::Vector3& b) -> void {
-    EXPECT_EQ(a.x, b.x);
-    EXPECT_EQ(a.y, b.y);
-    EXPECT_EQ(a.z, b.z);
 }
