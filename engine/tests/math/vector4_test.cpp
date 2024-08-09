@@ -89,6 +89,39 @@ TEST(Vector4, Length) {
     EXPECT_FLOAT_EQ(v6.length(), std::sqrt(10.0f));
 }
 
+TEST(Vector4, Addition) {
+    // adding non-zero vectors
+    auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    auto v2 = engine::Vector4 {5.0f, 6.0f, 7.0f, 8.0f};
+    EXPECT_VEC4_EQ(v1 + v2, engine::Vector4 {6.0f, 8.0f, 10.0f, 12.0f});
+
+    // adding a vector with a zero vector
+    auto v3 = engine::Vector4 {9.0f, -1.0f, 2.0f, -4.0f};
+    auto v4 = engine::Vector4 {0.0f, 0.0f, 0.0f, 0.0f};
+    EXPECT_VEC4_EQ(v3 + v4, engine::Vector4 {9.0f, -1.0f, 2.0f, -4.0f});
+
+    // adding vectors with negative components
+    auto v5 = engine::Vector4 {-1.0f, -2.0f, -3.0f, -4.0f};
+    auto v6 = engine::Vector4 {-5.0f, -6.0f, -7.0f, -8.0f};
+    EXPECT_VEC4_EQ(v5 + v6, engine::Vector4 {-6.0f, -8.0f, -10.0f, -12.0f});
+}
+
+TEST(Vector4, Subtraction) {
+    // subtracting non-zero vectors
+    auto v1 = engine::Vector4 {10.0f, 9.0f, 8.0f, 7.0f};
+    auto v2 = engine::Vector4 {4.0f, 3.0f, 2.0f, 1.0f};
+    EXPECT_VEC4_EQ(v1 - v2, engine::Vector4 {6.0f, 6.0f, 6.0f, 6.0f});
+
+    // subtracting a vector from itself
+    auto v3 = engine::Vector4 {3.0f, 5.0f, 7.0f, 9.0f};
+    EXPECT_VEC4_EQ(v3 - v3, engine::Vector4 {0.0f, 0.0f, 0.0f, 0.0f});
+
+    // subtracting a vector from a zero vector
+    auto v4 = engine::Vector4 {0.0f, 0.0f, 0.0f, 0.0f};
+    auto v5 = engine::Vector4 {2.0f, 4.0f, 6.0f, 8.0f};
+    EXPECT_VEC4_EQ(v4 - v5, engine::Vector4 {-2.0f, -4.0f, -6.0f, -8.0f});
+}
+
 TEST(Vector4, ScalarMultiplication) {
     // positive scalar
     auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};

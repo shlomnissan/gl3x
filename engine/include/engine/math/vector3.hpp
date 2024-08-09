@@ -22,6 +22,14 @@ public:
     auto length() const -> float;
 };
 
+inline ENGINE_EXPORT auto operator+(const Vector3& a, const Vector3& b) {
+    return Vector3 {a.x + b.x, a.y + b.y, a.z + b.z};
+}
+
+inline ENGINE_EXPORT auto operator-(const Vector3& a, const Vector3& b) {
+    return Vector3 {a.x - b.x, a.y - b.y, a.z - b.z};
+}
+
 inline ENGINE_EXPORT auto operator*(const Vector3& v, float n) {
     return Vector3 {v.x * n, v.y * n, v.z * n};
 }

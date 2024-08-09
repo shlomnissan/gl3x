@@ -113,6 +113,39 @@ TEST(Vector3, Length) {
     EXPECT_FLOAT_EQ(v4.length(), 1.0f);
 }
 
+TEST(Vector3, Addition) {
+    // adding non-zero vectors
+    auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    auto v2 = engine::Vector3 {4.0f, 5.0f, 6.0f};
+    EXPECT_VEC3_EQ(v1 + v2, engine::Vector3 {5.0f, 7.0f, 9.0f});
+
+    // adding a vector with a zero vector
+    auto v3 = engine::Vector3 {7.0f, -3.0f, 2.0f};
+    auto v4 = engine::Vector3 {0.0f, 0.0f, 0.0f};
+    EXPECT_VEC3_EQ(v3 + v4, engine::Vector3 {7.0f, -3.0f, 2.0f});
+
+    // adding vectors with negative components
+    auto v5 = engine::Vector3 {-1.0f, -2.0f, -3.0f};
+    auto v6 = engine::Vector3 {-4.0f, -5.0f, -6.0f};
+    EXPECT_VEC3_EQ(v5 + v6, engine::Vector3 {-5.0f, -7.0f, -9.0f});
+}
+
+TEST(Vector3, Subtraction) {
+    // subtracting non-zero vectors
+    auto v1 = engine::Vector3 {5.0f, 6.0f, 7.0f};
+    auto v2 = engine::Vector3 {3.0f, 2.0f, 1.0f};
+    EXPECT_VEC3_EQ(v1 - v2, engine::Vector3 {2.0f, 4.0f, 6.0f});
+
+    // subtracting a vector from itself
+    auto v3 = engine::Vector3 {9.0f, 8.0f, 7.0f};
+    EXPECT_VEC3_EQ(v3 - v3, engine::Vector3 {0.0f, 0.0f, 0.0f});
+
+    // subtracting a vector from a zero vector
+    auto v4 = engine::Vector3 {0.0f, 0.0f, 0.0f};
+    auto v5 = engine::Vector3 {2.0f, 4.0f, 6.0f};
+    EXPECT_VEC3_EQ(v4 - v5, engine::Vector3 {-2.0f, -4.0f, -6.0f});
+}
+
 TEST(Vector3, ScalarMultiplication) {
     // positive scalar
     auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
