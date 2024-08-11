@@ -6,6 +6,38 @@
 
 #include <engine/math/matrix_transform.hpp>
 
+TEST(MatrixTransformScale, NonUniformScaling) {
+    auto m = engine::Matrix4 {
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        4.0f, 3.0f, 2.0f, 1.0f,
+        8.0f, 7.0f, 6.0f, 4.0f
+    };
+
+    EXPECT_MAT4_EQ(engine::scale(m, {2.0f, 3.0f, 4.0f}), {
+        1.0f * 2.0f, 2.0f * 3.0f, 3.0f * 4.0f, 4.0f,
+        5.0f * 2.0f, 6.0f * 3.0f, 7.0f * 4.0f, 8.0f,
+        4.0f * 2.0f, 3.0f * 3.0f, 2.0f * 4.0f, 1.0f,
+        8.0f * 2.0f, 7.0f * 3.0f, 6.0f * 4.0f, 4.0f
+    });
+}
+
+TEST(MatrixTransformScale, UniformScaling) {
+    auto m = engine::Matrix4 {
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        4.0f, 3.0f, 2.0f, 1.0f,
+        8.0f, 7.0f, 6.0f, 4.0f
+    };
+
+    EXPECT_MAT4_EQ(engine::scale(m, 2.0f), {
+        1.0f * 2.0f, 2.0f * 2.0f, 3.0f * 2.0f, 4.0f,
+        5.0f * 2.0f, 6.0f * 2.0f, 7.0f * 2.0f, 8.0f,
+        4.0f * 2.0f, 3.0f * 2.0f, 2.0f * 2.0f, 1.0f,
+        8.0f * 2.0f, 7.0f * 2.0f, 6.0f * 2.0f, 4.0f
+    });
+}
+
 TEST(MatrixTransformLookAt, BasicViewMatrix) {
     auto eye = engine::Vector3 {0.0f, 0.0f, 5.0f};
     auto center = engine::Vector3 {0.0f, 0.0f, 0.0f};

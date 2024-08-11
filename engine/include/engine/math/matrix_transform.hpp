@@ -14,6 +14,9 @@ ENGINE_EXPORT
 auto scale(const Matrix4& m, const Vector3& v) -> Matrix4;
 
 ENGINE_EXPORT
+auto scale(const Matrix4& m, const float value) -> Matrix4;
+
+ENGINE_EXPORT
 auto rotate(const Matrix4& m, float angle, const Vector3& v) -> Matrix4;
 
 ENGINE_EXPORT
