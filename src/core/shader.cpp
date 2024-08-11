@@ -119,6 +119,10 @@ auto Shader::SetUniform(std::string_view uniform, const glm::mat4& matrix) const
     glUniformMatrix4fv(GetUniform(uniform), 1, GL_FALSE, &matrix[0][0]);
 }
 
+auto Shader::SetUniform(std::string_view u, const engine::Matrix4& m) const -> void {
+    glUniformMatrix4fv(GetUniform(u), 1, GL_FALSE, &m(0, 0));
+}
+
 Shader::~Shader() {
     if (program_) {
         glDeleteProgram(program_);
