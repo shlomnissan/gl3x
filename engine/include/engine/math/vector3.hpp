@@ -5,6 +5,8 @@
 
 #include "engine_export.h"
 
+#include <cassert>
+
 namespace engine {
 
 class ENGINE_EXPORT Vector3 {
@@ -20,6 +22,16 @@ public:
     Vector3(float x, float y, float z);
 
     auto length() const -> float;
+
+    auto& operator[](int i) {
+        assert(i >= 0 && i < 3);
+        return (reinterpret_cast<float*>(this))[i];
+    }
+
+    const auto& operator[](int i) const {
+        assert(i >= 0 && i < 3);
+        return (reinterpret_cast<const float*>(this))[i];
+    }
 };
 
 inline ENGINE_EXPORT auto operator+(const Vector3& a, const Vector3& b) {

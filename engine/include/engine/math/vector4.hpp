@@ -5,6 +5,8 @@
 
 #include "engine_export.h"
 
+#include <cassert>
+
 namespace engine {
 
 class ENGINE_EXPORT Vector4 {
@@ -21,6 +23,16 @@ public:
     Vector4(float x, float y, float z, float w);
 
     auto length() const -> float;
+
+    auto& operator[](int i) {
+        assert(i >= 0 && i < 4);
+        return (reinterpret_cast<float*>(this))[i];
+    }
+
+    const auto& operator[](int i) const {
+        assert(i >= 0 && i < 4);
+        return (reinterpret_cast<const float*>(this))[i];
+    }
 };
 
 inline ENGINE_EXPORT auto operator+(const Vector4& a, const Vector4& b) {

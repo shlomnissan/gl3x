@@ -22,6 +22,20 @@ TEST(Vector3, Constructors) {
     EXPECT_VEC3_EQ(v3, {1.0f, 2.0f, 3.0f});
 }
 
+TEST(Vector3, ComponentAccess) {
+    auto v = engine::Vector3 {1.0f, 2.0f, 3.0f};
+
+    EXPECT_FLOAT_EQ(v.x, 1.0f);
+    EXPECT_FLOAT_EQ(v.y, 2.0f);
+    EXPECT_FLOAT_EQ(v.z, 3.0f);
+
+    EXPECT_FLOAT_EQ(v[0], 1.0f);
+    EXPECT_FLOAT_EQ(v[1], 2.0f);
+    EXPECT_FLOAT_EQ(v[2], 3.0f);
+
+    EXPECT_DEATH({ v[3]; }, ".*Assertion failed: i >= 0 && i < 3.*");
+}
+
 TEST(Vector3, CrossProduct) {
     // positive values
     auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};

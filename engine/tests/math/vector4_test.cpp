@@ -20,6 +20,22 @@ TEST(Vector4, DefaultConstructor) {
     EXPECT_VEC4_EQ(v3, {1.0f, 2.0f, 3.0f, 4.0});
 }
 
+TEST(Vector4, ComponentAccess) {
+    auto v = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+
+    EXPECT_FLOAT_EQ(v.x, 1.0f);
+    EXPECT_FLOAT_EQ(v.y, 2.0f);
+    EXPECT_FLOAT_EQ(v.z, 3.0f);
+    EXPECT_FLOAT_EQ(v.w, 4.0f);
+
+    EXPECT_FLOAT_EQ(v[0], 1.0f);
+    EXPECT_FLOAT_EQ(v[1], 2.0f);
+    EXPECT_FLOAT_EQ(v[2], 3.0f);
+    EXPECT_FLOAT_EQ(v[3], 4.0f);
+
+    EXPECT_DEATH({ v[4]; }, ".*Assertion failed: i >= 0 && i < 4.*");
+}
+
 TEST(Vector4, DotProduct) {
     // positive values
     auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
