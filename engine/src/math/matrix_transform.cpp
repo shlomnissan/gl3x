@@ -19,12 +19,13 @@ auto scale(const Matrix4& m, const float value) -> Matrix4 {
 }
 
 auto rotate(const Matrix4& m, float angle, const Vector3& v) -> Matrix4 {
-    auto output = Matrix4 {1.0f};
-    return output;
+    // TODO: impl.
+    return {};
 }
 
 auto translate(const Matrix4& m, const Vector3& v) -> Matrix4 {
-    auto output = Matrix4 {1.0f};
+    auto output = Matrix4 {m};
+    output[3] = m[0] * v.x + m[1] * v.y + m[2] * v.z + m[3];
     return output;
 }
 

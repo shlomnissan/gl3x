@@ -38,13 +38,23 @@ TEST(MatrixTransformScale, UniformScaling) {
     });
 }
 
+TEST(MatrixTransformTranslate, BasicTranslation) {
+    auto m = engine::Matrix4 {1.0f};
+
+    EXPECT_MAT4_EQ(engine::translate(m, {2.0f, 3.0f, 4.0f}), {
+        1.0f, 0.0f, 0.0f, 2.0f,
+        0.0f, 1.0f, 0.0f, 3.0f,
+        0.0f, 0.0f, 1.0f, 4.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+}
+
 TEST(MatrixTransformLookAt, BasicViewMatrix) {
     auto eye = engine::Vector3 {0.0f, 0.0f, 5.0f};
     auto center = engine::Vector3 {0.0f, 0.0f, 0.0f};
     auto up = engine::Vector3 {0.0f, 1.0f, 0.0f};
 
-    auto output = engine::look_at(eye, center, up);
-    EXPECT_MAT4_EQ(output, {
+    EXPECT_MAT4_EQ(engine::look_at(eye, center, up), {
         1.0f, 0.0f, 0.0f,  0.0f,
         0.0f, 1.0f, 0.0f,  0.0f,
         0.0f, 0.0f, 1.0f, -5.0f,
@@ -57,8 +67,7 @@ TEST(MatrixTransformLookAt, DifferentUpVector) {
     auto center = engine::Vector3 {0.0f, 0.0f, 0.0f};
     auto up = engine::Vector3 {0.0f, 0.5f, 1.0f};
 
-    auto output = engine::look_at(eye, center, up);
-    EXPECT_MAT4_EQ(output, {
+    EXPECT_MAT4_EQ(engine::look_at(eye, center, up), {
         1.0f, 0.0f, 0.0f,  0.0f,
         0.0f, 1.0f, 0.0f,  0.0f,
         0.0f, 0.0f, 1.0f, -5.0f,
@@ -71,8 +80,7 @@ TEST(MatrixTransformLookAt, CollinearEyeAndCenter) {
     auto center = engine::Vector3 {0.0f, 0.0f, 10.0f};
     auto up = engine::Vector3 {0.0f, 1.0f, 0.0f};
 
-    auto output = engine::look_at(eye, center, up);
-    EXPECT_MAT4_EQ(output, {
+    EXPECT_MAT4_EQ(engine::look_at(eye, center, up), {
         -1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, -1.0f, 5.0f,
