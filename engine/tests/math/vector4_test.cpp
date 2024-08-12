@@ -23,11 +23,13 @@ TEST(Vector4, DefaultConstructor) {
 TEST(Vector4, ComponentAccess) {
     auto v = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
 
+    // direct access
     EXPECT_FLOAT_EQ(v.x, 1.0f);
     EXPECT_FLOAT_EQ(v.y, 2.0f);
     EXPECT_FLOAT_EQ(v.z, 3.0f);
     EXPECT_FLOAT_EQ(v.w, 4.0f);
 
+    // random-access operator
     EXPECT_FLOAT_EQ(v[0], 1.0f);
     EXPECT_FLOAT_EQ(v[1], 2.0f);
     EXPECT_FLOAT_EQ(v[2], 3.0f);

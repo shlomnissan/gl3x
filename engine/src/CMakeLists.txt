@@ -6,6 +6,7 @@ set(SOURCE_CODE
     "math/matrix3.cpp"
     "math/matrix4.cpp"
     "math/matrix_transform.cpp"
+    "math/projection.cpp"
     "math/vector3.cpp"
     "math/vector4.cpp"
 )
@@ -14,6 +15,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/math/matrix3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix4.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix_transform.hpp"
+    "${PUBLIC_HEADERS_DIR}/math/projection.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector4.hpp"
 )
