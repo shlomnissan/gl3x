@@ -6,8 +6,16 @@
 namespace engine {
 
 auto ortho(float left, float right, float bottom, float top, float near, float far) -> Matrix4 {
-    // TODO: implement
-    auto output = Matrix4 {};
+    auto output = Matrix4 {1.0f};
+    output[0] = {2.0f / (right - left), 0.0f, 0.0f, 0.0f};
+    output[1] = {0.0f, 2.0f / (top - bottom), 0.0f, 0.0f};
+    output[2] = {0.0f, 0.0f, -2.0f / (far - near), 0.0f};
+    output[3] = {
+        -(right + left) / (right - left),
+        -(top + bottom) / (top - bottom),
+        -(far + near) / (far - near),
+        1.0f
+    };
     return output;
 }
 
