@@ -21,6 +21,20 @@ auto EXPECT_MAT3_EQ(const engine::Matrix3& a, const engine::Matrix3& b) -> void 
     EXPECT_FLOAT_EQ(a(2, 2), b(2, 2));
 }
 
+auto EXPECT_MAT3_NEAR(const engine::Matrix3& a, const engine::Matrix3& b, float v) -> void {
+    EXPECT_NEAR(a(0, 0), b(0, 0), v);
+    EXPECT_NEAR(a(0, 1), b(0, 1), v);
+    EXPECT_NEAR(a(0, 2), b(0, 2), v);
+
+    EXPECT_NEAR(a(1, 0), b(1, 0), v);
+    EXPECT_NEAR(a(1, 1), b(1, 1), v);
+    EXPECT_NEAR(a(1, 2), b(1, 2), v);
+
+    EXPECT_NEAR(a(2, 0), b(2, 0), v);
+    EXPECT_NEAR(a(2, 1), b(2, 1), v);
+    EXPECT_NEAR(a(2, 2), b(2, 2), v);
+}
+
 auto EXPECT_MAT4_EQ(const engine::Matrix4& a, const engine::Matrix4& b) -> void {
     EXPECT_FLOAT_EQ(a(0, 0), b(0, 0));
     EXPECT_FLOAT_EQ(a(0, 1), b(0, 1));
@@ -41,6 +55,28 @@ auto EXPECT_MAT4_EQ(const engine::Matrix4& a, const engine::Matrix4& b) -> void 
     EXPECT_FLOAT_EQ(a(3, 1), b(3, 1));
     EXPECT_FLOAT_EQ(a(3, 2), b(3, 2));
     EXPECT_FLOAT_EQ(a(3, 3), b(3, 3));
+}
+
+auto EXPECT_MAT4_NEAR(const engine::Matrix4& a, const engine::Matrix4& b, float v) -> void {
+    EXPECT_NEAR(a(0, 0), b(0, 0), v);
+    EXPECT_NEAR(a(0, 1), b(0, 1), v);
+    EXPECT_NEAR(a(0, 2), b(0, 2), v);
+    EXPECT_NEAR(a(0, 3), b(0, 3), v);
+
+    EXPECT_NEAR(a(1, 0), b(1, 0), v);
+    EXPECT_NEAR(a(1, 1), b(1, 1), v);
+    EXPECT_NEAR(a(1, 2), b(1, 2), v);
+    EXPECT_NEAR(a(1, 3), b(1, 3), v);
+
+    EXPECT_NEAR(a(2, 0), b(2, 0), v);
+    EXPECT_NEAR(a(2, 1), b(2, 1), v);
+    EXPECT_NEAR(a(2, 2), b(2, 2), v);
+    EXPECT_NEAR(a(2, 3), b(2, 3), v);
+
+    EXPECT_NEAR(a(3, 0), b(3, 0), v);
+    EXPECT_NEAR(a(3, 1), b(3, 1), v);
+    EXPECT_NEAR(a(3, 2), b(3, 2), v);
+    EXPECT_NEAR(a(3, 3), b(3, 3), v);
 }
 
 auto EXPECT_VEC3_EQ(const engine::Vector3& a, const engine::Vector3& b) -> void {
