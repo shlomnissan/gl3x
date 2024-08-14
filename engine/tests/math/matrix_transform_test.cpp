@@ -4,6 +4,8 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
+#include <numbers>
+
 #include <engine/math/matrix_transform.hpp>
 
 #pragma region Scale
@@ -44,7 +46,78 @@ TEST(MatrixTransform, ScaleUniformScaling) {
 
 #pragma region Rotate
 
-// TODO: add test for rotation transform
+TEST(MatrixTransform, RotateX) {
+    const auto m = engine::Matrix4 {1.0f};
+    const auto a = static_cast<float>(std::numbers::pi) / 6.0f;
+    const auto c = std::cos(a);
+    const auto s = std::sin(a);
+
+    EXPECT_MAT4_EQ(engine::rotate(m, a, {1.0f, 0.0f, 0.0f}), {
+        1.0f, 0.0f, 0.0f, 0.0f,
+        0.0f,    c,   -s, 0.0f,
+        0.0f,    s,    c, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+}
+
+TEST(MatrixTransform, RotateY) {
+    const auto m = engine::Matrix4 {1.0f};
+    const auto a = static_cast<float>(std::numbers::pi) / 6.0f;
+    const auto c = std::cos(a);
+    const auto s = std::sin(a);
+
+    EXPECT_MAT4_EQ(engine::rotate(m, a, {0.0f, 1.0f, 0.0f}), {
+           c, 0.0f,    s, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+          -s, 0.0f,    c, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+}
+
+TEST(MatrixTransform, RotateZ) {
+    const auto m = engine::Matrix4 {1.0f};
+    const auto a = static_cast<float>(std::numbers::pi) / 6.0f;
+    const auto c = std::cos(a);
+    const auto s = std::sin(a);
+
+    EXPECT_MAT4_EQ(engine::rotate(m, a, {0.0f, 0.0f, 1.0f}), {
+           c,   -s, 0.0f, 0.0f,
+           s,    c, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+}
+
+TEST(MatrixTransform, RotateXYZ) {
+    const auto a_x = static_cast<float>(std::numbers::pi) / 4.0f;
+    const auto a_y = static_cast<float>(std::numbers::pi) / 6.0f;
+    const auto a_z = static_cast<float>(std::numbers::pi) / 3.0f;
+
+    auto m = engine::Matrix4 {1.0f};
+    m = engine::rotate(m, a_x, {1.0f, 0.0f, 0.0f});
+    m = engine::rotate(m, a_y, {0.0f, 1.0f, 0.0f});
+    m = engine::rotate(m, a_z, {0.0f, 0.0f, 1.0f});
+
+    EXPECT_VEC4_EQ(m[0], {
+        std::cos(a_y) * std::cos(a_z),
+        std::cos(a_x) * std::sin(a_z) + std::cos(a_z) * std::sin(a_x) * std::sin(a_y),
+        std::sin(a_x) * std::sin(a_z) - std::cos(a_x) * std::cos(a_z) * std::sin(a_y),
+        0.0f
+    });
+    EXPECT_VEC4_EQ(m[1], {
+       -std::cos(a_y) * std::sin(a_z),
+        std::cos(a_x) * std::cos(a_z) - std::sin(a_x) * std::sin(a_y) * std::sin(a_z),
+        std::cos(a_x) * std::sin(a_z) * std::sin(a_y) + std::cos(a_z) * std::sin(a_x),
+        0.0f
+    });
+    EXPECT_VEC4_EQ(m[2], {
+        std::sin(a_y),
+       -std::cos(a_y) * std::sin(a_x),
+        std::cos(a_x) * std::cos(a_y),
+        0.0f
+    });
+    EXPECT_VEC4_EQ(m[3], {0.0f, 0.0f, 0.0f, 1.0f});
+}
 
 #pragma endregion
 
