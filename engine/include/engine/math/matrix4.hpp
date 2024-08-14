@@ -49,7 +49,8 @@ private:
     float n[4][4];
 };
 
-inline ENGINE_EXPORT auto operator*(const Matrix4& a, const Matrix4& b) {
+inline ENGINE_EXPORT
+auto operator*(const Matrix4& a, const Matrix4& b) {
     return Matrix4 {
         a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0) + a(0, 3) * b(3, 0),
         a(0, 0) * b(0, 1) + a(0, 1) * b(1, 1) + a(0, 2) * b(2, 1) + a(0, 3) * b(3, 1),
