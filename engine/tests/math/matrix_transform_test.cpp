@@ -6,29 +6,33 @@
 
 #include <engine/math/matrix_transform.hpp>
 
-TEST(MatrixTransform, Scale) {
-    // non-uniform scaling
-    auto m1 = engine::Matrix4 {
+#pragma region Scale
+
+TEST(MatrixTransform, ScaleNonUniformScaling) {
+    const auto m = engine::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 4.0f
     };
-    EXPECT_MAT4_EQ(engine::scale(m1, {2.0f, 3.0f, 4.0f}), {
+
+    EXPECT_MAT4_EQ(engine::scale(m, {2.0f, 3.0f, 4.0f}), {
         1.0f * 2.0f, 2.0f * 3.0f, 3.0f * 4.0f, 4.0f,
         5.0f * 2.0f, 6.0f * 3.0f, 7.0f * 4.0f, 8.0f,
         4.0f * 2.0f, 3.0f * 3.0f, 2.0f * 4.0f, 1.0f,
         8.0f * 2.0f, 7.0f * 3.0f, 6.0f * 4.0f, 4.0f
     });
+}
 
-    // uniform scaling
-    auto m2 = engine::Matrix4 {
+TEST(MatrixTransform, ScaleUniformScaling) {
+    const auto m = engine::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 4.0f
     };
-    EXPECT_MAT4_EQ(engine::scale(m2, 2.0f), {
+
+    EXPECT_MAT4_EQ(engine::scale(m, 2.0f), {
         1.0f * 2.0f, 2.0f * 2.0f, 3.0f * 2.0f, 4.0f,
         5.0f * 2.0f, 6.0f * 2.0f, 7.0f * 2.0f, 8.0f,
         4.0f * 2.0f, 3.0f * 2.0f, 2.0f * 2.0f, 1.0f,
@@ -36,8 +40,18 @@ TEST(MatrixTransform, Scale) {
     });
 }
 
+#pragma endregion
+
+#pragma region Rotate
+
+// TODO: add test for rotation transform
+
+#pragma endregion
+
+#pragma region Translate
+
 TEST(MatrixTransform, Translate) {
-    auto m = engine::Matrix4 {1.0f};
+    const auto m = engine::Matrix4 {1.0f};
 
     EXPECT_MAT4_EQ(engine::translate(m, {2.0f, 3.0f, 4.0f}), {
         1.0f, 0.0f, 0.0f, 2.0f,
@@ -47,33 +61,41 @@ TEST(MatrixTransform, Translate) {
     });
 }
 
-TEST(MatrixTransform, LookAt) {
-    // basic view matrix
-    auto eye = engine::Vector3 {0.0f, 0.0f, 5.0f};
-    auto center = engine::Vector3 {0.0f, 0.0f, 0.0f};
-    auto up = engine::Vector3 {0.0f, 1.0f, 0.0f};
+#pragma endregion
+
+#pragma region Look At
+
+TEST(MatrixTransform, LookAtBasicView) {
+    const auto eye = engine::Vector3 {0.0f, 0.0f, 5.0f};
+    const auto center = engine::Vector3 {0.0f, 0.0f, 0.0f};
+    const auto up = engine::Vector3 {0.0f, 1.0f, 0.0f};
+
     EXPECT_MAT4_EQ(engine::look_at(eye, center, up), {
         1.0f, 0.0f, 0.0f,  0.0f,
         0.0f, 1.0f, 0.0f,  0.0f,
         0.0f, 0.0f, 1.0f, -5.0f,
         0.0f, 0.0f, 0.0f,  1.0f
     });
+}
 
-    // different up vector
-    eye = engine::Vector3 {0.0f, 0.0f, 5.0f};
-    center = engine::Vector3 {0.0f, 0.0f, 0.0f};
-    up = engine::Vector3 {0.0f, 0.5f, 1.0f};
+TEST(MatrixTransform, LookAtDifferentUp) {
+    const auto eye = engine::Vector3 {0.0f, 0.0f, 5.0f};
+    const auto center = engine::Vector3 {0.0f, 0.0f, 0.0f};
+    const auto up = engine::Vector3 {0.0f, 0.5f, 1.0f};
+
     EXPECT_MAT4_EQ(engine::look_at(eye, center, up), {
         1.0f, 0.0f, 0.0f,  0.0f,
         0.0f, 1.0f, 0.0f,  0.0f,
         0.0f, 0.0f, 1.0f, -5.0f,
         0.0f, 0.0f, 0.0f,  1.0f
     });
+}
 
-    // collinear eye and center
-    eye = engine::Vector3 {0.0f, 0.0f, 5.0f};
-    center = engine::Vector3 {0.0f, 0.0f, 10.0f};
-    up = engine::Vector3 {0.0f, 1.0f, 0.0f};
+TEST(MatrixTransform, LookAtCollinearEyeAndCenter) {
+    const auto eye = engine::Vector3 {0.0f, 0.0f, 5.0f};
+    const auto center = engine::Vector3 {0.0f, 0.0f, 10.0f};
+    const auto up = engine::Vector3 {0.0f, 1.0f, 0.0f};
+
     EXPECT_MAT4_EQ(engine::look_at(eye, center, up), {
         -1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
@@ -81,3 +103,5 @@ TEST(MatrixTransform, LookAt) {
         0.0f, 0.0f, 0.0f, 1.0f
     });
 }
+
+#pragma endregion
