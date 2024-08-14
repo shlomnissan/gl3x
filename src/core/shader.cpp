@@ -99,26 +99,6 @@ auto Shader::GetUniform(std::string_view name) const -> GLint {
     return loc;
 }
 
-auto Shader::SetUniform(std::string_view uniform, int i) const -> void {
-    glUniform1i(GetUniform(uniform), i);
-}
-
-auto Shader::SetUniform(std::string_view uniform, const float f) const -> void {
-    glUniform1f(GetUniform(uniform), f);
-}
-
-auto Shader::SetUniform(std::string_view uniform, const glm::vec3& vec) const -> void {
-    glUniform3fv(GetUniform(uniform), 1, &vec[0]);
-}
-
-auto Shader::SetUniform(std::string_view uniform, const glm::mat3& matrix) const -> void {
-    glUniformMatrix3fv(GetUniform(uniform), 1, GL_FALSE, &matrix[0][0]);
-}
-
-auto Shader::SetUniform(std::string_view uniform, const glm::mat4& matrix) const -> void {
-    glUniformMatrix4fv(GetUniform(uniform), 1, GL_FALSE, &matrix[0][0]);
-}
-
 auto Shader::SetUniform(std::string_view u, const engine::Matrix4& m) const -> void {
     glUniformMatrix4fv(GetUniform(u), 1, GL_FALSE, &m(0, 0));
 }

@@ -7,7 +7,6 @@
 #include <string_view>
 #include <vector>
 
-#include <glm/glm.hpp>
 #include <glad/glad.h>
 
 #include <engine/math.hpp>
@@ -30,13 +29,6 @@ public:
 
     auto GetUniform(std::string_view name) const -> GLint;
 
-    auto SetUniform(std::string_view uniform, int i) const -> void;
-    auto SetUniform(std::string_view uniform, const float f) const -> void;
-    auto SetUniform(std::string_view uniform, const glm::vec3& vec) const -> void;
-    auto SetUniform(std::string_view uniform, const glm::mat3& matrix) const -> void;
-    auto SetUniform(std::string_view uniform, const glm::mat4& matrix) const -> void;
-
-    // engine replacement methods
     auto SetUniform(std::string_view u, const engine::Matrix4& m) const -> void;
 
     ~Shader();

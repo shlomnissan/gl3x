@@ -20,7 +20,6 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/engine)
 find_package(fmt REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
-find_package(glm REQUIRED)
 find_package(glad REQUIRED)
 
 set(CORE_SOURCES
@@ -50,5 +49,4 @@ target_link_libraries(tetris-3d PRIVATE
     fmt::fmt
     glad::glad
     glfw
-    glm::glm
 )

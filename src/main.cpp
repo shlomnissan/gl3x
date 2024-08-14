@@ -3,9 +3,6 @@
 
 #include <array>
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
 #include "core/mesh.h"
 #include "core/shader.h"
 #include "core/window.h"
@@ -15,7 +12,7 @@
 
 #include "mesh/cube.h"
 
-#include <engine/math/vector3.hpp>
+#include <engine/math.hpp>
 
 auto main() -> int {
     const auto width = 800;
@@ -32,7 +29,7 @@ auto main() -> int {
 
     auto updateProjection = [&shader](int width, int height) {
         auto ratio = static_cast<float>(width) / static_cast<float>(height);
-        shader.SetUniform("Projection", glm::perspective(45.0f, ratio, 0.1f, 100.0f));
+        shader.SetUniform("Projection", engine::perspective(45.0f, ratio, 0.1f, 100.0f));
     };
 
     updateProjection(width, height);
@@ -40,10 +37,10 @@ auto main() -> int {
         updateProjection(width, height);
     });
 
-    auto view = glm::lookAt(
-        glm::vec3{0.0f, 0.0f, 1.0f},
-        glm::vec3{0.0f, 0.0f, 0.0f},
-        glm::vec3{0.0f, 1.0f, 0.0f}
+    auto view = engine::look_at(
+        {0.0f, 0.0f, 1.0f},
+        {0.0f, 0.0f, 0.0f},
+        {0.0f, 1.0f, 0.0f}
     );
 
     auto cube = Mesh {cube_vertex_0, cube_index_0};
@@ -52,9 +49,9 @@ auto main() -> int {
         glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        auto model = glm::mat4{1.0f};
-        model = glm::scale(model, {0.3f, 0.3f, 0.3f});
-        model = glm::rotate(model, static_cast<float>(glfwGetTime()), {1.0f, 1.0f, 1.0f});
+        auto model = engine::Matrix4 {1.0f};
+        model = engine::scale(model, 0.3f);
+        model = engine::rotate(model, static_cast<float>(glfwGetTime()), {1.0f, 1.0f, 1.0f});
         shader.SetUniform("ModelView", view * model);
 
         cube.Draw(shader);
