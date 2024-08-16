@@ -1,6 +1,3 @@
-# Copyright 2024 Betamark Pty Ltd. All rights reserved.
-# Author: Shlomi Nissan (shlomi@betamark.com)
-#
 # ShaderString.cmake
 # This function looks for GLSL files and converts them into C-style strings
 

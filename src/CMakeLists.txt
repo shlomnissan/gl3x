@@ -1,6 +1,4 @@
-set(TARGET_NAME engine)
-set(CURRENT_SOURCE_DIR ${CMAKE_SOURCE_DIR}/engine)
-set(PUBLIC_HEADERS_DIR ${CURRENT_SOURCE_DIR}/include/engine)
+set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(SOURCE_CODE
     "math/matrix3.cpp"
@@ -20,12 +18,12 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/math/vector4.hpp"
 )
 
-add_library(${TARGET_NAME} ${SOURCE_CODE})
+add_library(${PROJECT_NAME} ${SOURCE_CODE})
 
-target_include_directories(${TARGET_NAME} PUBLIC
+target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-    $<BUILD_INTERFACE:${CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CURRENT_SOURCE_DIR}/src>
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
 )
 
 if (BUILD_SHARED_LIBS)
@@ -36,4 +34,4 @@ if (BUILD_SHARED_LIBS)
 endif()
 
 include(GenerateExportHeader)
-generate_export_header(${TARGET_NAME})
+generate_export_header(${PROJECT_NAME})

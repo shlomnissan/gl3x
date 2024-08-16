@@ -17,7 +17,7 @@
 auto main() -> int {
     const auto width = 800;
     const auto height = 600;
-    auto window = Window {width, height, "Tetris 3D"};
+    auto window = Window {width, height, "Example"};
 
     auto shader = Shader {{
         {ShaderType::kVertexShader, _SHADER_scene_vert},

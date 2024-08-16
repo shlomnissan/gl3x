@@ -1,5 +1,3 @@
-set(CURRENT_SOURCE_DIR ${CMAKE_SOURCE_DIR}/engine)
-
 if (BUILD_SHARED_LIBS)
     message(FATAL_ERROR "
         ⚠️ Unit tests should be built in conjunction with a static library.\n
@@ -15,7 +13,7 @@ find_package(GTest REQUIRED)
 if (NOT GTest_FOUND)
     message(FATAL_ERROR "
         ⚠️ GTest was not found. Use conan to install missing depedencies.
-        -- conan install . --output-folder=build --build=missing -sbuild_type=Debug
+        -- conan install . --output-folder=build --build=missing
     ")
 endif()
 
@@ -24,8 +22,8 @@ file(GLOB TEST_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/**/**/*.cpp
 )
 
-include_directories(${CURRENT_SOURCE_DIR}/include)
-include_directories(${CURRENT_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${CMAKE_CURRENT_LIST_DIR})
 
 foreach(TEST IN LISTS TEST_SOURCES)
