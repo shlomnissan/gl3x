@@ -14,7 +14,3 @@
 src/shaders/headers/*.h
 build/*
 CMakeUserPresets.json
-
-# misc
-
-*.xit

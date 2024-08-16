@@ -4,9 +4,9 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <engine/math/vector3.hpp>
-
 #include <limits>
+
+#include <engine/math/vector3.hpp>
 
 #pragma region Constructors
 
