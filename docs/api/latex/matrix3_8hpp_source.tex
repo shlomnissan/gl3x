@@ -1,0 +1,71 @@
+\doxysection{matrix3.\+hpp}
+\hypertarget{matrix3_8hpp_source}{}\label{matrix3_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/matrix3.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/matrix3.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Author:\ Shlomi\ Nissan\ (shlomi@betamark.com)}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}vector3.hpp"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_matrix3_a0924c2030f1d5d4dc89f927b2ae72d10}{Matrix3}}();}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classengine_1_1_matrix3_ab67f786cff29997d47dc88fc746b71c6}{Matrix3}}(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_matrix3_aeb9645bf0178117d273ef73a88d1e878}{Matrix3}}(}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ n00,\ \textcolor{keywordtype}{float}\ n01,\ \textcolor{keywordtype}{float}\ n02,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ n10,\ \textcolor{keywordtype}{float}\ n11,\ \textcolor{keywordtype}{float}\ n12,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ n20,\ \textcolor{keywordtype}{float}\ n21,\ \textcolor{keywordtype}{float}\ n22}
+\DoxyCodeLine{00053\ \ \ \ \ );}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_matrix3_a7a231145959b9b162a07c7f2a73e39bb}{Matrix3}}(}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}}\&\ a,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}}\&\ b,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}}\&\ c}
+\DoxyCodeLine{00066\ \ \ \ \ );}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{classengine_1_1_matrix3_a1a8c60682ab3c85c6cca386e6321028d}{operator()}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ n[j][i];}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{classengine_1_1_matrix3_ad9f1b2dea1194ca7024c758f72e9fad9}{operator()}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ n[j][i];}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{classengine_1_1_matrix3_a9cdf04cb6c0b29a7511600a6863b68d6}{operator[]}}(\textcolor{keywordtype}{int}\ j)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classengine_1_1_vector3}{Vector3}}*\textcolor{keyword}{>}(n[j]));}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{classengine_1_1_matrix3_a09a60744261167dfdb9981710b4bd086}{operator[]}}(\textcolor{keywordtype}{int}\ j)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classengine_1_1_vector3}{Vector3}}*\textcolor{keyword}{>}(n[j]));}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{float}\ n[3][3];}
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00127\ \textcolor{keyword}{inline}\ ENGINE\_EXPORT}
+\DoxyCodeLine{00128\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_matrix3_a14591447a78132374afbd75716af7dde}{operator*}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}}\&\ b)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}}\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ a(0,\ 0)\ *\ b(0,\ 0)\ +\ a(0,\ 1)\ *\ b(1,\ 0)\ +\ a(0,\ 2)\ *\ b(2,\ 0),}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ a(0,\ 0)\ *\ b(0,\ 1)\ +\ a(0,\ 1)\ *\ b(1,\ 1)\ +\ a(0,\ 2)\ *\ b(2,\ 1),}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ a(0,\ 0)\ *\ b(0,\ 2)\ +\ a(0,\ 1)\ *\ b(1,\ 2)\ +\ a(0,\ 2)\ *\ b(2,\ 2),}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ a(1,\ 0)\ *\ b(0,\ 0)\ +\ a(1,\ 1)\ *\ b(1,\ 0)\ +\ a(1,\ 2)\ *\ b(2,\ 0),}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ a(1,\ 0)\ *\ b(0,\ 1)\ +\ a(1,\ 1)\ *\ b(1,\ 1)\ +\ a(1,\ 2)\ *\ b(2,\ 1),}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ a(1,\ 0)\ *\ b(0,\ 2)\ +\ a(1,\ 1)\ *\ b(1,\ 2)\ +\ a(1,\ 2)\ *\ b(2,\ 2),}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ a(2,\ 0)\ *\ b(0,\ 0)\ +\ a(2,\ 1)\ *\ b(1,\ 0)\ +\ a(2,\ 2)\ *\ b(2,\ 0),}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ a(2,\ 0)\ *\ b(0,\ 1)\ +\ a(2,\ 1)\ *\ b(1,\ 1)\ +\ a(2,\ 2)\ *\ b(2,\ 1),}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ a(2,\ 0)\ *\ b(0,\ 2)\ +\ a(2,\ 1)\ *\ b(1,\ 2)\ +\ a(2,\ 2)\ *\ b(2,\ 2),}
+\DoxyCodeLine{00139\ \ \ \ \ \};}
+\DoxyCodeLine{00140\ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \};}
+
+\end{DoxyCode}

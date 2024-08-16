@@ -1,0 +1,236 @@
+\doxysection{engine\+::Matrix4 Class Reference}
+\hypertarget{classengine_1_1_matrix4}{}\label{classengine_1_1_matrix4}\index{engine::Matrix4@{engine::Matrix4}}
+
+
+A 4x4 matrix class for mathematical operations.  
+
+
+
+
+{\ttfamily \#include $<$matrix4.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classengine_1_1_matrix4_abcce4deba7d9c114a13b723a483877c4}\label{classengine_1_1_matrix4_abcce4deba7d9c114a13b723a483877c4} 
+{\bfseries Matrix4} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. Initializes the matrix to a zero matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classengine_1_1_matrix4_ab31674ea007597525bab45b419b4e8bc}{Matrix4}} (float value)
+\begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{classengine_1_1_matrix4}{Matrix4} object with the given value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classengine_1_1_matrix4_a0478e8432947bbaeed7ee1820cecbfa8}{Matrix4}} (float n00, float n01, float n02, float n03, float n10, float n11, float n12, float n13, float n20, float n21, float n22, float n23, float n30, float n31, float n32, float n33)
+\begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{classengine_1_1_matrix4}{Matrix4} object with the given elements. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classengine_1_1_matrix4_a69e443b9ed310473fc4b72fef99e044d}{Matrix4}} (const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&a, const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&b, const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&c, const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&d)
+\begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{classengine_1_1_matrix4}{Matrix4} object using four \doxylink{classengine_1_1_vector4}{Vector4} objects as columns. \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{classengine_1_1_matrix4_a09b5e9036e2d220277c4e3297d7da6f2}{operator()}} (int i, int j)
+\begin{DoxyCompactList}\small\item\em Access matrix element at (i, j) with row-\/major indexing. \end{DoxyCompactList}\item 
+const auto \& \mbox{\hyperlink{classengine_1_1_matrix4_ae86a476558c84ccce5cb80ce1f4f1b7f}{operator()}} (int i, int j) const
+\begin{DoxyCompactList}\small\item\em Access matrix element at (i, j) with row-\/major indexing (const version). \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{classengine_1_1_matrix4_a63479b24e14c83d1e98d9604ebd380d3}{operator\mbox{[}$\,$\mbox{]}}} (int j)
+\begin{DoxyCompactList}\small\item\em Access the column vector at index j. \end{DoxyCompactList}\item 
+const auto \& \mbox{\hyperlink{classengine_1_1_matrix4_abf9933c766d7432995094c9d305b617d}{operator\mbox{[}$\,$\mbox{]}}} (int j) const
+\begin{DoxyCompactList}\small\item\em Access the column vector at index j (const version). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Related Symbols}
+(Note that these are not member symbols.) \begin{DoxyCompactItemize}
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{classengine_1_1_matrix4_a0983c7f2f4e57c0437b2326ba010a521}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&a, const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&b)
+\begin{DoxyCompactList}\small\item\em Multiplies two 4x4 matrices and returns the result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A 4x4 matrix class for mathematical operations. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classengine_1_1_matrix4_ab31674ea007597525bab45b419b4e8bc}\label{classengine_1_1_matrix4_ab31674ea007597525bab45b419b4e8bc} 
+\index{engine::Matrix4@{engine::Matrix4}!Matrix4@{Matrix4}}
+\index{Matrix4@{Matrix4}!engine::Matrix4@{engine::Matrix4}}
+\doxysubsubsection{\texorpdfstring{Matrix4()}{Matrix4()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily engine\+::\+Matrix4\+::\+Matrix4 (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a new \doxylink{classengine_1_1_matrix4}{Matrix4} object with the given value. 
+
+Initializes the matrix as a diagonal matrix where the main diagonal elements are set to the specified value, and all off-\/diagonal elements are set to zero.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The value to set for the diagonal elements of the matrix. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_matrix4_a0478e8432947bbaeed7ee1820cecbfa8}\label{classengine_1_1_matrix4_a0478e8432947bbaeed7ee1820cecbfa8} 
+\index{engine::Matrix4@{engine::Matrix4}!Matrix4@{Matrix4}}
+\index{Matrix4@{Matrix4}!engine::Matrix4@{engine::Matrix4}}
+\doxysubsubsection{\texorpdfstring{Matrix4()}{Matrix4()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily engine\+::\+Matrix4\+::\+Matrix4 (\begin{DoxyParamCaption}\item[{float}]{n00,  }\item[{float}]{n01,  }\item[{float}]{n02,  }\item[{float}]{n03,  }\item[{float}]{n10,  }\item[{float}]{n11,  }\item[{float}]{n12,  }\item[{float}]{n13,  }\item[{float}]{n20,  }\item[{float}]{n21,  }\item[{float}]{n22,  }\item[{float}]{n23,  }\item[{float}]{n30,  }\item[{float}]{n31,  }\item[{float}]{n32,  }\item[{float}]{n33 }\end{DoxyParamCaption})}
+
+
+
+Constructs a new \doxylink{classengine_1_1_matrix4}{Matrix4} object with the given elements. 
+
+Initializes the matrix with the provided 16 floating-\/point values in column-\/major order.
+
+
+\begin{DoxyParams}{Parameters}
+{\em n00} & The element at row 0, column 0. \\
+\hline
+{\em n01} & The element at row 0, column 1. \\
+\hline
+{\em n02} & The element at row 0, column 2. \\
+\hline
+{\em n03} & The element at row 0, column 3. \\
+\hline
+{\em n10} & The element at row 1, column 0. \\
+\hline
+{\em n11} & The element at row 1, column 1. \\
+\hline
+{\em n12} & The element at row 1, column 2. \\
+\hline
+{\em n13} & The element at row 1, column 3. \\
+\hline
+{\em n20} & The element at row 2, column 0. \\
+\hline
+{\em n21} & The element at row 2, column 1. \\
+\hline
+{\em n22} & The element at row 2, column 2. \\
+\hline
+{\em n23} & The element at row 2, column 3. \\
+\hline
+{\em n30} & The element at row 3, column 0. \\
+\hline
+{\em n31} & The element at row 3, column 1. \\
+\hline
+{\em n32} & The element at row 3, column 2. \\
+\hline
+{\em n33} & The element at row 3, column 3. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_matrix4_a69e443b9ed310473fc4b72fef99e044d}\label{classengine_1_1_matrix4_a69e443b9ed310473fc4b72fef99e044d} 
+\index{engine::Matrix4@{engine::Matrix4}!Matrix4@{Matrix4}}
+\index{Matrix4@{Matrix4}!engine::Matrix4@{engine::Matrix4}}
+\doxysubsubsection{\texorpdfstring{Matrix4()}{Matrix4()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily engine\+::\+Matrix4\+::\+Matrix4 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{b,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{c,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{d }\end{DoxyParamCaption})}
+
+
+
+Constructs a new \doxylink{classengine_1_1_matrix4}{Matrix4} object using four \doxylink{classengine_1_1_vector4}{Vector4} objects as columns. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first column of the matrix. \\
+\hline
+{\em b} & The second column of the matrix. \\
+\hline
+{\em c} & The third column of the matrix. \\
+\hline
+{\em d} & The fourth column of the matrix. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_matrix4_a09b5e9036e2d220277c4e3297d7da6f2}\label{classengine_1_1_matrix4_a09b5e9036e2d220277c4e3297d7da6f2} 
+\index{engine::Matrix4@{engine::Matrix4}!operator()@{operator()}}
+\index{operator()@{operator()}!engine::Matrix4@{engine::Matrix4}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily auto \& engine\+::\+Matrix4\+::operator() (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access matrix element at (i, j) with row-\/major indexing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & Row index. \\
+\hline
+{\em j} & Column index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float\& Reference to the matrix element. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_matrix4_ae86a476558c84ccce5cb80ce1f4f1b7f}\label{classengine_1_1_matrix4_ae86a476558c84ccce5cb80ce1f4f1b7f} 
+\index{engine::Matrix4@{engine::Matrix4}!operator()@{operator()}}
+\index{operator()@{operator()}!engine::Matrix4@{engine::Matrix4}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const auto \& engine\+::\+Matrix4\+::operator() (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access matrix element at (i, j) with row-\/major indexing (const version). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & Row index. \\
+\hline
+{\em j} & Column index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const float\& Const reference to the matrix element. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_matrix4_a63479b24e14c83d1e98d9604ebd380d3}\label{classengine_1_1_matrix4_a63479b24e14c83d1e98d9604ebd380d3} 
+\index{engine::Matrix4@{engine::Matrix4}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!engine::Matrix4@{engine::Matrix4}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily auto \& engine\+::\+Matrix4\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the column vector at index j. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em j} & Column index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_vector4}{Vector4}\& Reference to the column vector. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_matrix4_abf9933c766d7432995094c9d305b617d}\label{classengine_1_1_matrix4_abf9933c766d7432995094c9d305b617d} 
+\index{engine::Matrix4@{engine::Matrix4}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!engine::Matrix4@{engine::Matrix4}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const auto \& engine\+::\+Matrix4\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{j }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the column vector at index j (const version). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em j} & Column index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const \doxylink{classengine_1_1_vector4}{Vector4}\& Const reference to the column vector. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classengine_1_1_matrix4_a0983c7f2f4e57c0437b2326ba010a521}\label{classengine_1_1_matrix4_a0983c7f2f4e57c0437b2326ba010a521} 
+\index{engine::Matrix4@{engine::Matrix4}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!engine::Matrix4@{engine::Matrix4}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [related]}}
+
+
+
+Multiplies two 4x4 matrices and returns the result. 
+
+Performs matrix multiplication between the two input matrices.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first matrix in the multiplication. \\
+\hline
+{\em b} & The second matrix in the multiplication. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_matrix4}{Matrix4} The resulting matrix after multiplication. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/admin/\+One\+Drive/\+Desktop/\+Projects/engine/include/engine/math/matrix4.\+hpp\end{DoxyCompactItemize}

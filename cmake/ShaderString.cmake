@@ -1,4 +1,5 @@
 # ShaderString.cmake
+#
 # This function looks for GLSL files and converts them into C-style strings
 
 function(ShaderString)

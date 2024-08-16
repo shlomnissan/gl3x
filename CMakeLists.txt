@@ -11,6 +11,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 option(BUILD_TESTS "build tests" ON)
 option(BUILD_EXAMPLES "build examples" ON)
+option(BUILD_DOCS "build documentation" ON)
 
 add_subdirectory(src)
 
@@ -21,4 +22,8 @@ endif()
 
 if (BUILD_EXAMPLES)
     add_subdirectory(example)
+endif()
+
+if (BUILD_DOCS)
+    include(Doxygen)
 endif()

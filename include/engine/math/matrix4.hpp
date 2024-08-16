@@ -9,7 +9,6 @@
 
 namespace engine {
 
-
 /**
  * @brief A 4x4 matrix class for mathematical operations.
  */
@@ -127,6 +126,7 @@ private:
 
 /**
  * @brief Multiplies two 4x4 matrices and returns the result.
+ * @related Matrix4
  *
  * Performs matrix multiplication between the two input matrices.
  *

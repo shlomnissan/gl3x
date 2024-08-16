@@ -1,0 +1,84 @@
+\doxysection{vector4.\+hpp}
+\hypertarget{vector4_8hpp_source}{}\label{vector4_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/vector4.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/vector4.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Author:\ Shlomi\ Nissan\ (shlomi@betamark.com)}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{float}\ x;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{float}\ y;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{float}\ z;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{float}\ w;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}}();}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}}(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z,\ \textcolor{keywordtype}{float}\ w);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{auto}\ length()\ \textcolor{keyword}{const}\ -\/>\ float;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{auto}\&\ operator[](\textcolor{keywordtype}{int}\ i)\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ assert(i\ >=\ 0\ \&\&\ i\ <\ 4);}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{float}*\textcolor{keyword}{>}(\textcolor{keyword}{this}))[i];}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ operator[](\textcolor{keywordtype}{int}\ i)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ assert(i\ >=\ 0\ \&\&\ i\ <\ 4);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{float}*\textcolor{keyword}{>}(\textcolor{keyword}{this}))[i];}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{inline}\ ENGINE\_EXPORT}
+\DoxyCodeLine{00039\ \textcolor{keyword}{auto}\ operator+(\textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}}\&\ b)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}}\ \{a.x\ +\ b.x,\ a.y\ +\ b.y,\ a.z\ +\ b.z,\ a.w\ +\ b.w\};}
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{inline}\ ENGINE\_EXPORT}
+\DoxyCodeLine{00044\ \textcolor{keyword}{auto}\ operator-\/(\textcolor{keyword}{const}\ Vector4\&\ a,\ \textcolor{keyword}{const}\ Vector4\&\ b)\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ Vector4\ \{a.x\ -\/\ b.x,\ a.y\ -\/\ b.y,\ a.z\ -\/\ b.z,\ a.w\ -\/\ b.w\};}
+\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{inline}\ ENGINE\_EXPORT}
+\DoxyCodeLine{00049\ \textcolor{keyword}{auto}\ operator*(\textcolor{keyword}{const}\ Vector4\&\ v,\ \textcolor{keywordtype}{float}\ n)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{return}\ Vector4\ \{v.x\ *\ n,\ v.y\ *\ n,\ v.z\ *\ n,\ v.w\ *\ n\};}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{inline}\ ENGINE\_EXPORT}
+\DoxyCodeLine{00054\ \textcolor{keyword}{auto}\ operator*(\textcolor{keywordtype}{float}\ n,\ \textcolor{keyword}{const}\ Vector4\&\ v)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{return}\ v\ *\ n;}
+\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{inline}\ ENGINE\_EXPORT}
+\DoxyCodeLine{00059\ \textcolor{keyword}{auto}\ operator/(\textcolor{keyword}{const}\ Vector4\&\ v,\ \textcolor{keywordtype}{float}\ n)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ n\ =\ 1.0\ /\ n;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{return}\ Vector4\ \{v.x\ *\ n,\ v.y\ *\ n,\ v.z\ *\ n,\ v.w\ *\ n\};}
+\DoxyCodeLine{00062\ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{inline}\ ENGINE\_EXPORT}
+\DoxyCodeLine{00065\ \textcolor{keyword}{auto}\ dot(\textcolor{keyword}{const}\ Vector4\&\ a,\ \textcolor{keyword}{const}\ Vector4\&\ b)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ a.x\ *\ b.x\ +\ a.y\ *\ b.y\ +\ a.z\ *\ b.z\ +\ a.w\ *\ b.w;}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{inline}\ ENGINE\_EXPORT}
+\DoxyCodeLine{00070\ \textcolor{keyword}{auto}\ normalize(\textcolor{keyword}{const}\ Vector4\&\ v)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ len\ =\ v.length();}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ ==\ 0.0f)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Vector4\ \{0.0f\};}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ v\ *\ (1.0f\ /\ len);}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \};}
+
+\end{DoxyCode}

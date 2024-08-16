@@ -116,6 +116,7 @@ private:
 
 /**
  * @brief Multiplies two 3x3 matrices and returns the result.
+ * @related Matrix3
  *
  * Performs matrix multiplication between the two input matrices.
  *

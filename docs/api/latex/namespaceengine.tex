@@ -1,0 +1,323 @@
+\doxysection{engine Namespace Reference}
+\hypertarget{namespaceengine}{}\label{namespaceengine}\index{engine@{engine}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}}
+\begin{DoxyCompactList}\small\item\em A 3x3 matrix class for mathematical operations. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em A 4x4 matrix class for mathematical operations. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}}
+\item 
+class \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a1c0e354ea3667bdfcd11420480f9e843}{scale}} (const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&m, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&v) -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em Scales a matrix by a given vector. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_ac9d3487a811962bbce39da8c171b77f4}{scale}} (const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&m, const float value) -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em Scales a matrix uniformly by a given value. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_adce0eda05e2a4bd8dcc031e2ad1b790c}{rotate}} (const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&m, float angle, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&v) -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em Rotates a matrix by a given angle around a specified axis. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a9c7df3f7ef0c7bc0017b894657868af2}{translate}} (const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&m, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&v) -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em Translates a matrix by a given vector. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a198b703e2d8f8945dc66560e25565fed}{look\+\_\+at}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&eye, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&center, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&up) -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em Creates a view matrix for a camera with a specified position, target, and up direction. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_ad5b89471e70306358ce64fdcb44add9f}{ortho}} (float left, float right, float bottom, float top, float near, float far) -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em Generates an orthographic projection matrix. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_afab975a15271990c8aa60fd9552db940}{perspective}} (float fov, float aspect\+\_\+ratio, float near, float far) -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em Generates a perspective projection matrix. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a457c2fe8f30ecfc4167bf02aff9297cd}{operator+}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&a, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&b)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_adfa78cf3b856927646e4af644a2e256c}{operator-\/}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&a, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&b)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a5d5dbbe21b8f50786241d28a2b3c9d80}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&v, float n)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_abbe783ff929ced04b2ad5b1ba2ea815c}{operator\texorpdfstring{$\ast$}{*}}} (float n, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&v)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_abe67481ecab66c427c9fa9f5c263776a}{operator/}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&v, float n)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_aa15d8e414aa811a3ee6193ce82fc5fa5}{cross}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&a, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&b)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a3ab9127ac0a7c1e1a38849d470f4ecfb}{dot}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&a, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&b)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a80c93d05ce9e877fa0b664639ead3d97}{normalize}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&v)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a53b839fea88d7b712d1d4ff4f0a7b647}{operator+}} (const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&a, const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&b)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_aea3c6f35f2400b1b7b95f7db6d53a203}{operator-\/}} (const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&a, const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&b)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a52a0c5df39d5d2b514daf438b2394b2c}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&v, float n)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a66b149d7b565fcd2f9ca033ee9aa1a6a}{operator\texorpdfstring{$\ast$}{*}}} (float n, const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&v)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a1dedf79ed14b265fafa7e94d63c4fae9}{operator/}} (const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&v, float n)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a7eae29dbf313ebc00340b9c7415f8ae9}{dot}} (const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&a, const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&b)
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{namespaceengine_a15debe28d4da99239ab45b2b06685701}{normalize}} (const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&v)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceengine_aa15d8e414aa811a3ee6193ce82fc5fa5}\label{namespaceengine_aa15d8e414aa811a3ee6193ce82fc5fa5} 
+\index{engine@{engine}!cross@{cross}}
+\index{cross@{cross}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{cross()}{cross()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::cross (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_a3ab9127ac0a7c1e1a38849d470f4ecfb}\label{namespaceengine_a3ab9127ac0a7c1e1a38849d470f4ecfb} 
+\index{engine@{engine}!dot@{dot}}
+\index{dot@{dot}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{dot()}{dot()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::dot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_a7eae29dbf313ebc00340b9c7415f8ae9}\label{namespaceengine_a7eae29dbf313ebc00340b9c7415f8ae9} 
+\index{engine@{engine}!dot@{dot}}
+\index{dot@{dot}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{dot()}{dot()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::dot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_a198b703e2d8f8945dc66560e25565fed}\label{namespaceengine_a198b703e2d8f8945dc66560e25565fed} 
+\index{engine@{engine}!look\_at@{look\_at}}
+\index{look\_at@{look\_at}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{look\_at()}{look\_at()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::look\+\_\+at (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{eye,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{center,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{up }\end{DoxyParamCaption}) -\/$>$  \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}}
+
+
+
+Creates a view matrix for a camera with a specified position, target, and up direction. 
+
+This function generates a view matrix for the camera based on the {\ttfamily eye} (camera position), {\ttfamily center} (target position), and {\ttfamily up} (upward direction) vectors. This matrix is commonly used to set up a view or camera transformation in 3D space.
+
+
+\begin{DoxyParams}{Parameters}
+{\em eye} & The position of the camera. \\
+\hline
+{\em center} & The point the camera is looking at. \\
+\hline
+{\em up} & The direction that points upwards relative to the camera. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_matrix4}{Matrix4} The resulting view matrix. 
+\end{DoxyReturn}
+\Hypertarget{namespaceengine_a80c93d05ce9e877fa0b664639ead3d97}\label{namespaceengine_a80c93d05ce9e877fa0b664639ead3d97} 
+\index{engine@{engine}!normalize@{normalize}}
+\index{normalize@{normalize}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{normalize()}{normalize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::normalize (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_a15debe28d4da99239ab45b2b06685701}\label{namespaceengine_a15debe28d4da99239ab45b2b06685701} 
+\index{engine@{engine}!normalize@{normalize}}
+\index{normalize@{normalize}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{normalize()}{normalize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::normalize (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_a5d5dbbe21b8f50786241d28a2b3c9d80}\label{namespaceengine_a5d5dbbe21b8f50786241d28a2b3c9d80} 
+\index{engine@{engine}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{v,  }\item[{float}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_a52a0c5df39d5d2b514daf438b2394b2c}\label{namespaceengine_a52a0c5df39d5d2b514daf438b2394b2c} 
+\index{engine@{engine}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{v,  }\item[{float}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_abbe783ff929ced04b2ad5b1ba2ea815c}\label{namespaceengine_abbe783ff929ced04b2ad5b1ba2ea815c} 
+\index{engine@{engine}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{float}]{n,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_a66b149d7b565fcd2f9ca033ee9aa1a6a}\label{namespaceengine_a66b149d7b565fcd2f9ca033ee9aa1a6a} 
+\index{engine@{engine}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{float}]{n,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_a457c2fe8f30ecfc4167bf02aff9297cd}\label{namespaceengine_a457c2fe8f30ecfc4167bf02aff9297cd} 
+\index{engine@{engine}!operator+@{operator+}}
+\index{operator+@{operator+}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_a53b839fea88d7b712d1d4ff4f0a7b647}\label{namespaceengine_a53b839fea88d7b712d1d4ff4f0a7b647} 
+\index{engine@{engine}!operator+@{operator+}}
+\index{operator+@{operator+}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_adfa78cf3b856927646e4af644a2e256c}\label{namespaceengine_adfa78cf3b856927646e4af644a2e256c} 
+\index{engine@{engine}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_aea3c6f35f2400b1b7b95f7db6d53a203}\label{namespaceengine_aea3c6f35f2400b1b7b95f7db6d53a203} 
+\index{engine@{engine}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_abe67481ecab66c427c9fa9f5c263776a}\label{namespaceengine_abe67481ecab66c427c9fa9f5c263776a} 
+\index{engine@{engine}!operator/@{operator/}}
+\index{operator/@{operator/}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{operator/()}{operator/()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::operator/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{v,  }\item[{float}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_a1dedf79ed14b265fafa7e94d63c4fae9}\label{namespaceengine_a1dedf79ed14b265fafa7e94d63c4fae9} 
+\index{engine@{engine}!operator/@{operator/}}
+\index{operator/@{operator/}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{operator/()}{operator/()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::operator/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector4}{Vector4}} \&}]{v,  }\item[{float}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{namespaceengine_ad5b89471e70306358ce64fdcb44add9f}\label{namespaceengine_ad5b89471e70306358ce64fdcb44add9f} 
+\index{engine@{engine}!ortho@{ortho}}
+\index{ortho@{ortho}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{ortho()}{ortho()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::ortho (\begin{DoxyParamCaption}\item[{float}]{left,  }\item[{float}]{right,  }\item[{float}]{bottom,  }\item[{float}]{top,  }\item[{float}]{near,  }\item[{float}]{far }\end{DoxyParamCaption}) -\/$>$  \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}}
+
+
+
+Generates an orthographic projection matrix. 
+
+This function creates a projection matrix for an orthographic projection, which is commonly used for 2D rendering and certain types of 3D rendering where parallel lines remain parallel.
+
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The coordinate for the left vertical clipping plane. \\
+\hline
+{\em right} & The coordinate for the right vertical clipping plane. \\
+\hline
+{\em bottom} & The coordinate for the bottom horizontal clipping plane. \\
+\hline
+{\em top} & The coordinate for the top horizontal clipping plane. \\
+\hline
+{\em near} & The distance to the near clipping plane. \\
+\hline
+{\em far} & The distance to the far clipping plane. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_matrix4}{Matrix4} The resulting orthographic projection matrix. 
+\end{DoxyReturn}
+\Hypertarget{namespaceengine_afab975a15271990c8aa60fd9552db940}\label{namespaceengine_afab975a15271990c8aa60fd9552db940} 
+\index{engine@{engine}!perspective@{perspective}}
+\index{perspective@{perspective}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{perspective()}{perspective()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::perspective (\begin{DoxyParamCaption}\item[{float}]{fov,  }\item[{float}]{aspect\+\_\+ratio,  }\item[{float}]{near,  }\item[{float}]{far }\end{DoxyParamCaption}) -\/$>$  \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}}
+
+
+
+Generates a perspective projection matrix. 
+
+This function creates a projection matrix for a perspective projection, which simulates depth and perspective by converging parallel lines towards a vanishing point, commonly used in 3D rendering.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fov} & The vertical field of view angle in radians. \\
+\hline
+{\em aspect\+\_\+ratio} & The aspect ratio of the viewport (width / height). \\
+\hline
+{\em near} & The distance to the near clipping plane. \\
+\hline
+{\em far} & The distance to the far clipping plane. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_matrix4}{Matrix4} The resulting perspective projection matrix. 
+\end{DoxyReturn}
+\Hypertarget{namespaceengine_adce0eda05e2a4bd8dcc031e2ad1b790c}\label{namespaceengine_adce0eda05e2a4bd8dcc031e2ad1b790c} 
+\index{engine@{engine}!rotate@{rotate}}
+\index{rotate@{rotate}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{rotate()}{rotate()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::rotate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&}]{m,  }\item[{float}]{angle,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{v }\end{DoxyParamCaption}) -\/$>$  \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}}
+
+
+
+Rotates a matrix by a given angle around a specified axis. 
+
+This function applies a rotation transformation to the matrix {\ttfamily m} around the axis defined by vector {\ttfamily v} by the angle {\ttfamily angle}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The matrix to be rotated. \\
+\hline
+{\em angle} & The angle of rotation in radians. \\
+\hline
+{\em v} & The axis of rotation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_matrix4}{Matrix4} The resulting matrix after rotation. 
+\end{DoxyReturn}
+\Hypertarget{namespaceengine_ac9d3487a811962bbce39da8c171b77f4}\label{namespaceengine_ac9d3487a811962bbce39da8c171b77f4} 
+\index{engine@{engine}!scale@{scale}}
+\index{scale@{scale}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{scale()}{scale()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::scale (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&}]{m,  }\item[{const float}]{value }\end{DoxyParamCaption}) -\/$>$  \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}}
+
+
+
+Scales a matrix uniformly by a given value. 
+
+This function applies a uniform scaling transformation to the matrix {\ttfamily m} using the provided scalar value {\ttfamily value}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The matrix to be scaled. \\
+\hline
+{\em value} & The uniform scaling factor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_matrix4}{Matrix4} The resulting matrix after uniform scaling. 
+\end{DoxyReturn}
+\Hypertarget{namespaceengine_a1c0e354ea3667bdfcd11420480f9e843}\label{namespaceengine_a1c0e354ea3667bdfcd11420480f9e843} 
+\index{engine@{engine}!scale@{scale}}
+\index{scale@{scale}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{scale()}{scale()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::scale (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&}]{m,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{v }\end{DoxyParamCaption}) -\/$>$  \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}}
+
+
+
+Scales a matrix by a given vector. 
+
+This function applies a scaling transformation to the matrix {\ttfamily m} using the scaling factors provided in the vector {\ttfamily v}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The matrix to be scaled. \\
+\hline
+{\em v} & The scaling factors along each axis. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_matrix4}{Matrix4} The resulting matrix after scaling. 
+\end{DoxyReturn}
+\Hypertarget{namespaceengine_a9c7df3f7ef0c7bc0017b894657868af2}\label{namespaceengine_a9c7df3f7ef0c7bc0017b894657868af2} 
+\index{engine@{engine}!translate@{translate}}
+\index{translate@{translate}!engine@{engine}}
+\doxysubsubsection{\texorpdfstring{translate()}{translate()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto engine\+::translate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \&}]{m,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{v }\end{DoxyParamCaption}) -\/$>$  \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}}
+
+
+
+Translates a matrix by a given vector. 
+
+This function applies a translation transformation to the matrix {\ttfamily m} using the translation vector {\ttfamily v}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The matrix to be translated. \\
+\hline
+{\em v} & The translation vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_matrix4}{Matrix4} The resulting matrix after translation. 
+\end{DoxyReturn}
