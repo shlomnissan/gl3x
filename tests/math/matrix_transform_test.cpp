@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
+#include <cmath>
 #include <numbers>
 
 #include <engine/math/matrix_transform.hpp>
