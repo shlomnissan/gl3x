@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['operator_28_29_0',['operator()',['../classengine_1_1_matrix3.html#a1a8c60682ab3c85c6cca386e6321028d',1,'engine::Matrix3::operator()(int i, int j)'],['../classengine_1_1_matrix3.html#ad9f1b2dea1194ca7024c758f72e9fad9',1,'engine::Matrix3::operator()(int i, int j) const'],['../classengine_1_1_matrix4.html#a09b5e9036e2d220277c4e3297d7da6f2',1,'engine::Matrix4::operator()(int i, int j)'],['../classengine_1_1_matrix4.html#ae86a476558c84ccce5cb80ce1f4f1b7f',1,'engine::Matrix4::operator()(int i, int j) const']]],
-  ['operator_2a_1',['operator*',['../classengine_1_1_matrix3.html#a14591447a78132374afbd75716af7dde',1,'engine::Matrix3::operator*()'],['../classengine_1_1_matrix4.html#a0983c7f2f4e57c0437b2326ba010a521',1,'engine::Matrix4::operator*()']]],
-  ['operator_5b_5d_2',['operator[]',['../classengine_1_1_matrix3.html#a9cdf04cb6c0b29a7511600a6863b68d6',1,'engine::Matrix3::operator[](int j)'],['../classengine_1_1_matrix3.html#a09a60744261167dfdb9981710b4bd086',1,'engine::Matrix3::operator[](int j) const'],['../classengine_1_1_matrix4.html#a63479b24e14c83d1e98d9604ebd380d3',1,'engine::Matrix4::operator[](int j)'],['../classengine_1_1_matrix4.html#abf9933c766d7432995094c9d305b617d',1,'engine::Matrix4::operator[](int j) const']]]
+  ['dot_0',['dot',['../classengine_1_1_vector3.html#a8abd30fc0e9cd28d516f4e61a333a23b',1,'engine::Vector3::dot()'],['../classengine_1_1_vector4.html#a8dfec445a29434946ddcf578295b2431',1,'engine::Vector4::dot()']]]
 ];

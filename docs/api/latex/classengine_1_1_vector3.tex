@@ -1,35 +1,314 @@
 \doxysection{engine\+::Vector3 Class Reference}
 \hypertarget{classengine_1_1_vector3}{}\label{classengine_1_1_vector3}\index{engine::Vector3@{engine::Vector3}}
+
+
+A 3D vector class for mathematical operations.  
+
+
+
+
+{\ttfamily \#include $<$vector3.\+hpp$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classengine_1_1_vector3_af62aaa7b7f36780d6b309ea2604f0979}\label{classengine_1_1_vector3_af62aaa7b7f36780d6b309ea2604f0979} 
-{\bfseries Vector3} (float value)
-\item 
-\Hypertarget{classengine_1_1_vector3_a14254b48ca4ccf5e5cdef1ee217e38fe}\label{classengine_1_1_vector3_a14254b48ca4ccf5e5cdef1ee217e38fe} 
-{\bfseries Vector3} (float x, float y, float z)
-\item 
-\Hypertarget{classengine_1_1_vector3_a224d9ff2139bbadb964f39558f193ffd}\label{classengine_1_1_vector3_a224d9ff2139bbadb964f39558f193ffd} 
-auto {\bfseries length} () const -\/$>$ float
-\item 
-\Hypertarget{classengine_1_1_vector3_aa8fbb3a32826dc838199e33e74151339}\label{classengine_1_1_vector3_aa8fbb3a32826dc838199e33e74151339} 
-auto \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (int i)
-\item 
-\Hypertarget{classengine_1_1_vector3_a347d3aacfcdb1b7084382f086481372b}\label{classengine_1_1_vector3_a347d3aacfcdb1b7084382f086481372b} 
-const auto \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (int i) const
-\end{DoxyCompactItemize}
+\Hypertarget{classengine_1_1_vector3_a348ba7e156e9e71820c5d65b1bf63525}\label{classengine_1_1_vector3_a348ba7e156e9e71820c5d65b1bf63525} 
+{\bfseries Vector3} ()
+\begin{DoxyCompactList}\small\item\em Default constructor that initializes the vector to (0, 0, 0). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classengine_1_1_vector3_af62aaa7b7f36780d6b309ea2604f0979}{Vector3}} (float value)
+\begin{DoxyCompactList}\small\item\em Constructs a vector with all components initialized to the given value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classengine_1_1_vector3_a14254b48ca4ccf5e5cdef1ee217e38fe}{Vector3}} (float \mbox{\hyperlink{classengine_1_1_vector3_a20e81dc0e9efe7fe7ff3314c956b0a4b}{x}}, float \mbox{\hyperlink{classengine_1_1_vector3_ae4d54efb9be1ad8e724964e29f00fa98}{y}}, float \mbox{\hyperlink{classengine_1_1_vector3_a2e270bef3fd71cfaa547caa26a93af00}{z}})
+\begin{DoxyCompactList}\small\item\em Constructs a vector with the specified x, y, and z components. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_vector3_a224d9ff2139bbadb964f39558f193ffd}{length}} () const -\/$>$ float
+\begin{DoxyCompactList}\small\item\em Calculates the length (magnitude) of the vector. \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{classengine_1_1_vector3_aa8fbb3a32826dc838199e33e74151339}{operator\mbox{[}$\,$\mbox{]}}} (int i)
+\begin{DoxyCompactList}\small\item\em Accesses the component at the specified index. \end{DoxyCompactList}\item 
+const auto \& \mbox{\hyperlink{classengine_1_1_vector3_a347d3aacfcdb1b7084382f086481372b}{operator\mbox{[}$\,$\mbox{]}}} (int i) const
+\begin{DoxyCompactList}\small\item\em Accesses the component at the specified index (const version). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classengine_1_1_vector3_a20e81dc0e9efe7fe7ff3314c956b0a4b}\label{classengine_1_1_vector3_a20e81dc0e9efe7fe7ff3314c956b0a4b} 
 float {\bfseries x}
-\item 
+\begin{DoxyCompactList}\small\item\em The x component of the vector. \end{DoxyCompactList}\item 
 \Hypertarget{classengine_1_1_vector3_ae4d54efb9be1ad8e724964e29f00fa98}\label{classengine_1_1_vector3_ae4d54efb9be1ad8e724964e29f00fa98} 
 float {\bfseries y}
-\item 
+\begin{DoxyCompactList}\small\item\em The y component of the vector. \end{DoxyCompactList}\item 
 \Hypertarget{classengine_1_1_vector3_a2e270bef3fd71cfaa547caa26a93af00}\label{classengine_1_1_vector3_a2e270bef3fd71cfaa547caa26a93af00} 
 float {\bfseries z}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The z component of the vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Related Symbols}
+(Note that these are not member symbols.) \begin{DoxyCompactItemize}
+\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{classengine_1_1_vector3_a5bbc6319516fdb764e509a0d126dca56}{operator+}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&a, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&b)
+\begin{DoxyCompactList}\small\item\em Adds two vectors component-\/wise. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{classengine_1_1_vector3_a3964a1a75f706fbbd4609f1b22e4a338}{operator-\/}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&a, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&b)
+\begin{DoxyCompactList}\small\item\em Subtracts the second vector from the first vector component-\/wise. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{classengine_1_1_vector3_a5aeb84b56af92c348f6af742f9b6da66}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&v, float n)
+\begin{DoxyCompactList}\small\item\em Multiplies the vector by a scalar value. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{classengine_1_1_vector3_aef3afe99170011a6c9cbff6beda6307d}{operator\texorpdfstring{$\ast$}{*}}} (float n, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&v)
+\begin{DoxyCompactList}\small\item\em Multiplies a scalar value by a vector. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{classengine_1_1_vector3_a31df4dfeae5f0890113bc93e98cb9c3c}{operator/}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&v, float n)
+\begin{DoxyCompactList}\small\item\em Divides the vector by a scalar value. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{classengine_1_1_vector3_ac98b20bbc6a7b2037da2746be2190692}{cross}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&a, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&b)
+\begin{DoxyCompactList}\small\item\em Computes the cross product of two vectors. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{classengine_1_1_vector3_a8abd30fc0e9cd28d516f4e61a333a23b}{dot}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&a, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&b)
+\begin{DoxyCompactList}\small\item\em Computes the dot product of two vectors. \end{DoxyCompactList}\item 
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{classengine_1_1_vector3_a6698a678a898a88f4bac2350bd5ec875}{normalize}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&v)
+\begin{DoxyCompactList}\small\item\em Normalizes the vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A 3D vector class for mathematical operations. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classengine_1_1_vector3_af62aaa7b7f36780d6b309ea2604f0979}\label{classengine_1_1_vector3_af62aaa7b7f36780d6b309ea2604f0979} 
+\index{engine::Vector3@{engine::Vector3}!Vector3@{Vector3}}
+\index{Vector3@{Vector3}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{Vector3()}{Vector3()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily engine\+::\+Vector3\+::\+Vector3 (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a vector with all components initialized to the given value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The value to initialize all components of the vector. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_vector3_a14254b48ca4ccf5e5cdef1ee217e38fe}\label{classengine_1_1_vector3_a14254b48ca4ccf5e5cdef1ee217e38fe} 
+\index{engine::Vector3@{engine::Vector3}!Vector3@{Vector3}}
+\index{Vector3@{Vector3}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{Vector3()}{Vector3()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily engine\+::\+Vector3\+::\+Vector3 (\begin{DoxyParamCaption}\item[{float}]{x,  }\item[{float}]{y,  }\item[{float}]{z }\end{DoxyParamCaption})}
+
+
+
+Constructs a vector with the specified x, y, and z components. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x component of the vector. \\
+\hline
+{\em y} & The y component of the vector. \\
+\hline
+{\em z} & The z component of the vector. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_vector3_a224d9ff2139bbadb964f39558f193ffd}\label{classengine_1_1_vector3_a224d9ff2139bbadb964f39558f193ffd} 
+\index{engine::Vector3@{engine::Vector3}!length@{length}}
+\index{length@{length}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{length()}{length()}}
+{\footnotesize\ttfamily auto engine\+::\+Vector3\+::length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  float}
+
+
+
+Calculates the length (magnitude) of the vector. 
+
+\begin{DoxyReturn}{Returns}
+float The length of the vector. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_vector3_aa8fbb3a32826dc838199e33e74151339}\label{classengine_1_1_vector3_aa8fbb3a32826dc838199e33e74151339} 
+\index{engine::Vector3@{engine::Vector3}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily auto \& engine\+::\+Vector3\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Accesses the component at the specified index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the component to access (0, 1, or 2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float\& A reference to the component at the specified index. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_vector3_a347d3aacfcdb1b7084382f086481372b}\label{classengine_1_1_vector3_a347d3aacfcdb1b7084382f086481372b} 
+\index{engine::Vector3@{engine::Vector3}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const auto \& engine\+::\+Vector3\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Accesses the component at the specified index (const version). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the component to access (0, 1, or 2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const float\& A const reference to the component at the specified index. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classengine_1_1_vector3_ac98b20bbc6a7b2037da2746be2190692}\label{classengine_1_1_vector3_ac98b20bbc6a7b2037da2746be2190692} 
+\index{engine::Vector3@{engine::Vector3}!cross@{cross}}
+\index{cross@{cross}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{cross()}{cross()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto cross (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [related]}}
+
+
+
+Computes the cross product of two vectors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first vector. \\
+\hline
+{\em b} & The second vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_vector3}{Vector3} A new vector that is the result of the cross product of the two input vectors. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_vector3_a8abd30fc0e9cd28d516f4e61a333a23b}\label{classengine_1_1_vector3_a8abd30fc0e9cd28d516f4e61a333a23b} 
+\index{engine::Vector3@{engine::Vector3}!dot@{dot}}
+\index{dot@{dot}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{dot()}{dot()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto dot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [related]}}
+
+
+
+Computes the dot product of two vectors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first vector. \\
+\hline
+{\em b} & The second vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float A scalar value that is the result of the dot product of the two input vectors. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_vector3_a6698a678a898a88f4bac2350bd5ec875}\label{classengine_1_1_vector3_a6698a678a898a88f4bac2350bd5ec875} 
+\index{engine::Vector3@{engine::Vector3}!normalize@{normalize}}
+\index{normalize@{normalize}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{normalize()}{normalize()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto normalize (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [related]}}
+
+
+
+Normalizes the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & The vector to normalize. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_vector3}{Vector3} A new vector that is the normalized version of the input vector. If the input vector has zero length, returns a zero vector. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_vector3_a5aeb84b56af92c348f6af742f9b6da66}\label{classengine_1_1_vector3_a5aeb84b56af92c348f6af742f9b6da66} 
+\index{engine::Vector3@{engine::Vector3}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{v,  }\item[{float}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [related]}}
+
+
+
+Multiplies the vector by a scalar value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & The vector to be scaled. \\
+\hline
+{\em n} & The scalar value to multiply with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_vector3}{Vector3} A new vector that is the result of scaling the original vector. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_vector3_aef3afe99170011a6c9cbff6beda6307d}\label{classengine_1_1_vector3_aef3afe99170011a6c9cbff6beda6307d} 
+\index{engine::Vector3@{engine::Vector3}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{float}]{n,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [related]}}
+
+
+
+Multiplies a scalar value by a vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & The scalar value to multiply with. \\
+\hline
+{\em v} & The vector to be scaled. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_vector3}{Vector3} A new vector that is the result of scaling the original vector. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_vector3_a5bbc6319516fdb764e509a0d126dca56}\label{classengine_1_1_vector3_a5bbc6319516fdb764e509a0d126dca56} 
+\index{engine::Vector3@{engine::Vector3}!operator+@{operator+}}
+\index{operator+@{operator+}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [related]}}
+
+
+
+Adds two vectors component-\/wise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first vector. \\
+\hline
+{\em b} & The second vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_vector3}{Vector3} A new vector that is the component-\/wise sum of the two vectors. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_vector3_a3964a1a75f706fbbd4609f1b22e4a338}\label{classengine_1_1_vector3_a3964a1a75f706fbbd4609f1b22e4a338} 
+\index{engine::Vector3@{engine::Vector3}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto operator-\/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [related]}}
+
+
+
+Subtracts the second vector from the first vector component-\/wise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The vector to subtract from. \\
+\hline
+{\em b} & The vector to subtract. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_vector3}{Vector3} A new vector that is the component-\/wise difference of the two vectors. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_vector3_a31df4dfeae5f0890113bc93e98cb9c3c}\label{classengine_1_1_vector3_a31df4dfeae5f0890113bc93e98cb9c3c} 
+\index{engine::Vector3@{engine::Vector3}!operator/@{operator/}}
+\index{operator/@{operator/}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{operator/()}{operator/()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto operator/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{v,  }\item[{float}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [related]}}
+
+
+
+Divides the vector by a scalar value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & The vector to be divided. \\
+\hline
+{\em n} & The scalar value to divide by. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classengine_1_1_vector3}{Vector3} A new vector that is the result of dividing the original vector by the scalar. 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
