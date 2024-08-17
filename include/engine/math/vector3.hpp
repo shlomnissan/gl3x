@@ -185,4 +185,4 @@ auto normalize(const Vector3& v) {
     return v * (1.0f / len);
 }
 
-};
+}

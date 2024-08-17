@@ -156,4 +156,4 @@ auto operator*(const Matrix4& a, const Matrix4& b) {
     };
 }
 
-};
+}

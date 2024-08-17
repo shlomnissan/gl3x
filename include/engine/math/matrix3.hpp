@@ -139,4 +139,4 @@ auto operator*(const Matrix3& a, const Matrix3& b) {
     };
 }
 
-};
+}

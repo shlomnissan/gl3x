@@ -3,7 +3,7 @@
 
 #include <engine/math/matrix3.hpp>
 
-using namespace engine;
+namespace engine {
 
 Matrix3::Matrix3() : Matrix3(0.0f) {}
 
@@ -31,4 +31,6 @@ Matrix3::Matrix3(
     n[0][0] = a.x; n[0][1] = a.y; n[0][2] = a.z;
     n[1][0] = b.x; n[1][1] = b.y; n[1][2] = b.z;
     n[2][0] = c.x; n[2][1] = c.y; n[2][2] = c.z;
+}
+
 }

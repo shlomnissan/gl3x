@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-using namespace engine;
+namespace engine {
 
 Vector4::Vector4() : Vector4(0.0) {}
 
@@ -15,4 +15,6 @@ Vector4::Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
 
 auto Vector4::length() const -> float {
     return std::sqrt(dot(*this, *this));
+}
+
 }

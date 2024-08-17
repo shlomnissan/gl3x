@@ -171,4 +171,4 @@ auto normalize(const Vector4& v) {
     return v * (1.0f / len);
 }
 
-};
+}
