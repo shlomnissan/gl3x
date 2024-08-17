@@ -7,7 +7,7 @@
 
 using namespace engine;
 
-Vector3::Vector3() : Vector3(0.0) {}
+Vector3::Vector3() : Vector3(0.0f) {}
 
 Vector3::Vector3(float value) : Vector3(value, value, value) {}
 
