@@ -18,7 +18,7 @@ auto main() -> int {
     const auto width = 800;
     const auto height = 600;
 
-    auto window = engine::Window {"Example", 800, 600};
+    auto window = engine::Window {{.title = "Example"}};
     auto timer = engine::Timer {};
 
     auto shader = Shader {{

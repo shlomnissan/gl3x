@@ -18,16 +18,23 @@ namespace engine {
 class ENGINE_EXPORT Window {
 public:
     /**
-    * @brief Constructs a Window with the given title, width, and height.
-    * 
-    * This constructor initializes a window with the specified title, width, and height. 
-    * If width and height are not provided, they default to 800 and 600 pixels respectively.
-    * 
-    * @param title The title of the window.
-    * @param width The width of the window in pixels. Defaults to 800.
-    * @param height The height of the window in pixels. Defaults to 600.
-    */
-    Window(std::string_view title, int width = 800, int height = 600);
+     * @brief Parameters used to initialize the window.
+     */
+    struct Parameters {
+        /// @brief The width of the window in pixels.
+        int width = 800;
+        /// @brief The height of the window in pixels.
+        int height = 600;
+        /// @brief The title of the window.
+        std::string_view title;
+    };
+
+    /**
+     * @brief Constructs a Window object with the given parameters.
+     * 
+     * @param params the parameters used to create the window.
+     */
+    explicit Window(const Parameters& params);
 
     /**
      * @brief Destroys the Window object.

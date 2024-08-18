@@ -2,10 +2,11 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include <engine/core/window.hpp>
-#include <engine/core/timer.hpp>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include <engine/core/timer.hpp>
 
 namespace engine {
 
@@ -15,12 +16,9 @@ class Window::Impl {
 public:
     Impl() = default;
 
-    // Delete the copy constructor and copy assignment operator
     Impl(const Impl&) = delete;
-    Impl& operator=(const Impl&) = delete;
-
-    // Delete the move constructor and move assignment operator
     Impl(Impl&&) = delete;
+    Impl& operator=(const Impl&) = delete;
     Impl& operator=(Impl&&) = delete;
 
     auto Initialize(int width, int height, std::string_view title) {
@@ -83,10 +81,14 @@ private:
 
 #pragma region delegate
 
-Window::Window(std::string_view title, int width, int height)
+Window::Window(const Parameters& params)
   : impl_(std::make_unique<Impl>())
 {
-    impl_->Initialize(width, height, title);
+    impl_->Initialize(
+        params.width,
+        params.height,
+        params.title
+    );
 }
 
 auto Window::Start(const std::function<void(const double)>& tick) const -> void {
