@@ -15,22 +15,6 @@ namespace engine {
 class ENGINE_EXPORT Timer {
 public:
     /**
-     * @brief Returns the elapsed time in milliseconds.
-     *
-     * @return double The elapsed time in milliseconds,
-     *         or -1 if the timer has not been started.
-     */
-    [[nodiscard]] auto GetMilliseconds() const -> double;
-
-    /**
-     * @brief Returns the elapsed time in seconds.
-     *
-     * @return double The elapsed time in seconds,
-     *         or -1 if the timer has not been started.
-     */
-    [[nodiscard]] auto GetSeconds() const -> double;
-
-    /**
      * @brief Starts the timer.
      *
      * If the timer is already running, this function has no effect.
@@ -43,6 +27,22 @@ public:
      * If the timer was running, it will be stopped and reset to zero.
      */
     auto Reset() -> void;
+
+    /**
+     * @brief Returns the elapsed time in milliseconds.
+     *
+     * @return double The elapsed time in milliseconds,
+     *         or -1 if the timer has not been started.
+     */
+    [[nodiscard]] auto GetElapsedMilliseconds() const -> double;
+
+    /**
+     * @brief Returns the elapsed time in seconds.
+     *
+     * @return double The elapsed time in seconds,
+     *         or -1 if the timer has not been started.
+     */
+    [[nodiscard]] auto GetElapsedSeconds() const -> double;
 
 private:
     /// @brief Indicates whether the timer has been started.

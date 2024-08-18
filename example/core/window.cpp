@@ -63,7 +63,7 @@ auto Window::Start(const std::function<void(const double delta)> &program) -> vo
     timer_.Reset();
 
     while(!glfwWindowShouldClose(window_)) {
-        auto delta = timer_.GetSeconds();
+        auto delta = timer_.GetElapsedSeconds();
         timer_.Reset();
 
         program(delta);
