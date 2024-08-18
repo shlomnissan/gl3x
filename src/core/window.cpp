@@ -13,6 +13,16 @@ namespace engine {
 
 class Window::Impl {
 public:
+    Impl() = default;
+
+    // Delete the copy constructor and copy assignment operator
+    Impl(const Impl&) = delete;
+    Impl& operator=(const Impl&) = delete;
+
+    // Delete the move constructor and move assignment operator
+    Impl(Impl&&) = delete;
+    Impl& operator=(Impl&&) = delete;
+
     auto Initialize(int width, int height, std::string_view title) {
         if (!glfwInit()) return;
 
