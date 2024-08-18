@@ -14,8 +14,6 @@ set(CORE_SOURCES
     core/mesh.h
     core/shader.cpp
     core/shader.h
-    core/window.cpp
-    core/window.h
 )
 
 set(DEMO_SOURCES

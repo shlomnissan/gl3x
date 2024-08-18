@@ -5,6 +5,7 @@
 
 #include "engine_export.h"
 
+#include <functional>
 #include <memory>
 #include <string>
 #include <string_view>
@@ -29,6 +30,13 @@ public:
     Window(std::string_view title, int width = 800, int height = 600);
 
     /**
+     * @brief Destroys the Window object.
+     * 
+     * @note The destructor is defined in the source file to handle the complete type `Impl`.
+     */
+    ~Window();
+
+    /**
      * @brief Gets the width of the window.
      * 
      * @return The width of the window in pixels.
@@ -41,13 +49,22 @@ public:
      * @return The height of the window in pixels.
      */
     [[nodiscard]] auto height() const -> int;
+    
+    /**
+    * @brief Starts the main loop of the window.
+    * 
+    * @param tick A callback function that will be invoked each frame
+    * with the time elapsed since the last frame (delta time). The function
+    * takes a single `double` argument representing the elapsed time in seconds.
+    */
+    auto Start(const std::function<void(const double)>& tick) const -> void;
 
 private:
     /// @brief Forward declaration of the implementation class.
     class Impl;
 
     /// @brief Pointer to the implementation class.
-    std::unique_ptr<Impl> impl_;
+    std::unique_ptr<Impl> impl_ {nullptr};
 };
 
 }

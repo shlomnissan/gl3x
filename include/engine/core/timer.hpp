@@ -32,7 +32,7 @@ public:
      * @brief Returns the elapsed time in milliseconds.
      *
      * @return double The elapsed time in milliseconds,
-     *         or -1 if the timer has not been started.
+     * or -1 if the timer has not been started.
      */
     [[nodiscard]] auto GetElapsedMilliseconds() const -> double;
 
@@ -40,7 +40,7 @@ public:
      * @brief Returns the elapsed time in seconds.
      *
      * @return double The elapsed time in seconds,
-     *         or -1 if the timer has not been started.
+     * or -1 if the timer has not been started.
      */
     [[nodiscard]] auto GetElapsedSeconds() const -> double;
 

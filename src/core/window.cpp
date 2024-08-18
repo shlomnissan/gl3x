@@ -2,8 +2,7 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include <engine/core/window.hpp>
-
-#include <string_view>
+#include <engine/core/timer.hpp>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -37,6 +36,20 @@ public:
         glfwGetFramebufferSize(window_, &buffer_width_, &buffer_height_);
     }
 
+    template <typename T>
+    auto Start(T&& tick) -> void {
+        timer_.Start();
+        while(!glfwWindowShouldClose(window_)) {
+            auto delta = timer_.GetElapsedSeconds();
+            timer_.Reset();
+
+            tick(delta);
+
+            glfwSwapBuffers(window_);
+            glfwPollEvents();
+        }
+    }
+
     auto BufferWidth() const { return buffer_width_; }
 
     auto BufferHeight() const { return buffer_height_; }
@@ -51,6 +64,8 @@ private:
     int buffer_width_ {0};
     int buffer_height_ {0};
 
+    Timer timer_ {};
+
     GLFWwindow* window_ {nullptr};
 };
 
@@ -64,9 +79,15 @@ Window::Window(std::string_view title, int width, int height)
     impl_->Initialize(width, height, title);
 }
 
+auto Window::Start(const std::function<void(const double)>& tick) const -> void {
+    impl_->Start(tick);
+}
+
 auto Window::width() const -> int { return impl_->BufferWidth(); }
 
 auto Window::height() const -> int { return impl_->BufferHeight(); }
+
+Window::~Window() = default;
 
 #pragma endregion
 
