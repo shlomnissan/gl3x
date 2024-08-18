@@ -30,6 +30,18 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
 )
 
+find_package(fmt REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(glfw3 REQUIRED)
+find_package(glad REQUIRED)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    OpenGL::GL
+    fmt::fmt
+    glad::glad
+    glfw
+)
+
 if (BUILD_SHARED_LIBS)
     set_target_properties(${TARGET_NAME} PROPERTIES
         VERSION ${engine_VERSION_MAJOR}.${engine_VERSION_MINOR}.${engine_VERSION_PATCH}
