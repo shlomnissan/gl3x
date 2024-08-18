@@ -1,0 +1,55 @@
+// Copyright 2024 Betamark Pty Ltd. All rights reserved.
+// Author: Shlomi Nissan (shlomi@betamark.com)
+
+#pragma once
+
+#include "engine_export.h"
+
+#include <chrono>
+
+namespace engine {
+
+/**
+ * @brief A timer class to measure elapsed time.
+ */
+class ENGINE_EXPORT Timer {
+public:
+    /**
+     * @brief Returns the elapsed time in milliseconds.
+     *
+     * @return double The elapsed time in milliseconds,
+     *         or -1 if the timer has not been started.
+     */
+    [[nodiscard]] auto GetMilliseconds() const -> double;
+
+    /**
+     * @brief Returns the elapsed time in seconds.
+     *
+     * @return double The elapsed time in seconds,
+     *         or -1 if the timer has not been started.
+     */
+    [[nodiscard]] auto GetSeconds() const -> double;
+
+    /**
+     * @brief Starts the timer.
+     *
+     * If the timer is already running, this function has no effect.
+     */
+    auto Start() -> void;
+
+    /**
+     * @brief Resets the timer.
+     *
+     * If the timer was running, it will be stopped and reset to zero.
+     */
+    auto Reset() -> void;
+
+private:
+    /// @brief Indicates whether the timer has been started.
+    bool started_ {false};
+
+    /// @brief Time when the timer was started.
+    std::chrono::time_point<std::chrono::steady_clock> start_time_;
+};
+
+}

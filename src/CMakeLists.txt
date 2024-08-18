@@ -1,6 +1,7 @@
 set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(SOURCE_CODE
+    "core/timer.cpp"
     "core/window.cpp"
     "math/matrix3.cpp"
     "math/matrix4.cpp"
@@ -11,6 +12,7 @@ set(SOURCE_CODE
 )
 
 set(PUBLIC_HEADERS
+    "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix4.hpp"
