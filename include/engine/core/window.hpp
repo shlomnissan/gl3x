@@ -31,35 +31,35 @@ public:
 
     /**
      * @brief Constructs a Window object with the given parameters.
-     * 
+     *
      * @param params the parameters used to create the window.
      */
-    explicit Window(const Parameters& params);
+    explicit Window(const Window::Parameters& params);
 
     /**
      * @brief Destroys the Window object.
-     * 
+     *
      * @note The destructor is defined in the source file to handle the complete type `Impl`.
      */
     ~Window();
 
     /**
      * @brief Gets the width of the window.
-     * 
+     *
      * @return The width of the window in pixels.
      */
     [[nodiscard]] auto width() const -> int;
 
     /**
      * @brief Gets the height of the window.
-     * 
+     *
      * @return The height of the window in pixels.
      */
     [[nodiscard]] auto height() const -> int;
-    
+
     /**
     * @brief Starts the main loop of the window.
-    * 
+    *
     * @param tick A callback function that will be invoked each frame
     * with the time elapsed since the last frame (delta time). The function
     * takes a single `double` argument representing the elapsed time in seconds.
