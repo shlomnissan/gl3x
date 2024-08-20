@@ -11,6 +11,8 @@ set(SOURCE_CODE
     "math/projection.cpp"
     "math/vector3.cpp"
     "math/vector4.cpp"
+    "scene/node.cpp"
+    "scene/node.hpp"
 )
 
 set(PUBLIC_HEADERS
