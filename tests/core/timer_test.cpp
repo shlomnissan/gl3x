@@ -6,6 +6,8 @@
 
 #include <engine/core/timer.hpp>
 
+// TODO: add tests
+
 TEST(Timer, Start) {
     EXPECT_EQ(true, true);
 }

@@ -12,7 +12,6 @@ set(SOURCE_CODE
     "math/vector3.cpp"
     "math/vector4.cpp"
     "scene/node.cpp"
-    "scene/node.hpp"
 )
 
 set(PUBLIC_HEADERS
@@ -24,6 +23,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/math/projection.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector4.hpp"
+    "${PUBLIC_HEADERS_DIR}/scene/node.hpp"
 )
 
 add_library(${PROJECT_NAME} ${SOURCE_CODE})
