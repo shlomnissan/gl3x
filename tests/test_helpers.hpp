@@ -5,7 +5,10 @@
 
 #include <gtest/gtest.h>
 
-#include <engine/math.hpp>
+#include <engine/math/matrix3.hpp>
+#include <engine/math/matrix4.hpp>
+#include <engine/math/vector3.hpp>
+#include <engine/math/vector4.hpp>
 
 auto EXPECT_MAT3_EQ(const engine::Matrix3& a, const engine::Matrix3& b) -> void {
     EXPECT_FLOAT_EQ(a(0, 0), b(0, 0));

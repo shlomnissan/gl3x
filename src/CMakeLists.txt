@@ -12,8 +12,9 @@ set(SOURCE_CODE
     "math/vector3.cpp"
     "math/vector4.cpp"
     "scene/node.cpp"
-    "scene/node.hpp"
+    "scene/scene.cpp"
 
+    # remove temporary classes
     "temp/shader.cpp"
     "temp/mesh.cpp"
 )
@@ -27,7 +28,10 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/math/projection.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector4.hpp"
+    "${PUBLIC_HEADERS_DIR}/scene/node.hpp"
+    "${PUBLIC_HEADERS_DIR}/scene/scene.hpp"
 
+    # remove temporary classes
     "${PUBLIC_HEADERS_DIR}/temp/renderer.hpp"
     "${PUBLIC_HEADERS_DIR}/temp/shader.hpp"
     "${PUBLIC_HEADERS_DIR}/temp/mesh.hpp"

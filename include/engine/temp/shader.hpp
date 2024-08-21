@@ -9,7 +9,7 @@
 
 #include <glad/glad.h>
 
-#include <engine/math.hpp>
+#include <engine/math/matrix4.hpp>
 
 namespace engine {
 

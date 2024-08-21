@@ -7,12 +7,16 @@
 
 #include <glad/glad.h>
 
-#include <engine/math.hpp>
 #include <engine/temp/shader.hpp>
 #include <engine/temp/scene_vert.h>
 #include <engine/temp/scene_frag.h>
 #include <engine/temp/mesh.hpp>
 #include <engine/temp/cube.h>
+
+#include "engine/math/matrix_transform.hpp"
+#include "engine/math/projection.hpp"
+#include "engine/math/matrix4.hpp"
+#include "engine/scene/scene.hpp"
 
 namespace engine {
 
@@ -39,7 +43,7 @@ struct ENGINE_EXPORT Renderer {
         shader_.SetUniform("Projection", engine::perspective(45.0f, ratio, 0.1f, 100.0f));
     }
 
-    auto render() {
+    auto render(const Scene& scene) {
         glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

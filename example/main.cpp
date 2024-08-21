@@ -3,8 +3,10 @@
 
 #include <array>
 
-#include <engine/core.hpp>
-#include <engine/math.hpp>
+#include <engine/core/timer.hpp>
+#include <engine/core/window.hpp>
+#include <engine/scene/scene.hpp>
+
 #include <engine/temp/renderer.hpp>
 
 auto main() -> int {
@@ -12,14 +14,15 @@ auto main() -> int {
     auto timer = engine::Timer {};
     auto renderer = engine::Renderer {window.width(), window.height()};
 
-    // TODO: create a scene
+    auto scene = engine::Scene {};
+
     // TODO: create a parent node
     // TODO: create a child node
     // TODO: pass scene to renderer
 
     timer.Start();
     window.Start([&](const double _){
-        renderer.render();
+        renderer.render(scene);
     });
 
     return 0;

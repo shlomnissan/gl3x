@@ -3,12 +3,14 @@
 
 #pragma once
 
+#include "engine_export.h"
+
 #include <memory>
 #include <vector>
 
 namespace engine {
 
-class Node {
+class ENGINE_EXPORT Node {
 public:
     auto Add(const std::shared_ptr<Node>& node) -> void;
 
