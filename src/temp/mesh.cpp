@@ -1,12 +1,14 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "mesh.h"
+#include <engine/temp/mesh.hpp>
 
 #include <glad/glad.h>
 
 #define BUFFER_OFFSET(offset) ((void*)(offset * sizeof(GLfloat)))
 #define STRIDE(stride) (sizeof(GLfloat) * stride)
+
+namespace engine {
 
 Mesh::Mesh(
     const std::vector<float>& vertex_data,
@@ -32,7 +34,7 @@ auto Mesh::Draw(const Shader& shader) const -> void {
     if (indices_size_ > 0) {
         glDrawElements(GL_TRIANGLES, indices_size_, GL_UNSIGNED_INT, nullptr);
     } else {
-        glDrawArrays(GL_TRIANGLES, 0, 3); 
+        glDrawArrays(GL_TRIANGLES, 0, 3);
     }
 }
 
@@ -70,4 +72,6 @@ auto Mesh::ConfigureIndices(const std::vector<unsigned int>& index_data) -> void
         index_data.data(),
         GL_STATIC_DRAW
     );
+}
+
 }

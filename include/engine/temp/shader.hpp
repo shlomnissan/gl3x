@@ -11,6 +11,8 @@
 
 #include <engine/math.hpp>
 
+namespace engine {
+
 enum class ShaderType {
     kVertexShader,
     kFragmentShader
@@ -46,3 +48,5 @@ private:
 struct ShaderError : public std::runtime_error {
     using std::runtime_error::runtime_error;
 };
+
+}

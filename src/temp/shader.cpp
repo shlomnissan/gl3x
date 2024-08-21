@@ -1,12 +1,14 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "shader.h"
+#include <engine/temp/shader.hpp>
 
 #include <iostream>
 #include <string>
 
 #include <fmt/format.h>
+
+namespace engine {
 
 Shader::Shader(const std::vector<ShaderInfo>& shaders) {
     program_ = glCreateProgram();
@@ -107,4 +109,6 @@ Shader::~Shader() {
     if (program_) {
         glDeleteProgram(program_);
     }
+}
+
 }

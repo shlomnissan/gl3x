@@ -13,6 +13,9 @@ set(SOURCE_CODE
     "math/vector4.cpp"
     "scene/node.cpp"
     "scene/node.hpp"
+
+    "temp/shader.cpp"
+    "temp/mesh.cpp"
 )
 
 set(PUBLIC_HEADERS
@@ -24,6 +27,10 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/math/projection.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector4.hpp"
+
+    "${PUBLIC_HEADERS_DIR}/temp/renderer.hpp"
+    "${PUBLIC_HEADERS_DIR}/temp/shader.hpp"
+    "${PUBLIC_HEADERS_DIR}/temp/mesh.hpp"
 )
 
 add_library(${PROJECT_NAME} ${SOURCE_CODE})
