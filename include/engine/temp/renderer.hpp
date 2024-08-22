@@ -6,6 +6,7 @@
 #include "engine_export.h"
 
 #include <glad/glad.h>
+#include <iostream>
 
 #include <engine/temp/shader.hpp>
 #include <engine/temp/scene_vert.h>
@@ -43,18 +44,24 @@ struct ENGINE_EXPORT Renderer {
         shader_.SetUniform("Projection", engine::perspective(45.0f, ratio, 0.1f, 100.0f));
     }
 
-    auto render(const Scene& scene) {
+    auto drawCube(const engine::Matrix4 transform) {
+        shader_.SetUniform("ModelView", camera_ * transform);
+
+        cube_.Draw(shader_);
+    }
+
+    auto renderObject(Node* object) -> void {
+        for (const auto c : object->Children()) {
+            drawCube(c->GetTransform());
+            renderObject(c.get());
+        }
+    }
+
+    auto render(Scene& scene) {
         glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // TODO: iterate through the scene
-        // TODO: draw a cube for each node and apply transformations
-
-        auto model = engine::Matrix4 {1.0f};
-        model = engine::scale(model, 0.3f);
-        shader_.SetUniform("ModelView", camera_ * model);
-
-        cube_.Draw(shader_);
+        renderObject(&scene);
     }
 };
 

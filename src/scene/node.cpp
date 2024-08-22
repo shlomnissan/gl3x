@@ -5,6 +5,8 @@
 
 #include <ranges>
 
+#include "engine/math/matrix_transform.hpp"
+
 namespace engine {
 
 auto Node::Add(const std::shared_ptr<Node>& node) -> void {
@@ -29,6 +31,13 @@ auto Node::Children() const -> const std::vector<std::shared_ptr<Node>>& {
 
 auto Node::Parent() const -> const Node* {
     return parent_;
+}
+
+auto Node::GetTransform() const -> engine::Matrix4 {
+    auto model = local_transform_;
+    model = engine::translate(model, position_);
+    model = engine::scale(model, scale_);
+    return world_transform_ * model;
 }
 
 }
