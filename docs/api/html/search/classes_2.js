@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['window_0',['Window',['../classengine_1_1_window.html',1,'engine']]]
+  ['parameters_0',['Parameters',['../structengine_1_1_window_1_1_parameters.html',1,'engine::Window']]]
 ];

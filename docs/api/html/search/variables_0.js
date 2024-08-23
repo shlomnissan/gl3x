@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['w_0',['w',['../classengine_1_1_vector4.html#a44d19016fb6497bcda76649dd60fc3c1',1,'engine::Vector4']]]
+  ['height_0',['height',['../structengine_1_1_window_1_1_parameters.html#a126b44ad18fe315aacdcf3a8bb73745a',1,'engine::Window::Parameters']]]
 ];

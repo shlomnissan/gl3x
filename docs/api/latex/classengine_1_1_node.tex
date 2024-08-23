@@ -1,0 +1,181 @@
+\doxysection{engine\+::Node Class Reference}
+\hypertarget{classengine_1_1_node}{}\label{classengine_1_1_node}\index{engine::Node@{engine::Node}}
+
+
+Represents a node in a scene graph.  
+
+
+
+
+{\ttfamily \#include $<$node.\+hpp$>$}
+
+Inheritance diagram for engine\+::Node\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classengine_1_1_node}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a89f8d4ceabb811cc62b6f390bcc01cf8}{Add}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classengine_1_1_node}{Node}} $>$ \&node) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Adds a child node to this node. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_acc95653ab947bae00e6d2dde34587f68}{Remove}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classengine_1_1_node}{Node}} $>$ \&node) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Removes a child node from this node. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a1a35e976f30f30d823b04aab5ccb10fc}{Children}} () const -\/$>$ const std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classengine_1_1_node}{Node}} $>$ $>$ \&
+\begin{DoxyCompactList}\small\item\em Retrieves the list of child nodes. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a77c5913cf8f7f22ff7409af6497d0bf9}{Should\+Update\+Children}} () const -\/$>$ bool
+\begin{DoxyCompactList}\small\item\em Checks if the node\textquotesingle{}s children should be updated. \end{DoxyCompactList}\item 
+\Hypertarget{classengine_1_1_node_a76351313db40aa928792ab505d85faae}\label{classengine_1_1_node_a76351313db40aa928792ab505d85faae} 
+auto {\bfseries Update\+Transforms} () -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Updates the node\textquotesingle{}s world transform and propagates updates to children. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a4861785da356b7356e5a2038c16c0ae2}{Get\+World\+Transform}} () const -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em Retrieves the world transform matrix of the node. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_ad208fceb04322e5f3b5cb5748068ddf9}{Scale}} (float value) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Scales the node\textquotesingle{}s local transformation. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_aca866ac78a64b982966eac67aa2c469e}{TranslateX}} (float distance) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Translates the node along the X axis. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a2674b525ac33025ed9452619754d049a}{TranslateY}} (float distance) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Translates the node along the Y axis. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a1b6c41ffd07dc653c4e6cebf7560d68a}{TranslateZ}} (float distance) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Translates the node along the Z axis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a node in a scene graph. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_node_a89f8d4ceabb811cc62b6f390bcc01cf8}\label{classengine_1_1_node_a89f8d4ceabb811cc62b6f390bcc01cf8} 
+\index{engine::Node@{engine::Node}!Add@{Add}}
+\index{Add@{Add}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily auto engine\+::\+Node\+::\+Add (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classengine_1_1_node}{Node}} $>$ \&}]{node }\end{DoxyParamCaption}) -\/$>$  void}
+
+
+
+Adds a child node to this node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & A shared pointer to the node to add. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_node_a1a35e976f30f30d823b04aab5ccb10fc}\label{classengine_1_1_node_a1a35e976f30f30d823b04aab5ccb10fc} 
+\index{engine::Node@{engine::Node}!Children@{Children}}
+\index{Children@{Children}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{Children()}{Children()}}
+{\footnotesize\ttfamily auto engine\+::\+Node\+::\+Children (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  const std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classengine_1_1_node}{Node}} $>$ $>$ \&}
+
+
+
+Retrieves the list of child nodes. 
+
+\begin{DoxyReturn}{Returns}
+A constant reference to a vector of child nodes. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_node_a4861785da356b7356e5a2038c16c0ae2}\label{classengine_1_1_node_a4861785da356b7356e5a2038c16c0ae2} 
+\index{engine::Node@{engine::Node}!GetWorldTransform@{GetWorldTransform}}
+\index{GetWorldTransform@{GetWorldTransform}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{GetWorldTransform()}{GetWorldTransform()}}
+{\footnotesize\ttfamily auto engine\+::\+Node\+::\+Get\+World\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}}
+
+
+
+Retrieves the world transform matrix of the node. 
+
+\begin{DoxyReturn}{Returns}
+The world transform matrix. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_node_acc95653ab947bae00e6d2dde34587f68}\label{classengine_1_1_node_acc95653ab947bae00e6d2dde34587f68} 
+\index{engine::Node@{engine::Node}!Remove@{Remove}}
+\index{Remove@{Remove}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{Remove()}{Remove()}}
+{\footnotesize\ttfamily auto engine\+::\+Node\+::\+Remove (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classengine_1_1_node}{Node}} $>$ \&}]{node }\end{DoxyParamCaption}) -\/$>$  void}
+
+
+
+Removes a child node from this node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & A shared pointer to the node to remove. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_node_ad208fceb04322e5f3b5cb5748068ddf9}\label{classengine_1_1_node_ad208fceb04322e5f3b5cb5748068ddf9} 
+\index{engine::Node@{engine::Node}!Scale@{Scale}}
+\index{Scale@{Scale}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{Scale()}{Scale()}}
+{\footnotesize\ttfamily auto engine\+::\+Node\+::\+Scale (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption}) -\/$>$  void}
+
+
+
+Scales the node\textquotesingle{}s local transformation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The scaling factor. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_node_a77c5913cf8f7f22ff7409af6497d0bf9}\label{classengine_1_1_node_a77c5913cf8f7f22ff7409af6497d0bf9} 
+\index{engine::Node@{engine::Node}!ShouldUpdateChildren@{ShouldUpdateChildren}}
+\index{ShouldUpdateChildren@{ShouldUpdateChildren}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{ShouldUpdateChildren()}{ShouldUpdateChildren()}}
+{\footnotesize\ttfamily auto engine\+::\+Node\+::\+Should\+Update\+Children (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  bool}
+
+
+
+Checks if the node\textquotesingle{}s children should be updated. 
+
+\begin{DoxyReturn}{Returns}
+True if children need updating, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_node_aca866ac78a64b982966eac67aa2c469e}\label{classengine_1_1_node_aca866ac78a64b982966eac67aa2c469e} 
+\index{engine::Node@{engine::Node}!TranslateX@{TranslateX}}
+\index{TranslateX@{TranslateX}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{TranslateX()}{TranslateX()}}
+{\footnotesize\ttfamily auto engine\+::\+Node\+::\+TranslateX (\begin{DoxyParamCaption}\item[{float}]{distance }\end{DoxyParamCaption}) -\/$>$  void}
+
+
+
+Translates the node along the X axis. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em distance} & The translation distance. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_node_a2674b525ac33025ed9452619754d049a}\label{classengine_1_1_node_a2674b525ac33025ed9452619754d049a} 
+\index{engine::Node@{engine::Node}!TranslateY@{TranslateY}}
+\index{TranslateY@{TranslateY}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{TranslateY()}{TranslateY()}}
+{\footnotesize\ttfamily auto engine\+::\+Node\+::\+TranslateY (\begin{DoxyParamCaption}\item[{float}]{distance }\end{DoxyParamCaption}) -\/$>$  void}
+
+
+
+Translates the node along the Y axis. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em distance} & The translation distance. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_node_a1b6c41ffd07dc653c4e6cebf7560d68a}\label{classengine_1_1_node_a1b6c41ffd07dc653c4e6cebf7560d68a} 
+\index{engine::Node@{engine::Node}!TranslateZ@{TranslateZ}}
+\index{TranslateZ@{TranslateZ}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{TranslateZ()}{TranslateZ()}}
+{\footnotesize\ttfamily auto engine\+::\+Node\+::\+TranslateZ (\begin{DoxyParamCaption}\item[{float}]{distance }\end{DoxyParamCaption}) -\/$>$  void}
+
+
+
+Translates the node along the Z axis. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em distance} & The translation distance. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/admin/\+One\+Drive/\+Desktop/\+Projects/engine/include/engine/scene/node.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,79 @@
+\doxysection{engine\+::Timer Class Reference}
+\hypertarget{classengine_1_1_timer}{}\label{classengine_1_1_timer}\index{engine::Timer@{engine::Timer}}
+
+
+A timer class to measure elapsed time.  
+
+
+
+
+{\ttfamily \#include $<$timer.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{classengine_1_1_timer_a8829a5e9b60eef0f7b684d93061c287d}{Start}} () -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Starts the timer. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_timer_a1e4074fa24f0cc1814240c342f77c3fa}{Reset}} () -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Resets the timer. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_timer_a3f433c3ea41e92ddaa4184a7577cf0fc}{Get\+Elapsed\+Milliseconds}} () const -\/$>$ double
+\begin{DoxyCompactList}\small\item\em Returns the elapsed time in milliseconds. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_timer_a41a0792d25635547b29f39f2a246fdfd}{Get\+Elapsed\+Seconds}} () const -\/$>$ double
+\begin{DoxyCompactList}\small\item\em Returns the elapsed time in seconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A timer class to measure elapsed time. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_timer_a3f433c3ea41e92ddaa4184a7577cf0fc}\label{classengine_1_1_timer_a3f433c3ea41e92ddaa4184a7577cf0fc} 
+\index{engine::Timer@{engine::Timer}!GetElapsedMilliseconds@{GetElapsedMilliseconds}}
+\index{GetElapsedMilliseconds@{GetElapsedMilliseconds}!engine::Timer@{engine::Timer}}
+\doxysubsubsection{\texorpdfstring{GetElapsedMilliseconds()}{GetElapsedMilliseconds()}}
+{\footnotesize\ttfamily auto engine\+::\+Timer\+::\+Get\+Elapsed\+Milliseconds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  double}
+
+
+
+Returns the elapsed time in milliseconds. 
+
+\begin{DoxyReturn}{Returns}
+double The elapsed time in milliseconds, or -\/1 if the timer has not been started. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_timer_a41a0792d25635547b29f39f2a246fdfd}\label{classengine_1_1_timer_a41a0792d25635547b29f39f2a246fdfd} 
+\index{engine::Timer@{engine::Timer}!GetElapsedSeconds@{GetElapsedSeconds}}
+\index{GetElapsedSeconds@{GetElapsedSeconds}!engine::Timer@{engine::Timer}}
+\doxysubsubsection{\texorpdfstring{GetElapsedSeconds()}{GetElapsedSeconds()}}
+{\footnotesize\ttfamily auto engine\+::\+Timer\+::\+Get\+Elapsed\+Seconds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  double}
+
+
+
+Returns the elapsed time in seconds. 
+
+\begin{DoxyReturn}{Returns}
+double The elapsed time in seconds, or -\/1 if the timer has not been started. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_timer_a1e4074fa24f0cc1814240c342f77c3fa}\label{classengine_1_1_timer_a1e4074fa24f0cc1814240c342f77c3fa} 
+\index{engine::Timer@{engine::Timer}!Reset@{Reset}}
+\index{Reset@{Reset}!engine::Timer@{engine::Timer}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily auto engine\+::\+Timer\+::\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) -\/$>$  void}
+
+
+
+Resets the timer. 
+
+If the timer was running, it will be stopped and reset to zero. \Hypertarget{classengine_1_1_timer_a8829a5e9b60eef0f7b684d93061c287d}\label{classengine_1_1_timer_a8829a5e9b60eef0f7b684d93061c287d} 
+\index{engine::Timer@{engine::Timer}!Start@{Start}}
+\index{Start@{Start}!engine::Timer@{engine::Timer}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily auto engine\+::\+Timer\+::\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) -\/$>$  void}
+
+
+
+Starts the timer. 
+
+If the timer is already running, this function has no effect. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/admin/\+One\+Drive/\+Desktop/\+Projects/engine/include/engine/core/timer.\+hpp\end{DoxyCompactItemize}

@@ -70,21 +70,21 @@ public:
     /**
      * @brief Translates the node along the X axis.
      *
-     * @param value The translation distance.
+     * @param distance The translation distance.
      */
     auto TranslateX(float distance) -> void;
 
     /**
      * @brief Translates the node along the Y axis.
      *
-     * @param value The translation distance.
+     * @param distance The translation distance.
      */
     auto TranslateY(float distance) -> void;
 
     /**
      * @brief Translates the node along the Z axis.
      *
-     * @param value The translation distance.
+     * @param distance The translation distance.
      */
     auto TranslateZ(float distance) -> void;
 

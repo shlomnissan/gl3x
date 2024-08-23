@@ -1,0 +1,76 @@
+\doxysection{renderer.\+hpp}
+\hypertarget{renderer_8hpp_source}{}\label{renderer_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/temp/renderer.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/temp/renderer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Author:\ Shlomi\ Nissan\ (shlomi@betamark.com)}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <engine/temp/shader.hpp>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <engine/temp/scene\_vert.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <engine/temp/scene\_frag.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <engine/temp/mesh.hpp>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <engine/temp/cube.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}engine/math/transformations.hpp"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}engine/math/projection.hpp"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}engine/math/matrix4.hpp"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}engine/scene/scene.hpp"{}}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }ENGINE\_EXPORT\ \mbox{\hyperlink{structengine_1_1_renderer}{Renderer}}\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}\ camera\_\ =\ engine::look\_at(}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \{0.0f,\ 0.0f,\ 1.0f\},}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \{0.0f,\ 0.0f,\ 0.0f\},}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \{0.0f,\ 1.0f,\ 0.0f\}}
+\DoxyCodeLine{00029\ \ \ \ \ );}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_shader}{Shader}}\ shader\_\ \{\{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \{ShaderType::kVertexShader,\ \_SHADER\_scene\_vert\},}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \{ShaderType::kFragmentShader,\ \_SHADER\_scene\_frag\}}
+\DoxyCodeLine{00034\ \ \ \ \ \}\};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_mesh}{Mesh}}\ cube\_\ \{cube\_vertex\_0,\ cube\_index\_0\};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{structengine_1_1_renderer}{Renderer}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ height)\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ glEnable(GL\_DEPTH\_TEST);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ glViewport(0,\ 0,\ width,\ height);}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ glPolygonMode(GL\_FRONT\_AND\_BACK,\ GL\_LINE);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ratio\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(width)\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(height);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ shader\_.SetUniform(\textcolor{stringliteral}{"{}Projection"{}},\ engine::perspective(45.0f,\ ratio,\ 0.1f,\ 100.0f));}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{auto}\ drawCube(\textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_matrix4}{engine::Matrix4}}\ transform)\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ shader\_.SetUniform(\textcolor{stringliteral}{"{}ModelView"{}},\ camera\_\ *\ transform);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ cube\_.Draw(shader\_);}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{auto}\ renderObject(\mbox{\hyperlink{classengine_1_1_node}{Node}}*\ \textcolor{keywordtype}{object})\ -\/>\ \textcolor{keywordtype}{void}\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ c\ :\ \textcolor{keywordtype}{object}-\/>Children())\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ drawCube(c-\/>GetWorldTransform());}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ renderObject(c.get());}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{auto}\ render(\mbox{\hyperlink{classengine_1_1_scene}{Scene}}\&\ scene)\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ glClearColor(0.0f,\ 0.0f,\ 0.5f,\ 1.0f);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ glClear(GL\_COLOR\_BUFFER\_BIT\ |\ GL\_DEPTH\_BUFFER\_BIT);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ scene.\mbox{\hyperlink{classengine_1_1_node_a76351313db40aa928792ab505d85faae}{UpdateTransforms}}();}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ renderObject(\&scene);}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \}}
+
+\end{DoxyCode}

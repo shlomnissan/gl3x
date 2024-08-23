@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['dot_0',['dot',['../classengine_1_1_vector3.html#a8abd30fc0e9cd28d516f4e61a333a23b',1,'engine::Vector3::dot()'],['../classengine_1_1_vector4.html#a8dfec445a29434946ddcf578295b2431',1,'engine::Vector4::dot()']]]
+  ['children_0',['Children',['../classengine_1_1_node.html#a1a35e976f30f30d823b04aab5ccb10fc',1,'engine::Node']]],
+  ['cross_1',['cross',['../classengine_1_1_vector3.html#ac98b20bbc6a7b2037da2746be2190692',1,'engine::Vector3']]]
 ];

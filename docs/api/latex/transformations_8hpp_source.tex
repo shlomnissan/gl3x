@@ -1,0 +1,34 @@
+\doxysection{transformations.\+hpp}
+\hypertarget{transformations_8hpp_source}{}\label{transformations_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/transformations.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/transformations.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Author:\ Shlomi\ Nissan\ (shlomi@betamark.com)}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}matrix4.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}vector3.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00023\ ENGINE\_EXPORT}
+\DoxyCodeLine{00024\ \textcolor{keyword}{auto}\ scale(\textcolor{keyword}{const}\ Matrix4\&\ m,\ \textcolor{keyword}{const}\ Vector3\&\ v)\ -\/>\ Matrix4;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00036\ ENGINE\_EXPORT}
+\DoxyCodeLine{00037\ \textcolor{keyword}{auto}\ scale(\textcolor{keyword}{const}\ Matrix4\&\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ value)\ -\/>\ Matrix4;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00050\ ENGINE\_EXPORT}
+\DoxyCodeLine{00051\ \textcolor{keyword}{auto}\ rotate(\textcolor{keyword}{const}\ Matrix4\&\ m,\ \textcolor{keywordtype}{float}\ angle,\ \textcolor{keyword}{const}\ Vector3\&\ v)\ -\/>\ Matrix4;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00063\ ENGINE\_EXPORT}
+\DoxyCodeLine{00064\ \textcolor{keyword}{auto}\ translate(\textcolor{keyword}{const}\ Matrix4\&\ m,\ \textcolor{keyword}{const}\ Vector3\&\ v)\ -\/>\ Matrix4;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00078\ ENGINE\_EXPORT}
+\DoxyCodeLine{00079\ \textcolor{keyword}{auto}\ look\_at(\textcolor{keyword}{const}\ Vector3\&\ eye,\ \textcolor{keyword}{const}\ Vector3\&\ center,\ \textcolor{keyword}{const}\ Vector3\&\ up)\ -\/>\ Matrix4;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \}}
+
+\end{DoxyCode}

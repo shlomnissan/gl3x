@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_0',['x',['../classengine_1_1_vector3.html#a20e81dc0e9efe7fe7ff3314c956b0a4b',1,'engine::Vector3::x'],['../classengine_1_1_vector4.html#a0c6787cd9e39811795f1321b14afd7aa',1,'engine::Vector4::x']]]
+  ['title_0',['title',['../structengine_1_1_window_1_1_parameters.html#afdd0ad7dc9940e3cf7673218171d934d',1,'engine::Window::Parameters']]]
 ];

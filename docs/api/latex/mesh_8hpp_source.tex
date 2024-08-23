@@ -1,0 +1,36 @@
+\doxysection{mesh.\+hpp}
+\hypertarget{mesh_8hpp_source}{}\label{mesh_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/temp/mesh.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/temp/mesh.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Author:\ Shlomi\ Nissan\ (shlomi@betamark.com)}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <engine/temp/shader.hpp>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classengine_1_1_mesh}{Mesh}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_mesh}{Mesh}}(}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<float>\&\ vertex\_data,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<unsigned\ int>\&\ index\_data\ =\ \{\}}
+\DoxyCodeLine{00017\ \ \ \ \ );}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{auto}\ Draw(\textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_shader}{Shader}}\&\ shader)\ \textcolor{keyword}{const}\ -\/>\ void;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ vao\_\ \{0\};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ vbo\_\ \{0\};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ ebo\_\ \{0\};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ indices\_size\_\ \{0\};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{auto}\ ConfigureVertices(\textcolor{keyword}{const}\ std::vector<float>\&\ vertex\_data)\ -\/>\ void;}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{auto}\ ConfigureIndices(\textcolor{keyword}{const}\ std::vector<unsigned\ int>\&\ index\_data)\ -\/>\ void;}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \}}
+
+\end{DoxyCode}

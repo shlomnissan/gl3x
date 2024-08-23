@@ -1,0 +1,61 @@
+\doxysection{node.\+hpp}
+\hypertarget{node_8hpp_source}{}\label{node_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/scene/node.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/scene/node.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Author:\ Shlomi\ Nissan\ (shlomi@betamark.com)}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}engine/math/matrix4.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}engine/math/transform3d.hpp"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_node}{Node}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_a89f8d4ceabb811cc62b6f390bcc01cf8}{Add}}(\textcolor{keyword}{const}\ std::shared\_ptr<Node>\&\ node)\ -\/>\ void;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_acc95653ab947bae00e6d2dde34587f68}{Remove}}(\textcolor{keyword}{const}\ std::shared\_ptr<Node>\&\ node)\ -\/>\ void;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00039\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_a1a35e976f30f30d823b04aab5ccb10fc}{Children}}()\ const\ -\/>\ const\ std::vector<std::shared\_ptr<\mbox{\hyperlink{classengine_1_1_node}{Node}}>>\&;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00047\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00048\ \ \ \ \ auto\ ShouldUpdateChildren()\ const\ -\/>\ \textcolor{keywordtype}{bool};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00053\ \ \ \ \ auto\ UpdateTransforms()\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00060\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00061\ \ \ \ \ auto\ GetWorldTransform()\ const\ -\/>\ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00068\ \ \ \ \ auto\ Scale(\textcolor{keywordtype}{float}\ value)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00075\ \ \ \ \ auto\ TranslateX(\textcolor{keywordtype}{float}\ distance)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00082\ \ \ \ \ auto\ TranslateY(\textcolor{keywordtype}{float}\ distance)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00089\ \ \ \ \ auto\ TranslateZ(\textcolor{keywordtype}{float}\ distance)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ private:}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{bool}\ update\_children\_\ \{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_node}{Node}}*\ parent\_\ \{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00099\ \ \ \ \ std::vector<std::shared\_ptr<Node>>\ children\_;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00102\ \ \ \ \ Transform3D\ local\_transform\_;}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00105\ \ \ \ \ Matrix4\ world\_transform\_\ \{1.0f\};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00112\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{auto}\ ShouldUpdateTransform()\ const\ -\/>\ \textcolor{keywordtype}{bool};}
+\DoxyCodeLine{00114\ \};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,58 @@
+\doxysection{shader.\+hpp}
+\hypertarget{shader_8hpp_source}{}\label{shader_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/temp/shader.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/temp/shader.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Author:\ Shlomi\ Nissan\ (shlomi@betamark.com)}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string\_view>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <engine/math/matrix4.hpp>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{enum\ class}\ ShaderType\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ kVertexShader,}
+\DoxyCodeLine{00018\ \ \ \ \ kFragmentShader}
+\DoxyCodeLine{00019\ \};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structengine_1_1_shader_info}{ShaderInfo}}\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ ShaderType\ type;}
+\DoxyCodeLine{00023\ \ \ \ \ std::string\_view\ source;}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classengine_1_1_shader}{Shader}}\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classengine_1_1_shader}{Shader}}(\textcolor{keyword}{const}\ std::vector<ShaderInfo>\&\ shaders);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{auto}\ Use()\ \textcolor{keyword}{const}\ -\/>\ void;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{auto}\ GetUniform(std::string\_view\ name)\ \textcolor{keyword}{const}\ -\/>\ GLint;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{auto}\ SetUniform(std::string\_view\ u,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_matrix4}{engine::Matrix4}}\&\ m)\ \textcolor{keyword}{const}\ -\/>\ void;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_shader}{\string~Shader}}();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00039\ \ \ \ \ GLuint\ program\_;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{auto}\ CheckProgramLinkStatus()\ \textcolor{keyword}{const}\ -\/>\ void;}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{auto}\ CheckShaderCompileStatus(GLuint\ shader\_id,\ ShaderType\ type)\ \textcolor{keyword}{const}\ -\/>\ void;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{auto}\ GetShaderType(ShaderType\ type)\ \textcolor{keyword}{const}\ -\/>\ GLuint;}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{auto}\ GetShaderTypeString(ShaderType\ type)\ \textcolor{keyword}{const}\ -\/>\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*;}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structengine_1_1_shader_error}{ShaderError}}\ :\ \textcolor{keyword}{public}\ std::runtime\_error\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{using\ }std::runtime\_error::runtime\_error;}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \}}
+
+\end{DoxyCode}

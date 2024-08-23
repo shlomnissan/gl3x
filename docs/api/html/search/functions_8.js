@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['scale_0',['scale',['../namespaceengine.html#a1c0e354ea3667bdfcd11420480f9e843',1,'engine::scale(const Matrix4 &amp;m, const Vector3 &amp;v) -&gt; Matrix4'],['../namespaceengine.html#ac9d3487a811962bbce39da8c171b77f4',1,'engine::scale(const Matrix4 &amp;m, const float value) -&gt; Matrix4']]]
+  ['normalize_0',['normalize',['../classengine_1_1_vector3.html#a6698a678a898a88f4bac2350bd5ec875',1,'engine::Vector3::normalize()'],['../classengine_1_1_vector4.html#aa829985fcf97fffd0854453e927f0222',1,'engine::Vector4::normalize()']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x_0',['x',['../classengine_1_1_vector3.html#a20e81dc0e9efe7fe7ff3314c956b0a4b',1,'engine::Vector3::x'],['../classengine_1_1_vector4.html#a0c6787cd9e39811795f1321b14afd7aa',1,'engine::Vector4::x']]]
+  ['node_0',['Node',['../classengine_1_1_node.html',1,'engine']]],
+  ['normalize_1',['normalize',['../classengine_1_1_vector3.html#a6698a678a898a88f4bac2350bd5ec875',1,'engine::Vector3::normalize()'],['../classengine_1_1_vector4.html#aa829985fcf97fffd0854453e927f0222',1,'engine::Vector4::normalize()']]]
 ];

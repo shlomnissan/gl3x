@@ -1,0 +1,49 @@
+\doxysection{engine\+::Scene Class Reference}
+\hypertarget{classengine_1_1_scene}{}\label{classengine_1_1_scene}\index{engine::Scene@{engine::Scene}}
+
+
+Represents the scene\textquotesingle{}s root node.  
+
+
+
+
+{\ttfamily \#include $<$scene.\+hpp$>$}
+
+Inheritance diagram for engine\+::Scene\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classengine_1_1_scene}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classengine_1_1_node}{engine\+::\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a89f8d4ceabb811cc62b6f390bcc01cf8}{Add}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classengine_1_1_node}{Node}} $>$ \&node) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Adds a child node to this node. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_acc95653ab947bae00e6d2dde34587f68}{Remove}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classengine_1_1_node}{Node}} $>$ \&node) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Removes a child node from this node. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a1a35e976f30f30d823b04aab5ccb10fc}{Children}} () const -\/$>$ const std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classengine_1_1_node}{Node}} $>$ $>$ \&
+\begin{DoxyCompactList}\small\item\em Retrieves the list of child nodes. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a77c5913cf8f7f22ff7409af6497d0bf9}{Should\+Update\+Children}} () const -\/$>$ bool
+\begin{DoxyCompactList}\small\item\em Checks if the node\textquotesingle{}s children should be updated. \end{DoxyCompactList}\item 
+auto {\bfseries Update\+Transforms} () -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Updates the node\textquotesingle{}s world transform and propagates updates to children. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a4861785da356b7356e5a2038c16c0ae2}{Get\+World\+Transform}} () const -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em Retrieves the world transform matrix of the node. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_ad208fceb04322e5f3b5cb5748068ddf9}{Scale}} (float value) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Scales the node\textquotesingle{}s local transformation. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_aca866ac78a64b982966eac67aa2c469e}{TranslateX}} (float distance) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Translates the node along the X axis. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a2674b525ac33025ed9452619754d049a}{TranslateY}} (float distance) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Translates the node along the Y axis. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a1b6c41ffd07dc653c4e6cebf7560d68a}{TranslateZ}} (float distance) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Translates the node along the Z axis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the scene\textquotesingle{}s root node. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/admin/\+One\+Drive/\+Desktop/\+Projects/engine/include/engine/scene/scene.\+hpp\end{DoxyCompactItemize}

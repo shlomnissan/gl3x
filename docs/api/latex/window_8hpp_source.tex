@@ -10,26 +10,36 @@
 \DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
 \DoxyCodeLine{00007\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <functional>}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <string\_view>}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }engine\ \{}
-\DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_window}{Window}}\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classengine_1_1_window}{Window}}(std::string\_view\ title);}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_window}{Window}}(std::string\_view\ title,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{auto}\ Tick(\textcolor{keyword}{const}\ std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ delta)>\&\ tick)\ -\/>\ void;}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{int}\ width\_\ =\ 800;}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ height\_\ =\ 600;}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ std::string\ title\_;}
-\DoxyCodeLine{00027\ \};}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <string\_view>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_window}{Window}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structengine_1_1_window_1_1_parameters}{Parameters}}\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ width\ =\ 800;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ height\ =\ 600;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ std::string\_view\ \mbox{\hyperlink{structengine_1_1_window_1_1_parameters_afdd0ad7dc9940e3cf7673218171d934d}{title}};}
+\DoxyCodeLine{00030\ \ \ \ \ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classengine_1_1_window_a6509106a4ae6a1144610721a487c8da7}{Window}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structengine_1_1_window_1_1_parameters}{Window::Parameters}}\&\ params);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_window_ae568b8a51d517d21c5fb74e5e67430aa}{\string~Window}}();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00051\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_window_a5711b358e8948d1acedc41c2ea5ac663}{width}}()\ const\ -\/>\ \textcolor{keywordtype}{int};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00058\ \ \ \ \ [[nodiscard]]\ auto\ height()\ const\ -\/>\ \textcolor{keywordtype}{int};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00067\ \ \ \ \ auto\ Start(const\ std::function<\textcolor{keywordtype}{void}(const\ \textcolor{keywordtype}{double})>\&\ tick)\ const\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ private:}
+\DoxyCodeLine{00071\ \ \ \ \ class\ Impl;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00074\ \ \ \ \ std::unique\_ptr<Impl>\ impl\_\ \{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \}}
 
 \end{DoxyCode}

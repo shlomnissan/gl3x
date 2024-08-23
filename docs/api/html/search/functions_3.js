@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['matrix3_0',['Matrix3',['../classengine_1_1_matrix3.html#a0924c2030f1d5d4dc89f927b2ae72d10',1,'engine::Matrix3::Matrix3()'],['../classengine_1_1_matrix3.html#ab67f786cff29997d47dc88fc746b71c6',1,'engine::Matrix3::Matrix3(float value)'],['../classengine_1_1_matrix3.html#aeb9645bf0178117d273ef73a88d1e878',1,'engine::Matrix3::Matrix3(float n00, float n01, float n02, float n10, float n11, float n12, float n20, float n21, float n22)'],['../classengine_1_1_matrix3.html#a7a231145959b9b162a07c7f2a73e39bb',1,'engine::Matrix3::Matrix3(const Vector3 &amp;a, const Vector3 &amp;b, const Vector3 &amp;c)']]],
-  ['matrix4_1',['Matrix4',['../classengine_1_1_matrix4.html#abcce4deba7d9c114a13b723a483877c4',1,'engine::Matrix4::Matrix4()'],['../classengine_1_1_matrix4.html#ab31674ea007597525bab45b419b4e8bc',1,'engine::Matrix4::Matrix4(float value)'],['../classengine_1_1_matrix4.html#a0478e8432947bbaeed7ee1820cecbfa8',1,'engine::Matrix4::Matrix4(float n00, float n01, float n02, float n03, float n10, float n11, float n12, float n13, float n20, float n21, float n22, float n23, float n30, float n31, float n32, float n33)'],['../classengine_1_1_matrix4.html#a69e443b9ed310473fc4b72fef99e044d',1,'engine::Matrix4::Matrix4(const Vector4 &amp;a, const Vector4 &amp;b, const Vector4 &amp;c, const Vector4 &amp;d)']]]
+  ['get_0',['Get',['../classengine_1_1_transform3_d.html#a15ca3443c5ff4cb0c2cded4b9d87734a',1,'engine::Transform3D']]],
+  ['getelapsedmilliseconds_1',['GetElapsedMilliseconds',['../classengine_1_1_timer.html#a3f433c3ea41e92ddaa4184a7577cf0fc',1,'engine::Timer']]],
+  ['getelapsedseconds_2',['GetElapsedSeconds',['../classengine_1_1_timer.html#a41a0792d25635547b29f39f2a246fdfd',1,'engine::Timer']]],
+  ['getworldtransform_3',['GetWorldTransform',['../classengine_1_1_node.html#a4861785da356b7356e5a2038c16c0ae2',1,'engine::Node']]]
 ];

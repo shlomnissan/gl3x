@@ -1,0 +1,64 @@
+\doxysection{engine\+::Renderer Struct Reference}
+\hypertarget{structengine_1_1_renderer}{}\label{structengine_1_1_renderer}\index{engine::Renderer@{engine::Renderer}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structengine_1_1_renderer_aa9204ba2c1bc30a748cc241e15256fbc}\label{structengine_1_1_renderer_aa9204ba2c1bc30a748cc241e15256fbc} 
+{\bfseries Renderer} (const int width, const int height)
+\item 
+\Hypertarget{structengine_1_1_renderer_ae90220a25687bdd7b434892aaca63f01}\label{structengine_1_1_renderer_ae90220a25687bdd7b434892aaca63f01} 
+auto {\bfseries draw\+Cube} (const \mbox{\hyperlink{classengine_1_1_matrix4}{engine\+::\+Matrix4}} transform)
+\item 
+\Hypertarget{structengine_1_1_renderer_a954bd54cbded7e2c4fda12659f7881f4}\label{structengine_1_1_renderer_a954bd54cbded7e2c4fda12659f7881f4} 
+auto {\bfseries render\+Object} (\mbox{\hyperlink{classengine_1_1_node}{Node}} \texorpdfstring{$\ast$}{*}object) -\/$>$ void
+\item 
+\Hypertarget{structengine_1_1_renderer_abc40a5de229d3c1d4a548f267b4d1c22}\label{structengine_1_1_renderer_abc40a5de229d3c1d4a548f267b4d1c22} 
+auto {\bfseries render} (\mbox{\hyperlink{classengine_1_1_scene}{Scene}} \&scene)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} \mbox{\hyperlink{structengine_1_1_renderer_a0618273a9ba90363b81b69ec56490b81}{camera\+\_\+}}
+\item 
+\mbox{\hyperlink{classengine_1_1_shader}{Shader}} \mbox{\hyperlink{structengine_1_1_renderer_ab0b919c2c31ef779a70674aeb9d7580b}{shader\+\_\+}}
+\item 
+\Hypertarget{structengine_1_1_renderer_a153dfd03d7e6d91be9513fa057681972}\label{structengine_1_1_renderer_a153dfd03d7e6d91be9513fa057681972} 
+\mbox{\hyperlink{classengine_1_1_mesh}{Mesh}} {\bfseries cube\+\_\+} \{cube\+\_\+vertex\+\_\+0, cube\+\_\+index\+\_\+0\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structengine_1_1_renderer_a0618273a9ba90363b81b69ec56490b81}\label{structengine_1_1_renderer_a0618273a9ba90363b81b69ec56490b81} 
+\index{engine::Renderer@{engine::Renderer}!camera\_@{camera\_}}
+\index{camera\_@{camera\_}!engine::Renderer@{engine::Renderer}}
+\doxysubsubsection{\texorpdfstring{camera\_}{camera\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}} engine\+::\+Renderer\+::camera\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ engine::look\_at(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{0.0f,\ 0.0f,\ 1.0f\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{0.0f,\ 0.0f,\ 0.0f\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{0.0f,\ 1.0f,\ 0.0f\}}
+\DoxyCodeLine{\ \ \ \ )}
+
+\end{DoxyCode}
+\Hypertarget{structengine_1_1_renderer_ab0b919c2c31ef779a70674aeb9d7580b}\label{structengine_1_1_renderer_ab0b919c2c31ef779a70674aeb9d7580b} 
+\index{engine::Renderer@{engine::Renderer}!shader\_@{shader\_}}
+\index{shader\_@{shader\_}!engine::Renderer@{engine::Renderer}}
+\doxysubsubsection{\texorpdfstring{shader\_}{shader\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classengine_1_1_shader}{Shader}} engine\+::\+Renderer\+::shader\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{ShaderType::kVertexShader,\ \_SHADER\_scene\_vert\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{ShaderType::kFragmentShader,\ \_SHADER\_scene\_frag\}}
+\DoxyCodeLine{\ \ \ \ \}\}}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/admin/\+One\+Drive/\+Desktop/\+Projects/engine/include/engine/temp/renderer.\+hpp\end{DoxyCompactItemize}
