@@ -7,11 +7,11 @@
 #include <cmath>
 #include <numbers>
 
-#include <engine/math/matrix_transform.hpp>
+#include <engine/math/transformations.hpp>
 
 #pragma region Scale
 
-TEST(MatrixTransform, ScaleNonUniformScaling) {
+TEST(Transformations, ScaleNonUniformScaling) {
     const auto m = engine::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
@@ -27,7 +27,7 @@ TEST(MatrixTransform, ScaleNonUniformScaling) {
     });
 }
 
-TEST(MatrixTransform, ScaleUniformScaling) {
+TEST(Transformations, ScaleUniformScaling) {
     const auto m = engine::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
@@ -47,7 +47,7 @@ TEST(MatrixTransform, ScaleUniformScaling) {
 
 #pragma region Rotate
 
-TEST(MatrixTransform, RotateX) {
+TEST(Transformations, RotateX) {
     const auto m = engine::Matrix4 {1.0f};
     const auto a = static_cast<float>(std::numbers::pi) / 6.0f;
     const auto c = std::cos(a);
@@ -61,7 +61,7 @@ TEST(MatrixTransform, RotateX) {
     });
 }
 
-TEST(MatrixTransform, RotateY) {
+TEST(Transformations, RotateY) {
     const auto m = engine::Matrix4 {1.0f};
     const auto a = static_cast<float>(std::numbers::pi) / 6.0f;
     const auto c = std::cos(a);
@@ -75,7 +75,7 @@ TEST(MatrixTransform, RotateY) {
     });
 }
 
-TEST(MatrixTransform, RotateZ) {
+TEST(Transformations, RotateZ) {
     const auto m = engine::Matrix4 {1.0f};
     const auto a = static_cast<float>(std::numbers::pi) / 6.0f;
     const auto c = std::cos(a);
@@ -89,7 +89,7 @@ TEST(MatrixTransform, RotateZ) {
     });
 }
 
-TEST(MatrixTransform, RotateXYZ) {
+TEST(Transformations, RotateXYZ) {
     const auto a_x = static_cast<float>(std::numbers::pi) / 4.0f;
     const auto a_y = static_cast<float>(std::numbers::pi) / 6.0f;
     const auto a_z = static_cast<float>(std::numbers::pi) / 3.0f;
@@ -124,7 +124,7 @@ TEST(MatrixTransform, RotateXYZ) {
 
 #pragma region Translate
 
-TEST(MatrixTransform, Translate) {
+TEST(Transformations, Translate) {
     const auto m = engine::Matrix4 {1.0f};
 
     EXPECT_MAT4_EQ(engine::translate(m, {2.0f, 3.0f, 4.0f}), {
@@ -139,7 +139,7 @@ TEST(MatrixTransform, Translate) {
 
 #pragma region Look At
 
-TEST(MatrixTransform, LookAtBasicView) {
+TEST(Transformations, LookAtBasicView) {
     const auto eye = engine::Vector3 {0.0f, 0.0f, 5.0f};
     const auto center = engine::Vector3 {0.0f, 0.0f, 0.0f};
     const auto up = engine::Vector3 {0.0f, 1.0f, 0.0f};
@@ -152,7 +152,7 @@ TEST(MatrixTransform, LookAtBasicView) {
     });
 }
 
-TEST(MatrixTransform, LookAtDifferentUp) {
+TEST(Transformations, LookAtDifferentUp) {
     const auto eye = engine::Vector3 {0.0f, 0.0f, 5.0f};
     const auto center = engine::Vector3 {0.0f, 0.0f, 0.0f};
     const auto up = engine::Vector3 {0.0f, 0.5f, 1.0f};
@@ -165,7 +165,7 @@ TEST(MatrixTransform, LookAtDifferentUp) {
     });
 }
 
-TEST(MatrixTransform, LookAtCollinearEyeAndCenter) {
+TEST(Transformations, LookAtCollinearEyeAndCenter) {
     const auto eye = engine::Vector3 {0.0f, 0.0f, 5.0f};
     const auto center = engine::Vector3 {0.0f, 0.0f, 10.0f};
     const auto up = engine::Vector3 {0.0f, 1.0f, 0.0f};
