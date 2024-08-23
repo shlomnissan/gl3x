@@ -52,7 +52,7 @@ struct ENGINE_EXPORT Renderer {
 
     auto renderObject(Node* object) -> void {
         for (const auto c : object->Children()) {
-            drawCube(c->GetTransform());
+            drawCube(c->GetWorldTransform());
             renderObject(c.get());
         }
     }
@@ -60,6 +60,8 @@ struct ENGINE_EXPORT Renderer {
     auto render(Scene& scene) {
         glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        scene.UpdateTransforms();
 
         renderObject(&scene);
     }

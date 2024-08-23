@@ -4,11 +4,13 @@
 #pragma once
 
 #include "engine_export.h"
-
 #include "engine/scene/node.hpp"
 
 namespace engine {
 
+/**
+ * @brief Represents the scene's root node.
+ */
 class ENGINE_EXPORT Scene : public Node {};
 
 }

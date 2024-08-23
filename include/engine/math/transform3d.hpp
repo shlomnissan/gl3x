@@ -13,7 +13,7 @@ class ENGINE_EXPORT Transform3D {
 public:
     auto Scale(float value) -> void;
 
-    auto Translate(const Vector3& axis, float value) -> void;
+    auto Translate(const Vector3& axis, float distance) -> void;
 
     auto Get() -> Matrix4;
 

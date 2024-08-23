@@ -11,8 +11,8 @@ auto Transform3D::Scale(float value) -> void {
     is_dirty_ = true;
 }
 
-auto Transform3D::Translate(const Vector3& axis, float value) -> void {
-    position_ = position_ + (axis * value);
+auto Transform3D::Translate(const Vector3& axis, float distance) -> void {
+    position_ = position_ + (axis * distance);
     is_dirty_ = true;
 }
 
