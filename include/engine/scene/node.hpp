@@ -4,12 +4,11 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/math/matrix4.hpp"
+#include "engine/math/transform3d.hpp"
 
 #include <memory>
 #include <vector>
-
-#include "engine/math/matrix4.hpp"
-#include "engine/math/vector3.hpp"
 
 namespace engine {
 
@@ -23,25 +22,24 @@ public:
 
     auto Parent() const -> const Node*;
 
-    auto GetTransform() const -> engine::Matrix4;
+    auto GetTransform() -> engine::Matrix4;
 
-    auto Translate(const engine::Vector3& position) {
-        position_ = position_ + position;
-    }
+    auto Scale(float value) -> void;
 
-    auto Scale(float value) {
-        scale_ = engine::Vector3(value);
-    }
+    auto TranslateX(float value) -> void;
+
+    auto TranslateY(float value) -> void;
+
+    auto TranslateZ(float value) -> void;
 
 private:
     Node* parent_ {nullptr};
 
     std::vector<std::shared_ptr<Node>> children_;
 
-    engine::Matrix4 local_transform_ {1.0f};
-    engine::Matrix4 world_transform_ {1.0f};
-    engine::Vector3 position_ {0.0f};
-    engine::Vector3 scale_ {1.0f};
+    Transform3D local_transform_;
+
+    Matrix4 world_transform_ {1.0f};
 };
 
 }

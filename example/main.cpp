@@ -23,7 +23,7 @@ auto main() -> int {
     parent_node->Add(child_node);
 
     parent_node->Scale(0.5f);
-    parent_node->Translate({-0.1f, 0.0f, 0.0f});
+    parent_node->TranslateX(-0.1f);
     child_node->Scale(0.2f);
 
     scene.Add(parent_node);

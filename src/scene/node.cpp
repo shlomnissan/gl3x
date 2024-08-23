@@ -33,11 +33,24 @@ auto Node::Parent() const -> const Node* {
     return parent_;
 }
 
-auto Node::GetTransform() const -> engine::Matrix4 {
-    auto model = local_transform_;
-    model = engine::translate(model, position_);
-    model = engine::scale(model, scale_);
-    return world_transform_ * model;
+auto Node::GetTransform() -> engine::Matrix4 {
+    return world_transform_ * local_transform_.Get();
+}
+
+auto Node::Scale(float value) -> void {
+    local_transform_.Scale(value);
+}
+
+auto Node::TranslateX(float value) -> void {
+    local_transform_.Translate(Vector3::X(), value);
+}
+
+auto Node::TranslateY(float value) -> void {
+    local_transform_.Translate(Vector3::Y(), value);
+}
+
+auto Node::TranslateZ(float value) -> void {
+    local_transform_.Translate(Vector3::Z(), value);
 }
 
 }
