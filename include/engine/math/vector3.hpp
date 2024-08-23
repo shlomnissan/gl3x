@@ -43,6 +43,27 @@ public:
     Vector3(float x, float y, float z);
 
     /**
+     * @brief Returns a unit vector along the X axis.
+     *
+     * @return Vector3 A `Vector3` instance representing the X unit vector.
+     */
+    static auto X() { return Vector3 {1.0f, 0.0f, 0.0f}; }
+
+    /**
+     * @brief Returns a unit vector along the Y axis.
+     *
+     * @return Vector3 A `Vector3` instance representing the Y unit vector.
+     */
+    static auto Y() { return Vector3 {0.0f, 1.0f, 0.0f}; }
+
+    /**
+     * @brief Returns a unit vector along the Z axis.
+     *
+     * @return Vector3 A `Vector3` instance representing the Z unit vector.
+     */
+    static auto Z() { return Vector3 {0.0f, 0.0f, 1.0f}; }
+
+    /**
      * @brief Calculates the length (magnitude) of the vector.
      *
      * @return float The length of the vector.

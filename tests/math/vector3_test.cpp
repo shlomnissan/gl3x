@@ -30,6 +30,34 @@ TEST(Vector3, ConstructorParameterized) {
 
 #pragma endregion
 
+#pragma region Unit vectors
+
+TEST(Vector3, UnitVectorAlongX) {
+    const auto v = engine::Vector3::X();
+
+    EXPECT_FLOAT_EQ(v.x, 1.0f);
+    EXPECT_FLOAT_EQ(v.y, 0.0f);
+    EXPECT_FLOAT_EQ(v.z, 0.0f);
+}
+
+TEST(Vector3, UnitVectorAlongY) {
+    const auto v = engine::Vector3::Y();
+
+    EXPECT_FLOAT_EQ(v.x, 0.0f);
+    EXPECT_FLOAT_EQ(v.y, 1.0f);
+    EXPECT_FLOAT_EQ(v.z, 0.0f);
+}
+
+TEST(Vector3, UnitVectorAlongZ) {
+    const auto v = engine::Vector3::Z();
+
+    EXPECT_FLOAT_EQ(v.x, 0.0f);
+    EXPECT_FLOAT_EQ(v.y, 0.0f);
+    EXPECT_FLOAT_EQ(v.z, 1.0f);
+}
+
+#pragma endregion
+
 #pragma region Component Access
 
 TEST(Vector3, ComponentAccessDirect) {
