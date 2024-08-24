@@ -5,6 +5,7 @@ set(SOURCE_CODE
     "core/window.cpp"
     "core/window_impl.cpp"
     "core/window_impl.hpp"
+    "math/euler.cpp"
     "math/matrix3.cpp"
     "math/matrix4.cpp"
     "math/projection.cpp"
@@ -23,6 +24,7 @@ set(SOURCE_CODE
 set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"
+    "${PUBLIC_HEADERS_DIR}/math/euler.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix4.hpp"
     "${PUBLIC_HEADERS_DIR}/math/projection.hpp"

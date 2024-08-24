@@ -69,6 +69,18 @@ auto Node::Scale(float value) -> void {
     local_transform_.Scale(value);
 }
 
+auto Node::RotateX(float distance) -> void {
+    local_transform_.Rotate(Vector3::X(), distance);
+}
+
+auto Node::RotateY(float distance) -> void {
+    local_transform_.Rotate(Vector3::Y(), distance);
+}
+
+auto Node::RotateZ(float distance) -> void {
+    local_transform_.Rotate(Vector3::Z(), distance);
+}
+
 auto Node::TranslateX(float distance) -> void {
     local_transform_.Translate(Vector3::X(), distance);
 }

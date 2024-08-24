@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/math/euler.hpp"
 #include "engine/math/matrix4.hpp"
 #include "engine/math/vector3.hpp"
 
@@ -21,6 +22,14 @@ public:
      *
      */
     auto Scale(float value) -> void;
+
+    /**
+     * @brief Applies a rotation transformation around a specified axis.
+     *
+     * @param axis The axis to rotate around. Must be (1,0,0), (0,1,0), or (0,0,1).
+     * @param angle The angle to rotate by, in radians.
+     */
+    auto Rotate(const Vector3& axis, float angle) -> void;
 
     /**
      * @brief Applies a translation transformation.
@@ -59,6 +68,9 @@ private:
 
     /// @brief The scale vector representing scaling.
     Vector3 scale_ {1.0f};
+
+    /// @brief The Euler object representing rotations.
+    Euler euler_ {};
 };
 
 }

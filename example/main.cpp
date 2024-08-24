@@ -27,6 +27,7 @@ auto main() -> int {
 
     parent_node->Scale(0.5f);
     parent_node->TranslateX(-0.2f);
+    parent_node->RotateZ(0.5f);
     child_node_1->Scale(0.3f);
     child_node_1->TranslateX(0.2f);
     child_node_2->Scale(0.7f);

@@ -68,6 +68,27 @@ public:
     auto Scale(float value) -> void;
 
     /**
+     * @brief Rotates the node around the X axis.
+     *
+     * @param angle The angle to rotate around the X axis, in radians.
+     */
+    auto RotateX(float angle) -> void;
+
+    /**
+     * @brief Rotates the node around the Y axis.
+     *
+     * @param angle The angle to rotate around the Y axis, in radians.
+     */
+    auto RotateY(float angle) -> void;
+
+    /**
+     * @brief Rotates the node around the Z axis.
+     *
+     * @param angle The angle to rotate around the Z axis, in radians.
+     */
+    auto RotateZ(float angle) -> void;
+
+    /**
      * @brief Translates the node along the X axis.
      *
      * @param distance The translation distance.
