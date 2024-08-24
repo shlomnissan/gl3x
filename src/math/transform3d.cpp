@@ -16,7 +16,7 @@ auto Transform3D::Translate(const Vector3& axis, float distance) -> void {
     is_dirty_ = true;
 }
 
-auto Transform3D::Get() -> Matrix4 {
+auto Transform3D::ToMatrix() -> Matrix4 {
     if (is_dirty_) {
         transform_ = Matrix4 {1.0f};
         transform_ = translate(transform_, position_);

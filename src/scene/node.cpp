@@ -39,9 +39,9 @@ auto Node::GetWorldTransform() const -> Matrix4 {
 auto Node::UpdateTransforms() -> void {
     if (ShouldUpdateTransform()) {
         if (parent_ == nullptr) {
-            world_transform_ = local_transform_.Get();
+            world_transform_ = local_transform_.ToMatrix();
         } else {
-            world_transform_ = parent_->GetWorldTransform() * local_transform_.Get();
+            world_transform_ = parent_->GetWorldTransform() * local_transform_.ToMatrix();
         }
         // when update_children_ is set to true, we are ensuring that all the
         // nodes in this node’s subtree will update their world transforms,

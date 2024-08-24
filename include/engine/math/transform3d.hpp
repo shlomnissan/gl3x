@@ -38,7 +38,7 @@ public:
      *
      * @return The transformation matrix representing the current scaling and translation.
      */
-    [[nodiscard]] auto Get() -> Matrix4;
+    [[nodiscard]] auto ToMatrix() -> Matrix4;
 
     /**
      * @brief Checks if the transformation matrix is dirty.
