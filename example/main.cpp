@@ -18,25 +18,18 @@ auto main() -> int {
     auto renderer = engine::Renderer {window.width(), window.height()};
 
     auto scene = engine::Scene {};
-    auto parent_node = std::make_shared<engine::Node>();
-    auto child_node_1 = std::make_shared<engine::Node>();
-    auto child_node_2 = std::make_shared<engine::Node>();
+    auto node = std::make_shared<engine::Node>();
+    node->Scale(0.5f);
+    scene.Add(node);
 
-    parent_node->Add(child_node_1);
-    parent_node->Add(child_node_2);
-
-    parent_node->Scale(0.5f);
-    parent_node->TranslateX(-0.2f);
-    parent_node->RotateZ(0.5f);
-    child_node_1->Scale(0.3f);
-    child_node_1->TranslateX(0.2f);
-    child_node_2->Scale(0.7f);
-    child_node_2->TranslateX(1.0f);
-
-    scene.Add(parent_node);
+    auto child = std::make_shared<engine::Node>();
+    child->Scale(0.6f);
+    child->TranslateX(0.5f);
+    node->Add(child);
 
     timer.Start();
     window.Start([&](const double _){
+        node->RotateY(static_cast<float>(timer.GetElapsedSeconds()));
         renderer.render(scene);
     });
 
