@@ -73,6 +73,15 @@ private:
     RotationOrder order_ = default_order;
 
     friend class Transform3D; ///< Allows `Transform3D` to access private members.
+
+   /**
+    * @brief Checks if two Euler objects are equal, component-wise.
+    *
+    * @param a The first Euler object to compare.
+    * @param b The second Euler object to compare.
+    * @return bool `true` if the Euler objcets are equal, `false` otherwise.
+    */
+    friend bool operator==(const Euler& a, const Euler& b) = default;
 };
 
 }

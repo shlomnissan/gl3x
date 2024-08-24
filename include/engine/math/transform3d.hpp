@@ -71,6 +71,15 @@ private:
 
     /// @brief The Euler object representing rotations.
     Euler euler_ {};
+
+   /**
+    * @brief Checks if two Transform objects are equal, component-wise.
+    *
+    * @param a The first Transform object to compare.
+    * @param b The second Transform object to compare.
+    * @return bool `true` if the Euler objcets are equal, `false` otherwise.
+    */
+    friend bool operator==(const Transform3D& a, const Transform3D& b) = default;
 };
 
 }
