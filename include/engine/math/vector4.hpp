@@ -50,6 +50,7 @@ public:
      *
      * @return float The length of the vector.
      */
+    [[nodiscard]]
     auto length() const -> float;
 
     /**
@@ -58,6 +59,7 @@ public:
      * @param i The index of the component to access (0, 1, 2, or 3).
      * @return float& A reference to the component at the specified index.
      */
+    [[nodiscard]]
     auto& operator[](int i) {
         assert(i >= 0 && i < 4);
         return (reinterpret_cast<float*>(this))[i];
@@ -69,6 +71,7 @@ public:
      * @param i The index of the component to access (0, 1, 2, or 3).
      * @return const float& A const reference to the component at the specified index.
      */
+    [[nodiscard]]
     const auto& operator[](int i) const {
         assert(i >= 0 && i < 4);
         return (reinterpret_cast<const float*>(this))[i];
@@ -92,7 +95,7 @@ public:
  * @param b The second vector.
  * @return Vector4 A new vector that is the component-wise sum of the two vectors.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto operator+(const Vector4& a, const Vector4& b) {
     return Vector4 {a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w};
 }
@@ -105,7 +108,7 @@ auto operator+(const Vector4& a, const Vector4& b) {
  * @param b The vector to subtract.
  * @return Vector4 A new vector that is the component-wise difference of the two vectors.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto operator-(const Vector4& a, const Vector4& b) {
     return Vector4 {a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w};
 }
@@ -118,7 +121,7 @@ auto operator-(const Vector4& a, const Vector4& b) {
  * @param n The scalar value to multiply with.
  * @return Vector4 A new vector that is the result of scaling the original vector.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto operator*(const Vector4& v, float n) {
     return Vector4 {v.x * n, v.y * n, v.z * n, v.w * n};
 }
@@ -131,7 +134,7 @@ auto operator*(const Vector4& v, float n) {
  * @param v The vector to be scaled.
  * @return Vector4 A new vector that is the result of scaling the original vector.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto operator*(float n, const Vector4& v) {
     return v * n;
 }
@@ -144,7 +147,7 @@ auto operator*(float n, const Vector4& v) {
  * @param n The scalar value to divide by.
  * @return Vector4 A new vector that is the result of dividing the original vector by the scalar.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto operator/(const Vector4& v, float n) {
     n = 1.0 / n;
     return Vector4 {v.x * n, v.y * n, v.z * n, v.w * n};
@@ -158,7 +161,7 @@ auto operator/(const Vector4& v, float n) {
  * @param b The second vector.
  * @return float A scalar value that is the result of the dot product of the two input vectors.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto dot(const Vector4& a, const Vector4& b) {
     return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
 }
@@ -171,7 +174,7 @@ auto dot(const Vector4& a, const Vector4& b) {
  * @return Vector4 A new vector that is the normalized version of the input vector.
  *         If the input vector has zero length, returns a zero vector.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto normalize(const Vector4& v) {
     const auto len = v.length();
     if (len == 0.0f) {

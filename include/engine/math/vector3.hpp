@@ -47,6 +47,7 @@ public:
      *
      * @return Vector3 A `Vector3` instance representing the X unit vector.
      */
+    [[nodiscard]]
     static auto X() { return Vector3 {1.0f, 0.0f, 0.0f}; }
 
     /**
@@ -54,6 +55,7 @@ public:
      *
      * @return Vector3 A `Vector3` instance representing the Y unit vector.
      */
+    [[nodiscard]]
     static auto Y() { return Vector3 {0.0f, 1.0f, 0.0f}; }
 
     /**
@@ -61,6 +63,7 @@ public:
      *
      * @return Vector3 A `Vector3` instance representing the Z unit vector.
      */
+    [[nodiscard]]
     static auto Z() { return Vector3 {0.0f, 0.0f, 1.0f}; }
 
     /**
@@ -68,6 +71,7 @@ public:
      *
      * @return float The length of the vector.
      */
+    [[nodiscard]]
     auto length() const -> float;
 
     /**
@@ -76,6 +80,7 @@ public:
      * @param i The index of the component to access (0, 1, or 2).
      * @return float& A reference to the component at the specified index.
      */
+    [[nodiscard]]
     auto& operator[](int i) {
         assert(i >= 0 && i < 3);
         return (reinterpret_cast<float*>(this))[i];
@@ -87,6 +92,7 @@ public:
      * @param i The index of the component to access (0, 1, or 2).
      * @return const float& A const reference to the component at the specified index.
      */
+    [[nodiscard]]
     const auto& operator[](int i) const {
         assert(i >= 0 && i < 3);
         return (reinterpret_cast<const float*>(this))[i];
@@ -110,7 +116,7 @@ public:
  * @param b The second vector.
  * @return Vector3 A new vector that is the component-wise sum of the two vectors.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto operator+(const Vector3& a, const Vector3& b) {
     return Vector3 {a.x + b.x, a.y + b.y, a.z + b.z};
 }
@@ -123,7 +129,7 @@ auto operator+(const Vector3& a, const Vector3& b) {
  * @param b The vector to subtract.
  * @return Vector3 A new vector that is the component-wise difference of the two vectors.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto operator-(const Vector3& a, const Vector3& b) {
     return Vector3 {a.x - b.x, a.y - b.y, a.z - b.z};
 }
@@ -136,7 +142,7 @@ auto operator-(const Vector3& a, const Vector3& b) {
  * @param n The scalar value to multiply with.
  * @return Vector3 A new vector that is the result of scaling the original vector.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto operator*(const Vector3& v, float n) {
     return Vector3 {v.x * n, v.y * n, v.z * n};
 }
@@ -149,7 +155,7 @@ auto operator*(const Vector3& v, float n) {
  * @param v The vector to be scaled.
  * @return Vector3 A new vector that is the result of scaling the original vector.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto operator*(float n, const Vector3& v) {
     return v * n;
 }
@@ -162,7 +168,7 @@ auto operator*(float n, const Vector3& v) {
  * @param n The scalar value to divide by.
  * @return Vector3 A new vector that is the result of dividing the original vector by the scalar.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto operator/(const Vector3& v, float n) {
     n = 1.0 / n;
     return Vector3 {v.x * n, v.y * n, v.z * n};
@@ -176,7 +182,7 @@ auto operator/(const Vector3& v, float n) {
  * @param b The second vector.
  * @return Vector3 A new vector that is the result of the cross product of the two input vectors.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto cross(const Vector3& a, const Vector3& b) {
     return Vector3 {
         a.y * b.z - a.z * b.y,
@@ -193,7 +199,7 @@ auto cross(const Vector3& a, const Vector3& b) {
  * @param b The second vector.
  * @return float A scalar value that is the result of the dot product of the two input vectors.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto dot(const Vector3& a, const Vector3& b) {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
@@ -206,7 +212,7 @@ auto dot(const Vector3& a, const Vector3& b) {
  * @return Vector3 A new vector that is the normalized version of the input vector.
  *         If the input vector has zero length, returns a zero vector.
  */
-inline ENGINE_EXPORT
+[[nodiscard]] inline ENGINE_EXPORT
 auto normalize(const Vector3& v) {
     const auto len = v.length();
     if (len == 0.0f) {
