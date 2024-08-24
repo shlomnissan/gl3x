@@ -48,7 +48,7 @@ TEST(Vector4, ComponentAccessRandomAccessOperator) {
     EXPECT_FLOAT_EQ(v[1], 2.0f);
     EXPECT_FLOAT_EQ(v[2], 3.0f);
     EXPECT_FLOAT_EQ(v[3], 4.0f);
-    EXPECT_DEATH({ v[4]; }, ".*Assertion failed: i >= 0 && i < 4.*");
+    EXPECT_DEATH({ v[4]; }, ".*i >= 0 && i < 4.*");
 }
 
 #pragma endregion
@@ -248,6 +248,28 @@ TEST(Vector4, NormalizeZeroVector) {
     const auto v = engine::Vector4 {0.0f, 0.0f, 0.0f, 0.0f};
 
     EXPECT_VEC4_EQ(engine::normalize(v), {0.0f, 0.0f, 0.0f, 0.0f});
+}
+
+#pragma endregion
+
+#pragma region Equality Operator
+
+TEST(Vector4, EqualityOperator) {
+    const auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 1.0f};
+    const auto v2 = engine::Vector4 {1.0f, 2.0f, 3.0f, 1.0f};
+    const auto v3 = engine::Vector4 {4.0f, 5.0f, 6.0f, 1.0f};
+
+    EXPECT_TRUE(v1 == v2);
+    EXPECT_FALSE(v1 == v3);
+}
+
+TEST(Vector4, InequalityOperator) {
+    const auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 1.0f};
+    const auto v2 = engine::Vector4 {1.0f, 2.0f, 3.0f, 1.0f};
+    const auto v3 = engine::Vector4 {4.0f, 5.0f, 6.0f, 1.0f};
+
+    EXPECT_FALSE(v1 != v2);
+    EXPECT_TRUE(v1 != v3);
 }
 
 #pragma endregion

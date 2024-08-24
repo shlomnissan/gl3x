@@ -73,6 +73,15 @@ public:
         assert(i >= 0 && i < 4);
         return (reinterpret_cast<const float*>(this))[i];
     }
+
+    /**
+    * @brief Checks if two vectors are equal, component-wise.
+    *
+    * @param a The first vector to compare.
+    * @param b The second vector to compare.
+    * @return bool `true` if the vectors are equal, `false` otherwise.
+    */
+    friend bool operator==(const Vector4& a, const Vector4& b) = default;
 };
 
 /**

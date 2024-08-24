@@ -74,7 +74,7 @@ TEST(Vector3, ComponentAccessRandomAccessOperator) {
     EXPECT_FLOAT_EQ(v[0], 1.0f);
     EXPECT_FLOAT_EQ(v[1], 2.0f);
     EXPECT_FLOAT_EQ(v[2], 3.0f);
-    EXPECT_DEATH({ v[3]; }, ".*Assertion failed: i >= 0 && i < 3.*");
+    EXPECT_DEATH({ v[3]; }, ".*i >= 0 && i < 3.*");
 }
 
 #pragma endregion
@@ -306,6 +306,28 @@ TEST(Vector3, NormalizeZeroVector) {
     const auto v = engine::Vector3 {0.0f, 0.0f, 0.0f};
 
     EXPECT_VEC3_EQ(engine::normalize(v), {0.0f, 0.0f, 0.0f});
+}
+
+#pragma endregion
+
+#pragma region Equality Operator
+
+TEST(Vector3, EqualityOperator) {
+    const auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    const auto v2 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    const auto v3 = engine::Vector3 {4.0f, 5.0f, 6.0f};
+
+    EXPECT_TRUE(v1 == v2);
+    EXPECT_FALSE(v1 == v3);
+}
+
+TEST(Vector3, InequalityOperator) {
+    const auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    const auto v2 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    const auto v3 = engine::Vector3 {4.0f, 5.0f, 6.0f};
+
+    EXPECT_FALSE(v1 != v2);
+    EXPECT_TRUE(v1 != v3);
 }
 
 #pragma endregion

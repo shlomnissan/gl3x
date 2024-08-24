@@ -112,6 +112,15 @@ public:
 private:
     /// @brief Internal storage for the matrix elements in row-major order.
     float n[3][3];
+
+    /**
+    * @brief Checks if two matrices are equal, component-wise.
+    *
+    * @param a The first matrix to compare.
+    * @param b The second matrix to compare.
+    * @return bool `true` if the matrices are equal, `false` otherwise.
+    */
+    friend bool operator==(const Matrix3& a, const Matrix3& b) = default;
 };
 
 /**

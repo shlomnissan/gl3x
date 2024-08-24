@@ -89,3 +89,55 @@ TEST(Matrix4, MultiplicationMatrix) {
 }
 
 #pragma endregion
+
+#pragma region Equality Operator
+
+TEST(Matrix4, EqualityOperator) {
+    const auto m1 = engine::Matrix4 {
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        4.0f, 3.0f, 2.0f, 1.0f,
+        8.0f, 7.0f, 6.0f, 5.0f,
+    };
+    const auto m2 = engine::Matrix4 {
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        4.0f, 3.0f, 2.0f, 1.0f,
+        8.0f, 7.0f, 6.0f, 5.0f,
+    };
+    const auto m3 = engine::Matrix4 {
+        1.0f, 5.0f, 1.0f, 8.0f,
+        2.0f, 1.0f, 3.0f, 1.0f,
+        1.0f, 5.0f, 4.0f, 2.0f,
+        9.0f, 6.0f, 1.0f, 3.0f
+    };
+
+    EXPECT_TRUE(m1 == m2);
+    EXPECT_FALSE(m1 == m3);
+}
+
+TEST(Matrix4, InequalityOperator) {
+    const auto m1 = engine::Matrix4 {
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        4.0f, 3.0f, 2.0f, 1.0f,
+        8.0f, 7.0f, 6.0f, 5.0f,
+    };
+    const auto m2 = engine::Matrix4 {
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        4.0f, 3.0f, 2.0f, 1.0f,
+        8.0f, 7.0f, 6.0f, 5.0f,
+    };
+    const auto m3 = engine::Matrix4 {
+        1.0f, 5.0f, 1.0f, 8.0f,
+        2.0f, 1.0f, 3.0f, 1.0f,
+        1.0f, 5.0f, 4.0f, 2.0f,
+        9.0f, 6.0f, 1.0f, 3.0f
+    };
+
+    EXPECT_FALSE(m1 != m2);
+    EXPECT_TRUE(m1 != m3);
+}
+
+#pragma endregion
