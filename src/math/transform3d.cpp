@@ -20,11 +20,11 @@ auto Transform3D::Translate(const Vector3& axis, float distance) -> void {
 auto Transform3D::Rotate(const Vector3& axis, float angle) -> void {
     assert(axis == Vector3::X() || axis == Vector3::Y() || axis == Vector3::Z());
     if (axis == Vector3::X()) {
-        euler_.pitch_ = angle;
+        euler_.pitch_ += angle;
     }else if (axis == Vector3::Y()) {
-        euler_.yaw_ = angle;
+        euler_.yaw_ += angle;
     } else if (axis == Vector3::Z()) {
-        euler_.roll_ = angle;
+        euler_.roll_ += angle;
     }
     is_dirty_ = true;
 }

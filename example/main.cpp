@@ -3,7 +3,6 @@
 
 #include <array>
 
-#include <engine/core/timer.hpp>
 #include <engine/core/window.hpp>
 #include <engine/scene/scene.hpp>
 #include <engine/scene/node.hpp>
@@ -14,7 +13,6 @@
 
 auto main() -> int {
     auto window = engine::Window {{.title = "Example"}};
-    auto timer = engine::Timer {};
     auto renderer = engine::Renderer {window.width(), window.height()};
 
     auto scene = engine::Scene {};
@@ -27,9 +25,9 @@ auto main() -> int {
     child->TranslateX(0.5f);
     node->Add(child);
 
-    timer.Start();
     window.Start([&](const double _){
-        node->RotateY(static_cast<float>(timer.GetElapsedSeconds()));
+        node->RotateX(0.01f);
+        node->RotateY(0.01f);
         renderer.render(scene);
     });
 
