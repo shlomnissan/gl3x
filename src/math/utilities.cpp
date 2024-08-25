@@ -4,7 +4,6 @@
 #include "engine/math/utilities.hpp"
 
 namespace engine::math {
-
 /**
  * @brief Converts degrees to radians.
  * 
