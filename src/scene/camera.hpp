@@ -10,13 +10,15 @@ namespace engine {
 
 class Camera : public Node {
 public:
-    virtual auto updateProjectionTransform() -> void = 0;
+    virtual auto UpdateProjectionTransform() -> void = 0;
 
-    virtual ~Camera() = default; 
+    virtual ~Camera() = default;
 
-private:
+protected:
+    float near_;
+    float far_;
+
     Matrix4 projection_transform_;
-
     Matrix4 world_transform_inverse_;
 };
 

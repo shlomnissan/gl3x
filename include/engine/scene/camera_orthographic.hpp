@@ -8,20 +8,24 @@
 
 namespace engine {
 
-class ENGINE_EXPORT CameraPerspective : public Camera {
+class ENGINE_EXPORT CameraOrthographic : public Camera {
 public:
-    CameraPerspective(
-        float fov = 60.0f,
-        float aspect = 1.0f,
+    CameraOrthographic(
+        float left = 60.0f,
+        float right = 1.0f,
+        float bottom = 0.1f,
+        float top = 1000.0f,
         float near = 0.1f,
-        float far = 1000.0f
+        float far = 100.0f
     );
 
     auto UpdateProjectionTransform() -> void override;
 
 private:
-    float fov_;
-    float aspect_;
+    float left_;
+    float right_;
+    float bottom_;
+    float top_;
 };
 
 }
