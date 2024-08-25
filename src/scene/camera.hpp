@@ -10,6 +10,10 @@ namespace engine {
 
 class Camera : public Node {
 public:
+    auto GetProjectionMatrix() const { return projection_transform_; }
+
+    auto GetViewMatrix() const { return view_transform_; }
+
     virtual ~Camera() = default;
 
 protected:

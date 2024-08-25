@@ -4,6 +4,7 @@
 #include <array>
 
 #include <engine/core/window.hpp>
+#include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/node.hpp>
 #include <engine/scene/scene.hpp>
 
@@ -14,6 +15,8 @@
 auto main() -> int {
     auto window = engine::Window {{.title = "Example"}};
     auto renderer = engine::Renderer {window.Width(), window.Height()};
+    // TODO: engine::Radians(60.0f)
+    auto camera = engine::CameraPerspective {45.0f, window.AspectRatio()};
 
     auto scene = engine::Scene {};
     auto node = std::make_shared<engine::Node>();
@@ -28,7 +31,7 @@ auto main() -> int {
     window.Start([&](const double _){
         node->RotateX(0.01f);
         node->RotateY(0.01f);
-        renderer.render(scene);
+        renderer.render(scene, &camera);
     });
 
     return 0;

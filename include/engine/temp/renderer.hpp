@@ -19,6 +19,8 @@
 #include "engine/math/matrix4.hpp"
 #include "engine/scene/scene.hpp"
 
+#include "scene/camera.hpp"
+
 namespace engine {
 
 struct ENGINE_EXPORT Renderer {
@@ -39,9 +41,6 @@ struct ENGINE_EXPORT Renderer {
         glEnable(GL_DEPTH_TEST);
         glViewport(0, 0, width, height);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-        auto ratio = static_cast<float>(width) / static_cast<float>(height);
-        shader_.SetUniform("Projection", engine::perspective(45.0f, ratio, 0.1f, 100.0f));
     }
 
     auto drawCube(const engine::Matrix4 transform) {
@@ -57,11 +56,14 @@ struct ENGINE_EXPORT Renderer {
         }
     }
 
-    auto render(Scene& scene) {
+    auto render(Scene& scene, Camera* camera) {
         glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         scene.UpdateTransforms();
+
+        shader_.Use();
+        shader_.SetUniform("Projection", camera->GetProjectionMatrix());
 
         renderObject(&scene);
     }
