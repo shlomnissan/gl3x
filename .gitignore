@@ -14,3 +14,4 @@
 src/shaders/headers/*.h
 build/*
 CMakeUserPresets.json
+CMakePresets.json
