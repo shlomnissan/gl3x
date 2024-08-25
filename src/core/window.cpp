@@ -17,9 +17,14 @@ auto Window::Start(const std::function<void(const double)>& tick) const -> void 
     impl_->Start(tick);
 }
 
-auto Window::width() const -> int { return impl_->BufferWidth(); }
+auto Window::Width() const -> int { return impl_->BufferWidth(); }
 
-auto Window::height() const -> int { return impl_->BufferHeight(); }
+auto Window::Height() const -> int { return impl_->BufferHeight(); }
+
+auto Window::AspectRatio() const -> float {
+  return static_cast<float>(impl_->BufferWidth()) /
+         static_cast<float>(impl_->BufferHeight());
+};
 
 Window::~Window() = default;
 

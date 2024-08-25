@@ -13,7 +13,7 @@
 
 auto main() -> int {
     auto window = engine::Window {{.title = "Example"}};
-    auto renderer = engine::Renderer {window.width(), window.height()};
+    auto renderer = engine::Renderer {window.Width(), window.Height()};
 
     auto scene = engine::Scene {};
     auto node = std::make_shared<engine::Node>();

@@ -48,14 +48,21 @@ public:
      *
      * @return The width of the window in pixels.
      */
-    [[nodiscard]] auto width() const -> int;
+    [[nodiscard]] auto Width() const -> int;
 
     /**
      * @brief Gets the height of the window.
      *
      * @return The height of the window in pixels.
      */
-    [[nodiscard]] auto height() const -> int;
+    [[nodiscard]] auto Height() const -> int;
+
+    /**
+     * @brief Gets the aspect ratio of the window.
+     *
+     * @return The aspect ratio of the window in pixels.
+     */
+    [[nodiscard]] auto AspectRatio() const -> float;
 
     /**
     * @brief Starts the main loop of the window.
