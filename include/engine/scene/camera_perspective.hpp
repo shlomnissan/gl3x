@@ -12,16 +12,16 @@ class ENGINE_EXPORT CameraPerspective : public Camera {
 public:
     CameraPerspective(
         float fov = 60.0f,
-        float aspect = 1.0f,
+        float aspect = 1.77f, // 16:9
         float near = 0.1f,
         float far = 1000.0f
     );
 
-    auto UpdateProjectionTransform() -> void override;
-
 private:
     float fov_;
     float aspect_;
+
+    auto UpdateProjectionTransform() -> void override;
 };
 
 }

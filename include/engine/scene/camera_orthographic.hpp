@@ -19,13 +19,13 @@ public:
         float far = 100.0f
     );
 
-    auto UpdateProjectionTransform() -> void override;
-
 private:
     float left_;
     float right_;
     float bottom_;
     float top_;
+
+    auto UpdateProjectionTransform() -> void override;
 };
 
 }

@@ -10,8 +10,6 @@ namespace engine {
 
 class Camera : public Node {
 public:
-    virtual auto UpdateProjectionTransform() -> void = 0;
-
     virtual ~Camera() = default;
 
 protected:
@@ -19,7 +17,11 @@ protected:
     float far_;
 
     Matrix4 projection_transform_;
-    Matrix4 world_transform_inverse_;
+
+    // Inverse of the world transform attached to the node
+    Matrix4 view_transform_;
+
+    virtual auto UpdateProjectionTransform() -> void = 0;
 };
 
 }

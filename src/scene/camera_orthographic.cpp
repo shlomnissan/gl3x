@@ -23,6 +23,15 @@ namespace engine {
     }
 
     auto CameraOrthographic::UpdateProjectionTransform() -> void {
-        // TODO: generate projection transform (projection_transform_)
+        projection_transform_ = Matrix4 {1.0f};
+        projection_transform_[0] = {2.0f / (right_ - left_), 0.0f, 0.0f, 0.0f};
+        projection_transform_[1] = {0.0f, 2.0f / (top_ - bottom_), 0.0f, 0.0f};
+        projection_transform_[2] = {0.0f, 0.0f, -2.0f / (far_ - near_), 0.0f};
+        projection_transform_[3] = {
+            -(right_ + left_) / (right_ - left_),
+            -(top_ + bottom_) / (top_ - bottom_),
+            -(far_ + near_) / (far_ - near_),
+            1.0f
+        };
     }
 }

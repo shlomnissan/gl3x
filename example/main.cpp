@@ -4,8 +4,8 @@
 #include <array>
 
 #include <engine/core/window.hpp>
-#include <engine/scene/scene.hpp>
 #include <engine/scene/node.hpp>
+#include <engine/scene/scene.hpp>
 
 #include <engine/temp/renderer.hpp>
 
