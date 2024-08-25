@@ -43,7 +43,7 @@ struct ENGINE_EXPORT Renderer {
     }
 
     auto drawCube(const engine::Matrix4 transform) {
-        shader_.SetUniform("ModelView", camera_ * transform);
+        shader_.SetUniform("Model", camera_ * transform);
 
         cube_.Draw(shader_);
     }
@@ -59,10 +59,12 @@ struct ENGINE_EXPORT Renderer {
         glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        camera->UpdateTransforms();
         scene.UpdateTransforms();
 
         shader_.Use();
         shader_.SetUniform("Projection", camera->GetProjectionMatrix());
+        shader_.SetUniform("View", camera->GetViewMatrix());
 
         renderObject(&scene);
     }

@@ -29,7 +29,7 @@ public:
     * @param far The far clipping plane distance. Default is 1000.0f.
     */
     CameraPerspective(
-        float fov = 1.047197551196598, // 60 degrees
+        float fov = 1.047197551196598f, // 60 degrees
         float aspect = 1.77f, // 16:9
         float near = 0.1f,
         float far = 1000.0f

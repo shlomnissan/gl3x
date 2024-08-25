@@ -28,6 +28,14 @@ public:
     auto GetViewMatrix() const { return view_transform_; }
 
     /**
+     * @brief Overrides the Node class function to update the world matrix.
+     *
+     * This function updates the underlying world matrix and copies its inverse 
+     * to the view transform matrix.
+     */
+    auto UpdateTransforms() -> void override;
+
+    /**
      * @brief Virtual destructor for the Camera class.
      */
     virtual ~Camera() = default;

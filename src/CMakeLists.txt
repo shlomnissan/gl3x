@@ -13,6 +13,7 @@ set(SOURCE_CODE
     "math/utilities.cpp"
     "math/vector3.cpp"
     "math/vector4.cpp"
+    "scene/camera.cpp"
     "scene/camera.hpp"
     "scene/camera_orthographic.cpp"
     "scene/camera_perspective.cpp"

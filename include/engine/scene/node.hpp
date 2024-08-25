@@ -50,7 +50,7 @@ public:
     /**
      * @brief Updates the node's world transform and propagates updates to children.
      */
-    auto UpdateTransforms() -> void;
+    virtual auto UpdateTransforms() -> void;
 
     /**
      * @brief Retrieves the world transform matrix of the node.
@@ -109,6 +109,15 @@ public:
      */
     auto TranslateZ(float distance) -> void;
 
+protected:
+    /**
+     * @brief Determines if the node's transform should be updated.
+     *
+     * @return True if the transform is dirty or the parent requires an update.
+     */
+    [[nodiscard]]
+    auto ShouldUpdateTransform() const -> bool;
+
 private:
     /// @brief Flag indicating if children need updating.
     bool update_children_ {false};
@@ -125,13 +134,7 @@ private:
     /// @brief Node's world transform matrix.
     Matrix4 world_transform_ {1.0f};
 
-    /**
-     * @brief Determines if the node's transform should be updated.
-     *
-     * @return True if the transform is dirty or the parent requires an update.
-     */
-    [[nodiscard]]
-    auto ShouldUpdateTransform() const -> bool;
+    
 };
 
 }
