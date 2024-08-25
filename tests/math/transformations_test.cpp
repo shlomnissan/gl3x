@@ -5,8 +5,8 @@
 #include <test_helpers.hpp>
 
 #include <cmath>
-#include <numbers>
 
+#include <engine/math/utilities.hpp>
 #include <engine/math/transformations.hpp>
 
 #pragma region Scale
@@ -49,7 +49,7 @@ TEST(Transformations, ScaleUniformScaling) {
 
 TEST(Transformations, RotateX) {
     const auto m = engine::Matrix4 {1.0f};
-    const auto a = static_cast<float>(std::numbers::pi) / 6.0f;
+    const auto a = engine::math::pi / 6.0f;
     const auto c = std::cos(a);
     const auto s = std::sin(a);
 
@@ -63,7 +63,7 @@ TEST(Transformations, RotateX) {
 
 TEST(Transformations, RotateY) {
     const auto m = engine::Matrix4 {1.0f};
-    const auto a = static_cast<float>(std::numbers::pi) / 6.0f;
+    const auto a = engine::math::pi / 6.0f;
     const auto c = std::cos(a);
     const auto s = std::sin(a);
 
@@ -77,7 +77,7 @@ TEST(Transformations, RotateY) {
 
 TEST(Transformations, RotateZ) {
     const auto m = engine::Matrix4 {1.0f};
-    const auto a = static_cast<float>(std::numbers::pi) / 6.0f;
+    const auto a = engine::math::pi / 6.0f;
     const auto c = std::cos(a);
     const auto s = std::sin(a);
 
@@ -90,9 +90,9 @@ TEST(Transformations, RotateZ) {
 }
 
 TEST(Transformations, RotateXYZ) {
-    const auto a_x = static_cast<float>(std::numbers::pi) / 4.0f;
-    const auto a_y = static_cast<float>(std::numbers::pi) / 6.0f;
-    const auto a_z = static_cast<float>(std::numbers::pi) / 3.0f;
+    const auto a_x = engine::math::pi/ 4.0f;
+    const auto a_y = engine::math::pi / 6.0f;
+    const auto a_z = engine::math::pi / 3.0f;
 
     auto m = engine::Matrix4 {1.0f};
     m = engine::rotate(m, a_x, {1.0f, 0.0f, 0.0f});
