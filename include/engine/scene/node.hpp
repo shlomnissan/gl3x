@@ -109,6 +109,15 @@ public:
      */
     auto TranslateZ(float distance) -> void;
 
+    /**
+     * @brief Creates a new instance of the Node class.
+     *
+     * @return A `std::shared_ptr<Node>` pointing to the newly created instance.
+     */
+    static auto Create() {
+        return std::make_shared<Node>();
+    }
+
 protected:
     /**
      * @brief Determines if the node's transform should be updated.
@@ -133,8 +142,6 @@ private:
 
     /// @brief Node's world transform matrix.
     Matrix4 world_transform_ {1.0f};
-
-    
 };
 
 }

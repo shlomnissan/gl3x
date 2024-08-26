@@ -11,8 +11,6 @@
 
 #include <engine/temp/renderer.hpp>
 
-#include <memory>
-
 auto main() -> int {
     auto window = engine::Window {{.title = "Example"}};
     auto renderer = engine::Renderer {window.Width(), window.Height()};
@@ -21,11 +19,11 @@ auto main() -> int {
     );
 
     auto scene = engine::Scene::Create();
-    auto node = std::make_shared<engine::Node>();
+    auto node = engine::Node::Create();
     node->Scale(0.5f);
     scene->Add(node);
 
-    auto child = std::make_shared<engine::Node>();
+    auto child = engine::Node::Create();
     child->Scale(0.6f);
     child->TranslateX(0.5f);
     node->Add(child);
