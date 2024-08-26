@@ -16,12 +16,14 @@
 auto main() -> int {
     auto window = engine::Window {{.title = "Example"}};
     auto renderer = engine::Renderer {window.Width(), window.Height()};
-    auto camera = engine::CameraPerspective {engine::math::DegToRad(60.0f), window.AspectRatio()};
+    auto camera = engine::CameraPerspective::Create(
+        engine::math::DegToRad(60.0f), window.AspectRatio()
+    );
 
-    auto scene = engine::Scene {};
+    auto scene = engine::Scene::Create();
     auto node = std::make_shared<engine::Node>();
     node->Scale(0.5f);
-    scene.Add(node);
+    scene->Add(node);
 
     auto child = std::make_shared<engine::Node>();
     child->Scale(0.6f);
@@ -31,7 +33,7 @@ auto main() -> int {
     window.Start([&](const double _){
         node->RotateX(0.01f);
         node->RotateY(0.01f);
-        renderer.render(scene, &camera);
+        renderer.render(scene.get(), camera.get());
     });
 
     return 0;

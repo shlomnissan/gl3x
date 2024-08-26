@@ -2,3 +2,5 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include "engine/scene/scene.hpp"
+
+namespace engine {}
