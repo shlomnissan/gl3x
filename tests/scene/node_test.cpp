@@ -2,6 +2,7 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include <gtest/gtest.h>
+#include <test_helpers.hpp>
 
 #include <engine/scene/node.hpp>
 
@@ -32,15 +33,45 @@ TEST(Node, RemoveChild) {
 #pragma region Transformations
 
 TEST(Node, ScaleTransform) {
+    auto node = std::make_shared<engine::Node>();
+    node->Scale(2.0f);
 
+    node->UpdateTransforms();
+
+    EXPECT_MAT4_EQ(node->GetWorldTransform(), {
+        2.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 2.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 2.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
 }
 
 TEST(Node, RotateXTransform) {
+    auto node = std::make_shared<engine::Node>();
+    node->RotateZ(0.5f);
 
+    node->UpdateTransforms();
+
+    EXPECT_MAT4_NEAR(node->GetWorldTransform(), {
+        0.8f, -0.4f, 0.0f, 0.0f,
+        0.4f,  0.8f, 0.0f, 0.0f,
+        0.0f,  0.0f, 1.0f, 0.0f,
+        0.0f,  0.0f, 0.0f, 1.0f
+    }, 0.1f);
 }
 
 TEST(Node, TranslateXTransform) {
+    auto node = std::make_shared<engine::Node>();
+    node->TranslateX(5.0f);
 
+    node->UpdateTransforms();
+
+    EXPECT_MAT4_EQ(node->GetWorldTransform(), {
+        1.0f, 0.0f, 0.0f, 5.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
 }
 
 #pragma endregion
@@ -48,11 +79,34 @@ TEST(Node, TranslateXTransform) {
 #pragma region Update Transforms
 
 TEST(Node, UpdateTransformsWithoutParent) {
+    auto node = std::make_shared<engine::Node>();
+    node->Scale(2.0f);
 
+    node->UpdateTransforms();
+
+    EXPECT_MAT4_EQ(node->GetWorldTransform(), {
+        2.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 2.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 2.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
 }
 
 TEST(Node, UpdateTransformsWithParent) {
+    auto parent = engine::Node::Create();
+    auto child = engine::Node::Create();
 
+    parent->Scale(2.0f);
+    parent->Add(child);
+
+    parent->UpdateTransforms();
+
+    EXPECT_MAT4_EQ(child->GetWorldTransform(), {
+        2.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 2.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 2.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
 }
 
 #pragma endregion
@@ -60,11 +114,10 @@ TEST(Node, UpdateTransformsWithParent) {
 #pragma region ShouldUpdate Checks
 
 TEST(Node, ShouldUpdateTransformWhenDirty) {
+    auto node = engine::Node::Create();
+    node->Scale(0.5f);
 
-}
-
-TEST(Node, ShouldUpdateTransformWhenParentDirty) {
-
+    EXPECT_TRUE(node->ShouldUpdateTransform());
 }
 
 #pragma endregion
@@ -72,11 +125,26 @@ TEST(Node, ShouldUpdateTransformWhenParentDirty) {
 #pragma region Edge Cases
 
 TEST(Node, AddChildWithExistingParent) {
+    auto parent1 = engine::Node::Create();
+    auto parent2 = engine::Node::Create();
+    auto child = engine::Node::Create();
 
+    parent1->Add(child);
+    parent2->Add(child);
+
+    EXPECT_EQ(parent1->Children().size(), 0);
+    EXPECT_EQ(parent2->Children().size(), 1);
+    EXPECT_EQ(child->Parent(), parent2.get());
 }
 
 TEST(Node, RemoveNonexistentChild) {
+    auto parent = engine::Node::Create();
+    auto child = engine::Node::Create();
 
+    parent->Remove(child);
+
+    EXPECT_TRUE(parent->Children().empty());
+    EXPECT_EQ(child->Parent(), nullptr);
 }
 
 #pragma endregion

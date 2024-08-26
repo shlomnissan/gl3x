@@ -40,12 +40,28 @@ public:
     auto Children() const -> const std::vector<std::shared_ptr<Node>>&;
 
     /**
+     * @brief Retrieves the parent node of this node.
+     *
+     * @return A pointer to the parent node. If this node has no parent, the return value will be a null pointer.
+     */
+    [[nodiscard]]
+    auto Parent() const -> const Node*;
+
+    /**
      * @brief Checks if the node's children should be updated.
      *
      * @return True if children need updating, false otherwise.
      */
     [[nodiscard]]
     auto ShouldUpdateChildren() const -> bool;
+
+    /**
+     * @brief Determines if the node's transform should be updated.
+     *
+     * @return True if the transform is dirty or the parent requires an update.
+     */
+    [[nodiscard]]
+    auto ShouldUpdateTransform() const -> bool;
 
     /**
      * @brief Updates the node's world transform and propagates updates to children.
@@ -117,15 +133,6 @@ public:
     static auto Create() {
         return std::make_shared<Node>();
     }
-
-protected:
-    /**
-     * @brief Determines if the node's transform should be updated.
-     *
-     * @return True if the transform is dirty or the parent requires an update.
-     */
-    [[nodiscard]]
-    auto ShouldUpdateTransform() const -> bool;
 
 private:
     /// @brief Flag indicating if children need updating.

@@ -28,6 +28,10 @@ auto Node::Children() const -> const std::vector<std::shared_ptr<Node>>& {
     return children_;
 }
 
+auto Node::Parent() const -> const Node* {
+    return parent_;
+}
+
 auto Node::ShouldUpdateChildren() const -> bool {
     return update_children_;
 }
