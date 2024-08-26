@@ -6,8 +6,8 @@
 namespace engine {
 
 auto Camera::UpdateTransforms() -> void {
-    const auto view_needs_update = ShouldUpdateTransform();
-    UpdateTransforms();
+    const auto view_needs_update = Node::ShouldUpdateTransform();
+    Node::UpdateTransforms();
     if (view_needs_update) {
         // TODO: get the inverse of the world transform
         this->view_transform_ = GetWorldTransform();

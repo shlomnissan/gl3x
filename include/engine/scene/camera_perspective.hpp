@@ -11,7 +11,7 @@ namespace engine {
 
 /**
  * @brief A perspective camera class.
- * 
+ *
  * This class represents a perspective camera in the scene. It extends the Camera class
  * and provides functionality specific to a perspective projection.
  */
@@ -19,10 +19,10 @@ class ENGINE_EXPORT CameraPerspective : public Camera {
 public:
     /**
     * @brief Constructs a CameraPerspective object.
-    * 
+    *
     * Initializes a perspective camera with the specified field of view (in radians), aspect ratio,
     * and near and far clipping planes.
-    * 
+    *
     * @param fov The field of view in radians. Default is 1.047197551196598f (60 degrees).
     * @param aspect The aspect ratio of the camera (width/height). Default is 1.77f (16:9).
     * @param near The near clipping plane distance. Default is 0.1f.
@@ -43,7 +43,7 @@ private:
 
     /**
      * @brief Updates the projection matrix for the perspective camera.
-     * 
+     *
      * This method overrides the pure virtual function in the Camera class.
      */
     auto UpdateProjectionTransform() -> void override;
