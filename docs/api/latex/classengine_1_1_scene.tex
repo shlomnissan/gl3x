@@ -15,6 +15,16 @@ Inheritance diagram for engine\+::Scene\+:\begin{figure}[H]
 \includegraphics[height=2.000000cm]{classengine_1_1_scene}
 \end{center}
 \end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static auto \mbox{\hyperlink{classengine_1_1_scene_aa45d6cf481ba3997c6b1734c445242fe}{Create}} ()
+\begin{DoxyCompactList}\small\item\em Creates a new instance of the \doxylink{classengine_1_1_scene}{Scene} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classengine_1_1_node}{engine\+::\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+static auto \mbox{\hyperlink{classengine_1_1_node_af2f47e5c512a48d3d2f192f2dd7a56a6}{Create}} ()
+\begin{DoxyCompactList}\small\item\em Creates a new instance of the \doxylink{classengine_1_1_node}{Node} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classengine_1_1_node}{engine\+::\+Node}}}
 \begin{DoxyCompactItemize}
@@ -25,14 +35,24 @@ auto \mbox{\hyperlink{classengine_1_1_node_acc95653ab947bae00e6d2dde34587f68}{Re
 \begin{DoxyCompactList}\small\item\em Removes a child node from this node. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{classengine_1_1_node_a1a35e976f30f30d823b04aab5ccb10fc}{Children}} () const -\/$>$ const std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classengine_1_1_node}{Node}} $>$ $>$ \&
 \begin{DoxyCompactList}\small\item\em Retrieves the list of child nodes. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a2d9dbe0ea3a04c14f20e40ed1042ec37}{Parent}} () const -\/$>$ const \mbox{\hyperlink{classengine_1_1_node}{Node}} \texorpdfstring{$\ast$}{*}
+\begin{DoxyCompactList}\small\item\em Retrieves the parent node of this node. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{classengine_1_1_node_a77c5913cf8f7f22ff7409af6497d0bf9}{Should\+Update\+Children}} () const -\/$>$ bool
 \begin{DoxyCompactList}\small\item\em Checks if the node\textquotesingle{}s children should be updated. \end{DoxyCompactList}\item 
-auto {\bfseries Update\+Transforms} () -\/$>$ void
+auto \mbox{\hyperlink{classengine_1_1_node_a9c6bd75b32ed47eecb7f157626bd7909}{Should\+Update\+Transform}} () const -\/$>$ bool
+\begin{DoxyCompactList}\small\item\em Determines if the node\textquotesingle{}s transform should be updated. \end{DoxyCompactList}\item 
+virtual auto {\bfseries Update\+Transforms} () -\/$>$ void
 \begin{DoxyCompactList}\small\item\em Updates the node\textquotesingle{}s world transform and propagates updates to children. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{classengine_1_1_node_a4861785da356b7356e5a2038c16c0ae2}{Get\+World\+Transform}} () const -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
 \begin{DoxyCompactList}\small\item\em Retrieves the world transform matrix of the node. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{classengine_1_1_node_ad208fceb04322e5f3b5cb5748068ddf9}{Scale}} (float value) -\/$>$ void
 \begin{DoxyCompactList}\small\item\em Scales the node\textquotesingle{}s local transformation. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_afb8f0765aad8e4d1d35855c356ff3349}{RotateX}} (float angle) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Rotates the node around the X axis. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_a7ec977a0817184950a90e451eb2e4e16}{RotateY}} (float angle) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Rotates the node around the Y axis. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_node_afd00dd25c4b5757f7d02c73128a48540}{RotateZ}} (float angle) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Rotates the node around the Z axis. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{classengine_1_1_node_aca866ac78a64b982966eac67aa2c469e}{TranslateX}} (float distance) -\/$>$ void
 \begin{DoxyCompactList}\small\item\em Translates the node along the X axis. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{classengine_1_1_node_a2674b525ac33025ed9452619754d049a}{TranslateY}} (float distance) -\/$>$ void
@@ -43,6 +63,22 @@ auto \mbox{\hyperlink{classengine_1_1_node_a1b6c41ffd07dc653c4e6cebf7560d68a}{Tr
 
 \doxysubsection{Detailed Description}
 Represents the scene\textquotesingle{}s root node. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_scene_aa45d6cf481ba3997c6b1734c445242fe}\label{classengine_1_1_scene_aa45d6cf481ba3997c6b1734c445242fe} 
+\index{engine::Scene@{engine::Scene}!Create@{Create}}
+\index{Create@{Create}!engine::Scene@{engine::Scene}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily static auto engine\+::\+Scene\+::\+Create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Creates a new instance of the \doxylink{classengine_1_1_scene}{Scene} class. 
+
+\begin{DoxyReturn}{Returns}
+A {\ttfamily std\+::shared\+\_\+ptr\texorpdfstring{$<$}{<}\doxylink{classengine_1_1_scene}{Scene}\texorpdfstring{$>$}{>}} pointing to the newly created \doxylink{classengine_1_1_scene}{Scene} instance. 
+\end{DoxyReturn}
+
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

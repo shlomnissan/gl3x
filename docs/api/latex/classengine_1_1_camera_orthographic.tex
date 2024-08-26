@@ -1,0 +1,96 @@
+\doxysection{engine\+::Camera\+Orthographic Class Reference}
+\hypertarget{classengine_1_1_camera_orthographic}{}\label{classengine_1_1_camera_orthographic}\index{engine::CameraOrthographic@{engine::CameraOrthographic}}
+
+
+An orthographic camera class.  
+
+
+
+
+{\ttfamily \#include $<$camera\+\_\+orthographic.\+hpp$>$}
+
+Inheritance diagram for engine\+::Camera\+Orthographic\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classengine_1_1_camera_orthographic}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classengine_1_1_camera_orthographic_a60ae1ca5cf7be83ffe68719c26e578f0}{Camera\+Orthographic}} (float left, float right, float bottom, float top, float near, float far)
+\begin{DoxyCompactList}\small\item\em Constructs an orthographic camera object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static auto \mbox{\hyperlink{classengine_1_1_camera_orthographic_adca23470da738219fbaab7401e27ace5}{Create}} (float left=-\/1.\+0f, float right=1.\+0f, float bottom=-\/1.\+0f, float top=1.\+0f, float near=0.\+1f, float far=100.\+0f)
+\begin{DoxyCompactList}\small\item\em Creates a new instance of the \doxylink{classengine_1_1_camera_orthographic}{Camera\+Orthographic} class with default parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An orthographic camera class. 
+
+This class represents an orthographic camera in the scene. It extends the Camera class and provides functionality specific to an orthographic projection. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classengine_1_1_camera_orthographic_a60ae1ca5cf7be83ffe68719c26e578f0}\label{classengine_1_1_camera_orthographic_a60ae1ca5cf7be83ffe68719c26e578f0} 
+\index{engine::CameraOrthographic@{engine::CameraOrthographic}!CameraOrthographic@{CameraOrthographic}}
+\index{CameraOrthographic@{CameraOrthographic}!engine::CameraOrthographic@{engine::CameraOrthographic}}
+\doxysubsubsection{\texorpdfstring{CameraOrthographic()}{CameraOrthographic()}}
+{\footnotesize\ttfamily engine\+::\+Camera\+Orthographic\+::\+Camera\+Orthographic (\begin{DoxyParamCaption}\item[{float}]{left,  }\item[{float}]{right,  }\item[{float}]{bottom,  }\item[{float}]{top,  }\item[{float}]{near,  }\item[{float}]{far }\end{DoxyParamCaption})}
+
+
+
+Constructs an orthographic camera object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The left bound of the view volume. \\
+\hline
+{\em right} & The right bound of the view volume. \\
+\hline
+{\em bottom} & The bottom bound of the view volume. \\
+\hline
+{\em top} & The top bound of the view volume. \\
+\hline
+{\em near} & The distance to the near clipping plane. \\
+\hline
+{\em far} & The distance to the far clipping plane. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_camera_orthographic_adca23470da738219fbaab7401e27ace5}\label{classengine_1_1_camera_orthographic_adca23470da738219fbaab7401e27ace5} 
+\index{engine::CameraOrthographic@{engine::CameraOrthographic}!Create@{Create}}
+\index{Create@{Create}!engine::CameraOrthographic@{engine::CameraOrthographic}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily static auto engine\+::\+Camera\+Orthographic\+::\+Create (\begin{DoxyParamCaption}\item[{float}]{left = {\ttfamily -\/1.0f},  }\item[{float}]{right = {\ttfamily 1.0f},  }\item[{float}]{bottom = {\ttfamily -\/1.0f},  }\item[{float}]{top = {\ttfamily 1.0f},  }\item[{float}]{near = {\ttfamily 0.1f},  }\item[{float}]{far = {\ttfamily 100.0f} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Creates a new instance of the \doxylink{classengine_1_1_camera_orthographic}{Camera\+Orthographic} class with default parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The left bound of the orthographic view volume (default is -\/1.\+0f). \\
+\hline
+{\em right} & The right bound of the orthographic view volume (default is 1.\+0f). \\
+\hline
+{\em bottom} & The bottom bound of the orthographic view volume (default is -\/1.\+0f). \\
+\hline
+{\em top} & The top bound of the orthographic view volume (default is 1.\+0f). \\
+\hline
+{\em near} & The distance to the near clipping plane (default is 0.\+1f). \\
+\hline
+{\em far} & The distance to the far clipping plane (default is 100.\+0f). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A {\ttfamily std\+::shared\+\_\+ptr\texorpdfstring{$<$}{<}\doxylink{classengine_1_1_camera_orthographic}{Camera\+Orthographic}\texorpdfstring{$>$}{>}} pointing to the newly created instance. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/admin/\+One\+Drive/\+Desktop/\+Projects/engine/include/engine/scene/camera\+\_\+orthographic.\+hpp\end{DoxyCompactItemize}

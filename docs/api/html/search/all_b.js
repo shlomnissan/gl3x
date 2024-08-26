@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['remove_0',['Remove',['../classengine_1_1_node.html#acc95653ab947bae00e6d2dde34587f68',1,'engine::Node']]],
-  ['reset_1',['Reset',['../classengine_1_1_timer.html#a1e4074fa24f0cc1814240c342f77c3fa',1,'engine::Timer']]]
+  ['parameters_0',['Parameters',['../structengine_1_1_window_1_1_parameters.html',1,'engine::Window']]],
+  ['parent_1',['Parent',['../classengine_1_1_node.html#a2d9dbe0ea3a04c14f20e40ed1042ec37',1,'engine::Node']]]
 ];

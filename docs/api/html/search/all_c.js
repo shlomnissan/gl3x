@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['scale_0',['Scale',['../classengine_1_1_transform3_d.html#a1d8163ae6f447c9dbe285113c4f9798b',1,'engine::Transform3D::Scale()'],['../classengine_1_1_node.html#ad208fceb04322e5f3b5cb5748068ddf9',1,'engine::Node::Scale()']]],
-  ['scene_1',['Scene',['../classengine_1_1_scene.html',1,'engine']]],
-  ['shouldupdatechildren_2',['ShouldUpdateChildren',['../classengine_1_1_node.html#a77c5913cf8f7f22ff7409af6497d0bf9',1,'engine::Node']]],
-  ['start_3',['Start',['../classengine_1_1_timer.html#a8829a5e9b60eef0f7b684d93061c287d',1,'engine::Timer::Start()'],['../classengine_1_1_window.html#a9721b12c7280a08e68d8f16c692634cb',1,'engine::Window::Start()']]]
+  ['remove_0',['Remove',['../classengine_1_1_node.html#acc95653ab947bae00e6d2dde34587f68',1,'engine::Node']]],
+  ['reset_1',['Reset',['../classengine_1_1_timer.html#a1e4074fa24f0cc1814240c342f77c3fa',1,'engine::Timer']]],
+  ['rotate_2',['Rotate',['../classengine_1_1_transform.html#ac86469083d3bb253d596d7827f67aa5b',1,'engine::Transform']]],
+  ['rotatex_3',['RotateX',['../classengine_1_1_node.html#afb8f0765aad8e4d1d35855c356ff3349',1,'engine::Node']]],
+  ['rotatey_4',['RotateY',['../classengine_1_1_node.html#a7ec977a0817184950a90e451eb2e4e16',1,'engine::Node']]],
+  ['rotatez_5',['RotateZ',['../classengine_1_1_node.html#afd00dd25c4b5757f7d02c73128a48540',1,'engine::Node']]]
 ];

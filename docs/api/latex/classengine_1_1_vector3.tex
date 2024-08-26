@@ -46,6 +46,11 @@ float {\bfseries y}
 \Hypertarget{classengine_1_1_vector3_a2e270bef3fd71cfaa547caa26a93af00}\label{classengine_1_1_vector3_a2e270bef3fd71cfaa547caa26a93af00} 
 float {\bfseries z}
 \begin{DoxyCompactList}\small\item\em The z component of the vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classengine_1_1_vector3_a07b5429f6f3f263a0b23b9e06cf4a8a6}{operator==}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&a, const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&b)=default
+\begin{DoxyCompactList}\small\item\em Checks if two vectors are equal, component-\/wise. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Related Symbols}
 (Note that these are not member symbols.) \begin{DoxyCompactItemize}
 \item 
@@ -356,6 +361,26 @@ Divides the vector by a scalar value.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 \doxylink{classengine_1_1_vector3}{Vector3} A new vector that is the result of dividing the original vector by the scalar. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_vector3_a07b5429f6f3f263a0b23b9e06cf4a8a6}\label{classengine_1_1_vector3_a07b5429f6f3f263a0b23b9e06cf4a8a6} 
+\index{engine::Vector3@{engine::Vector3}!operator==@{operator==}}
+\index{operator==@{operator==}!engine::Vector3@{engine::Vector3}}
+\doxysubsubsection{\texorpdfstring{operator==}{operator==}}
+{\footnotesize\ttfamily bool operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Checks if two vectors are equal, component-\/wise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first vector to compare. \\
+\hline
+{\em b} & The second vector to compare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool {\ttfamily true} if the vectors are equal, {\ttfamily false} otherwise. 
 \end{DoxyReturn}
 
 

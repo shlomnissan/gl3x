@@ -1,0 +1,132 @@
+\doxysection{engine\+::Euler Class Reference}
+\hypertarget{classengine_1_1_euler}{}\label{classengine_1_1_euler}\index{engine::Euler@{engine::Euler}}
+
+
+Represents \doxylink{classengine_1_1_euler}{Euler} angles for 3D rotation.  
+
+
+
+
+{\ttfamily \#include $<$euler.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classengine_1_1_euler_a0497ff9b59c05087fc809fba5cdfcbb8}{Euler}} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classengine_1_1_euler_a638f997c080be0c2ee586a883ebdb83d}{Euler}} (float pitch, float yaw, float roll, Rotation\+Order order=\mbox{\hyperlink{classengine_1_1_euler_a188546c5e11e23b47aae61d190e4e95b}{default\+\_\+order}})
+\begin{DoxyCompactList}\small\item\em Constructor with initial values for \doxylink{classengine_1_1_euler}{Euler} angles and rotation order. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_euler_a466c9d1a43658544e740a4461486598f}{Set\+Rotation\+Order}} (Rotation\+Order order)
+\begin{DoxyCompactList}\small\item\em Sets the rotation order for the \doxylink{classengine_1_1_euler}{Euler} angles. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_euler_a7dd13f8ca94b7a6ebf0102344ead552e}{Get\+Matrix}} () const -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em Computes the rotation matrix based on the \doxylink{classengine_1_1_euler}{Euler} angles and rotation order. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classengine_1_1_euler_a188546c5e11e23b47aae61d190e4e95b}\label{classengine_1_1_euler_a188546c5e11e23b47aae61d190e4e95b} 
+static const auto {\bfseries default\+\_\+order} = Rotation\+Order\+::\+XYZ
+\begin{DoxyCompactList}\small\item\em The default rotation order, XYZ. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classengine_1_1_euler_af851b4d9aacd1a871da33592334b8d72}\label{classengine_1_1_euler_af851b4d9aacd1a871da33592334b8d72} 
+class {\bfseries Transform}
+\begin{DoxyCompactList}\small\item\em Allows {\ttfamily \doxylink{classengine_1_1_transform}{Transform}} to access private members. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classengine_1_1_euler_aee818808261d204941b9dbc7c6df1990}{operator==}} (const \mbox{\hyperlink{classengine_1_1_euler}{Euler}} \&a, const \mbox{\hyperlink{classengine_1_1_euler}{Euler}} \&b)=default
+\begin{DoxyCompactList}\small\item\em Checks if two \doxylink{classengine_1_1_euler}{Euler} objects are equal, component-\/wise. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents \doxylink{classengine_1_1_euler}{Euler} angles for 3D rotation. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classengine_1_1_euler_a0497ff9b59c05087fc809fba5cdfcbb8}\label{classengine_1_1_euler_a0497ff9b59c05087fc809fba5cdfcbb8} 
+\index{engine::Euler@{engine::Euler}!Euler@{Euler}}
+\index{Euler@{Euler}!engine::Euler@{engine::Euler}}
+\doxysubsubsection{\texorpdfstring{Euler()}{Euler()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily engine\+::\+Euler\+::\+Euler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Default constructor. 
+
+Initializes the \doxylink{classengine_1_1_euler}{Euler} angles to zero and uses the default rotation order. \Hypertarget{classengine_1_1_euler_a638f997c080be0c2ee586a883ebdb83d}\label{classengine_1_1_euler_a638f997c080be0c2ee586a883ebdb83d} 
+\index{engine::Euler@{engine::Euler}!Euler@{Euler}}
+\index{Euler@{Euler}!engine::Euler@{engine::Euler}}
+\doxysubsubsection{\texorpdfstring{Euler()}{Euler()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily engine\+::\+Euler\+::\+Euler (\begin{DoxyParamCaption}\item[{float}]{pitch,  }\item[{float}]{yaw,  }\item[{float}]{roll,  }\item[{Rotation\+Order}]{order = {\ttfamily \mbox{\hyperlink{classengine_1_1_euler_a188546c5e11e23b47aae61d190e4e95b}{default\+\_\+order}}} }\end{DoxyParamCaption})}
+
+
+
+Constructor with initial values for \doxylink{classengine_1_1_euler}{Euler} angles and rotation order. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pitch} & The initial pitch angle (rotation around X-\/axis), in radians. \\
+\hline
+{\em yaw} & The initial yaw angle (rotation around Y-\/axis), in radians. \\
+\hline
+{\em roll} & The initial roll angle (rotation around Z-\/axis), in radians. \\
+\hline
+{\em order} & The rotation order to be used, defaults to {\ttfamily default\+\_\+order}. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_euler_a7dd13f8ca94b7a6ebf0102344ead552e}\label{classengine_1_1_euler_a7dd13f8ca94b7a6ebf0102344ead552e} 
+\index{engine::Euler@{engine::Euler}!GetMatrix@{GetMatrix}}
+\index{GetMatrix@{GetMatrix}!engine::Euler@{engine::Euler}}
+\doxysubsubsection{\texorpdfstring{GetMatrix()}{GetMatrix()}}
+{\footnotesize\ttfamily auto engine\+::\+Euler\+::\+Get\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}}
+
+
+
+Computes the rotation matrix based on the \doxylink{classengine_1_1_euler}{Euler} angles and rotation order. 
+
+\begin{DoxyReturn}{Returns}
+The rotation matrix corresponding to the \doxylink{classengine_1_1_euler}{Euler} angles and rotation order. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_euler_a466c9d1a43658544e740a4461486598f}\label{classengine_1_1_euler_a466c9d1a43658544e740a4461486598f} 
+\index{engine::Euler@{engine::Euler}!SetRotationOrder@{SetRotationOrder}}
+\index{SetRotationOrder@{SetRotationOrder}!engine::Euler@{engine::Euler}}
+\doxysubsubsection{\texorpdfstring{SetRotationOrder()}{SetRotationOrder()}}
+{\footnotesize\ttfamily auto engine\+::\+Euler\+::\+Set\+Rotation\+Order (\begin{DoxyParamCaption}\item[{Rotation\+Order}]{order }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the rotation order for the \doxylink{classengine_1_1_euler}{Euler} angles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em order} & The rotation order to set. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classengine_1_1_euler_aee818808261d204941b9dbc7c6df1990}\label{classengine_1_1_euler_aee818808261d204941b9dbc7c6df1990} 
+\index{engine::Euler@{engine::Euler}!operator==@{operator==}}
+\index{operator==@{operator==}!engine::Euler@{engine::Euler}}
+\doxysubsubsection{\texorpdfstring{operator==}{operator==}}
+{\footnotesize\ttfamily bool operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_euler}{Euler}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_euler}{Euler}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Checks if two \doxylink{classengine_1_1_euler}{Euler} objects are equal, component-\/wise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first \doxylink{classengine_1_1_euler}{Euler} object to compare. \\
+\hline
+{\em b} & The second \doxylink{classengine_1_1_euler}{Euler} object to compare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool {\ttfamily true} if the \doxylink{classengine_1_1_euler}{Euler} objcets are equal, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/admin/\+One\+Drive/\+Desktop/\+Projects/engine/include/engine/math/euler.\+hpp\end{DoxyCompactItemize}

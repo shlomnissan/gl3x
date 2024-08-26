@@ -1,0 +1,52 @@
+\doxysection{euler.\+hpp}
+\hypertarget{euler_8hpp_source}{}\label{euler_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/euler.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/euler.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Author:\ Shlomi\ Nissan\ (shlomi@betamark.com)}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}engine/math/matrix4.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_euler}{Euler}}\ \ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{enum\ class}\ ENGINE\_EXPORT\ RotationOrder\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ XYZ,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ XZY,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ YXZ,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ YZX,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ ZXY,}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ ZYX}
+\DoxyCodeLine{00026\ \ \ \ \ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ default\_order\ =\ RotationOrder::XYZ;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_euler_a0497ff9b59c05087fc809fba5cdfcbb8}{Euler}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_euler_a638f997c080be0c2ee586a883ebdb83d}{Euler}}(\textcolor{keywordtype}{float}\ pitch,\ \textcolor{keywordtype}{float}\ yaw,\ \textcolor{keywordtype}{float}\ roll,\ RotationOrder\ order\ =\ default\_order);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_euler_a466c9d1a43658544e740a4461486598f}{SetRotationOrder}}(RotationOrder\ order)\ \{\ order\_\ =\ order;\ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00060\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_euler_a7dd13f8ca94b7a6ebf0102344ead552e}{GetMatrix}}()\ const\ -\/>\ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ private:}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{float}\ pitch\_\ \{0.0f\};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{float}\ yaw\_\ \{0.0f\};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{float}\ roll\_\ \{0.0f\};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00073\ \ \ \ \ RotationOrder\ order\_\ =\ default\_order;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classengine_1_1_transform}{Transform}};\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classengine_1_1_euler_aee818808261d204941b9dbc7c6df1990}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_euler}{Euler}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_euler}{Euler}}\&\ b)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \}}
+
+\end{DoxyCode}

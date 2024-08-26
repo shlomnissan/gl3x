@@ -1,0 +1,140 @@
+\doxysection{engine\+::Transform Class Reference}
+\hypertarget{classengine_1_1_transform}{}\label{classengine_1_1_transform}\index{engine::Transform@{engine::Transform}}
+
+
+Represents a 3D transformation.  
+
+
+
+
+{\ttfamily \#include $<$transform.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{classengine_1_1_transform_a7485ad4f8b59d58a3978e8eeb99cbf4a}{Scale}} (float value) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Applies a uniform scaling transformation. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_transform_ac86469083d3bb253d596d7827f67aa5b}{Rotate}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&axis, float angle) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Applies a rotation transformation around a specified axis. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_transform_a430173adc235e8c2301c0eb78520aef0}{Translate}} (const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&axis, float distance) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Applies a translation transformation. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_transform_a99607616ad2869c0545b4ca871842533}{To\+Matrix}} () -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
+\begin{DoxyCompactList}\small\item\em Computes the current transformation matrix. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_transform_acbb39d86166e779f46c7ab705f98e045}{Is\+Dirty}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the transformation matrix is dirty. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classengine_1_1_transform_a4d622f2aa6138d47f514c816f41fca78}{operator==}} (const \mbox{\hyperlink{classengine_1_1_transform}{Transform}} \&a, const \mbox{\hyperlink{classengine_1_1_transform}{Transform}} \&b)=default
+\begin{DoxyCompactList}\small\item\em Checks if two \doxylink{classengine_1_1_transform}{Transform} objects are equal, component-\/wise. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a 3D transformation. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_transform_acbb39d86166e779f46c7ab705f98e045}\label{classengine_1_1_transform_acbb39d86166e779f46c7ab705f98e045} 
+\index{engine::Transform@{engine::Transform}!IsDirty@{IsDirty}}
+\index{IsDirty@{IsDirty}!engine::Transform@{engine::Transform}}
+\doxysubsubsection{\texorpdfstring{IsDirty()}{IsDirty()}}
+{\footnotesize\ttfamily auto engine\+::\+Transform\+::\+Is\+Dirty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the transformation matrix is dirty. 
+
+\begin{DoxyReturn}{Returns}
+True if the transformation matrix needs to be recalculated, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_transform_ac86469083d3bb253d596d7827f67aa5b}\label{classengine_1_1_transform_ac86469083d3bb253d596d7827f67aa5b} 
+\index{engine::Transform@{engine::Transform}!Rotate@{Rotate}}
+\index{Rotate@{Rotate}!engine::Transform@{engine::Transform}}
+\doxysubsubsection{\texorpdfstring{Rotate()}{Rotate()}}
+{\footnotesize\ttfamily auto engine\+::\+Transform\+::\+Rotate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{axis,  }\item[{float}]{angle }\end{DoxyParamCaption}) -\/$>$  void}
+
+
+
+Applies a rotation transformation around a specified axis. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em axis} & The axis to rotate around. Must be (1,0,0), (0,1,0), or (0,0,1). \\
+\hline
+{\em angle} & The angle to rotate by, in radians. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_transform_a7485ad4f8b59d58a3978e8eeb99cbf4a}\label{classengine_1_1_transform_a7485ad4f8b59d58a3978e8eeb99cbf4a} 
+\index{engine::Transform@{engine::Transform}!Scale@{Scale}}
+\index{Scale@{Scale}!engine::Transform@{engine::Transform}}
+\doxysubsubsection{\texorpdfstring{Scale()}{Scale()}}
+{\footnotesize\ttfamily auto engine\+::\+Transform\+::\+Scale (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption}) -\/$>$  void}
+
+
+
+Applies a uniform scaling transformation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The scaling factor to apply. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_transform_a99607616ad2869c0545b4ca871842533}\label{classengine_1_1_transform_a99607616ad2869c0545b4ca871842533} 
+\index{engine::Transform@{engine::Transform}!ToMatrix@{ToMatrix}}
+\index{ToMatrix@{ToMatrix}!engine::Transform@{engine::Transform}}
+\doxysubsubsection{\texorpdfstring{ToMatrix()}{ToMatrix()}}
+{\footnotesize\ttfamily auto engine\+::\+Transform\+::\+To\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) -\/$>$  \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}}
+
+
+
+Computes the current transformation matrix. 
+
+This method calculates and returns the transformation matrix, If the transformation is marked as dirty, it will be recalculated before being returned.
+
+\begin{DoxyReturn}{Returns}
+The transformation matrix representing the current scaling and translation. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_transform_a430173adc235e8c2301c0eb78520aef0}\label{classengine_1_1_transform_a430173adc235e8c2301c0eb78520aef0} 
+\index{engine::Transform@{engine::Transform}!Translate@{Translate}}
+\index{Translate@{Translate}!engine::Transform@{engine::Transform}}
+\doxysubsubsection{\texorpdfstring{Translate()}{Translate()}}
+{\footnotesize\ttfamily auto engine\+::\+Transform\+::\+Translate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}} \&}]{axis,  }\item[{float}]{distance }\end{DoxyParamCaption}) -\/$>$  void}
+
+
+
+Applies a translation transformation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em axis} & The direction in which to translate. \\
+\hline
+{\em distance} & The distance to translate along the specified axis. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classengine_1_1_transform_a4d622f2aa6138d47f514c816f41fca78}\label{classengine_1_1_transform_a4d622f2aa6138d47f514c816f41fca78} 
+\index{engine::Transform@{engine::Transform}!operator==@{operator==}}
+\index{operator==@{operator==}!engine::Transform@{engine::Transform}}
+\doxysubsubsection{\texorpdfstring{operator==}{operator==}}
+{\footnotesize\ttfamily bool operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_transform}{Transform}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_transform}{Transform}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Checks if two \doxylink{classengine_1_1_transform}{Transform} objects are equal, component-\/wise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first \doxylink{classengine_1_1_transform}{Transform} object to compare. \\
+\hline
+{\em b} & The second \doxylink{classengine_1_1_transform}{Transform} object to compare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool {\ttfamily true} if the \doxylink{classengine_1_1_euler}{Euler} objcets are equal, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/admin/\+One\+Drive/\+Desktop/\+Projects/engine/include/engine/math/transform.\+hpp\end{DoxyCompactItemize}

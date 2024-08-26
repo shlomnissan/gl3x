@@ -21,10 +21,12 @@ struct \mbox{\hyperlink{structengine_1_1_window_1_1_parameters}{Parameters}}
 \begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classengine_1_1_window}{Window} object with the given parameters. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classengine_1_1_window_ae568b8a51d517d21c5fb74e5e67430aa}{\texorpdfstring{$\sim$}{\string~}\+Window}} ()
 \begin{DoxyCompactList}\small\item\em Destroys the \doxylink{classengine_1_1_window}{Window} object. \end{DoxyCompactList}\item 
-auto \mbox{\hyperlink{classengine_1_1_window_a5711b358e8948d1acedc41c2ea5ac663}{width}} () const -\/$>$ int
+auto \mbox{\hyperlink{classengine_1_1_window_aa1845804c218044b5361982096f2b4d6}{Width}} () const -\/$>$ int
 \begin{DoxyCompactList}\small\item\em Gets the width of the window. \end{DoxyCompactList}\item 
-auto \mbox{\hyperlink{classengine_1_1_window_a4035139441026428edb043b7f048cb51}{height}} () const -\/$>$ int
+auto \mbox{\hyperlink{classengine_1_1_window_aeecb1c653766e266b0d9eadab47bbfc6}{Height}} () const -\/$>$ int
 \begin{DoxyCompactList}\small\item\em Gets the height of the window. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_window_aa350c11f449408f18b6caaeb2668434e}{Aspect\+Ratio}} () const -\/$>$ float
+\begin{DoxyCompactList}\small\item\em Gets the aspect ratio of the window. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{classengine_1_1_window_a9721b12c7280a08e68d8f16c692634cb}{Start}} (const std\+::function$<$ void(const double)$>$ \&tick) const -\/$>$ void
 \begin{DoxyCompactList}\small\item\em Starts the main loop of the window. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -64,11 +66,24 @@ The destructor is defined in the source file to handle the complete type {\ttfam
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classengine_1_1_window_a4035139441026428edb043b7f048cb51}\label{classengine_1_1_window_a4035139441026428edb043b7f048cb51} 
-\index{engine::Window@{engine::Window}!height@{height}}
-\index{height@{height}!engine::Window@{engine::Window}}
-\doxysubsubsection{\texorpdfstring{height()}{height()}}
-{\footnotesize\ttfamily auto engine\+::\+Window\+::height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  int}
+\Hypertarget{classengine_1_1_window_aa350c11f449408f18b6caaeb2668434e}\label{classengine_1_1_window_aa350c11f449408f18b6caaeb2668434e} 
+\index{engine::Window@{engine::Window}!AspectRatio@{AspectRatio}}
+\index{AspectRatio@{AspectRatio}!engine::Window@{engine::Window}}
+\doxysubsubsection{\texorpdfstring{AspectRatio()}{AspectRatio()}}
+{\footnotesize\ttfamily auto engine\+::\+Window\+::\+Aspect\+Ratio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  float}
+
+
+
+Gets the aspect ratio of the window. 
+
+\begin{DoxyReturn}{Returns}
+The aspect ratio of the window in pixels. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_window_aeecb1c653766e266b0d9eadab47bbfc6}\label{classengine_1_1_window_aeecb1c653766e266b0d9eadab47bbfc6} 
+\index{engine::Window@{engine::Window}!Height@{Height}}
+\index{Height@{Height}!engine::Window@{engine::Window}}
+\doxysubsubsection{\texorpdfstring{Height()}{Height()}}
+{\footnotesize\ttfamily auto engine\+::\+Window\+::\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  int}
 
 
 
@@ -92,11 +107,11 @@ Starts the main loop of the window.
 {\em tick} & A callback function that will be invoked each frame with the time elapsed since the last frame (delta time). The function takes a single {\ttfamily double} argument representing the elapsed time in seconds. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{classengine_1_1_window_a5711b358e8948d1acedc41c2ea5ac663}\label{classengine_1_1_window_a5711b358e8948d1acedc41c2ea5ac663} 
-\index{engine::Window@{engine::Window}!width@{width}}
-\index{width@{width}!engine::Window@{engine::Window}}
-\doxysubsubsection{\texorpdfstring{width()}{width()}}
-{\footnotesize\ttfamily auto engine\+::\+Window\+::width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  int}
+\Hypertarget{classengine_1_1_window_aa1845804c218044b5361982096f2b4d6}\label{classengine_1_1_window_aa1845804c218044b5361982096f2b4d6} 
+\index{engine::Window@{engine::Window}!Width@{Width}}
+\index{Width@{Width}!engine::Window@{engine::Window}}
+\doxysubsubsection{\texorpdfstring{Width()}{Width()}}
+{\footnotesize\ttfamily auto engine\+::\+Window\+::\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$  int}
 
 
 

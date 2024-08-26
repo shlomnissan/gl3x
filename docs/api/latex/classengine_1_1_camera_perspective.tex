@@ -1,0 +1,90 @@
+\doxysection{engine\+::Camera\+Perspective Class Reference}
+\hypertarget{classengine_1_1_camera_perspective}{}\label{classengine_1_1_camera_perspective}\index{engine::CameraPerspective@{engine::CameraPerspective}}
+
+
+A perspective camera class.  
+
+
+
+
+{\ttfamily \#include $<$camera\+\_\+perspective.\+hpp$>$}
+
+Inheritance diagram for engine\+::Camera\+Perspective\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classengine_1_1_camera_perspective}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classengine_1_1_camera_perspective_a56b31cc4499efa2d1f077b90b98c747f}{Camera\+Perspective}} (float fov, float aspect, float near, float far)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classengine_1_1_camera_perspective}{Camera\+Perspective} object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static auto \mbox{\hyperlink{classengine_1_1_camera_perspective_a51570ef5fb7e39c2a75c0b67033e4513}{Create}} (float fov=1.\+047197551196598f, float aspect=1.\+77f, float near=0.\+1f, float far=1000.\+0f)
+\begin{DoxyCompactList}\small\item\em Creates a new instance of the \doxylink{classengine_1_1_camera_perspective}{Camera\+Perspective} class with default parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A perspective camera class. 
+
+This class represents a perspective camera in the scene. It extends the Camera class and provides functionality specific to a perspective projection. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classengine_1_1_camera_perspective_a56b31cc4499efa2d1f077b90b98c747f}\label{classengine_1_1_camera_perspective_a56b31cc4499efa2d1f077b90b98c747f} 
+\index{engine::CameraPerspective@{engine::CameraPerspective}!CameraPerspective@{CameraPerspective}}
+\index{CameraPerspective@{CameraPerspective}!engine::CameraPerspective@{engine::CameraPerspective}}
+\doxysubsubsection{\texorpdfstring{CameraPerspective()}{CameraPerspective()}}
+{\footnotesize\ttfamily engine\+::\+Camera\+Perspective\+::\+Camera\+Perspective (\begin{DoxyParamCaption}\item[{float}]{fov,  }\item[{float}]{aspect,  }\item[{float}]{near,  }\item[{float}]{far }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{classengine_1_1_camera_perspective}{Camera\+Perspective} object. 
+
+Initializes a perspective camera with the specified field of view (in radians), aspect ratio, and near and far clipping planes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fov} & The field of view in radians. \\
+\hline
+{\em aspect} & The aspect ratio of the camera. \\
+\hline
+{\em near} & The near clipping plane distance. \\
+\hline
+{\em far} & The far clipping plane distance. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_camera_perspective_a51570ef5fb7e39c2a75c0b67033e4513}\label{classengine_1_1_camera_perspective_a51570ef5fb7e39c2a75c0b67033e4513} 
+\index{engine::CameraPerspective@{engine::CameraPerspective}!Create@{Create}}
+\index{Create@{Create}!engine::CameraPerspective@{engine::CameraPerspective}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily static auto engine\+::\+Camera\+Perspective\+::\+Create (\begin{DoxyParamCaption}\item[{float}]{fov = {\ttfamily 1.047197551196598f},  }\item[{float}]{aspect = {\ttfamily 1.77f},  }\item[{float}]{near = {\ttfamily 0.1f},  }\item[{float}]{far = {\ttfamily 1000.0f} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Creates a new instance of the \doxylink{classengine_1_1_camera_perspective}{Camera\+Perspective} class with default parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fov} & The field of view in radians (default is 1.\+047197551196598f -\/ 60 degrees). \\
+\hline
+{\em aspect} & The aspect ratio of the camera (width/height). Default is 1.\+77f (16\+:9). \\
+\hline
+{\em near} & The near clipping plane distance. Default is 0.\+1f. \\
+\hline
+{\em far} & The far clipping plane distance. Default is 1000.\+0f. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A {\ttfamily std\+::shared\+\_\+ptr\texorpdfstring{$<$}{<}\doxylink{classengine_1_1_camera_perspective}{Camera\+Perspective}\texorpdfstring{$>$}{>}} pointing to the newly created instance. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/admin/\+One\+Drive/\+Desktop/\+Projects/engine/include/engine/scene/camera\+\_\+perspective.\+hpp\end{DoxyCompactItemize}

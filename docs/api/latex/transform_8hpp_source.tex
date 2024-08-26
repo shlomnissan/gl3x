@@ -1,0 +1,45 @@
+\doxysection{transform.\+hpp}
+\hypertarget{transform_8hpp_source}{}\label{transform_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/transform.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/transform.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Author:\ Shlomi\ Nissan\ (shlomi@betamark.com)}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}engine/math/euler.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}engine/math/matrix4.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}engine/math/vector3.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_transform}{Transform}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_transform_a7485ad4f8b59d58a3978e8eeb99cbf4a}{Scale}}(\textcolor{keywordtype}{float}\ value)\ -\/>\ void;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_transform_ac86469083d3bb253d596d7827f67aa5b}{Rotate}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}}\&\ axis,\ \textcolor{keywordtype}{float}\ angle)\ -\/>\ void;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_transform_a430173adc235e8c2301c0eb78520aef0}{Translate}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_vector3}{Vector3}}\&\ axis,\ \textcolor{keywordtype}{float}\ distance)\ -\/>\ void;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00050\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_transform_a99607616ad2869c0545b4ca871842533}{ToMatrix}}()\ -\/>\ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_transform_acbb39d86166e779f46c7ab705f98e045}{IsDirty}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ is\_dirty\_;\ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_dirty\_\ \{\textcolor{keyword}{true}\};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00064\ \ \ \ \ Matrix4\ transform\_\ \{1.0f\};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00067\ \ \ \ \ Vector3\ position\_\ \{0.0f\};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00070\ \ \ \ \ Vector3\ scale\_\ \{1.0f\};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00073\ \ \ \ \ Euler\ euler\_\ \{\};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classengine_1_1_transform_a4d622f2aa6138d47f514c816f41fca78}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_transform}{Transform}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_transform}{Transform}}\&\ b)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00083\ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \}}
+
+\end{DoxyCode}

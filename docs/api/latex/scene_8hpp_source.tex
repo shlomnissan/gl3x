@@ -12,8 +12,13 @@
 \DoxyCodeLine{00008\ }
 \DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }engine\ \{}
 \DoxyCodeLine{00010\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_scene}{Scene}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classengine_1_1_node}{Node}}\ \{\};}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_scene}{Scene}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classengine_1_1_node}{Node}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_scene_aa45d6cf481ba3997c6b1734c445242fe}{Create}}()\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<Scene>();}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \}}
 
 \end{DoxyCode}

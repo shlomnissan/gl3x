@@ -29,6 +29,11 @@ auto \& \mbox{\hyperlink{classengine_1_1_matrix3_a9cdf04cb6c0b29a7511600a6863b68
 \begin{DoxyCompactList}\small\item\em Access the column vector at index j. \end{DoxyCompactList}\item 
 const auto \& \mbox{\hyperlink{classengine_1_1_matrix3_a09a60744261167dfdb9981710b4bd086}{operator\mbox{[}$\,$\mbox{]}}} (int j) const
 \begin{DoxyCompactList}\small\item\em Access the column vector at index j (const version). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classengine_1_1_matrix3_a715c332916475d9b9096cf4b2995afe8}{operator==}} (const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&a, const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&b)=default
+\begin{DoxyCompactList}\small\item\em Checks if two matrices are equal, component-\/wise. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Related Symbols}
 (Note that these are not member symbols.) \begin{DoxyCompactItemize}
 \item 
@@ -212,6 +217,26 @@ Performs matrix multiplication between the two input matrices.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 \doxylink{classengine_1_1_matrix3}{Matrix3} The resulting matrix after multiplication. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_matrix3_a715c332916475d9b9096cf4b2995afe8}\label{classengine_1_1_matrix3_a715c332916475d9b9096cf4b2995afe8} 
+\index{engine::Matrix3@{engine::Matrix3}!operator==@{operator==}}
+\index{operator==@{operator==}!engine::Matrix3@{engine::Matrix3}}
+\doxysubsubsection{\texorpdfstring{operator==}{operator==}}
+{\footnotesize\ttfamily bool operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Checks if two matrices are equal, component-\/wise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first matrix to compare. \\
+\hline
+{\em b} & The second matrix to compare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool {\ttfamily true} if the matrices are equal, {\ttfamily false} otherwise. 
 \end{DoxyReturn}
 
 

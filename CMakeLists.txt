@@ -12,7 +12,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 option(BUILD_TESTS "build tests" ON)
 option(BUILD_EXAMPLES "build examples" ON)
-option(BUILD_DOCS "build documentation" ON)
+option(BUILD_DOCS "build documentation" OFF)
 
 add_subdirectory(src)
 

@@ -75,6 +75,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="#related">Related Symbols</a> &#124;
 <a href="classengine_1_1_matrix3-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">engine::Matrix3 Class Reference</div></div>
@@ -113,6 +114,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a09a60744261167dfdb9981710b4bd086"><td class="memItemLeft" align="right" valign="top">const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_matrix3.html#a09a60744261167dfdb9981710b4bd086">operator[]</a> (int j) const</td></tr>
 <tr class="memdesc:a09a60744261167dfdb9981710b4bd086"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the column vector at index j (const version).  <br /></td></tr>
 <tr class="separator:a09a60744261167dfdb9981710b4bd086"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a715c332916475d9b9096cf4b2995afe8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_matrix3.html#a715c332916475d9b9096cf4b2995afe8">operator==</a> (const <a class="el" href="classengine_1_1_matrix3.html">Matrix3</a> &amp;a, const <a class="el" href="classengine_1_1_matrix3.html">Matrix3</a> &amp;b)=default</td></tr>
+<tr class="memdesc:a715c332916475d9b9096cf4b2995afe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if two matrices are equal, component-wise.  <br /></td></tr>
+<tr class="separator:a715c332916475d9b9096cf4b2995afe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="related" name="related"></a>
 Related Symbols</h2></td></tr>
@@ -499,6 +506,52 @@ Related Symbols</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classengine_1_1_matrix3.html" title="A 3x3 matrix class for mathematical operations.">Matrix3</a> The resulting matrix after multiplication. </dd></dl>
+
+</div>
+</div>
+<a id="a715c332916475d9b9096cf4b2995afe8" name="a715c332916475d9b9096cf4b2995afe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a715c332916475d9b9096cf4b2995afe8">&#9670;&#160;</a></span>operator==</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1_matrix3.html">Matrix3</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1_matrix3.html">Matrix3</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if two matrices are equal, component-wise. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first matrix to compare. </td></tr>
+    <tr><td class="paramname">b</td><td>The second matrix to compare. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool <code>true</code> if the matrices are equal, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
