@@ -5,7 +5,7 @@
 
 #include "engine_export.h"
 #include "engine/math/matrix4.hpp"
-#include "engine/math/transform3d.hpp"
+#include "engine/math/transform.hpp"
 
 #include <memory>
 #include <vector>
@@ -145,7 +145,7 @@ private:
     std::vector<std::shared_ptr<Node>> children_;
 
     /// @brief Node's local transformation.
-    Transform3D local_transform_;
+    Transform local_transform_;
 
     /// @brief Node's world transform matrix.
     Matrix4 world_transform_ {1.0f};

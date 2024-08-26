@@ -72,7 +72,7 @@ private:
     /// @brief The order in which rotations are applied.
     RotationOrder order_ = default_order;
 
-    friend class Transform3D; ///< Allows `Transform3D` to access private members.
+    friend class Transform; ///< Allows `Transform` to access private members.
 
    /**
     * @brief Checks if two Euler objects are equal, component-wise.

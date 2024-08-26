@@ -13,7 +13,7 @@ namespace engine {
 /**
  * @brief Represents a 3D transformation.
  */
-class ENGINE_EXPORT Transform3D {
+class ENGINE_EXPORT Transform {
 public:
     /**
      * @brief Applies a uniform scaling transformation.
@@ -79,7 +79,7 @@ private:
     * @param b The second Transform object to compare.
     * @return bool `true` if the Euler objcets are equal, `false` otherwise.
     */
-    friend bool operator==(const Transform3D& a, const Transform3D& b) = default;
+    friend bool operator==(const Transform& a, const Transform& b) = default;
 };
 
 }
