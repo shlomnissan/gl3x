@@ -47,13 +47,15 @@ public:
      *
      * @return The transformation matrix representing the current scaling and translation.
      */
-    [[nodiscard]] auto ToMatrix() -> Matrix4;
+    [[nodiscard]]
+    auto ToMatrix() -> Matrix4;
 
     /**
      * @brief Checks if the transformation matrix is dirty.
      *
      * @return True if the transformation matrix needs to be recalculated, false otherwise.
      */
+    [[nodiscard]]
     auto IsDirty() const { return is_dirty_; }
 
 private:
@@ -73,12 +75,13 @@ private:
     Euler euler_ {};
 
    /**
-    * @brief Checks if two Transform objects are equal, component-wise.
-    *
-    * @param a The first Transform object to compare.
-    * @param b The second Transform object to compare.
-    * @return bool `true` if the Euler objcets are equal, `false` otherwise.
-    */
+     * @brief Checks if two Transform objects are equal, component-wise.
+     *
+     * @param a The first Transform object to compare.
+     * @param b The second Transform object to compare.
+     * @return bool `true` if the Euler objcets are equal, `false` otherwise.
+     */
+    [[nodiscard]]
     friend bool operator==(const Transform& a, const Transform& b) = default;
 };
 

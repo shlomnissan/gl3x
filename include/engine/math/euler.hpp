@@ -57,7 +57,8 @@ public:
      *
      * @return The rotation matrix corresponding to the Euler angles and rotation order.
      */
-    [[nodiscard]] auto GetMatrix() const -> Matrix4;
+    [[nodiscard]]
+    auto GetMatrix() const -> Matrix4;
 
 private:
     /// @brief The pitch angle (rotation around X-axis), in radians.
@@ -75,12 +76,13 @@ private:
     friend class Transform; ///< Allows `Transform` to access private members.
 
    /**
-    * @brief Checks if two Euler objects are equal, component-wise.
-    *
-    * @param a The first Euler object to compare.
-    * @param b The second Euler object to compare.
-    * @return bool `true` if the Euler objcets are equal, `false` otherwise.
-    */
+     * @brief Checks if two Euler objects are equal, component-wise.
+     *
+     * @param a The first Euler object to compare.
+     * @param b The second Euler object to compare.
+     * @return bool `true` if the Euler objcets are equal, `false` otherwise.
+     */
+   [[nodiscard]]
     friend bool operator==(const Euler& a, const Euler& b) = default;
 };
 

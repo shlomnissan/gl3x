@@ -20,7 +20,7 @@ namespace engine {
  * @param v The scaling factors along each axis.
  * @return Matrix4 The resulting matrix after scaling.
  */
-ENGINE_EXPORT
+[[nodiscard]] ENGINE_EXPORT
 auto scale(const Matrix4& m, const Vector3& v) -> Matrix4;
 
 /**
@@ -33,7 +33,7 @@ auto scale(const Matrix4& m, const Vector3& v) -> Matrix4;
  * @param value The uniform scaling factor.
  * @return Matrix4 The resulting matrix after uniform scaling.
  */
-ENGINE_EXPORT
+[[nodiscard]] ENGINE_EXPORT
 auto scale(const Matrix4& m, const float value) -> Matrix4;
 
 /**
@@ -47,7 +47,7 @@ auto scale(const Matrix4& m, const float value) -> Matrix4;
  * @param v The axis of rotation.
  * @return Matrix4 The resulting matrix after rotation.
  */
-ENGINE_EXPORT
+[[nodiscard]] ENGINE_EXPORT
 auto rotate(const Matrix4& m, float angle, const Vector3& v) -> Matrix4;
 
 /**
@@ -60,7 +60,7 @@ auto rotate(const Matrix4& m, float angle, const Vector3& v) -> Matrix4;
  * @param v The translation vector.
  * @return Matrix4 The resulting matrix after translation.
  */
-ENGINE_EXPORT
+[[nodiscard]] ENGINE_EXPORT
 auto translate(const Matrix4& m, const Vector3& v) -> Matrix4;
 
 /**
@@ -75,7 +75,7 @@ auto translate(const Matrix4& m, const Vector3& v) -> Matrix4;
  * @param up The direction that points upwards relative to the camera.
  * @return Matrix4 The resulting view matrix.
  */
-ENGINE_EXPORT
+[[nodiscard]] ENGINE_EXPORT
 auto look_at(const Vector3& eye, const Vector3& center, const Vector3& up) -> Matrix4;
 
 }

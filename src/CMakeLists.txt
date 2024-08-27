@@ -10,7 +10,6 @@ set(SOURCE_CODE
     "math/matrix4.cpp"
     "math/transform.cpp"
     "math/transformations.cpp"
-    "math/utilities.cpp"
     "math/vector3.cpp"
     "math/vector4.cpp"
     "scene/camera.cpp"
