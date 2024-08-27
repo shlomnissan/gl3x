@@ -11,10 +11,15 @@ auto Window::Impl::Initialize(const Window::Parameters& params) -> void {
     initialized_ = true;
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    #ifdef __APPLE__
+        glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_TRUE);
+    #endif
 
     window_ = glfwCreateWindow(
         params.width,
@@ -23,6 +28,7 @@ auto Window::Impl::Initialize(const Window::Parameters& params) -> void {
         nullptr,
         nullptr
     );
+
     if (window_ == nullptr) return;
 
     glfwMakeContextCurrent(window_);

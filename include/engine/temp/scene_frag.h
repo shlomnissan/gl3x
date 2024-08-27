@@ -1,6 +1,6 @@
 #pragma once
 
-static const char* _SHADER_scene_frag = R"(#version 460 core
+static const char* _SHADER_scene_frag = R"(#version 410 core
 #pragma debug(on)
 #pragma optimize(off)
 
