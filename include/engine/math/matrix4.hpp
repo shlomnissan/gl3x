@@ -4,8 +4,9 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/math/vector4.hpp"
 
-#include "vector4.hpp"
+#include <array>
 
 namespace engine {
 
@@ -105,7 +106,7 @@ public:
      * @return Vector4& Reference to the column vector.
      */
     auto& operator[](int j) {
-        return (*reinterpret_cast<Vector4*>(n[j]));
+        return (*reinterpret_cast<Vector4*>(n[j].data()));
     }
 
     /**
@@ -116,12 +117,43 @@ public:
      * @return const Vector4& Const reference to the column vector.
      */
     const auto& operator[](int j) const {
-        return (*reinterpret_cast<const Vector4*>(n[j]));
+        return (*reinterpret_cast<const Vector4*>(n[j].data()));
+    }
+
+    /**
+     * @brief Multiplies two 4x4 matrices and returns the result.
+     * @related Matrix4
+     *
+     * Performs matrix multiplication between the two input matrices.
+     *
+     * @param a The first matrix in the multiplication.
+     * @param b The second matrix in the multiplication.
+     * @return Matrix4 The resulting matrix after multiplication.
+     */
+    friend auto operator*(const Matrix4& a, const Matrix4& b) {
+        return Matrix4 {
+            a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0) + a(0, 3) * b(3, 0),
+            a(0, 0) * b(0, 1) + a(0, 1) * b(1, 1) + a(0, 2) * b(2, 1) + a(0, 3) * b(3, 1),
+            a(0, 0) * b(0, 2) + a(0, 1) * b(1, 2) + a(0, 2) * b(2, 2) + a(0, 3) * b(3, 2),
+            a(0, 0) * b(0, 3) + a(0, 1) * b(1, 3) + a(0, 2) * b(2, 3) + a(0, 3) * b(3, 3),
+            a(1, 0) * b(0, 0) + a(1, 1) * b(1, 0) + a(1, 2) * b(2, 0) + a(1, 3) * b(3, 0),
+            a(1, 0) * b(0, 1) + a(1, 1) * b(1, 1) + a(1, 2) * b(2, 1) + a(1, 3) * b(3, 1),
+            a(1, 0) * b(0, 2) + a(1, 1) * b(1, 2) + a(1, 2) * b(2, 2) + a(1, 3) * b(3, 2),
+            a(1, 0) * b(0, 3) + a(1, 1) * b(1, 3) + a(1, 2) * b(2, 3) + a(1, 3) * b(3, 3),
+            a(2, 0) * b(0, 0) + a(2, 1) * b(1, 0) + a(2, 2) * b(2, 0) + a(2, 3) * b(3, 0),
+            a(2, 0) * b(0, 1) + a(2, 1) * b(1, 1) + a(2, 2) * b(2, 1) + a(2, 3) * b(3, 1),
+            a(2, 0) * b(0, 2) + a(2, 1) * b(1, 2) + a(2, 2) * b(2, 2) + a(2, 3) * b(3, 2),
+            a(2, 0) * b(0, 3) + a(2, 1) * b(1, 3) + a(2, 2) * b(2, 3) + a(2, 3) * b(3, 3),
+            a(3, 0) * b(0, 0) + a(3, 1) * b(1, 0) + a(3, 2) * b(2, 0) + a(3, 3) * b(3, 0),
+            a(3, 0) * b(0, 1) + a(3, 1) * b(1, 1) + a(3, 2) * b(2, 1) + a(3, 3) * b(3, 1),
+            a(3, 0) * b(0, 2) + a(3, 1) * b(1, 2) + a(3, 2) * b(2, 2) + a(3, 3) * b(3, 2),
+            a(3, 0) * b(0, 3) + a(3, 1) * b(1, 3) + a(3, 2) * b(2, 3) + a(3, 3) * b(3, 3)
+        };
     }
 
 private:
     /// @brief Internal storage for the matrix elements in row-major order.
-    float n[4][4];
+    std::array<std::array<float, 4>, 4> n;
 
     /**
     * @brief Checks if two matrices are equal, component-wise.
@@ -132,37 +164,5 @@ private:
     */
     friend bool operator==(const Matrix4& a, const Matrix4& b) = default;
 };
-
-/**
- * @brief Multiplies two 4x4 matrices and returns the result.
- * @related Matrix4
- *
- * Performs matrix multiplication between the two input matrices.
- *
- * @param a The first matrix in the multiplication.
- * @param b The second matrix in the multiplication.
- * @return Matrix4 The resulting matrix after multiplication.
- */
-inline ENGINE_EXPORT
-auto operator*(const Matrix4& a, const Matrix4& b) {
-    return Matrix4 {
-        a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0) + a(0, 3) * b(3, 0),
-        a(0, 0) * b(0, 1) + a(0, 1) * b(1, 1) + a(0, 2) * b(2, 1) + a(0, 3) * b(3, 1),
-        a(0, 0) * b(0, 2) + a(0, 1) * b(1, 2) + a(0, 2) * b(2, 2) + a(0, 3) * b(3, 2),
-        a(0, 0) * b(0, 3) + a(0, 1) * b(1, 3) + a(0, 2) * b(2, 3) + a(0, 3) * b(3, 3),
-        a(1, 0) * b(0, 0) + a(1, 1) * b(1, 0) + a(1, 2) * b(2, 0) + a(1, 3) * b(3, 0),
-        a(1, 0) * b(0, 1) + a(1, 1) * b(1, 1) + a(1, 2) * b(2, 1) + a(1, 3) * b(3, 1),
-        a(1, 0) * b(0, 2) + a(1, 1) * b(1, 2) + a(1, 2) * b(2, 2) + a(1, 3) * b(3, 2),
-        a(1, 0) * b(0, 3) + a(1, 1) * b(1, 3) + a(1, 2) * b(2, 3) + a(1, 3) * b(3, 3),
-        a(2, 0) * b(0, 0) + a(2, 1) * b(1, 0) + a(2, 2) * b(2, 0) + a(2, 3) * b(3, 0),
-        a(2, 0) * b(0, 1) + a(2, 1) * b(1, 1) + a(2, 2) * b(2, 1) + a(2, 3) * b(3, 1),
-        a(2, 0) * b(0, 2) + a(2, 1) * b(1, 2) + a(2, 2) * b(2, 2) + a(2, 3) * b(3, 2),
-        a(2, 0) * b(0, 3) + a(2, 1) * b(1, 3) + a(2, 2) * b(2, 3) + a(2, 3) * b(3, 3),
-        a(3, 0) * b(0, 0) + a(3, 1) * b(1, 0) + a(3, 2) * b(2, 0) + a(3, 3) * b(3, 0),
-        a(3, 0) * b(0, 1) + a(3, 1) * b(1, 1) + a(3, 2) * b(2, 1) + a(3, 3) * b(3, 1),
-        a(3, 0) * b(0, 2) + a(3, 1) * b(1, 2) + a(3, 2) * b(2, 2) + a(3, 3) * b(3, 2),
-        a(3, 0) * b(0, 3) + a(3, 1) * b(1, 3) + a(3, 2) * b(2, 3) + a(3, 3) * b(3, 3)
-    };
-}
 
 }
