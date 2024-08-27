@@ -86,73 +86,73 @@ public:
      */
     [[nodiscard]]
     friend bool operator==(const Vector4& a, const Vector4& b) = default;
+
+    /**
+     * @brief Adds two vectors component-wise.
+     * @related Vector4
+     *
+     * @param a The first vector.
+     * @param b The second vector.
+     * @return Vector4 A new vector that is the component-wise sum of the two vectors.
+     */
+    [[nodiscard]]
+    friend auto operator+(const Vector4& a, const Vector4& b) {
+        return Vector4 {a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w};
+    }
+
+    /**
+     * @brief Subtracts the second vector from the first vector component-wise.
+     * @related Vector4
+     *
+     * @param a The vector to subtract from.
+     * @param b The vector to subtract.
+     * @return Vector4 A new vector that is the component-wise difference of the two vectors.
+     */
+    [[nodiscard]]
+    friend auto operator-(const Vector4& a, const Vector4& b) {
+        return Vector4 {a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w};
+    }
+
+    /**
+     * @brief Multiplies the vector by a scalar value.
+     * @related Vector4
+     *
+     * @param v The vector to be scaled.
+     * @param n The scalar value to multiply with.
+     * @return Vector4 A new vector that is the result of scaling the original vector.
+     */
+    [[nodiscard]]
+    friend auto operator*(const Vector4& v, float n) {
+        return Vector4 {v.x * n, v.y * n, v.z * n, v.w * n};
+    }
+
+    /**
+     * @brief Multiplies a scalar value by a vector.
+     * @related Vector4
+     *
+     * @param n The scalar value to multiply with.
+     * @param v The vector to be scaled.
+     * @return Vector4 A new vector that is the result of scaling the original vector.
+     */
+    [[nodiscard]]
+    friend auto operator*(float n, const Vector4& v) {
+        return v * n;
+    }
+
+    /**
+     * @brief Divides the vector by a scalar value.
+     * @related Vector4
+     *
+     * @param v The vector to be divided.
+     * @param n The scalar value to divide by.
+     * @return Vector4 A new vector that is the result of dividing the original vector by the scalar.
+     */
+    [[nodiscard]]
+    friend auto operator/(const Vector4& v, float n) {
+        n = 1.0f / n;
+        return Vector4 {v.x * n, v.y * n, v.z * n, v.w * n};
+    }
 };
-
-/**
- * @brief Adds two vectors component-wise.
- * @related Vector4
- *
- * @param a The first vector.
- * @param b The second vector.
- * @return Vector4 A new vector that is the component-wise sum of the two vectors.
- */
-[[nodiscard]] inline ENGINE_EXPORT
-auto operator+(const Vector4& a, const Vector4& b) {
-    return Vector4 {a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w};
-}
-
-/**
- * @brief Subtracts the second vector from the first vector component-wise.
- * @related Vector4
- *
- * @param a The vector to subtract from.
- * @param b The vector to subtract.
- * @return Vector4 A new vector that is the component-wise difference of the two vectors.
- */
-[[nodiscard]] inline ENGINE_EXPORT
-auto operator-(const Vector4& a, const Vector4& b) {
-    return Vector4 {a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w};
-}
-
-/**
- * @brief Multiplies the vector by a scalar value.
- * @related Vector4
- *
- * @param v The vector to be scaled.
- * @param n The scalar value to multiply with.
- * @return Vector4 A new vector that is the result of scaling the original vector.
- */
-[[nodiscard]] inline ENGINE_EXPORT
-auto operator*(const Vector4& v, float n) {
-    return Vector4 {v.x * n, v.y * n, v.z * n, v.w * n};
-}
-
-/**
- * @brief Multiplies a scalar value by a vector.
- * @related Vector4
- *
- * @param n The scalar value to multiply with.
- * @param v The vector to be scaled.
- * @return Vector4 A new vector that is the result of scaling the original vector.
- */
-[[nodiscard]] inline ENGINE_EXPORT
-auto operator*(float n, const Vector4& v) {
-    return v * n;
-}
-
-/**
- * @brief Divides the vector by a scalar value.
- * @related Vector4
- *
- * @param v The vector to be divided.
- * @param n The scalar value to divide by.
- * @return Vector4 A new vector that is the result of dividing the original vector by the scalar.
- */
-[[nodiscard]] inline ENGINE_EXPORT
-auto operator/(const Vector4& v, float n) {
-    n = 1.0 / n;
-    return Vector4 {v.x * n, v.y * n, v.z * n, v.w * n};
-}
 
 /**
  * @brief Computes the dot product of two vectors.

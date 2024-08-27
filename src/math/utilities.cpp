@@ -6,7 +6,7 @@
 namespace engine::math {
 /**
  * @brief Converts degrees to radians.
- * 
+ *
  * @param degrees Angle in degrees.
  * @return Angle in radians.
  */
@@ -16,7 +16,7 @@ auto DegToRad(const float degrees) -> float {
 
 /**
  * @brief Converts radians to degrees.
- * 
+ *
  * @param radians Angle in radians.
  * @return Angle in degrees.
  */
