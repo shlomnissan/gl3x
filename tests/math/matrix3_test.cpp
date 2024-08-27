@@ -58,7 +58,7 @@ TEST(Matrix3, ConstructorVector) {
 
 #pragma endregion
 
-#pragma region Matrix/Matrix Multiplication
+#pragma region Matrix Multiplication
 
 TEST(Matrix3, MultiplicationMatrix) {
     const auto m1 = engine::Matrix3 {
@@ -121,6 +121,42 @@ TEST(Matrix3, InequalityOperator) {
 
     EXPECT_FALSE(m1 != m2);
     EXPECT_TRUE(m1 != m3);
+}
+
+#pragma endregion
+
+#pragma region Operators
+
+TEST(Matrix3, SubscriptOperatorReturnsColumnVector) {
+    const auto m = engine::Matrix3 {
+        1.0f, 2.0f, 3.0f,
+        5.0f, 6.0f, 7.0f,
+        4.0f, 3.0f, 2.0f
+    };
+
+    EXPECT_VEC3_EQ(m[0], {1.0f, 5.0f, 4.0f});
+    EXPECT_VEC3_EQ(m[1], {2.0f, 6.0f, 3.0f});
+    EXPECT_VEC3_EQ(m[2], {3.0f, 7.0f, 2.0f});
+}
+
+TEST(Matrix3, CallOperatorReturnsElementsRowMajor) {
+    const auto m = engine::Matrix3 {
+        1.0f, 2.0f, 3.0f,
+        5.0f, 6.0f, 7.0f,
+        4.0f, 3.0f, 2.0f
+    };
+
+    EXPECT_EQ(m(0, 0), 1.0f);
+    EXPECT_EQ(m(0, 1), 2.0f);
+    EXPECT_EQ(m(0, 2), 3.0f);
+
+    EXPECT_EQ(m(1, 0), 5.0f);
+    EXPECT_EQ(m(1, 1), 6.0f);
+    EXPECT_EQ(m(1, 2), 7.0f);
+
+    EXPECT_EQ(m(2, 0), 4.0f);
+    EXPECT_EQ(m(2, 1), 3.0f);
+    EXPECT_EQ(m(2, 2), 2.0f);
 }
 
 #pragma endregion
