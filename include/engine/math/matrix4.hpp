@@ -83,6 +83,7 @@ public:
      * @param j Column index.
      * @return float& Reference to the matrix element.
      */
+    [[nodiscard]]
     auto& operator()(int i, int j) {
         return n[j][i];
     }
@@ -95,6 +96,7 @@ public:
      * @param j Column index.
      * @return const float& Const reference to the matrix element.
      */
+    [[nodiscard]]
     const auto& operator()(int i, int j) const {
         return n[j][i];
     }
@@ -105,6 +107,7 @@ public:
      * @param j Column index.
      * @return Vector4& Reference to the column vector.
      */
+    [[nodiscard]]
     auto& operator[](int j) {
         return (*reinterpret_cast<Vector4*>(n[j].data()));
     }
@@ -116,9 +119,24 @@ public:
      * @param j Column index.
      * @return const Vector4& Const reference to the column vector.
      */
+    [[nodiscard]]
     const auto& operator[](int j) const {
         return (*reinterpret_cast<const Vector4*>(n[j].data()));
     }
+
+private:
+    /// @brief Internal storage for the matrix elements in row-major order.
+    std::array<std::array<float, 4>, 4> n;
+
+    /**
+     * @brief Checks if two matrices are equal, component-wise.
+     *
+     * @param a The first matrix to compare.
+     * @param b The second matrix to compare.
+     * @return bool `true` if the matrices are equal, `false` otherwise.
+     */
+    [[nodiscard]]
+    friend bool operator==(const Matrix4& a, const Matrix4& b) = default;
 
     /**
      * @brief Multiplies two 4x4 matrices and returns the result.
@@ -130,6 +148,7 @@ public:
      * @param b The second matrix in the multiplication.
      * @return Matrix4 The resulting matrix after multiplication.
      */
+    [[nodiscard]]
     friend auto operator*(const Matrix4& a, const Matrix4& b) {
         return Matrix4 {
             a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0) + a(0, 3) * b(3, 0),
@@ -150,19 +169,6 @@ public:
             a(3, 0) * b(0, 3) + a(3, 1) * b(1, 3) + a(3, 2) * b(2, 3) + a(3, 3) * b(3, 3)
         };
     }
-
-private:
-    /// @brief Internal storage for the matrix elements in row-major order.
-    std::array<std::array<float, 4>, 4> n;
-
-    /**
-    * @brief Checks if two matrices are equal, component-wise.
-    *
-    * @param a The first matrix to compare.
-    * @param b The second matrix to compare.
-    * @return bool `true` if the matrices are equal, `false` otherwise.
-    */
-    friend bool operator==(const Matrix4& a, const Matrix4& b) = default;
 };
 
 }

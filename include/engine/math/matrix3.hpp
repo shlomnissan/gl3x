@@ -73,6 +73,7 @@ public:
      * @param j Column index.
      * @return float& Reference to the matrix element.
      */
+    [[nodiscard]]
     auto& operator()(int i, int j) {
         return n[j][i];
     }
@@ -85,6 +86,7 @@ public:
      * @param j Column index.
      * @return const float& Const reference to the matrix element.
      */
+    [[nodiscard]]
     const auto& operator()(int i, int j) const {
         return n[j][i];
     }
@@ -95,6 +97,7 @@ public:
      * @param j Column index.
      * @return Vector3& Reference to the column vector.
      */
+    [[nodiscard]]
     auto& operator[](int j) {
         return (*reinterpret_cast<Vector3*>(n[j].data()));
     }
@@ -106,9 +109,24 @@ public:
      * @param j Column index.
      * @return const Vector3& Const reference to the column vector.
      */
+    [[nodiscard]]
     const auto& operator[](int j) const {
         return (*reinterpret_cast<const Vector3*>(n[j].data()));
     }
+
+private:
+    /// @brief Internal storage for the matrix elements in row-major order.
+    std::array<std::array<float, 3>, 3> n;
+
+    /**
+     * @brief Checks if two matrices are equal, component-wise.
+     *
+     * @param a The first matrix to compare.
+     * @param b The second matrix to compare.
+     * @return bool `true` if the matrices are equal, `false` otherwise.
+     */
+   [[nodiscard]]
+    friend bool operator==(const Matrix3& a, const Matrix3& b) = default;
 
     /**
      * @brief Multiplies two 3x3 matrices and returns the result.
@@ -120,6 +138,7 @@ public:
      * @param b The second matrix in the multiplication.
      * @return Matrix3 The resulting matrix after multiplication.
      */
+    [[nodiscard]]
     friend auto operator*(const Matrix3& a, const Matrix3& b) {
         return Matrix3 {
             a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0),
@@ -133,19 +152,6 @@ public:
             a(2, 0) * b(0, 2) + a(2, 1) * b(1, 2) + a(2, 2) * b(2, 2),
         };
     }
-
-private:
-    /// @brief Internal storage for the matrix elements in row-major order.
-    std::array<std::array<float, 3>, 3> n;
-
-    /**
-    * @brief Checks if two matrices are equal, component-wise.
-    *
-    * @param a The first matrix to compare.
-    * @param b The second matrix to compare.
-    * @return bool `true` if the matrices are equal, `false` otherwise.
-    */
-    friend bool operator==(const Matrix3& a, const Matrix3& b) = default;
 };
 
 }
