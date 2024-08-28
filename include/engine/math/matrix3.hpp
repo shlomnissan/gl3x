@@ -67,6 +67,20 @@ public:
     );
 
     /**
+     * @brief Creates an identity matrix.
+     *
+     * @return A `Matrix3` object representing the 3x3 identity matrix.
+     */
+    [[nodiscard]]
+    static auto Identity() {
+        return Matrix3 {
+            1.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 1.0f
+        };
+    }
+
+    /**
      * @brief Access matrix element at (i, j) with row-major indexing.
      *
      * @param i Row index.
@@ -153,5 +167,31 @@ private:
         };
     }
 };
+
+/**
+ * @brief Computes the inverse of a 3x3 matrix.
+ * @related Matrix3
+ *
+ * @param m The input 3x3 matrix whose inverse is to be computed.
+ * @return A new `Matrix3` object that represents the inverse of the input matrix.
+ */
+[[nodiscard]] inline ENGINE_EXPORT
+auto inverse(const Matrix3& m) {
+    const auto& a = m[0];
+    const auto& b = m[1];
+    const auto& c = m[2];
+
+    auto r0 = cross(b, c);
+    auto r1 = cross(c, a);
+    auto r2 = cross(a, b);
+
+    auto inv_det = 1.0f / dot(r2, c);
+
+    return Matrix3 {
+        r0.x * inv_det, r0.y * inv_det, r0.z * inv_det,
+        r1.x * inv_det, r1.y * inv_det, r1.z * inv_det,
+        r2.x * inv_det, r2.y * inv_det, r2.z * inv_det
+    };
+}
 
 }

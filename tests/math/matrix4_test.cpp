@@ -142,6 +142,32 @@ TEST(Matrix4, InequalityOperator) {
 
 #pragma endregion
 
+#pragma region Inverse
+
+TEST(Matrix4, InverseBasic) {
+    const auto m = engine::Matrix4 {
+        4.0f, 7.0f, 2.0f, 1.0f,
+        3.0f, 6.0f, 1.0f, 2.0f,
+        2.0f, 5.0f, 3.0f, 3.0f,
+        1.0f, 1.0f, 2.0f, 1.0f
+    };
+
+    EXPECT_MAT4_NEAR(engine::inverse(m), {
+       -0.33f,  1.00f, -1.00f,  1.33f,
+        0.33f, -0.50f,  0.50f, -0.83f,
+        0.33f, -0.66f,  0.33f,  0.00f,
+       -0.66f,  0.83f, -0.16f,  0.50f
+    }, 0.01f);
+
+    EXPECT_MAT4_NEAR(
+        engine::inverse(m) * m,
+        engine::Matrix4::Identity(),
+        0.01f
+    );
+}
+
+#pragma endregion
+
 #pragma region Operators
 
 TEST(Matrix4, SubscriptOperatorReturnsColumnVector) {

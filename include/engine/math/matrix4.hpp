@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/math/vector3.hpp"
 #include "engine/math/vector4.hpp"
 
 #include <array>
@@ -77,6 +78,21 @@ public:
     );
 
     /**
+     * @brief Creates an identity matrix.
+     *
+     * @return A `Matrix4` object representing the 4x4 identity matrix.
+     */
+    [[nodiscard]]
+    static auto Identity() {
+        return Matrix4 {
+            1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 1.0f
+        };
+    }
+
+    /**
      * @brief Access matrix element at (i, j) with row-major indexing.
      *
      * @param i Row index.
@@ -122,6 +138,11 @@ public:
     [[nodiscard]]
     const auto& operator[](int j) const {
         return (*reinterpret_cast<const Vector4*>(n[j].data()));
+    }
+
+    [[nodiscard]]
+    auto Inverse() const {
+
     }
 
 private:
@@ -170,5 +191,49 @@ private:
         };
     }
 };
+
+/**
+ * @brief Computes the inverse of a 4x4 matrix.
+ * @related Matrix4
+ *
+ * @param m The input 4x4 matrix whose inverse is to be computed.
+ * @return A new `Matrix4` object that represents the inverse of the input matrix.
+ */
+[[nodiscard]] inline ENGINE_EXPORT
+auto inverse(const Matrix4& m) {
+    const auto& a = reinterpret_cast<const Vector3&>(m[0]);
+    const auto& b = reinterpret_cast<const Vector3&>(m[1]);
+    const auto& c = reinterpret_cast<const Vector3&>(m[2]);
+    const auto& d = reinterpret_cast<const Vector3&>(m[3]);
+
+    const float& x = m(3, 0);
+    const float& y = m(3, 1);
+    const float& z = m(3, 2);
+    const float& w = m(3, 3);
+
+    auto s = cross(a, b);
+    auto t = cross(c, d);
+    auto u = (a * y) - (b * x);
+    auto v = (c * w) - (d * z);
+
+    const auto inv_det = 1.0f / (dot(s, v) + dot(t, u));
+    // TODO: replace with Vector3::operator*=()
+    s = s * inv_det;
+    t = t * inv_det;
+    u = u * inv_det;
+    v = v * inv_det;
+
+    auto r0 = cross(b, v) + t * y;
+    auto r1 = cross(v, a) - t * x;
+    auto r2 = cross(d, u) + s * w;
+    auto r3 = cross(u, c) - s * z;
+
+    return Matrix4 {
+        r0.x, r0.y, r0.z, -dot(b, t),
+        r1.x, r1.y, r1.z,  dot(a, t),
+        r2.x, r2.y, r2.z, -dot(d, s),
+        r3.x, r3.y, r3.z,  dot(c, s)
+    };
+}
 
 }

@@ -125,6 +125,30 @@ TEST(Matrix3, InequalityOperator) {
 
 #pragma endregion
 
+#pragma region Inverse
+
+TEST(Matrix3, InverseBasic) {
+    const auto m = engine::Matrix3 {
+        4.0f, 7.0f, 2.0f,
+        3.0f, 6.0f, 1.0f,
+        2.0f, 5.0f, 3.0f
+    };
+
+    EXPECT_MAT3_NEAR(engine::inverse(m), {
+        1.44f, -1.22f, -0.55f,
+       -0.77f,  0.88f,  0.22f,
+        0.33f, -0.66f,  0.33f
+    }, 0.01f);
+
+    EXPECT_MAT3_NEAR(
+        engine::inverse(m) * m,
+        engine::Matrix3::Identity(),
+        0.01f
+    );
+}
+
+#pragma endregion
+
 #pragma region Operators
 
 TEST(Matrix3, SubscriptOperatorReturnsColumnVector) {
