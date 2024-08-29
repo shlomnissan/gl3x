@@ -15,14 +15,14 @@ class Camera : public Node {
 public:
     /**
      * @brief Retrieves the projection matrix of the camera.
-     * 
+     *
      * @return The projection matrix as a Matrix4 object.
      */
     auto GetProjectionMatrix() const { return projection_transform_; }
 
     /**
      * @brief Retrieves the view matrix of the camera.
-     * 
+     *
      * @return The view matrix as a Matrix4 object.
      */
     auto GetViewMatrix() const { return view_transform_; }
@@ -30,7 +30,7 @@ public:
     /**
      * @brief Overrides the Node class function to update the world matrix.
      *
-     * This function updates the underlying world matrix and copies its inverse 
+     * This function updates the underlying world matrix and copies its inverse
      * to the view transform matrix.
      */
     auto UpdateTransforms() -> void override;
@@ -52,7 +52,7 @@ protected:
 
     /**
      * @brief Updates the projection transform.
-     * 
+     *
      * This pure virtual function must be implemented by derived classes to
      * update the projection matrix based on camera parameters.
      */

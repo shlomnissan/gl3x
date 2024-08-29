@@ -2,6 +2,7 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include "engine/scene/camera_perspective.hpp"
+#include "engine/math/utilities.hpp"
 
 #include <cmath>
 
@@ -17,11 +18,11 @@ namespace engine {
     {
         near_ = near;
         far_ = far;
-        UpdateProjectionTransform();
+        CameraPerspective::UpdateProjectionTransform();
     }
 
     auto CameraPerspective::UpdateProjectionTransform() -> void {
-        const auto tan_half_fov = std::tan((fov_) / 2);
+        const auto tan_half_fov = std::tan((engine::math::DegToRad(fov_)) / 2);
         projection_transform_ = Matrix4 {1.0f};
         projection_transform_[0] = {1.0f / (aspect_ * tan_half_fov), 0.0f, 0.0f, 0.0f};
         projection_transform_[1] = {0.0f, 1.0f / tan_half_fov, 0.0f, 0.0f};

@@ -35,15 +35,15 @@ public:
     /**
      * @brief Creates a new instance of the CameraPerspective class with default parameters.
      *
-     * @param fov The field of view in radians (default is 1.047197551196598f - 60 degrees).
+     * @param fov The field of view in degrees (default 60).
      * @param aspect The aspect ratio of the camera (width/height). Default is 1.77f (16:9).
      * @param near The near clipping plane distance. Default is 0.1f.
      * @param far The far clipping plane distance. Default is 1000.0f.
      * @return A `std::shared_ptr<CameraPerspective>` pointing to the newly created instance.
      */
     static auto Create(
-        float fov = 1.047197551196598f, // 60 degrees
-        float aspect = 1.77f, // 16:9
+        float fov = 60.0f,
+        float aspect = 1.77f,
         float near = 0.1f,
         float far = 1000.0f
     ) {
