@@ -169,6 +169,19 @@ private:
 };
 
 /**
+ * @brief Computes the determinant of a 3x3 matrix.
+ *
+ * @param m The input 3x3 matrix for which the determinant is to be computed.
+ * @return The determinant of the matrix as a floating-point value.
+ */
+[[nodiscard]] inline ENGINE_EXPORT
+auto determinant(const Matrix3& m) {
+    return m(0, 0) * (m(1, 1) * m(2, 2) - m(1, 2) * m(2, 1))
+         + m(0, 1) * (m(1, 2) * m(2, 0) - m(1, 0) * m(2, 2))
+         + m(0, 2) * (m(1, 0) * m(2, 1) - m(1, 1) * m(2, 0));
+}
+
+/**
  * @brief Computes the inverse of a 3x3 matrix.
  * @related Matrix3
  *

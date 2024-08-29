@@ -125,9 +125,31 @@ TEST(Matrix3, InequalityOperator) {
 
 #pragma endregion
 
+#pragma region Determinant
+
+TEST(Matrix3, Determinant) {
+    const auto m = engine::Matrix3 {
+        4.0f, 7.0f, 2.0f,
+        3.0f, 6.0f, 1.0f,
+        2.0f, 5.0f, 3.0f
+    };
+
+    auto x = engine::dot(engine::cross(m[0], m[1]), m[2]);
+
+    EXPECT_FLOAT_EQ(engine::determinant(m), 9.0f);
+
+    // det(m) = volume of parallelepiped
+    EXPECT_FLOAT_EQ(
+        engine::determinant(m),
+        engine::dot(engine::cross(m[0], m[1]), m[2])
+    );
+}
+
+#pragma endregion
+
 #pragma region Inverse
 
-TEST(Matrix3, InverseBasic) {
+TEST(Matrix3, Inverse) {
     const auto m = engine::Matrix3 {
         4.0f, 7.0f, 2.0f,
         3.0f, 6.0f, 1.0f,
@@ -140,6 +162,7 @@ TEST(Matrix3, InverseBasic) {
         0.33f, -0.66f,  0.33f
     }, 0.01f);
 
+    // M^{-1} * M = I
     EXPECT_MAT3_NEAR(
         engine::inverse(m) * m,
         engine::Matrix3::Identity(),

@@ -144,7 +144,7 @@ TEST(Matrix4, InequalityOperator) {
 
 #pragma region Inverse
 
-TEST(Matrix4, InverseBasic) {
+TEST(Matrix4, Inverse) {
     const auto m = engine::Matrix4 {
         4.0f, 7.0f, 2.0f, 1.0f,
         3.0f, 6.0f, 1.0f, 2.0f,
@@ -159,6 +159,7 @@ TEST(Matrix4, InverseBasic) {
        -0.66f,  0.83f, -0.16f,  0.50f
     }, 0.01f);
 
+    // M^{-1} * M = I
     EXPECT_MAT4_NEAR(
         engine::inverse(m) * m,
         engine::Matrix4::Identity(),

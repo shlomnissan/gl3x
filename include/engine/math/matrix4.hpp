@@ -140,11 +140,6 @@ public:
         return (*reinterpret_cast<const Vector4*>(n[j].data()));
     }
 
-    [[nodiscard]]
-    auto Inverse() const {
-
-    }
-
 private:
     /// @brief Internal storage for the matrix elements in row-major order.
     std::array<std::array<float, 4>, 4> n;
