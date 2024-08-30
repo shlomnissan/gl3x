@@ -59,8 +59,8 @@ struct ENGINE_EXPORT Renderer {
         glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        camera->UpdateTransforms();
         scene->UpdateTransforms();
+        camera->UpdateTransforms();
 
         shader_.Use();
         shader_.SetUniform("Projection", camera->GetProjectionMatrix());

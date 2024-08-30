@@ -142,6 +142,21 @@ TEST(Matrix4, InequalityOperator) {
 
 #pragma endregion
 
+#pragma region Determinant
+
+TEST(Matrix4, Determinant) {
+    const auto m = engine::Matrix4 {
+        4.0f, 7.0f, 2.0f, 1.0f,
+        3.0f, 6.0f, 1.0f, 2.0f,
+        2.0f, 5.0f, 3.0f, 3.0f,
+        1.0f, 1.0f, 2.0f, 1.0f
+    };
+
+    EXPECT_FLOAT_EQ(engine::determinant(m), 18.0f);
+}
+
+#pragma endregion
+
 #pragma region Inverse
 
 TEST(Matrix4, Inverse) {
