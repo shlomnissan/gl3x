@@ -134,15 +134,32 @@ TEST(Matrix3, Determinant) {
         2.0f, 5.0f, 3.0f
     };
 
-    auto x = engine::dot(engine::cross(m[0], m[1]), m[2]);
-
     EXPECT_FLOAT_EQ(engine::determinant(m), 9.0f);
-
     // det(m) = volume of parallelepiped
     EXPECT_FLOAT_EQ(
         engine::determinant(m),
         engine::dot(engine::cross(m[0], m[1]), m[2])
     );
+}
+
+TEST(Matrix3, DeterminantNegative) {
+    const auto m = engine::Matrix3 {
+        1.0f, 2.0f, 1.0f,
+        3.0f, 1.0f, 1.0f,
+        2.0f, 2.0f, 3.0f
+    };
+
+    EXPECT_FLOAT_EQ(engine::determinant(m), -9.0f);
+}
+
+TEST(Matrix3, DeterminantZero) {
+    const auto m = engine::Matrix3 {
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
+    };
+
+    EXPECT_FLOAT_EQ(engine::determinant(m), 0.0f);
 }
 
 #pragma endregion
