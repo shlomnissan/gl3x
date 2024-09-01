@@ -48,7 +48,7 @@ public:
      * @return Vector3 A `Vector3` instance representing the X unit vector.
      */
     [[nodiscard]]
-    static auto X() { return Vector3 {1.0f, 0.0f, 0.0f}; }
+    static auto Right() { return Vector3 {1.0f, 0.0f, 0.0f}; }
 
     /**
      * @brief Returns a unit vector along the Y axis.
@@ -56,7 +56,7 @@ public:
      * @return Vector3 A `Vector3` instance representing the Y unit vector.
      */
     [[nodiscard]]
-    static auto Y() { return Vector3 {0.0f, 1.0f, 0.0f}; }
+    static auto Up() { return Vector3 {0.0f, 1.0f, 0.0f}; }
 
     /**
      * @brief Returns a unit vector along the Z axis.
@@ -64,7 +64,7 @@ public:
      * @return Vector3 A `Vector3` instance representing the Z unit vector.
      */
     [[nodiscard]]
-    static auto Z() { return Vector3 {0.0f, 0.0f, 1.0f}; }
+    static auto Forward() { return Vector3 {0.0f, 0.0f, 1.0f}; }
 
     /**
      * @brief Calculates the length (magnitude) of the vector.

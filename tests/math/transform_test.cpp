@@ -14,7 +14,7 @@ TEST(Transform, EqualityOperator) {
     auto t3 = engine::Transform {};
 
     t3.Scale(0.3f);
-    t3.Rotate(engine::Vector3::X(), 0.5f);
+    t3.Rotate(engine::Vector3::Right(), 0.5f);
 
 
     EXPECT_TRUE(t1 == t2);
@@ -27,7 +27,7 @@ TEST(Transform, InequalityOperator) {
     auto t3 = engine::Transform {};
 
     t3.Scale(0.3f);
-    t3.Rotate(engine::Vector3::X(), 0.5f);
+    t3.Rotate(engine::Vector3::Right(), 0.5f);
 
 
     EXPECT_FALSE(t1 != t2);

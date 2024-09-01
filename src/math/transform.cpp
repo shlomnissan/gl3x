@@ -18,12 +18,12 @@ auto Transform::Translate(const Vector3& axis, float distance) -> void {
 }
 
 auto Transform::Rotate(const Vector3& axis, float angle) -> void {
-    assert(axis == Vector3::X() || axis == Vector3::Y() || axis == Vector3::Z());
-    if (axis == Vector3::X()) {
+    assert(axis == Vector3::Right() || axis == Vector3::Up() || axis == Vector3::Forward());
+    if (axis == Vector3::Right()) {
         euler_.pitch_ += angle;
-    }else if (axis == Vector3::Y()) {
+    }else if (axis == Vector3::Up()) {
         euler_.yaw_ += angle;
-    } else if (axis == Vector3::Z()) {
+    } else if (axis == Vector3::Forward()) {
         euler_.roll_ += angle;
     }
     is_dirty_ = true;

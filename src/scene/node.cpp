@@ -74,27 +74,27 @@ auto Node::Scale(float value) -> void {
 }
 
 auto Node::RotateX(float distance) -> void {
-    local_transform_.Rotate(Vector3::X(), distance);
+    local_transform_.Rotate(Vector3::Right(), distance);
 }
 
 auto Node::RotateY(float distance) -> void {
-    local_transform_.Rotate(Vector3::Y(), distance);
+    local_transform_.Rotate(Vector3::Up(), distance);
 }
 
 auto Node::RotateZ(float distance) -> void {
-    local_transform_.Rotate(Vector3::Z(), distance);
+    local_transform_.Rotate(Vector3::Forward(), distance);
 }
 
 auto Node::TranslateX(float distance) -> void {
-    local_transform_.Translate(Vector3::X(), distance);
+    local_transform_.Translate(Vector3::Right(), distance);
 }
 
 auto Node::TranslateY(float distance) -> void {
-    local_transform_.Translate(Vector3::Y(), distance);
+    local_transform_.Translate(Vector3::Up(), distance);
 }
 
 auto Node::TranslateZ(float distance) -> void {
-    local_transform_.Translate(Vector3::Z(), distance);
+    local_transform_.Translate(Vector3::Forward(), distance);
 }
 
 }

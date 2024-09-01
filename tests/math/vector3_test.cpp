@@ -33,7 +33,7 @@ TEST(Vector3, ConstructorParameterized) {
 #pragma region Unit vectors
 
 TEST(Vector3, UnitVectorAlongX) {
-    const auto v = engine::Vector3::X();
+    const auto v = engine::Vector3::Right();
 
     EXPECT_FLOAT_EQ(v.x, 1.0f);
     EXPECT_FLOAT_EQ(v.y, 0.0f);
@@ -41,7 +41,7 @@ TEST(Vector3, UnitVectorAlongX) {
 }
 
 TEST(Vector3, UnitVectorAlongY) {
-    const auto v = engine::Vector3::Y();
+    const auto v = engine::Vector3::Up();
 
     EXPECT_FLOAT_EQ(v.x, 0.0f);
     EXPECT_FLOAT_EQ(v.y, 1.0f);
@@ -49,7 +49,7 @@ TEST(Vector3, UnitVectorAlongY) {
 }
 
 TEST(Vector3, UnitVectorAlongZ) {
-    const auto v = engine::Vector3::Z();
+    const auto v = engine::Vector3::Forward();
 
     EXPECT_FLOAT_EQ(v.x, 0.0f);
     EXPECT_FLOAT_EQ(v.y, 0.0f);
