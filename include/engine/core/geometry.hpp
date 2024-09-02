@@ -36,7 +36,7 @@ struct ENGINE_EXPORT GeometryAttribute {
 class ENGINE_EXPORT Geometry {
 public:
     /**
-     * @brief Default construction. 
+     * @brief Default construction.
      */
     Geometry() = default;
 

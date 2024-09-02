@@ -38,11 +38,11 @@ TEST(Geometry, InitializeWithVertexData) {
 
 #pragma endregion
 
-#pragma region Attribute Management
+#pragma region Attributes
 
 TEST(Geometry, AddAttribute) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
-    auto geometry = engine::Geometry(vertex_data); 
+    auto geometry = engine::Geometry(vertex_data);
 
     geometry.SetAttribute({.type = kPosition, .item_size = 3, .offset = 0});
 
@@ -58,8 +58,8 @@ TEST(Geometry, AddMultipleAttributes) {
     const auto vertex_data = std::vector<float>{
         0.0f, 1.0f, 2.0f, 0.33f, 0.55f
     };
-    
-    auto geometry = engine::Geometry(vertex_data); 
+
+    auto geometry = engine::Geometry(vertex_data);
     geometry.SetAttribute({.type = kPosition, .item_size = 3, .offset = 0});
     geometry.SetAttribute({.type = kUV, .item_size = 2, .offset = 3});
 
@@ -72,11 +72,11 @@ TEST(Geometry, AddMultipleAttributes) {
 
 #pragma endregion
 
-#pragma region Attribute Management
+#pragma region Edge Cases
 
 TEST(Geometry, AddAttributeWithZeroItemSize) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
-    auto geometry = engine::Geometry(vertex_data); 
+    auto geometry = engine::Geometry(vertex_data);
 
     EXPECT_DEATH({
         geometry.SetAttribute({.type = kPosition, .item_size = 0, .offset = 0});
@@ -85,7 +85,7 @@ TEST(Geometry, AddAttributeWithZeroItemSize) {
 
 TEST(Geometry, AddAttributeWithInvalidOffset) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
-    auto geometry = engine::Geometry(vertex_data); 
+    auto geometry = engine::Geometry(vertex_data);
 
     EXPECT_DEATH({
         geometry.SetAttribute({.type = kPosition, .item_size = 3, .offset = 100});

@@ -4,9 +4,16 @@
 #include "engine/core/geometry/plane_geometry.hpp"
 #include "engine/core/geometry.hpp"
 
+#include <cassert>
+
 namespace engine {
 
 PlaneGeometry::PlaneGeometry(const Parameters& params) {
+    assert(params.width > 0);
+    assert(params.height > 0);
+    assert(params.width_segments > 0);
+    assert(params.height_segments > 0);
+
     GenerateGeometry(params);
     SetAttributes();
 }
