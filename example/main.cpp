@@ -19,7 +19,6 @@ auto main() -> int {
     camera->TranslateZ(1.0f);
 
     window.Start([&](const double){
-        node->RotateX(0.01f);
         node->RotateY(0.01f);
         renderer.render(scene.get(), camera.get());
     });

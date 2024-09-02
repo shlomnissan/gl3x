@@ -12,8 +12,8 @@
 #include <engine/temp/scene_vert.h>
 #include <engine/temp/scene_frag.h>
 #include <engine/temp/mesh.hpp>
-#include <engine/temp/cube.h>
 
+#include "engine/core/geometry/plane_geometry.hpp"
 #include "engine/math/matrix4.hpp"
 #include "engine/math/transformations.hpp"
 #include "engine/scene/scene.hpp"
@@ -34,7 +34,14 @@ struct ENGINE_EXPORT Renderer {
         {ShaderType::kFragmentShader, _SHADER_scene_frag}
     }};
 
-    Mesh cube_ {cube_vertex_0, cube_index_0};
+    engine::PlaneGeometry geometry_ {{
+        .width = 1.0f,
+        .height = 1.0f,
+        .width_segments = 2,
+        .height_segments = 2
+    }};
+
+    Mesh plane_ {geometry_.VertexData(), geometry_.IndexData()};
 
     Renderer(const int width, const int height) {
         glEnable(GL_DEPTH_TEST);
@@ -45,7 +52,7 @@ struct ENGINE_EXPORT Renderer {
     auto drawCube(const engine::Matrix4 transform) {
         shader_.SetUniform("Model", camera_ * transform);
 
-        cube_.Draw(shader_);
+        plane_.Draw(shader_);
     }
 
     auto renderObject(Node* object) -> void {
