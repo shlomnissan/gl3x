@@ -9,7 +9,15 @@
 
 using enum engine::GeometryAttributeType;
 
-#pragma region Geometry Initialization
+#pragma region Constructors
+
+TEST(Geometry, DefaultConstruction) {
+    const auto geometry = engine::Geometry{};
+
+    EXPECT_TRUE(geometry.VertexData().empty());
+    EXPECT_TRUE(geometry.IndexData().empty());
+    EXPECT_TRUE(geometry.Attributes().empty());
+}
 
 TEST(Geometry, InitializeWithVertexAndIndexData) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};

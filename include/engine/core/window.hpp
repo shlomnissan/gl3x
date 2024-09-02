@@ -21,12 +21,9 @@ public:
      * @brief Parameters used to initialize the window.
      */
     struct Parameters {
-        /// @brief The width of the window in pixels.
-        int width = 800;
-        /// @brief The height of the window in pixels.
-        int height = 600;
-        /// @brief The title of the window.
-        std::string_view title;
+        int width = 800;        ///< Width of the window in pixels.
+        int height = 600;       ///< Height of the window in pixels.
+        std::string_view title; ///< Title of the window.
     };
 
     /**

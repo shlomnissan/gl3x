@@ -2,6 +2,7 @@ set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(SOURCE_CODE
     "core/geometry.cpp"
+    "core/geometry/plane_geometry.cpp"
     "core/timer.cpp"
     "core/window.cpp"
     "core/window_impl.cpp"
@@ -21,12 +22,13 @@ set(SOURCE_CODE
     "scene/scene.cpp"
 
     # remove temporary classes
-    "temp/shader.cpp"
     "temp/mesh.cpp"
+    "temp/shader.cpp"
 )
 
 set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/geometry.hpp"
+    "${PUBLIC_HEADERS_DIR}/core/geometry/plane_geometry.cpp"
     "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"
     "${PUBLIC_HEADERS_DIR}/math/euler.hpp"

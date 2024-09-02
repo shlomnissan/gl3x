@@ -35,6 +35,10 @@ struct ENGINE_EXPORT GeometryAttribute {
  */
 class ENGINE_EXPORT Geometry {
 public:
+    /**
+     * @brief Default construction. 
+     */
+    Geometry() = default;
 
     /**
      * @brief Constructs a Geometry object with given vertex and index data.
@@ -78,7 +82,7 @@ public:
      */
     auto SetAttribute(const GeometryAttribute& attribute) -> void;
 
-private:
+protected:
     /// @brief The vertex data of the geometry.
     std::vector<float> vertex_data_;
     /// @brief The index data of the geometry.
