@@ -134,6 +134,8 @@ public:
         return std::make_shared<Node>();
     }
 
+    virtual ~Node() = default;
+
 private:
     /// @brief Flag indicating if children need updating.
     bool update_children_ {false};

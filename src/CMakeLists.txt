@@ -1,6 +1,7 @@
 set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(SOURCE_CODE
+    "core/geometry.cpp"
     "core/timer.cpp"
     "core/window.cpp"
     "core/window_impl.cpp"
@@ -25,6 +26,7 @@ set(SOURCE_CODE
 )
 
 set(PUBLIC_HEADERS
+    "${PUBLIC_HEADERS_DIR}/core/geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"
     "${PUBLIC_HEADERS_DIR}/math/euler.hpp"
