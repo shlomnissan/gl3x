@@ -18,6 +18,7 @@ set(SOURCE_CODE
     "scene/camera.hpp"
     "scene/camera_orthographic.cpp"
     "scene/camera_perspective.cpp"
+    "scene/mesh.cpp"
     "scene/node.cpp"
     "scene/scene.cpp"
 
@@ -41,6 +42,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/math/vector4.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/camera_orthographic.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/camera_perspective.hpp"
+    "${PUBLIC_HEADERS_DIR}/scene/mesh.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/node.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/scene.hpp"
 
