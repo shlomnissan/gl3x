@@ -21,7 +21,7 @@ public:
      *
      * @param geometry A shared pointer to the Geometry object to be associated with the mesh.
      */
-    explicit Mesh(std::shared_ptr<Geometry>& geometry);
+    explicit Mesh(std::shared_ptr<Geometry> geometry);
 
     /**
      * @brief Creates a shared pointer to a Mesh object with the specified geometry.
@@ -30,7 +30,7 @@ public:
      * @return std::shared_ptr<Mesh> A shared pointer to the newly created Mesh object.
      */
     [[nodiscard]]
-    static auto Create(std::shared_ptr<Geometry>& geometry) {
+    static auto Create(std::shared_ptr<Geometry> geometry) {
         return std::make_shared<Mesh>(geometry);
     }
 

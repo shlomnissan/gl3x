@@ -9,9 +9,9 @@
 
 namespace engine {
 
-class Mesh {
+class MeshTemp {
 public:
-    Mesh(
+    MeshTemp(
         const std::vector<float>& vertex_data,
         const std::vector<unsigned int>& index_data = {}
     );

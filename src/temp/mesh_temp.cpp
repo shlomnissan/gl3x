@@ -1,7 +1,7 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include <engine/temp/mesh.hpp>
+#include <engine/temp/mesh_temp.hpp>
 
 #include <glad/glad.h>
 
@@ -10,7 +10,7 @@
 
 namespace engine {
 
-Mesh::Mesh(
+MeshTemp::MeshTemp(
     const std::vector<float>& vertex_data,
     const std::vector<unsigned int>& index_data
 ) {
@@ -28,7 +28,7 @@ Mesh::Mesh(
     glDeleteBuffers(1, &ebo_);
 }
 
-auto Mesh::Draw(const Shader& shader) const -> void {
+auto MeshTemp::Draw(const Shader& shader) const -> void {
     shader.Use();
     glBindVertexArray(vao_);
     if (indices_size_ > 0) {
@@ -38,7 +38,7 @@ auto Mesh::Draw(const Shader& shader) const -> void {
     }
 }
 
-auto Mesh::ConfigureVertices(const std::vector<float>& vertex_data) -> void {
+auto MeshTemp::ConfigureVertices(const std::vector<float>& vertex_data) -> void {
     glGenBuffers(1, &vbo_);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
     glBufferData(
@@ -61,7 +61,7 @@ auto Mesh::ConfigureVertices(const std::vector<float>& vertex_data) -> void {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, STRIDE(8), BUFFER_OFFSET(6));
 }
 
-auto Mesh::ConfigureIndices(const std::vector<unsigned int>& index_data) -> void {
+auto MeshTemp::ConfigureIndices(const std::vector<unsigned int>& index_data) -> void {
     indices_size_ = index_data.size();
 
     glGenBuffers(1, &ebo_);

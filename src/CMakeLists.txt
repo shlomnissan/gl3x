@@ -23,7 +23,7 @@ set(SOURCE_CODE
     "scene/scene.cpp"
 
     # remove temporary classes
-    "temp/mesh.cpp"
+    "temp/mesh_temp.cpp"
     "temp/shader.cpp"
 )
 
@@ -49,7 +49,7 @@ set(PUBLIC_HEADERS
     # remove temporary classes
     "${PUBLIC_HEADERS_DIR}/temp/renderer.hpp"
     "${PUBLIC_HEADERS_DIR}/temp/shader.hpp"
-    "${PUBLIC_HEADERS_DIR}/temp/mesh.hpp"
+    "${PUBLIC_HEADERS_DIR}/temp/mesh_temp.hpp"
 )
 
 add_library(${PROJECT_NAME} ${SOURCE_CODE})

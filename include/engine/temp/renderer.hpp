@@ -11,7 +11,7 @@
 #include <engine/temp/shader.hpp>
 #include <engine/temp/scene_vert.h>
 #include <engine/temp/scene_frag.h>
-#include <engine/temp/mesh.hpp>
+#include <engine/temp/mesh_temp.hpp>
 
 #include "engine/core/geometry/plane_geometry.hpp"
 #include "engine/math/matrix4.hpp"
@@ -41,7 +41,7 @@ struct ENGINE_EXPORT Renderer {
         .height_segments = 2
     }};
 
-    Mesh plane_ {geometry_.VertexData(), geometry_.IndexData()};
+    MeshTemp plane_ {geometry_.VertexData(), geometry_.IndexData()};
 
     Renderer(const int width, const int height) {
         glEnable(GL_DEPTH_TEST);
