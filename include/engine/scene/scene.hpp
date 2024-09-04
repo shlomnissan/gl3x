@@ -18,6 +18,7 @@ public:
      *
      * @return A `std::shared_ptr<Scene>` pointing to the newly created Scene instance.
      */
+    [[nodiscard]]
     static auto Create() {
         return std::make_shared<Scene>();
     }

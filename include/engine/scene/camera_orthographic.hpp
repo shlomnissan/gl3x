@@ -48,6 +48,7 @@ public:
      * @param far The distance to the far clipping plane (default is 100.0f).
      * @return A `std::shared_ptr<CameraOrthographic>` pointing to the newly created instance.
      */
+    [[nodiscard]]
     static auto Create(
         float left = -1.0f,
         float right = 1.0f,

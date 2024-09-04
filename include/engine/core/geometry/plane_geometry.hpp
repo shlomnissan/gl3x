@@ -6,6 +6,8 @@
 #include "engine_export.h"
 #include "engine/core/geometry.hpp"
 
+#include <memory>
+
 namespace engine {
 
 /**
@@ -25,15 +27,26 @@ public:
 
     /**
      * @brief Constructs a PlaneGeometry object with the given parameters.
-     * 
+     *
      * @param params Parameters defining the size and segmentation of the plane.
      */
     explicit PlaneGeometry(const Parameters& params);
 
+    /**
+     * @brief Creates a shared pointer to a PlaneGeometry object with the specified parameters.
+     *
+     * @param params Parameters defining the size and segmentation of the plane.
+     * @return std::shared_ptr<PlaneGeometry> A shared pointer to the newly created PlaneGeometry object.
+     */
+    [[nodiscard]]
+    static auto Create(const Parameters& params){
+        return std::make_shared<PlaneGeometry>(params);
+    }
+
 private:
     /**
      * @brief Generates the vertex and index data for the plane geometry.
-     * 
+     *
      * @param params Parameters defining the size and segmentation of the plane.
      */
     auto GenerateGeometry(const Parameters& params) -> void;

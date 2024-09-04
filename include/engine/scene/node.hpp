@@ -130,6 +130,7 @@ public:
      *
      * @return A `std::shared_ptr<Node>` pointing to the newly created instance.
      */
+    [[nodiscard]]
     static auto Create() {
         return std::make_shared<Node>();
     }

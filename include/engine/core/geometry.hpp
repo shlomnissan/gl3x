@@ -6,6 +6,7 @@
 #include "engine_export.h"
 
 #include <vector>
+#include <memory>
 
 namespace engine {
 
@@ -48,7 +49,7 @@ public:
      */
     Geometry(
         const std::vector<float>& vertex_data,
-        const std::vector<unsigned int>& index_data = {}
+        const std::vector<unsigned int>& index_data
     ) : vertex_data_(vertex_data), index_data_(index_data) {}
 
     /**
@@ -81,6 +82,31 @@ public:
      * @param attribute The attribute to set.
      */
     auto SetAttribute(const GeometryAttribute& attribute) -> void;
+
+    /**
+     * @brief Creates a shared pointer to a default-constructed Geometry object.
+     *
+     * @return std::shared_ptr<Geometry> A shared pointer to the newly created Geometry object.
+     */
+    [[nodiscard]]
+    static auto Create() {
+        return std::make_shared<Geometry>();
+    }
+
+    /**
+     * @brief Creates a shared pointer to a Geometry object with specified vertex and index data.
+     *
+     * @param vertex_data A vector containing the vertex data.
+     * @param index_data A vector containing the index data (optional).
+     * @return std::shared_ptr<Geometry> A shared pointer to the newly created Geometry object.
+     */
+    [[nodiscard]]
+    static auto Create(
+        const std::vector<float>& vertex_data,
+        const std::vector<unsigned int>& index_data = {}
+    ){
+        return std::make_shared<Geometry>(vertex_data, index_data);
+    }
 
 protected:
     /// @brief The vertex data of the geometry.

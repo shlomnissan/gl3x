@@ -41,6 +41,7 @@ public:
      * @param far The far clipping plane distance. Default is 1000.0f.
      * @return A `std::shared_ptr<CameraPerspective>` pointing to the newly created instance.
      */
+    [[nodiscard]]
     static auto Create(
         float fov = 60.0f,
         float aspect = 1.77f,
