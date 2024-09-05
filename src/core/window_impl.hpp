@@ -13,14 +13,12 @@ namespace engine {
 
 class Window::Impl {
 public:
-    Impl() = default;
+    Impl(const Window::Parameters& params);
 
     Impl(const Impl&) = delete;
     Impl(Impl&&) = delete;
     Impl& operator=(const Impl&) = delete;
     Impl& operator=(Impl&&) = delete;
-
-    auto Initialize(const Window::Parameters& params) -> void;
 
     auto Start(const std::function<void(const double)>& tick) -> void;
 

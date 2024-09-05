@@ -8,10 +8,7 @@
 namespace engine {
 
 Window::Window(const Window::Parameters& params)
-  : impl_(std::make_unique<Impl>())
-{
-    impl_->Initialize(params);
-}
+  : impl_(std::make_unique<Impl>(params)) {}
 
 auto Window::Start(const std::function<void(const double)>& tick) const -> void {
     impl_->Start(tick);

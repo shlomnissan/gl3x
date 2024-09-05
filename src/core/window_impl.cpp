@@ -5,7 +5,7 @@
 
 namespace engine {
 
-auto Window::Impl::Initialize(const Window::Parameters& params) -> void {
+Window::Impl::Impl(const Window::Parameters& params) {
     if (!glfwInit()) return;
 
     initialized_ = true;
