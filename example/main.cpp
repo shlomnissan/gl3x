@@ -7,11 +7,11 @@
 #include <engine/scene/mesh.hpp>
 #include <engine/scene/scene.hpp>
 
-#include <engine/temp/renderer.hpp>
+#include <engine/temp/renderer_temp.hpp>
 
 auto main() -> int {
     auto window = engine::Window {{.title = "Example"}};
-    auto renderer = engine::Renderer {window.Width(), window.Height()};
+    auto renderer = engine::RendererTemp {window.Width(), window.Height()};
     auto camera = engine::CameraPerspective::Create(60.0f, window.AspectRatio());
     auto scene = engine::Scene::Create();
     auto geometry = engine::PlaneGeometry::Create({

@@ -5,7 +5,7 @@
 
 #include "engine_export.h"
 #include "engine/math/utilities.hpp"
-#include "scene/camera.hpp"
+#include "engine/scene/camera.hpp"
 
 #include <memory>
 

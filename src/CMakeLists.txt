@@ -3,6 +3,7 @@ set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include)
 set(SOURCE_CODE
     "core/geometry.cpp"
     "core/geometry/plane_geometry.cpp"
+    "core/renderer.cpp"
     "core/timer.cpp"
     "core/window.cpp"
     "core/window_impl.cpp"
@@ -15,7 +16,6 @@ set(SOURCE_CODE
     "math/vector3.cpp"
     "math/vector4.cpp"
     "scene/camera.cpp"
-    "scene/camera.hpp"
     "scene/camera_orthographic.cpp"
     "scene/camera_perspective.cpp"
     "scene/mesh.cpp"
@@ -30,6 +30,7 @@ set(SOURCE_CODE
 set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/core/geometry/plane_geometry.cpp"
+    "${PUBLIC_HEADERS_DIR}/core/renderer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"
     "${PUBLIC_HEADERS_DIR}/math/euler.hpp"
@@ -40,6 +41,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/math/utilities.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector4.hpp"
+    "${PUBLIC_HEADERS_DIR}/scene/camera.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/camera_orthographic.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/camera_perspective.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/mesh.hpp"
@@ -47,7 +49,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/scene/scene.hpp"
 
     # remove temporary classes
-    "${PUBLIC_HEADERS_DIR}/temp/renderer.hpp"
+    "${PUBLIC_HEADERS_DIR}/temp/renderer_temp.hpp"
     "${PUBLIC_HEADERS_DIR}/temp/shader.hpp"
     "${PUBLIC_HEADERS_DIR}/temp/mesh_temp.hpp"
 )

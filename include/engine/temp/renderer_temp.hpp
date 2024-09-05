@@ -16,13 +16,12 @@
 #include "engine/core/geometry/plane_geometry.hpp"
 #include "engine/math/matrix4.hpp"
 #include "engine/math/transformations.hpp"
+#include "engine/scene/camera.hpp"
 #include "engine/scene/scene.hpp"
-
-#include "scene/camera.hpp"
 
 namespace engine {
 
-struct ENGINE_EXPORT Renderer {
+struct ENGINE_EXPORT RendererTemp {
     Matrix4 camera_ = engine::look_at(
         {0.0f, 0.0f, 1.0f},
         {0.0f, 0.0f, 0.0f},
@@ -43,7 +42,7 @@ struct ENGINE_EXPORT Renderer {
 
     MeshTemp plane_ {geometry_.VertexData(), geometry_.IndexData()};
 
-    Renderer(const int width, const int height) {
+    RendererTemp(const int width, const int height) {
         glEnable(GL_DEPTH_TEST);
         glViewport(0, 0, width, height);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
