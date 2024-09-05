@@ -2,6 +2,7 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include <engine/core/window.hpp>
+#include <engine/core/renderer.hpp>
 #include <engine/core/geometry/plane_geometry.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
@@ -10,6 +11,8 @@
 #include <engine/temp/renderer_temp.hpp>
 
 auto main() -> int {
+    auto r = engine::Renderer({.width = 800, .height = 600});
+
     auto window = engine::Window {{.title = "Example"}};
     auto renderer = engine::RendererTemp {window.Width(), window.Height()};
     auto camera = engine::CameraPerspective::Create(60.0f, window.AspectRatio());
@@ -28,6 +31,7 @@ auto main() -> int {
     window.Start([&](const double){
         mesh->RotateY(0.01f);
         renderer.render(scene.get(), camera.get());
+        r.Render(scene.get(), camera.get());
     });
 
     return 0;

@@ -13,10 +13,16 @@ namespace engine {
 
 class ENGINE_EXPORT Renderer {
 public:
-    auto Render(
-        std::shared_ptr<Scene>& scene,
-        std::shared_ptr<Camera>& camera
-    ) -> void;
+    struct Parameters {
+        int width;  ///< Width of the viewport.
+        int height; ///< Height of the viewport.
+    };
+
+    Renderer(const Renderer::Parameters& params);
+
+    auto Render(Scene* scene, Camera* camera) -> void;
+
+    ~Renderer();
 
 private:
     class Impl;

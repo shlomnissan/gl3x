@@ -15,6 +15,8 @@ set(SOURCE_CODE
     "math/transformations.cpp"
     "math/vector3.cpp"
     "math/vector4.cpp"
+    "renderer/gl/gl_renderer_impl.cpp"
+    "renderer/gl/gl_renderer_impl.hpp"
     "scene/camera.cpp"
     "scene/camera_orthographic.cpp"
     "scene/camera_perspective.cpp"
