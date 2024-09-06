@@ -49,6 +49,8 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/scene/scene.hpp"
 )
 
+include(ShaderString)
+
 add_library(${PROJECT_NAME} ${SOURCE_CODE})
 
 target_include_directories(${PROJECT_NAME} PUBLIC

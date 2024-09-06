@@ -4,7 +4,8 @@
 
 function(ShaderString)
 
-file(GLOB_RECURSE SHADERS "**/*.glsl" "**/*.vert" "**/*.frag")
+file(GLOB_RECURSE SHADERS "**/*.vert" "**/*.frag")
+
 foreach(SHADER IN LISTS SHADERS)
     get_filename_component(FILENAME ${SHADER} NAME)
     get_filename_component(DIRECTORY ${SHADER} DIRECTORY)
@@ -12,7 +13,7 @@ foreach(SHADER IN LISTS SHADERS)
 
     string(REGEX REPLACE "\\." "_" EXT ${EXTENSION})
     string(REGEX REPLACE "\\.[^.]*$" "" FILENAME_NO_EXT ${FILENAME})
-    set(HEADER_FILE ${DIRECTORY}/headers/${FILENAME_NO_EXT}${EXT}.h)
+    set(HEADER_FILE ${DIRECTORY}/include/${FILENAME_NO_EXT}${EXT}.h)
 
     message("🎨 Writing shader ${FILENAME_NO_EXT}.h")
 
@@ -23,3 +24,5 @@ foreach(SHADER IN LISTS SHADERS)
 endforeach()
 
 endfunction()
+
+ShaderString()

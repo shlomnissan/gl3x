@@ -4,8 +4,8 @@ static const char* _SHADER_scene_frag = R"(#version 410 core
 #pragma debug(on)
 #pragma optimize(off)
 
-out vec4 final_color;
+layout (location = 0) out vec4 frag_color;
 
 void main() {
-    final_color = vec4(1.0, 1.0, 1.0, 1.0);
+    frag_color = vec4(1.0, 1.0, 1.0, 1.0);
 })";
