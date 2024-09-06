@@ -15,6 +15,8 @@ set(SOURCE_CODE
     "math/transformations.cpp"
     "math/vector3.cpp"
     "math/vector4.cpp"
+    "renderer/gl/gl_program.cpp"
+    "renderer/gl/gl_program.hpp"
     "renderer/gl/gl_renderer_impl.cpp"
     "renderer/gl/gl_renderer_impl.hpp"
     "scene/camera.cpp"
@@ -23,10 +25,6 @@ set(SOURCE_CODE
     "scene/mesh.cpp"
     "scene/node.cpp"
     "scene/scene.cpp"
-
-    # remove temporary classes
-    "temp/mesh_temp.cpp"
-    "temp/shader_temp.cpp"
 )
 
 set(PUBLIC_HEADERS
@@ -49,10 +47,6 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/scene/mesh.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/node.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/scene.hpp"
-
-    # remove temporary classes
-    "${PUBLIC_HEADERS_DIR}/temp/shader_temp.hpp"
-    "${PUBLIC_HEADERS_DIR}/temp/mesh_temp.hpp"
 )
 
 add_library(${PROJECT_NAME} ${SOURCE_CODE})

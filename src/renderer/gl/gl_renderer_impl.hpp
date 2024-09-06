@@ -9,6 +9,11 @@ class Renderer::Impl {
 public:
     Impl(const Renderer::Parameters& params);
 
+    Impl(const Impl&) = delete;
+    Impl(Impl&&) = delete;
+    Impl& operator=(const Impl&) = delete;
+    Impl& operator=(Impl&&) = delete;
+
     auto Render(Scene* scene, Camera* camera) -> void;
 
 private:
