@@ -12,8 +12,6 @@ public:
     auto Render(Scene* scene, Camera* camera) -> void;
 
 private:
-    int width_;
-    int height_;
 };
 
 }

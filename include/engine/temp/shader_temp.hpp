@@ -23,9 +23,9 @@ struct ShaderInfo {
     std::string_view source;
 };
 
-class Shader {
+class ShaderTemp {
 public:
-    explicit Shader(const std::vector<ShaderInfo>& shaders);
+    explicit ShaderTemp(const std::vector<ShaderInfo>& shaders);
 
     auto Use() const -> void;
 
@@ -33,7 +33,7 @@ public:
 
     auto SetUniform(std::string_view u, const engine::Matrix4& m) const -> void;
 
-    ~Shader();
+    ~ShaderTemp();
 
 private:
     GLuint program_;

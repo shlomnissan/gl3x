@@ -28,7 +28,7 @@ MeshTemp::MeshTemp(
     glDeleteBuffers(1, &ebo_);
 }
 
-auto MeshTemp::Draw(const Shader& shader) const -> void {
+auto MeshTemp::Draw(const ShaderTemp& shader) const -> void {
     shader.Use();
     glBindVertexArray(vao_);
     if (indices_size_ > 0) {

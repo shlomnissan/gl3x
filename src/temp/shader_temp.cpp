@@ -1,7 +1,7 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include <engine/temp/shader.hpp>
+#include <engine/temp/shader_temp.hpp>
 
 #include <iostream>
 #include <string>
@@ -10,7 +10,7 @@
 
 namespace engine {
 
-Shader::Shader(const std::vector<ShaderInfo>& shaders) {
+ShaderTemp::ShaderTemp(const std::vector<ShaderInfo>& shaders) {
     program_ = glCreateProgram();
 
     for (const auto& shader_info : shaders) {
@@ -30,11 +30,11 @@ Shader::Shader(const std::vector<ShaderInfo>& shaders) {
     CheckProgramLinkStatus();
 }
 
-auto Shader::Use() const -> void {
+auto ShaderTemp::Use() const -> void {
     glUseProgram(program_);
 }
 
-auto Shader::GetShaderType(ShaderType type) const -> unsigned int {
+auto ShaderTemp::GetShaderType(ShaderType type) const -> unsigned int {
     switch(type) {
         case ShaderType::kVertexShader:
             return GL_VERTEX_SHADER;
@@ -47,7 +47,7 @@ auto Shader::GetShaderType(ShaderType type) const -> unsigned int {
     }
 }
 
-auto Shader::GetShaderTypeString(ShaderType type) const -> const char* {
+auto ShaderTemp::GetShaderTypeString(ShaderType type) const -> const char* {
     switch (type) {
         case ShaderType::kVertexShader:
             return "Vertex";
@@ -60,7 +60,7 @@ auto Shader::GetShaderTypeString(ShaderType type) const -> const char* {
     }
 }
 
-auto Shader::CheckShaderCompileStatus(GLuint shader_id, ShaderType type) const -> void {
+auto ShaderTemp::CheckShaderCompileStatus(GLuint shader_id, ShaderType type) const -> void {
     auto success = 0;
     glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
     if (!success) {
@@ -76,7 +76,7 @@ auto Shader::CheckShaderCompileStatus(GLuint shader_id, ShaderType type) const -
     }
 }
 
-auto Shader::CheckProgramLinkStatus() const -> void {
+auto ShaderTemp::CheckProgramLinkStatus() const -> void {
     auto success = 0;
     glGetProgramiv(program_, GL_LINK_STATUS, &success);
     if (!success) {
@@ -90,7 +90,7 @@ auto Shader::CheckProgramLinkStatus() const -> void {
     }
 }
 
-auto Shader::GetUniform(std::string_view name) const -> GLint {
+auto ShaderTemp::GetUniform(std::string_view name) const -> GLint {
     Use();
     auto loc = glGetUniformLocation(program_, name.data());
     if (loc < 0) {
@@ -101,11 +101,11 @@ auto Shader::GetUniform(std::string_view name) const -> GLint {
     return loc;
 }
 
-auto Shader::SetUniform(std::string_view u, const engine::Matrix4& m) const -> void {
+auto ShaderTemp::SetUniform(std::string_view u, const engine::Matrix4& m) const -> void {
     glUniformMatrix4fv(GetUniform(u), 1, GL_FALSE, &m(0, 0));
 }
 
-Shader::~Shader() {
+ShaderTemp::~ShaderTemp() {
     if (program_) {
         glDeleteProgram(program_);
     }

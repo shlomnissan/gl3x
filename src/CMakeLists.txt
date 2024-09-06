@@ -26,7 +26,7 @@ set(SOURCE_CODE
 
     # remove temporary classes
     "temp/mesh_temp.cpp"
-    "temp/shader.cpp"
+    "temp/shader_temp.cpp"
 )
 
 set(PUBLIC_HEADERS
@@ -51,8 +51,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/scene/scene.hpp"
 
     # remove temporary classes
-    "${PUBLIC_HEADERS_DIR}/temp/renderer_temp.hpp"
-    "${PUBLIC_HEADERS_DIR}/temp/shader.hpp"
+    "${PUBLIC_HEADERS_DIR}/temp/shader_temp.hpp"
     "${PUBLIC_HEADERS_DIR}/temp/mesh_temp.hpp"
 )
 

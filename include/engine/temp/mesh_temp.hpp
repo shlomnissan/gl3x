@@ -5,7 +5,7 @@
 
 #include <vector>
 
-#include <engine/temp/shader.hpp>
+#include <engine/temp/shader_temp.hpp>
 
 namespace engine {
 
@@ -15,7 +15,7 @@ public:
         const std::vector<float>& vertex_data,
         const std::vector<unsigned int>& index_data = {}
     );
-    auto Draw(const Shader& shader) const -> void;
+    auto Draw(const ShaderTemp& shader) const -> void;
 
 private:
     unsigned int vao_ {0};
