@@ -3,6 +3,8 @@
 
 #include "engine/core/renderer.hpp"
 
+#include "renderer/gl/gl_program.hpp"
+
 namespace engine {
 
 class Renderer::Impl {
@@ -17,6 +19,9 @@ public:
     auto Render(Scene* scene, Camera* camera) -> void;
 
 private:
+    GLProgram program_;
+
+    auto RenderObject(Node* object, Camera* camera) -> void;
 };
 
 }
