@@ -15,6 +15,8 @@ set(SOURCE_CODE
     "math/transformations.cpp"
     "math/vector3.cpp"
     "math/vector4.cpp"
+    "renderer/gl/gl_bindings.cpp"
+    "renderer/gl/gl_bindings.hpp"
     "renderer/gl/gl_program.cpp"
     "renderer/gl/gl_program.hpp"
     "renderer/gl/gl_renderer_impl.cpp"

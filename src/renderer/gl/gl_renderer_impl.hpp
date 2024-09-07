@@ -1,8 +1,11 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
+#pragma once
+
 #include "engine/core/renderer.hpp"
 
+#include "renderer/gl/gl_bindings.hpp"
 #include "renderer/gl/gl_program.hpp"
 
 namespace engine {
@@ -20,6 +23,7 @@ public:
 
 private:
     GLProgram program_;
+    GLBindings bindings_;
 
     auto RenderObject(Node* object, Camera* camera) -> void;
 };
