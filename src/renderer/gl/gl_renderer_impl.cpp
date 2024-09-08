@@ -32,9 +32,10 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
             camera->GetViewMatrix() * object->GetWorldTransform()
         );
 
-        // TODO: is mesh?
-            // TODO: gl bindings
-            // TODO: draw object depending on type
+        if (c->Is<Mesh>()) {
+            bindings_.Bind(c->As<Mesh>());
+            // TODO: draw elements
+        }
 
         RenderObject(c.get(), camera);
     }

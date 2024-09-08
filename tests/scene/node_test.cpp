@@ -4,6 +4,8 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
+#include <engine/scene/camera_perspective.hpp>
+#include <engine/scene/mesh.hpp>
 #include <engine/scene/node.hpp>
 
 #pragma region Node Operations
@@ -145,6 +147,29 @@ TEST(Node, RemoveNonexistentChild) {
 
     EXPECT_TRUE(parent->Children().empty());
     EXPECT_EQ(child->Parent(), nullptr);
+}
+
+#pragma endregion
+
+#pragma region Type Helpers
+
+TEST(Node, TypeCheck) {
+    auto temp = engine::CameraPerspective::Create();
+    engine::Node* node = temp.get();
+
+    EXPECT_TRUE(node->Is<engine::CameraPerspective>());
+    EXPECT_FALSE(node->Is<engine::Mesh>());
+}
+
+TEST(Node, TypeCast) {
+    auto temp = engine::CameraPerspective::Create();
+    engine::Node* node = temp.get();
+
+    auto camera = node->As<engine::CameraPerspective>();
+    EXPECT_NE(camera, nullptr);
+
+    auto mesh = node->As<engine::Mesh>();
+    EXPECT_EQ(mesh, nullptr);
 }
 
 #pragma endregion
