@@ -89,7 +89,7 @@ TEST(Geometry, AddAttributeWithInvalidOffset) {
 
     EXPECT_DEATH({
         geometry->SetAttribute({.type = kPosition, .item_size = 3, .offset = 100});
-    }, ".*attribute.offset < vertex_data_.size()");
+    }, ".*attribute.offset < vertex_data_.size");
 }
 
 #pragma endregion

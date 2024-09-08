@@ -22,19 +22,23 @@ Renderer::Impl::Impl(const Renderer::Parameters& params) : program_ {{
 
 auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
     for (const auto c : object->Children()) {
-        program_.SetUniform(
-            "Projection",
-            camera->GetProjectionMatrix()
-        );
-
-        program_.SetUniform(
-            "ModelView",
-            camera->GetViewMatrix() * object->GetWorldTransform()
-        );
-
         if (c->Is<Mesh>()) {
-            bindings_.Bind(c->As<Mesh>());
-            // TODO: draw elements
+            program_.SetUniform(
+                "ModelView",
+                camera->GetViewMatrix() * object->GetWorldTransform()
+            );
+
+            auto mesh = c->As<Mesh>();
+            auto geometry = mesh->GetGeometry();
+
+            bindings_.Bind(mesh);
+            // TODO: draw triangles
+            glDrawElements(
+                GL_TRIANGLES,
+                geometry->IndexData().size(),
+                GL_UNSIGNED_INT,
+                nullptr
+            );
         }
 
         RenderObject(c.get(), camera);
@@ -44,6 +48,11 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
 auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    program_.SetUniform(
+        "Projection",
+        camera->GetProjectionMatrix()
+    );
 
     scene->UpdateTransforms();
     camera->UpdateTransforms();
