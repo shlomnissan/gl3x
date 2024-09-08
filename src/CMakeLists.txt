@@ -9,6 +9,7 @@ set(SOURCE_CODE
     "core/window_impl.cpp"
     "core/window_impl.hpp"
     "math/euler.cpp"
+    "math/utilities.cpp"
     "math/matrix3.cpp"
     "math/matrix4.cpp"
     "math/transform.cpp"

@@ -5,6 +5,8 @@
 
 #include "engine_export.h"
 
+#include <string>
+
 namespace engine::math {
 
 ENGINE_EXPORT constexpr float pi = 3.1415926535897932384626433832795f;
@@ -21,5 +23,8 @@ constexpr auto DegToRad(const float degrees) {
 constexpr auto RadToDeg(const float radians) {
     return radians * rad2deg;
 }
+
+[[nodiscard]] ENGINE_EXPORT
+auto GenerateUUID() -> std::string;
 
 }
