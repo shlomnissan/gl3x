@@ -6,8 +6,10 @@
 #include "engine_export.h"
 #include "engine/math/matrix4.hpp"
 #include "engine/math/transform.hpp"
+#include "engine/math/utilities.hpp"
 
 #include <memory>
+#include <string>
 #include <vector>
 
 namespace engine {
@@ -46,6 +48,14 @@ public:
      */
     [[nodiscard]]
     auto Parent() const -> const Node*;
+
+    /**
+     * @brief Retrieves the unique identifier for this node.
+     *
+     * @return The UUID of the node as a string.
+     */
+    [[nodiscard]]
+    auto UUID() const { return uuid_; }
 
     /**
      * @brief Checks if the node's children should be updated.
@@ -143,6 +153,9 @@ private:
 
     /// @brief Pointer to the parent node.
     Node* parent_ {nullptr};
+
+    /// @brief Unique identifier for this node.
+    std::string uuid_ {math::GenerateUUID()};
 
     /// @brief List of child nodes.
     std::vector<std::shared_ptr<Node>> children_;
