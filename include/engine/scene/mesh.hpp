@@ -24,6 +24,13 @@ public:
     explicit Mesh(std::shared_ptr<Geometry> geometry);
 
     /**
+     * @brief Accessor method that returns a pointer to the underlying `Geometry` object.
+     *
+     * @return A pointer to the `Geometry` object as a `const` pointer.
+     */
+    auto GetGeometry() const -> const Geometry* { return geometry_.get(); }
+
+    /**
      * @brief Creates a shared pointer to a Mesh object with the specified geometry.
      *
      * @param geometry A shared pointer to the Geometry object to be associated with the mesh.

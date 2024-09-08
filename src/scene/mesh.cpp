@@ -7,5 +7,4 @@ namespace engine {
 
 Mesh::Mesh(std::shared_ptr<Geometry> geometry) :
   geometry_(std::move(geometry)) {}
-
 }

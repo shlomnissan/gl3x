@@ -32,8 +32,9 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
             camera->GetViewMatrix() * object->GetWorldTransform()
         );
 
-        // TODO: gl bindings
-        // TODO: draw object depending on type
+        // TODO: is mesh?
+            // TODO: gl bindings
+            // TODO: draw object depending on type
 
         RenderObject(c.get(), camera);
     }

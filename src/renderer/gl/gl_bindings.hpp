@@ -3,6 +3,9 @@
 
 #pragma once
 
+#include "engine/scene/mesh.hpp"
+
+#include <string>
 #include <unordered_map>
 
 #include <glad/glad.h>
@@ -11,13 +14,14 @@ namespace engine {
 
 class GLBindings {
 public:
-    // Bind(object)
+    auto Bind(Mesh* mesh) -> void;
 
 private:
-    // std::unordered_map<std::string(UUID), GLuint> bindings_
-    // GLuint current_vao_
+    std::unordered_map<std::string, GLuint> vao_bindings_;
 
-    // GenerateBuffers(object)
+    GLuint current_vao_ {0};
+
+    auto GenerateBuffers(const Geometry* geometry) -> void;
 };
 
 }
