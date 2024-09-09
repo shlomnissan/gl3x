@@ -6,29 +6,28 @@
 namespace engine {
 
 #define BUFFER_OFFSET(offset) ((void*)(offset * sizeof(GLfloat)))
-#define STRIDE(stride) (sizeof(GLfloat) * stride)
 
 auto GLBindings::Bind(Mesh* mesh) -> void {
     GLuint vao;
     if (vao_bindings_.contains(mesh->UUID())) {
         vao = vao_bindings_[mesh->UUID()];
         if (vao == current_vao_) { return; }
-        glBindVertexArray(vao);
     } else {
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
         GenerateBuffers(mesh->GetGeometry());
         vao_bindings_.emplace(mesh->UUID(), vao);
     }
+    glBindVertexArray(vao);
     current_vao_ = vao;
 }
 
 auto GLBindings::GenerateBuffers(const Geometry* geometry) -> void {
-    GLuint vbo;
-    const auto& vertex = geometry->VertexData();
+    GLuint buffers[2];
+    glGenBuffers(2, &buffers[0]);
 
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    const auto& vertex = geometry->VertexData();
+    glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
     glBufferData(
         GL_ARRAY_BUFFER,
         vertex.size() * sizeof(GLfloat),
@@ -36,27 +35,27 @@ auto GLBindings::GenerateBuffers(const Geometry* geometry) -> void {
         GL_STATIC_DRAW
     );
 
+    auto stride = 0;
     for (const auto& attr : geometry->Attributes()) {
-        // TODO: process the rest of the attributes
+        stride += attr.item_size;
+    }
+
+    for (const auto& attr : geometry->Attributes()) {
+        auto idx = static_cast<int>(attr.type);
         glVertexAttribPointer(
-            0,
-            3,
+            idx,
+            attr.item_size,
             GL_FLOAT,
             GL_FALSE,
-            STRIDE(8),
+            stride * sizeof(GLfloat),
             BUFFER_OFFSET(0)
         );
-        glEnableVertexAttribArray(0);
-        break;
+        glEnableVertexAttribArray(idx);
     }
 
     if (geometry->IndexData().size()) {
-        // TODO: generate two buffers once
-        GLuint ebo;
         const auto& index = geometry->IndexData();
-
-        glGenBuffers(1, &ebo);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[1]);
         glBufferData(
             GL_ELEMENT_ARRAY_BUFFER,
             index.size() * sizeof(GLuint),
@@ -64,6 +63,9 @@ auto GLBindings::GenerateBuffers(const Geometry* geometry) -> void {
             GL_STATIC_DRAW
         );
     }
+
+    glBindVertexArray(0);
+    glDeleteBuffers(2, &buffers[0]);
 }
 
 }

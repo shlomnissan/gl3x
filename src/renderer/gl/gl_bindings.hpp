@@ -14,6 +14,13 @@ namespace engine {
 
 class GLBindings {
 public:
+    GLBindings() = default;
+
+    GLBindings(const GLBindings&) = delete;
+    GLBindings(GLBindings&&) = delete;
+    GLBindings& operator=(const GLBindings&) = delete;
+    GLBindings& operator=(GLBindings&&) = delete;
+
     auto Bind(Mesh* mesh) -> void;
 
 private:
