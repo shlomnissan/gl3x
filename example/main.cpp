@@ -11,21 +11,25 @@
 auto main() -> int {
     auto window = engine::Window {{.title = "Example"}};
     auto renderer = engine::Renderer({.width = 800, .height = 600});
-    auto camera = engine::CameraPerspective::Create(60.0f, window.AspectRatio());
-    auto scene = engine::Scene::Create();
-    auto geometry = engine::PlaneGeometry::Create({
-        .width = 1.0f,
-        .height = 1.0f,
-        .width_segments = 2,
-        .height_segments = 2
-    });
 
-    auto mesh = engine::Mesh::Create(geometry);
-    scene->Add(mesh);
+    auto scene = engine::Scene::Create();
+    auto camera = engine::CameraPerspective::Create(60.0f, window.AspectRatio());
     camera->TranslateZ(2.0f);
 
+    auto geometry = engine::PlaneGeometry::Create({1.0f, 1.0f, 2, 2});
+    auto mesh1 = engine::Mesh::Create(geometry);
+
+    auto mesh2 = engine::Mesh::Create(geometry);
+    mesh2->TranslateX(0.7f);
+    mesh2->TranslateZ(-1.0f);
+
+    scene->Add(mesh1);
+    scene->Add(mesh2);
+
     window.Start([&](const double){
-        mesh->RotateY(0.01f);
+        scene->RotateZ(0.01f);
+        mesh1->RotateY(0.01f);
+        mesh2->RotateX(0.01f);
 
         renderer.Render(scene.get(), camera.get());
     });
