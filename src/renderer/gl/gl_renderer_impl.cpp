@@ -25,7 +25,7 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
         if (c->Is<Mesh>()) {
             program_.SetUniform(
                 "ModelView",
-                camera->GetViewMatrix() * object->GetWorldTransform()
+                camera->GetViewMatrix() * c->GetWorldTransform()
             );
 
             auto mesh = c->As<Mesh>();
