@@ -176,7 +176,7 @@ auto dot(const Vector4& a, const Vector4& b) {
  *         If the input vector has zero length, returns a zero vector.
  */
 [[nodiscard]] inline ENGINE_EXPORT
-auto normalize(const Vector4& v) {
+auto normalize(const Vector4& v) -> Vector4 {
     const auto len = v.length();
     if (len == 0.0f) {
         return Vector4 {0.0f};

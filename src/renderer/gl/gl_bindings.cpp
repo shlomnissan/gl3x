@@ -65,7 +65,6 @@ auto GLBindings::GenerateBuffers(const Geometry* geometry) -> void {
     }
 
     glBindVertexArray(0);
-    glDeleteBuffers(2, &buffers[0]);
 }
 
 }
