@@ -23,15 +23,18 @@ Renderer::Impl::Impl(const Renderer::Parameters& params) : program_ {{
 auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
     for (const auto c : object->Children()) {
         if (c->Is<Mesh>()) {
+            auto mesh = c->As<Mesh>();
+            auto geometry = mesh->GetGeometry();
+
+            if (geometry->Disposed()) return;
+
             program_.SetUniform(
                 "ModelView",
                 camera->GetViewMatrix() * c->GetWorldTransform()
             );
 
-            auto mesh = c->As<Mesh>();
-            auto geometry = mesh->GetGeometry();
-
             bindings_.Bind(mesh);
+
             // TODO: draw triangles
             glDrawElements(
                 GL_TRIANGLES,

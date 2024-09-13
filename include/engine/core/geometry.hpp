@@ -53,6 +53,21 @@ public:
     ) : vertex_data_(vertex_data), index_data_(index_data) {}
 
     /**
+     * @brief Creates a shared pointer to a Geometry object with specified vertex and index data.
+     *
+     * @param vertex_data A vector containing the vertex data.
+     * @param index_data A vector containing the index data (optional).
+     * @return std::shared_ptr<Geometry> A shared pointer to the newly created Geometry object.
+     */
+    [[nodiscard]]
+    static auto Create(
+        const std::vector<float>& vertex_data,
+        const std::vector<unsigned int>& index_data = {}
+    ){
+        return std::make_shared<Geometry>(vertex_data, index_data);
+    }
+
+    /**
      * @brief Gets the vertex data of the geometry.
      *
      * @return const std::vector<float>& A reference to the vector containing the vertex data.
@@ -77,6 +92,14 @@ public:
     const auto& Attributes() const { return attributes_; }
 
     /**
+     * @brief Checks if the geometry object has been disposed.
+     *
+     * @return bool True if the object has been disposed, false otherwise.
+     */
+    [[nodiscard]]
+    auto Disposed() const { return disposed_; }
+
+    /**
      * @brief Sets a geometry attribute.
      *
      * @param attribute The attribute to set.
@@ -94,18 +117,17 @@ public:
     }
 
     /**
-     * @brief Creates a shared pointer to a Geometry object with specified vertex and index data.
+     * @brief Disposes of resources associated with the Geometry object.
      *
-     * @param vertex_data A vector containing the vertex data.
-     * @param index_data A vector containing the index data (optional).
-     * @return std::shared_ptr<Geometry> A shared pointer to the newly created Geometry object.
+     * This method dispatches a "dispose" event to clean up resources related to the object.
      */
-    [[nodiscard]]
-    static auto Create(
-        const std::vector<float>& vertex_data,
-        const std::vector<unsigned int>& index_data = {}
-    ){
-        return std::make_shared<Geometry>(vertex_data, index_data);
+    auto Dispose() -> void;
+
+    /**
+     * @brief Destructor.
+     */
+    ~Geometry() {
+        Dispose();
     }
 
 protected:
@@ -115,6 +137,8 @@ protected:
     std::vector<unsigned int> index_data_;
     /// @brief The attributes of the geometry.
     std::vector<GeometryAttribute> attributes_;
+    /// @brief Flag indicating whether the object has been disposed.
+    bool disposed_ {false};
 };
 
 }
