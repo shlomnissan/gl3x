@@ -18,7 +18,7 @@ public:
         int height; ///< Height of the viewport.
     };
 
-    Renderer(const Renderer::Parameters& params);
+    explicit Renderer(const Renderer::Parameters& params);
 
     auto Render(Scene* scene, Camera* camera) -> void;
 

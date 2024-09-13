@@ -10,7 +10,10 @@
 
 auto main() -> int {
     auto window = engine::Window {{.title = "Example"}};
-    auto renderer = engine::Renderer({.width = 800, .height = 600});
+    auto renderer = engine::Renderer({
+        .width = window.Width(),
+        .height = window.Height()
+    });
 
     auto scene = engine::Scene::Create();
     auto camera = engine::CameraPerspective::Create(60.0f, window.AspectRatio());
