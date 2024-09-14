@@ -6,6 +6,8 @@
 #include "engine_export.h"
 #include "engine/math/utilities.hpp"
 
+#include "core/disposable.hpp"
+
 #include <memory>
 #include <string>
 #include <vector>
@@ -36,7 +38,7 @@ struct ENGINE_EXPORT GeometryAttribute {
 /**
  * @brief Class representing a 3D geometry with vertex and index data.
  */
-class ENGINE_EXPORT Geometry {
+class ENGINE_EXPORT Geometry : public Disposable {
 public:
     /**
      * @brief Default construction.
@@ -102,14 +104,6 @@ public:
     auto UUID() const { return uuid_; }
 
     /**
-     * @brief Checks if the geometry object has been disposed.
-     *
-     * @return bool True if the object has been disposed, false otherwise.
-     */
-    [[nodiscard]]
-    auto Disposed() const { return disposed_; }
-
-    /**
      * @brief Sets a geometry attribute.
      *
      * @param attribute The attribute to set.
@@ -126,20 +120,6 @@ public:
         return std::make_shared<Geometry>();
     }
 
-    /**
-     * @brief Disposes of resources associated with the Geometry object.
-     *
-     * This method dispatches a "dispose" event to clean up resources related to the object.
-     */
-    auto Dispose() -> void;
-
-    /**
-     * @brief Destructor.
-     */
-    ~Geometry() {
-        Dispose();
-    }
-
 protected:
     /// @brief The vertex data of the geometry.
     std::vector<float> vertex_data_;
@@ -152,9 +132,6 @@ protected:
 
     /// @brief Unique identifier for this node.
     std::string uuid_ {math::GenerateUUID()};
-
-    /// @brief Flag indicating whether the object has been disposed.
-    bool disposed_ {false};
 };
 
 }

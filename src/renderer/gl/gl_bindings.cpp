@@ -3,6 +3,8 @@
 
 #include "renderer/gl/gl_bindings.hpp"
 
+#include <array>
+
 namespace engine {
 
 #define BUFFER_OFFSET(offset) ((void*)(offset * sizeof(GLfloat)))
@@ -22,9 +24,9 @@ auto GLBindings::Bind(Geometry* geometry) -> void {
     current_vao_ = vao;
 }
 
-auto GLBindings::GenerateBuffers(Geometry* geometry) -> void {
-    GLuint buffers[2];
-    glGenBuffers(2, &buffers[0]);
+auto GLBindings::GenerateBuffers(Geometry* geometry) const -> void {
+    auto buffers = std::array<GLuint, 2> {};
+    glGenBuffers(2, buffers.data());
 
     const auto& vertex = geometry->VertexData();
     glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);

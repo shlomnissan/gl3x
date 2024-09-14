@@ -13,9 +13,4 @@ auto Geometry::SetAttribute(const GeometryAttribute &attribute) -> void {
     attributes_.emplace_back(attribute);
 }
 
-auto Geometry::Dispose() -> void {
-    // TODO: dispath dispose event
-    disposed_ = true;
-}
-
 }
