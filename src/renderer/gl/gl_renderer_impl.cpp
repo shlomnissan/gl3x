@@ -33,7 +33,7 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
                 camera->GetViewMatrix() * c->GetWorldTransform()
             );
 
-            bindings_.Bind(mesh);
+            bindings_.Bind(geometry);
 
             // TODO: draw triangles
             glDrawElements(

@@ -7,22 +7,22 @@ namespace engine {
 
 #define BUFFER_OFFSET(offset) ((void*)(offset * sizeof(GLfloat)))
 
-auto GLBindings::Bind(Mesh* mesh) -> void {
+auto GLBindings::Bind(Geometry* geometry) -> void {
     GLuint vao;
-    if (vao_bindings_.contains(mesh->UUID())) {
-        vao = vao_bindings_[mesh->UUID()];
+    if (vao_bindings_.contains(geometry->UUID())) {
+        vao = vao_bindings_[geometry->UUID()];
         if (vao == current_vao_) { return; }
     } else {
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
-        GenerateBuffers(mesh->GetGeometry());
-        vao_bindings_.emplace(mesh->UUID(), vao);
+        GenerateBuffers(geometry);
+        vao_bindings_.try_emplace(geometry->UUID(), vao);
     }
     glBindVertexArray(vao);
     current_vao_ = vao;
 }
 
-auto GLBindings::GenerateBuffers(const Geometry* geometry) -> void {
+auto GLBindings::GenerateBuffers(Geometry* geometry) -> void {
     GLuint buffers[2];
     glGenBuffers(2, &buffers[0]);
 

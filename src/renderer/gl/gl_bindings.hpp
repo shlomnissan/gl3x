@@ -21,14 +21,14 @@ public:
     GLBindings& operator=(const GLBindings&) = delete;
     GLBindings& operator=(GLBindings&&) = delete;
 
-    auto Bind(Mesh* mesh) -> void;
+    auto Bind(Geometry* geometry) -> void;
 
 private:
     std::unordered_map<std::string, GLuint> vao_bindings_;
 
     GLuint current_vao_ {0};
 
-    auto GenerateBuffers(const Geometry* geometry) -> void;
+    auto GenerateBuffers(Geometry* geometry) -> void;
 };
 
 }

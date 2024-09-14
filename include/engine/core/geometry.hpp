@@ -4,9 +4,11 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/math/utilities.hpp"
 
-#include <vector>
 #include <memory>
+#include <string>
+#include <vector>
 
 namespace engine {
 
@@ -92,6 +94,14 @@ public:
     const auto& Attributes() const { return attributes_; }
 
     /**
+     * @brief Retrieves the unique identifier for this geometry.
+     *
+     * @return The UUID of the node as a string.
+     */
+    [[nodiscard]]
+    auto UUID() const { return uuid_; }
+
+    /**
      * @brief Checks if the geometry object has been disposed.
      *
      * @return bool True if the object has been disposed, false otherwise.
@@ -133,10 +143,16 @@ public:
 protected:
     /// @brief The vertex data of the geometry.
     std::vector<float> vertex_data_;
+
     /// @brief The index data of the geometry.
     std::vector<unsigned int> index_data_;
+
     /// @brief The attributes of the geometry.
     std::vector<GeometryAttribute> attributes_;
+
+    /// @brief Unique identifier for this node.
+    std::string uuid_ {math::GenerateUUID()};
+
     /// @brief Flag indicating whether the object has been disposed.
     bool disposed_ {false};
 };
