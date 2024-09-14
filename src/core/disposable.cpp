@@ -6,8 +6,10 @@
 namespace engine {
 
 auto Disposable::Dispose() -> void {
-    disposed_ = true;
-    // TODO: dispatch events
+    if (!disposed_) {
+        disposed_ = true;
+        for (const auto& c : dispose_callbacks_) c(this);
+    }
 }
 
 }

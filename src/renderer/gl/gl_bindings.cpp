@@ -18,13 +18,14 @@ auto GLBindings::Bind(Geometry* geometry) -> void {
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
         GenerateBuffers(geometry);
+        GeometryCallbacks(geometry);
         vao_bindings_.try_emplace(geometry->UUID(), vao);
     }
     glBindVertexArray(vao);
     current_vao_ = vao;
 }
 
-auto GLBindings::GenerateBuffers(Geometry* geometry) const -> void {
+auto GLBindings::GenerateBuffers(const Geometry* geometry) const -> void {
     auto buffers = std::array<GLuint, 2> {};
     glGenBuffers(2, buffers.data());
 
@@ -67,6 +68,13 @@ auto GLBindings::GenerateBuffers(Geometry* geometry) const -> void {
     }
 
     glBindVertexArray(0);
+}
+
+auto GLBindings::GeometryCallbacks(Geometry* geometry) -> void {
+    geometry->OnDispose([&](void* target){
+        auto g = static_cast<Geometry*>(target);
+        this->vao_bindings_.erase(g->UUID());
+    });
 }
 
 }

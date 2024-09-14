@@ -3,7 +3,12 @@
 
 #pragma once
 
+#include <functional>
+#include <vector>
+
 namespace engine {
+
+using OnDisposeCallback = std::function<void(void*)>;
 
 class Disposable {
 public:
@@ -21,6 +26,10 @@ public:
      */
     [[nodiscard]] auto Disposed() const { return disposed_; }
 
+    auto OnDispose(const OnDisposeCallback& callback) {
+        dispose_callbacks_.emplace_back(callback);
+    }
+
     /**
      * @brief Destructor.
      */
@@ -29,6 +38,8 @@ public:
 private:
     /// @brief Flag indicating whether the object has been disposed.
     bool disposed_;
+
+    std::vector<OnDisposeCallback> dispose_callbacks_;
 };
 
 }

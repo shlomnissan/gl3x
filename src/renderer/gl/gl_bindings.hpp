@@ -28,7 +28,9 @@ private:
 
     GLuint current_vao_ {0};
 
-    auto GenerateBuffers(Geometry* geometry) const -> void;
+    auto GenerateBuffers(const Geometry* geometry) const -> void;
+
+    auto GeometryCallbacks(Geometry* geometry) -> void;
 };
 
 }
