@@ -55,7 +55,7 @@ public:
      * @return The UUID of the node as a string.
      */
     [[nodiscard]]
-    auto UUID() const { return uuid_; }
+    const auto& UUID() const { return uuid_; }
 
     /**
      * @brief Checks if the node's children should be updated.

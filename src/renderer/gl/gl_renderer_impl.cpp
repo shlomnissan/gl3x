@@ -26,7 +26,7 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
             auto mesh = c->As<Mesh>();
             auto geometry = mesh->GetGeometry();
 
-            if (geometry->Disposed()) return;
+            if (geometry->Disposed()) continue;
 
             program_.SetUniform(
                 "ModelView",

@@ -5,12 +5,18 @@
 
 #include "engine/scene/mesh.hpp"
 
+#include <array>
 #include <string>
 #include <unordered_map>
 
 #include <glad/glad.h>
 
 namespace engine {
+
+struct GLBindingsState {
+    std::array<GLuint, 2> buffers {0};
+    GLuint vao {0};
+};
 
 class GLBindings {
 public:
@@ -24,11 +30,11 @@ public:
     auto Bind(Geometry* geometry) -> void;
 
 private:
-    std::unordered_map<std::string, GLuint> vao_bindings_;
+    std::unordered_map<std::string, GLBindingsState> bindings_;
 
     GLuint current_vao_ {0};
 
-    auto GenerateBuffers(const Geometry* geometry) const -> void;
+    auto GenerateBuffers(const Geometry* geometry, GLBindingsState& state) const -> void;
 
     auto GeometryCallbacks(Geometry* geometry) -> void;
 };

@@ -101,7 +101,7 @@ public:
      * @return The UUID of the node as a string.
      */
     [[nodiscard]]
-    auto UUID() const { return uuid_; }
+    const auto& UUID() const { return uuid_; }
 
     /**
      * @brief Sets a geometry attribute.
