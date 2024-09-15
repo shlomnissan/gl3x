@@ -6,7 +6,7 @@
 #include "engine/scene/mesh.hpp"
 
 #include <array>
-#include <string>
+#include <string_view>
 #include <unordered_map>
 
 #include <glad/glad.h>
@@ -30,7 +30,7 @@ public:
     auto Bind(Geometry* geometry) -> void;
 
 private:
-    std::unordered_map<std::string, GLBindingsState> bindings_;
+    std::unordered_map<std::string_view, GLBindingsState> bindings_;
 
     GLuint current_vao_ {0};
 

@@ -71,7 +71,7 @@ auto GLBindings::GenerateBuffers(
 }
 
 auto GLBindings::GeometryCallbacks(Geometry* geometry) -> void {
-    geometry->OnDispose([&](void* target){
+    geometry->OnDispose([this](Disposable* target){
         auto& uuid = static_cast<Geometry*>(target)->UUID();
         auto& state = this->bindings_[uuid];
         glDeleteBuffers(state.buffers.size(), state.buffers.data());

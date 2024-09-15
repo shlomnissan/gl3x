@@ -28,7 +28,7 @@ public:
      *
      * @return A pointer to the `Geometry` object as a `const` pointer.
      */
-    auto GetGeometry() -> Geometry* const { return geometry_.get(); }
+    auto GetGeometry() -> Geometry* { return geometry_.get(); }
 
     /**
      * @brief Creates a shared pointer to a Mesh object with the specified geometry.

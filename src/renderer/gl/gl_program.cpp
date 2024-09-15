@@ -19,7 +19,7 @@ GLProgram::GLProgram(const std::vector<GLShaderInfo>& shaders) {
         glShaderSource(shader_id, 1, &data, nullptr);
         glCompileShader(shader_id);
 
-        if (!CheckShaderCompileStatus(shader_id, shader_info.type)) {
+        if (!CheckShaderCompileStatus(shader_id)) {
             break;
         }
 
@@ -43,7 +43,7 @@ auto GLProgram::SetUniform(std::string_view name, const engine::Matrix4& m) cons
     glUniformMatrix4fv(GetUniformLoc(name), 1, GL_FALSE, &m(0, 0));
 }
 
-auto GLProgram::CheckShaderCompileStatus(GLuint shader_id, GLShaderType type) const -> bool {
+auto GLProgram::CheckShaderCompileStatus(GLuint shader_id) const -> bool {
     auto success = 0;
     glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
     if (!success) {
@@ -71,10 +71,8 @@ auto GLProgram::GetShaderType(GLShaderType type) const -> GLuint {
     switch(type) {
         case GLShaderType::kVertexShader:
             return GL_VERTEX_SHADER;
-            break;
         case GLShaderType::kFragmentShader:
             return GL_FRAGMENT_SHADER;
-            break;
         default:
             return -1;
     }

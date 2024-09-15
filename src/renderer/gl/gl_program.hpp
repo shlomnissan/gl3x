@@ -42,7 +42,7 @@ private:
 
     auto CheckProgramLinkStatus() const -> bool;
 
-    auto CheckShaderCompileStatus(GLuint shader_id, GLShaderType type) const -> bool;
+    auto CheckShaderCompileStatus(GLuint shader_id) const -> bool;
 
     auto GetShaderType(GLShaderType type) const -> GLuint;
 };

@@ -13,7 +13,7 @@ namespace engine {
 
 class Window::Impl {
 public:
-    Impl(const Window::Parameters& params);
+    explicit Impl(const Window::Parameters& params);
 
     Impl(const Impl&) = delete;
     Impl(Impl&&) = delete;

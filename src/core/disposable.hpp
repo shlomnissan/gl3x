@@ -8,10 +8,22 @@
 
 namespace engine {
 
-using OnDisposeCallback = std::function<void(void*)>;
+class Disposable;
+using OnDisposeCallback = std::function<void(Disposable*)>;
 
 class Disposable {
 public:
+    /// @brief Default constructor
+    Disposable() = default;
+    /// @brief Deleted copy constructor
+    Disposable(const Disposable&) = delete;
+    /// @brief Deleted copy assignment operator
+    auto operator=(const Disposable&) -> Disposable& = delete;
+    /// @brief Deleted move constructor
+    Disposable(Disposable&&) = delete;
+    /// @brief Delete move assignment operator
+    auto operator=(Disposable&&) -> Disposable& = delete;
+
     /**
      * @brief Disposes of resources associated with the derived object.
      *
@@ -33,7 +45,7 @@ public:
     /**
      * @brief Destructor.
      */
-    virtual ~Disposable() { Dispose(); }
+    ~Disposable() { Dispose(); }
 
 private:
     /// @brief Flag indicating whether the object has been disposed.
