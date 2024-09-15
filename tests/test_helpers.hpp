@@ -94,3 +94,10 @@ auto EXPECT_VEC4_EQ(const engine::Vector4& a, const engine::Vector4& b) -> void 
     EXPECT_EQ(a.z, b.z);
     EXPECT_EQ(a.w, b.w);
 }
+
+auto EXPECT_VEC4_NEAR(const engine::Vector4& a, const engine::Vector4& b, float v) -> void {
+    EXPECT_NEAR(a.x, b.x, v);
+    EXPECT_NEAR(a.y, b.y, v);
+    EXPECT_NEAR(a.z, b.z, v);
+    EXPECT_NEAR(a.w, b.w, v);
+}

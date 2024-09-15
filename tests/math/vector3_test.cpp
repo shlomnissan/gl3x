@@ -85,28 +85,28 @@ TEST(Vector3, CrossProductPositiveValues) {
     const auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
     const auto v2 = engine::Vector3 {4.0f, 5.0f, 6.0f};
 
-    EXPECT_VEC3_EQ(engine::cross(v1, v2), {-3.0f, 6.0f, -3.0f});
+    EXPECT_VEC3_EQ(engine::Cross(v1, v2), {-3.0f, 6.0f, -3.0f});
 }
 
 TEST(Vector3, CrossProductZeroVector) {
     const auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
     const auto v2 = engine::Vector3 {0.0f, 0.0f, 0.0f};
 
-    EXPECT_VEC3_EQ(engine::cross(v1, v2), {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(engine::Cross(v1, v2), {0.0f, 0.0f, 0.0f});
 }
 
 TEST(Vector3, CrossProductParallelVectors) {
     const auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
     const auto v2 = engine::Vector3 {2.0f, 4.0f, 6.0f};
 
-    EXPECT_VEC3_EQ(engine::cross(v1, v2), {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(engine::Cross(v1, v2), {0.0f, 0.0f, 0.0f});
 }
 
 TEST(Vector3, CrossProductUnitVectors) {
     const auto v1 = engine::Vector3 {1.0f, 0.0f, 0.0f};
     const auto v2 = engine::Vector3 {0.0f, 1.0f, 0.0f};
 
-    EXPECT_VEC3_EQ(engine::cross(v1, v2), {0.0f, 0.0f, 1.0f});
+    EXPECT_VEC3_EQ(engine::Cross(v1, v2), {0.0f, 0.0f, 1.0f});
 }
 
 #pragma endregion
@@ -117,35 +117,35 @@ TEST(Vector3, DotProductPositiveValues) {
     const auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
     const auto v2 = engine::Vector3 {4.0f, 5.0f, 6.0f};
 
-    EXPECT_FLOAT_EQ(engine::dot(v1, v2), 32.0f);
+    EXPECT_FLOAT_EQ(engine::Dot(v1, v2), 32.0f);
 }
 
 TEST(Vector3, DotProductMixedValues) {
     const auto v1 = engine::Vector3 {-1.0f, 2.0f, -3.0f};
     const auto v2 = engine::Vector3 {4.0f, -5.0f, 6.0f};
 
-    EXPECT_FLOAT_EQ(engine::dot(v1, v2), -32.0f);
+    EXPECT_FLOAT_EQ(engine::Dot(v1, v2), -32.0f);
 }
 
 TEST(Vector3, DotProductZeroVector) {
     const auto v1 = engine::Vector3 {0.0f, 0.0f, 0.0f};
     const auto v2 = engine::Vector3 {1.0f, 2.0f, 3.0f};
 
-    EXPECT_FLOAT_EQ(engine::dot(v1, v2), 0.0f);
+    EXPECT_FLOAT_EQ(engine::Dot(v1, v2), 0.0f);
 }
 
 TEST(Vector3, DotProductPerpendicularVectors) {
     const auto v1 = engine::Vector3 {1.0f, 0.0f, 0.0f};
     const auto v2 = engine::Vector3 {0.0f, 1.0f, 0.0f};
 
-    EXPECT_FLOAT_EQ(engine::dot(v1, v2), 0.0f);
+    EXPECT_FLOAT_EQ(engine::Dot(v1, v2), 0.0f);
 }
 
 TEST(Vector3, DotProductParallelVectors) {
     const auto v1 = engine::Vector3 {1.0f, 0.0f, 0.0f};
     const auto v2 = engine::Vector3 {1.0f, 0.0f, 0.0f};
 
-    EXPECT_FLOAT_EQ(engine::dot(v1, v2), 1.0f);
+    EXPECT_FLOAT_EQ(engine::Dot(v1, v2), 1.0f);
 }
 
 #pragma endregion
@@ -293,19 +293,19 @@ TEST(Vector3, ScalarDivisionIdentity) {
 TEST(Vector3, NormalizeBasic) {
     const auto v = engine::Vector3 {3.0f, 4.0f, 0.0f};
 
-    EXPECT_VEC3_EQ(engine::normalize(v), {0.6f, 0.8f, 0.0f});
+    EXPECT_VEC3_EQ(engine::Normalize(v), {0.6f, 0.8f, 0.0f});
 }
 
 TEST(Vector3, NormalizeNormalizedVector) {
     const auto v = engine::Vector3 {0.6f, 0.8f, 0.0f};
 
-    EXPECT_VEC3_EQ(engine::normalize(v), {0.6f, 0.8f, 0.0f});
+    EXPECT_VEC3_EQ(engine::Normalize(v), {0.6f, 0.8f, 0.0f});
 }
 
 TEST(Vector3, NormalizeZeroVector) {
     const auto v = engine::Vector3 {0.0f, 0.0f, 0.0f};
 
-    EXPECT_VEC3_EQ(engine::normalize(v), {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(engine::Normalize(v), {0.0f, 0.0f, 0.0f});
 }
 
 #pragma endregion

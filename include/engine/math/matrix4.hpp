@@ -194,7 +194,7 @@ private:
  * @return The determinant of the matrix as a floating-point value.
  */
 [[nodiscard]] inline ENGINE_EXPORT
-auto determinant(const Matrix4& m) {
+auto Determinant(const Matrix4& m) {
     return m(0, 0) * (
         m(1, 1) * (m(2, 2) * m(3, 3) - m(2, 3) * m(3, 2)) -
         m(1, 2) * (m(2, 1) * m(3, 3) - m(2, 3) * m(3, 1)) +
@@ -222,7 +222,7 @@ auto determinant(const Matrix4& m) {
  * @return A new `Matrix4` object that represents the inverse of the input matrix.
  */
 [[nodiscard]] inline ENGINE_EXPORT
-auto inverse(const Matrix4& m) {
+auto Inverse(const Matrix4& m) {
     const auto& a = reinterpret_cast<const Vector3&>(m[0]);
     const auto& b = reinterpret_cast<const Vector3&>(m[1]);
     const auto& c = reinterpret_cast<const Vector3&>(m[2]);
@@ -233,28 +233,28 @@ auto inverse(const Matrix4& m) {
     const float& z = m(3, 2);
     const float& w = m(3, 3);
 
-    auto s = cross(a, b);
-    auto t = cross(c, d);
+    auto s = Cross(a, b);
+    auto t = Cross(c, d);
     auto u = (a * y) - (b * x);
     auto v = (c * w) - (d * z);
 
-    const auto inv_det = 1.0f / (dot(s, v) + dot(t, u));
+    const auto inv_det = 1.0f / (Dot(s, v) + Dot(t, u));
     // TODO: replace with Vector3::operator*=()
     s = s * inv_det;
     t = t * inv_det;
     u = u * inv_det;
     v = v * inv_det;
 
-    auto r0 = cross(b, v) + t * y;
-    auto r1 = cross(v, a) - t * x;
-    auto r2 = cross(d, u) + s * w;
-    auto r3 = cross(u, c) - s * z;
+    auto r0 = Cross(b, v) + t * y;
+    auto r1 = Cross(v, a) - t * x;
+    auto r2 = Cross(d, u) + s * w;
+    auto r3 = Cross(u, c) - s * z;
 
     return Matrix4 {
-        r0.x, r0.y, r0.z, -dot(b, t),
-        r1.x, r1.y, r1.z,  dot(a, t),
-        r2.x, r2.y, r2.z, -dot(d, s),
-        r3.x, r3.y, r3.z,  dot(c, s)
+        r0.x, r0.y, r0.z, -Dot(b, t),
+        r1.x, r1.y, r1.z,  Dot(a, t),
+        r2.x, r2.y, r2.z, -Dot(d, s),
+        r3.x, r3.y, r3.z,  Dot(c, s)
     };
 }
 

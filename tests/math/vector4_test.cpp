@@ -59,35 +59,35 @@ TEST(Vector4, DotProductPositiveValues) {
     const auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
     const auto v2 = engine::Vector4 {4.0f, 5.0f, 6.0f, 7.0f};
 
-    EXPECT_FLOAT_EQ(engine::dot(v1, v2), 60.0f);
+    EXPECT_FLOAT_EQ(engine::Dot(v1, v2), 60.0f);
 }
 
 TEST(Vector4, DotProductMixedValues) {
     const auto v1 = engine::Vector4 {-1.0f, 2.0f, -3.0f, 4.0f};
     const auto v2 = engine::Vector4 {4.0f, -5.0f, 6.0f, -7.0f};
 
-    EXPECT_FLOAT_EQ(engine::dot(v1, v2), -60.0f);
+    EXPECT_FLOAT_EQ(engine::Dot(v1, v2), -60.0f);
 }
 
 TEST(Vector4, DotProductZeroVector) {
     const auto v1 = engine::Vector4 {0.0f, 0.0f, 0.0f, 0.0f};
     const auto v2 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
 
-    EXPECT_FLOAT_EQ(engine::dot(v1, v2), 0.0f);
+    EXPECT_FLOAT_EQ(engine::Dot(v1, v2), 0.0f);
 }
 
 TEST(Vector4, DotProductPerpendicularVectors) {
     const auto v1 = engine::Vector4 {1.0f, 0.0f, 0.0f, 0.0f};
     const auto v2 = engine::Vector4 {0.0f, 1.0f, 0.0f, 0.0f};
 
-    EXPECT_FLOAT_EQ(engine::dot(v1, v2), 0.0f);
+    EXPECT_FLOAT_EQ(engine::Dot(v1, v2), 0.0f);
 }
 
 TEST(Vector4, DotProductParallelVectors) {
     const auto v1 = engine::Vector4 {1.0f, 0.0f, 0.0f, 0.0f};
     const auto v2 = engine::Vector4 {1.0f, 0.0f, 0.0f, 0.0f};
 
-    EXPECT_FLOAT_EQ(engine::dot(v1, v2), 1.0f);
+    EXPECT_FLOAT_EQ(engine::Dot(v1, v2), 1.0f);
 }
 
 #pragma endregion
@@ -235,19 +235,19 @@ TEST(Vector4, ScalarDivisionIdentity) {
 TEST(Vector4, NormalizeBasic) {
     const auto v = engine::Vector4 {3.0f, 4.0f, 0.0f, 0.0f};
 
-    EXPECT_VEC4_EQ(engine::normalize(v), {0.6f, 0.8f, 0.0f, 0.0f});
+    EXPECT_VEC4_EQ(engine::Normalize(v), {0.6f, 0.8f, 0.0f, 0.0f});
 }
 
 TEST(Vector4, NormalizeNormalizedVector) {
     const auto v = engine::Vector4 {0.6f, 0.8f, 0.0f, 0.0f};
 
-    EXPECT_VEC4_EQ(engine::normalize(v), {0.6f, 0.8f, 0.0f, 0.0f});
+    EXPECT_VEC4_EQ(engine::Normalize(v), {0.6f, 0.8f, 0.0f, 0.0f});
 }
 
 TEST(Vector4, NormalizeZeroVector) {
     const auto v = engine::Vector4 {0.0f, 0.0f, 0.0f, 0.0f};
 
-    EXPECT_VEC4_EQ(engine::normalize(v), {0.0f, 0.0f, 0.0f, 0.0f});
+    EXPECT_VEC4_EQ(engine::Normalize(v), {0.0f, 0.0f, 0.0f, 0.0f});
 }
 
 #pragma endregion

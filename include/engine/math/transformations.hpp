@@ -21,7 +21,7 @@ namespace engine {
  * @return Matrix4 The resulting matrix after scaling.
  */
 [[nodiscard]] ENGINE_EXPORT
-auto scale(const Matrix4& m, const Vector3& v) -> Matrix4;
+auto Scale(const Matrix4& m, const Vector3& v) -> Matrix4;
 
 /**
  * @brief Scales a matrix uniformly by a given value.
@@ -34,7 +34,7 @@ auto scale(const Matrix4& m, const Vector3& v) -> Matrix4;
  * @return Matrix4 The resulting matrix after uniform scaling.
  */
 [[nodiscard]] ENGINE_EXPORT
-auto scale(const Matrix4& m, const float value) -> Matrix4;
+auto Scale(const Matrix4& m, const float value) -> Matrix4;
 
 /**
  * @brief Rotates a matrix by a given angle around a specified axis.
@@ -48,7 +48,7 @@ auto scale(const Matrix4& m, const float value) -> Matrix4;
  * @return Matrix4 The resulting matrix after rotation.
  */
 [[nodiscard]] ENGINE_EXPORT
-auto rotate(const Matrix4& m, float angle, const Vector3& v) -> Matrix4;
+auto Rotate(const Matrix4& m, float angle, const Vector3& v) -> Matrix4;
 
 /**
  * @brief Translates a matrix by a given vector.
@@ -61,7 +61,7 @@ auto rotate(const Matrix4& m, float angle, const Vector3& v) -> Matrix4;
  * @return Matrix4 The resulting matrix after translation.
  */
 [[nodiscard]] ENGINE_EXPORT
-auto translate(const Matrix4& m, const Vector3& v) -> Matrix4;
+auto Translate(const Matrix4& m, const Vector3& v) -> Matrix4;
 
 /**
  * @brief Creates a view matrix for a camera with a specified position, target, and up direction.
@@ -76,6 +76,6 @@ auto translate(const Matrix4& m, const Vector3& v) -> Matrix4;
  * @return Matrix4 The resulting view matrix.
  */
 [[nodiscard]] ENGINE_EXPORT
-auto look_at(const Vector3& eye, const Vector3& center, const Vector3& up) -> Matrix4;
+auto LookAt(const Vector3& eye, const Vector3& center, const Vector3& up) -> Matrix4;
 
 }

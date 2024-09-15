@@ -134,11 +134,11 @@ TEST(Matrix3, Determinant) {
         2.0f, 5.0f, 3.0f
     };
 
-    EXPECT_FLOAT_EQ(engine::determinant(m), 9.0f);
+    EXPECT_FLOAT_EQ(engine::Determinant(m), 9.0f);
     // det(m) = volume of parallelepiped
     EXPECT_FLOAT_EQ(
-        engine::determinant(m),
-        engine::dot(engine::cross(m[0], m[1]), m[2])
+        engine::Determinant(m),
+        engine::Dot(engine::Cross(m[0], m[1]), m[2])
     );
 }
 
@@ -149,7 +149,7 @@ TEST(Matrix3, DeterminantNegative) {
         2.0f, 2.0f, 3.0f
     };
 
-    EXPECT_FLOAT_EQ(engine::determinant(m), -9.0f);
+    EXPECT_FLOAT_EQ(engine::Determinant(m), -9.0f);
 }
 
 TEST(Matrix3, DeterminantZero) {
@@ -159,7 +159,7 @@ TEST(Matrix3, DeterminantZero) {
         7.0f, 8.0f, 9.0f
     };
 
-    EXPECT_FLOAT_EQ(engine::determinant(m), 0.0f);
+    EXPECT_FLOAT_EQ(engine::Determinant(m), 0.0f);
 }
 
 #pragma endregion
@@ -173,7 +173,7 @@ TEST(Matrix3, Inverse) {
         2.0f, 5.0f, 3.0f
     };
 
-    EXPECT_MAT3_NEAR(engine::inverse(m), {
+    EXPECT_MAT3_NEAR(engine::Inverse(m), {
         1.44f, -1.22f, -0.55f,
        -0.77f,  0.88f,  0.22f,
         0.33f, -0.66f,  0.33f
@@ -181,7 +181,7 @@ TEST(Matrix3, Inverse) {
 
     // M^{-1} * M = I
     EXPECT_MAT3_NEAR(
-        engine::inverse(m) * m,
+        engine::Inverse(m) * m,
         engine::Matrix3::Identity(),
         0.01f
     );

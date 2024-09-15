@@ -32,9 +32,9 @@ auto Transform::Rotate(const Vector3& axis, float angle) -> void {
 auto Transform::ToMatrix() -> Matrix4 {
     if (is_dirty_) {
         transform_ = Matrix4 {1.0f};
-        transform_ = translate(transform_, position_);
+        transform_ = engine::Translate(transform_, position_);
         transform_ = transform_ * euler_.GetMatrix();
-        transform_ = scale(transform_, scale_);
+        transform_ = engine::Scale(transform_, scale_);
         is_dirty_ = false;
     }
     return transform_;

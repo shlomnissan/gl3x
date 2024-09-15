@@ -175,7 +175,7 @@ private:
  * @return The determinant of the matrix as a floating-point value.
  */
 [[nodiscard]] inline ENGINE_EXPORT
-auto determinant(const Matrix3& m) {
+auto Determinant(const Matrix3& m) {
     return m(0, 0) * (m(1, 1) * m(2, 2) - m(1, 2) * m(2, 1))
          + m(0, 1) * (m(1, 2) * m(2, 0) - m(1, 0) * m(2, 2))
          + m(0, 2) * (m(1, 0) * m(2, 1) - m(1, 1) * m(2, 0));
@@ -189,16 +189,16 @@ auto determinant(const Matrix3& m) {
  * @return A new `Matrix3` object that represents the inverse of the input matrix.
  */
 [[nodiscard]] inline ENGINE_EXPORT
-auto inverse(const Matrix3& m) {
+auto Inverse(const Matrix3& m) {
     const auto& a = m[0];
     const auto& b = m[1];
     const auto& c = m[2];
 
-    auto r0 = cross(b, c);
-    auto r1 = cross(c, a);
-    auto r2 = cross(a, b);
+    auto r0 = Cross(b, c);
+    auto r1 = Cross(c, a);
+    auto r2 = Cross(a, b);
 
-    auto inv_det = 1.0f / dot(r2, c);
+    auto inv_det = 1.0f / Dot(r2, c);
 
     return Matrix3 {
         r0.x * inv_det, r0.y * inv_det, r0.z * inv_det,

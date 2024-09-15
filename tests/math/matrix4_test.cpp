@@ -152,7 +152,7 @@ TEST(Matrix4, Determinant) {
         1.0f, 1.0f, 2.0f, 1.0f
     };
 
-    EXPECT_FLOAT_EQ(engine::determinant(m), 18.0f);
+    EXPECT_FLOAT_EQ(engine::Determinant(m), 18.0f);
 }
 
 TEST(Matrix4, DeterminantNegative) {
@@ -163,7 +163,7 @@ TEST(Matrix4, DeterminantNegative) {
         7.0f, 8.0f, 5.0f, 6.0f
     };
 
-    EXPECT_FLOAT_EQ(engine::determinant(m), -30.0f);
+    EXPECT_FLOAT_EQ(engine::Determinant(m), -30.0f);
 }
 
 TEST(Matrix4, DeterminantZero) {
@@ -174,7 +174,7 @@ TEST(Matrix4, DeterminantZero) {
         13.0f, 14.0f, 15.0f, 16.0f
     };
 
-    EXPECT_FLOAT_EQ(engine::determinant(m), 0.0f);
+    EXPECT_FLOAT_EQ(engine::Determinant(m), 0.0f);
 }
 
 #pragma endregion
@@ -189,7 +189,7 @@ TEST(Matrix4, Inverse) {
         1.0f, 1.0f, 2.0f, 1.0f
     };
 
-    EXPECT_MAT4_NEAR(engine::inverse(m), {
+    EXPECT_MAT4_NEAR(engine::Inverse(m), {
        -0.33f,  1.00f, -1.00f,  1.33f,
         0.33f, -0.50f,  0.50f, -0.83f,
         0.33f, -0.66f,  0.33f,  0.00f,
@@ -198,7 +198,7 @@ TEST(Matrix4, Inverse) {
 
     // M^{-1} * M = I
     EXPECT_MAT4_NEAR(
-        engine::inverse(m) * m,
+        engine::Inverse(m) * m,
         engine::Matrix4::Identity(),
         0.01f
     );

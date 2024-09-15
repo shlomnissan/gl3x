@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include <engine/core/window.hpp>
-#include <engine/core/timer.hpp>
+#include "engine/core/window.hpp"
+#include "engine/core/timer.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

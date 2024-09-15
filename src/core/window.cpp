@@ -1,9 +1,9 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include <engine/core/window.hpp>
+#include "engine/core/window.hpp"
 
-#include "window_impl.hpp"
+#include "core/window_impl.hpp"
 
 namespace engine {
 
