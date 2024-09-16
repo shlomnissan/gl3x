@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 #include <gtest/gtest.h>
 
-#include <engine/core/geometry/plane_geometry.hpp>
+#include <engine/geometry/plane_geometry.hpp>
 
 #pragma region Constructor
 

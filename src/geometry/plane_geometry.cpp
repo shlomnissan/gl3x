@@ -2,7 +2,6 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include "engine/geometry/plane_geometry.hpp"
-#include "engine/core/geometry.hpp"
 
 #include <cassert>
 
@@ -19,16 +18,16 @@ PlaneGeometry::PlaneGeometry(const Parameters& params) {
 }
 
 auto PlaneGeometry::GenerateGeometry(const Parameters& params) -> void {
-    auto width_half = params.width / 2;
-    auto height_half = params.height / 2;
+    const auto width_half = params.width / 2;
+    const auto height_half = params.height / 2;
 
-    auto grid_x = params.width_segments;
-    auto grid_y = params.height_segments;
-    auto grid_x1 = grid_x + 1;
-    auto grid_y1 = grid_y + 1;
+    const auto grid_x = params.width_segments;
+    const auto grid_y = params.height_segments;
+    const auto grid_x1 = grid_x + 1;
+    const auto grid_y1 = grid_y + 1;
 
-    auto segment_w = params.width / grid_x;
-    auto segment_h = params.height / grid_y;
+    const auto segment_w = params.width / grid_x;
+    const auto segment_h = params.height / grid_y;
 
     for (auto iy = 0; iy < grid_y1; ++iy) {
         const auto y = iy * segment_h - height_half;

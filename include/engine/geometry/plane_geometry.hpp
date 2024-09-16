@@ -11,7 +11,7 @@
 namespace engine {
 
 /**
- * @brief Class representing a plane geometry with customizable dimensions and segments.
+ * @brief Class representing a plane geometry.
  */
 class ENGINE_EXPORT PlaneGeometry : public Geometry {
 public:
@@ -36,7 +36,7 @@ public:
      * @brief Creates a shared pointer to a PlaneGeometry object with the specified parameters.
      *
      * @param params Parameters defining the size and segmentation of the plane.
-     * @return std::shared_ptr<PlaneGeometry> A shared pointer to the newly created PlaneGeometry object.
+     * @return std::shared_ptr<PlaneGeometry> A shared pointer to the newly created object.
      */
     [[nodiscard]]
     static auto Create(const Parameters& params){
