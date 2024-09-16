@@ -49,7 +49,7 @@ public:
 
 private:
     /// @brief Flag indicating whether the object has been disposed.
-    bool disposed_;
+    bool disposed_ {false};
 
     std::vector<OnDisposeCallback> dispose_callbacks_;
 };
