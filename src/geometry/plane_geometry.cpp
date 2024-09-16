@@ -1,7 +1,7 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "engine/core/geometry/plane_geometry.hpp"
+#include "engine/geometry/plane_geometry.hpp"
 #include "engine/core/geometry.hpp"
 
 #include <cassert>

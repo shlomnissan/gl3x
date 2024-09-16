@@ -3,7 +3,7 @@
 
 #include <engine/core/window.hpp>
 #include <engine/core/renderer.hpp>
-#include <engine/core/geometry/plane_geometry.hpp>
+#include <engine/geometry/plane_geometry.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
 #include <engine/scene/scene.hpp>
