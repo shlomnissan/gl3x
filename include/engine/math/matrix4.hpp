@@ -239,11 +239,10 @@ auto Inverse(const Matrix4& m) {
     auto v = (c * w) - (d * z);
 
     const auto inv_det = 1.0f / (Dot(s, v) + Dot(t, u));
-    // TODO: replace with Vector3::operator*=()
-    s = s * inv_det;
-    t = t * inv_det;
-    u = u * inv_det;
-    v = v * inv_det;
+    s *= inv_det;
+    t *= inv_det;
+    u *= inv_det;
+    v *= inv_det;
 
     auto r0 = Cross(b, v) + t * y;
     auto r1 = Cross(v, a) - t * x;

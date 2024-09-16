@@ -199,6 +199,13 @@ TEST(Vector4, ScalarMultiplicationIdentity) {
     EXPECT_VEC4_EQ(1.0f * v, {1.0f, 2.0f, 3.0f, 4.0f});
 }
 
+TEST(Vector4, ScalarMultiplicationInPlace) {
+    auto v = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    v *= 2.0f;
+
+    EXPECT_VEC4_EQ(v, {2.0f, 4.0f, 6.0f, 8.0f});
+}
+
 #pragma endregion
 
 #pragma region Scalar Division

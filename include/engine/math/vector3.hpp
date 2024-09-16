@@ -98,6 +98,19 @@ public:
         return (reinterpret_cast<const float*>(this))[i];
     }
 
+    /**
+     * @brief Multiplies the vector by a scalar value.
+     *
+     * @param n The scalar value to multiply with.
+     * @return Vector3& A reference to the updated vector.
+     */
+    auto operator*=(float n) -> Vector3& {
+        x *= n;
+        y *= n;
+        z *= n;
+        return *this;
+    }
+
 private:
     /**
      * @brief Checks if two vectors are equal, component-wise.

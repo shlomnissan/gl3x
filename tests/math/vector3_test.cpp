@@ -257,6 +257,13 @@ TEST(Vector3, ScalarMultiplicationIdentity) {
     EXPECT_VEC3_EQ(1.0f * v, {1.0f, 2.0f, 3.0f});
 }
 
+TEST(Vector3, ScalarMultiplicationInPlace) {
+    auto v = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    v *= 2.0f;
+
+    EXPECT_VEC3_EQ(v, {2.0f, 4.0f, 6.0f});
+}
+
 #pragma endregion
 
 #pragma region Scalar Division

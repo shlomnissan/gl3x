@@ -78,6 +78,21 @@ public:
     }
 
     /**
+     * @brief Multiplies the vector by a scalar value.
+     *
+     * @param n The scalar value to multiply with.
+     * @return Vector4& A reference to the updated vector.
+     */
+    auto operator*=(float n) -> Vector4& {
+        x *= n;
+        y *= n;
+        z *= n;
+        w *= n;
+        return *this;
+    }
+
+private:
+    /**
      * @brief Checks if two vectors are equal, component-wise.
      *
      * @param a The first vector to compare.
