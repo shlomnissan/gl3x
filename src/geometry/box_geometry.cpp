@@ -65,10 +65,67 @@ auto BoxGeometry::BuildPlane(const PlaneParams& params) -> void {
     const auto segment_w = params.width / params.grid_x;
     const auto segment_h = params.height / params.grid_y;
 
-    const auto vec = Vector3 {};
+    auto vec = Vector3 {};
     auto counter = 0;
 
-    // TODO: implement
+    for (auto iy = 0; iy < grid_y1; ++iy) {
+        const auto y = iy * segment_h - height_half;
+        for (auto ix = 0; ix < grid_x1; ++ix) {
+            const auto x = ix * segment_w - width_half;
+
+            // set position
+            SetComponent(vec, params.u, x * params.udir);
+            SetComponent(vec, params.v, y * params.vdir);
+            SetComponent(vec, params.w, depth_half);
+
+            vertex_data_.emplace_back(vec.x);  // pos x
+            vertex_data_.emplace_back(vec.y);  // pos y
+            vertex_data_.emplace_back(vec.z);  // pos z
+
+            // set normals
+            SetComponent(vec, params.u, 0);
+            SetComponent(vec, params.v, 0);
+            SetComponent(vec, params.w, params.depth > 0 ? 1 : -1);
+
+            vertex_data_.emplace_back(vec.x);  // normal x
+            vertex_data_.emplace_back(vec.y);  // normal y
+            vertex_data_.emplace_back(vec.z);  // normal z
+
+            // set uvs
+            const auto u = static_cast<float>(ix) / params.grid_x;
+            const auto v = 1 - (static_cast<float>(iy) / params.grid_y);
+            vertex_data_.emplace_back(u);
+            vertex_data_.emplace_back(v);
+
+            ++counter;
+        }
+    }
+
+    for (auto iy = 0; iy < params.grid_y; ++iy) {
+        for (auto ix = 0; ix < params.grid_x; ++ix) {
+            const auto a = vertex_counter_ + ix + grid_x1 * iy;
+            const auto b = vertex_counter_ + ix + grid_x1 * (iy + 1);
+            const auto c = vertex_counter_ + ix + 1 + grid_x1 * (iy + 1);
+            const auto d = vertex_counter_ + ix + 1 + grid_x1 * iy;
+
+            index_data_.emplace_back(a);
+            index_data_.emplace_back(b);
+            index_data_.emplace_back(d);
+            index_data_.emplace_back(b);
+            index_data_.emplace_back(c);
+            index_data_.emplace_back(d);
+        }
+    }
+
+    vertex_counter_ += counter;
+}
+
+auto BoxGeometry::SetComponent(Vector3& vec, char axis, float value) -> void {
+    switch(axis) {
+        case 'x': vec.x = value; break;
+        case 'y': vec.y = value; break;
+        case 'z': vec.z = value; break;
+    }
 }
 
 auto BoxGeometry::SetAttributes() -> void {

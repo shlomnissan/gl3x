@@ -54,9 +54,9 @@ private:
      * @brief Structure containing parameters for the BuildPlane method.
      */
     struct PlaneParams {
-        char u;             ///< 1st dimension (x, y, or z).
-        char v;             ///< 2nd dimension (x, y, or z).
-        char w;             ///< 3rd dimension (x, y, or z).
+        char u;             ///< 1st axis ('x', 'y', or 'z').
+        char v;             ///< 2nd axis ('x', 'y', or 'z').
+        char w;             ///< 3rd axis ('x', 'y', or 'z').
         int udir;           ///< Horizontal direction.
         int vdir;           ///< Vertical direction.
         float width;        ///< Width of the plane.
@@ -65,6 +65,15 @@ private:
         unsigned grid_x;    ///< Horizontal segments.
         unsigned grid_y;    ///< Vertical segments.
     };
+
+    /**
+     * @brief Sets the value of a specific component in the vector.
+     *
+     * @param vec Reference to the vector whose component will be modified.
+     * @param axis Character representing the axis ('x', 'y', or 'z') to update.
+     * @param value The new value to assign to the specified component.
+     */
+    auto SetComponent(Vector3& vec, char axis, float value) -> void;
 
     /**
      * @brief Generates an individual plane for the box geometry.

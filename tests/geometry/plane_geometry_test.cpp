@@ -83,7 +83,7 @@ TEST(PlaneGeometry, AttributesConfiguredCorrectly) {
 
 #pragma region Edge Cases
 
-TEST(PlaneGeometry, ParamsAreNotZero) {
+TEST(PlaneGeometry, ParamsAreSetToZero) {
     EXPECT_DEATH({
         engine::PlaneGeometry({
             .width = 0.0f,
