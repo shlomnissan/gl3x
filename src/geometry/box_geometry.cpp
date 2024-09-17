@@ -54,7 +54,7 @@ BoxGeometry::BoxGeometry(const Parameters& params) {
     SetAttributes();
 }
 
-auto BoxGeometry::BuildPlane(const PlaneParams& params) -> void {
+auto BoxGeometry::BuildPlane(const PlaneParameters& params) -> void {
     const auto width_half = params.width / 2;
     const auto height_half = params.height / 2;
     const auto depth_half = params.depth / 2;

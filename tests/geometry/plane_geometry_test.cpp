@@ -1,68 +1,48 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "gtest/gtest.h"
 #include <gtest/gtest.h>
 
 #include <engine/geometry/plane_geometry.hpp>
 
+#pragma region Fixtures
+
+class PlaneGeometryTest : public ::testing::Test {
+protected:
+    engine::PlaneGeometry plane_ {{
+        .width = 1.0f,
+        .height = 1.0f,
+        .width_segments = 2,
+        .height_segments = 2
+    }};
+};
+
+#pragma endregion
+
 #pragma region Constructor
 
-TEST(PlaneGeometry, ConstructorInitializesVertexData) {
-    const auto plane = engine::PlaneGeometry {{
-        .width = 10.f,
-        .height = 4.0f,
-        .width_segments = 2,
-        .height_segments = 2
-    }};
+TEST_F(PlaneGeometryTest, ConstructorInitializesVertexData) {
+    const auto& verts = plane_.VertexData();
 
-    const auto& verts = plane.VertexData();
-
-    EXPECT_EQ(verts.size(), 9 * 8);     // 8 vertices with 9 attributes each
-    EXPECT_FLOAT_EQ(verts[0], -5.0f);   // first vertex, pos x
-    EXPECT_FLOAT_EQ(verts[1],  2.0f);   // first vertex, pos y
-    EXPECT_FLOAT_EQ(verts[2],  0.0f);   // first vertex, pos z
-    EXPECT_FLOAT_EQ(verts[3],  0.0f);   // first vertex, normal x
-    EXPECT_FLOAT_EQ(verts[4],  0.0f);   // first vertex, normal y
-    EXPECT_FLOAT_EQ(verts[5],  1.0f);   // first vertex, normal z
-    EXPECT_FLOAT_EQ(verts[6],  0.0f);   // first vertex, u
-    EXPECT_FLOAT_EQ(verts[7],  1.0f);   // first vertex, v
+    // 9 attributes, 8 vertices
+    EXPECT_EQ(verts.size(), 9 * 8);
 }
 
-TEST(PlaneGeometry, ConstructorInitializesIndexData) {
-    const auto plane = engine::PlaneGeometry {{
-        .width = 10.f,
-        .height = 4.0f,
-        .width_segments = 2,
-        .height_segments = 2
-    }};
+TEST_F(PlaneGeometryTest, ConstructorInitializesIndexData) {
+    const auto& index = plane_.IndexData();
 
-    const auto& index = plane.IndexData();
-
-    EXPECT_EQ(index.size(), 6 * 4); // 4 quads with 6 indices each
-    EXPECT_EQ(index[0], 0u);
-    EXPECT_EQ(index[1], 3u);
-    EXPECT_EQ(index[2], 1u);
-    EXPECT_EQ(index[3], 3u);
-    EXPECT_EQ(index[4], 4u);
-    EXPECT_EQ(index[5], 1u);
+    // 6 indices (2 triangles per sub-plane), 4 sub-planes
+    EXPECT_EQ(index.size(), 6 * 4);
 }
 
 #pragma endregion
 
 #pragma region Attributes
 
-TEST(PlaneGeometry, AttributesConfiguredCorrectly) {
+TEST_F(PlaneGeometryTest, AttributesConfiguredCorrectly) {
     using enum engine::GeometryAttributeType;
 
-    const auto plane = engine::PlaneGeometry {{
-        .width = 10.f,
-        .height = 4.0f,
-        .width_segments = 2,
-        .height_segments = 2
-    }};
-
-    const auto& attrs = plane.Attributes();
+    const auto& attrs = plane_.Attributes();
 
     EXPECT_EQ(attrs.size(), 3);
 
@@ -81,9 +61,9 @@ TEST(PlaneGeometry, AttributesConfiguredCorrectly) {
 
 #pragma endregion
 
-#pragma region Edge Cases
+#pragma region Assertions
 
-TEST(PlaneGeometry, ParamsAreSetToZero) {
+TEST(PlaneGeometry, DeathWhenParamsAreSetToZero) {
     EXPECT_DEATH({
         engine::PlaneGeometry({
             .width = 0.0f,

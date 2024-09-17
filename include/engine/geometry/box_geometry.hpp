@@ -53,7 +53,7 @@ private:
     /**
      * @brief Structure containing parameters for the BuildPlane method.
      */
-    struct PlaneParams {
+    struct PlaneParameters {
         char u;             ///< 1st axis ('x', 'y', or 'z').
         char v;             ///< 2nd axis ('x', 'y', or 'z').
         char w;             ///< 3rd axis ('x', 'y', or 'z').
@@ -80,7 +80,7 @@ private:
      *
      * @param params Parameters defining the size, direction, and segmentation of a plane.
      */
-    auto BuildPlane(const PlaneParams& params) -> void;
+    auto BuildPlane(const PlaneParameters& params) -> void;
 
     /**
      * @brief Sets the attributes for the box geometry.
