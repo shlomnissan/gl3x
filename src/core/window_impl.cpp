@@ -3,6 +3,10 @@
 
 #include "window_impl.hpp"
 
+#include "core/logger.hpp"
+
+#include <fmt/format.h>
+
 namespace engine {
 
 Window::Impl::Impl(const Window::Parameters& params) {
@@ -36,6 +40,7 @@ Window::Impl::Impl(const Window::Parameters& params) {
         return;
     }
 
+    LogContextInfo();
     glfwSwapInterval(1);
     glfwGetFramebufferSize(window_, &buffer_width_, &buffer_height_);
 }
@@ -51,6 +56,14 @@ auto Window::Impl::Start(const std::function<void(const double)>& tick) -> void 
         glfwSwapBuffers(window_);
         glfwPollEvents();
     }
+}
+
+auto Window::Impl::LogContextInfo() const -> void {
+    const GLubyte* version = glGetString(GL_VERSION);
+    Logger::Get().Log(
+        LogLevel::kInfo,
+        fmt::format("OpenGL {} initialized", version)
+    );
 }
 
 Window::Impl::~Impl() {

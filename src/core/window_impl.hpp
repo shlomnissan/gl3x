@@ -36,6 +36,8 @@ private:
     Timer timer_ {};
 
     GLFWwindow* window_ {nullptr};
+
+    auto LogContextInfo() const -> void;
 };
 
 }
