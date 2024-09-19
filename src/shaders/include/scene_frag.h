@@ -1,8 +1,11 @@
 #pragma once
 
-static const char* _SHADER_scene_frag = R"(#version 410 core
+static const char* _SHADER_scene_frag = R"(#version 320 es
+
 #pragma debug(on)
 #pragma optimize(off)
+
+precision mediump float;
 
 layout (location = 0) out vec4 frag_color;
 

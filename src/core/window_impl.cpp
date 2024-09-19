@@ -14,12 +14,12 @@ Window::Impl::Impl(const Window::Parameters& params) {
 
     initialized_ = true;
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     #ifdef __APPLE__
         glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_TRUE);
@@ -36,7 +36,7 @@ Window::Impl::Impl(const Window::Parameters& params) {
     if (window_ == nullptr) return;
 
     glfwMakeContextCurrent(window_);
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
+    if (!gladLoadGLES2Loader((GLADloadproc)glfwGetProcAddress)) {
         return;
     }
 
@@ -62,7 +62,7 @@ auto Window::Impl::LogContextInfo() const -> void {
     const GLubyte* version = glGetString(GL_VERSION);
     Logger::Get().Log(
         LogLevel::kInfo,
-        fmt::format("OpenGL {} initialized", version)
+        fmt::format("{} initialized", version)
     );
 }
 
