@@ -11,6 +11,9 @@ namespace engine {
 
 auto Logger::Log(LogLevel level, std::string_view message) -> void {
     // TODO: add mutex
+    // TODO: add timestamp
+    // TODO: add file
+    // TODO: add tests
 
     auto& stream = level == LogLevel::kError ? std::cerr : std::cout;
     stream << fmt::format(
