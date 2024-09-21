@@ -6,6 +6,7 @@
 #include "engine_export.h"
 
 #include <chrono>
+#include <string>
 
 namespace engine {
 
@@ -34,7 +35,8 @@ public:
      * @return double The elapsed time in milliseconds,
      * or -1 if the timer has not been started.
      */
-    [[nodiscard]] auto GetElapsedMilliseconds() const -> double;
+    [[nodiscard]]
+    auto GetElapsedMilliseconds() const -> double;
 
     /**
      * @brief Returns the elapsed time in seconds.
@@ -42,7 +44,19 @@ public:
      * @return double The elapsed time in seconds,
      * or -1 if the timer has not been started.
      */
-    [[nodiscard]] auto GetElapsedSeconds() const -> double;
+    [[nodiscard]]
+    auto GetElapsedSeconds() const -> double;
+
+    /**
+     * @brief Gets the current timestamp in a formatted string.
+     *
+     * This function retrieves the current time and formats it as a string
+     * in the format "YYYY-MM-DD HH:MM:SS". The time is represented in UTC.
+     *
+     * @return std::string The current timestamp as a formatted string.
+     */
+    [[nodiscard]] static
+    auto GetTimestamp() -> std::string;
 
 private:
     /// @brief Indicates whether the timer has been started.

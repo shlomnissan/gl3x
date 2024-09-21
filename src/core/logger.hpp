@@ -4,6 +4,7 @@
 #pragma once
 
 #include <string_view>
+#include <mutex>
 
 namespace engine {
 
@@ -27,11 +28,13 @@ public:
     auto Log(LogLevel level, std::string_view message) -> void;
 
 private:
+    std::mutex mutex_;
+
     Logger() = default;
 
     ~Logger() = default;
 
-    static auto ToString(LogLevel level) -> std::string;
+    auto ToString(LogLevel level) -> std::string;
 };
 
 }
