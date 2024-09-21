@@ -6,7 +6,6 @@ if (BUILD_SHARED_LIBS)
 endif()
 
 set(BUILD_GMOCK OFF CACHE BOOL "")
-set(INSTALL_GTEST OFF CACHE BOOL "")
 
 find_package(GTest REQUIRED)
 
