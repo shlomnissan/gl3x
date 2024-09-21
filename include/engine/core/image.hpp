@@ -26,10 +26,10 @@ public:
     /**
      * @brief Constructs an Image object.
      *
-     * @param data Rvalue reference to the image data.
      * @param params Parameters for the image.
+     * @param data Image data, represented as a vector of unsigned char.
      */
-    Image(ImageData&& data, const Parameters& params) :
+    Image(const Parameters& params, ImageData data) :
         width_(params.width),
         height_(params.height),
         depth_(params.depth),
