@@ -37,11 +37,12 @@ set(SOURCE_CODE
 
 set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/geometry.hpp"
+    "${PUBLIC_HEADERS_DIR}/core/image.hpp"
     "${PUBLIC_HEADERS_DIR}/core/renderer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"
-    "${PUBLIC_HEADERS_DIR}/geometry/plane_geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/geometry/box_geometry.hpp"
+    "${PUBLIC_HEADERS_DIR}/geometry/plane_geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/math/euler.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix4.hpp"
