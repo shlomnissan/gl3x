@@ -11,6 +11,9 @@ namespace engine {
 
 using ImageData = std::vector<unsigned char>;
 
+/**
+ * @brief Represents an image with associated metadata and pixel data.
+ */
 class ENGINE_EXPORT Image {
 public:
     /**
