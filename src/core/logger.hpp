@@ -17,24 +17,13 @@ enum class LogLevel {
 
 class Logger {
 public:
-    static auto Get() -> Logger& {
-        static Logger instance;
-        return instance;
-    }
-
-    Logger(const Logger&) = delete;
-    auto operator=(const Logger&) -> Logger& = delete;
-
-    auto Log(LogLevel level, std::string_view message) -> void;
+    static auto Log(LogLevel level, std::string_view message) -> void;
 
 private:
-    std::mutex mutex_;
+    static std::mutex mutex_;
 
-    Logger() = default;
-
-    ~Logger() = default;
-
-    auto ToString(LogLevel level) -> std::string;
+    [[nodiscard]]
+    static auto ToString(LogLevel level) -> std::string;
 };
 
 }

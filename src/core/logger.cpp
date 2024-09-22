@@ -11,11 +11,13 @@
 
 namespace engine {
 
+std::mutex Logger::mutex_;
+
 auto Logger::Log(LogLevel level, std::string_view message) -> void {
-    std::lock_guard<std::mutex> lock(mutex_);
+    auto lock = std::scoped_lock(mutex_);
     auto& stream = level == LogLevel::kError ? std::cerr : std::cout;
     stream << fmt::format(
-        "[{}][{}]: {}",
+        "[{}][{}]: {}\n",
         Timer::GetTimestamp(),
         Logger::ToString(level),
         message.data()
@@ -23,12 +25,13 @@ auto Logger::Log(LogLevel level, std::string_view message) -> void {
 }
 
 auto Logger::ToString(LogLevel level) -> std::string {
+    using enum LogLevel;
     switch (level) {
-        case LogLevel::kError:      return "Error";
-        case LogLevel::kWarning:    return "Warning";
-        case LogLevel::kInfo:       return "Info";
-        case LogLevel::kDebug:      return "Debug";
-        default:                    return "Unknown";
+        case kError:    return "Error";
+        case kWarning:  return "Warning";
+        case kInfo:     return "Info";
+        case kDebug:    return "Debug";
+        default:        return "Unknown";
     }
 }
 
