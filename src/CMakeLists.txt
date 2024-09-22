@@ -75,12 +75,14 @@ find_package(fmt REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(glad REQUIRED)
+find_package(stb REQUIRED)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     OpenGL::GL
     fmt::fmt
     glad::glad
     glfw
+    stb::stb
 )
 
 if (BUILD_SHARED_LIBS)
