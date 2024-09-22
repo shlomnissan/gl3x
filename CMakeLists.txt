@@ -22,7 +22,7 @@ if (BUILD_TESTS)
 endif()
 
 if (BUILD_EXAMPLES)
-    add_subdirectory(example)
+    add_subdirectory(examples)
 endif()
 
 if (BUILD_DOCS)

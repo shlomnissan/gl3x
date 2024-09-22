@@ -9,7 +9,7 @@
 #include <engine/scene/scene.hpp>
 
 auto main() -> int {
-    auto window = engine::Window {{.title = "Example"}};
+    auto window = engine::Window {{.title = "Examples"}};
     auto renderer = engine::Renderer({
         .width = window.Width(),
         .height = window.Height()
