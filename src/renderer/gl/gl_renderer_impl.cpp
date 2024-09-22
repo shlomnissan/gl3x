@@ -2,8 +2,10 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include "renderer/gl/gl_renderer_impl.hpp"
-#include "shaders/include/scene_vert.h"
+
+#include "engine/scene/mesh.hpp"
 #include "shaders/include/scene_frag.h"
+#include "shaders/include/scene_vert.h"
 
 #include <glad/glad.h>
 
@@ -32,7 +34,7 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
                 camera->GetViewMatrix() * c->GetWorldTransform()
             );
 
-            bindings_.Bind(geometry);
+            buffers_.Bind(geometry);
 
             // TODO: draw triangles
             glDrawElements(

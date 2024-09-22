@@ -1,14 +1,14 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "renderer/gl/gl_bindings.hpp"
+#include "renderer/gl/gl_buffers.hpp"
 
 namespace engine {
 
 #define BUFFER_OFFSET(offset) ((void*)(offset * sizeof(GLfloat)))
 
-auto GLBindings::Bind(Geometry* geometry) -> void {
-    GLBindingsState state;
+auto GLBuffers::Bind(Geometry* geometry) -> void {
+    GLBufferState state;
     if (bindings_.contains(geometry->UUID())) {
         state = bindings_[geometry->UUID()];
         if (state.vao == current_vao_) { return; }
@@ -23,9 +23,9 @@ auto GLBindings::Bind(Geometry* geometry) -> void {
     current_vao_ = state.vao;
 }
 
-auto GLBindings::GenerateBuffers(
+auto GLBuffers::GenerateBuffers(
     const Geometry* geometry,
-    GLBindingsState& state
+    GLBufferState& state
 ) const -> void {
     glGenBuffers(state.buffers.size(), state.buffers.data());
 
@@ -70,7 +70,7 @@ auto GLBindings::GenerateBuffers(
     glBindVertexArray(0);
 }
 
-auto GLBindings::GeometryCallbacks(Geometry* geometry) -> void {
+auto GLBuffers::GeometryCallbacks(Geometry* geometry) -> void {
     geometry->OnDispose([this](Disposable* target){
         auto& uuid = static_cast<Geometry*>(target)->UUID();
         auto& state = this->bindings_[uuid];
