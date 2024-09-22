@@ -1,11 +1,9 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "engine/core/image.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "engine/loaders/image_loader.hpp"
-
+#include "loaders/image_loader.hpp"
 #include "core/logger.hpp"
 
 #include <optional>

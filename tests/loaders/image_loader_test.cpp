@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "engine/loaders/image_loader.hpp"
+#include "loaders/image_loader.hpp"
 
 #pragma Load Image
 
