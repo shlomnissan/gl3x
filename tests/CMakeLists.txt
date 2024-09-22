@@ -34,4 +34,11 @@ foreach(TEST IN LISTS TEST_SOURCES)
     add_executable(${TEST_TARGET} test_helpers.hpp ${TEST})
     target_link_libraries(${TEST_TARGET} PRIVATE gtest::gtest engine)
     add_test(${NAME_NO_EXT} ${TEST_TARGET})
+
+    add_custom_command(
+        TARGET ${TEST_TARGET} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/assets
+        $<TARGET_FILE_DIR:${TEST_TARGET}>/assets
+    )
 endforeach()

@@ -7,6 +7,7 @@
 #include "engine/core/image.hpp"
 
 #include <filesystem>
+#include <optional>
 
 namespace engine {
 
@@ -20,14 +21,17 @@ public:
     /**
      * @brief Loads an image from the specified file path.
      *
-     * This function reads the image from the file and returns an `Image` object.
+     * This function attempts to read the image from the file and returns an
+     * optional `Image` object. If the image loading fails (e.g., file not found,
+     * invalid format), it returns `std::nullopt`.
      *
      * @param path The file system path to the image file.
      * @param flip_y Whether to flip the image vertically (along the Y-axis). Defaults to true.
-     * @return An `Image` object containing the image data and metadata.
+     * @return An `std::optional<Image>` containing the image data and metadata, or
+     *         `std::nullopt` if loading fails.
      */
     [[nodiscard]]
-    static auto Load(const fs::path& path, bool flip_y) -> Image;
+    static auto Load(const fs::path& path, bool flip_y = true) -> std::optional<Image>;
 };
 
 }

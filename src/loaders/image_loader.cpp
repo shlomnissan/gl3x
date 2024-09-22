@@ -1,19 +1,51 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
+#include "engine/core/image.hpp"
+#define STB_IMAGE_IMPLEMENTATION
+
 #include "engine/loaders/image_loader.hpp"
 
 #include "core/logger.hpp"
 
+#include <optional>
+
+#include <fmt/format.h>
+#include <stb_image.h>
+
+
 namespace engine {
 
-auto ImageLoader::Load(const fs::path& path, bool flip_y = true) -> Image {
-    // TODO: implement
+auto ImageLoader::Load(const fs::path& path, bool flip_y) -> std::optional<Image> {
+    if (!fs::exists(path)) {
+        Logger::Log(
+            LogLevel::kWarning,
+            fmt::format("Image file was not found {}", path.c_str())
+        );
+        return std::nullopt;
+    }
+
+    stbi_set_flip_vertically_on_load(flip_y);
+
+    auto width = 0;
+    auto height = 0;
+    auto depth = 0;
+    auto data = stbi_load(path.string().c_str(), &width, &height, &depth, 0);
+    if (data == nullptr) {
+        Logger::Log(
+            LogLevel::kError,
+            fmt::format("Failed to load image {}", path.c_str())
+        );
+        return std::nullopt;
+    }
+
+    auto image_data_ptr = ImageDataPtr(data, &stbi_image_free);
+
     return Image {{
-        .width = 0,
-        .height = 0,
-        .depth = 0,
-    }, {}};
+        .width = static_cast<unsigned int>(width),
+        .height = static_cast<unsigned int>(height),
+        .depth = static_cast<unsigned int>(depth),
+    }, std::move(image_data_ptr)};
 }
 
 }

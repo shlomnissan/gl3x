@@ -3,44 +3,24 @@
 
 #include <gtest/gtest.h>
 
-#include "engine/core/image.hpp"
+#include <memory>
+
+#include <engine/core/image.hpp>
 
 #pragma Constructors
 
 TEST(ImageTest, ConstructWithValidData) {
-    auto data = engine::ImageData {255, 128, 64};
+    auto data = new unsigned char[3] {255, 128, 64};
+
     auto image = engine::Image {{
-        .width = 2,
-        .height = 2,
-        .depth = 4,
-        .flipped = true
-    }, data};
+        .width = 1,
+        .height = 1,
+        .depth = 3
+    }, engine::ImageDataPtr(data, [](void*){})};
 
-    EXPECT_EQ(image.Data().size(), 3);
-}
-
-TEST(ImageTest, ConstructWithRValueReference) {
-    auto data = engine::ImageData {255, 128, 64};
-    auto image = engine::Image {{
-        .width = 2,
-        .height = 2,
-        .depth = 4,
-        .flipped = true
-    }, std::move(data)};
-
-    EXPECT_EQ(data.size(), 0); // the data was moved
-    EXPECT_EQ(image.Data().size(), 3);
-}
-
-TEST(ImageTest, ConstructWithEmptyData) {
-    auto image = engine::Image {{
-        .width = 2,
-        .height = 2,
-        .depth = 4,
-        .flipped = true
-    }, {}};
-
-    EXPECT_TRUE(image.Data().empty());
+    EXPECT_EQ(image.Data()[0], 255);
+    EXPECT_EQ(image.Data()[1], 128);
+    EXPECT_EQ(image.Data()[2], 64);
 }
 
 #pragma endregion
