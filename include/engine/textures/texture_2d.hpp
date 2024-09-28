@@ -8,6 +8,7 @@
 #include "core/image.hpp"
 #include "textures/texture.hpp"
 
+#include <memory>
 #include <string_view>
 
 namespace engine {
@@ -39,6 +40,17 @@ public:
      */
     [[nodiscard]]
     const auto& Image() const { return image_; }
+
+    /**
+     * @brief Creates a shared pointer to a Texture2D object.
+     *
+     * @param image_path The path to the image file used to create the texture.
+     * @return A shared pointer to the created Texture2D object.
+     */
+    [[nodiscard]]
+    static auto Create(std::string_view image_path) {
+        return std::make_shared<Texture2D>(image_path);
+    }
 
 private:
     /// @brief The image associated with the texture.

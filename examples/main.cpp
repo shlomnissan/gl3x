@@ -7,6 +7,9 @@
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
 #include <engine/scene/scene.hpp>
+#include <engine/textures/texture_2d.hpp>
+
+#include <iostream>
 
 auto main() -> int {
     auto window = engine::Window {{.title = "Examples"}};
@@ -19,17 +22,15 @@ auto main() -> int {
     auto camera = engine::CameraPerspective::Create(60.0f, window.AspectRatio());
     camera->TranslateZ(2.0f);
 
-    auto box = engine::BoxGeometry::Create({});
-    auto mesh1 = engine::Mesh::Create(box);
-    auto mesh2 = engine::Mesh::Create(box);
-    mesh2->TranslateZ(-2.0f);
+    auto mesh1 = engine::Mesh::Create(
+        engine::BoxGeometry::Create({}),
+        engine::Texture2D::Create("assets/checker.png")
+    );
 
     scene->Add(mesh1);
-    scene->Add(mesh2);
 
     window.Start([&](const double){
         mesh1->RotateY(0.01f);
-        mesh2->RotateX(0.01f);
 
         renderer.Render(scene.get(), camera.get());
     });

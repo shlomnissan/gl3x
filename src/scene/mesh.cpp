@@ -5,6 +5,9 @@
 
 namespace engine {
 
-Mesh::Mesh(std::shared_ptr<Geometry> geometry) :
-  geometry_(std::move(geometry)) {}
+Mesh::Mesh(
+  std::shared_ptr<Geometry> geometry,
+  std::shared_ptr<Texture2D> texture
+) : geometry_(geometry), texture_(texture) {}
+
 }
