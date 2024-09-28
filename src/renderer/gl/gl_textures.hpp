@@ -13,7 +13,7 @@
 namespace engine {
 
 struct GLTextureState {
-    GLuint textureId {0};
+    GLuint texture_id {0};
 };
 
 class GLTextures {
@@ -32,10 +32,7 @@ private:
 
     GLuint current_texture_id_ {0};
 
-    auto GenerateTexture(
-        const Texture* geometry,
-        GLTextureState& state
-    ) const -> void;
+    auto GenerateTexture(const Texture* texture, const GLTextureState& state) const -> void;
 
     auto TextureCallbacks(Texture* texture) -> void;
 };
