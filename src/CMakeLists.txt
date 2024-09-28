@@ -36,6 +36,8 @@ set(SOURCE_CODE
     "scene/mesh.cpp"
     "scene/node.cpp"
     "scene/scene.cpp"
+    "textures/texture.hpp"
+    "textures/texture_2d.cpp"
 )
 
 set(PUBLIC_HEADERS
@@ -59,6 +61,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/scene/mesh.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/node.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/scene.hpp"
+    "${PUBLIC_HEADERS_DIR}/textures/texture_2d.hpp"
 )
 
 include(ShaderString)

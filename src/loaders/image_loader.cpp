@@ -18,7 +18,7 @@ auto ImageLoader::Load(const fs::path& path, bool flip_y) -> std::optional<Image
     if (!fs::exists(path)) {
         Logger::Log(
             LogLevel::kWarning,
-            fmt::format("Image file was not found {}", path.c_str())
+            fmt::format("Image file was not found '{}'", path.string())
         );
         return std::nullopt;
     }
@@ -32,7 +32,7 @@ auto ImageLoader::Load(const fs::path& path, bool flip_y) -> std::optional<Image
     if (data == nullptr) {
         Logger::Log(
             LogLevel::kError,
-            fmt::format("Failed to load image {}", path.c_str())
+            fmt::format("Failed to load image '{}'", path.string())
         );
         return std::nullopt;
     }

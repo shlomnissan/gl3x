@@ -17,6 +17,8 @@ public:
         unsigned int depth;
     };
 
+    Image() = default;
+
     Image(const ImageMetadata& params, ImageDataPtr data) :
         data_(std::move(data)),
         width_(params.width),
@@ -32,11 +34,11 @@ public:
     [[nodiscard]] auto Depth() const { return depth_; }
 
 private:
-    ImageDataPtr data_;
+    ImageDataPtr data_ {nullptr, [](void*){}};
 
-    unsigned int width_;
-    unsigned int height_;
-    unsigned int depth_;
+    unsigned int width_ {0};
+    unsigned int height_ {0};
+    unsigned int depth_ {0};
 };
 
 }
