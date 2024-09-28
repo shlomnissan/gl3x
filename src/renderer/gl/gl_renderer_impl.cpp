@@ -37,7 +37,7 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
 
             buffers_.Bind(geometry);
             if (texture != nullptr && !texture->Disposed()) {
-                // textures_.Bind(texture);
+                textures_.Bind(texture);
             }
 
             // TODO: draw triangles

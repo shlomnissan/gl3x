@@ -7,6 +7,7 @@
 
 #include "renderer/gl/gl_buffers.hpp"
 #include "renderer/gl/gl_program.hpp"
+#include "renderer/gl/gl_textures.hpp"
 
 namespace engine {
 
@@ -24,6 +25,7 @@ public:
 private:
     GLProgram program_;
     GLBuffers buffers_;
+    GLTextures textures_;
 
     auto RenderObject(Node* object, Camera* camera) -> void;
 };
