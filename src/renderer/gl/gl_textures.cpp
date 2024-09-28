@@ -5,8 +5,6 @@
 
 #include "engine/textures/texture_2d.hpp"
 
-#include <fmt/printf.h>
-
 namespace engine {
 
 auto GLTextures::Bind(Texture* texture) -> void {
@@ -30,15 +28,27 @@ auto GLTextures::GenerateTexture(
     const GLTextureState& state
 ) const -> void {
     auto tex = dynamic_cast<const Texture2D*>(texture);
+
     glTexStorage2D(
         GL_TEXTURE_2D,
-        0,
-        GL_SRGB8,
+        1,
+        GL_RGB8,
         tex->Image().Width(),
         tex->Image().Height()
     );
 
-    // TODO: upload data
+    glTexSubImage2D(
+        GL_TEXTURE_2D,
+        0, 0, 0,
+        tex->Image().Width(),
+        tex->Image().Height(),
+        GL_RGB,
+        GL_UNSIGNED_BYTE,
+        tex->Image().Data()
+    );
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 }
 
 auto GLTextures::TextureCallbacks(Texture* texture) -> void {

@@ -40,13 +40,16 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
                 textures_.Bind(texture);
             }
 
-            // TODO: draw triangles
-            glDrawElements(
-                GL_LINE_LOOP,
-                geometry->IndexData().size(),
-                GL_UNSIGNED_INT,
-                nullptr
-            );
+            if (geometry->IndexData().empty()) {
+                // TODO: glDrawArrays
+            } else {
+                glDrawElements(
+                    GL_TRIANGLES,
+                    geometry->IndexData().size(),
+                    GL_UNSIGNED_INT,
+                    nullptr
+                );
+            }
         }
 
         RenderObject(c.get(), camera);

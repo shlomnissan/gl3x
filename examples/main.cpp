@@ -31,6 +31,7 @@ auto main() -> int {
 
     window.Start([&](const double){
         mesh1->RotateY(0.01f);
+        mesh1->RotateX(0.01f);
 
         renderer.Render(scene.get(), camera.get());
     });

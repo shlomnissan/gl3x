@@ -7,8 +7,12 @@ static const char* _SHADER_scene_frag = R"(#version 320 es
 
 precision mediump float;
 
-layout (location = 0) out vec4 frag_color;
+layout (location = 0) out vec4 outColor;
+
+in vec2 textureCoords;
+
+uniform sampler2D texture_0;
 
 void main() {
-    frag_color = vec4(1.0, 1.0, 1.0, 1.0);
+    outColor = texture(texture_0, textureCoords);
 })";
