@@ -1,7 +1,6 @@
 set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(SOURCE_CODE
-    "core/disposable.cpp"
     "core/disposable.hpp"
     "core/geometry.cpp"
     "core/image.hpp"

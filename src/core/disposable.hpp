@@ -13,44 +13,38 @@ using OnDisposeCallback = std::function<void(Disposable*)>;
 
 class Disposable {
 public:
-    /// @brief Default constructor
     Disposable() = default;
-    /// @brief Deleted copy constructor
+
     Disposable(const Disposable&) = delete;
-    /// @brief Deleted copy assignment operator
     auto operator=(const Disposable&) -> Disposable& = delete;
-    /// @brief Deleted move constructor
     Disposable(Disposable&&) = delete;
-    /// @brief Delete move assignment operator
     auto operator=(Disposable&&) -> Disposable& = delete;
 
-    /**
-     * @brief Disposes of resources associated with the derived object.
-     *
-     * This method iterates and invokes onDispose events to clean up resources.
-     */
-    auto Dispose() -> void;
+    auto BaseDispose() -> void {
+        if (!disposed_) {
+            disposed_ = true;
+            for (const auto& c : dispose_callbacks_) c(this);
+        }
+    }
 
-    /**
-     * @brief Checks if the derived object has been disposed.
-     *
-     * @return bool True if the object has been disposed, false otherwise.
-     */
-    [[nodiscard]] auto Disposed() const { return disposed_; }
+    virtual auto Dispose() -> void {
+        BaseDispose();
+    }
+
+    [[nodiscard]] virtual auto Disposed() -> bool { return disposed_; }
 
     auto OnDispose(const OnDisposeCallback& callback) {
         dispose_callbacks_.emplace_back(callback);
     }
 
-    /**
-     * @brief Destructor.
-     */
-    ~Disposable() { Dispose(); }
+    virtual ~Disposable() {
+        BaseDispose();
+    }
 
-private:
-    /// @brief Flag indicating whether the object has been disposed.
+protected:
     bool disposed_ {false};
 
+private:
     std::vector<OnDisposeCallback> dispose_callbacks_;
 };
 
