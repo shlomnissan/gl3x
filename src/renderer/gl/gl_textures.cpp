@@ -13,8 +13,6 @@ auto GLTextures::Bind(Texture* texture) -> void {
         state = bindings_[texture->UUID()];
         if (state.texture_id == current_texture_id_) { return; }
     } else {
-        glGenTextures(1, &state.texture_id);
-        glBindTexture(GL_TEXTURE_2D, state.texture_id);
         GenerateTexture(texture, state);
         TextureCallbacks(texture);
         bindings_.try_emplace(texture->UUID(), state);
@@ -23,10 +21,10 @@ auto GLTextures::Bind(Texture* texture) -> void {
     current_texture_id_ = state.texture_id;
 }
 
-auto GLTextures::GenerateTexture(
-    const Texture* texture,
-    const GLTextureState& state
-) const -> void {
+auto GLTextures::GenerateTexture(const Texture* texture, GLTextureState& state) const -> void {
+    glGenTextures(1, &state.texture_id);
+    glBindTexture(GL_TEXTURE_2D, state.texture_id);
+
     auto tex = dynamic_cast<const Texture2D*>(texture);
 
     glTexStorage2D(
@@ -52,7 +50,12 @@ auto GLTextures::GenerateTexture(
 }
 
 auto GLTextures::TextureCallbacks(Texture* texture) -> void {
-    // TODO: implement
+    texture->OnDispose([this](Disposable* target) {
+        auto& uuid = static_cast<Texture*>(target)->UUID();
+        auto& state = this->bindings_[uuid];
+        glDeleteTextures(1, &state.texture_id);
+        this->bindings_.erase(uuid);
+    });
 }
 
 }

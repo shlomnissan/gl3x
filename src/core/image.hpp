@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <string>
 #include <memory>
 
 namespace engine {
@@ -12,6 +13,7 @@ using ImageDataPtr = std::unique_ptr<unsigned char[], void(*)(void*)>;
 class Image {
 public:
     struct ImageMetadata {
+        std::string filename;
         unsigned int width;
         unsigned int height;
         unsigned int depth;
@@ -21,6 +23,7 @@ public:
 
     Image(const ImageMetadata& params, ImageDataPtr data) :
         data_(std::move(data)),
+        filename_(params.filename),
         width_(params.width),
         height_(params.height),
         depth_(params.depth) {}
@@ -36,6 +39,7 @@ public:
 private:
     ImageDataPtr data_ {nullptr, [](void*){}};
 
+    std::string filename_ {};
     unsigned int width_ {0};
     unsigned int height_ {0};
     unsigned int depth_ {0};

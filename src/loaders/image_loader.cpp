@@ -11,7 +11,6 @@
 #include <fmt/format.h>
 #include <stb_image.h>
 
-
 namespace engine {
 
 auto ImageLoader::Load(const fs::path& path, bool flip_y) -> std::optional<Image> {
@@ -40,6 +39,7 @@ auto ImageLoader::Load(const fs::path& path, bool flip_y) -> std::optional<Image
     auto image_data_ptr = ImageDataPtr(data, &stbi_image_free);
 
     return Image {{
+        .filename = path.filename().string(),
         .width = static_cast<unsigned int>(width),
         .height = static_cast<unsigned int>(height),
         .depth = static_cast<unsigned int>(depth),

@@ -13,8 +13,6 @@ auto GLBuffers::Bind(Geometry* geometry) -> void {
         state = bindings_[geometry->UUID()];
         if (state.vao == current_vao_) { return; }
     } else {
-        glGenVertexArrays(1, &state.vao);
-        glBindVertexArray(state.vao);
         GenerateBuffers(geometry, state);
         GeometryCallbacks(geometry);
         bindings_.try_emplace(geometry->UUID(), state);
@@ -23,10 +21,9 @@ auto GLBuffers::Bind(Geometry* geometry) -> void {
     current_vao_ = state.vao;
 }
 
-auto GLBuffers::GenerateBuffers(
-    const Geometry* geometry,
-    GLBufferState& state
-) const -> void {
+auto GLBuffers::GenerateBuffers(const Geometry* geometry, GLBufferState& state) const -> void {
+    glGenVertexArrays(1, &state.vao);
+    glBindVertexArray(state.vao);
     glGenBuffers(state.buffers.size(), state.buffers.data());
 
     const auto& vertex = geometry->VertexData();
