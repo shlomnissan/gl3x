@@ -51,7 +51,7 @@ auto GLBuffers::GenerateBuffers(
             GL_FLOAT,
             GL_FALSE,
             stride * sizeof(GLfloat),
-            BUFFER_OFFSET(0)
+            BUFFER_OFFSET(attr.offset)
         );
         glEnableVertexAttribArray(idx);
     }
