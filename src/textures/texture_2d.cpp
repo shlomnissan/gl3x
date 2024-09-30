@@ -16,10 +16,7 @@ Texture2D::Texture2D(std::string_view image_path) {
         image_ = std::move(image.value());
         loaded_ = true;
     } else {
-        Logger::Log(
-            LogLevel::kError,
-            fmt::format("Failed to initialize 2D texture UUID({})", UUID())
-        );
+        LogError(fmt::format("Failed to initialize 2D texture UUID({})", UUID()));
     }
 }
 

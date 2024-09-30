@@ -39,7 +39,7 @@ public:
      * @return A const reference to the Image object.
      */
     [[nodiscard]]
-    const auto& Image() const { return image_; }
+    auto& Image() { return image_; }
 
     /**
      * @brief Creates a shared pointer to a Texture2D object.

@@ -3,6 +3,7 @@
 
 #include "renderer/gl/gl_textures.hpp"
 
+#include "core/logger.hpp"
 #include "engine/textures/texture_2d.hpp"
 
 namespace engine {
@@ -21,11 +22,11 @@ auto GLTextures::Bind(Texture* texture) -> void {
     current_texture_id_ = state.texture_id;
 }
 
-auto GLTextures::GenerateTexture(const Texture* texture, GLTextureState& state) const -> void {
+auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const -> void {
     glGenTextures(1, &state.texture_id);
     glBindTexture(GL_TEXTURE_2D, state.texture_id);
 
-    auto tex = dynamic_cast<const Texture2D*>(texture);
+    auto tex = dynamic_cast<Texture2D*>(texture);
 
     glTexStorage2D(
         GL_TEXTURE_2D,
@@ -47,6 +48,12 @@ auto GLTextures::GenerateTexture(const Texture* texture, GLTextureState& state) 
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    if (glGetError() == GL_NO_ERROR) {
+        tex->Image().Clear();
+    } else {
+        LogError("OpenGL error failed to generate texture");
+    }
 }
 
 auto GLTextures::TextureCallbacks(Texture* texture) -> void {

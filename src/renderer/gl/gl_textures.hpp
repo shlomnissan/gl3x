@@ -32,7 +32,7 @@ private:
 
     GLuint current_texture_id_ {0};
 
-    auto GenerateTexture(const Texture* texture, GLTextureState& state) const -> void;
+    auto GenerateTexture(Texture* texture, GLTextureState& state) const -> void;
 
     auto TextureCallbacks(Texture* texture) -> void;
 };

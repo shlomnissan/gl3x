@@ -13,12 +13,14 @@ namespace engine {
 
 std::mutex Logger::mutex_;
 
-auto Logger::Log(LogLevel level, std::string_view message) -> void {
+auto Logger::Log(LogLevel level, const fs::path& path, int line, std::string_view message) -> void {
     auto lock = std::scoped_lock(mutex_);
     auto& stream = level == LogLevel::kError ? std::cerr : std::cout;
     stream << fmt::format(
-        "[{}][{}]: {}\n",
+        "[{} -> {}:{}][{}]: {}\n",
         Timer::GetTimestamp(),
+        path.filename().string(),
+        line,
         Logger::ToString(level),
         message.data()
     );

@@ -3,8 +3,11 @@
 
 #pragma once
 
+#include "core/logger.hpp"
+
 #include <string>
 #include <memory>
+#include <fmt/format.h>
 
 namespace engine {
 
@@ -35,6 +38,16 @@ public:
     [[nodiscard]] auto Height() const { return height_; }
 
     [[nodiscard]] auto Depth() const { return depth_; }
+
+    auto Clear() {
+        if (data_ == nullptr) return;
+        data_.reset();
+        width_ = 0;
+        height_ = 0;
+        depth_ = 0;
+
+        LogInfo(fmt::format("Image memory cleared '{}'", filename_));
+    }
 
 private:
     ImageDataPtr data_ {nullptr, [](void*){}};
