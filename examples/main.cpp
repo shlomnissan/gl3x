@@ -7,9 +7,6 @@
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
 #include <engine/scene/scene.hpp>
-#include <engine/textures/texture_2d.hpp>
-
-#include <iostream>
 
 auto main() -> int {
     auto window = engine::Window {{.title = "Examples"}};
@@ -23,8 +20,7 @@ auto main() -> int {
     camera->TranslateZ(2.0f);
 
     auto mesh1 = engine::Mesh::Create(
-        engine::BoxGeometry::Create({}),
-        engine::Texture2D::Create("assets/checker.png")
+        engine::BoxGeometry::Create({})
     );
 
     scene->Add(mesh1);

@@ -47,7 +47,6 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
     );
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     if (glGetError() == GL_NO_ERROR) {
         tex->Image().Clear();

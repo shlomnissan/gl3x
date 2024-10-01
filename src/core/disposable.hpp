@@ -16,8 +16,8 @@ public:
     Disposable() = default;
 
     Disposable(const Disposable&) = delete;
-    auto operator=(const Disposable&) -> Disposable& = delete;
     Disposable(Disposable&&) = delete;
+    auto operator=(const Disposable&) -> Disposable& = delete;
     auto operator=(Disposable&&) -> Disposable& = delete;
 
     auto BaseDispose() -> void {

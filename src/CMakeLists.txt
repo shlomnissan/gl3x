@@ -15,6 +15,7 @@ set(SOURCE_CODE
     "geometry/plane_geometry.cpp"
     "loaders/image_loader.cpp"
     "loaders/image_loader.hpp"
+    "materials/material.hpp"
     "math/euler.cpp"
     "math/matrix3.cpp"
     "math/matrix4.cpp"

@@ -6,7 +6,8 @@
 #include "engine_export.h"
 #include "engine/core/geometry.hpp"
 #include "engine/scene/node.hpp"
-#include "engine/textures/texture_2d.hpp"
+
+#include "materials/material.hpp"
 
 #include <memory>
 
@@ -21,11 +22,11 @@ public:
      * @brief Constructs a Mesh object with the given geometry.
      *
      * @param geometry A shared pointer to the Geometry object to be associated with the mesh.
-     * @param texture A shared pointer to an optional Texture2D object to be associated with the mesh.
+     * @param material A shared pointer to an optional Material object to be associated with the mesh.
      */
     Mesh(
         std::shared_ptr<Geometry> geometry,
-        std::shared_ptr<Texture2D> texture = nullptr
+        std::shared_ptr<Material> material = nullptr
     );
 
     /**
@@ -36,32 +37,32 @@ public:
     auto GetGeometry() -> Geometry* { return geometry_.get(); }
 
     /**
-     * @brief Accessor method that returns a pointer to the associated `Texture2D` object.
+     * @brief Accessor method that returns a pointer to the associated `Material` object.
      *
-     * @return A pointer to the `Texture2D` object, or nullptr if no texture is associated with the mesh.
+     * @return A raw pointer to the `Material` object, or nullptr if no material is set.
      */
-    auto GetTexture() -> Texture2D* { return texture_.get(); }
+    auto GetMaterial() -> Material* { return material_.get(); }
 
     /**
      * @brief Creates a shared pointer to a Mesh object with the specified geometry.
      *
      * @param geometry A shared pointer to the Geometry object to be associated with the mesh.
-     * @param texture A shared pointer to an optional Texture2D object to be associated with the mesh.
+     * @param material A shared pointer to an optional Material object to be associated with the mesh.
      * @return std::shared_ptr<Mesh> A shared pointer to the newly created Mesh object.
      */
     [[nodiscard]]
     static auto Create(
         std::shared_ptr<Geometry> geometry,
-        std::shared_ptr<Texture2D> texture = nullptr
+        std::shared_ptr<Material> material = nullptr
     ) {
-        return std::make_shared<Mesh>(geometry, texture);
+        return std::make_shared<Mesh>(geometry, material);
     }
 
 private:
     /// @brief The geometry associated with the mesh.
     std::shared_ptr<Geometry> geometry_;
-    /// @brief The texture associated with the mesh.
-    std::shared_ptr<Texture2D> texture_;
+    /// @brief The material associated with the mesh.
+    std::shared_ptr<Material> material_;
 };
 
 }

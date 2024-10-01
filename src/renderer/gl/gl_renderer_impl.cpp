@@ -26,7 +26,6 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
         if (c->Is<Mesh>()) {
             auto mesh = c->As<Mesh>();
             auto geometry = mesh->GetGeometry();
-            auto texture = mesh->GetTexture();
 
             if (geometry->Disposed()) continue;
 
@@ -36,9 +35,6 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
             );
 
             buffers_.Bind(geometry);
-            if (texture != nullptr && !texture->Disposed()) {
-                textures_.Bind(texture);
-            }
 
             if (geometry->IndexData().empty()) {
                 // TODO: glDrawArrays
