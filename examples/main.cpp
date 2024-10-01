@@ -4,6 +4,7 @@
 #include <engine/core/window.hpp>
 #include <engine/core/renderer.hpp>
 #include <engine/geometry/box_geometry.hpp>
+#include <engine/materials/flat_material.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
 #include <engine/scene/scene.hpp>
@@ -20,7 +21,8 @@ auto main() -> int {
     camera->TranslateZ(2.0f);
 
     auto mesh1 = engine::Mesh::Create(
-        engine::BoxGeometry::Create({})
+        engine::BoxGeometry::Create({}),
+        engine::FlatMaterial::Create()
     );
 
     scene->Add(mesh1);

@@ -49,6 +49,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"
     "${PUBLIC_HEADERS_DIR}/geometry/box_geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/geometry/plane_geometry.hpp"
+    "${PUBLIC_HEADERS_DIR}/materials/flat_material.hpp"
     "${PUBLIC_HEADERS_DIR}/math/euler.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix4.hpp"
