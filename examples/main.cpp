@@ -22,7 +22,7 @@ auto main() -> int {
 
     auto mesh1 = engine::Mesh::Create(
         engine::BoxGeometry::Create({}),
-        engine::FlatMaterial::Create()
+        engine::FlatMaterial::Create({})
     );
 
     scene->Add(mesh1);

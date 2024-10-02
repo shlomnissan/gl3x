@@ -10,9 +10,9 @@
 TEST(Color, ConstructorDefault) {
     auto color = engine::Color {};
 
-    EXPECT_FLOAT_EQ(color.r, 0.0f);
-    EXPECT_FLOAT_EQ(color.g, 0.0f);
-    EXPECT_FLOAT_EQ(color.b, 0.0f);
+    EXPECT_FLOAT_EQ(color.r, 1.0f);
+    EXPECT_FLOAT_EQ(color.g, 1.0f);
+    EXPECT_FLOAT_EQ(color.b, 1.0f);
     EXPECT_FLOAT_EQ(color.a, 1.0f);
 }
 

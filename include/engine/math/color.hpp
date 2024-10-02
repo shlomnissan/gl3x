@@ -13,16 +13,16 @@ namespace engine {
 class ENGINE_EXPORT Color  {
 public:
     /// @brief The red component.
-    float r {0.0f};
+    float r {1.0f};
     /// @brief The green component.
-    float g {0.0f};
+    float g {1.0f};
     /// @brief The blue component.
-    float b {0.0f};
+    float b {1.0f};
     /// @brief The alpha (transparency) component.
     float a {1.0f};
 
     /**
-     * @brief Default constructor that initializes the color to black with full opacity.
+     * @brief Default constructor that initializes the color to white with full opacity.
      */
     Color() = default;
 
