@@ -8,12 +8,14 @@
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
 #include <engine/scene/scene.hpp>
+#include <engine/textures/texture_2d.hpp>
 
 auto main() -> int {
     auto window = engine::Window {{.title = "Examples"}};
     auto renderer = engine::Renderer({
         .width = window.Width(),
-        .height = window.Height()
+        .height = window.Height(),
+        .clear_color = {0.0f, 0.0f, 0.5f, 1.0f}
     });
 
     auto scene = engine::Scene::Create();
@@ -22,7 +24,9 @@ auto main() -> int {
 
     auto mesh1 = engine::Mesh::Create(
         engine::BoxGeometry::Create({}),
-        engine::FlatMaterial::Create({})
+        engine::FlatMaterial::Create({
+            .texture = engine::Texture2D::Create("assets/checker.png")
+        })
     );
 
     scene->Add(mesh1);

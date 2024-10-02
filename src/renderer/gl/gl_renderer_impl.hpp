@@ -23,6 +23,8 @@ public:
     auto Render(Scene* scene, Camera* camera) -> void;
 
 private:
+    Renderer::Parameters params_;
+
     GLProgram program_;
     GLBuffers buffers_;
     GLTextures textures_;

@@ -11,10 +11,12 @@
 
 namespace engine {
 
-Renderer::Impl::Impl(const Renderer::Parameters& params) : program_ {{
+Renderer::Impl::Impl(const Renderer::Parameters& params)
+  : params_(params),
+    program_({
     {GLShaderType::kVertexShader, _SHADER_scene_vert},
     {GLShaderType::kFragmentShader, _SHADER_scene_frag}
-}} {
+}) {
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, params.width, params.height);
 
@@ -53,7 +55,13 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
 }
 
 auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
-    glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
+    glClearColor(
+        params_.clear_color.r,
+        params_.clear_color.g,
+        params_.clear_color.b,
+        params_.clear_color.a
+    );
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     program_.SetUniform(

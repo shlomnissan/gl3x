@@ -4,8 +4,9 @@
 #pragma once
 
 #include "engine_export.h"
-#include "engine/scene/scene.hpp"
+#include "engine/math/color.hpp"
 #include "engine/scene/camera.hpp"
+#include "engine/scene/scene.hpp"
 
 #include <memory>
 
@@ -14,8 +15,9 @@ namespace engine {
 class ENGINE_EXPORT Renderer {
 public:
     struct Parameters {
-        int width;  ///< Width of the viewport.
-        int height; ///< Height of the viewport.
+        int width;
+        int height;
+        Color clear_color = {};
     };
 
     explicit Renderer(const Renderer::Parameters& params);
