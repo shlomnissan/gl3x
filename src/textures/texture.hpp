@@ -16,7 +16,9 @@ public:
     [[nodiscard]]
     const auto& UUID() const { return uuid_; }
 
-    virtual ~Texture() = default;
+    virtual ~Texture() {
+        Dispose();
+    }
 
 private:
     std::string uuid_ {math::GenerateUUID()};

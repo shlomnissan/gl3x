@@ -49,7 +49,7 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
     if (glGetError() == GL_NO_ERROR) {
-        tex->Image().Free();
+        tex->Image().Dispose();
     } else {
         LogError("OpenGL error failed to generate texture");
     }

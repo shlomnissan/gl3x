@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "core/disposable.hpp"
 #include "core/logger.hpp"
 
 #include <string>
@@ -13,7 +14,7 @@ namespace engine {
 
 using ImageDataPtr = std::unique_ptr<unsigned char[], void(*)(void*)>;
 
-class Image {
+class Image : public Disposable {
 public:
     struct ImageMetadata {
         std::string filename;
@@ -44,8 +45,6 @@ public:
 
     auto operator=(Image&& other) noexcept -> Image& {
         if (this != &other) {
-            Free();
-
             data_ = std::move(other.data_);
             filename_ = std::move(other.filename_);
             width_ = other.width_;
@@ -65,16 +64,17 @@ public:
 
     [[nodiscard]] auto Depth() const { return depth_; }
 
-    auto Free() -> void {
+    auto Dispose() -> void override {
         if (data_ != nullptr) {
             data_.reset();
             LogInfo(fmt::format("Image memory cleared '{}'", filename_));
+            Disposable::Dispose();
         }
         Reset(*this);
     }
 
     ~Image() {
-        Free();
+        Dispose();
     }
 
 private:

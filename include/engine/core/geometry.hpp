@@ -120,6 +120,13 @@ public:
         return std::make_shared<Geometry>();
     }
 
+    /**
+     * @brief Destructor calls the Dispose() method to clean up resources.
+     */
+    ~Geometry() {
+        Dispose();
+    }
+
 protected:
     /// @brief The vertex data of the geometry.
     std::vector<float> vertex_data_;

@@ -20,25 +20,17 @@ public:
     auto operator=(const Disposable&) -> Disposable& = delete;
     auto operator=(Disposable&&) -> Disposable& = delete;
 
-    auto BaseDispose() -> void {
+    virtual auto Dispose() -> void {
         if (!disposed_) {
             disposed_ = true;
             for (const auto& c : dispose_callbacks_) c(this);
         }
     }
 
-    virtual auto Dispose() -> void {
-        BaseDispose();
-    }
-
     [[nodiscard]] virtual auto Disposed() -> bool { return disposed_; }
 
     auto OnDispose(const OnDisposeCallback& callback) {
         dispose_callbacks_.emplace_back(callback);
-    }
-
-    virtual ~Disposable() {
-        BaseDispose();
     }
 
 protected:
