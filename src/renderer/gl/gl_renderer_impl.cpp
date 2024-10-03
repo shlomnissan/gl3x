@@ -28,6 +28,7 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
         if (c->Is<Mesh>()) {
             auto mesh = c->As<Mesh>();
             auto geometry = mesh->GetGeometry();
+            auto material = mesh->GetMaterial();
 
             if (geometry->Disposed()) continue;
 

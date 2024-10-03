@@ -33,12 +33,14 @@ auto ImageLoader::Load(const fs::path& path, bool flip_y) -> std::optional<Image
 
     auto image_data_ptr = ImageDataPtr(data, &stbi_image_free);
 
-    return Image {{
+    auto image = Image {{
         .filename = path.filename().string(),
         .width = static_cast<unsigned int>(width),
         .height = static_cast<unsigned int>(height),
         .depth = static_cast<unsigned int>(depth),
     }, std::move(image_data_ptr)};
+
+    return std::optional<Image>(std::move(image));
 }
 
 }

@@ -25,11 +25,37 @@ public:
     Image() = default;
 
     Image(const ImageMetadata& params, ImageDataPtr data) :
-        data_(std::move(data)),
-        filename_(params.filename),
-        width_(params.width),
-        height_(params.height),
-        depth_(params.depth) {}
+      data_(std::move(data)),
+      filename_(params.filename),
+      width_(params.width),
+      height_(params.height),
+      depth_(params.depth) {
+        LogInfo(fmt::format("Image loaded '{}'", filename_));
+    }
+
+    Image(Image&& other) noexcept :
+      data_(std::move(other.data_)),
+      filename_(std::move(other.filename_)),
+      width_(other.width_),
+      height_(other.height_),
+      depth_(other.depth_) {
+        Reset(other);
+    }
+
+    auto operator=(Image&& other) noexcept -> Image& {
+        if (this != &other) {
+            Free();
+
+            data_ = std::move(other.data_);
+            filename_ = std::move(other.filename_);
+            width_ = other.width_;
+            height_ = other.height_;
+            depth_ = other.depth_;
+
+            Reset(other);
+        }
+        return *this;
+    }
 
     [[nodiscard]] auto Data() const { return data_.get(); }
 
@@ -39,14 +65,16 @@ public:
 
     [[nodiscard]] auto Depth() const { return depth_; }
 
-    auto Clear() {
-        if (data_ == nullptr) return;
-        data_.reset();
-        width_ = 0;
-        height_ = 0;
-        depth_ = 0;
+    auto Free() -> void {
+        if (data_ != nullptr) {
+            data_.reset();
+            LogInfo(fmt::format("Image memory cleared '{}'", filename_));
+        }
+        Reset(*this);
+    }
 
-        LogInfo(fmt::format("Image memory cleared '{}'", filename_));
+    ~Image() {
+        Free();
     }
 
 private:
@@ -56,6 +84,14 @@ private:
     unsigned int width_ {0};
     unsigned int height_ {0};
     unsigned int depth_ {0};
+
+    auto Reset(Image& instance) -> void {
+        instance.data_ = nullptr;
+        instance.filename_.clear();
+        instance.width_ = 0;
+        instance.height_ = 0;
+        instance.depth_ = 0;
+    }
 };
 
 }
