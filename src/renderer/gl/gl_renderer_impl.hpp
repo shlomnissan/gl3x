@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine/core/renderer.hpp"
+#include "engine/scene/mesh.hpp"
 
 #include "renderer/gl/gl_buffers.hpp"
 #include "renderer/gl/gl_program.hpp"
@@ -30,6 +31,8 @@ private:
     GLTextures textures_;
 
     auto RenderObject(Node* object, Camera* camera) -> void;
+
+    [[nodiscard]] auto IsValidMesh(Mesh* mesh) const -> bool;
 };
 
 }

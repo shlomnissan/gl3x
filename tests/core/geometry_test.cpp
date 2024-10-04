@@ -88,16 +88,16 @@ TEST(Geometry, Stride) {
 }
 
 TEST(Geometry, VertexCount) {
-    const auto vertex_data = std::vector<float>{
-        0.0f, 1.0f, 2.0f, 0.33f, 0.55f,
-        0.0f, 1.0f, 2.0f, 0.33f, 0.55f
+    auto vertex_data = std::vector<float> {
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.5f, 0.0f
     };
 
     auto geometry = engine::Geometry::Create(vertex_data);
     geometry->SetAttribute({.type = kPosition, .item_size = 3, .offset = 0});
-    geometry->SetAttribute({.type = kUV, .item_size = 2, .offset = 3});
 
-    EXPECT_EQ(geometry->VertexCount(), 2);
+    EXPECT_EQ(geometry->VertexCount(), 3);
 }
 
 #pragma endregion

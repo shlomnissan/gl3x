@@ -3,10 +3,12 @@
 
 #include "renderer/gl/gl_renderer_impl.hpp"
 
-#include "engine/scene/mesh.hpp"
+#include "core/logger.hpp"
+
 #include "shaders/include/scene_frag.h"
 #include "shaders/include/scene_vert.h"
 
+#include <fmt/format.h>
 #include <glad/glad.h>
 
 namespace engine {
@@ -30,7 +32,7 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
             auto geometry = mesh->GetGeometry();
             auto material = mesh->GetMaterial();
 
-            if (geometry->Disposed()) continue;
+            if (!IsValidMesh(mesh)) continue;
 
             program_.SetUniform(
                 "ModelView",
@@ -53,6 +55,36 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
 
         RenderObject(c.get(), camera);
     }
+}
+
+auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
+    auto geometry = mesh->GetGeometry();
+
+    if (geometry->Disposed()) {
+        LogWarning(fmt::format(
+            "Skipped rendering a mesh with disposed geometry {}",
+            mesh->UUID()
+        ));
+        return false;
+    }
+
+    if (geometry->VertexData().empty()) {
+        LogWarning(fmt::format(
+            "Skipped rendering a mesh with no geometry data {}",
+            mesh->UUID()
+        ));
+        return false;
+    }
+
+    if (geometry->Attributes().empty()) {
+        LogWarning(fmt::format(
+            "Skipped rendering a mesh with no geometry attributes {}",
+            mesh->UUID()
+        ));
+        return false;
+    }
+
+    return true;
 }
 
 auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {

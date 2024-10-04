@@ -15,6 +15,9 @@ auto Geometry::SetAttribute(const GeometryAttribute &attribute) -> void {
 }
 
 auto Geometry::VertexCount() const -> int {
+    if (vertex_data_.empty() || attributes_.empty()) {
+        return 0;
+    }
     return vertex_data_.size() / Stride();
 }
 
