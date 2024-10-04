@@ -36,6 +36,10 @@ public:
      */
     explicit FlatMaterial(const Parameters& params) : params_(params) {}
 
+    auto Type() const -> std::string override {
+        return "flat_material";
+    }
+
     /**
      * @brief Creates a shared pointer to a default-constructed object.
      *

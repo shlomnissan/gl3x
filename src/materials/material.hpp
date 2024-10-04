@@ -7,6 +7,8 @@
 
 #include "core/identity.hpp"
 
+#include <string>
+
 namespace engine {
 
 class Material : public Identity {
@@ -17,6 +19,8 @@ public:
     Material(Material&&) = delete;
     auto operator=(const Material&) -> Material& = delete;
     auto operator=(Material&&) -> Material& = delete;
+
+    virtual auto Type() const -> std::string = 0;
 
     template<class T> requires std::is_base_of_v<Material, T>
     [[nodiscard]] auto Is() const {
@@ -32,6 +36,8 @@ public:
     [[nodiscard]] auto As() const {
         return dynamic_cast<const T*>(this);
     }
+
+    virtual ~Material() = default;
 };
 
 }
