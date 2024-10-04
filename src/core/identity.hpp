@@ -5,12 +5,16 @@
 
 #include "engine/math/utilities.hpp"
 
-#include "core/disposable.hpp"
-#include "core/identity.hpp"
+#include <string>
 
 namespace engine {
 
-class Texture : public Disposable, public Identity {
+class Identity {
+public:
+    [[nodiscard]] const auto& UUID() const { return uuid_; }
+
+private:
+    std::string uuid_ {math::GenerateUUID()};
 };
 
 }

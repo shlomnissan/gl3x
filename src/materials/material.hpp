@@ -5,9 +5,11 @@
 
 #include "engine/math/utilities.hpp"
 
+#include "core/identity.hpp"
+
 namespace engine {
 
-class Material {
+class Material : public Identity {
 public:
     Material() = default;
 
@@ -15,8 +17,6 @@ public:
     Material(Material&&) = delete;
     auto operator=(const Material&) -> Material& = delete;
     auto operator=(Material&&) -> Material& = delete;
-
-    [[nodiscard]] const auto& UUID() const { return uuid_; }
 
     template<class T> requires std::is_base_of_v<Material, T>
     [[nodiscard]] auto Is() const {
@@ -32,9 +32,6 @@ public:
     [[nodiscard]] auto As() const {
         return dynamic_cast<const T*>(this);
     }
-
-private:
-    std::string uuid_ {math::GenerateUUID()};
 };
 
 }

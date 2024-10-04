@@ -7,9 +7,9 @@
 #include "engine/math/utilities.hpp"
 
 #include "core/disposable.hpp"
+#include "core/identity.hpp"
 
 #include <memory>
-#include <string>
 #include <vector>
 
 namespace engine {
@@ -38,7 +38,7 @@ struct ENGINE_EXPORT GeometryAttribute {
 /**
  * @brief Class representing a 3D geometry with vertex and index data.
  */
-class ENGINE_EXPORT Geometry : public Disposable {
+class ENGINE_EXPORT Geometry : public Disposable, public Identity {
 public:
     /**
      * @brief Default construction.
@@ -110,14 +110,6 @@ public:
     [[nodiscard]] auto Stride() const -> int;
 
     /**
-     * @brief Retrieves the unique identifier for this geometry.
-     *
-     * @return The UUID of the node as a string.
-     */
-    [[nodiscard]]
-    const auto& UUID() const { return uuid_; }
-
-    /**
      * @brief Sets a geometry attribute.
      *
      * @param attribute The attribute to set.
@@ -150,9 +142,6 @@ protected:
 
     /// @brief The attributes of the geometry.
     std::vector<GeometryAttribute> attributes_;
-
-    /// @brief Unique identifier for this node.
-    std::string uuid_ {math::GenerateUUID()};
 };
 
 }

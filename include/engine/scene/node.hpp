@@ -6,10 +6,10 @@
 #include "engine_export.h"
 #include "engine/math/matrix4.hpp"
 #include "engine/math/transform.hpp"
-#include "engine/math/utilities.hpp"
+
+#include "core/identity.hpp"
 
 #include <memory>
-#include <string>
 #include <vector>
 
 namespace engine {
@@ -17,7 +17,7 @@ namespace engine {
 /**
  * @brief Represents a node in a scene graph.
  */
-class ENGINE_EXPORT Node {
+class ENGINE_EXPORT Node : public Identity {
 public:
     /**
      * @brief Adds a child node to this node.
@@ -48,14 +48,6 @@ public:
      */
     [[nodiscard]]
     auto Parent() const -> const Node*;
-
-    /**
-     * @brief Retrieves the unique identifier for this node.
-     *
-     * @return The UUID of the node as a string.
-     */
-    [[nodiscard]]
-    const auto& UUID() const { return uuid_; }
 
     /**
      * @brief Checks if the node's children should be updated.
@@ -168,9 +160,6 @@ private:
 
     /// @brief Pointer to the parent node.
     Node* parent_ {nullptr};
-
-    /// @brief Unique identifier for this node.
-    std::string uuid_ {math::GenerateUUID()};
 
     /// @brief List of child nodes.
     std::vector<std::shared_ptr<Node>> children_;
