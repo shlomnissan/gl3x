@@ -40,7 +40,7 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
             buffers_.Bind(geometry);
 
             if (geometry->IndexData().empty()) {
-                // TODO: glDrawArrays
+                glDrawArrays(GL_TRIANGLES, 0, geometry->VertexCount());
             } else {
                 glDrawElements(
                     GL_TRIANGLES,

@@ -80,6 +80,13 @@ public:
     const auto& VertexData() const { return vertex_data_; }
 
     /**
+     * @brief Calculates the number of vertex elements.
+     *
+     * @return The vertex count calculated by dividing the size of the vertex data by the stride.
+     */
+    [[nodiscard]] auto VertexCount() const -> int;
+
+    /**
      * @brief Gets the index data of the geometry.
      *
      * @return const std::vector<unsigned int>& A reference to the vector containing the index data.
@@ -94,6 +101,13 @@ public:
      */
     [[nodiscard]]
     const auto& Attributes() const { return attributes_; }
+
+    /**
+     * @brief Calculates the stride based on existing attributes.
+     *
+     * @return The stride calculated by the sum of attribute item sizes.
+     */
+    [[nodiscard]] auto Stride() const -> int;
 
     /**
      * @brief Retrieves the unique identifier for this geometry.

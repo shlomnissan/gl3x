@@ -72,6 +72,36 @@ TEST(Geometry, AddMultipleAttributes) {
 
 #pragma endregion
 
+#pragma region Vertex Count
+
+TEST(Geometry, Stride) {
+    const auto vertex_data = std::vector<float>{
+        0.0f, 1.0f, 2.0f, 0.33f, 0.55f,
+        0.0f, 1.0f, 2.0f, 0.33f, 0.55f
+    };
+
+    auto geometry = engine::Geometry::Create(vertex_data);
+    geometry->SetAttribute({.type = kPosition, .item_size = 3, .offset = 0});
+    geometry->SetAttribute({.type = kUV, .item_size = 2, .offset = 3});
+
+    EXPECT_EQ(geometry->Stride(), 5);
+}
+
+TEST(Geometry, VertexCount) {
+    const auto vertex_data = std::vector<float>{
+        0.0f, 1.0f, 2.0f, 0.33f, 0.55f,
+        0.0f, 1.0f, 2.0f, 0.33f, 0.55f
+    };
+
+    auto geometry = engine::Geometry::Create(vertex_data);
+    geometry->SetAttribute({.type = kPosition, .item_size = 3, .offset = 0});
+    geometry->SetAttribute({.type = kUV, .item_size = 2, .offset = 3});
+
+    EXPECT_EQ(geometry->VertexCount(), 2);
+}
+
+#pragma endregion
+
 #pragma region Edge Cases
 
 TEST(Geometry, AddAttributeWithZeroItemSize) {
