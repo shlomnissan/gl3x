@@ -7,8 +7,6 @@
 
 #include <iostream>
 
-#include <fmt/format.h>
-
 namespace engine {
 
 std::mutex Logger::mutex_;

@@ -22,18 +22,18 @@ auto main() -> int {
     auto camera = engine::CameraPerspective::Create(60.0f, window.AspectRatio());
     camera->TranslateZ(2.0f);
 
-    auto mesh1 = engine::Mesh::Create(
+    auto mesh = engine::Mesh::Create(
         engine::BoxGeometry::Create({}),
         engine::FlatMaterial::Create({
             .texture = engine::Texture2D::Create("assets/checker.png")
         })
     );
 
-    scene->Add(mesh1);
+    scene->Add(mesh);
 
     window.Start([&](const double){
-        mesh1->RotateY(0.01f);
-        mesh1->RotateX(0.01f);
+        mesh->RotateY(0.01f);
+        mesh->RotateX(0.01f);
 
         renderer.Render(scene.get(), camera.get());
     });
