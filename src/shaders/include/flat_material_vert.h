@@ -1,6 +1,6 @@
 #pragma once
 
-static const char* _SHADER_scene_vert = R"(#version 320 es
+static const char* _SHADER_flat_material_vert = R"(#version 320 es
 
 #pragma debug(on)
 #pragma optimize(off)

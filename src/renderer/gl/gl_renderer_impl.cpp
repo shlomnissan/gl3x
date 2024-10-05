@@ -5,8 +5,8 @@
 
 #include "core/logger.hpp"
 
-#include "shaders/include/scene_frag.h"
-#include "shaders/include/scene_vert.h"
+#include "shaders/include/flat_material_vert.h"
+#include "shaders/include/flat_material_frag.h"
 
 #include <fmt/format.h>
 #include <glad/glad.h>
@@ -16,8 +16,8 @@ namespace engine {
 Renderer::Impl::Impl(const Renderer::Parameters& params)
   : params_(params),
     program_({
-    {GLShaderType::kVertexShader, _SHADER_scene_vert},
-    {GLShaderType::kFragmentShader, _SHADER_scene_frag}
+    {GLShaderType::kVertexShader, _SHADER_flat_material_vert},
+    {GLShaderType::kFragmentShader, _SHADER_flat_material_frag}
 }) {
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, params.width, params.height);
