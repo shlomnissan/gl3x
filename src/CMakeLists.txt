@@ -29,6 +29,8 @@ set(SOURCE_CODE
     "renderer/gl/gl_buffers.hpp"
     "renderer/gl/gl_program.cpp"
     "renderer/gl/gl_program.hpp"
+    "renderer/gl/gl_programs.cpp"
+    "renderer/gl/gl_programs.hpp"
     "renderer/gl/gl_renderer_impl.cpp"
     "renderer/gl/gl_renderer_impl.hpp"
     "renderer/gl/gl_textures.cpp"

@@ -3,12 +3,12 @@
 
 #pragma once
 
+#include "engine/math/matrix4.hpp"
+
 #include <string_view>
 #include <vector>
 
 #include <glad/glad.h>
-
-#include "engine/math/matrix4.hpp"
 
 namespace engine {
 
@@ -36,6 +36,8 @@ public:
     auto GetUniformLoc(std::string_view name) const -> int;
 
     auto SetUniform(std::string_view name, const engine::Matrix4& m) const -> void;
+
+    ~GLProgram();
 
 private:
     GLuint program_;

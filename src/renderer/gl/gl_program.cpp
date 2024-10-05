@@ -78,4 +78,8 @@ auto GLProgram::GetShaderType(GLShaderType type) const -> GLuint {
     }
 }
 
+GLProgram::~GLProgram() {
+    if (program_ > 0) glDeleteProgram(program_);
+}
+
 }

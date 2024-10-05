@@ -7,7 +7,7 @@
 #include "engine/scene/mesh.hpp"
 
 #include "renderer/gl/gl_buffers.hpp"
-#include "renderer/gl/gl_program.hpp"
+#include "renderer/gl/gl_programs.hpp"
 #include "renderer/gl/gl_textures.hpp"
 
 namespace engine {
@@ -26,8 +26,8 @@ public:
 private:
     Renderer::Parameters params_;
 
-    GLProgram program_;
     GLBuffers buffers_;
+    GLPrograms programs_;
     GLTextures textures_;
 
     auto RenderObject(Node* object, Camera* camera) -> void;

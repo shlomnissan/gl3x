@@ -5,24 +5,14 @@
 
 #include "core/logger.hpp"
 
-#include "shaders/include/flat_material_vert.h"
-#include "shaders/include/flat_material_frag.h"
-
 #include <fmt/format.h>
 #include <glad/glad.h>
 
 namespace engine {
 
-Renderer::Impl::Impl(const Renderer::Parameters& params)
-  : params_(params),
-    program_({
-    {GLShaderType::kVertexShader, _SHADER_flat_material_vert},
-    {GLShaderType::kFragmentShader, _SHADER_flat_material_frag}
-}) {
+Renderer::Impl::Impl(const Renderer::Parameters& params) : params_(params) {
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, params.width, params.height);
-
-    program_.Use();
 }
 
 auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
@@ -34,8 +24,14 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
 
             if (!IsValidMesh(mesh)) continue;
 
-            program_.SetUniform(
-                "ModelView",
+            auto program = programs_.GetProgram(mesh);
+            program->Use();
+
+            program->SetUniform("Projection",
+                camera->GetProjectionMatrix()
+            );
+
+            program->SetUniform("ModelView",
                 camera->GetViewMatrix() * c->GetWorldTransform()
             );
 
@@ -93,11 +89,6 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     );
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    program_.SetUniform(
-        "Projection",
-        camera->GetProjectionMatrix()
-    );
 
     scene->UpdateTransforms();
     camera->UpdateTransforms();
