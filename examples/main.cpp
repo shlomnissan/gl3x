@@ -5,6 +5,7 @@
 #include <engine/core/renderer.hpp>
 #include <engine/geometry/box_geometry.hpp>
 #include <engine/materials/flat_material.hpp>
+#include <engine/materials/phong_material.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
 #include <engine/scene/scene.hpp>
@@ -22,18 +23,27 @@ auto main() -> int {
     auto camera = engine::CameraPerspective::Create(60.0f, window.AspectRatio());
     camera->TranslateZ(2.0f);
 
-    auto mesh = engine::Mesh::Create(
+    auto mesh_flat = engine::Mesh::Create(
         engine::BoxGeometry::Create({}),
-        engine::FlatMaterial::Create({
-            .texture = engine::Texture2D::Create("assets/checker.png")
-        })
+        engine::FlatMaterial::Create({})
     );
+    mesh_flat->TranslateX(0.6f);
+    mesh_flat->Scale(0.7f);
 
-    scene->Add(mesh);
+
+    auto mesh_shiny = engine::Mesh::Create(
+        engine::BoxGeometry::Create({}),
+        engine::PhongMaterial::Create({})
+    );
+    mesh_shiny->TranslateX(-0.6f);
+    mesh_shiny->Scale(0.7f);
+
+    scene->Add(mesh_flat);
+    scene->Add(mesh_shiny);
 
     window.Start([&](const double){
-        mesh->RotateY(0.01f);
-        mesh->RotateX(0.01f);
+        mesh_flat->RotateY(0.01f);
+        mesh_shiny->RotateX(0.01f);
 
         renderer.Render(scene.get(), camera.get());
     });

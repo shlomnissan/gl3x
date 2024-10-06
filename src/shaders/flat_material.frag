@@ -12,5 +12,5 @@ in vec2 textureCoords;
 uniform sampler2D texture_0;
 
 void main() {
-    outColor = texture(texture_0, textureCoords);
+    outColor = vec4(0.89, 0.47, 0.26, 1.0);
 }

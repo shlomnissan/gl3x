@@ -1,6 +1,4 @@
-#pragma once
-
-static const char* _SHADER_flat_material_frag = R"(#version 320 es
+#version 320 es
 
 #pragma debug(on)
 #pragma optimize(off)
@@ -14,5 +12,5 @@ in vec2 textureCoords;
 uniform sampler2D texture_0;
 
 void main() {
-    outColor = vec4(0.89, 0.47, 0.26, 1.0);
-})";
+    outColor = vec4(0.51, 0.73, 0.66, 1.0);
+}
