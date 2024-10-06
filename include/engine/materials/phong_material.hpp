@@ -34,7 +34,9 @@ public:
      *
      * @param params A Parameters struct containing the color and optional texture.
      */
-    explicit PhongMaterial(const Parameters& params) : params_(params) {}
+    explicit PhongMaterial(const Parameters& params) : params_(params) {
+        SetName("Phong Material");
+    }
 
     /**
      * @brief Returns the type of material.

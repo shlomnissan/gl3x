@@ -23,6 +23,8 @@ auto GLPrograms::GetProgram(Mesh* mesh) -> GLProgram* {
     auto material = mesh->GetMaterial();
 
     if (!programs_.contains(material->Type())) {
+        LogInfo(fmt::format("Creating a new shader program {}", *material));
+
         programs_[material->Type()] = std::make_unique<GLProgram>(
             shader_lib_.GetShaderSource(material)
         );

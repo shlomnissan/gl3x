@@ -34,7 +34,9 @@ public:
      *
      * @param params A Parameters struct containing the color and optional texture.
      */
-    explicit FlatMaterial(const Parameters& params) : params_(params) {}
+    explicit FlatMaterial(const Parameters& params) : params_(params) {
+        SetName("Flat Material");
+    }
 
     /**
      * @brief Returns the type of material.
