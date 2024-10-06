@@ -3,14 +3,6 @@
 
 #include "renderer/gl/gl_programs.hpp"
 
-#include "engine/materials/flat_material.hpp"
-#include "shaders/include/flat_material_vert.h"
-#include "shaders/include/flat_material_frag.h"
-
-#include "engine/materials/phong_material.hpp"
-#include "shaders/include/phong_material_vert.h"
-#include "shaders/include/phong_material_frag.h"
-
 #include "core/logger.hpp"
 
 #include <vector>
