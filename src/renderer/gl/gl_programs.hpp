@@ -3,8 +3,8 @@
 
 #pragma once
 
+#include "core/shader_library.hpp"
 #include "engine/scene/mesh.hpp"
-
 #include "renderer/gl/gl_program.hpp"
 
 #include <memory>
@@ -18,7 +18,9 @@ public:
     auto GetProgram(Mesh* mesh) -> GLProgram*;
 
 private:
-    std::unordered_map<std::string, std::unique_ptr<GLProgram>> programs_ {};
+    ShaderLibrary shader_lib_;
+
+    std::unordered_map<MaterialType, std::unique_ptr<GLProgram>> programs_ {};
 };
 
 }

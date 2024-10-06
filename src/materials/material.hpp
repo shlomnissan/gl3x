@@ -11,6 +11,11 @@
 
 namespace engine {
 
+enum class MaterialType {
+    kFlatMaterial,
+    kPhongMaterial
+};
+
 class Material : public Identity {
 public:
     Material() = default;
@@ -20,7 +25,7 @@ public:
     auto operator=(const Material&) -> Material& = delete;
     auto operator=(Material&&) -> Material& = delete;
 
-    virtual auto Type() const -> std::string = 0;
+    virtual auto Type() const -> MaterialType = 0;
 
     template<class T> requires std::is_base_of_v<Material, T>
     [[nodiscard]] auto Is() const {

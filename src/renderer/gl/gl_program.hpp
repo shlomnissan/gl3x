@@ -5,6 +5,8 @@
 
 #include "engine/math/matrix4.hpp"
 
+#include "core/shader_library.hpp"
+
 #include <string_view>
 #include <vector>
 
@@ -12,19 +14,9 @@
 
 namespace engine {
 
-enum class GLShaderType {
-    kVertexShader,
-    kFragmentShader
-};
-
-struct GLShaderInfo {
-    GLShaderType type;
-    std::string_view source;
-};
-
 class GLProgram {
 public:
-    explicit GLProgram(const std::vector<GLShaderInfo>& shaders);
+    explicit GLProgram(const std::vector<ShaderInfo>& shaders);
 
     GLProgram(const GLProgram&) = delete;
     GLProgram(GLProgram&&) = delete;
@@ -46,7 +38,7 @@ private:
 
     auto CheckShaderCompileStatus(GLuint shader_id) const -> bool;
 
-    auto GetShaderType(GLShaderType type) const -> GLuint;
+    auto GetShaderType(ShaderType type) const -> GLuint;
 };
 
 }

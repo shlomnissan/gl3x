@@ -20,27 +20,14 @@
 namespace engine {
 
 auto GLPrograms::GetProgram(Mesh* mesh) -> GLProgram* {
-    if (!programs_.contains(mesh->GetMaterial()->Type())) {
-        auto material = mesh->GetMaterial();
-        auto program = std::unique_ptr<GLProgram>();
+    auto material = mesh->GetMaterial();
 
-        if (material->Is<FlatMaterial>()) {
-            program = std::make_unique<GLProgram>(std::vector<GLShaderInfo>{
-                {GLShaderType::kVertexShader, _SHADER_flat_material_vert},
-                {GLShaderType::kFragmentShader, _SHADER_flat_material_frag}
-            });
-        }
-
-        if (material->Is<PhongMaterial>()) {
-            program = std::make_unique<GLProgram>(std::vector<GLShaderInfo>{
-                {GLShaderType::kVertexShader, _SHADER_phong_material_vert},
-                {GLShaderType::kFragmentShader, _SHADER_phong_material_frag}
-            });
-        }
-
-        programs_[mesh->GetMaterial()->Type()] = std::move(program);
+    if (!programs_.contains(material->Type())) {
+        programs_[material->Type()] = std::make_unique<GLProgram>(
+            shader_lib_.GetShaderSource(material)
+        );
     }
-    return programs_[mesh->GetMaterial()->Type()].get();
+    return programs_[material->Type()].get();
 }
 
 }

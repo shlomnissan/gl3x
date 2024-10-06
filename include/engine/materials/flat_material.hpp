@@ -36,8 +36,13 @@ public:
      */
     explicit FlatMaterial(const Parameters& params) : params_(params) {}
 
-    auto Type() const -> std::string override {
-        return "flat_material";
+    /**
+     * @brief Returns the type of material.
+     *
+     * @return MaterialType an enum value representing the material type.
+     */
+    auto Type() const -> MaterialType override {
+        return MaterialType::kFlatMaterial;
     }
 
     /**

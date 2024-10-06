@@ -9,7 +9,7 @@
 
 namespace engine {
 
-GLProgram::GLProgram(const std::vector<GLShaderInfo>& shaders) {
+GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
     program_ = glCreateProgram();
 
     for (const auto& shader_info : shaders) {
@@ -67,11 +67,11 @@ auto GLProgram::CheckProgramLinkStatus() const -> bool {
     return success;
 }
 
-auto GLProgram::GetShaderType(GLShaderType type) const -> GLuint {
+auto GLProgram::GetShaderType(ShaderType type) const -> GLuint {
     switch(type) {
-        case GLShaderType::kVertexShader:
+        case ShaderType::kVertexShader:
             return GL_VERTEX_SHADER;
-        case GLShaderType::kFragmentShader:
+        case ShaderType::kFragmentShader:
             return GL_FRAGMENT_SHADER;
         default:
             return -1;

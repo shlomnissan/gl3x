@@ -8,6 +8,8 @@ set(SOURCE_CODE
     "core/logger.cpp"
     "core/logger.hpp"
     "core/renderer.cpp"
+    "core/shader_library.cpp"
+    "core/shader_library.hpp"
     "core/timer.cpp"
     "core/window.cpp"
     "core/window_impl.cpp"
