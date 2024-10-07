@@ -60,7 +60,7 @@ auto Window::Impl::Start(const std::function<void(const double)>& tick) -> void 
 
 auto Window::Impl::LogContextInfo() const -> void {
     const GLubyte* version = glGetString(GL_VERSION);
-    LogInfo(fmt::format("{} initialized", version));
+    Logger::Log(LogLevel::Info, fmt::format("{} initialized", version));
 }
 
 Window::Impl::~Impl() {

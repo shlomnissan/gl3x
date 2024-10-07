@@ -6,19 +6,23 @@
 #include "engine/core/timer.hpp"
 
 #include <iostream>
+#include <filesystem>
 
 namespace engine {
 
+namespace fs = std::filesystem;
+
 std::mutex Logger::mutex_;
 
-auto Logger::Log(LogLevel level, const fs::path& path, int line, std::string_view message) -> void {
+auto Logger::Log(LogLevel level, std::string_view message, std::source_location loc) -> void {
     auto lock = std::scoped_lock(mutex_);
-    auto& stream = level == LogLevel::kError ? std::cerr : std::cout;
+    auto& stream = level == LogLevel::Error ? std::cerr : std::cout;
+    auto path = fs::path {loc.file_name()};
     stream << fmt::format(
         "[{} -> {}:{}][{}]: {}\n",
         Timer::GetTimestamp(),
         path.filename().string(),
-        line,
+        loc.line(),
         Logger::ToString(level),
         message.data()
     );
@@ -27,11 +31,11 @@ auto Logger::Log(LogLevel level, const fs::path& path, int line, std::string_vie
 auto Logger::ToString(LogLevel level) -> std::string {
     using enum LogLevel;
     switch (level) {
-        case kError:    return "Error";
-        case kWarning:  return "Warning";
-        case kInfo:     return "Info";
-        case kDebug:    return "Debug";
-        default:        return "Unknown";
+        case Error:    return "Error";
+        case Warning:  return "Warning";
+        case Info:     return "Info";
+        case Debug:    return "Debug";
+        default:       return "Unknown";
     }
 }
 

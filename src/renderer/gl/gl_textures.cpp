@@ -51,7 +51,7 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
     if (glGetError() == GL_NO_ERROR) {
         tex->Image().Dispose();
     } else {
-        LogError("OpenGL error failed to generate texture");
+        Logger::Log(LogLevel::Error, "OpenGL error failed to generate texture");
     }
 }
 

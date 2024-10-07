@@ -57,21 +57,21 @@ auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
     auto geometry = mesh->GetGeometry();
 
     if (geometry->Disposed()) {
-        LogWarning(fmt::format(
+        Logger::Log(LogLevel::Warning, fmt::format(
             "Skipped rendering a mesh with disposed geometry {}", *mesh
         ));
         return false;
     }
 
     if (geometry->VertexData().empty()) {
-        LogWarning(fmt::format(
+        Logger::Log(LogLevel::Warning, fmt::format(
             "Skipped rendering a mesh with no geometry data {}", *mesh
         ));
         return false;
     }
 
     if (geometry->Attributes().empty()) {
-        LogWarning(fmt::format(
+        Logger::Log(LogLevel::Warning, fmt::format(
             "Skipped rendering a mesh with no geometry attributes {}", *mesh
         ));
         return false;

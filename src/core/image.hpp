@@ -31,7 +31,7 @@ public:
       width_(params.width),
       height_(params.height),
       depth_(params.depth) {
-        LogInfo(fmt::format("Image loaded '{}'", filename_));
+        Logger::Log(LogLevel::Info, fmt::format("Image loaded '{}'", filename_));
     }
 
     Image(Image&& other) noexcept :
@@ -67,7 +67,7 @@ public:
     auto Dispose() -> void override {
         if (data_ != nullptr) {
             data_.reset();
-            LogInfo(fmt::format("Image memory cleared '{}'", filename_));
+            Logger::Log(LogLevel::Info, fmt::format("Image memory cleared '{}'", filename_));
             Disposable::Dispose();
         }
         Reset(*this);

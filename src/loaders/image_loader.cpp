@@ -15,7 +15,7 @@ namespace engine {
 
 auto ImageLoader::Load(const fs::path& path, bool flip_y) -> std::optional<Image> {
     if (!fs::exists(path)) {
-        LogWarning(fmt::format("Image file was not found '{}'", path.string()));
+        Logger::Log(LogLevel::Warning, fmt::format("Image file was not found '{}'", path.string()));
         return std::nullopt;
     }
 
@@ -27,7 +27,7 @@ auto ImageLoader::Load(const fs::path& path, bool flip_y) -> std::optional<Image
     auto data = stbi_load(path.string().c_str(), &width, &height, &depth, 0);
 
     if (data == nullptr) {
-        LogError(fmt::format("Failed to load image '{}'", path.string()));
+        Logger::Log(LogLevel::Error, fmt::format("Failed to load image '{}'", path.string()));
         return std::nullopt;
     }
 

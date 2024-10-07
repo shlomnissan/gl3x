@@ -31,7 +31,7 @@ auto ShaderLibrary::GetShaderSource(Material* material) -> std::vector<ShaderInf
             };
         break;
         default:
-            LogError("Shader source not found for unknown material type");
+            Logger::Log(LogLevel::Error, "Shader source not found for unknown material type");
     }
 
     return {};
