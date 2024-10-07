@@ -33,6 +33,8 @@ public:
         dispose_callbacks_.emplace_back(callback);
     }
 
+    virtual ~Disposable() = default;
+
 protected:
     bool disposed_ {false};
 

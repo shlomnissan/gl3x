@@ -41,17 +41,18 @@ private:
 }
 
 namespace fmt {
+    template <typename T>
+    concept IdentityFormatter = std::is_base_of_v<engine::Identity, T>;
 
-template <typename T>
-struct fmt::formatter<T, std::enable_if_t<std::is_base_of_v<engine::Identity, T>, char>> {
-    constexpr auto parse(fmt::format_parse_context& ctx) { return ctx.begin(); }
+    template <IdentityFormatter T>
+    struct formatter<T> {
+        constexpr auto parse(const fmt::format_parse_context& ctx) { return ctx.begin(); }
 
-    template <typename FormatContext>
-    auto format(const T& obj, FormatContext& ctx) {
-        return obj.Name().empty() ?
-            fmt::format_to(ctx.out(), "[UUID: {}]", obj.UUID()) :
-            fmt::format_to(ctx.out(), "[Name: {}]", obj.Name());
-    }
-};
-
+        template <typename FormatContext>
+        auto format(const T& obj, FormatContext& ctx) {
+            return obj.Name().empty() ?
+                fmt::format_to(ctx.out(), "[UUID: {}]", obj.UUID()) :
+                fmt::format_to(ctx.out(), "[Name: {}]", obj.Name());
+        }
+    };
 }
