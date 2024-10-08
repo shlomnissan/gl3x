@@ -41,7 +41,7 @@ public:
             auto path = fs::path{loc.file_name()};
             auto message = fmt::format(fmt::runtime(format_str), std::forward<Args>(args)...);
             stream << fmt::format(
-                "[{} -> {}:{}][{}]: {}\n",
+                "[{} -> {}:{}]{}: {}\n",
                 Timer::GetTimestamp(),
                 path.filename().string(),
                 loc.line(),
