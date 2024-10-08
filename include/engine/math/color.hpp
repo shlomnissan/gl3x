@@ -47,6 +47,29 @@ public:
      */
     Color(float r, float g, float b, float a)
         : r(r), g(g), b(b), a(a) {}
+
+    /**
+     * @brief Constructs a color from a hexadecimal representation.
+     *
+     * @param hex An unsigned integer representing the color in hexadecimal format (0xRRGGBB).
+     */
+    Color(unsigned int hex) :
+        r(static_cast<float>(hex >> 16 & 255) / 255.f),
+        g(static_cast<float>(hex >> 8 & 255) / 255.f),
+        b(static_cast<float>(hex & 255) / 255.f) {}
+
+    /**
+     * @brief Assigns a hexadecimal color to this Color object.
+     *
+     * @param hex An unsigned integer representing the color in hexadecimal format (0xRRGGBB).
+     * @return A reference to this Color object.
+     */
+    auto operator=(unsigned int hex) -> Color& {
+        r = static_cast<float>(hex >> 16 & 255) / 255.f;
+        g = static_cast<float>(hex >> 8 & 255) / 255.f;
+        b = static_cast<float>(hex & 255) / 255.f;
+        return *this;
+    }
 };
 
 }

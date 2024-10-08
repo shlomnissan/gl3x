@@ -34,4 +34,27 @@ TEST(Color, ConstructorRGBA) {
     EXPECT_FLOAT_EQ(color.a, 0.5f);
 }
 
+TEST(Color, ConstructorHex) {
+    auto color = engine::Color {0xFF7F50};
+
+    EXPECT_NEAR(color.r, 1.0f, 0.1f);
+    EXPECT_NEAR(color.g, 0.4f, 0.1f);
+    EXPECT_NEAR(color.b, 0.3f, 0.1f);
+    EXPECT_NEAR(color.a, 1.0f, 0.1f);
+}
+
+#pragma endregion
+
+#pragma region Operator Overloading
+
+TEST(Color, AssignmentOperatorHex) {
+    auto color = engine::Color {};
+    color = 0xFF4500;
+
+    EXPECT_NEAR(color.r, 1.0f, 0.1f);
+    EXPECT_NEAR(color.g, 0.2f, 0.1f);
+    EXPECT_NEAR(color.b, 0.0f, 0.1f);
+    EXPECT_NEAR(color.a, 1.0f, 0.1f);
+}
+
 #pragma endregion

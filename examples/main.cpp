@@ -28,14 +28,14 @@ auto main() -> int {
     auto flat_material = FlatMaterial::Create();
     auto flat_mesh = Mesh::Create(BoxGeometry::Create({}), flat_material);
 
-    flat_material->color = {0.89f, 0.47f, 0.26f}; // orange
+    flat_material->color = 0xFFAD69; // Sandy brown
     flat_mesh->TranslateX(0.6f);
     flat_mesh->Scale(0.7f);
 
     auto shiny_material = PhongMaterial::Create();
     auto shiny_mesh = Mesh::Create(BoxGeometry::Create({}), shiny_material);
 
-    shiny_material->color = {0.51f, 0.73f, 0.66f}; // turquoise
+    shiny_material->color = 0x47A8BD; // Moonstone
     shiny_mesh->TranslateX(-0.6f);
     shiny_mesh->Scale(0.7f);
 
