@@ -7,18 +7,13 @@
 
 #include <vector>
 
-#include <fmt/format.h>
-
 namespace engine {
 
 auto GLPrograms::GetProgram(Mesh* mesh) -> GLProgram* {
     auto material = mesh->GetMaterial();
 
     if (!programs_.contains(material->Type())) {
-        Logger::Log(
-            LogLevel::Info,
-            fmt::format("Creating a new shader program {}", *material)
-        );
+        Logger::Log(LogLevel::Info, "Creating a new shader program {}", *material);
 
         programs_[material->Type()] = std::make_unique<GLProgram>(
             shader_lib_.GetShaderSource(material)

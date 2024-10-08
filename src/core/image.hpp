@@ -8,7 +8,6 @@
 
 #include <string>
 #include <memory>
-#include <fmt/format.h>
 
 namespace engine {
 
@@ -31,7 +30,7 @@ public:
       width_(params.width),
       height_(params.height),
       depth_(params.depth) {
-        Logger::Log(LogLevel::Info, fmt::format("Image loaded '{}'", filename_));
+        Logger::Log(LogLevel::Info, "Image loaded '{}'", filename_);
     }
 
     Image(Image&& other) noexcept :
@@ -67,7 +66,7 @@ public:
     auto Dispose() -> void override {
         if (data_ != nullptr) {
             data_.reset();
-            Logger::Log(LogLevel::Info, fmt::format("Image memory cleared '{}'", filename_));
+            Logger::Log(LogLevel::Info, "Image memory cleared '{}'", filename_);
             Disposable::Dispose();
         }
         Reset(*this);

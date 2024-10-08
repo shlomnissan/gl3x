@@ -6,8 +6,6 @@
 #include "core/logger.hpp"
 #include "loaders/image_loader.hpp"
 
-#include <fmt/format.h>
-
 namespace engine {
 
 Texture2D::Texture2D(std::string_view image_path) {
@@ -16,7 +14,7 @@ Texture2D::Texture2D(std::string_view image_path) {
         image_ = std::move(image.value());
         loaded_ = true;
     } else {
-        Logger::Log(LogLevel::Error, fmt::format("Failed to initialize 2D texture UUID({})", UUID()));
+        Logger::Log(LogLevel::Error, "Failed to initialize 2D texture UUID({})", UUID());
     }
 }
 

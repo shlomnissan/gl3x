@@ -5,7 +5,6 @@
 
 #include "core/logger.hpp"
 
-#include <fmt/format.h>
 #include <glad/glad.h>
 
 namespace engine {
@@ -57,23 +56,23 @@ auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
     auto geometry = mesh->GetGeometry();
 
     if (geometry->Disposed()) {
-        Logger::Log(LogLevel::Warning, fmt::format(
+        Logger::Log(LogLevel::Warning,
             "Skipped rendering a mesh with disposed geometry {}", *mesh
-        ));
+        );
         return false;
     }
 
     if (geometry->VertexData().empty()) {
-        Logger::Log(LogLevel::Warning, fmt::format(
+        Logger::Log(LogLevel::Warning,
             "Skipped rendering a mesh with no geometry data {}", *mesh
-        ));
+        );
         return false;
     }
 
     if (geometry->Attributes().empty()) {
-        Logger::Log(LogLevel::Warning, fmt::format(
+        Logger::Log(LogLevel::Warning,
             "Skipped rendering a mesh with no geometry attributes {}", *mesh
-        ));
+        );
         return false;
     }
 

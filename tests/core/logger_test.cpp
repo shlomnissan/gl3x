@@ -6,38 +6,58 @@
 
 #include "core/logger.hpp"
 
+#include <string>
+
+using namespace std::string_literals;
+
 #pragma Standard Logger
 
-TEST(LoggerTest, LogInfo) {
+TEST(Logger, LogInfo) {
     testing::internal::CaptureStdout();
-    engine::Logger::Log(LogLevel::Info, "info");
+    engine::Logger::Log(engine::LogLevel::Info, "info");
     auto output = testing::internal::GetCapturedStdout();
 
     EXPECT_THAT(output, ::testing::HasSubstr("[Info]: info"));
 }
 
-TEST(LoggerTest, LogWarning) {
+TEST(Logger, LogWarning) {
     testing::internal::CaptureStdout();
-    engine::Logger::Log(LogLevel::Warning, "warning");
+    engine::Logger::Log(engine::LogLevel::Warning, "warning");
     auto output = testing::internal::GetCapturedStdout();
 
     EXPECT_THAT(output, ::testing::HasSubstr("[Warning]: warning"));
 }
 
-TEST(LoggerTest, LogError) {
+TEST(Logger, LogError) {
     testing::internal::CaptureStderr();
-    engine::Logger::Log(LogLevel::Error, "error");
+    engine::Logger::Log(engine::LogLevel::Error, "error");
     auto output = testing::internal::GetCapturedStderr();
 
     EXPECT_THAT(output, ::testing::HasSubstr("[Error]: error"));
 }
 
-TEST(LoggerTest, LogDebug) {
+TEST(Logger, LogDebug) {
     testing::internal::CaptureStdout();
-    engine::Logger::Log(LogLevel::Debug, "debug");
+    engine::Logger::Log(engine::LogLevel::Debug, "debug");
     auto output = testing::internal::GetCapturedStdout();
 
     EXPECT_THAT(output, ::testing::HasSubstr("[Debug]: debug"));
+}
+
+#pragma endregion
+
+#pragma String formatting
+
+TEST(Logger, StringFormatting) {
+    testing::internal::CaptureStdout();
+
+    auto version = "OpenGL ES 3.2 NVIDIA 560.94 initialized"s;
+    engine::Logger::Log(engine::LogLevel::Info, "version {}", version);
+
+    auto output = testing::internal::GetCapturedStdout();
+    EXPECT_THAT(output, ::testing::HasSubstr(
+        "[Info]: version OpenGL ES 3.2 NVIDIA 560.94 initialized")
+    );
 }
 
 #pragma endregion

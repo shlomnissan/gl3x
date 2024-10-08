@@ -3,15 +3,21 @@
 
 #pragma once
 
+#include "engine/core/timer.hpp"
+
+#include "core/identity.hpp"
+
+#include <filesystem>
+#include <iostream>
 #include <mutex>
 #include <source_location>
 #include <string>
 
-#include "core/identity.hpp"
-
 #include <fmt/format.h>
 
 namespace engine {
+
+namespace fs = std::filesystem;
 
 enum class LogLevel {
     Error,
@@ -22,11 +28,31 @@ enum class LogLevel {
 
 class Logger {
 public:
-    static auto Log(
-        LogLevel level,
-        std::string_view message,
-        std::source_location loc = std::source_location::current()
-    ) -> void;
+    template <typename... Args>
+    struct Log {
+        Log(
+            LogLevel level,
+            std::string_view format_str,
+            Args&&... args,
+            const std::source_location& loc = std::source_location::current())
+        {
+            auto lock = std::scoped_lock(mutex_);
+            auto& stream = level == LogLevel::Error ? std::cerr : std::cout;
+            auto path = fs::path{loc.file_name()};
+            auto message = fmt::format(fmt::runtime(format_str), std::forward<Args>(args)...);
+            stream << fmt::format(
+                "[{} -> {}:{}][{}]: {}\n",
+                Timer::GetTimestamp(),
+                path.filename().string(),
+                loc.line(),
+                Logger::ToString(level),
+                message
+            );
+        }
+    };
+
+    template <typename... Args>
+    Log(LogLevel level, std::string_view message, Args&&...) -> Log<Args...>;
 
 private:
     static std::mutex mutex_;
