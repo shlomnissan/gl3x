@@ -36,10 +36,11 @@ public:
             Args&&... args,
             const std::source_location& loc = std::source_location::current())
         {
-            auto lock = std::scoped_lock(mutex_);
+            const auto lock = std::scoped_lock(mutex_);
+
             auto& stream = level == LogLevel::Error ? std::cerr : std::cout;
-            auto path = fs::path{loc.file_name()};
-            auto message = fmt::format(fmt::runtime(format_str), std::forward<Args>(args)...);
+            const auto& path = fs::path{loc.file_name()};
+            const auto message = fmt::format(fmt::runtime(format_str), args...);
             stream << fmt::format(
                 "[{} -> {}:{}]{}: {}\n",
                 Timer::GetTimestamp(),
