@@ -11,39 +11,40 @@
 #include <engine/scene/scene.hpp>
 #include <engine/textures/texture_2d.hpp>
 
+using namespace engine;
+
 auto main() -> int {
-    auto window = engine::Window {{.title = "Examples"}};
-    auto renderer = engine::Renderer({
+    auto window = Window {{.title = "Examples"}};
+    auto renderer = Renderer({
         .width = window.Width(),
         .height = window.Height(),
         .clear_color = {0.0f, 0.0f, 0.5f, 1.0f}
     });
 
-    auto scene = engine::Scene::Create();
-    auto camera = engine::CameraPerspective::Create(60.0f, window.AspectRatio());
+    auto scene = Scene::Create();
+    auto camera = CameraPerspective::Create(60.0f, window.AspectRatio());
     camera->TranslateZ(2.0f);
 
-    auto mesh_flat = engine::Mesh::Create(
-        engine::BoxGeometry::Create({}),
-        engine::FlatMaterial::Create({})
-    );
-    mesh_flat->TranslateX(0.6f);
-    mesh_flat->Scale(0.7f);
+    auto flat_material = FlatMaterial::Create();
+    auto flat_mesh = Mesh::Create(BoxGeometry::Create({}), flat_material);
 
+    flat_material->color = {0.89f, 0.47f, 0.26f}; // orange
+    flat_mesh->TranslateX(0.6f);
+    flat_mesh->Scale(0.7f);
 
-    auto mesh_shiny = engine::Mesh::Create(
-        engine::BoxGeometry::Create({}),
-        engine::PhongMaterial::Create({})
-    );
-    mesh_shiny->TranslateX(-0.6f);
-    mesh_shiny->Scale(0.7f);
+    auto shiny_material = PhongMaterial::Create();
+    auto shiny_mesh = Mesh::Create(BoxGeometry::Create({}), shiny_material);
 
-    scene->Add(mesh_flat);
-    scene->Add(mesh_shiny);
+    shiny_material->color = {0.51f, 0.73f, 0.66f}; // turquoise
+    shiny_mesh->TranslateX(-0.6f);
+    shiny_mesh->Scale(0.7f);
+
+    scene->Add(flat_mesh);
+    scene->Add(shiny_mesh);
 
     window.Start([&](const double){
-        mesh_flat->RotateY(0.01f);
-        mesh_shiny->RotateX(0.01f);
+        flat_mesh->RotateY(0.01f);
+        shiny_mesh->RotateX(0.01f);
 
         renderer.Render(scene.get(), camera.get());
     });

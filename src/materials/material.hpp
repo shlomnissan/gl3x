@@ -3,9 +3,10 @@
 
 #pragma once
 
-#include "engine/math/utilities.hpp"
+#include "engine/math/color.hpp"
 
 #include "core/identity.hpp"
+#include "textures/texture.hpp"
 
 #include <string>
 
@@ -43,6 +44,12 @@ public:
     }
 
     virtual ~Material() = default;
+};
+
+struct MaterialWithColor : virtual Material {
+    Color color;
+
+    explicit MaterialWithColor(const Color& color) : color(color) {}
 };
 
 }
