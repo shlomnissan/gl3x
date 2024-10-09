@@ -6,6 +6,8 @@
 namespace engine {
 
 ProgramAttributes::ProgramAttributes(Material* material) {
+    this->material = material;
+
     auto colorMaterial = dynamic_cast<MaterialWithColor*>(material);
 
     color = colorMaterial != nullptr;

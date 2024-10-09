@@ -14,27 +14,61 @@
 
 namespace engine {
 
-auto ShaderLibrary::GetShaderSource(Material* material) -> std::vector<ShaderInfo> {
-    using enum MaterialType;
+auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) -> std::vector<ShaderInfo> {
+    auto material = attrs.material;
 
+    using enum MaterialType;
     switch(material->Type()) {
         case kFlatMaterial:
-            return {
-                {ShaderType::kVertexShader, _SHADER_flat_material_vert},
-                {ShaderType::kFragmentShader, _SHADER_flat_material_frag}
-            };
+            return {{
+                    ShaderType::kVertexShader,
+                    InjectAttributes(attrs, _SHADER_flat_material_vert)
+                }, {
+                    ShaderType::kFragmentShader,
+                    InjectAttributes(attrs, _SHADER_flat_material_frag
+                )}};
         break;
         case kPhongMaterial:
-            return {
-                {ShaderType::kVertexShader, _SHADER_phong_material_vert},
-                {ShaderType::kFragmentShader, _SHADER_phong_material_frag}
-            };
+            return {{
+                    ShaderType::kVertexShader,
+                    InjectAttributes(attrs, _SHADER_phong_material_vert)
+                }, {
+                    ShaderType::kFragmentShader,
+                    InjectAttributes(attrs, _SHADER_phong_material_frag)
+                }};
         break;
         default:
             Logger::Log(LogLevel::Error, "Shader source not found for unknown material type");
     }
 
     return {};
+}
+
+auto ShaderLibrary::InjectAttributes(
+    const ProgramAttributes& attrs,
+    std::string_view source
+) -> std::string {
+    auto material = attrs.material;
+    auto features = std::string {};
+
+    auto colorMaterial = dynamic_cast<MaterialWithColor*>(material);
+    if (colorMaterial != nullptr) features += "#define USE_COLOR\n";
+
+    auto output = std::string {source};
+    auto token = std::string_view {"#pragma inject_attributes"};
+    auto pos = output.find(token);
+    if (pos == std::string::npos) {
+        Logger::Log(
+            LogLevel::Error,
+            "The '#pragma inject_attributes' token is missing in program {}",
+            *material
+        );
+        return output;
+    }
+
+    output.replace(pos, token.size(), features);
+
+    return output;
 }
 
 }

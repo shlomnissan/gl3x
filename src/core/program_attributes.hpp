@@ -8,6 +8,8 @@
 namespace engine {
 
 struct ProgramAttributes {
+    Material* material;
+
     bool color {false};
 
     explicit ProgramAttributes(Material* material);

@@ -24,8 +24,8 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
 
             if (!IsValidMesh(mesh)) continue;
 
-            auto program_attribs = ProgramAttributes {material};
-            auto program = programs_.GetProgram(mesh);
+            auto attrs = ProgramAttributes {material};
+            auto program = programs_.GetProgram(attrs);
             program->Use();
 
             program->SetUniform("Projection",

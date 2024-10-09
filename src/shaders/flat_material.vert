@@ -3,6 +3,8 @@
 #pragma debug(on)
 #pragma optimize(off)
 
+#pragma inject_attributes
+
 precision mediump float;
 
 layout (location = 0) in vec3 aPosition;

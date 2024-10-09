@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "materials/material.hpp"
+#include "core/program_attributes.hpp"
 
 #include <string_view>
 #include <vector>
@@ -17,12 +17,15 @@ enum class ShaderType {
 
 struct ShaderInfo {
     ShaderType type;
-    std::string_view source;
+    std::string source;
 };
 
 class ShaderLibrary {
 public:
-    auto GetShaderSource(Material* material) -> std::vector<ShaderInfo>;
+    auto GetShaderSource(const ProgramAttributes& attrs) -> std::vector<ShaderInfo>;
+
+private:
+    auto InjectAttributes(const ProgramAttributes& attrs, std::string_view source) -> std::string;
 };
 
 }

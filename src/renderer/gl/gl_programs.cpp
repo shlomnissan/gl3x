@@ -9,14 +9,12 @@
 
 namespace engine {
 
-auto GLPrograms::GetProgram(Mesh* mesh) -> GLProgram* {
-    auto material = mesh->GetMaterial();
-
-    if (!programs_.contains(material->Type())) {
+auto GLPrograms::GetProgram(const ProgramAttributes& attrs) -> GLProgram* {
+    auto material = attrs.material;
+    if (!programs_.contains(attrs.material->Type())) {
         Logger::Log(LogLevel::Info, "Creating a new shader program {}", *material);
-
         programs_[material->Type()] = std::make_unique<GLProgram>(
-            shader_lib_.GetShaderSource(material)
+            shader_lib_.GetShaderSource(attrs)
         );
     }
     return programs_[material->Type()].get();
