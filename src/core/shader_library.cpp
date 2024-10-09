@@ -51,8 +51,7 @@ auto ShaderLibrary::InjectAttributes(
     auto material = attrs.material;
     auto features = std::string {};
 
-    auto colorMaterial = dynamic_cast<MaterialWithColor*>(material);
-    if (colorMaterial != nullptr) features += "#define USE_COLOR\n";
+    if (attrs.color) features += "#define USE_COLOR\n";
 
     auto output = std::string {source};
     auto token = std::string_view {"#pragma inject_attributes"};

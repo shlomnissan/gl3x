@@ -5,6 +5,8 @@
 
 #include "engine_export.h"
 
+#include <cassert>
+
 namespace engine {
 
 /**
@@ -57,6 +59,28 @@ public:
         r(static_cast<float>(hex >> 16 & 255) / 255.f),
         g(static_cast<float>(hex >> 8 & 255) / 255.f),
         b(static_cast<float>(hex & 255) / 255.f) {}
+
+    /**
+     * @brief Provides access to the red, green, blue, or alpha component of the color.
+     *
+     * @param i The index of the component to access (0 for red, 1 for green, 2 for blue, 3 for alpha).
+     * @return A reference to the color component.
+     */
+    [[nodiscard]] auto& operator[](int i) {
+        assert(i >= 0 && i < 4);
+        return (reinterpret_cast<float*>(this))[i];
+    }
+
+    /**
+     * @brief Provides const access to the red, green, blue, or alpha component of the color.
+     *
+     * @param i The index of the component to access (0 for red, 1 for green, 2 for blue, 3 for alpha).
+     * @return A const reference to the color component.
+     */
+    [[nodiscard]] const auto& operator[](int i) const {
+        assert(i >= 0 && i < 4);
+        return (reinterpret_cast<const float*>(this))[i];
+    }
 
     /**
      * @brief Assigns a hexadecimal color to this Color object.

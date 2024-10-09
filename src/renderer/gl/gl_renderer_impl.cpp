@@ -36,6 +36,10 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
                 camera->GetViewMatrix() * c->GetWorldTransform()
             );
 
+            if (attrs.color) {
+                program->SetUniform("AttribColor", material->As<MaterialWithColor>()->color);
+            }
+
             buffers_.Bind(geometry);
 
             if (geometry->IndexData().empty()) {

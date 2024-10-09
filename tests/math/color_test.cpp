@@ -45,7 +45,30 @@ TEST(Color, ConstructorHex) {
 
 #pragma endregion
 
-#pragma region Operator Overloading
+#pragma region Component Access
+
+TEST(Color, ComponentAccessDirect) {
+    const auto c = engine::Color {0xFF7F50};
+
+    EXPECT_NEAR(c.r, 1.0f, 0.1f);
+    EXPECT_NEAR(c.g, 0.4f, 0.1f);
+    EXPECT_NEAR(c.b, 0.3f, 0.1f);
+    EXPECT_NEAR(c.a, 1.0f, 0.1f);
+}
+
+TEST(Color, ComponentAccessRandomAccessOperator) {
+    const auto c = engine::Color {0xFF7F50};
+
+    EXPECT_NEAR(c[0], 1.0f, 0.1f);
+    EXPECT_NEAR(c[1], 0.4f, 0.1f);
+    EXPECT_NEAR(c[2], 0.3f, 0.1f);
+    EXPECT_NEAR(c[3], 1.0f, 0.1f);
+    EXPECT_DEATH({ (void)c[4]; }, ".*i >= 0 && i < 4.*");
+}
+
+#pragma endregion
+
+#pragma region Assignment Operator
 
 TEST(Color, AssignmentOperatorHex) {
     auto color = engine::Color {};

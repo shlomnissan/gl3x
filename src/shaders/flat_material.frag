@@ -7,8 +7,14 @@
 
 precision mediump float;
 
-layout (location = 0) out vec4 outColor;
+layout (location = 0) out vec4 FragColor;
+
+uniform vec4 AttribColor;
 
 void main() {
-    outColor = vec4(0.89, 0.47, 0.26, 1.0);
+    FragColor = vec4(1.0);
+
+    #ifdef USE_COLOR
+        FragColor = FragColor * AttribColor;
+    #endif
 }

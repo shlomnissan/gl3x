@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "engine/math/color.hpp"
 #include "engine/math/matrix4.hpp"
 
 #include "core/shader_library.hpp"
@@ -28,6 +29,8 @@ public:
     auto GetUniformLoc(std::string_view name) const -> int;
 
     auto SetUniform(std::string_view name, const engine::Matrix4& m) const -> void;
+
+    auto SetUniform(std::string_view name, const engine::Color& c) const -> void;
 
     ~GLProgram();
 

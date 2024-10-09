@@ -43,6 +43,10 @@ auto GLProgram::SetUniform(std::string_view name, const engine::Matrix4& m) cons
     glUniformMatrix4fv(GetUniformLoc(name), 1, GL_FALSE, &m(0, 0));
 }
 
+auto GLProgram::SetUniform(std::string_view name, const engine::Color& c) const -> void {
+    glUniform4fv(GetUniformLoc(name), 1, &c[0]);
+}
+
 auto GLProgram::CheckShaderCompileStatus(GLuint shader_id) const -> bool {
     auto success = 0;
     glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
