@@ -4,6 +4,7 @@
 #include "renderer/gl/gl_renderer_impl.hpp"
 
 #include "core/logger.hpp"
+#include "core/program_attributes.hpp"
 
 #include <glad/glad.h>
 
@@ -23,6 +24,7 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
 
             if (!IsValidMesh(mesh)) continue;
 
+            auto program_attribs = ProgramAttributes {material};
             auto program = programs_.GetProgram(mesh);
             program->Use();
 

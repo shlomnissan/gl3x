@@ -7,6 +7,8 @@ set(SOURCE_CODE
     "core/image.hpp"
     "core/logger.cpp"
     "core/logger.hpp"
+    "core/program_attributes.cpp"
+    "core/program_attributes.hpp"
     "core/renderer.cpp"
     "core/shader_library.cpp"
     "core/shader_library.hpp"
