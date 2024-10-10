@@ -6,14 +6,16 @@
 #include "engine/math/color.hpp"
 #include "engine/math/matrix4.hpp"
 
-#include "core/shader_library.hpp"
-
 #include <string_view>
 #include <vector>
 
 #include <glad/glad.h>
 
 namespace engine {
+
+enum class ShaderType;
+
+struct ShaderInfo;
 
 class GLProgram {
 public:

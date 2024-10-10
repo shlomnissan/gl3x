@@ -3,9 +3,8 @@
 
 #include "renderer/gl/gl_program.hpp"
 
-#include <iostream>
-
-#include <fmt/format.h>
+#include "core/shader_library.hpp"
+#include "core/logger.hpp"
 
 namespace engine {
 
@@ -51,10 +50,9 @@ auto GLProgram::CheckShaderCompileStatus(GLuint shader_id) const -> bool {
     auto success = 0;
     glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
     if (!success) {
-        auto buffer = std::string{"", 512};
+        auto buffer = std::string {"", 512};
         glGetShaderInfoLog(shader_id, static_cast<int>(buffer.size()), nullptr, buffer.data());
-        auto message = fmt::format("Shader compilation error\n{}", buffer);
-        std::cerr << message << '\n';
+        Logger::Log(LogLevel::Error, "Shader compilation error", buffer);
     }
     return success;
 }
@@ -63,10 +61,9 @@ auto GLProgram::CheckProgramLinkStatus() const -> bool {
     auto success = 0;
     glGetProgramiv(program_, GL_LINK_STATUS, &success);
     if (!success) {
-        auto buffer = std::string{"", 512};
+        auto buffer = std::string {"", 512};
         glGetProgramInfoLog(program_, static_cast<int>(buffer.size()), nullptr, buffer.data());
-        auto message = fmt::format("Shader program link error:\n{}", buffer);
-        std::cerr << message << '\n';
+        Logger::Log(LogLevel::Error, "Shader program link error", buffer);
     }
     return success;
 }
