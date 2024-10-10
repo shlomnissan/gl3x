@@ -39,6 +39,7 @@ set(SOURCE_CODE
     "renderer/gl/gl_renderer_impl.hpp"
     "renderer/gl/gl_textures.cpp"
     "renderer/gl/gl_textures.hpp"
+    "renderer/gl/gl_uniform.hpp"
     "scene/camera.cpp"
     "scene/camera_orthographic.cpp"
     "scene/camera_perspective.cpp"
