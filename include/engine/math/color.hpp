@@ -94,6 +94,17 @@ public:
         b = static_cast<float>(hex & 255) / 255.f;
         return *this;
     }
+
+private:
+    /**
+     * @brief Checks if two colors are equal, component-wise.
+     *
+     * @param a The first color to compare.
+     * @param b The second color to compare.
+     * @return bool `true` if the color are equal, `false` otherwise.
+     */
+    [[nodiscard]]
+    friend bool operator==(const Color& a, const Color& b) = default;
 };
 
 }

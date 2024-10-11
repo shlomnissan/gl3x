@@ -81,3 +81,25 @@ TEST(Color, AssignmentOperatorHex) {
 }
 
 #pragma endregion
+
+#pragma region Equality Operator
+
+TEST(Color, EqualityOperator) {
+    const auto c1 = engine::Color {0xFFAD69};
+    const auto c2 = engine::Color {0xFFAD69};
+    const auto c3 = engine::Color {0x47A8BD};
+
+    EXPECT_TRUE(c1 == c2);
+    EXPECT_FALSE(c1 == c3);
+}
+
+TEST(Color, InequalityOperator) {
+    const auto c1 = engine::Color {0xFFAD69};
+    const auto c2 = engine::Color {0xFFAD69};
+    const auto c3 = engine::Color {0x47A8BD};
+
+    EXPECT_FALSE(c1 != c2);
+    EXPECT_TRUE(c1 != c3);
+}
+
+#pragma endregion
