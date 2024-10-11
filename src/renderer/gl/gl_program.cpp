@@ -28,22 +28,56 @@ GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
 
     glLinkProgram(program_);
     CheckProgramLinkStatus();
+    ProcessUniforms();
 }
 
 auto GLProgram::Use() const -> void {
     glUseProgram(program_);
 }
 
-auto GLProgram::GetUniformLoc(std::string_view name) const -> int {
+auto GLProgram::SetUniform(const std::string& name, const GLUniformValue& v) -> void {
+    if (!uniforms_.contains(name)) {
+        Logger::Log(LogLevel::Error, "Uniform {} is not found", name);
+        return;
+    }
+    auto& uniform = uniforms_[name];
+    if (v == uniform.value) return;
+
+    if (uniform.type == GL_FLOAT_MAT4) {
+        if (const Matrix4* f = std::get_if<Matrix4>(&v)) {
+            uniform.value = *f;
+            uniform.needs_update = true;
+        } else {
+            Logger::Log(LogLevel::Error, "Uniform {} value is not a Matrix4", name);
+        }
+    }
+}
+
+auto GLProgram::GetUniformLoc(const std::string& name) const -> int {
     return glGetUniformLocation(program_, name.data());
 }
 
-auto GLProgram::SetUniform(std::string_view name, const engine::Matrix4& m) const -> void {
-    glUniformMatrix4fv(GetUniformLoc(name), 1, GL_FALSE, &m(0, 0));
-}
+auto GLProgram::ProcessUniforms() -> void {
+    auto n_active_uniforms = GLint {0};
+    auto buffer = std::string {"", 256};
+    glGetProgramiv(program_, GL_ACTIVE_UNIFORMS, &n_active_uniforms);
 
-auto GLProgram::SetUniform(std::string_view name, const engine::Color& c) const -> void {
-    glUniform4fv(GetUniformLoc(name), 1, &c[0]);
+    for (auto i = 0; i < n_active_uniforms; ++i) {
+        auto uniform = GLUniform {};
+        auto length = GLsizei {};
+        glGetActiveUniform(
+            program_, i,
+            buffer.size(),
+            &length,
+            &uniform.size,
+            &uniform.type,
+            buffer.data()
+        );
+
+        auto name = std::string(buffer.data(), length);
+        uniform.location = GetUniformLoc(name);
+        uniforms_[name] = uniform;
+    }
 }
 
 auto GLProgram::CheckShaderCompileStatus(GLuint shader_id) const -> bool {

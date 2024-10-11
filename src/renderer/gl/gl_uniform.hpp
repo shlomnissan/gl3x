@@ -12,7 +12,7 @@
 
 namespace engine {
 
-using GLUniformValue = std::variant<float, Color, Matrix4>;
+using GLUniformValue = std::variant<int, Matrix4>;
 
 struct GLUniform {
     GLint location {0};

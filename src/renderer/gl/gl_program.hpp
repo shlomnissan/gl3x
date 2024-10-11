@@ -3,19 +3,23 @@
 
 #pragma once
 
-#include "engine/math/color.hpp"
-#include "engine/math/matrix4.hpp"
+#include "renderer/gl/gl_uniform.hpp"
 
-#include <string_view>
+#include <string>
+#include <unordered_map>
 #include <vector>
 
 #include <glad/glad.h>
 
 namespace engine {
 
+#pragma region Forward Declarations
+
 enum class ShaderType;
 
 struct ShaderInfo;
+
+#pragma endregion
 
 class GLProgram {
 public:
@@ -28,16 +32,18 @@ public:
 
     auto Use() const -> void;
 
-    auto GetUniformLoc(std::string_view name) const -> int;
-
-    auto SetUniform(std::string_view name, const engine::Matrix4& m) const -> void;
-
-    auto SetUniform(std::string_view name, const engine::Color& c) const -> void;
+    auto SetUniform(const std::string& name, const GLUniformValue& v) -> void;
 
     ~GLProgram();
 
 private:
-    GLuint program_;
+    GLuint program_ {0};
+
+    std::unordered_map<std::string, GLUniform> uniforms_ {};
+
+    auto GetUniformLoc(const std::string& name) const -> int;
+
+    auto ProcessUniforms() -> void;
 
     auto CheckProgramLinkStatus() const -> bool;
 
