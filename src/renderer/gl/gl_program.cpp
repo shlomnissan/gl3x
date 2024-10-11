@@ -46,10 +46,10 @@ auto GLProgram::SetUniform(const std::string& name, const GLUniformValue& v) -> 
         Logger::Log(LogLevel::Error, "Uniform {} is not found", name);
         return;
     }
-    auto& uniform = uniforms_[name];
-    if (v == uniform.value) return;
+    auto& uniform = uniforms_.at(name);
+    if (v == uniform.Value()) return;
 
-    uniform.Set(name, v);
+    uniform.Set(v);
 }
 
 auto GLProgram::GetUniformLoc(const std::string& name) const -> int {
@@ -59,23 +59,29 @@ auto GLProgram::GetUniformLoc(const std::string& name) const -> int {
 auto GLProgram::ProcessUniforms() -> void {
     auto n_active_uniforms = GLint {0};
     auto buffer = std::string {"", 256};
+    auto length = GLsizei {};
+    auto size = GLint {};
+    auto type = GLenum {};
+
     glGetProgramiv(program_, GL_ACTIVE_UNIFORMS, &n_active_uniforms);
 
     for (auto i = 0; i < n_active_uniforms; ++i) {
-        auto uniform = GLUniform {};
-        auto length = GLsizei {};
         glGetActiveUniform(
             program_, i,
             buffer.size(),
             &length,
-            &uniform.size,
-            &uniform.type,
+            &size,
+            &type,
             buffer.data()
         );
 
         auto name = std::string(buffer.data(), length);
-        uniform.location = GetUniformLoc(name);
-        uniforms_[name] = uniform;
+        uniforms_.emplace(name, GLUniform {
+            name,
+            GetUniformLoc(name),
+            size,
+            type
+        });
     }
 }
 
