@@ -30,6 +30,8 @@ public:
     GLProgram& operator=(const GLProgram&) = delete;
     GLProgram& operator=(GLProgram&&) = delete;
 
+    auto UpdateUniformsIfNeeded() -> void;
+
     auto Use() const -> void;
 
     auto SetUniform(const std::string& name, const GLUniformValue& v) -> void;

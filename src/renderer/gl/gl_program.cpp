@@ -31,6 +31,12 @@ GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
     ProcessUniforms();
 }
 
+auto GLProgram::UpdateUniformsIfNeeded() -> void {
+    for (auto& [_, uniform] : uniforms_) {
+        uniform.UpdateUniformIfNeeded();
+    }
+}
+
 auto GLProgram::Use() const -> void {
     glUseProgram(program_);
 }
@@ -43,14 +49,7 @@ auto GLProgram::SetUniform(const std::string& name, const GLUniformValue& v) -> 
     auto& uniform = uniforms_[name];
     if (v == uniform.value) return;
 
-    if (uniform.type == GL_FLOAT_MAT4) {
-        if (const Matrix4* f = std::get_if<Matrix4>(&v)) {
-            uniform.value = *f;
-            uniform.needs_update = true;
-        } else {
-            Logger::Log(LogLevel::Error, "Uniform {} value is not a Matrix4", name);
-        }
-    }
+    uniform.Set(name, v);
 }
 
 auto GLProgram::GetUniformLoc(const std::string& name) const -> int {

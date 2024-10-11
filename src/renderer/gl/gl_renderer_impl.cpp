@@ -40,6 +40,8 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
                 program->SetUniform("AttribColor", material->As<MaterialWithColor>()->color);
             }
 
+            program->UpdateUniformsIfNeeded();
+
             buffers_.Bind(geometry);
 
             if (geometry->IndexData().empty()) {
