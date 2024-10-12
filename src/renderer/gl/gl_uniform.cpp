@@ -34,6 +34,8 @@ auto GLUniform::Set(const GLUniformValue& v) -> void {
                 "Failed to set uniform '{}' with unsupported type {}",
                 name_, GLenumToString(type_)
             );
+            return;
+            break;
     }
 
     if (is_set) {
@@ -72,9 +74,50 @@ auto GLUniform::UpdateUniformIfNeeded() -> void {
 auto GLUniform::GLenumToString(GLenum type) const -> const char* {
     switch (type) {
         case GL_FLOAT: return "GL_FLOAT";
+        case GL_FLOAT_VEC2: return "GL_FLOAT_VEC2";
+        case GL_FLOAT_VEC3: return "GL_FLOAT_VEC3";
         case GL_FLOAT_VEC4: return "GL_FLOAT_VEC4";
+        case GL_INT: return "GL_INT";
+        case GL_INT_VEC2: return "GL_INT_VEC2";
+        case GL_INT_VEC3: return "GL_INT_VEC3";
+        case GL_INT_VEC4: return "GL_INT_VEC4";
+        case GL_UNSIGNED_INT: return "GL_UNSIGNED_INT";
+        case GL_UNSIGNED_INT_VEC2: return "GL_UNSIGNED_INT_VEC2";
+        case GL_UNSIGNED_INT_VEC3: return "GL_UNSIGNED_INT_VEC3";
+        case GL_UNSIGNED_INT_VEC4: return "GL_UNSIGNED_INT_VEC4";
+        case GL_BOOL: return "GL_BOOL";
+        case GL_BOOL_VEC2: return "GL_BOOL_VEC2";
+        case GL_BOOL_VEC3: return "GL_BOOL_VEC3";
+        case GL_BOOL_VEC4: return "GL_BOOL_VEC4";
+        case GL_FLOAT_MAT2: return "GL_FLOAT_MAT2";
+        case GL_FLOAT_MAT3: return "GL_FLOAT_MAT3";
         case GL_FLOAT_MAT4: return "GL_FLOAT_MAT4";
+        case GL_FLOAT_MAT2x3: return "GL_FLOAT_MAT2x3";
+        case GL_FLOAT_MAT2x4: return "GL_FLOAT_MAT2x4";
+        case GL_FLOAT_MAT3x2: return "GL_FLOAT_MAT3x2";
+        case GL_FLOAT_MAT3x4: return "GL_FLOAT_MAT3x4";
+        case GL_FLOAT_MAT4x2: return "GL_FLOAT_MAT4x2";
+        case GL_FLOAT_MAT4x3: return "GL_FLOAT_MAT4x3";
         case GL_SAMPLER_2D: return "GL_SAMPLER_2D";
+        case GL_SAMPLER_3D: return "GL_SAMPLER_3D";
+        case GL_SAMPLER_CUBE: return "GL_SAMPLER_CUBE";
+        case GL_SAMPLER_2D_SHADOW: return "GL_SAMPLER_2D_SHADOW";
+        case GL_SAMPLER_2D_ARRAY: return "GL_SAMPLER_2D_ARRAY";
+        case GL_SAMPLER_2D_ARRAY_SHADOW: return "GL_SAMPLER_2D_ARRAY_SHADOW";
+        case GL_SAMPLER_CUBE_SHADOW: return "GL_SAMPLER_CUBE_SHADOW";
+        case GL_SAMPLER_BUFFER: return "GL_SAMPLER_BUFFER";
+        case GL_SAMPLER_2D_MULTISAMPLE: return "GL_SAMPLER_2D_MULTISAMPLE";
+        case GL_SAMPLER_2D_MULTISAMPLE_ARRAY: return "GL_SAMPLER_2D_MULTISAMPLE_ARRAY";
+        case GL_SAMPLER_CUBE_MAP_ARRAY: return "GL_SAMPLER_CUBE_MAP_ARRAY";
+        case GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW: return "GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW";
+        case GL_INT_SAMPLER_2D: return "GL_INT_SAMPLER_2D";
+        case GL_INT_SAMPLER_3D: return "GL_INT_SAMPLER_3D";
+        case GL_INT_SAMPLER_CUBE: return "GL_INT_SAMPLER_CUBE";
+        case GL_INT_SAMPLER_2D_ARRAY: return "GL_INT_SAMPLER_2D_ARRAY";
+        case GL_UNSIGNED_INT_SAMPLER_2D: return "GL_UNSIGNED_INT_SAMPLER_2D";
+        case GL_UNSIGNED_INT_SAMPLER_3D: return "GL_UNSIGNED_INT_SAMPLER_3D";
+        case GL_UNSIGNED_INT_SAMPLER_CUBE: return "GL_UNSIGNED_INT_SAMPLER_CUBE";
+        case GL_UNSIGNED_INT_SAMPLER_2D_ARRAY: return "GL_UNSIGNED_INT_SAMPLER_2D_ARRAY";
         default: return "Unknown";
     }
 }
