@@ -28,19 +28,10 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
             auto program = programs_.GetProgram(attrs);
             program->Use();
 
-            program->SetUniform("Projection",
-                camera->GetProjectionMatrix()
-            );
-
-            program->SetUniform("ModelView",
-                camera->GetViewMatrix() * c->GetWorldTransform()
-            );
-
-            if (attrs.color) {
-                program->SetUniform("AttribColor", material->As<MaterialWithColor>()->color);
-            }
-
+            SetUniforms(program, &attrs, mesh, camera);
             program->UpdateUniformsIfNeeded();
+
+            // TODO: bind textures if needed
 
             buffers_.Bind(geometry);
 
@@ -57,6 +48,27 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
         }
 
         RenderObject(c.get(), camera);
+    }
+}
+
+auto Renderer::Impl::SetUniforms(GLProgram* program, ProgramAttributes* attrs, Mesh* mesh, Camera* camera) -> void {
+    auto material = mesh->GetMaterial();
+
+    program->SetUniform(
+        "Projection",
+        camera->GetProjectionMatrix()
+    );
+
+    program->SetUniform(
+        "ModelView",
+        camera->GetViewMatrix() * mesh->GetWorldTransform()
+    );
+
+    if (attrs->color) {
+        program->SetUniform(
+            "AttribColor",
+            material->As<MaterialWithColor>()->color
+        );
     }
 }
 
