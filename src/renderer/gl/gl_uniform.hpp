@@ -16,11 +16,11 @@
 
 namespace engine {
 
-using GLUniformValue = std::variant<float, Color, Matrix4, Vector4>;
+using GLUniformValue = std::variant<GLint, GLfloat, Color, Matrix4, Vector4>;
 
 class GLUniform {
 public:
-    GLUniform(const std::string& name, GLint location,GLint size, GLenum type);
+    GLUniform(const std::string& name, GLint location, GLint size, GLenum type);
 
     auto Set(const GLUniformValue& v) -> void;
 
@@ -34,6 +34,7 @@ private:
     GLint location_ {0};
     GLint size_ {0};
     GLenum type_ {0};
+
     bool needs_update_ {false};
 
     template <typename... T>

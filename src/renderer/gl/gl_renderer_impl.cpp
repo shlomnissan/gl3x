@@ -31,9 +31,10 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
             SetUniforms(program, &attrs, mesh, camera);
             program->UpdateUniformsIfNeeded();
 
-            // TODO: bind textures if needed
-
             buffers_.Bind(geometry);
+            if (attrs.texture_map) {
+                textures_.Bind(material->As<MaterialWithTextureMap>()->texture_map.get());
+            }
 
             if (geometry->IndexData().empty()) {
                 glDrawArrays(GL_TRIANGLES, 0, geometry->VertexCount());
