@@ -57,8 +57,10 @@ auto Window::Impl::Start(const std::function<void(const double)>& tick) -> void 
 }
 
 auto Window::Impl::LogContextInfo() const -> void {
-    auto version = glGetString(GL_VERSION);
-    Logger::Log(LogLevel::Info, "{} initialized", version);
+    Logger::Log(LogLevel::Info, "Vendor: {}", glGetString(GL_VENDOR));
+    Logger::Log(LogLevel::Info, "Renderer: {}", glGetString(GL_RENDERER));
+    Logger::Log(LogLevel::Info, "Version: {}", glGetString(GL_VERSION));
+    Logger::Log(LogLevel::Info, "GLSL Version: {}", glGetString(GL_SHADING_LANGUAGE_VERSION));
 }
 
 Window::Impl::~Impl() {
