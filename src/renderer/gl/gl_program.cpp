@@ -33,7 +33,7 @@ GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
 
 auto GLProgram::UpdateUniformsIfNeeded() -> void {
     for (auto& [_, uniform] : uniforms_) {
-        uniform.UpdateUniformIfNeeded();
+        uniform.UploadUniformIfNeeded();
     }
 }
 
@@ -46,10 +46,7 @@ auto GLProgram::SetUniform(const std::string& name, const GLUniformValue& v) -> 
         Logger::Log(LogLevel::Error, "Uniform {} is not found", name);
         return;
     }
-    auto& uniform = uniforms_.at(name);
-    if (v == uniform.Value()) return;
-
-    uniform.Set(v);
+    uniforms_.at(name).SetValueIfNeeded(v);
 }
 
 auto GLProgram::GetUniformLoc(const std::string& name) const -> int {

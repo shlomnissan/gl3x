@@ -11,9 +11,10 @@ GLUniform::GLUniform(const std::string& name, GLint location, GLint size, GLenum
     size_(size),
     type_(type) {}
 
-auto GLUniform::Set(const GLUniformValue& v) -> void {
-    auto is_set = false;
+auto GLUniform::SetValueIfNeeded(const GLUniformValue& v) -> void {
+    if (value_ == v && !needs_update_) return;
 
+    auto is_set = false;
     switch (type_) {
         case GL_INT:
         case GL_SAMPLER_2D:
@@ -49,7 +50,7 @@ auto GLUniform::Set(const GLUniformValue& v) -> void {
     }
 }
 
-auto GLUniform::UpdateUniformIfNeeded() -> void {
+auto GLUniform::UploadUniformIfNeeded() -> void {
     if (!needs_update_) return;
 
     switch (type_) {

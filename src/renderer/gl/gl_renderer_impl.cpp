@@ -71,6 +71,13 @@ auto Renderer::Impl::SetUniforms(GLProgram* program, ProgramAttributes* attrs, M
             material->As<MaterialWithColor>()->color
         );
     }
+
+    if (attrs->texture_map) {
+        program->SetUniform(
+            "AttribTextureMap",
+            0
+        );
+    }
 }
 
 auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {

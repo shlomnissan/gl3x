@@ -22,9 +22,9 @@ class GLUniform {
 public:
     GLUniform(const std::string& name, GLint location, GLint size, GLenum type);
 
-    auto Set(const GLUniformValue& v) -> void;
+    auto SetValueIfNeeded(const GLUniformValue& v) -> void;
 
-    auto UpdateUniformIfNeeded() -> void;
+    auto UploadUniformIfNeeded() -> void;
 
     const auto& Value() const { return value_; }
 
@@ -35,7 +35,7 @@ private:
     GLint size_ {0};
     GLenum type_ {0};
 
-    bool needs_update_ {false};
+    bool needs_update_ {true};
 
     template <typename... T>
     auto SetValue(const GLUniformValue& v) -> bool {
