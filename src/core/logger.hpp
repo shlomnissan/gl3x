@@ -38,10 +38,10 @@ public:
         {
             const auto lock = std::scoped_lock(mutex_);
 
-            auto& stream = level == LogLevel::Error ? std::cerr : std::cout;
+            auto stream = level == LogLevel::Error ? &std::cerr : &std::cout;
             const auto& path = fs::path{loc.file_name()};
             const auto message = fmt::format(fmt::runtime(format_str), args...);
-            stream << fmt::format(
+            *stream << fmt::format(
                 "[{} -> {}:{}]{}: {}\n",
                 Timer::GetTimestamp(),
                 path.filename().string(),
@@ -66,8 +66,8 @@ private:
 namespace fmt {
 
 template <typename T>
-struct fmt::formatter<T, std::enable_if_t<std::is_base_of_v<engine::Identity, T>, char>> {
-    constexpr auto parse(fmt::format_parse_context& ctx) { return ctx.begin(); }
+struct formatter<T, std::enable_if_t<std::is_base_of_v<engine::Identity, T>, char>> {
+    constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
 
     template <typename FormatContext>
     auto format(const T& obj, FormatContext& ctx) {
