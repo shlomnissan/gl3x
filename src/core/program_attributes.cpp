@@ -10,6 +10,9 @@ ProgramAttributes::ProgramAttributes(Material* material) {
 
     auto colorMaterial = material->As<MaterialWithColor>();
     color = (colorMaterial != nullptr);
+
+    auto textureMapMaterial = material->As<MaterialWithTextureMap>();
+    texture_map = (textureMapMaterial && textureMapMaterial->texture_map);
 }
 
 }

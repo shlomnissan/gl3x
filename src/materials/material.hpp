@@ -4,11 +4,12 @@
 #pragma once
 
 #include "engine/math/color.hpp"
+#include "engine/textures/texture_2d.hpp"
 
 #include "core/identity.hpp"
-#include "textures/texture.hpp"
 
 #include <string>
+#include <memory>
 
 namespace engine {
 
@@ -46,10 +47,22 @@ public:
     virtual ~Material() = default;
 };
 
+#pragma region Material Attributes
+
 struct MaterialWithColor : virtual Material {
     Color color;
 
-    explicit MaterialWithColor(const Color& color) : color(color) {}
+    explicit MaterialWithColor(const Color& color)
+      : color(color) {}
 };
+
+struct MaterialWithTextureMap : virtual Material {
+    std::shared_ptr<Texture2D> texture_map;
+
+    explicit MaterialWithTextureMap(std::shared_ptr<Texture2D> texture)
+      : texture_map(texture) {}
+};
+
+#pragma endregion
 
 }

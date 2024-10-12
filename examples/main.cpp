@@ -28,7 +28,7 @@ auto main() -> int {
     auto flat_material = FlatMaterial::Create();
     auto flat_mesh = Mesh::Create(BoxGeometry::Create({}), flat_material);
 
-    flat_material->color = 0xFFAD69; // Sandy brown
+    flat_material->texture_map = Texture2D::Create("assets/checker.png");
     flat_mesh->TranslateX(0.6f);
     flat_mesh->Scale(0.7f);
 

@@ -14,7 +14,7 @@ namespace engine {
 
 auto ImageLoader::Load(const fs::path& path, bool flip_y) -> std::optional<Image> {
     if (!fs::exists(path)) {
-        Logger::Log(LogLevel::Warning, "Image file was not found '{}'", path.string());
+        Logger::Log(LogLevel::Error, "Image file was not found '{}'", path.string());
         return std::nullopt;
     }
 

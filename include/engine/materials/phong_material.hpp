@@ -19,11 +19,14 @@ namespace engine {
  */
 class ENGINE_EXPORT PhongMaterial :
     public virtual Material,
-    public MaterialWithColor
+    public MaterialWithColor,
+    public MaterialWithTextureMap
 {
 public:
     explicit PhongMaterial() :
-      MaterialWithColor(Color {1.0f, 1.0f, 1.0f}) {
+      MaterialWithColor(Color {1.0f, 1.0f, 1.0f}),
+      MaterialWithTextureMap(nullptr)
+    {
         SetName("Phong Material");
     }
 

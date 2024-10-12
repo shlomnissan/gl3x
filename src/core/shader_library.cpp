@@ -52,6 +52,7 @@ auto ShaderLibrary::InjectAttributes(
     auto features = std::string {};
 
     if (attrs.color) features += "#define USE_COLOR\n";
+    if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
 
     auto output = std::string {source};
     auto token = std::string_view {"#pragma inject_attributes"};

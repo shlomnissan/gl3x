@@ -19,11 +19,14 @@ namespace engine {
  */
 class ENGINE_EXPORT FlatMaterial :
     public virtual Material,
-    public MaterialWithColor
+    public MaterialWithColor,
+    public MaterialWithTextureMap
 {
 public:
     explicit FlatMaterial() :
-      MaterialWithColor(Color {1.0f, 1.0f, 1.0f}) {
+      MaterialWithColor(Color {1.0f, 1.0f, 1.0f}),
+      MaterialWithTextureMap(nullptr)
+    {
         SetName("Flat Material");
     }
 
