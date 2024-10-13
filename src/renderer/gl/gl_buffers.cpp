@@ -35,6 +35,7 @@ auto GLBuffers::GenerateBuffers(const Geometry* geometry, GLBufferState& state) 
         GL_STATIC_DRAW
     );
 
+    auto offset = 0;
     auto stride = 0;
     for (const auto& attr : geometry->Attributes()) {
         stride += attr.item_size;
@@ -48,9 +49,10 @@ auto GLBuffers::GenerateBuffers(const Geometry* geometry, GLBufferState& state) 
             GL_FLOAT,
             GL_FALSE,
             stride * sizeof(GLfloat),
-            BUFFER_OFFSET(attr.offset)
+            BUFFER_OFFSET(offset)
         );
         glEnableVertexAttribArray(idx);
+        offset += attr.item_size;
     }
 
     if (geometry->IndexData().size()) {

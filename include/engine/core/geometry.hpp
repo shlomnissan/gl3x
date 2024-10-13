@@ -31,8 +31,6 @@ struct ENGINE_EXPORT GeometryAttribute {
     GeometryAttributeType type;
     /// @brief The number of components per vertex.
     unsigned int item_size;
-    /// @brief The offset of the attribute in the vertex data.
-    unsigned int offset;
 };
 
 /**

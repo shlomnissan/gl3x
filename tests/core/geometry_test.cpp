@@ -44,14 +44,13 @@ TEST(Geometry, AddAttribute) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
     auto geometry = engine::Geometry::Create(vertex_data);
 
-    geometry->SetAttribute({.type = kPosition, .item_size = 3, .offset = 0});
+    geometry->SetAttribute({.type = kPosition, .item_size = 3});
 
     const auto& attribs = geometry->Attributes();
 
     EXPECT_EQ(attribs.size(), 1);
     EXPECT_EQ(attribs.front().type, kPosition);
     EXPECT_EQ(attribs.front().item_size, 3);
-    EXPECT_EQ(attribs.front().offset, 0);
 }
 
 TEST(Geometry, AddMultipleAttributes) {
@@ -60,8 +59,8 @@ TEST(Geometry, AddMultipleAttributes) {
     };
 
     auto geometry = engine::Geometry::Create(vertex_data);
-    geometry->SetAttribute({.type = kPosition, .item_size = 3, .offset = 0});
-    geometry->SetAttribute({.type = kUV, .item_size = 2, .offset = 3});
+    geometry->SetAttribute({.type = kPosition, .item_size = 3});
+    geometry->SetAttribute({.type = kUV, .item_size = 2});
 
     const auto& attribs = geometry->Attributes();
 
@@ -81,8 +80,8 @@ TEST(Geometry, Stride) {
     };
 
     auto geometry = engine::Geometry::Create(vertex_data);
-    geometry->SetAttribute({.type = kPosition, .item_size = 3, .offset = 0});
-    geometry->SetAttribute({.type = kUV, .item_size = 2, .offset = 3});
+    geometry->SetAttribute({.type = kPosition, .item_size = 3});
+    geometry->SetAttribute({.type = kUV, .item_size = 2});
 
     EXPECT_EQ(geometry->Stride(), 5);
 }
@@ -95,7 +94,7 @@ TEST(Geometry, VertexCount) {
     };
 
     auto geometry = engine::Geometry::Create(vertex_data);
-    geometry->SetAttribute({.type = kPosition, .item_size = 3, .offset = 0});
+    geometry->SetAttribute({.type = kPosition, .item_size = 3});
 
     EXPECT_EQ(geometry->VertexCount(), 3);
 }
@@ -109,17 +108,8 @@ TEST(Geometry, AddAttributeWithZeroItemSize) {
     auto geometry = engine::Geometry::Create(vertex_data);
 
     EXPECT_DEATH({
-        geometry->SetAttribute({.type = kPosition, .item_size = 0, .offset = 0});
+        geometry->SetAttribute({.type = kPosition, .item_size = 0});
     }, ".*attribute.item_size > 0");
-}
-
-TEST(Geometry, AddAttributeWithInvalidOffset) {
-    const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
-    auto geometry = engine::Geometry::Create(vertex_data);
-
-    EXPECT_DEATH({
-        geometry->SetAttribute({.type = kPosition, .item_size = 3, .offset = 100});
-    }, ".*attribute.offset < vertex_data_.size");
 }
 
 #pragma endregion

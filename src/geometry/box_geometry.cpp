@@ -131,20 +131,17 @@ auto BoxGeometry::SetComponent(Vector3& vec, char axis, float value) -> void {
 auto BoxGeometry::SetAttributes() -> void {
     SetAttribute({
         .type = GeometryAttributeType::kPosition,
-        .item_size = 3,
-        .offset = 0
+        .item_size = 3
     });
 
     SetAttribute({
         .type = GeometryAttributeType::kNormal,
-        .item_size = 3,
-        .offset = 3
+        .item_size = 3
     });
 
     SetAttribute({
         .type = GeometryAttributeType::kUV,
-        .item_size = 2,
-        .offset = 6
+        .item_size = 2
     });
 }
 

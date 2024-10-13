@@ -50,15 +50,12 @@ TEST_F(BoxGeometryTest, AttributesConfiguredCorrectly) {
 
     EXPECT_EQ(attrs[0].type, kPosition);
     EXPECT_EQ(attrs[0].item_size, 3u);
-    EXPECT_EQ(attrs[0].offset, 0u);
 
     EXPECT_EQ(attrs[1].type, kNormal);
     EXPECT_EQ(attrs[1].item_size, 3u);
-    EXPECT_EQ(attrs[1].offset, 3u);
 
     EXPECT_EQ(attrs[2].type, kUV);
     EXPECT_EQ(attrs[2].item_size, 2u);
-    EXPECT_EQ(attrs[2].offset, 6u);
 }
 
 #pragma endregion
