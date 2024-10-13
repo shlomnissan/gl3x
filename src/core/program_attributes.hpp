@@ -5,6 +5,8 @@
 
 #include "materials/material.hpp"
 
+#include <string>
+
 namespace engine {
 
 struct ProgramAttributes {
@@ -14,6 +16,8 @@ struct ProgramAttributes {
     bool texture_map {false};
 
     explicit ProgramAttributes(Material* material);
+
+    auto PremutationKey() const -> std::string;
 };
 
 }

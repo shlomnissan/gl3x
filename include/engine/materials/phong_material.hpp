@@ -25,13 +25,14 @@ class ENGINE_EXPORT PhongMaterial :
 public:
     explicit PhongMaterial() :
       MaterialWithColor(Color {1.0f, 1.0f, 1.0f}),
-      MaterialWithTextureMap(nullptr)
-    {
-        SetName("Phong Material");
-    }
+      MaterialWithTextureMap(nullptr) {}
 
     auto Type() const -> MaterialType override {
         return MaterialType::kPhongMaterial;
+    }
+
+    auto Version() const -> double override {
+        return 1.0;
     }
 
     [[nodiscard]] static auto Create() {

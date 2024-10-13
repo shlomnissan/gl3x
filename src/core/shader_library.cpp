@@ -17,29 +17,32 @@ namespace engine {
 auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) -> std::vector<ShaderInfo> {
     auto material = attrs.material;
 
-    using enum MaterialType;
-    switch(material->Type()) {
-        case kFlatMaterial:
-            return {{
-                    ShaderType::kVertexShader,
-                    InjectAttributes(attrs, _SHADER_flat_material_vert)
-                }, {
-                    ShaderType::kFragmentShader,
-                    InjectAttributes(attrs, _SHADER_flat_material_frag
-                )}};
-        break;
-        case kPhongMaterial:
-            return {{
-                    ShaderType::kVertexShader,
-                    InjectAttributes(attrs, _SHADER_phong_material_vert)
-                }, {
-                    ShaderType::kFragmentShader,
-                    InjectAttributes(attrs, _SHADER_phong_material_frag)
-                }};
-        break;
-        default:
-            Logger::Log(LogLevel::Error, "Shader source not found for unknown material type");
+    if (material->Type() == MaterialType::kFlatMaterial && material->Version() == 1.0) {
+        return {{
+            ShaderType::kVertexShader,
+            InjectAttributes(attrs, _SHADER_flat_material_vert)
+        }, {
+            ShaderType::kFragmentShader,
+            InjectAttributes(attrs, _SHADER_flat_material_frag
+        )}};
     }
+
+    if (material->Type() == MaterialType::kPhongMaterial && material->Version() == 1.0) {
+        return {{
+            ShaderType::kVertexShader,
+            InjectAttributes(attrs, _SHADER_phong_material_vert)
+        }, {
+            ShaderType::kFragmentShader,
+            InjectAttributes(attrs, _SHADER_phong_material_frag
+        )}};
+    }
+
+    Logger::Log(
+        LogLevel::Error,
+        "Shader source not found for unknown material {}_material|v{:.1f}",
+        ToString(material->Type()),
+        material->Version()
+    );
 
     return {};
 }

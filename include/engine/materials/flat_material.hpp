@@ -25,13 +25,14 @@ class ENGINE_EXPORT FlatMaterial :
 public:
     explicit FlatMaterial() :
       MaterialWithColor(Color {1.0f, 1.0f, 1.0f}),
-      MaterialWithTextureMap(nullptr)
-    {
-        SetName("Flat Material");
-    }
+      MaterialWithTextureMap(nullptr) {}
 
     auto Type() const -> MaterialType override {
         return MaterialType::kFlatMaterial;
+    }
+
+    auto Version() const -> double override {
+        return 1.0;
     }
 
     [[nodiscard]] static auto Create() {

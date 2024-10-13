@@ -26,6 +26,8 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
 
             auto attrs = ProgramAttributes {material};
             auto program = programs_.GetProgram(attrs);
+            if (!program) return;
+
             program->Use();
 
             SetUniforms(program, &attrs, mesh, camera);

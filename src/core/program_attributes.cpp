@@ -3,6 +3,10 @@
 
 #include "core/program_attributes.hpp"
 
+#include <bitset>
+
+#include <fmt/format.h>
+
 namespace engine {
 
 ProgramAttributes::ProgramAttributes(Material* material) {
@@ -13,6 +17,19 @@ ProgramAttributes::ProgramAttributes(Material* material) {
 
     auto textureMapMaterial = material->As<MaterialWithTextureMap>();
     texture_map = (textureMapMaterial && textureMapMaterial->texture_map);
+}
+
+auto ProgramAttributes::PremutationKey() const -> std::string {
+    auto attrs = std::bitset<2> {};
+    attrs[0] = color;
+    attrs[1] = texture_map;
+
+    return fmt::format(
+        "{}_material|v{:.1f}|p{}",
+        ToString(material->Type()),
+        material->Version(),
+        attrs.to_ulong()
+    );
 }
 
 }

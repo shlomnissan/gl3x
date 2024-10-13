@@ -18,6 +18,15 @@ enum class MaterialType {
     kPhongMaterial
 };
 
+static auto ToString(MaterialType type) {
+    switch(type) {
+        case MaterialType::kFlatMaterial:
+            return "flat";
+        case MaterialType::kPhongMaterial:
+            return "phong";
+    };
+}
+
 class Material : public Identity {
 public:
     Material() = default;
@@ -28,6 +37,8 @@ public:
     auto operator=(Material&&) -> Material& = delete;
 
     virtual auto Type() const -> MaterialType = 0;
+
+    virtual auto Version() const -> double = 0;
 
     template<class T> requires std::is_base_of_v<Material, T>
     [[nodiscard]] auto Is() const {

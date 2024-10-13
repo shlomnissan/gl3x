@@ -11,13 +11,14 @@ namespace engine {
 
 auto GLPrograms::GetProgram(const ProgramAttributes& attrs) -> GLProgram* {
     auto material = attrs.material;
-    if (!programs_.contains(attrs.material->Type())) {
-        Logger::Log(LogLevel::Info, "Creating a new shader program {}", *material);
-        programs_[material->Type()] = std::make_unique<GLProgram>(
-            shader_lib_.GetShaderSource(attrs)
-        );
+    auto key = attrs.PremutationKey();
+    if (!programs_.contains(key)) {
+        auto sources = shader_lib_.GetShaderSource(attrs);
+        if (sources.empty()) return nullptr;
+        Logger::Log(LogLevel::Info, "Creating a new shader program {}", attrs.PremutationKey());
+        programs_[key] = std::make_unique<GLProgram>(sources);
     }
-    return programs_[material->Type()].get();
+    return programs_[key].get();
 }
 
 }
