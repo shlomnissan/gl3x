@@ -42,12 +42,12 @@ public:
             const auto& path = fs::path{loc.file_name()};
             const auto message = fmt::format(fmt::runtime(format_str), args...);
             *stream << fmt::format(
-                "[{} -> {}:{}]{}: {}\n",
+                "[{}]{}: {} -> {}:{}\n",
                 Timer::GetTimestamp(),
-                path.filename().string(),
-                loc.line(),
                 Logger::ToString(level),
-                message
+                message,
+                path.filename().string(),
+                loc.line()
             );
         }
     };
