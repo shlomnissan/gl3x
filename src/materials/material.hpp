@@ -24,7 +24,9 @@ static auto ToString(MaterialType type) {
             return "flat";
         case MaterialType::kPhongMaterial:
             return "phong";
-    };
+        default:
+            return "unkonwn";
+    }
 }
 
 class Material : public Identity {

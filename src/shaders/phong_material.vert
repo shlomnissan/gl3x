@@ -7,16 +7,16 @@
 
 precision mediump float;
 
-layout (location = 0) in vec3 aPosition;
-layout (location = 1) in vec3 aNormal;
-layout (location = 2) in vec2 aTextureCoords;
+in vec3 aPosition;
+in vec3 aNormal;
+in vec2 aTexCoordinates;
 
-out vec2 iTextureCoords;
+out vec2 TexCoordinates;
 
 uniform mat4 Projection;
 uniform mat4 ModelView;
 
 void main() {
-    iTextureCoords = aTextureCoords;
+    TexCoordinates = aTexCoordinates;
     gl_Position = Projection * ModelView * vec4(aPosition, 1.0);
 }

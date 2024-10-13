@@ -3,10 +3,18 @@
 
 #include "renderer/gl/gl_program.hpp"
 
+#include "engine/core/geometry.hpp"
+
 #include "core/shader_library.hpp"
 #include "core/logger.hpp"
 
 namespace engine {
+
+static const auto VertexAttributesMap = std::unordered_map<std::string, GeometryAttributeType> {
+    {"aPosition", GeometryAttributeType::kPosition},
+    {"aNormal", GeometryAttributeType::kNormal},
+    {"aTexCoordinate", GeometryAttributeType::kUV}
+};
 
 GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
     program_ = glCreateProgram();
@@ -25,6 +33,8 @@ GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
         glAttachShader(program_, shader_id);
         glDeleteShader(shader_id);
     }
+
+    BindVertexAttributes();
 
     glLinkProgram(program_);
     CheckProgramLinkStatus();
@@ -47,6 +57,16 @@ auto GLProgram::SetUniform(const std::string& name, const GLUniformValue& v) -> 
         return;
     }
     uniforms_.at(name).SetValueIfNeeded(v);
+}
+
+auto GLProgram::BindVertexAttributes() const -> void {
+    for (auto& [attr_name, attr_type] : VertexAttributesMap) {
+        glBindAttribLocation(
+            program_,
+            static_cast<int>(attr_type),
+            attr_name.data()
+        );
+    }
 }
 
 auto GLProgram::GetUniformLoc(const std::string& name) const -> int {
@@ -73,7 +93,7 @@ auto GLProgram::ProcessUniforms() -> void {
         );
 
         auto name = std::string(buffer.data(), length);
-        uniforms_.emplace(name, GLUniform {
+        uniforms_.try_emplace(name, GLUniform {
             name,
             GetUniformLoc(name),
             size,

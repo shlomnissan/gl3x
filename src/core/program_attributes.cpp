@@ -19,7 +19,7 @@ ProgramAttributes::ProgramAttributes(Material* material) {
     texture_map = (textureMapMaterial && textureMapMaterial->texture_map);
 }
 
-auto ProgramAttributes::PremutationKey() const -> std::string {
+auto ProgramAttributes::PermutationKey() const -> std::string {
     auto attrs = std::bitset<2> {};
     attrs[0] = color;
     attrs[1] = texture_map;

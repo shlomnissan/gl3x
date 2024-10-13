@@ -17,7 +17,7 @@ struct ProgramAttributes {
 
     explicit ProgramAttributes(Material* material);
 
-    auto PremutationKey() const -> std::string;
+    auto PermutationKey() const -> std::string;
 };
 
 }

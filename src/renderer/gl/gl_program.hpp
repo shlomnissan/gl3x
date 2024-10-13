@@ -43,6 +43,8 @@ private:
 
     std::unordered_map<std::string, GLUniform> uniforms_ {};
 
+    auto BindVertexAttributes() const -> void;
+
     auto GetUniformLoc(const std::string& name) const -> int;
 
     auto ProcessUniforms() -> void;
