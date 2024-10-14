@@ -1,4 +1,4 @@
-#version 320 es
+#include <version>
 
 #pragma debug(on)
 #pragma optimize(off)

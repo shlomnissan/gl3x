@@ -78,7 +78,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/textures/texture_2d.hpp"
 )
 
-include(ShaderString)
+include(ShaderProcessor)
 
 add_library(${PROJECT_NAME} ${SOURCE_CODE})
 
