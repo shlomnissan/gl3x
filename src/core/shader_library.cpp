@@ -17,7 +17,7 @@ namespace engine {
 auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) -> std::vector<ShaderInfo> {
     auto material = attrs.material;
 
-    if (material->Type() == MaterialType::kFlatMaterial && material->Version() == 1.0) {
+    if (material->Type() == MaterialType::kFlatMaterial) {
         return {{
             ShaderType::kVertexShader,
             InjectAttributes(attrs, _SHADER_flat_material_vert)
@@ -27,7 +27,7 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) -> std::vect
         )}};
     }
 
-    if (material->Type() == MaterialType::kPhongMaterial && material->Version() == 1.0) {
+    if (material->Type() == MaterialType::kPhongMaterial) {
         return {{
             ShaderType::kVertexShader,
             InjectAttributes(attrs, _SHADER_phong_material_vert)
@@ -39,9 +39,8 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) -> std::vect
 
     Logger::Log(
         LogLevel::Error,
-        "Shader source not found for unknown material {}_material|v{:.1f}",
-        ToString(material->Type()),
-        material->Version()
+        "Shader source not found for unknown material {}_material",
+        ToString(material->Type())
     );
 
     return {};

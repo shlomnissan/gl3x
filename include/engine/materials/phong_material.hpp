@@ -43,15 +43,6 @@ public:
     }
 
     /**
-     * @brief Returns the version of the PhongMaterial.
-     *
-     * @return The version number of the material as a double.
-     */
-    auto Version() const -> double override {
-        return 1.0;
-    }
-
-    /**
      * @brief Creates a new instance of PhongMaterial.
      *
      * @return A `std::shared_ptr` to a new instance of PhongMaterial.

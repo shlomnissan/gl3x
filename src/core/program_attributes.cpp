@@ -25,9 +25,8 @@ auto ProgramAttributes::PermutationKey() const -> std::string {
     attrs[1] = texture_map;
 
     return fmt::format(
-        "{}_material|v{:.1f}|p{}",
+        "{}_material|p{}",
         ToString(material->Type()),
-        material->Version(),
         attrs.to_ulong()
     );
 }

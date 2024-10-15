@@ -41,15 +41,6 @@ public:
         return MaterialType::kFlatMaterial;
     }
 
-     /**
-     * @brief Returns the version of the FlatMaterial.
-     *
-     * @return The version number of the material as a double.
-     */
-    auto Version() const -> double override {
-        return 1.0;
-    }
-
     /**
      * @brief Creates a new instance of FlatMaterial.
      *
