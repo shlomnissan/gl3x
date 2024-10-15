@@ -15,7 +15,9 @@ namespace engine {
 
 /**
  * @brief A material for drawing geometries in a flat-shaded mode.
- * This material is not affected by lights.
+ *
+ * FlatMaterial renders objects without the influence of lighting. The material can be assigned a solid color
+ * and optionally a texture map to apply onto the surface. This makes it ideal for simple, unlit geometries.
  */
 class ENGINE_EXPORT FlatMaterial :
     public virtual Material,
@@ -23,18 +25,36 @@ class ENGINE_EXPORT FlatMaterial :
     public MaterialWithTextureMap
 {
 public:
+    /**
+     * @brief Constructs a FlatMaterial with a default white color and no texture.
+     */
     explicit FlatMaterial() :
       MaterialWithColor(Color {1.0f, 1.0f, 1.0f}),
       MaterialWithTextureMap(nullptr) {}
 
+    /**
+     * @brief Retrieves the type of the material.
+     *
+     * @return The type of the material as `MaterialType::kFlatMaterial`.
+     */
     auto Type() const -> MaterialType override {
         return MaterialType::kFlatMaterial;
     }
 
+     /**
+     * @brief Returns the version of the FlatMaterial.
+     *
+     * @return The version number of the material as a double.
+     */
     auto Version() const -> double override {
         return 1.0;
     }
 
+    /**
+     * @brief Creates a new instance of FlatMaterial.
+     *
+     * @return A `std::shared_ptr` to a new instance of FlatMaterial.
+     */
     [[nodiscard]] static auto Create() {
         return std::make_shared<FlatMaterial>();
     }

@@ -16,7 +16,7 @@ public:
     /**
      * @brief Enum representing different rotation orders.
      */
-    enum class ENGINE_EXPORT RotationOrder {
+    enum class RotationOrder {
         XYZ,
         XZY,
         YXZ,

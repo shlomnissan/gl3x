@@ -17,7 +17,7 @@ namespace engine {
 /**
  * @brief Enum representing the type of a geometry attribute.
  */
-enum class ENGINE_EXPORT GeometryAttributeType {
+enum class GeometryAttributeType {
     kPosition,  ///< Position attribute.
     kNormal,    ///< Normal attribute.
     kUV,        ///< UV attribute.
@@ -26,7 +26,7 @@ enum class ENGINE_EXPORT GeometryAttributeType {
 /**
  * @brief Structure representing a geometry attribute.
  */
-struct ENGINE_EXPORT GeometryAttribute {
+struct GeometryAttribute {
     /// @brief The type of the attribute.
     GeometryAttributeType type;
     /// @brief The number of components per vertex.

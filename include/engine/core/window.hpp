@@ -29,7 +29,7 @@ public:
     /**
      * @brief Constructs a Window object with the given parameters.
      *
-     * @param params the parameters used to create the window.
+     * @param params The parameters used to create the window.
      */
     explicit Window(const Window::Parameters& params);
 
