@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_0',['x',['../classengine_1_1_vector3.html#a20e81dc0e9efe7fe7ff3314c956b0a4b',1,'engine::Vector3::x'],['../classengine_1_1_vector4.html#a0c6787cd9e39811795f1321b14afd7aa',1,'engine::Vector4::x']]]
+  ['far_5f_0',['far_',['../classengine_1_1_camera.html#aeebbe49e4a242abe94c58845b2dc6c5a',1,'engine::Camera']]]
 ];

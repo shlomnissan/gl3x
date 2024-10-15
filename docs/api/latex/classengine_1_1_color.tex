@@ -1,0 +1,195 @@
+\doxysection{engine\+::Color Class Reference}
+\hypertarget{classengine_1_1_color}{}\label{classengine_1_1_color}\index{engine::Color@{engine::Color}}
+
+
+A color class representing RGBA color values.  
+
+
+
+
+{\ttfamily \#include $<$color.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classengine_1_1_color_aadd9be50abe3ab001b3e4bbdea0fce6a}\label{classengine_1_1_color_aadd9be50abe3ab001b3e4bbdea0fce6a} 
+{\bfseries Color} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor that initializes the color to white with full opacity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classengine_1_1_color_af8f3adf29da31c711e785db1fab8c5bf}{Color}} (float \mbox{\hyperlink{classengine_1_1_color_a8b9a4b716e56bd566776d6338c2f5f72}{r}}, float \mbox{\hyperlink{classengine_1_1_color_a2ad5c217da13a5ce86d4a03ae29d0a7e}{g}}, float \mbox{\hyperlink{classengine_1_1_color_a3b2e829ad45493a4fd36f322725ae493}{b}})
+\begin{DoxyCompactList}\small\item\em Constructs a color with the specified red, green, and blue components. The alpha component is set to 1.\+0 by default. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classengine_1_1_color_acaa166e4f5bd7a8dfd978b105ab8e590}{Color}} (float \mbox{\hyperlink{classengine_1_1_color_a8b9a4b716e56bd566776d6338c2f5f72}{r}}, float \mbox{\hyperlink{classengine_1_1_color_a2ad5c217da13a5ce86d4a03ae29d0a7e}{g}}, float \mbox{\hyperlink{classengine_1_1_color_a3b2e829ad45493a4fd36f322725ae493}{b}}, float \mbox{\hyperlink{classengine_1_1_color_a138c69605a8a27adea5557077bb7a672}{a}})
+\begin{DoxyCompactList}\small\item\em Constructs a color with the specified red, green, blue, and alpha components. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classengine_1_1_color_a84a490994de2a4795afae491adb061f2}{Color}} (unsigned int hex)
+\begin{DoxyCompactList}\small\item\em Constructs a color from a hexadecimal representation. \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{classengine_1_1_color_ab6608e6dadad18a302d5447bbe635694}{operator\mbox{[}$\,$\mbox{]}}} (int i)
+\begin{DoxyCompactList}\small\item\em Provides access to the red, green, blue, or alpha component of the color. \end{DoxyCompactList}\item 
+const auto \& \mbox{\hyperlink{classengine_1_1_color_a43e8cd5a6348064b6398511838e90000}{operator\mbox{[}$\,$\mbox{]}}} (int i) const
+\begin{DoxyCompactList}\small\item\em Provides const access to the red, green, blue, or alpha component of the color. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_color_a87dd4db440190096cda80d2297e5f13c}{operator=}} (unsigned int hex) -\/$>$ \mbox{\hyperlink{classengine_1_1_color}{Color}} \&
+\begin{DoxyCompactList}\small\item\em Assigns a hexadecimal color to this \doxylink{classengine_1_1_color}{Color} object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classengine_1_1_color_a8b9a4b716e56bd566776d6338c2f5f72}\label{classengine_1_1_color_a8b9a4b716e56bd566776d6338c2f5f72} 
+float {\bfseries r} \{1.\+0f\}
+\begin{DoxyCompactList}\small\item\em The red component. \end{DoxyCompactList}\item 
+\Hypertarget{classengine_1_1_color_a2ad5c217da13a5ce86d4a03ae29d0a7e}\label{classengine_1_1_color_a2ad5c217da13a5ce86d4a03ae29d0a7e} 
+float {\bfseries g} \{1.\+0f\}
+\begin{DoxyCompactList}\small\item\em The green component. \end{DoxyCompactList}\item 
+\Hypertarget{classengine_1_1_color_a3b2e829ad45493a4fd36f322725ae493}\label{classengine_1_1_color_a3b2e829ad45493a4fd36f322725ae493} 
+float {\bfseries b} \{1.\+0f\}
+\begin{DoxyCompactList}\small\item\em The blue component. \end{DoxyCompactList}\item 
+\Hypertarget{classengine_1_1_color_a138c69605a8a27adea5557077bb7a672}\label{classengine_1_1_color_a138c69605a8a27adea5557077bb7a672} 
+float {\bfseries a} \{1.\+0f\}
+\begin{DoxyCompactList}\small\item\em The alpha (transparency) component. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classengine_1_1_color_a654e37f5a07e177f89138d270ae1b56a}{operator==}} (const \mbox{\hyperlink{classengine_1_1_color}{Color}} \&\mbox{\hyperlink{classengine_1_1_color_a138c69605a8a27adea5557077bb7a672}{a}}, const \mbox{\hyperlink{classengine_1_1_color}{Color}} \&\mbox{\hyperlink{classengine_1_1_color_a3b2e829ad45493a4fd36f322725ae493}{b}})=default
+\begin{DoxyCompactList}\small\item\em Checks if two colors are equal, component-\/wise. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A color class representing RGBA color values. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classengine_1_1_color_af8f3adf29da31c711e785db1fab8c5bf}\label{classengine_1_1_color_af8f3adf29da31c711e785db1fab8c5bf} 
+\index{engine::Color@{engine::Color}!Color@{Color}}
+\index{Color@{Color}!engine::Color@{engine::Color}}
+\doxysubsubsection{\texorpdfstring{Color()}{Color()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily engine\+::\+Color\+::\+Color (\begin{DoxyParamCaption}\item[{float}]{r,  }\item[{float}]{g,  }\item[{float}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a color with the specified red, green, and blue components. The alpha component is set to 1.\+0 by default. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & The red component of the color. \\
+\hline
+{\em g} & The green component of the color. \\
+\hline
+{\em b} & The blue component of the color. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_color_acaa166e4f5bd7a8dfd978b105ab8e590}\label{classengine_1_1_color_acaa166e4f5bd7a8dfd978b105ab8e590} 
+\index{engine::Color@{engine::Color}!Color@{Color}}
+\index{Color@{Color}!engine::Color@{engine::Color}}
+\doxysubsubsection{\texorpdfstring{Color()}{Color()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily engine\+::\+Color\+::\+Color (\begin{DoxyParamCaption}\item[{float}]{r,  }\item[{float}]{g,  }\item[{float}]{b,  }\item[{float}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a color with the specified red, green, blue, and alpha components. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & The red component of the color. \\
+\hline
+{\em g} & The green component of the color. \\
+\hline
+{\em b} & The blue component of the color. \\
+\hline
+{\em a} & The alpha (transparency) component of the color. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classengine_1_1_color_a84a490994de2a4795afae491adb061f2}\label{classengine_1_1_color_a84a490994de2a4795afae491adb061f2} 
+\index{engine::Color@{engine::Color}!Color@{Color}}
+\index{Color@{Color}!engine::Color@{engine::Color}}
+\doxysubsubsection{\texorpdfstring{Color()}{Color()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily engine\+::\+Color\+::\+Color (\begin{DoxyParamCaption}\item[{unsigned int}]{hex }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a color from a hexadecimal representation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hex} & An unsigned integer representing the color in hexadecimal format (0x\+RRGGBB). \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_color_a87dd4db440190096cda80d2297e5f13c}\label{classengine_1_1_color_a87dd4db440190096cda80d2297e5f13c} 
+\index{engine::Color@{engine::Color}!operator=@{operator=}}
+\index{operator=@{operator=}!engine::Color@{engine::Color}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily auto engine\+::\+Color\+::operator= (\begin{DoxyParamCaption}\item[{unsigned int}]{hex }\end{DoxyParamCaption}) -\/$>$ \mbox{\hyperlink{classengine_1_1_color}{Color}}\& \hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Assigns a hexadecimal color to this \doxylink{classengine_1_1_color}{Color} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hex} & An unsigned integer representing the color in hexadecimal format (0x\+RRGGBB). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to this \doxylink{classengine_1_1_color}{Color} object. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_color_ab6608e6dadad18a302d5447bbe635694}\label{classengine_1_1_color_ab6608e6dadad18a302d5447bbe635694} 
+\index{engine::Color@{engine::Color}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!engine::Color@{engine::Color}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily auto \& engine\+::\+Color\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Provides access to the red, green, blue, or alpha component of the color. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the component to access (0 for red, 1 for green, 2 for blue, 3 for alpha). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the color component. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_color_a43e8cd5a6348064b6398511838e90000}\label{classengine_1_1_color_a43e8cd5a6348064b6398511838e90000} 
+\index{engine::Color@{engine::Color}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!engine::Color@{engine::Color}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const auto \& engine\+::\+Color\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Provides const access to the red, green, blue, or alpha component of the color. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the component to access (0 for red, 1 for green, 2 for blue, 3 for alpha). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A const reference to the color component. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classengine_1_1_color_a654e37f5a07e177f89138d270ae1b56a}\label{classengine_1_1_color_a654e37f5a07e177f89138d270ae1b56a} 
+\index{engine::Color@{engine::Color}!operator==@{operator==}}
+\index{operator==@{operator==}!engine::Color@{engine::Color}}
+\doxysubsubsection{\texorpdfstring{operator==}{operator==}}
+{\footnotesize\ttfamily bool operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_color}{Color}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_color}{Color}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Checks if two colors are equal, component-\/wise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first color to compare. \\
+\hline
+{\em b} & The second color to compare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool {\ttfamily true} if the color are equal, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/admin/\+One\+Drive/\+Desktop/\+Projects/engine/include/engine/math/color.\+hpp\end{DoxyCompactItemize}

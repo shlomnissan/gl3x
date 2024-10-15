@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['y_0',['y',['../classengine_1_1_vector3.html#ae4d54efb9be1ad8e724964e29f00fa98',1,'engine::Vector3::y'],['../classengine_1_1_vector4.html#a95c0d69a533354d1e449e27f13e150db',1,'engine::Vector4::y']]],
-  ['y_1',['Y',['../classengine_1_1_vector3.html#a3bd1dfcde916838ae28d79cdad5d3a72',1,'engine::Vector3']]]
+  ['w_0',['w',['../classengine_1_1_vector4.html#a44d19016fb6497bcda76649dd60fc3c1',1,'engine::Vector4']]],
+  ['width_1',['width',['../structengine_1_1_renderer_1_1_parameters.html#ad26c02f74b7af937086981819ccee252',1,'engine::Renderer::Parameters::width'],['../structengine_1_1_window_1_1_parameters.html#a9aa3a8fc506ee10127ed2ed6e0870f72',1,'engine::Window::Parameters::width'],['../structengine_1_1_box_geometry_1_1_parameters.html#afc7e190736af741a6b8dc087c37d72a7',1,'engine::BoxGeometry::Parameters::width'],['../structengine_1_1_plane_geometry_1_1_parameters.html#ad904018cf98292cd838a7991beb13a34',1,'engine::PlaneGeometry::Parameters::width']]],
+  ['width_2',['Width',['../classengine_1_1_window.html#aa1845804c218044b5361982096f2b4d6',1,'engine::Window']]],
+  ['width_5fsegments_3',['width_segments',['../structengine_1_1_box_geometry_1_1_parameters.html#ab974f589641d9f566c54bef0cc8c65c6',1,'engine::BoxGeometry::Parameters::width_segments'],['../structengine_1_1_plane_geometry_1_1_parameters.html#ae570d8e0ab7523b72a9d6c81d1ae68cb',1,'engine::PlaneGeometry::Parameters::width_segments']]],
+  ['window_4',['Window',['../classengine_1_1_window.html',1,'engine::Window'],['../classengine_1_1_window.html#a6509106a4ae6a1144610721a487c8da7',1,'engine::Window::Window()']]]
 ];

@@ -96,33 +96,36 @@ $(function() {
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classengine_1_1_transform.html#a430173adc235e8c2301c0eb78520aef0">   40</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_transform.html#a430173adc235e8c2301c0eb78520aef0">Translate</a>(<span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_vector3.html">Vector3</a>&amp; axis, <span class="keywordtype">float</span> distance) -&gt; void;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classengine_1_1_transform.html#a99607616ad2869c0545b4ca871842533">   50</a></span>    [[nodiscard]] <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_transform.html#a99607616ad2869c0545b4ca871842533">ToMatrix</a>() -&gt; <a class="code hl_class" href="classengine_1_1_matrix4.html">Matrix4</a>;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classengine_1_1_transform.html#acbb39d86166e779f46c7ab705f98e045">   57</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_transform.html#acbb39d86166e779f46c7ab705f98e045">IsDirty</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> is_dirty_; }</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">bool</span> is_dirty_ {<span class="keyword">true</span>};</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    Matrix4 transform_ {1.0f};</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    Vector3 position_ {0.0f};</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    Vector3 scale_ {1.0f};</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    Euler euler_ {};</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classengine_1_1_transform.html#a4d622f2aa6138d47f514c816f41fca78">   82</a></span>    <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code hl_friend" href="classengine_1_1_transform.html#a4d622f2aa6138d47f514c816f41fca78">operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_transform.html">Transform</a>&amp; a, <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_transform.html">Transform</a>&amp; b) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
-<div class="ttc" id="aclassengine_1_1_matrix4_html"><div class="ttname"><a href="classengine_1_1_matrix4.html">engine::Matrix4</a></div><div class="ttdoc">A 4x4 matrix class for mathematical operations.</div><div class="ttdef"><b>Definition</b> matrix4.hpp:15</div></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="classengine_1_1_transform.html#a99607616ad2869c0545b4ca871842533">   51</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_transform.html#a99607616ad2869c0545b4ca871842533">ToMatrix</a>() -&gt; <a class="code hl_class" href="classengine_1_1_matrix4.html">Matrix4</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="classengine_1_1_transform.html#acbb39d86166e779f46c7ab705f98e045">   59</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_transform.html#acbb39d86166e779f46c7ab705f98e045">IsDirty</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> is_dirty_; }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">bool</span> is_dirty_ {<span class="keyword">true</span>};</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    Matrix4 transform_ {1.0f};</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    Vector3 position_ {0.0f};</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    Vector3 scale_ {1.0f};</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    Euler euler_ {};</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="classengine_1_1_transform.html#a4d622f2aa6138d47f514c816f41fca78">   85</a></span>    <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code hl_friend" href="classengine_1_1_transform.html#a4d622f2aa6138d47f514c816f41fca78">operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_transform.html">Transform</a>&amp; a, <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_transform.html">Transform</a>&amp; b) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>};</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
+<div class="ttc" id="aclassengine_1_1_matrix4_html"><div class="ttname"><a href="classengine_1_1_matrix4.html">engine::Matrix4</a></div><div class="ttdoc">A 4x4 matrix class for mathematical operations.</div><div class="ttdef"><b>Definition</b> matrix4.hpp:17</div></div>
 <div class="ttc" id="aclassengine_1_1_transform_html"><div class="ttname"><a href="classengine_1_1_transform.html">engine::Transform</a></div><div class="ttdoc">Represents a 3D transformation.</div><div class="ttdef"><b>Definition</b> transform.hpp:16</div></div>
 <div class="ttc" id="aclassengine_1_1_transform_html_a430173adc235e8c2301c0eb78520aef0"><div class="ttname"><a href="classengine_1_1_transform.html#a430173adc235e8c2301c0eb78520aef0">engine::Transform::Translate</a></div><div class="ttdeci">auto Translate(const Vector3 &amp;axis, float distance) -&gt; void</div><div class="ttdoc">Applies a translation transformation.</div></div>
 <div class="ttc" id="aclassengine_1_1_transform_html_a4d622f2aa6138d47f514c816f41fca78"><div class="ttname"><a href="classengine_1_1_transform.html#a4d622f2aa6138d47f514c816f41fca78">engine::Transform::operator==</a></div><div class="ttdeci">friend bool operator==(const Transform &amp;a, const Transform &amp;b)=default</div><div class="ttdoc">Checks if two Transform objects are equal, component-wise.</div></div>
 <div class="ttc" id="aclassengine_1_1_transform_html_a7485ad4f8b59d58a3978e8eeb99cbf4a"><div class="ttname"><a href="classengine_1_1_transform.html#a7485ad4f8b59d58a3978e8eeb99cbf4a">engine::Transform::Scale</a></div><div class="ttdeci">auto Scale(float value) -&gt; void</div><div class="ttdoc">Applies a uniform scaling transformation.</div></div>
 <div class="ttc" id="aclassengine_1_1_transform_html_a99607616ad2869c0545b4ca871842533"><div class="ttname"><a href="classengine_1_1_transform.html#a99607616ad2869c0545b4ca871842533">engine::Transform::ToMatrix</a></div><div class="ttdeci">auto ToMatrix() -&gt; Matrix4</div><div class="ttdoc">Computes the current transformation matrix.</div></div>
 <div class="ttc" id="aclassengine_1_1_transform_html_ac86469083d3bb253d596d7827f67aa5b"><div class="ttname"><a href="classengine_1_1_transform.html#ac86469083d3bb253d596d7827f67aa5b">engine::Transform::Rotate</a></div><div class="ttdeci">auto Rotate(const Vector3 &amp;axis, float angle) -&gt; void</div><div class="ttdoc">Applies a rotation transformation around a specified axis.</div></div>
-<div class="ttc" id="aclassengine_1_1_transform_html_acbb39d86166e779f46c7ab705f98e045"><div class="ttname"><a href="classengine_1_1_transform.html#acbb39d86166e779f46c7ab705f98e045">engine::Transform::IsDirty</a></div><div class="ttdeci">auto IsDirty() const</div><div class="ttdoc">Checks if the transformation matrix is dirty.</div><div class="ttdef"><b>Definition</b> transform.hpp:57</div></div>
+<div class="ttc" id="aclassengine_1_1_transform_html_acbb39d86166e779f46c7ab705f98e045"><div class="ttname"><a href="classengine_1_1_transform.html#acbb39d86166e779f46c7ab705f98e045">engine::Transform::IsDirty</a></div><div class="ttdeci">auto IsDirty() const</div><div class="ttdoc">Checks if the transformation matrix is dirty.</div><div class="ttdef"><b>Definition</b> transform.hpp:59</div></div>
 <div class="ttc" id="aclassengine_1_1_vector3_html"><div class="ttname"><a href="classengine_1_1_vector3.html">engine::Vector3</a></div><div class="ttdoc">A 3D vector class for mathematical operations.</div><div class="ttdef"><b>Definition</b> vector3.hpp:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

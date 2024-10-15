@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['scale_0',['Scale',['../classengine_1_1_transform.html#a7485ad4f8b59d58a3978e8eeb99cbf4a',1,'engine::Transform::Scale()'],['../classengine_1_1_node.html#ad208fceb04322e5f3b5cb5748068ddf9',1,'engine::Node::Scale()']]],
-  ['scene_1',['Scene',['../classengine_1_1_scene.html',1,'engine']]],
-  ['setrotationorder_2',['SetRotationOrder',['../classengine_1_1_euler.html#a466c9d1a43658544e740a4461486598f',1,'engine::Euler']]],
-  ['shouldupdatechildren_3',['ShouldUpdateChildren',['../classengine_1_1_node.html#a77c5913cf8f7f22ff7409af6497d0bf9',1,'engine::Node']]],
-  ['shouldupdatetransform_4',['ShouldUpdateTransform',['../classengine_1_1_node.html#a9c6bd75b32ed47eecb7f157626bd7909',1,'engine::Node']]],
-  ['start_5',['Start',['../classengine_1_1_timer.html#a8829a5e9b60eef0f7b684d93061c287d',1,'engine::Timer::Start()'],['../classengine_1_1_window.html#a9721b12c7280a08e68d8f16c692634cb',1,'engine::Window::Start()']]]
+  ['parameters_0',['Parameters',['../structengine_1_1_box_geometry_1_1_parameters.html',1,'engine::BoxGeometry::Parameters'],['../structengine_1_1_plane_geometry_1_1_parameters.html',1,'engine::PlaneGeometry::Parameters'],['../structengine_1_1_renderer_1_1_parameters.html',1,'engine::Renderer::Parameters'],['../structengine_1_1_window_1_1_parameters.html',1,'engine::Window::Parameters']]],
+  ['parent_1',['Parent',['../classengine_1_1_node.html#a2d9dbe0ea3a04c14f20e40ed1042ec37',1,'engine::Node']]],
+  ['phongmaterial_2',['PhongMaterial',['../classengine_1_1_phong_material.html',1,'engine::PhongMaterial'],['../classengine_1_1_phong_material.html#a33c8530582fed9aa5b8bc4e6472558bb',1,'engine::PhongMaterial::PhongMaterial()']]],
+  ['planegeometry_3',['PlaneGeometry',['../classengine_1_1_plane_geometry.html',1,'engine::PlaneGeometry'],['../classengine_1_1_plane_geometry.html#ab2f0c2396fd8f935249e431dbe0a28ef',1,'engine::PlaneGeometry::PlaneGeometry()']]],
+  ['projection_5ftransform_5f_4',['projection_transform_',['../classengine_1_1_camera.html#a54290291bfff434b9394c95c08bbdf0e',1,'engine::Camera']]]
 ];

@@ -1,5 +1,5 @@
 \doxysection{mesh.\+hpp}
-\hypertarget{mesh_8hpp_source}{}\label{mesh_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/temp/mesh.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/temp/mesh.hpp}}
+\hypertarget{mesh_8hpp_source}{}\label{mesh_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/scene/mesh.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/scene/mesh.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
@@ -7,30 +7,40 @@
 \DoxyCodeLine{00003\ }
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00005\ }
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <engine/temp/shader.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}engine/core/geometry.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}engine/scene/node.hpp"{}}}
 \DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}materials/material.hpp"{}}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classengine_1_1_mesh}{Mesh}}\ \{}
-\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_mesh}{Mesh}}(}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<float>\&\ vertex\_data,}
-\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<unsigned\ int>\&\ index\_data\ =\ \{\}}
-\DoxyCodeLine{00017\ \ \ \ \ );}
-\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{auto}\ Draw(\textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_shader}{Shader}}\&\ shader)\ \textcolor{keyword}{const}\ -\/>\ void;}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ vao\_\ \{0\};}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ vbo\_\ \{0\};}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ ebo\_\ \{0\};}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ indices\_size\_\ \{0\};}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{auto}\ ConfigureVertices(\textcolor{keyword}{const}\ std::vector<float>\&\ vertex\_data)\ -\/>\ void;}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{auto}\ ConfigureIndices(\textcolor{keyword}{const}\ std::vector<unsigned\ int>\&\ index\_data)\ -\/>\ void;}
-\DoxyCodeLine{00028\ \};}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classengine_1_1_mesh}{Mesh}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classengine_1_1_node}{Node}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_mesh_a4b6c26b5bbc50c4d2bd39046a7c8fef3}{Mesh}}(}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ std::shared\_ptr<Geometry>\ geometry,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ std::shared\_ptr<Material>\ material}
+\DoxyCodeLine{00030\ \ \ \ \ );}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_mesh_ac2afc84af52ccfbabc6c299441fca99c}{GetGeometry}}()\ -\/>\ \mbox{\hyperlink{classengine_1_1_geometry}{Geometry}}*\ \{\ \textcolor{keywordflow}{return}\ geometry\_.get();\ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_mesh_ae16b33f6af2c060538d9c8a6f33665e7}{GetMaterial}}()\ -\/>\ Material*\ \{\ \textcolor{keywordflow}{return}\ material\_.get();\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00053\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_mesh_ad9a5b1e5f8e1056b24faafe1d390bf95}{Create}}(}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ std::shared\_ptr<Geometry>\ geometry,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ std::shared\_ptr<Material>\ material}
+\DoxyCodeLine{00057\ \ \ \ \ )\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<Mesh>(geometry,\ material);}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00063\ \ \ \ \ std::shared\_ptr<Geometry>\ geometry\_;}
+\DoxyCodeLine{00065\ \ \ \ \ std::shared\_ptr<Material>\ material\_;}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \}}
 
 \end{DoxyCode}

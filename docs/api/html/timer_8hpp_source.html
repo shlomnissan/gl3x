@@ -84,27 +84,33 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;engine_export.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;chrono&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>engine {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classengine_1_1_timer.html">   15</a></span><span class="keyword">class </span>ENGINE_EXPORT <a class="code hl_class" href="classengine_1_1_timer.html">Timer</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classengine_1_1_timer.html#a8829a5e9b60eef0f7b684d93061c287d">   22</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_timer.html#a8829a5e9b60eef0f7b684d93061c287d">Start</a>() -&gt; void;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classengine_1_1_timer.html#a1e4074fa24f0cc1814240c342f77c3fa">   29</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_timer.html#a1e4074fa24f0cc1814240c342f77c3fa">Reset</a>() -&gt; void;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classengine_1_1_timer.html#a3f433c3ea41e92ddaa4184a7577cf0fc">   37</a></span>    [[nodiscard]] <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_timer.html#a3f433c3ea41e92ddaa4184a7577cf0fc">GetElapsedMilliseconds</a>() const -&gt; <span class="keywordtype">double</span>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classengine_1_1_timer.html#a41a0792d25635547b29f39f2a246fdfd">   45</a></span>    [[nodiscard]] auto GetElapsedSeconds() const -&gt; <span class="keywordtype">double</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>private:</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">bool</span> started_ {<span class="keyword">false</span>};</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    std::chrono::time_point&lt;std::chrono::steady_clock&gt; start_time_;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>};</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
-<div class="ttc" id="aclassengine_1_1_timer_html"><div class="ttname"><a href="classengine_1_1_timer.html">engine::Timer</a></div><div class="ttdoc">A timer class to measure elapsed time.</div><div class="ttdef"><b>Definition</b> timer.hpp:15</div></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>engine {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classengine_1_1_timer.html">   16</a></span><span class="keyword">class </span>ENGINE_EXPORT <a class="code hl_class" href="classengine_1_1_timer.html">Timer</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classengine_1_1_timer.html#a8829a5e9b60eef0f7b684d93061c287d">   23</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_timer.html#a8829a5e9b60eef0f7b684d93061c287d">Start</a>() -&gt; void;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classengine_1_1_timer.html#a1e4074fa24f0cc1814240c342f77c3fa">   30</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_timer.html#a1e4074fa24f0cc1814240c342f77c3fa">Reset</a>() -&gt; void;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classengine_1_1_timer.html#a3f433c3ea41e92ddaa4184a7577cf0fc">   39</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_timer.html#a3f433c3ea41e92ddaa4184a7577cf0fc">GetElapsedMilliseconds</a>() const -&gt; <span class="keywordtype">double</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classengine_1_1_timer.html#a41a0792d25635547b29f39f2a246fdfd">   48</a></span>    auto GetElapsedSeconds() const -&gt; <span class="keywordtype">double</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    [[nodiscard]] static</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="classengine_1_1_timer.html#a4c4d8181e5dc70561257c5760522c62e">   59</a></span>    auto GetTimestamp() -&gt; std::<span class="keywordtype">string</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>private:</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">bool</span> started_ {<span class="keyword">false</span>};</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    std::chrono::time_point&lt;std::chrono::steady_clock&gt; start_time_;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
+<div class="ttc" id="aclassengine_1_1_timer_html"><div class="ttname"><a href="classengine_1_1_timer.html">engine::Timer</a></div><div class="ttdoc">A timer class to measure elapsed time.</div><div class="ttdef"><b>Definition</b> timer.hpp:16</div></div>
 <div class="ttc" id="aclassengine_1_1_timer_html_a1e4074fa24f0cc1814240c342f77c3fa"><div class="ttname"><a href="classengine_1_1_timer.html#a1e4074fa24f0cc1814240c342f77c3fa">engine::Timer::Reset</a></div><div class="ttdeci">auto Reset() -&gt; void</div><div class="ttdoc">Resets the timer.</div></div>
 <div class="ttc" id="aclassengine_1_1_timer_html_a3f433c3ea41e92ddaa4184a7577cf0fc"><div class="ttname"><a href="classengine_1_1_timer.html#a3f433c3ea41e92ddaa4184a7577cf0fc">engine::Timer::GetElapsedMilliseconds</a></div><div class="ttdeci">auto GetElapsedMilliseconds() const -&gt; double</div><div class="ttdoc">Returns the elapsed time in milliseconds.</div></div>
 <div class="ttc" id="aclassengine_1_1_timer_html_a8829a5e9b60eef0f7b684d93061c287d"><div class="ttname"><a href="classengine_1_1_timer.html#a8829a5e9b60eef0f7b684d93061c287d">engine::Timer::Start</a></div><div class="ttdeci">auto Start() -&gt; void</div><div class="ttdoc">Starts the timer.</div></div>

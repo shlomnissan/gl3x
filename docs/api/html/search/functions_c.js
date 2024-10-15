@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['remove_0',['Remove',['../classengine_1_1_node.html#acc95653ab947bae00e6d2dde34587f68',1,'engine::Node']]],
-  ['reset_1',['Reset',['../classengine_1_1_timer.html#a1e4074fa24f0cc1814240c342f77c3fa',1,'engine::Timer']]],
-  ['rotate_2',['Rotate',['../classengine_1_1_transform.html#ac86469083d3bb253d596d7827f67aa5b',1,'engine::Transform']]],
-  ['rotatex_3',['RotateX',['../classengine_1_1_node.html#afb8f0765aad8e4d1d35855c356ff3349',1,'engine::Node']]],
-  ['rotatey_4',['RotateY',['../classengine_1_1_node.html#a7ec977a0817184950a90e451eb2e4e16',1,'engine::Node']]],
-  ['rotatez_5',['RotateZ',['../classengine_1_1_node.html#afd00dd25c4b5757f7d02c73128a48540',1,'engine::Node']]]
+  ['operator_28_29_0',['operator()',['../classengine_1_1_matrix3.html#ad9f1b2dea1194ca7024c758f72e9fad9',1,'engine::Matrix3::operator()()'],['../classengine_1_1_matrix4.html#a09b5e9036e2d220277c4e3297d7da6f2',1,'engine::Matrix4::operator()(int i, int j)'],['../classengine_1_1_matrix4.html#ae86a476558c84ccce5cb80ce1f4f1b7f',1,'engine::Matrix4::operator()(int i, int j) const'],['../classengine_1_1_matrix3.html#a1a8c60682ab3c85c6cca386e6321028d',1,'engine::Matrix3::operator()()']]],
+  ['operator_2a_3d_1',['operator*=',['../classengine_1_1_vector3.html#a497ee38a3811fd2fe7362293fc2706a9',1,'engine::Vector3::operator*=()'],['../classengine_1_1_vector4.html#aa2815f26064c7550c436cc9fe66bd7f8',1,'engine::Vector4::operator*=()']]],
+  ['operator_3d_2',['operator=',['../classengine_1_1_color.html#a87dd4db440190096cda80d2297e5f13c',1,'engine::Color']]],
+  ['operator_5b_5d_3',['operator[]',['../classengine_1_1_vector4.html#aecd3711b26e0ffd63ab3289aa85fed80',1,'engine::Vector4::operator[](int i) const'],['../classengine_1_1_vector4.html#aca2d6cc7d8e8229319c483cf5874c93a',1,'engine::Vector4::operator[](int i)'],['../classengine_1_1_vector3.html#a347d3aacfcdb1b7084382f086481372b',1,'engine::Vector3::operator[](int i) const'],['../classengine_1_1_vector3.html#aa8fbb3a32826dc838199e33e74151339',1,'engine::Vector3::operator[](int i)'],['../classengine_1_1_matrix4.html#abf9933c766d7432995094c9d305b617d',1,'engine::Matrix4::operator[](int j) const'],['../classengine_1_1_matrix4.html#a63479b24e14c83d1e98d9604ebd380d3',1,'engine::Matrix4::operator[](int j)'],['../classengine_1_1_matrix3.html#a09a60744261167dfdb9981710b4bd086',1,'engine::Matrix3::operator[](int j) const'],['../classengine_1_1_matrix3.html#a9cdf04cb6c0b29a7511600a6863b68d6',1,'engine::Matrix3::operator[](int j)'],['../classengine_1_1_color.html#a43e8cd5a6348064b6398511838e90000',1,'engine::Color::operator[](int i) const'],['../classengine_1_1_color.html#ab6608e6dadad18a302d5447bbe635694',1,'engine::Color::operator[](int i)']]]
 ];

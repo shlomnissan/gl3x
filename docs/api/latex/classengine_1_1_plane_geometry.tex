@@ -1,0 +1,117 @@
+\doxysection{engine\+::Plane\+Geometry Class Reference}
+\hypertarget{classengine_1_1_plane_geometry}{}\label{classengine_1_1_plane_geometry}\index{engine::PlaneGeometry@{engine::PlaneGeometry}}
+
+
+Class representing a plane geometry.  
+
+
+
+
+{\ttfamily \#include $<$plane\+\_\+geometry.\+hpp$>$}
+
+Inheritance diagram for engine\+::Plane\+Geometry\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classengine_1_1_plane_geometry}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structengine_1_1_plane_geometry_1_1_parameters}{Parameters}}
+\begin{DoxyCompactList}\small\item\em Structure containing parameters for the plane geometry. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classengine_1_1_plane_geometry_ab2f0c2396fd8f935249e431dbe0a28ef}{Plane\+Geometry}} (const \mbox{\hyperlink{structengine_1_1_plane_geometry_1_1_parameters}{Parameters}} \&params)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classengine_1_1_plane_geometry}{Plane\+Geometry} object with the given parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classengine_1_1_geometry}{engine\+::\+Geometry}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Geometry} ()=default
+\begin{DoxyCompactList}\small\item\em Default construction. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classengine_1_1_geometry_a2d6f3c3adfc4072d79470b50207550f5}{Geometry}} (const std\+::vector$<$ float $>$ \&vertex\+\_\+data, const std\+::vector$<$ unsigned int $>$ \&index\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classengine_1_1_geometry}{Geometry} object with given vertex and index data. \end{DoxyCompactList}\item 
+const auto \& \mbox{\hyperlink{classengine_1_1_geometry_a6dacd3281f422759ecba172c823873a4}{Vertex\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Gets the vertex data of the geometry. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_geometry_ad558c664e395f897620875483e2d7c85}{Vertex\+Count}} () const -\/$>$ int
+\begin{DoxyCompactList}\small\item\em Calculates the number of vertex elements. \end{DoxyCompactList}\item 
+const auto \& \mbox{\hyperlink{classengine_1_1_geometry_ae824dcaa14660ad103c62989df6b9775}{Index\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Gets the index data of the geometry. \end{DoxyCompactList}\item 
+const auto \& \mbox{\hyperlink{classengine_1_1_geometry_a4e7659923e1822251e5ad86ff6ab269e}{Attributes}} () const
+\begin{DoxyCompactList}\small\item\em Gets the attributes of the geometry. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_geometry_acaf70e6b98809fb82eb0686443ee54d2}{Stride}} () const -\/$>$ int
+\begin{DoxyCompactList}\small\item\em Calculates the stride based on existing attributes. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_geometry_a9c275355dba56950bbcd803ad9c5b0ab}{Set\+Attribute}} (const \mbox{\hyperlink{structengine_1_1_geometry_attribute}{Geometry\+Attribute}} \&attribute) -\/$>$ void
+\begin{DoxyCompactList}\small\item\em Sets a geometry attribute. \end{DoxyCompactList}\item 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Geometry} ()
+\begin{DoxyCompactList}\small\item\em Destructor calls the Dispose() method to clean up resources. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static auto \mbox{\hyperlink{classengine_1_1_plane_geometry_a43ea96055f3832a59fe2a83d4b35ef6a}{Create}} (const \mbox{\hyperlink{structengine_1_1_plane_geometry_1_1_parameters}{Parameters}} \&params)
+\begin{DoxyCompactList}\small\item\em Creates a shared pointer to a \doxylink{classengine_1_1_plane_geometry}{Plane\+Geometry} object with the specified parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classengine_1_1_geometry}{engine\+::\+Geometry}}}
+\begin{DoxyCompactItemize}
+\item 
+static auto \mbox{\hyperlink{classengine_1_1_geometry_ad8336db15ae700745d7220ceffe13ead}{Create}} (const std\+::vector$<$ float $>$ \&vertex\+\_\+data, const std\+::vector$<$ unsigned int $>$ \&index\+\_\+data=\{\})
+\begin{DoxyCompactList}\small\item\em Creates a shared pointer to a \doxylink{classengine_1_1_geometry}{Geometry} object with specified vertex and index data. \end{DoxyCompactList}\item 
+static auto \mbox{\hyperlink{classengine_1_1_geometry_aacd44c6aea7d9bb85074df9c6749a0e7}{Create}} ()
+\begin{DoxyCompactList}\small\item\em Creates a shared pointer to a default-\/constructed \doxylink{classengine_1_1_geometry}{Geometry} object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classengine_1_1_geometry}{engine\+::\+Geometry}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ float $>$ {\bfseries vertex\+\_\+data\+\_\+}
+\begin{DoxyCompactList}\small\item\em The vertex data of the geometry. \end{DoxyCompactList}\item 
+std\+::vector$<$ unsigned int $>$ {\bfseries index\+\_\+data\+\_\+}
+\begin{DoxyCompactList}\small\item\em The index data of the geometry. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structengine_1_1_geometry_attribute}{Geometry\+Attribute}} $>$ {\bfseries attributes\+\_\+}
+\begin{DoxyCompactList}\small\item\em The attributes of the geometry. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class representing a plane geometry. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classengine_1_1_plane_geometry_ab2f0c2396fd8f935249e431dbe0a28ef}\label{classengine_1_1_plane_geometry_ab2f0c2396fd8f935249e431dbe0a28ef} 
+\index{engine::PlaneGeometry@{engine::PlaneGeometry}!PlaneGeometry@{PlaneGeometry}}
+\index{PlaneGeometry@{PlaneGeometry}!engine::PlaneGeometry@{engine::PlaneGeometry}}
+\doxysubsubsection{\texorpdfstring{PlaneGeometry()}{PlaneGeometry()}}
+{\footnotesize\ttfamily engine\+::\+Plane\+Geometry\+::\+Plane\+Geometry (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structengine_1_1_plane_geometry_1_1_parameters}{Parameters}} \&}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a \doxylink{classengine_1_1_plane_geometry}{Plane\+Geometry} object with the given parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & \doxylink{structengine_1_1_plane_geometry_1_1_parameters}{Parameters} defining the size and segmentation of the plane. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_plane_geometry_a43ea96055f3832a59fe2a83d4b35ef6a}\label{classengine_1_1_plane_geometry_a43ea96055f3832a59fe2a83d4b35ef6a} 
+\index{engine::PlaneGeometry@{engine::PlaneGeometry}!Create@{Create}}
+\index{Create@{Create}!engine::PlaneGeometry@{engine::PlaneGeometry}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily static auto engine\+::\+Plane\+Geometry\+::\+Create (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structengine_1_1_plane_geometry_1_1_parameters}{Parameters}} \&}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Creates a shared pointer to a \doxylink{classengine_1_1_plane_geometry}{Plane\+Geometry} object with the specified parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & \doxylink{structengine_1_1_plane_geometry_1_1_parameters}{Parameters} defining the size and segmentation of the plane. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::shared\+\_\+ptr$<$\+Plane\+Geometry$>$ A shared pointer to the newly created object. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/admin/\+One\+Drive/\+Desktop/\+Projects/engine/include/engine/geometry/plane\+\_\+geometry.\+hpp\end{DoxyCompactItemize}

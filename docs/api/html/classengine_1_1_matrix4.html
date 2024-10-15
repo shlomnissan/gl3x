@@ -75,6 +75,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="#related">Related Symbols</a> &#124;
 <a href="classengine_1_1_matrix4-members.html">List of all members</a>  </div>
@@ -115,19 +116,28 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abf9933c766d7432995094c9d305b617d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the column vector at index j (const version).  <br /></td></tr>
 <tr class="separator:abf9933c766d7432995094c9d305b617d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a620142f7e2cd6d6b2920f307222a8554"><td class="memItemLeft" align="right" valign="top">static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_matrix4.html#a620142f7e2cd6d6b2920f307222a8554">Identity</a> ()</td></tr>
+<tr class="memdesc:a620142f7e2cd6d6b2920f307222a8554"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an identity matrix.  <br /></td></tr>
+<tr class="separator:a620142f7e2cd6d6b2920f307222a8554"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a4e0a3b3e1542bafdbabbb033247087e6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_matrix4.html#a4e0a3b3e1542bafdbabbb033247087e6">operator==</a> (const <a class="el" href="classengine_1_1_matrix4.html">Matrix4</a> &amp;a, const <a class="el" href="classengine_1_1_matrix4.html">Matrix4</a> &amp;b)=default</td></tr>
 <tr class="memdesc:a4e0a3b3e1542bafdbabbb033247087e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if two matrices are equal, component-wise.  <br /></td></tr>
 <tr class="separator:a4e0a3b3e1542bafdbabbb033247087e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a1f1e2b1ec9497d04d81664868d47c7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_matrix4.html#a2a1f1e2b1ec9497d04d81664868d47c7">operator*</a> (const <a class="el" href="classengine_1_1_matrix4.html">Matrix4</a> &amp;a, const <a class="el" href="classengine_1_1_matrix4.html">Matrix4</a> &amp;b)</td></tr>
+<tr class="memdesc:a2a1f1e2b1ec9497d04d81664868d47c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplies two 4x4 matrices and returns the result.  <br /></td></tr>
+<tr class="separator:a2a1f1e2b1ec9497d04d81664868d47c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="related" name="related"></a>
 Related Symbols</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p>(Note that these are not member symbols.) </p>
 </td></tr>
-<tr class="memitem:a0983c7f2f4e57c0437b2326ba010a521"><td class="memItemLeft" align="right" valign="top">ENGINE_EXPORT auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_matrix4.html#a0983c7f2f4e57c0437b2326ba010a521">operator*</a> (const <a class="el" href="classengine_1_1_matrix4.html">Matrix4</a> &amp;a, const <a class="el" href="classengine_1_1_matrix4.html">Matrix4</a> &amp;b)</td></tr>
-<tr class="memdesc:a0983c7f2f4e57c0437b2326ba010a521"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplies two 4x4 matrices and returns the result.  <br /></td></tr>
-<tr class="separator:a0983c7f2f4e57c0437b2326ba010a521"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a530d318af7bacac1add2809ad0f8469a"><td class="memItemLeft" align="right" valign="top">ENGINE_EXPORT auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_matrix4.html#a530d318af7bacac1add2809ad0f8469a">Inverse</a> (const <a class="el" href="classengine_1_1_matrix4.html">Matrix4</a> &amp;m)</td></tr>
+<tr class="memdesc:a530d318af7bacac1add2809ad0f8469a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the inverse of a 4x4 matrix.  <br /></td></tr>
+<tr class="separator:a530d318af7bacac1add2809ad0f8469a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A 4x4 matrix class for mathematical operations. </p>
@@ -355,6 +365,34 @@ Related Symbols</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a620142f7e2cd6d6b2920f307222a8554" name="a620142f7e2cd6d6b2920f307222a8554"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a620142f7e2cd6d6b2920f307222a8554">&#9670;&#160;</a></span>Identity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static auto engine::Matrix4::Identity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates an identity matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>A <code><a class="el" href="classengine_1_1_matrix4.html" title="A 4x4 matrix class for mathematical operations.">Matrix4</a></code> object representing the 4x4 identity matrix. </dd></dl>
+
+</div>
+</div>
 <a id="a09b5e9036e2d220277c4e3297d7da6f2" name="a09b5e9036e2d220277c4e3297d7da6f2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a09b5e9036e2d220277c4e3297d7da6f2">&#9670;&#160;</a></span>operator()() <span class="overload">[1/2]</span></h2>
 
@@ -518,8 +556,8 @@ Related Symbols</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="a0983c7f2f4e57c0437b2326ba010a521" name="a0983c7f2f4e57c0437b2326ba010a521"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0983c7f2f4e57c0437b2326ba010a521">&#9670;&#160;</a></span>operator*()</h2>
+<a id="a530d318af7bacac1add2809ad0f8469a" name="a530d318af7bacac1add2809ad0f8469a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a530d318af7bacac1add2809ad0f8469a">&#9670;&#160;</a></span>Inverse()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -528,7 +566,42 @@ Related Symbols</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">ENGINE_EXPORT auto operator* </td>
+          <td class="memname">ENGINE_EXPORT auto Inverse </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1_matrix4.html">Matrix4</a> &amp;&#160;</td>
+          <td class="paramname"><em>m</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">related</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes the inverse of a 4x4 matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">m</td><td>The input 4x4 matrix whose inverse is to be computed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <code><a class="el" href="classengine_1_1_matrix4.html" title="A 4x4 matrix class for mathematical operations.">Matrix4</a></code> object that represents the inverse of the input matrix. </dd></dl>
+
+</div>
+</div>
+<a id="a2a1f1e2b1ec9497d04d81664868d47c7" name="a2a1f1e2b1ec9497d04d81664868d47c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a1f1e2b1ec9497d04d81664868d47c7">&#9670;&#160;</a></span>operator*</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto operator* </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classengine_1_1_matrix4.html">Matrix4</a> &amp;&#160;</td>
           <td class="paramname"><em>a</em>, </td>
@@ -547,7 +620,7 @@ Related Symbols</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">related</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

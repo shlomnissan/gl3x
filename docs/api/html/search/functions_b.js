@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['parent_0',['Parent',['../classengine_1_1_node.html#a2d9dbe0ea3a04c14f20e40ed1042ec37',1,'engine::Node']]]
+  ['normalize_0',['Normalize',['../classengine_1_1_vector3.html#ad42ec70caf73664dcfdd7c1dbc0f46a2',1,'engine::Vector3::Normalize()'],['../classengine_1_1_vector4.html#a420010874956647ba9ce32f1405351e9',1,'engine::Vector4::Normalize()']]]
 ];

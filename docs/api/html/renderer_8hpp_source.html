@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Engine: C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/temp/renderer.hpp Source File</title>
+<title>Engine: C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/core/renderer.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_a7f531b1c37460085cedd304cb8df01d.html">engine</a></li><li class="navelem"><a class="el" href="dir_3775a68caca212200bcde96023c1bad4.html">temp</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_a7f531b1c37460085cedd304cb8df01d.html">engine</a></li><li class="navelem"><a class="el" href="dir_7f643b58e2241519524527f42d96aecd.html">core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -82,77 +82,45 @@ $(function() {
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;engine_export.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;glad/glad.h&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;engine/math/color.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;engine/scene/camera.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;engine/scene/scene.hpp&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;engine/temp/shader.hpp&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;engine/temp/scene_vert.h&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;engine/temp/scene_frag.h&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;engine/temp/mesh.hpp&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;engine/temp/cube.h&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;engine/math/transformations.hpp&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;engine/math/projection.hpp&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;engine/math/matrix4.hpp&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;engine/scene/scene.hpp&quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span>engine {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structengine_1_1_renderer.html">   24</a></span><span class="keyword">struct </span>ENGINE_EXPORT <a class="code hl_struct" href="structengine_1_1_renderer.html">Renderer</a> {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_class" href="classengine_1_1_matrix4.html">Matrix4</a> camera_ = engine::look_at(</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        {0.0f, 0.0f, 1.0f},</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        {0.0f, 0.0f, 0.0f},</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        {0.0f, 1.0f, 0.0f}</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    );</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="classengine_1_1_shader.html">Shader</a> shader_ {{</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        {ShaderType::kVertexShader, _SHADER_scene_vert},</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        {ShaderType::kFragmentShader, _SHADER_scene_frag}</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }};</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>engine {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classengine_1_1_renderer.html">   18</a></span><span class="keyword">class </span>ENGINE_EXPORT <a class="code hl_class" href="classengine_1_1_renderer.html">Renderer</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structengine_1_1_renderer_1_1_parameters.html">   23</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structengine_1_1_renderer_1_1_parameters.html">Parameters</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structengine_1_1_renderer_1_1_parameters.html#ad26c02f74b7af937086981819ccee252">   24</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structengine_1_1_renderer_1_1_parameters.html#ad26c02f74b7af937086981819ccee252">width</a>;              </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structengine_1_1_renderer_1_1_parameters.html#a0802cfdf32fbf98700325fa17b0aa093">   25</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structengine_1_1_renderer_1_1_parameters.html#a0802cfdf32fbf98700325fa17b0aa093">height</a>;             </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="structengine_1_1_renderer_1_1_parameters.html#a8b37d828e5007c24b94d66816555816d">   26</a></span>        <a class="code hl_class" href="classengine_1_1_color.html">Color</a> clear_color = {}; </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    };</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classengine_1_1_renderer.html#a1ce96e6500df8a01909f63957e6c6180">   34</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classengine_1_1_renderer.html#a1ce96e6500df8a01909f63957e6c6180">Renderer</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structengine_1_1_renderer_1_1_parameters.html">Renderer::Parameters</a>&amp; params);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="classengine_1_1_mesh.html">Mesh</a> cube_ {cube_vertex_0, cube_index_0};</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_struct" href="structengine_1_1_renderer.html">Renderer</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> width, <span class="keyword">const</span> <span class="keywordtype">int</span> height) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        glEnable(GL_DEPTH_TEST);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        glViewport(0, 0, width, height);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keyword">auto</span> ratio = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(width) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(height);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        shader_.SetUniform(<span class="stringliteral">&quot;Projection&quot;</span>, engine::perspective(45.0f, ratio, 0.1f, 100.0f));</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">auto</span> drawCube(<span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_matrix4.html">engine::Matrix4</a> transform) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        shader_.SetUniform(<span class="stringliteral">&quot;ModelView&quot;</span>, camera_ * transform);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        cube_.Draw(shader_);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">auto</span> renderObject(<a class="code hl_class" href="classengine_1_1_node.html">Node</a>* <span class="keywordtype">object</span>) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> c : <span class="keywordtype">object</span>-&gt;Children()) {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            drawCube(c-&gt;GetWorldTransform());</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            renderObject(c.get());</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        }</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">auto</span> render(<a class="code hl_class" href="classengine_1_1_scene.html">Scene</a>&amp; scene) {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        glClearColor(0.0f, 0.0f, 0.5f, 1.0f);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        scene.<a class="code hl_function" href="classengine_1_1_node.html#a76351313db40aa928792ab505d85faae">UpdateTransforms</a>();</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        renderObject(&amp;scene);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
-<div class="ttc" id="aclassengine_1_1_matrix4_html"><div class="ttname"><a href="classengine_1_1_matrix4.html">engine::Matrix4</a></div><div class="ttdoc">A 4x4 matrix class for mathematical operations.</div><div class="ttdef"><b>Definition</b> matrix4.hpp:15</div></div>
-<div class="ttc" id="aclassengine_1_1_mesh_html"><div class="ttname"><a href="classengine_1_1_mesh.html">engine::Mesh</a></div><div class="ttdef"><b>Definition</b> mesh.hpp:12</div></div>
-<div class="ttc" id="aclassengine_1_1_node_html"><div class="ttname"><a href="classengine_1_1_node.html">engine::Node</a></div><div class="ttdoc">Represents a node in a scene graph.</div><div class="ttdef"><b>Definition</b> node.hpp:18</div></div>
-<div class="ttc" id="aclassengine_1_1_node_html_a76351313db40aa928792ab505d85faae"><div class="ttname"><a href="classengine_1_1_node.html#a76351313db40aa928792ab505d85faae">engine::Node::UpdateTransforms</a></div><div class="ttdeci">auto UpdateTransforms() -&gt; void</div><div class="ttdoc">Updates the node's world transform and propagates updates to children.</div></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classengine_1_1_renderer.html#afb838e80103c07daecf0be8327e43d57">   42</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_renderer.html#afb838e80103c07daecf0be8327e43d57">Render</a>(<a class="code hl_class" href="classengine_1_1_scene.html">Scene</a>* scene, <a class="code hl_class" href="classengine_1_1_camera.html">Camera</a>* camera) -&gt; void;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classengine_1_1_renderer.html#a429d2acdd3f2e8f583df5298259d8089">   47</a></span>    <a class="code hl_function" href="classengine_1_1_renderer.html#a429d2acdd3f2e8f583df5298259d8089">~Renderer</a>();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">class </span>Impl;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    std::unique_ptr&lt;Impl&gt; impl_ {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="ttc" id="aclassengine_1_1_camera_html"><div class="ttname"><a href="classengine_1_1_camera.html">engine::Camera</a></div><div class="ttdoc">Represents a camera in the scene.</div><div class="ttdef"><b>Definition</b> camera.hpp:14</div></div>
+<div class="ttc" id="aclassengine_1_1_color_html"><div class="ttname"><a href="classengine_1_1_color.html">engine::Color</a></div><div class="ttdoc">A color class representing RGBA color values.</div><div class="ttdef"><b>Definition</b> color.hpp:15</div></div>
+<div class="ttc" id="aclassengine_1_1_renderer_html"><div class="ttname"><a href="classengine_1_1_renderer.html">engine::Renderer</a></div><div class="ttdoc">Handles rendering of a scene using a specific camera.</div><div class="ttdef"><b>Definition</b> renderer.hpp:18</div></div>
+<div class="ttc" id="aclassengine_1_1_renderer_html_a1ce96e6500df8a01909f63957e6c6180"><div class="ttname"><a href="classengine_1_1_renderer.html#a1ce96e6500df8a01909f63957e6c6180">engine::Renderer::Renderer</a></div><div class="ttdeci">Renderer(const Renderer::Parameters &amp;params)</div><div class="ttdoc">Constructs a Renderer object.</div></div>
+<div class="ttc" id="aclassengine_1_1_renderer_html_a429d2acdd3f2e8f583df5298259d8089"><div class="ttname"><a href="classengine_1_1_renderer.html#a429d2acdd3f2e8f583df5298259d8089">engine::Renderer::~Renderer</a></div><div class="ttdeci">~Renderer()</div><div class="ttdoc">Destructor for the Renderer class.</div></div>
+<div class="ttc" id="aclassengine_1_1_renderer_html_afb838e80103c07daecf0be8327e43d57"><div class="ttname"><a href="classengine_1_1_renderer.html#afb838e80103c07daecf0be8327e43d57">engine::Renderer::Render</a></div><div class="ttdeci">auto Render(Scene *scene, Camera *camera) -&gt; void</div><div class="ttdoc">Renders a scene from the perspective of the given camera.</div></div>
 <div class="ttc" id="aclassengine_1_1_scene_html"><div class="ttname"><a href="classengine_1_1_scene.html">engine::Scene</a></div><div class="ttdoc">Represents the scene's root node.</div><div class="ttdef"><b>Definition</b> scene.hpp:14</div></div>
-<div class="ttc" id="aclassengine_1_1_shader_html"><div class="ttname"><a href="classengine_1_1_shader.html">engine::Shader</a></div><div class="ttdef"><b>Definition</b> shader.hpp:26</div></div>
-<div class="ttc" id="astructengine_1_1_renderer_html"><div class="ttname"><a href="structengine_1_1_renderer.html">engine::Renderer</a></div><div class="ttdef"><b>Definition</b> renderer.hpp:24</div></div>
+<div class="ttc" id="astructengine_1_1_renderer_1_1_parameters_html"><div class="ttname"><a href="structengine_1_1_renderer_1_1_parameters.html">engine::Renderer::Parameters</a></div><div class="ttdoc">Parameters used to initialize the renderer.</div><div class="ttdef"><b>Definition</b> renderer.hpp:23</div></div>
+<div class="ttc" id="astructengine_1_1_renderer_1_1_parameters_html_a0802cfdf32fbf98700325fa17b0aa093"><div class="ttname"><a href="structengine_1_1_renderer_1_1_parameters.html#a0802cfdf32fbf98700325fa17b0aa093">engine::Renderer::Parameters::height</a></div><div class="ttdeci">int height</div><div class="ttdoc">The height of the rendering viewport.</div><div class="ttdef"><b>Definition</b> renderer.hpp:25</div></div>
+<div class="ttc" id="astructengine_1_1_renderer_1_1_parameters_html_ad26c02f74b7af937086981819ccee252"><div class="ttname"><a href="structengine_1_1_renderer_1_1_parameters.html#ad26c02f74b7af937086981819ccee252">engine::Renderer::Parameters::width</a></div><div class="ttdeci">int width</div><div class="ttdoc">The width of the rendering viewport.</div><div class="ttdef"><b>Definition</b> renderer.hpp:24</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,0 +1,36 @@
+\doxysection{camera.\+hpp}
+\hypertarget{camera_8hpp_source}{}\label{camera_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/scene/camera.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/scene/camera.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Author:\ Shlomi\ Nissan\ (shlomi@betamark.com)}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine/math/matrix4.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}engine/scene/node.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classengine_1_1_camera}{Camera}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classengine_1_1_node}{Node}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_camera_a7ed90ac3f2596d3ba0ba3793402cc056}{GetProjectionMatrix}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classengine_1_1_camera_a54290291bfff434b9394c95c08bbdf0e}{projection\_transform\_}};\ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_camera_a3d8605ee7824955bae3eb990f27ec608}{GetViewMatrix}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classengine_1_1_camera_aa10050bbfe106d2efabf3f64b8fba167}{view\_transform\_}};\ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_camera_ac45a2350e196d80f6f193537373d3a47}{UpdateTransforms}}()\ -\/>\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classengine_1_1_camera_a559a87c46458f247557faf103ee11542}{\string~Camera}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classengine_1_1_camera_a4c1d0e2b5382d133e9c30addcca2361f}{near\_}};}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classengine_1_1_camera_aeebbe49e4a242abe94c58845b2dc6c5a}{far\_}};}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}\ \mbox{\hyperlink{classengine_1_1_camera_a54290291bfff434b9394c95c08bbdf0e}{projection\_transform\_}};}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}\ \mbox{\hyperlink{classengine_1_1_camera_aa10050bbfe106d2efabf3f64b8fba167}{view\_transform\_}};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_camera_a01428158de315afa964f6677ba0e0f5b}{UpdateProjectionTransform}}()\ -\/>\ \textcolor{keywordtype}{void}\ =\ 0;}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \}}
+
+\end{DoxyCode}

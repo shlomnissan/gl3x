@@ -29,16 +29,23 @@ auto \& \mbox{\hyperlink{classengine_1_1_matrix3_a9cdf04cb6c0b29a7511600a6863b68
 \begin{DoxyCompactList}\small\item\em Access the column vector at index j. \end{DoxyCompactList}\item 
 const auto \& \mbox{\hyperlink{classengine_1_1_matrix3_a09a60744261167dfdb9981710b4bd086}{operator\mbox{[}$\,$\mbox{]}}} (int j) const
 \begin{DoxyCompactList}\small\item\em Access the column vector at index j (const version). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static auto \mbox{\hyperlink{classengine_1_1_matrix3_abcebdfc47e148204b41ee86ea0c63148}{Identity}} ()
+\begin{DoxyCompactList}\small\item\em Creates an identity matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 bool \mbox{\hyperlink{classengine_1_1_matrix3_a715c332916475d9b9096cf4b2995afe8}{operator==}} (const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&a, const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&b)=default
-\begin{DoxyCompactList}\small\item\em Checks if two matrices are equal, component-\/wise. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Checks if two matrices are equal, component-\/wise. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classengine_1_1_matrix3_a8a0586458556bb2e9eda9bea85d2e962}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&a, const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&b)
+\begin{DoxyCompactList}\small\item\em Multiplies two 3x3 matrices and returns the result. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Related Symbols}
 (Note that these are not member symbols.) \begin{DoxyCompactItemize}
 \item 
-ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{classengine_1_1_matrix3_a14591447a78132374afbd75716af7dde}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&a, const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&b)
-\begin{DoxyCompactList}\small\item\em Multiplies two 3x3 matrices and returns the result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+ENGINE\+\_\+\+EXPORT auto \mbox{\hyperlink{classengine_1_1_matrix3_acf245091c74e8b3d5cda3af055e3c0ca}{Inverse}} (const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&m)
+\begin{DoxyCompactList}\small\item\em Computes the inverse of a 3x3 matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -117,6 +124,19 @@ Constructs a new \doxylink{classengine_1_1_matrix3}{Matrix3} object using three 
 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classengine_1_1_matrix3_abcebdfc47e148204b41ee86ea0c63148}\label{classengine_1_1_matrix3_abcebdfc47e148204b41ee86ea0c63148} 
+\index{engine::Matrix3@{engine::Matrix3}!Identity@{Identity}}
+\index{Identity@{Identity}!engine::Matrix3@{engine::Matrix3}}
+\doxysubsubsection{\texorpdfstring{Identity()}{Identity()}}
+{\footnotesize\ttfamily static auto engine\+::\+Matrix3\+::\+Identity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Creates an identity matrix. 
+
+\begin{DoxyReturn}{Returns}
+A {\ttfamily \doxylink{classengine_1_1_matrix3}{Matrix3}} object representing the 3x3 identity matrix. 
+\end{DoxyReturn}
 \Hypertarget{classengine_1_1_matrix3_a1a8c60682ab3c85c6cca386e6321028d}\label{classengine_1_1_matrix3_a1a8c60682ab3c85c6cca386e6321028d} 
 \index{engine::Matrix3@{engine::Matrix3}!operator()@{operator()}}
 \index{operator()@{operator()}!engine::Matrix3@{engine::Matrix3}}
@@ -196,11 +216,29 @@ const \doxylink{classengine_1_1_vector3}{Vector3}\& Const reference to the colum
 
 
 \doxysubsection{Friends And Related Symbol Documentation}
-\Hypertarget{classengine_1_1_matrix3_a14591447a78132374afbd75716af7dde}\label{classengine_1_1_matrix3_a14591447a78132374afbd75716af7dde} 
+\Hypertarget{classengine_1_1_matrix3_acf245091c74e8b3d5cda3af055e3c0ca}\label{classengine_1_1_matrix3_acf245091c74e8b3d5cda3af055e3c0ca} 
+\index{engine::Matrix3@{engine::Matrix3}!Inverse@{Inverse}}
+\index{Inverse@{Inverse}!engine::Matrix3@{engine::Matrix3}}
+\doxysubsubsection{\texorpdfstring{Inverse()}{Inverse()}}
+{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto Inverse (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [related]}}
+
+
+
+Computes the inverse of a 3x3 matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The input 3x3 matrix whose inverse is to be computed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A new {\ttfamily \doxylink{classengine_1_1_matrix3}{Matrix3}} object that represents the inverse of the input matrix. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_matrix3_a8a0586458556bb2e9eda9bea85d2e962}\label{classengine_1_1_matrix3_a8a0586458556bb2e9eda9bea85d2e962} 
 \index{engine::Matrix3@{engine::Matrix3}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
 \index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!engine::Matrix3@{engine::Matrix3}}
-\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}}
-{\footnotesize\ttfamily ENGINE\+\_\+\+EXPORT auto operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [related]}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}}{operator*}}
+{\footnotesize\ttfamily auto operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&}]{a,  }\item[{const \mbox{\hyperlink{classengine_1_1_matrix3}{Matrix3}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 

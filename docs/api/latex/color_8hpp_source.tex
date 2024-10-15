@@ -1,0 +1,60 @@
+\doxysection{color.\+hpp}
+\hypertarget{color_8hpp_source}{}\label{color_8hpp_source}\index{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/color.hpp@{C:/Users/admin/OneDrive/Desktop/Projects/engine/include/engine/math/color.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Betamark\ Pty\ Ltd.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Author:\ Shlomi\ Nissan\ (shlomi@betamark.com)}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_color}{Color}}\ \ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{float}\ r\ \{1.0f\};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{float}\ g\ \{1.0f\};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{float}\ b\ \{1.0f\};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{float}\ a\ \{1.0f\};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_color_aadd9be50abe3ab001b3e4bbdea0fce6a}{Color}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_color_af8f3adf29da31c711e785db1fab8c5bf}{Color}}(\textcolor{keywordtype}{float}\ r,\ \textcolor{keywordtype}{float}\ g,\ \textcolor{keywordtype}{float}\ b)}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ :\ r(r),\ g(g),\ b(b)\ \{\}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_color_acaa166e4f5bd7a8dfd978b105ab8e590}{Color}}(\textcolor{keywordtype}{float}\ r,\ \textcolor{keywordtype}{float}\ g,\ \textcolor{keywordtype}{float}\ b,\ \textcolor{keywordtype}{float}\ a)}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ :\ r(r),\ g(g),\ b(b),\ a(a)\ \{\}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_color_a84a490994de2a4795afae491adb061f2}{Color}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ hex)\ :}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ r(static\_cast<float>(hex\ >>\ 16\ \&\ 255)\ /\ 255.f),}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ g(static\_cast<float>(hex\ >>\ 8\ \&\ 255)\ /\ 255.f),}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ b(static\_cast<float>(hex\ \&\ 255)\ /\ 255.f)\ \{\}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00069\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{classengine_1_1_color_ab6608e6dadad18a302d5447bbe635694}{operator[]}}(\textcolor{keywordtype}{int}\ i)\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ assert(i\ >=\ 0\ \&\&\ i\ <\ 4);}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{float}*\textcolor{keyword}{>}(\textcolor{keyword}{this}))[i];}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00080\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{classengine_1_1_color_a43e8cd5a6348064b6398511838e90000}{operator[]}}(\textcolor{keywordtype}{int}\ i)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ assert(i\ >=\ 0\ \&\&\ i\ <\ 4);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{float}*\textcolor{keyword}{>}(\textcolor{keyword}{this}))[i];}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_color_a87dd4db440190096cda80d2297e5f13c}{operator=}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ hex)\ -\/>\ \mbox{\hyperlink{classengine_1_1_color}{Color}}\&\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ r\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(hex\ >>\ 16\ \&\ 255)\ /\ 255.f;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ g\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(hex\ >>\ 8\ \&\ 255)\ /\ 255.f;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ b\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(hex\ \&\ 255)\ /\ 255.f;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00106\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classengine_1_1_color_a654e37f5a07e177f89138d270ae1b56a}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_color}{Color}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classengine_1_1_color}{Color}}\&\ b)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \}}
+
+\end{DoxyCode}

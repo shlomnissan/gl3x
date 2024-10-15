@@ -11,64 +11,84 @@
 \DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}engine/math/matrix4.hpp"{}}}
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}engine/math/transform.hpp"{}}}
 \DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <memory>}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}core/identity.hpp"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
 \DoxyCodeLine{00014\ }
-\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_node}{Node}}\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_a89f8d4ceabb811cc62b6f390bcc01cf8}{Add}}(\textcolor{keyword}{const}\ std::shared\_ptr<Node>\&\ node)\ -\/>\ void;}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_acc95653ab947bae00e6d2dde34587f68}{Remove}}(\textcolor{keyword}{const}\ std::shared\_ptr<Node>\&\ node)\ -\/>\ void;}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00039\ \ \ \ \ [[nodiscard]]}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_a1a35e976f30f30d823b04aab5ccb10fc}{Children}}()\ const\ -\/>\ const\ std::vector<std::shared\_ptr<\mbox{\hyperlink{classengine_1_1_node}{Node}}>>\&;}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00047\ \ \ \ \ [[nodiscard]]}
-\DoxyCodeLine{00048\ \ \ \ \ auto\ Parent()\ const\ -\/>\ const\ \mbox{\hyperlink{classengine_1_1_node}{Node}}*;}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00055\ \ \ \ \ [[nodiscard]]}
-\DoxyCodeLine{00056\ \ \ \ \ auto\ ShouldUpdateChildren()\ const\ -\/>\ \textcolor{keywordtype}{bool};}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00063\ \ \ \ \ [[nodiscard]]}
-\DoxyCodeLine{00064\ \ \ \ \ auto\ ShouldUpdateTransform()\ const\ -\/>\ \textcolor{keywordtype}{bool};}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00069\ \ \ \ \ virtual\ auto\ UpdateTransforms()\ -\/>\ \textcolor{keywordtype}{void};}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00076\ \ \ \ \ [[nodiscard]]}
-\DoxyCodeLine{00077\ \ \ \ \ auto\ GetWorldTransform()\ const\ -\/>\ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}};}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00084\ \ \ \ \ auto\ Scale(\textcolor{keywordtype}{float}\ value)\ -\/>\ \textcolor{keywordtype}{void};}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00091\ \ \ \ \ auto\ RotateX(\textcolor{keywordtype}{float}\ angle)\ -\/>\ \textcolor{keywordtype}{void};}
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00098\ \ \ \ \ auto\ RotateY(\textcolor{keywordtype}{float}\ angle)\ -\/>\ \textcolor{keywordtype}{void};}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00105\ \ \ \ \ auto\ RotateZ(\textcolor{keywordtype}{float}\ angle)\ -\/>\ \textcolor{keywordtype}{void};}
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00112\ \ \ \ \ auto\ TranslateX(\textcolor{keywordtype}{float}\ distance)\ -\/>\ \textcolor{keywordtype}{void};}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00119\ \ \ \ \ auto\ TranslateY(\textcolor{keywordtype}{float}\ distance)\ -\/>\ \textcolor{keywordtype}{void};}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00126\ \ \ \ \ auto\ TranslateZ(\textcolor{keywordtype}{float}\ distance)\ -\/>\ \textcolor{keywordtype}{void};}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00133\ \ \ \ \ static\ auto\ Create()\ \{}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<Node>();}
-\DoxyCodeLine{00135\ \ \ \ \ \}}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00137\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{bool}\ update\_children\_\ \{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{00140\ }
-\DoxyCodeLine{00142\ \ \ \ \ Node*\ parent\_\ \{\textcolor{keyword}{nullptr}\};}
-\DoxyCodeLine{00143\ }
-\DoxyCodeLine{00145\ \ \ \ \ std::vector<std::shared\_ptr<Node>>\ children\_;}
-\DoxyCodeLine{00146\ }
-\DoxyCodeLine{00148\ \ \ \ \ Transform\ local\_transform\_;}
-\DoxyCodeLine{00149\ }
-\DoxyCodeLine{00151\ \ \ \ \ Matrix4\ world\_transform\_\ \{1.0f\};}
-\DoxyCodeLine{00152\ \};}
-\DoxyCodeLine{00153\ }
-\DoxyCodeLine{00154\ \}}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_node}{Node}}\ :\ \textcolor{keyword}{public}\ Identity\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_a89f8d4ceabb811cc62b6f390bcc01cf8}{Add}}(\textcolor{keyword}{const}\ std::shared\_ptr<Node>\&\ node)\ -\/>\ void;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_acc95653ab947bae00e6d2dde34587f68}{Remove}}(\textcolor{keyword}{const}\ std::shared\_ptr<Node>\&\ node)\ -\/>\ void;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00041\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_a1a35e976f30f30d823b04aab5ccb10fc}{Children}}()\ const\ -\/>\ const\ std::vector<std::shared\_ptr<\mbox{\hyperlink{classengine_1_1_node}{Node}}>>\&;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00049\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00050\ \ \ \ \ auto\ Parent()\ const\ -\/>\ const\ \mbox{\hyperlink{classengine_1_1_node}{Node}}*;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00057\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00058\ \ \ \ \ auto\ ShouldUpdateChildren()\ const\ -\/>\ \textcolor{keywordtype}{bool};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00065\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00066\ \ \ \ \ auto\ ShouldUpdateTransform()\ const\ -\/>\ \textcolor{keywordtype}{bool};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00071\ \ \ \ \ virtual\ auto\ UpdateTransforms()\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00078\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00079\ \ \ \ \ auto\ GetWorldTransform()\ const\ -\/>\ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00086\ \ \ \ \ auto\ Scale(\textcolor{keywordtype}{float}\ value)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00093\ \ \ \ \ auto\ RotateX(\textcolor{keywordtype}{float}\ angle)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00100\ \ \ \ \ auto\ RotateY(\textcolor{keywordtype}{float}\ angle)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00107\ \ \ \ \ auto\ RotateZ(\textcolor{keywordtype}{float}\ angle)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00114\ \ \ \ \ auto\ TranslateX(\textcolor{keywordtype}{float}\ distance)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00121\ \ \ \ \ auto\ TranslateY(\textcolor{keywordtype}{float}\ distance)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00128\ \ \ \ \ auto\ TranslateZ(\textcolor{keywordtype}{float}\ distance)\ -\/>\ \textcolor{keywordtype}{void};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00135\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00136\ \ \ \ \ static\ auto\ Create()\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<Node>();}
+\DoxyCodeLine{00138\ \ \ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{requires}\ std::is\_base\_of\_v<Node,\ T>}
+\DoxyCodeLine{00147\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_a2fade5b914583f5d9814f25b7ed8b61c}{Is}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }T*\textcolor{keyword}{>}(\textcolor{keyword}{this})\ !=\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{requires}\ std::is\_base\_of\_v<Node,\ T>}
+\DoxyCodeLine{00158\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_a1ba5ebb1b9ba4236683c09aac4b35d66}{As}}()\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{dynamic\_cast<}T*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{requires}\ std::is\_base\_of\_v<Node,\ T>}
+\DoxyCodeLine{00169\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_node_ac679a28bc7c025f3e49dc22635e5e26c}{As}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }T*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classengine_1_1_node_a185c290da533e3a82cb99479fbbd13be}{\string~Node}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordtype}{bool}\ update\_children\_\ \{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00183\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_node}{Node}}*\ parent\_\ \{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00186\ \ \ \ \ std::vector<std::shared\_ptr<Node>>\ children\_;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00189\ \ \ \ \ Transform\ local\_transform\_;}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00192\ \ \ \ \ Matrix4\ world\_transform\_\ \{1.0f\};}
+\DoxyCodeLine{00193\ \};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \}}
 
 \end{DoxyCode}

@@ -20,6 +20,11 @@ auto \mbox{\hyperlink{classengine_1_1_timer_a3f433c3ea41e92ddaa4184a7577cf0fc}{G
 \begin{DoxyCompactList}\small\item\em Returns the elapsed time in milliseconds. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{classengine_1_1_timer_a41a0792d25635547b29f39f2a246fdfd}{Get\+Elapsed\+Seconds}} () const -\/$>$ double
 \begin{DoxyCompactList}\small\item\em Returns the elapsed time in seconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static auto \mbox{\hyperlink{classengine_1_1_timer_a4c4d8181e5dc70561257c5760522c62e}{Get\+Timestamp}} () -\/$>$ std\+::string
+\begin{DoxyCompactList}\small\item\em Gets the current timestamp in a formatted string. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -51,6 +56,21 @@ Returns the elapsed time in seconds.
 
 \begin{DoxyReturn}{Returns}
 double The elapsed time in seconds, or -\/1 if the timer has not been started. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_timer_a4c4d8181e5dc70561257c5760522c62e}\label{classengine_1_1_timer_a4c4d8181e5dc70561257c5760522c62e} 
+\index{engine::Timer@{engine::Timer}!GetTimestamp@{GetTimestamp}}
+\index{GetTimestamp@{GetTimestamp}!engine::Timer@{engine::Timer}}
+\doxysubsubsection{\texorpdfstring{GetTimestamp()}{GetTimestamp()}}
+{\footnotesize\ttfamily static auto engine\+::\+Timer\+::\+Get\+Timestamp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) -\/$>$  std\+::string\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Gets the current timestamp in a formatted string. 
+
+This function retrieves the current time and formats it as a string in the format \"{}\+YYYY-\/\+MM-\/\+DD HH\+:\+MM\+:\+SS\"{}. The time is represented in UTC.
+
+\begin{DoxyReturn}{Returns}
+std\+::string The current timestamp as a formatted string. 
 \end{DoxyReturn}
 \Hypertarget{classengine_1_1_timer_a1e4074fa24f0cc1814240c342f77c3fa}\label{classengine_1_1_timer_a1e4074fa24f0cc1814240c342f77c3fa} 
 \index{engine::Timer@{engine::Timer}!Reset@{Reset}}

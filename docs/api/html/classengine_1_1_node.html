@@ -91,7 +91,11 @@ Inheritance diagram for engine::Node:</div>
  <div class="center">
   <img src="classengine_1_1_node.png" usemap="#engine::Node_map" alt=""/>
   <map id="engine::Node_map" name="engine::Node_map">
-<area href="classengine_1_1_scene.html" title="Represents the scene&#39;s root node." alt="engine::Scene" shape="rect" coords="0,56,92,80"/>
+<area href="classengine_1_1_camera.html" title="Represents a camera in the scene." alt="engine::Camera" shape="rect" coords="92,112,267,136"/>
+<area href="classengine_1_1_mesh.html" title="Class representing a mesh, which is a node in the scene with associated geometry and material." alt="engine::Mesh" shape="rect" coords="277,112,452,136"/>
+<area href="classengine_1_1_scene.html" title="Represents the scene&#39;s root node." alt="engine::Scene" shape="rect" coords="462,112,637,136"/>
+<area href="classengine_1_1_camera_orthographic.html" title="An orthographic camera class." alt="engine::CameraOrthographic" shape="rect" coords="0,168,175,192"/>
+<area href="classengine_1_1_camera_perspective.html" title="A perspective camera class." alt="engine::CameraPerspective" shape="rect" coords="185,168,360,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -115,9 +119,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9c6bd75b32ed47eecb7f157626bd7909"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a9c6bd75b32ed47eecb7f157626bd7909">ShouldUpdateTransform</a> () const -&gt; bool</td></tr>
 <tr class="memdesc:a9c6bd75b32ed47eecb7f157626bd7909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the node's transform should be updated.  <br /></td></tr>
 <tr class="separator:a9c6bd75b32ed47eecb7f157626bd7909"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57a0d2cecbe128cda0307d3b911b711e"><td class="memItemLeft" align="right" valign="top"><a id="a57a0d2cecbe128cda0307d3b911b711e" name="a57a0d2cecbe128cda0307d3b911b711e"></a>
-virtual auto&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateTransforms</b> () -&gt; void</td></tr>
-<tr class="memdesc:a57a0d2cecbe128cda0307d3b911b711e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the node's world transform and propagates updates to children. <br /></td></tr>
+<tr class="memitem:a57a0d2cecbe128cda0307d3b911b711e"><td class="memItemLeft" align="right" valign="top">virtual auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a57a0d2cecbe128cda0307d3b911b711e">UpdateTransforms</a> () -&gt; void</td></tr>
+<tr class="memdesc:a57a0d2cecbe128cda0307d3b911b711e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the node's world transform and propagates updates to children.  <br /></td></tr>
 <tr class="separator:a57a0d2cecbe128cda0307d3b911b711e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4861785da356b7356e5a2038c16c0ae2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a4861785da356b7356e5a2038c16c0ae2">GetWorldTransform</a> () const -&gt; <a class="el" href="classengine_1_1_matrix4.html">Matrix4</a></td></tr>
 <tr class="memdesc:a4861785da356b7356e5a2038c16c0ae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the world transform matrix of the node.  <br /></td></tr>
@@ -143,6 +146,25 @@ virtual auto&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateTransfo
 <tr class="memitem:a1b6c41ffd07dc653c4e6cebf7560d68a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a1b6c41ffd07dc653c4e6cebf7560d68a">TranslateZ</a> (float distance) -&gt; void</td></tr>
 <tr class="memdesc:a1b6c41ffd07dc653c4e6cebf7560d68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translates the node along the Z axis.  <br /></td></tr>
 <tr class="separator:a1b6c41ffd07dc653c4e6cebf7560d68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fade5b914583f5d9814f25b7ed8b61c"><td class="memTemplParams" colspan="2">template&lt;class T &gt; <br />
+requires std::is_base_of_v&lt;<a class="el" href="classengine_1_1_node.html">Node</a>, T&gt;</td></tr>
+<tr class="memitem:a2fade5b914583f5d9814f25b7ed8b61c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a2fade5b914583f5d9814f25b7ed8b61c">Is</a> () const</td></tr>
+<tr class="memdesc:a2fade5b914583f5d9814f25b7ed8b61c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the current node is of the specified type.  <br /></td></tr>
+<tr class="separator:a2fade5b914583f5d9814f25b7ed8b61c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ba5ebb1b9ba4236683c09aac4b35d66"><td class="memTemplParams" colspan="2">template&lt;class T &gt; <br />
+requires std::is_base_of_v&lt;<a class="el" href="classengine_1_1_node.html">Node</a>, T&gt;</td></tr>
+<tr class="memitem:a1ba5ebb1b9ba4236683c09aac4b35d66"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a1ba5ebb1b9ba4236683c09aac4b35d66">As</a> ()</td></tr>
+<tr class="memdesc:a1ba5ebb1b9ba4236683c09aac4b35d66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Casts the current node to the specified type.  <br /></td></tr>
+<tr class="separator:a1ba5ebb1b9ba4236683c09aac4b35d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac679a28bc7c025f3e49dc22635e5e26c"><td class="memTemplParams" colspan="2">template&lt;class T &gt; <br />
+requires std::is_base_of_v&lt;<a class="el" href="classengine_1_1_node.html">Node</a>, T&gt;</td></tr>
+<tr class="memitem:ac679a28bc7c025f3e49dc22635e5e26c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#ac679a28bc7c025f3e49dc22635e5e26c">As</a> () const</td></tr>
+<tr class="memdesc:ac679a28bc7c025f3e49dc22635e5e26c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Casts the current node to the specified type (const version).  <br /></td></tr>
+<tr class="separator:ac679a28bc7c025f3e49dc22635e5e26c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a185c290da533e3a82cb99479fbbd13be"><td class="memItemLeft" align="right" valign="top"><a id="a185c290da533e3a82cb99479fbbd13be" name="a185c290da533e3a82cb99479fbbd13be"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~Node</b> ()=default</td></tr>
+<tr class="memdesc:a185c290da533e3a82cb99479fbbd13be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor. <br /></td></tr>
+<tr class="separator:a185c290da533e3a82cb99479fbbd13be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -176,6 +198,80 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a1ba5ebb1b9ba4236683c09aac4b35d66" name="a1ba5ebb1b9ba4236683c09aac4b35d66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ba5ebb1b9ba4236683c09aac4b35d66">&#9670;&#160;</a></span>As() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; <br />
+requires std::is_base_of_v&lt;<a class="el" href="classengine_1_1_node.html">Node</a>, T&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto engine::Node::As </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Casts the current node to the specified type. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type to cast to, which must be derived from <a class="el" href="classengine_1_1_node.html" title="Represents a node in a scene graph.">Node</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the node cast to type T, or nullptr if the cast fails. </dd></dl>
+
+</div>
+</div>
+<a id="ac679a28bc7c025f3e49dc22635e5e26c" name="ac679a28bc7c025f3e49dc22635e5e26c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac679a28bc7c025f3e49dc22635e5e26c">&#9670;&#160;</a></span>As() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; <br />
+requires std::is_base_of_v&lt;<a class="el" href="classengine_1_1_node.html">Node</a>, T&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto engine::Node::As </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Casts the current node to the specified type (const version). </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type to cast to, which must be derived from <a class="el" href="classengine_1_1_node.html" title="Represents a node in a scene graph.">Node</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A constant pointer to the node cast to type T, or nullptr if the cast fails. </dd></dl>
 
 </div>
 </div>
@@ -244,6 +340,43 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Retrieves the world transform matrix of the node. </p>
 <dl class="section return"><dt>Returns</dt><dd>The world transform matrix. </dd></dl>
+
+</div>
+</div>
+<a id="a2fade5b914583f5d9814f25b7ed8b61c" name="a2fade5b914583f5d9814f25b7ed8b61c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fade5b914583f5d9814f25b7ed8b61c">&#9670;&#160;</a></span>Is()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; <br />
+requires std::is_base_of_v&lt;<a class="el" href="classengine_1_1_node.html">Node</a>, T&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto engine::Node::Is </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the current node is of the specified type. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type to check against, which must be derived from <a class="el" href="classengine_1_1_node.html" title="Represents a node in a scene graph.">Node</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the node is of type T, otherwise false. </dd></dl>
 
 </div>
 </div>
@@ -512,6 +645,35 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a57a0d2cecbe128cda0307d3b911b711e" name="a57a0d2cecbe128cda0307d3b911b711e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57a0d2cecbe128cda0307d3b911b711e">&#9670;&#160;</a></span>UpdateTransforms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual auto engine::Node::UpdateTransforms </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt;  void</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the node's world transform and propagates updates to children. </p>
+
+<p>Reimplemented in <a class="el" href="classengine_1_1_camera.html#ac45a2350e196d80f6f193537373d3a47">engine::Camera</a>.</p>
 
 </div>
 </div>

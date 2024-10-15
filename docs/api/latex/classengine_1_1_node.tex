@@ -12,7 +12,7 @@ Represents a node in a scene graph.
 Inheritance diagram for engine\+::Node\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classengine_1_1_node}
+\includegraphics[height=3.060109cm]{classengine_1_1_node}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
@@ -30,8 +30,7 @@ auto \mbox{\hyperlink{classengine_1_1_node_a77c5913cf8f7f22ff7409af6497d0bf9}{Sh
 \begin{DoxyCompactList}\small\item\em Checks if the node\textquotesingle{}s children should be updated. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{classengine_1_1_node_a9c6bd75b32ed47eecb7f157626bd7909}{Should\+Update\+Transform}} () const -\/$>$ bool
 \begin{DoxyCompactList}\small\item\em Determines if the node\textquotesingle{}s transform should be updated. \end{DoxyCompactList}\item 
-\Hypertarget{classengine_1_1_node_a57a0d2cecbe128cda0307d3b911b711e}\label{classengine_1_1_node_a57a0d2cecbe128cda0307d3b911b711e} 
-virtual auto {\bfseries Update\+Transforms} () -\/$>$ void
+virtual auto \mbox{\hyperlink{classengine_1_1_node_a57a0d2cecbe128cda0307d3b911b711e}{Update\+Transforms}} () -\/$>$ void
 \begin{DoxyCompactList}\small\item\em Updates the node\textquotesingle{}s world transform and propagates updates to children. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{classengine_1_1_node_a4861785da356b7356e5a2038c16c0ae2}{Get\+World\+Transform}} () const -\/$>$ \mbox{\hyperlink{classengine_1_1_matrix4}{Matrix4}}
 \begin{DoxyCompactList}\small\item\em Retrieves the world transform matrix of the node. \end{DoxyCompactList}\item 
@@ -48,7 +47,19 @@ auto \mbox{\hyperlink{classengine_1_1_node_aca866ac78a64b982966eac67aa2c469e}{Tr
 auto \mbox{\hyperlink{classengine_1_1_node_a2674b525ac33025ed9452619754d049a}{TranslateY}} (float distance) -\/$>$ void
 \begin{DoxyCompactList}\small\item\em Translates the node along the Y axis. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{classengine_1_1_node_a1b6c41ffd07dc653c4e6cebf7560d68a}{TranslateZ}} (float distance) -\/$>$ void
-\begin{DoxyCompactList}\small\item\em Translates the node along the Z axis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Translates the node along the Z axis. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{classengine_1_1_node}{Node}}, T$>$}\\auto \mbox{\hyperlink{classengine_1_1_node_a2fade5b914583f5d9814f25b7ed8b61c}{Is}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the current node is of the specified type. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{classengine_1_1_node}{Node}}, T$>$}\\auto \mbox{\hyperlink{classengine_1_1_node_a1ba5ebb1b9ba4236683c09aac4b35d66}{As}} ()
+\begin{DoxyCompactList}\small\item\em Casts the current node to the specified type. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{classengine_1_1_node}{Node}}, T$>$}\\auto \mbox{\hyperlink{classengine_1_1_node_ac679a28bc7c025f3e49dc22635e5e26c}{As}} () const
+\begin{DoxyCompactList}\small\item\em Casts the current node to the specified type (const version). \end{DoxyCompactList}\item 
+\Hypertarget{classengine_1_1_node_a185c290da533e3a82cb99479fbbd13be}\label{classengine_1_1_node_a185c290da533e3a82cb99479fbbd13be} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Node} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -75,6 +86,46 @@ Adds a child node to this node.
 {\em node} & A shared pointer to the node to add. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{classengine_1_1_node_a1ba5ebb1b9ba4236683c09aac4b35d66}\label{classengine_1_1_node_a1ba5ebb1b9ba4236683c09aac4b35d66} 
+\index{engine::Node@{engine::Node}!As@{As}}
+\index{As@{As}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{classengine_1_1_node}{Node}}, T$>$\\
+auto engine\+::\+Node\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Casts the current node to the specified type. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type to cast to, which must be derived from \doxylink{classengine_1_1_node}{Node}. \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the node cast to type T, or nullptr if the cast fails. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_node_ac679a28bc7c025f3e49dc22635e5e26c}\label{classengine_1_1_node_ac679a28bc7c025f3e49dc22635e5e26c} 
+\index{engine::Node@{engine::Node}!As@{As}}
+\index{As@{As}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{classengine_1_1_node}{Node}}, T$>$\\
+auto engine\+::\+Node\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Casts the current node to the specified type (const version). 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type to cast to, which must be derived from \doxylink{classengine_1_1_node}{Node}. \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+A constant pointer to the node cast to type T, or nullptr if the cast fails. 
+\end{DoxyReturn}
 \Hypertarget{classengine_1_1_node_a1a35e976f30f30d823b04aab5ccb10fc}\label{classengine_1_1_node_a1a35e976f30f30d823b04aab5ccb10fc} 
 \index{engine::Node@{engine::Node}!Children@{Children}}
 \index{Children@{Children}!engine::Node@{engine::Node}}
@@ -113,6 +164,26 @@ Retrieves the world transform matrix of the node.
 
 \begin{DoxyReturn}{Returns}
 The world transform matrix. 
+\end{DoxyReturn}
+\Hypertarget{classengine_1_1_node_a2fade5b914583f5d9814f25b7ed8b61c}\label{classengine_1_1_node_a2fade5b914583f5d9814f25b7ed8b61c} 
+\index{engine::Node@{engine::Node}!Is@{Is}}
+\index{Is@{Is}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{Is()}{Is()}}
+{\footnotesize\ttfamily template$<$class T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{classengine_1_1_node}{Node}}, T$>$\\
+auto engine\+::\+Node\+::\+Is (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the current node is of the specified type. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type to check against, which must be derived from \doxylink{classengine_1_1_node}{Node}. \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+True if the node is of type T, otherwise false. 
 \end{DoxyReturn}
 \Hypertarget{classengine_1_1_node_a2d9dbe0ea3a04c14f20e40ed1042ec37}\label{classengine_1_1_node_a2d9dbe0ea3a04c14f20e40ed1042ec37} 
 \index{engine::Node@{engine::Node}!Parent@{Parent}}
@@ -273,6 +344,20 @@ Translates the node along the Z axis.
 {\em distance} & The translation distance. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{classengine_1_1_node_a57a0d2cecbe128cda0307d3b911b711e}\label{classengine_1_1_node_a57a0d2cecbe128cda0307d3b911b711e} 
+\index{engine::Node@{engine::Node}!UpdateTransforms@{UpdateTransforms}}
+\index{UpdateTransforms@{UpdateTransforms}!engine::Node@{engine::Node}}
+\doxysubsubsection{\texorpdfstring{UpdateTransforms()}{UpdateTransforms()}}
+{\footnotesize\ttfamily virtual auto engine\+::\+Node\+::\+Update\+Transforms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) -\/$>$  void\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Updates the node\textquotesingle{}s world transform and propagates updates to children. 
+
+
+
+Reimplemented in \mbox{\hyperlink{classengine_1_1_camera_ac45a2350e196d80f6f193537373d3a47}{engine\+::\+Camera}}.
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

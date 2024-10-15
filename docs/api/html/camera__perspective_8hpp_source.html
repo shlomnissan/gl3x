@@ -83,36 +83,38 @@ $(function() {
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;engine_export.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;engine/math/utilities.hpp&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;scene/camera.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;engine/scene/camera.hpp&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>engine {</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classengine_1_1_camera_perspective.html">   20</a></span><span class="keyword">class </span>ENGINE_EXPORT <a class="code hl_class" href="classengine_1_1_camera_perspective.html">CameraPerspective</a> : <span class="keyword">public</span> Camera {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classengine_1_1_camera_perspective.html">   20</a></span><span class="keyword">class </span>ENGINE_EXPORT <a class="code hl_class" href="classengine_1_1_camera_perspective.html">CameraPerspective</a> : <span class="keyword">public</span> <a class="code hl_class" href="classengine_1_1_camera.html">Camera</a> {</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classengine_1_1_camera_perspective.html#a56b31cc4499efa2d1f077b90b98c747f">   33</a></span>    <a class="code hl_function" href="classengine_1_1_camera_perspective.html#a56b31cc4499efa2d1f077b90b98c747f">CameraPerspective</a>(<span class="keywordtype">float</span> fov, <span class="keywordtype">float</span> aspect, <span class="keywordtype">float</span> near, <span class="keywordtype">float</span> far);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classengine_1_1_camera_perspective.html#a51570ef5fb7e39c2a75c0b67033e4513">   44</a></span>    <span class="keyword">static</span> <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_camera_perspective.html#a51570ef5fb7e39c2a75c0b67033e4513">Create</a>(</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">float</span> fov = 1.047197551196598f, <span class="comment">// 60 degrees</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">float</span> aspect = 1.77f, <span class="comment">// 16:9</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">float</span> near = 0.1f,</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">float</span> far = 1000.0f</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    ) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> std::make_shared&lt;CameraPerspective&gt;(fov, aspect, near, far);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">float</span> fov_;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">float</span> aspect_;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">auto</span> UpdateProjectionTransform() -&gt; <span class="keywordtype">void</span> <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>};</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classengine_1_1_camera_perspective.html#aa127e24cfb6e988a99aa24d274de05c9">   45</a></span>    <span class="keyword">static</span> <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_camera_perspective.html#aa127e24cfb6e988a99aa24d274de05c9">Create</a>(</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">float</span> fov = 60.0f,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">float</span> aspect = 1.77f,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">float</span> near = 0.1f,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">float</span> far = 1000.0f</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    ) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">return</span> std::make_shared&lt;CameraPerspective&gt;(fov, aspect, near, far);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">float</span> fov_;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">float</span> aspect_;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">auto</span> UpdateProjectionTransform() -&gt; <span class="keywordtype">void</span> <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+<div class="ttc" id="aclassengine_1_1_camera_html"><div class="ttname"><a href="classengine_1_1_camera.html">engine::Camera</a></div><div class="ttdoc">Represents a camera in the scene.</div><div class="ttdef"><b>Definition</b> camera.hpp:14</div></div>
 <div class="ttc" id="aclassengine_1_1_camera_perspective_html"><div class="ttname"><a href="classengine_1_1_camera_perspective.html">engine::CameraPerspective</a></div><div class="ttdoc">A perspective camera class.</div><div class="ttdef"><b>Definition</b> camera_perspective.hpp:20</div></div>
-<div class="ttc" id="aclassengine_1_1_camera_perspective_html_a51570ef5fb7e39c2a75c0b67033e4513"><div class="ttname"><a href="classengine_1_1_camera_perspective.html#a51570ef5fb7e39c2a75c0b67033e4513">engine::CameraPerspective::Create</a></div><div class="ttdeci">static auto Create(float fov=1.047197551196598f, float aspect=1.77f, float near=0.1f, float far=1000.0f)</div><div class="ttdoc">Creates a new instance of the CameraPerspective class with default parameters.</div><div class="ttdef"><b>Definition</b> camera_perspective.hpp:44</div></div>
 <div class="ttc" id="aclassengine_1_1_camera_perspective_html_a56b31cc4499efa2d1f077b90b98c747f"><div class="ttname"><a href="classengine_1_1_camera_perspective.html#a56b31cc4499efa2d1f077b90b98c747f">engine::CameraPerspective::CameraPerspective</a></div><div class="ttdeci">CameraPerspective(float fov, float aspect, float near, float far)</div><div class="ttdoc">Constructs a CameraPerspective object.</div></div>
+<div class="ttc" id="aclassengine_1_1_camera_perspective_html_aa127e24cfb6e988a99aa24d274de05c9"><div class="ttname"><a href="classengine_1_1_camera_perspective.html#aa127e24cfb6e988a99aa24d274de05c9">engine::CameraPerspective::Create</a></div><div class="ttdeci">static auto Create(float fov=60.0f, float aspect=1.77f, float near=0.1f, float far=1000.0f)</div><div class="ttdoc">Creates a new instance of the CameraPerspective class with default parameters.</div><div class="ttdef"><b>Definition</b> camera_perspective.hpp:45</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -82,77 +82,120 @@ $(function() {
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;engine_export.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;vector3.hpp&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>engine {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html">   15</a></span><span class="keyword">class </span>ENGINE_EXPORT <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a0924c2030f1d5d4dc89f927b2ae72d10">   20</a></span>    <a class="code hl_function" href="classengine_1_1_matrix3.html#a0924c2030f1d5d4dc89f927b2ae72d10">Matrix3</a>();</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#ab67f786cff29997d47dc88fc746b71c6">   31</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classengine_1_1_matrix3.html#ab67f786cff29997d47dc88fc746b71c6">Matrix3</a>(<span class="keywordtype">float</span> value);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#aeb9645bf0178117d273ef73a88d1e878">   49</a></span>    <a class="code hl_function" href="classengine_1_1_matrix3.html#aeb9645bf0178117d273ef73a88d1e878">Matrix3</a>(</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">float</span> n00, <span class="keywordtype">float</span> n01, <span class="keywordtype">float</span> n02,</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordtype">float</span> n10, <span class="keywordtype">float</span> n11, <span class="keywordtype">float</span> n12,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordtype">float</span> n20, <span class="keywordtype">float</span> n21, <span class="keywordtype">float</span> n22</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    );</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a7a231145959b9b162a07c7f2a73e39bb">   62</a></span>    <a class="code hl_function" href="classengine_1_1_matrix3.html#a7a231145959b9b162a07c7f2a73e39bb">Matrix3</a>(</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_vector3.html">Vector3</a>&amp; a,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_vector3.html">Vector3</a>&amp; b,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_vector3.html">Vector3</a>&amp; c</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    );</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a1a8c60682ab3c85c6cca386e6321028d">   75</a></span>    <span class="keyword">auto</span>&amp; <a class="code hl_function" href="classengine_1_1_matrix3.html#a1a8c60682ab3c85c6cca386e6321028d">operator()</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">return</span> n[j][i];</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    }</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#ad9f1b2dea1194ca7024c758f72e9fad9">   87</a></span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="classengine_1_1_matrix3.html#ad9f1b2dea1194ca7024c758f72e9fad9">operator()</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">return</span> n[j][i];</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a9cdf04cb6c0b29a7511600a6863b68d6">   97</a></span>    <span class="keyword">auto</span>&amp; <a class="code hl_function" href="classengine_1_1_matrix3.html#a9cdf04cb6c0b29a7511600a6863b68d6">operator[]</a>(<span class="keywordtype">int</span> j) {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">return</span> (*<span class="keyword">reinterpret_cast&lt;</span><a class="code hl_class" href="classengine_1_1_vector3.html">Vector3</a>*<span class="keyword">&gt;</span>(n[j]));</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a09a60744261167dfdb9981710b4bd086">  108</a></span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="classengine_1_1_matrix3.html#a09a60744261167dfdb9981710b4bd086">operator[]</a>(<span class="keywordtype">int</span> j)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">return</span> (*<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="classengine_1_1_vector3.html">Vector3</a>*<span class="keyword">&gt;</span>(n[j]));</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    }</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordtype">float</span> n[3][3];</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a715c332916475d9b9096cf4b2995afe8">  123</a></span>    <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code hl_friend" href="classengine_1_1_matrix3.html#a715c332916475d9b9096cf4b2995afe8">operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a>&amp; a, <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a>&amp; b) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>};</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keyword">inline</span> ENGINE_EXPORT</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a14591447a78132374afbd75716af7dde">  137</a></span><span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_matrix3.html#a14591447a78132374afbd75716af7dde">operator*</a>(<span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a>&amp; a, <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a>&amp; b) {</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a> {</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>       a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0),</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>       a(0, 0) * b(0, 1) + a(0, 1) * b(1, 1) + a(0, 2) * b(2, 1),</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>       a(0, 0) * b(0, 2) + a(0, 1) * b(1, 2) + a(0, 2) * b(2, 2),</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>       a(1, 0) * b(0, 0) + a(1, 1) * b(1, 0) + a(1, 2) * b(2, 0),</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>       a(1, 0) * b(0, 1) + a(1, 1) * b(1, 1) + a(1, 2) * b(2, 1),</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>       a(1, 0) * b(0, 2) + a(1, 1) * b(1, 2) + a(1, 2) * b(2, 2),</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>       a(2, 0) * b(0, 0) + a(2, 1) * b(1, 0) + a(2, 2) * b(2, 0),</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>       a(2, 0) * b(0, 1) + a(2, 1) * b(1, 1) + a(2, 2) * b(2, 1),</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>       a(2, 0) * b(0, 2) + a(2, 1) * b(1, 2) + a(2, 2) * b(2, 2),</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    };</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>}</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
-<div class="ttc" id="aclassengine_1_1_matrix3_html"><div class="ttname"><a href="classengine_1_1_matrix3.html">engine::Matrix3</a></div><div class="ttdoc">A 3x3 matrix class for mathematical operations.</div><div class="ttdef"><b>Definition</b> matrix3.hpp:15</div></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;engine/math/vector3.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>engine {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html">   16</a></span><span class="keyword">class </span>ENGINE_EXPORT <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a0924c2030f1d5d4dc89f927b2ae72d10">   21</a></span>    <a class="code hl_function" href="classengine_1_1_matrix3.html#a0924c2030f1d5d4dc89f927b2ae72d10">Matrix3</a>();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#ab67f786cff29997d47dc88fc746b71c6">   32</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classengine_1_1_matrix3.html#ab67f786cff29997d47dc88fc746b71c6">Matrix3</a>(<span class="keywordtype">float</span> value);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#aeb9645bf0178117d273ef73a88d1e878">   50</a></span>    <a class="code hl_function" href="classengine_1_1_matrix3.html#aeb9645bf0178117d273ef73a88d1e878">Matrix3</a>(</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordtype">float</span> n00, <span class="keywordtype">float</span> n01, <span class="keywordtype">float</span> n02,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordtype">float</span> n10, <span class="keywordtype">float</span> n11, <span class="keywordtype">float</span> n12,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordtype">float</span> n20, <span class="keywordtype">float</span> n21, <span class="keywordtype">float</span> n22</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    );</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a7a231145959b9b162a07c7f2a73e39bb">   63</a></span>    <a class="code hl_function" href="classengine_1_1_matrix3.html#a7a231145959b9b162a07c7f2a73e39bb">Matrix3</a>(</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_vector3.html">Vector3</a>&amp; a,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_vector3.html">Vector3</a>&amp; b,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_vector3.html">Vector3</a>&amp; c</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    );</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#abcebdfc47e148204b41ee86ea0c63148">   75</a></span>    <span class="keyword">static</span> <span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_matrix3.html#abcebdfc47e148204b41ee86ea0c63148">Identity</a>() {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a> {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            1.0f, 0.0f, 0.0f,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            0.0f, 1.0f, 0.0f,</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            0.0f, 0.0f, 1.0f</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        };</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a1a8c60682ab3c85c6cca386e6321028d">   91</a></span>    <span class="keyword">auto</span>&amp; <a class="code hl_function" href="classengine_1_1_matrix3.html#a1a8c60682ab3c85c6cca386e6321028d">operator()</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j) {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">return</span> n[j][i];</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#ad9f1b2dea1194ca7024c758f72e9fad9">  104</a></span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="classengine_1_1_matrix3.html#ad9f1b2dea1194ca7024c758f72e9fad9">operator()</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">return</span> n[j][i];</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a9cdf04cb6c0b29a7511600a6863b68d6">  115</a></span>    <span class="keyword">auto</span>&amp; <a class="code hl_function" href="classengine_1_1_matrix3.html#a9cdf04cb6c0b29a7511600a6863b68d6">operator[]</a>(<span class="keywordtype">int</span> j) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">return</span> (*<span class="keyword">reinterpret_cast&lt;</span><a class="code hl_class" href="classengine_1_1_vector3.html">Vector3</a>*<span class="keyword">&gt;</span>(n[j].data()));</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a09a60744261167dfdb9981710b4bd086">  127</a></span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="classengine_1_1_matrix3.html#a09a60744261167dfdb9981710b4bd086">operator[]</a>(<span class="keywordtype">int</span> j)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">return</span> (*<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="classengine_1_1_vector3.html">Vector3</a>*<span class="keyword">&gt;</span>(n[j].data()));</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    std::array&lt;std::array&lt;float, 3&gt;, 3&gt; n;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>   [[nodiscard]]</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a715c332916475d9b9096cf4b2995afe8">  143</a></span>    <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code hl_friend" href="classengine_1_1_matrix3.html#a715c332916475d9b9096cf4b2995afe8">operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a>&amp; a, <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a>&amp; b) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    [[nodiscard]]</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#a8a0586458556bb2e9eda9bea85d2e962">  156</a></span>    <span class="keyword">friend</span> <span class="keyword">auto</span> <a class="code hl_friend" href="classengine_1_1_matrix3.html#a8a0586458556bb2e9eda9bea85d2e962">operator*</a>(<span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a>&amp; a, <span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a>&amp; b) {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a> {</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0),</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            a(0, 0) * b(0, 1) + a(0, 1) * b(1, 1) + a(0, 2) * b(2, 1),</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            a(0, 0) * b(0, 2) + a(0, 1) * b(1, 2) + a(0, 2) * b(2, 2),</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            a(1, 0) * b(0, 0) + a(1, 1) * b(1, 0) + a(1, 2) * b(2, 0),</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            a(1, 0) * b(0, 1) + a(1, 1) * b(1, 1) + a(1, 2) * b(2, 1),</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            a(1, 0) * b(0, 2) + a(1, 1) * b(1, 2) + a(1, 2) * b(2, 2),</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            a(2, 0) * b(0, 0) + a(2, 1) * b(1, 0) + a(2, 2) * b(2, 0),</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            a(2, 0) * b(0, 1) + a(2, 1) * b(1, 1) + a(2, 2) * b(2, 1),</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            a(2, 0) * b(0, 2) + a(2, 1) * b(1, 2) + a(2, 2) * b(2, 2),</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        };</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    }</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>};</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>[[nodiscard]] <span class="keyword">inline</span> ENGINE_EXPORT</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="keyword">auto</span> Determinant(<span class="keyword">const</span> Matrix3&amp; m) {</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">return</span> m(0, 0) * (m(1, 1) * m(2, 2) - m(1, 2) * m(2, 1))</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>         + m(0, 1) * (m(1, 2) * m(2, 0) - m(1, 0) * m(2, 2))</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>         + m(0, 2) * (m(1, 0) * m(2, 1) - m(1, 1) * m(2, 0));</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>}</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>[[nodiscard]] <span class="keyword">inline</span> ENGINE_EXPORT</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="classengine_1_1_matrix3.html#acf245091c74e8b3d5cda3af055e3c0ca">  192</a></span><span class="keyword">auto</span> <a class="code hl_function" href="classengine_1_1_matrix3.html#acf245091c74e8b3d5cda3af055e3c0ca">Inverse</a>(<span class="keyword">const</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a>&amp; m) {</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; a = m[0];</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; b = m[1];</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; c = m[2];</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keyword">auto</span> r0 = Cross(b, c);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="keyword">auto</span> r1 = Cross(c, a);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keyword">auto</span> r2 = Cross(a, b);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keyword">auto</span> inv_det = 1.0f / Dot(r2, c);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="classengine_1_1_matrix3.html">Matrix3</a> {</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        r0.x * inv_det, r0.y * inv_det, r0.z * inv_det,</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        r1.x * inv_det, r1.y * inv_det, r1.z * inv_det,</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        r2.x * inv_det, r2.y * inv_det, r2.z * inv_det</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    };</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>}</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>}</div>
+<div class="ttc" id="aclassengine_1_1_matrix3_html"><div class="ttname"><a href="classengine_1_1_matrix3.html">engine::Matrix3</a></div><div class="ttdoc">A 3x3 matrix class for mathematical operations.</div><div class="ttdef"><b>Definition</b> matrix3.hpp:16</div></div>
 <div class="ttc" id="aclassengine_1_1_matrix3_html_a0924c2030f1d5d4dc89f927b2ae72d10"><div class="ttname"><a href="classengine_1_1_matrix3.html#a0924c2030f1d5d4dc89f927b2ae72d10">engine::Matrix3::Matrix3</a></div><div class="ttdeci">Matrix3()</div><div class="ttdoc">Default constructor. Initializes the matrix to a zero matrix.</div></div>
-<div class="ttc" id="aclassengine_1_1_matrix3_html_a09a60744261167dfdb9981710b4bd086"><div class="ttname"><a href="classengine_1_1_matrix3.html#a09a60744261167dfdb9981710b4bd086">engine::Matrix3::operator[]</a></div><div class="ttdeci">const auto &amp; operator[](int j) const</div><div class="ttdoc">Access the column vector at index j (const version).</div><div class="ttdef"><b>Definition</b> matrix3.hpp:108</div></div>
-<div class="ttc" id="aclassengine_1_1_matrix3_html_a14591447a78132374afbd75716af7dde"><div class="ttname"><a href="classengine_1_1_matrix3.html#a14591447a78132374afbd75716af7dde">engine::Matrix3::operator*</a></div><div class="ttdeci">ENGINE_EXPORT auto operator*(const Matrix3 &amp;a, const Matrix3 &amp;b)</div><div class="ttdoc">Multiplies two 3x3 matrices and returns the result.</div><div class="ttdef"><b>Definition</b> matrix3.hpp:137</div></div>
-<div class="ttc" id="aclassengine_1_1_matrix3_html_a1a8c60682ab3c85c6cca386e6321028d"><div class="ttname"><a href="classengine_1_1_matrix3.html#a1a8c60682ab3c85c6cca386e6321028d">engine::Matrix3::operator()</a></div><div class="ttdeci">auto &amp; operator()(int i, int j)</div><div class="ttdoc">Access matrix element at (i, j) with row-major indexing.</div><div class="ttdef"><b>Definition</b> matrix3.hpp:75</div></div>
+<div class="ttc" id="aclassengine_1_1_matrix3_html_a09a60744261167dfdb9981710b4bd086"><div class="ttname"><a href="classengine_1_1_matrix3.html#a09a60744261167dfdb9981710b4bd086">engine::Matrix3::operator[]</a></div><div class="ttdeci">const auto &amp; operator[](int j) const</div><div class="ttdoc">Access the column vector at index j (const version).</div><div class="ttdef"><b>Definition</b> matrix3.hpp:127</div></div>
+<div class="ttc" id="aclassengine_1_1_matrix3_html_a1a8c60682ab3c85c6cca386e6321028d"><div class="ttname"><a href="classengine_1_1_matrix3.html#a1a8c60682ab3c85c6cca386e6321028d">engine::Matrix3::operator()</a></div><div class="ttdeci">auto &amp; operator()(int i, int j)</div><div class="ttdoc">Access matrix element at (i, j) with row-major indexing.</div><div class="ttdef"><b>Definition</b> matrix3.hpp:91</div></div>
 <div class="ttc" id="aclassengine_1_1_matrix3_html_a715c332916475d9b9096cf4b2995afe8"><div class="ttname"><a href="classengine_1_1_matrix3.html#a715c332916475d9b9096cf4b2995afe8">engine::Matrix3::operator==</a></div><div class="ttdeci">friend bool operator==(const Matrix3 &amp;a, const Matrix3 &amp;b)=default</div><div class="ttdoc">Checks if two matrices are equal, component-wise.</div></div>
 <div class="ttc" id="aclassengine_1_1_matrix3_html_a7a231145959b9b162a07c7f2a73e39bb"><div class="ttname"><a href="classengine_1_1_matrix3.html#a7a231145959b9b162a07c7f2a73e39bb">engine::Matrix3::Matrix3</a></div><div class="ttdeci">Matrix3(const Vector3 &amp;a, const Vector3 &amp;b, const Vector3 &amp;c)</div><div class="ttdoc">Constructs a new Matrix3 object using three Vector3 objects as columns.</div></div>
-<div class="ttc" id="aclassengine_1_1_matrix3_html_a9cdf04cb6c0b29a7511600a6863b68d6"><div class="ttname"><a href="classengine_1_1_matrix3.html#a9cdf04cb6c0b29a7511600a6863b68d6">engine::Matrix3::operator[]</a></div><div class="ttdeci">auto &amp; operator[](int j)</div><div class="ttdoc">Access the column vector at index j.</div><div class="ttdef"><b>Definition</b> matrix3.hpp:97</div></div>
+<div class="ttc" id="aclassengine_1_1_matrix3_html_a8a0586458556bb2e9eda9bea85d2e962"><div class="ttname"><a href="classengine_1_1_matrix3.html#a8a0586458556bb2e9eda9bea85d2e962">engine::Matrix3::operator*</a></div><div class="ttdeci">friend auto operator*(const Matrix3 &amp;a, const Matrix3 &amp;b)</div><div class="ttdoc">Multiplies two 3x3 matrices and returns the result.</div><div class="ttdef"><b>Definition</b> matrix3.hpp:156</div></div>
+<div class="ttc" id="aclassengine_1_1_matrix3_html_a9cdf04cb6c0b29a7511600a6863b68d6"><div class="ttname"><a href="classengine_1_1_matrix3.html#a9cdf04cb6c0b29a7511600a6863b68d6">engine::Matrix3::operator[]</a></div><div class="ttdeci">auto &amp; operator[](int j)</div><div class="ttdoc">Access the column vector at index j.</div><div class="ttdef"><b>Definition</b> matrix3.hpp:115</div></div>
 <div class="ttc" id="aclassengine_1_1_matrix3_html_ab67f786cff29997d47dc88fc746b71c6"><div class="ttname"><a href="classengine_1_1_matrix3.html#ab67f786cff29997d47dc88fc746b71c6">engine::Matrix3::Matrix3</a></div><div class="ttdeci">Matrix3(float value)</div><div class="ttdoc">Constructs a new Matrix3 object with the given value.</div></div>
-<div class="ttc" id="aclassengine_1_1_matrix3_html_ad9f1b2dea1194ca7024c758f72e9fad9"><div class="ttname"><a href="classengine_1_1_matrix3.html#ad9f1b2dea1194ca7024c758f72e9fad9">engine::Matrix3::operator()</a></div><div class="ttdeci">const auto &amp; operator()(int i, int j) const</div><div class="ttdoc">Access matrix element at (i, j) with row-major indexing (const version).</div><div class="ttdef"><b>Definition</b> matrix3.hpp:87</div></div>
+<div class="ttc" id="aclassengine_1_1_matrix3_html_abcebdfc47e148204b41ee86ea0c63148"><div class="ttname"><a href="classengine_1_1_matrix3.html#abcebdfc47e148204b41ee86ea0c63148">engine::Matrix3::Identity</a></div><div class="ttdeci">static auto Identity()</div><div class="ttdoc">Creates an identity matrix.</div><div class="ttdef"><b>Definition</b> matrix3.hpp:75</div></div>
+<div class="ttc" id="aclassengine_1_1_matrix3_html_acf245091c74e8b3d5cda3af055e3c0ca"><div class="ttname"><a href="classengine_1_1_matrix3.html#acf245091c74e8b3d5cda3af055e3c0ca">engine::Matrix3::Inverse</a></div><div class="ttdeci">ENGINE_EXPORT auto Inverse(const Matrix3 &amp;m)</div><div class="ttdoc">Computes the inverse of a 3x3 matrix.</div><div class="ttdef"><b>Definition</b> matrix3.hpp:192</div></div>
+<div class="ttc" id="aclassengine_1_1_matrix3_html_ad9f1b2dea1194ca7024c758f72e9fad9"><div class="ttname"><a href="classengine_1_1_matrix3.html#ad9f1b2dea1194ca7024c758f72e9fad9">engine::Matrix3::operator()</a></div><div class="ttdeci">const auto &amp; operator()(int i, int j) const</div><div class="ttdoc">Access matrix element at (i, j) with row-major indexing (const version).</div><div class="ttdef"><b>Definition</b> matrix3.hpp:104</div></div>
 <div class="ttc" id="aclassengine_1_1_matrix3_html_aeb9645bf0178117d273ef73a88d1e878"><div class="ttname"><a href="classengine_1_1_matrix3.html#aeb9645bf0178117d273ef73a88d1e878">engine::Matrix3::Matrix3</a></div><div class="ttdeci">Matrix3(float n00, float n01, float n02, float n10, float n11, float n12, float n20, float n21, float n22)</div><div class="ttdoc">Constructs a new Matrix3 object with the given elements.</div></div>
 <div class="ttc" id="aclassengine_1_1_vector3_html"><div class="ttname"><a href="classengine_1_1_vector3.html">engine::Vector3</a></div><div class="ttdoc">A 3D vector class for mathematical operations.</div><div class="ttdef"><b>Definition</b> vector3.hpp:15</div></div>
 </div><!-- fragment --></div><!-- contents -->

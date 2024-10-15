@@ -8,13 +8,13 @@
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00005\ }
 \DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}scene/camera.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}engine/scene/camera.hpp"{}}}
 \DoxyCodeLine{00008\ }
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <memory>}}
 \DoxyCodeLine{00010\ }
 \DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }engine\ \{}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_camera_orthographic}{CameraOrthographic}}\ :\ \textcolor{keyword}{public}\ Camera\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_camera_orthographic}{CameraOrthographic}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classengine_1_1_camera}{Camera}}\ \{}
 \DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classengine_1_1_camera_orthographic_a60ae1ca5cf7be83ffe68719c26e578f0}{CameraOrthographic}}(}
 \DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ left,}
@@ -25,28 +25,29 @@
 \DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ far}
 \DoxyCodeLine{00038\ \ \ \ \ );}
 \DoxyCodeLine{00039\ }
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_camera_orthographic_adca23470da738219fbaab7401e27ace5}{Create}}(}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ left\ =\ -\/1.0f,}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ right\ =\ 1.0f,}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ bottom\ =\ -\/1.0f,}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ top\ =\ 1.0f,}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ near\ =\ 0.1f,}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ far\ =\ 100.0f}
-\DoxyCodeLine{00058\ \ \ \ \ )\ \{}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<CameraOrthographic>(}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ left,\ right,\ bottom,\ top,\ near,\ far}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ );}
-\DoxyCodeLine{00062\ \ \ \ \ \}}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{float}\ left\_;}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{float}\ right\_;}
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{float}\ bottom\_;}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{float}\ top\_;}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{auto}\ UpdateProjectionTransform()\ -\/>\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00080\ \};}
-\DoxyCodeLine{00081\ }
-\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00051\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_camera_orthographic_adca23470da738219fbaab7401e27ace5}{Create}}(}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ left\ =\ -\/1.0f,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ right\ =\ 1.0f,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ bottom\ =\ -\/1.0f,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ top\ =\ 1.0f,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ near\ =\ 0.1f,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ far\ =\ 100.0f}
+\DoxyCodeLine{00059\ \ \ \ \ )\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<CameraOrthographic>(}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ left,\ right,\ bottom,\ top,\ near,\ far}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{float}\ left\_;}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{float}\ right\_;}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{float}\ bottom\_;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{float}\ top\_;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{auto}\ UpdateProjectionTransform()\ -\/>\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \}}
 
 \end{DoxyCode}

@@ -75,6 +75,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classengine_1_1_timer-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">engine::Timer Class Reference</div></div>
 </div><!--header-->
@@ -99,6 +100,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a41a0792d25635547b29f39f2a246fdfd"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_timer.html#a41a0792d25635547b29f39f2a246fdfd">GetElapsedSeconds</a> () const -&gt; double</td></tr>
 <tr class="memdesc:a41a0792d25635547b29f39f2a246fdfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the elapsed time in seconds.  <br /></td></tr>
 <tr class="separator:a41a0792d25635547b29f39f2a246fdfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a4c4d8181e5dc70561257c5760522c62e"><td class="memItemLeft" align="right" valign="top">static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_timer.html#a4c4d8181e5dc70561257c5760522c62e">GetTimestamp</a> () -&gt; std::string</td></tr>
+<tr class="memdesc:a4c4d8181e5dc70561257c5760522c62e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current timestamp in a formatted string.  <br /></td></tr>
+<tr class="separator:a4c4d8181e5dc70561257c5760522c62e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A timer class to measure elapsed time. </p>
@@ -140,6 +147,35 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the elapsed time in seconds. </p>
 <dl class="section return"><dt>Returns</dt><dd>double The elapsed time in seconds, or -1 if the timer has not been started. </dd></dl>
+
+</div>
+</div>
+<a id="a4c4d8181e5dc70561257c5760522c62e" name="a4c4d8181e5dc70561257c5760522c62e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c4d8181e5dc70561257c5760522c62e">&#9670;&#160;</a></span>GetTimestamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static auto engine::Timer::GetTimestamp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt;  std::string</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the current timestamp in a formatted string. </p>
+<p>This function retrieves the current time and formats it as a string in the format "YYYY-MM-DD HH:MM:SS". The time is represented in UTC.</p>
+<dl class="section return"><dt>Returns</dt><dd>std::string The current timestamp as a formatted string. </dd></dl>
 
 </div>
 </div>

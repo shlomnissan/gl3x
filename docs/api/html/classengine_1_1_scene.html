@@ -90,7 +90,7 @@ Inheritance diagram for engine::Scene:</div>
  <div class="center">
   <img src="classengine_1_1_scene.png" usemap="#engine::Scene_map" alt=""/>
   <map id="engine::Scene_map" name="engine::Scene_map">
-<area href="classengine_1_1_node.html" title="Represents a node in a scene graph." alt="engine::Node" shape="rect" coords="0,0,92,24"/>
+<area href="classengine_1_1_node.html" title="Represents a node in a scene graph." alt="engine::Node" shape="rect" coords="0,56,92,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -125,9 +125,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a9c6bd75b32ed47eecb7f157626bd7909 inherit pub_methods_classengine_1_1_node"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a9c6bd75b32ed47eecb7f157626bd7909">ShouldUpdateTransform</a> () const -&gt; bool</td></tr>
 <tr class="memdesc:a9c6bd75b32ed47eecb7f157626bd7909 inherit pub_methods_classengine_1_1_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the node's transform should be updated.  <br /></td></tr>
 <tr class="separator:a9c6bd75b32ed47eecb7f157626bd7909 inherit pub_methods_classengine_1_1_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57a0d2cecbe128cda0307d3b911b711e inherit pub_methods_classengine_1_1_node"><td class="memItemLeft" align="right" valign="top">
-virtual auto&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateTransforms</b> () -&gt; void</td></tr>
-<tr class="memdesc:a57a0d2cecbe128cda0307d3b911b711e inherit pub_methods_classengine_1_1_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the node's world transform and propagates updates to children. <br /></td></tr>
+<tr class="memitem:a57a0d2cecbe128cda0307d3b911b711e inherit pub_methods_classengine_1_1_node"><td class="memItemLeft" align="right" valign="top">virtual auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a57a0d2cecbe128cda0307d3b911b711e">UpdateTransforms</a> () -&gt; void</td></tr>
+<tr class="memdesc:a57a0d2cecbe128cda0307d3b911b711e inherit pub_methods_classengine_1_1_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the node's world transform and propagates updates to children.  <br /></td></tr>
 <tr class="separator:a57a0d2cecbe128cda0307d3b911b711e inherit pub_methods_classengine_1_1_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4861785da356b7356e5a2038c16c0ae2 inherit pub_methods_classengine_1_1_node"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a4861785da356b7356e5a2038c16c0ae2">GetWorldTransform</a> () const -&gt; <a class="el" href="classengine_1_1_matrix4.html">Matrix4</a></td></tr>
 <tr class="memdesc:a4861785da356b7356e5a2038c16c0ae2 inherit pub_methods_classengine_1_1_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the world transform matrix of the node.  <br /></td></tr>
@@ -153,6 +152,25 @@ virtual auto&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateTransfo
 <tr class="memitem:a1b6c41ffd07dc653c4e6cebf7560d68a inherit pub_methods_classengine_1_1_node"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a1b6c41ffd07dc653c4e6cebf7560d68a">TranslateZ</a> (float distance) -&gt; void</td></tr>
 <tr class="memdesc:a1b6c41ffd07dc653c4e6cebf7560d68a inherit pub_methods_classengine_1_1_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translates the node along the Z axis.  <br /></td></tr>
 <tr class="separator:a1b6c41ffd07dc653c4e6cebf7560d68a inherit pub_methods_classengine_1_1_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fade5b914583f5d9814f25b7ed8b61c inherit pub_methods_classengine_1_1_node"><td class="memTemplParams" colspan="2">template&lt;class T &gt; <br />
+requires std::is_base_of_v&lt;<a class="el" href="classengine_1_1_node.html">Node</a>, T&gt;</td></tr>
+<tr class="memitem:a2fade5b914583f5d9814f25b7ed8b61c inherit pub_methods_classengine_1_1_node"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a2fade5b914583f5d9814f25b7ed8b61c">Is</a> () const</td></tr>
+<tr class="memdesc:a2fade5b914583f5d9814f25b7ed8b61c inherit pub_methods_classengine_1_1_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the current node is of the specified type.  <br /></td></tr>
+<tr class="separator:a2fade5b914583f5d9814f25b7ed8b61c inherit pub_methods_classengine_1_1_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ba5ebb1b9ba4236683c09aac4b35d66 inherit pub_methods_classengine_1_1_node"><td class="memTemplParams" colspan="2">template&lt;class T &gt; <br />
+requires std::is_base_of_v&lt;<a class="el" href="classengine_1_1_node.html">Node</a>, T&gt;</td></tr>
+<tr class="memitem:a1ba5ebb1b9ba4236683c09aac4b35d66 inherit pub_methods_classengine_1_1_node"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#a1ba5ebb1b9ba4236683c09aac4b35d66">As</a> ()</td></tr>
+<tr class="memdesc:a1ba5ebb1b9ba4236683c09aac4b35d66 inherit pub_methods_classengine_1_1_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Casts the current node to the specified type.  <br /></td></tr>
+<tr class="separator:a1ba5ebb1b9ba4236683c09aac4b35d66 inherit pub_methods_classengine_1_1_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac679a28bc7c025f3e49dc22635e5e26c inherit pub_methods_classengine_1_1_node"><td class="memTemplParams" colspan="2">template&lt;class T &gt; <br />
+requires std::is_base_of_v&lt;<a class="el" href="classengine_1_1_node.html">Node</a>, T&gt;</td></tr>
+<tr class="memitem:ac679a28bc7c025f3e49dc22635e5e26c inherit pub_methods_classengine_1_1_node"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_node.html#ac679a28bc7c025f3e49dc22635e5e26c">As</a> () const</td></tr>
+<tr class="memdesc:ac679a28bc7c025f3e49dc22635e5e26c inherit pub_methods_classengine_1_1_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Casts the current node to the specified type (const version).  <br /></td></tr>
+<tr class="separator:ac679a28bc7c025f3e49dc22635e5e26c inherit pub_methods_classengine_1_1_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a185c290da533e3a82cb99479fbbd13be inherit pub_methods_classengine_1_1_node"><td class="memItemLeft" align="right" valign="top">
+virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~Node</b> ()=default</td></tr>
+<tr class="memdesc:a185c290da533e3a82cb99479fbbd13be inherit pub_methods_classengine_1_1_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor. <br /></td></tr>
+<tr class="separator:a185c290da533e3a82cb99479fbbd13be inherit pub_methods_classengine_1_1_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents the scene's root node. </p>

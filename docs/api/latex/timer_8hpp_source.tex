@@ -10,25 +10,31 @@
 \DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}engine\_export.h"{}}}
 \DoxyCodeLine{00007\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <chrono>}}
-\DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }engine\ \{}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_timer}{Timer}}\ \{}
-\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_timer_a8829a5e9b60eef0f7b684d93061c287d}{Start}}()\ -\/>\ void;}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_timer_a1e4074fa24f0cc1814240c342f77c3fa}{Reset}}()\ -\/>\ void;}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00037\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_timer_a3f433c3ea41e92ddaa4184a7577cf0fc}{GetElapsedMilliseconds}}()\ const\ -\/>\ \textcolor{keywordtype}{double};}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00045\ \ \ \ \ [[nodiscard]]\ auto\ GetElapsedSeconds()\ const\ -\/>\ \textcolor{keywordtype}{double};}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ private:}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ started\_\ \{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{00050\ }
-\DoxyCodeLine{00052\ \ \ \ \ std::chrono::time\_point<std::chrono::steady\_clock>\ start\_time\_;}
-\DoxyCodeLine{00053\ \};}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }engine\ \{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }ENGINE\_EXPORT\ \mbox{\hyperlink{classengine_1_1_timer}{Timer}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_timer_a8829a5e9b60eef0f7b684d93061c287d}{Start}}()\ -\/>\ void;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_timer_a1e4074fa24f0cc1814240c342f77c3fa}{Reset}}()\ -\/>\ void;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00038\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classengine_1_1_timer_a3f433c3ea41e92ddaa4184a7577cf0fc}{GetElapsedMilliseconds}}()\ const\ -\/>\ \textcolor{keywordtype}{double};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00047\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00048\ \ \ \ \ auto\ GetElapsedSeconds()\ const\ -\/>\ \textcolor{keywordtype}{double};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00058\ \ \ \ \ [[nodiscard]]\ static}
+\DoxyCodeLine{00059\ \ \ \ \ auto\ GetTimestamp()\ -\/>\ std::\textcolor{keywordtype}{string};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ private:}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{bool}\ started\_\ \{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00066\ \ \ \ \ std::chrono::time\_point<std::chrono::steady\_clock>\ start\_time\_;}
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \}}
 
 \end{DoxyCode}
