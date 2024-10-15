@@ -1,9 +1,9 @@
-#include <version>
+#version 320 es
+
+#pragma inject_attributes
 
 #pragma debug(on)
 #pragma optimize(off)
-
-#pragma inject_attributes
 
 precision mediump float;
 
