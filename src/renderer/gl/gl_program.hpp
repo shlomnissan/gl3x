@@ -30,20 +30,24 @@ public:
     GLProgram& operator=(const GLProgram&) = delete;
     GLProgram& operator=(GLProgram&&) = delete;
 
-    auto UpdateUniformsIfNeeded() -> void;
+    auto UpdateUniforms() -> void;
 
     auto Use() const -> void;
+
+    auto IsValid() const { return !has_errors_ && program_ > 0; }
 
     auto SetUniform(const std::string& name, const GLUniformValue& v) -> void;
 
     ~GLProgram();
 
 private:
-    GLuint program_ {0};
-
     std::unordered_map<std::string, GLUniform> uniforms_ {};
 
-    auto BindVertexAttributes() const -> void;
+    GLuint program_ {0};
+
+    bool has_errors_ {false};
+
+    auto BindVertexAttributeLocations() const -> void;
 
     auto GetUniformLoc(const std::string& name) const -> int;
 

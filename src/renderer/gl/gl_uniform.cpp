@@ -50,9 +50,12 @@ auto GLUniform::SetValueIfNeeded(const GLUniformValue& v) -> void {
     }
 }
 
-auto GLUniform::UploadUniformIfNeeded() -> void {
+auto GLUniform::UpdateUniformIfNeeded() -> void {
     if (!needs_update_) return;
 
+    // - This list is incomplete. Add new types as needed.
+    // - We use reinterpret_cast because multiple values can map onto the same GL type.
+    //   For instance, both Vector4 and Color map to GL_FLOAT_VEC4.
     switch (type_) {
         case GL_INT:
         case GL_SAMPLER_2D:

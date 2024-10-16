@@ -19,6 +19,7 @@ static const auto VertexAttributesMap = std::unordered_map<std::string, Geometry
 GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
     program_ = glCreateProgram();
 
+    auto compilation_error = false;
     for (const auto& shader_info : shaders) {
         auto shader_id = glCreateShader(GetShaderType(shader_info.type));
         auto data = shader_info.source.data();
@@ -27,6 +28,7 @@ GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
         glCompileShader(shader_id);
 
         if (!CheckShaderCompileStatus(shader_id)) {
+            compilation_error = true;
             break;
         }
 
@@ -34,16 +36,25 @@ GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
         glDeleteShader(shader_id);
     }
 
-    BindVertexAttributes();
+    if (compilation_error) {
+        has_errors_ = true;
+        return;
+    }
+
+    BindVertexAttributeLocations();
 
     glLinkProgram(program_);
-    CheckProgramLinkStatus();
+    if (!CheckProgramLinkStatus()) {
+        has_errors_ = true;
+        return;
+    }
+
     ProcessUniforms();
 }
 
-auto GLProgram::UpdateUniformsIfNeeded() -> void {
+auto GLProgram::UpdateUniforms() -> void {
     for (auto& [_, uniform] : uniforms_) {
-        uniform.UploadUniformIfNeeded();
+        uniform.UpdateUniformIfNeeded();
     }
 }
 
@@ -59,7 +70,7 @@ auto GLProgram::SetUniform(const std::string& name, const GLUniformValue& v) -> 
     uniforms_.at(name).SetValueIfNeeded(v);
 }
 
-auto GLProgram::BindVertexAttributes() const -> void {
+auto GLProgram::BindVertexAttributeLocations() const -> void {
     for (auto& [attr_name, attr_type] : VertexAttributesMap) {
         glBindAttribLocation(
             program_,
@@ -108,7 +119,7 @@ auto GLProgram::CheckShaderCompileStatus(GLuint shader_id) const -> bool {
     if (!success) {
         auto buffer = std::string {"", 512};
         glGetShaderInfoLog(shader_id, static_cast<int>(buffer.size()), nullptr, buffer.data());
-        Logger::Log(LogLevel::Error, "Shader compilation error", buffer);
+        Logger::Log(LogLevel::Error, "Shader compilation error {}", buffer);
     }
     return success;
 }
@@ -119,7 +130,7 @@ auto GLProgram::CheckProgramLinkStatus() const -> bool {
     if (!success) {
         auto buffer = std::string {"", 512};
         glGetProgramInfoLog(program_, static_cast<int>(buffer.size()), nullptr, buffer.data());
-        Logger::Log(LogLevel::Error, "Shader program link error", buffer);
+        Logger::Log(LogLevel::Error, "Shader program link error {}", buffer);
     }
     return success;
 }

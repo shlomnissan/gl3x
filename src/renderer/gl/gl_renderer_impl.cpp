@@ -26,17 +26,19 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
 
             auto attrs = ProgramAttributes {material};
             auto program = programs_.GetProgram(attrs);
-            if (!program) return;
-
-            program->Use();
-
-            SetUniforms(program, &attrs, mesh, camera);
-            program->UpdateUniformsIfNeeded();
+            if (!program->IsValid()) {
+                return;
+            }
 
             buffers_.Bind(geometry);
             if (attrs.texture_map) {
                 textures_.Bind(material->As<MaterialWithTextureMap>()->texture_map.get());
             }
+
+            SetUniforms(program, &attrs, mesh, camera);
+
+            program->Use();
+            program->UpdateUniforms();
 
             if (geometry->IndexData().empty()) {
                 glDrawArrays(GL_TRIANGLES, 0, geometry->VertexCount());

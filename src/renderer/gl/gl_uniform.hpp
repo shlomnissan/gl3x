@@ -24,7 +24,7 @@ public:
 
     auto SetValueIfNeeded(const GLUniformValue& v) -> void;
 
-    auto UploadUniformIfNeeded() -> void;
+    auto UpdateUniformIfNeeded() -> void;
 
     const auto& Value() const { return value_; }
 
