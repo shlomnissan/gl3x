@@ -26,30 +26,26 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
     glGenTextures(1, &state.texture_id);
     glBindTexture(GL_TEXTURE_2D, state.texture_id);
 
-    auto tex = dynamic_cast<Texture2D*>(texture);
+    auto texture_2d = dynamic_cast<Texture2D*>(texture);
 
-    glTexStorage2D(
+    // Using glTexImage2D instead of glTexStorage2D, as OpenGL 4.1
+    // (the latest supported version on macOS) doesn't support the latter.
+    glTexImage2D(
         GL_TEXTURE_2D,
-        1,
+        0,
         GL_RGB8,
-        tex->Image().Width(),
-        tex->Image().Height()
-    );
-
-    glTexSubImage2D(
-        GL_TEXTURE_2D,
-        0, 0, 0,
-        tex->Image().Width(),
-        tex->Image().Height(),
+        texture_2d->Image().Width(),
+        texture_2d->Image().Height(),
+        0,
         GL_RGB,
         GL_UNSIGNED_BYTE,
-        tex->Image().Data()
+        texture_2d->Image().Data()
     );
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
     if (glGetError() == GL_NO_ERROR) {
-        tex->Image().Dispose();
+        texture_2d->Image().Dispose();
     } else {
         Logger::Log(LogLevel::Error, "OpenGL error failed to generate texture");
     }

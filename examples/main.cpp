@@ -15,6 +15,10 @@ using namespace engine;
 
 auto main() -> int {
     auto window = Window {{.title = "Examples"}};
+    if (window.HasErrors()) {
+        return EXIT_FAILURE;
+    }
+
     auto renderer = Renderer({
         .width = window.Width(),
         .height = window.Height(),
@@ -49,5 +53,5 @@ auto main() -> int {
         renderer.Render(scene.get(), camera.get());
     });
 
-    return 0;
+    return EXIT_SUCCESS;
 }

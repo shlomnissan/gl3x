@@ -1,16 +1,25 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "window_impl.hpp"
+#include "core/window_impl.hpp"
 
 #include "core/logger.hpp"
 
+#include <string>
+
 namespace engine {
 
-Window::Impl::Impl(const Window::Parameters& params) {
-    if (!glfwInit()) return;
+static const char* error_description;
+static auto GLFWGetError() -> std::string {
+    glfwGetError(&error_description);
+    return error_description;
+}
 
-    initialized_ = true;
+Window::Impl::Impl(const Window::Parameters& params) {
+    if (!glfwInit()) {
+        Logger::Log(LogLevel::Error, "Failed to initialize GLFW {}", GLFWGetError());
+        return;
+    }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
@@ -31,14 +40,20 @@ Window::Impl::Impl(const Window::Parameters& params) {
         nullptr
     );
 
-    if (window_ == nullptr) return;
+    if (window_ == nullptr) {
+        Logger::Log(LogLevel::Error, "Failed to create a GLFW window {}", GLFWGetError());
+        return;
+    }
 
     glfwMakeContextCurrent(window_);
     if (!gladLoadGLES2Loader((GLADloadproc)glfwGetProcAddress)) {
+        Logger::Log(LogLevel::Error, "Failed to initialize GLAD using GLES2 loader");
         return;
     }
 
     LogContextInfo();
+    initialized_ = true;
+
     glfwSwapInterval(1);
     glfwGetFramebufferSize(window_, &buffer_width_, &buffer_height_);
 }
@@ -64,8 +79,12 @@ auto Window::Impl::LogContextInfo() const -> void {
 }
 
 Window::Impl::~Impl() {
-    if (window_) glfwDestroyWindow(window_);
-    if (initialized_) glfwTerminate();
+    if (window_) {
+        glfwDestroyWindow(window_);
+    }
+    if (initialized_) {
+        glfwTerminate();
+    }
 }
 
 }

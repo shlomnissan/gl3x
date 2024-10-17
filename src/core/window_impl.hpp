@@ -26,6 +26,8 @@ public:
 
     auto BufferHeight() const { return buffer_height_; }
 
+    auto HasErrors() const { return !initialized_; }
+
     ~Impl();
 
 private:

@@ -23,6 +23,8 @@ auto Window::AspectRatio() const -> float {
          static_cast<float>(impl_->BufferHeight());
 };
 
+auto Window::HasErrors() const -> bool { return impl_->HasErrors(); }
+
 Window::~Window() = default;
 
 }

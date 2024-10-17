@@ -70,6 +70,8 @@ public:
     */
     auto Start(const std::function<void(const double)>& tick) const -> void;
 
+    auto HasErrors() const -> bool;
+
 private:
     /// @brief Forward declaration of the implementation class.
     class Impl;
