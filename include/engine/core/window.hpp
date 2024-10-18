@@ -73,8 +73,18 @@ public:
     */
     auto Start(const OnTickCallback& tick) const -> void;
 
+    /**
+     * @brief Registers an event handler for window and input events.
+     *
+     * @param on_event The callback function to handle window events.
+    */
     auto OnEvent(const OnEventCallback& on_event) const -> void;
 
+    /**
+     * @brief Checks if there are any errors associated with the window.
+     *
+     * @return `true` if errors exist, `false` otherwise.
+     */
     auto HasErrors() const -> bool;
 
 private:
