@@ -12,6 +12,9 @@
 
 namespace engine {
 
+using OnTickCallback = std::function<void(const double)>;
+using OnEventCallback = std::function<void()>;
+
 /**
  * @brief General interface for creating and managing a window.
  */
@@ -68,7 +71,9 @@ public:
     * with the time elapsed since the last frame (delta time). The function
     * takes a single `double` argument representing the elapsed time in seconds.
     */
-    auto Start(const std::function<void(const double)>& tick) const -> void;
+    auto Start(const OnTickCallback& tick) const -> void;
+
+    auto OnEvent(const OnEventCallback& on_event) const -> void;
 
     auto HasErrors() const -> bool;
 

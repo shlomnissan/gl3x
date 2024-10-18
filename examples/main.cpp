@@ -46,6 +46,10 @@ auto main() -> int {
     scene->Add(flat_mesh);
     scene->Add(shiny_mesh);
 
+    window.OnEvent([&](){
+        // TODO: dispatch event based on type
+    });
+
     window.Start([&](const double){
         flat_mesh->RotateY(0.01f);
         shiny_mesh->RotateX(0.01f);

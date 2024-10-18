@@ -20,7 +20,9 @@ public:
     Impl& operator=(const Impl&) = delete;
     Impl& operator=(Impl&&) = delete;
 
-    auto Start(const std::function<void(const double)>& tick) -> void;
+    auto Start(const OnTickCallback& on_tick) -> void;
+
+    auto OnEvent(const OnEventCallback& on_event) { on_event_ = on_event; }
 
     auto BufferWidth() const { return buffer_width_; }
 
@@ -31,7 +33,10 @@ public:
     ~Impl();
 
 private:
+    OnEventCallback on_event_ {};
+
     bool initialized_ {false};
+
     int buffer_width_ {0};
     int buffer_height_ {0};
 

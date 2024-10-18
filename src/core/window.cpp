@@ -10,20 +10,30 @@ namespace engine {
 Window::Window(const Window::Parameters& params)
   : impl_(std::make_unique<Impl>(params)) {}
 
-auto Window::Start(const std::function<void(const double)>& tick) const -> void {
+auto Window::Start(const OnTickCallback& tick) const -> void {
     impl_->Start(tick);
 }
 
-auto Window::Width() const -> int { return impl_->BufferWidth(); }
+auto Window::OnEvent(const OnEventCallback& on_event) const -> void {
+    impl_->OnEvent(on_event);
+}
 
-auto Window::Height() const -> int { return impl_->BufferHeight(); }
+auto Window::Width() const -> int {
+    return impl_->BufferWidth();
+}
+
+auto Window::Height() const -> int {
+    return impl_->BufferHeight();
+}
 
 auto Window::AspectRatio() const -> float {
   return static_cast<float>(impl_->BufferWidth()) /
          static_cast<float>(impl_->BufferHeight());
 };
 
-auto Window::HasErrors() const -> bool { return impl_->HasErrors(); }
+auto Window::HasErrors() const -> bool {
+    return impl_->HasErrors();
+}
 
 Window::~Window() = default;
 

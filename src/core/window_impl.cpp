@@ -68,6 +68,9 @@ auto Window::Impl::Start(const std::function<void(const double)>& tick) -> void 
 
         glfwSwapBuffers(window_);
         glfwPollEvents();
+
+        // TODO: move to an event handler
+        if (on_event_) { on_event_(); }
     }
 }
 
