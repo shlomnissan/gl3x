@@ -5,6 +5,8 @@
 
 #include "engine_export.h"
 
+#include "core/event.hpp"
+
 #include <functional>
 #include <memory>
 #include <string>
@@ -13,7 +15,7 @@
 namespace engine {
 
 using OnTickCallback = std::function<void(const double)>;
-using OnEventCallback = std::function<void()>;
+using OnEventCallback = std::function<void(std::unique_ptr<Event> event)>;
 
 /**
  * @brief General interface for creating and managing a window.

@@ -3,8 +3,10 @@
 
 #include "core/window_impl.hpp"
 
+#include "core/event.hpp"
 #include "core/logger.hpp"
 
+#include <memory>
 #include <string>
 
 namespace engine {
@@ -100,13 +102,16 @@ static auto glfw_keyboard_event(GLFWwindow* window, int key, int scancode, int a
         return;
     }
 
-    // TODO: pass Engine::KeyboardEvent to callbacks
     if (action == GLFW_PRESS) {
-        callback();
+        callback(std::make_unique<KeyboardEvent>(
+            KeyboardEvent::Type::KeyPressed
+        ));
     }
 
     if (action == GLFW_RELEASE) {
-        callback();
+        callback(std::make_unique<KeyboardEvent>(
+            KeyboardEvent::Type::KeyReleased
+        ));
     }
 }
 
