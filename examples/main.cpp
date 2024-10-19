@@ -1,8 +1,8 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include <engine/core/window.hpp>
 #include <engine/core/renderer.hpp>
+#include <engine/core/window.hpp>
 #include <engine/geometry/box_geometry.hpp>
 #include <engine/materials/flat_material.hpp>
 #include <engine/materials/phong_material.hpp>

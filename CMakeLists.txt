@@ -10,11 +10,16 @@ set(CMAKE_VISIBILITY_INLINE_HIDDEN ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-option(BUILD_TESTS "build tests" ON)
-option(BUILD_EXAMPLES "build examples" ON)
+option(BUILD_DEMOS "build demos" ON)
 option(BUILD_DOCS "build documentation" OFF)
+option(BUILD_EXAMPLES "build examples" ON)
+option(BUILD_TESTS "build tests" ON)
 
 add_subdirectory(src)
+
+if (BUILD_DEMOS)
+    add_subdirectory(demos/dinosaur)
+endif()
 
 if (BUILD_TESTS)
     include(CTest)
