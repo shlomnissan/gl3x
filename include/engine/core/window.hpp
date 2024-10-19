@@ -87,10 +87,10 @@ public:
      */
     auto HasErrors() const -> bool;
 
-private:
     /// @brief Forward declaration of the implementation class.
     class Impl;
 
+private:
     /// @brief Pointer to the implementation class.
     std::unique_ptr<Impl> impl_ {nullptr};
 };

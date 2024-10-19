@@ -9,15 +9,12 @@
 
 namespace engine {
 
-static const char* error_description;
-static auto GLFWGetError() -> std::string {
-    glfwGetError(&error_description);
-    return error_description;
-}
+static auto glfw_get_error() -> std::string;
+static auto glfw_keyboard_event(GLFWwindow* window, int key, int scancode, int action, int mods) -> void;
 
 Window::Impl::Impl(const Window::Parameters& params) {
     if (!glfwInit()) {
-        Logger::Log(LogLevel::Error, "Failed to initialize GLFW {}", GLFWGetError());
+        Logger::Log(LogLevel::Error, "Failed to initialize GLFW {}", glfw_get_error());
         return;
     }
 
@@ -41,7 +38,7 @@ Window::Impl::Impl(const Window::Parameters& params) {
     );
 
     if (window_ == nullptr) {
-        Logger::Log(LogLevel::Error, "Failed to create a GLFW window {}", GLFWGetError());
+        Logger::Log(LogLevel::Error, "Failed to create a GLFW window {}", glfw_get_error());
         return;
     }
 
@@ -55,6 +52,8 @@ Window::Impl::Impl(const Window::Parameters& params) {
     initialized_ = true;
 
     glfwSwapInterval(1);
+    glfwSetWindowUserPointer(window_, this);
+    glfwSetKeyCallback(window_, glfw_keyboard_event);
     glfwGetFramebufferSize(window_, &buffer_width_, &buffer_height_);
 }
 
@@ -68,9 +67,6 @@ auto Window::Impl::Start(const std::function<void(const double)>& tick) -> void 
 
         glfwSwapBuffers(window_);
         glfwPollEvents();
-
-        // TODO: move to an event handler
-        if (on_event_) { on_event_(); }
     }
 }
 
@@ -87,6 +83,30 @@ Window::Impl::~Impl() {
     }
     if (initialized_) {
         glfwTerminate();
+    }
+}
+
+static auto glfw_get_error() -> std::string {
+    static const char* error_description;
+    glfwGetError(&error_description);
+    return error_description;
+}
+
+static auto glfw_keyboard_event(GLFWwindow* window, int key, int scancode, int action, int mods) -> void {
+    auto window_impl = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
+    auto& callback = window_impl->EventCallback();
+    if (!callback) {
+        Logger::Log(LogLevel::Error, "Unhandled event. Event callback missing");
+        return;
+    }
+
+    // TODO: pass Engine::KeyboardEvent to callbacks
+    if (action == GLFW_PRESS) {
+        callback();
+    }
+
+    if (action == GLFW_RELEASE) {
+        callback();
     }
 }
 
