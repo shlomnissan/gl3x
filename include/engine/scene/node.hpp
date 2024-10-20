@@ -46,24 +46,21 @@ public:
      *
      * @return A pointer to the parent node. If this node has no parent, the return value will be a null pointer.
      */
-    [[nodiscard]]
-    auto Parent() const -> const Node*;
+    [[nodiscard]] auto Parent() const -> const Node*;
 
     /**
      * @brief Checks if the node's children should be updated.
      *
      * @return True if children need updating, false otherwise.
      */
-    [[nodiscard]]
-    auto ShouldUpdateChildren() const -> bool;
+    [[nodiscard]] auto ShouldUpdateChildren() const -> bool;
 
     /**
      * @brief Determines if the node's transform should be updated.
      *
      * @return True if the transform is dirty or the parent requires an update.
      */
-    [[nodiscard]]
-    auto ShouldUpdateTransform() const -> bool;
+    [[nodiscard]] auto ShouldUpdateTransform() const -> bool;
 
     /**
      * @brief Updates the node's world transform and propagates updates to children.
@@ -75,8 +72,7 @@ public:
      *
      * @return The world transform matrix.
      */
-    [[nodiscard]]
-    auto GetWorldTransform() const -> Matrix4;
+    [[nodiscard]] auto GetWorldTransform() const -> Matrix4;
 
     /**
      * @brief Scales the node's local transformation.
@@ -132,8 +128,7 @@ public:
      *
      * @return A `std::shared_ptr<Node>` pointing to the newly created instance.
      */
-    [[nodiscard]]
-    static auto Create() {
+    [[nodiscard]] static auto Create() {
         return std::make_shared<Node>();
     }
 
@@ -176,12 +171,6 @@ public:
     virtual ~Node() = default;
 
 private:
-    /// @brief Flag indicating if children need updating.
-    bool update_children_ {false};
-
-    /// @brief Pointer to the parent node.
-    Node* parent_ {nullptr};
-
     /// @brief List of child nodes.
     std::vector<std::shared_ptr<Node>> children_;
 
@@ -190,6 +179,12 @@ private:
 
     /// @brief Node's world transform matrix.
     Matrix4 world_transform_ {1.0f};
+
+    /// @brief Pointer to the parent node.
+    Node* parent_ {nullptr};
+
+    /// @brief Flag indicating if children need updating.
+    bool update_children_ {false};
 };
 
 }
