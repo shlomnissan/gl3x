@@ -1,15 +1,16 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
+#include <memory>
+
 #include <engine/core/renderer.hpp>
 #include <engine/core/window.hpp>
 #include <engine/scene/camera_orthographic.hpp>
-#include <engine/scene/scene.hpp>
 
-using namespace engine;
+#include "game.hpp"
 
 auto main() -> int {
-    auto window = Window {{
+    auto window = engine::Window {{
         .width = 600,
         .height = 150,
         .title = "Dinosaur Runner!"
@@ -17,20 +18,21 @@ auto main() -> int {
 
     if (window.HasErrors()) return EXIT_FAILURE;
 
-    auto renderer = Renderer({
+    auto renderer = engine::Renderer({
         .width = window.Width(),
         .height = window.Height(),
         .clear_color = 0xF7F7F7
     });
 
-    auto scene = Scene::Create();
-    auto camera = CameraOrthographic::Create(
+    auto camera = engine::CameraOrthographic::Create(
         0.0f, static_cast<float>(window.Width()),
         0.0f, static_cast<float>(window.Height())
     );
+    camera->TranslateZ(2.0f);
 
-    window.Start([&renderer, &scene, &camera](const double){
-        renderer.Render(scene.get(), camera.get());
+    auto game = std::make_shared<Game>();
+    window.Start([&renderer, &game, &camera](const double){
+        renderer.Render(game.get(), camera.get());
     });
 
     return EXIT_SUCCESS;

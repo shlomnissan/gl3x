@@ -1,6 +1,14 @@
 # Copyright 2024 Betamark Pty Ltd. All rights reserved.
 # Author: Shlomi Nissan (shlomi@betamark.com)
 
-add_executable(dinosaur-runner src/main.cpp)
+set(SOURCE_CODE
+    "dinosaur.cpp"
+    "dinosaur.hpp"
+    "game.cpp"
+    "game.hpp"
+    "main.cpp"
+)
+
+add_executable(dinosaur-runner ${SOURCE_CODE})
 
 target_link_libraries(dinosaur-runner PRIVATE engine)
