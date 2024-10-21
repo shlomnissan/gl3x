@@ -5,8 +5,6 @@
 #pragma debug(on)
 #pragma optimize(off)
 
-precision mediump float;
-
 in vec3 aPosition;
 in vec3 aNormal;
 in vec2 aTexCoordinates;
