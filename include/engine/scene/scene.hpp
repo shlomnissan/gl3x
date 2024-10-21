@@ -13,7 +13,8 @@ namespace engine {
  */
 class ENGINE_EXPORT Scene : public Node {
 public:
-    Scene();
+    // TODO: add ProcessUpdate function (BFS top-bottom)
+    // TODO: add DispatchEvent function (DFS bottom-to-top)
 
     /**
      * @brief Creates a new instance of the Scene class.
