@@ -19,6 +19,9 @@ namespace engine {
  */
 class ENGINE_EXPORT Node : public Identity {
 public:
+    /// @brief The current level in the scene graph.
+    int level {0};
+
     /**
      * @brief Adds a child node to this node.
      *
@@ -185,6 +188,13 @@ private:
 
     /// @brief Flag indicating if children need updating.
     bool update_children_ {false};
+
+    /**
+     * @brief Updates the level of the specified child node.
+     *
+     * @param node A shared pointer to the child node whose level is to be updated.
+     */
+    auto UpdateLevel(const std::shared_ptr<Node>& node) -> void;
 };
 
 }

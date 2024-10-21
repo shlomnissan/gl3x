@@ -16,6 +16,7 @@ auto Node::Add(const std::shared_ptr<Node>& node) -> void {
     }
     node->parent_ = this;
     children_.emplace_back(node);
+    UpdateLevel(node);
 
     EventDispatcher::Get().Dispatch(
         "added_to_scene",
@@ -32,6 +33,7 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
         children_.erase(it);
     }
     node->parent_ = nullptr;
+    UpdateLevel(node);
 
     EventDispatcher::Get().Dispatch(
         "removed_from_scene",
@@ -40,6 +42,13 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
             node
         )
     );
+}
+
+auto Node::UpdateLevel(const std::shared_ptr<Node>& node) -> void {
+    node->level = node->parent_ == nullptr ? 0 : node->parent_->level + 1;
+    for (auto& child : node->children_) {
+        UpdateLevel(child);
+    }
 }
 
 auto Node::Children() const -> const std::vector<std::shared_ptr<Node>>& {
