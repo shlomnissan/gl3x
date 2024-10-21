@@ -5,11 +5,11 @@
 
 #include <memory>
 
-#include <engine/scene/node.hpp>
+#include <engine/scene/game_node.hpp>
 #include <engine/materials/flat_material.hpp>
 #include <engine/scene/mesh.hpp>
 
-class Dinosaur : public engine::Node {
+class Dinosaur : public engine::GameNode {
 public:
     Dinosaur();
 
