@@ -13,6 +13,8 @@ namespace engine {
  */
 class ENGINE_EXPORT Scene : public Node {
 public:
+    Scene();
+
     /**
      * @brief Creates a new instance of the Scene class.
      *

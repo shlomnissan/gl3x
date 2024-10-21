@@ -4,6 +4,8 @@
 #include "engine/scene/node.hpp"
 #include "engine/math/transformations.hpp"
 
+#include "core/event_dispatcher.hpp"
+
 #include <ranges>
 
 namespace engine {
@@ -14,6 +16,14 @@ auto Node::Add(const std::shared_ptr<Node>& node) -> void {
     }
     node->parent_ = this;
     children_.emplace_back(node);
+
+    EventDispatcher::Get().Dispatch(
+        "added_to_scene",
+        std::make_unique<SceneEvent>(
+            SceneEvent::Type::AddedToScene,
+            node
+        )
+    );
 }
 
 auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
@@ -22,6 +32,14 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
         children_.erase(it);
     }
     node->parent_ = nullptr;
+
+    EventDispatcher::Get().Dispatch(
+        "removed_from_scene",
+        std::make_unique<SceneEvent>(
+            SceneEvent::Type::RemovedFromScene,
+            node
+        )
+    );
 }
 
 auto Node::Children() const -> const std::vector<std::shared_ptr<Node>>& {

@@ -3,6 +3,9 @@
 
 #pragma once
 
+#include "engine/scene/node.hpp"
+
+#include <memory>
 #include <type_traits>
 
 namespace engine {
@@ -28,6 +31,18 @@ struct Event {
     virtual ~Event() = default;
 };
 
+struct SceneEvent : public Event {
+    enum class Type {
+        AddedToScene,
+        RemovedFromScene
+    };
+
+    std::shared_ptr<Node> node;
+    SceneEvent::Type type;
+
+    SceneEvent(Type type, std::shared_ptr<Node> node) : type(type), node(node) {}
+};
+
 struct KeyboardEvent : public Event {
     enum class Type {
         KeyPressed,
@@ -36,7 +51,7 @@ struct KeyboardEvent : public Event {
 
     KeyboardEvent::Type type;
 
-    explicit KeyboardEvent(KeyboardEvent::Type type) : type(type) {}
+    explicit KeyboardEvent(Type type) : type(type) {}
 };
 
 }
