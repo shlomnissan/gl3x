@@ -50,7 +50,9 @@ auto main() -> int {
         // TODO: dispatch event
     });
 
-    window.Start([&](const double){
+    window.Start([&](const double delta){
+        scene->ProcessUpdates(delta);
+
         flat_mesh->RotateY(0.01f);
         shiny_mesh->RotateX(0.01f);
 

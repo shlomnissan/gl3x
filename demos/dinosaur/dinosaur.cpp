@@ -14,3 +14,7 @@ Dinosaur::Dinosaur() : material_(engine::FlatMaterial::Create()) {
 
     Add(mesh_);
 }
+
+auto Dinosaur::Update(double delta) -> void {
+    // TODO: implement update function
+}

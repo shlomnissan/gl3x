@@ -52,6 +52,8 @@ public:
     // @brief Initializes a scene object.
     Scene();
 
+    auto ProcessUpdates(double delta) -> void;
+
     /**
      * @brief Creates a new instance of the Scene class.
      *

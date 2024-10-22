@@ -24,4 +24,14 @@ Scene::Scene() {
     });
 }
 
+auto Scene::ProcessUpdates(double delta) -> void {
+    for (auto& game_node : game_nodes_) {
+        if (auto node = game_node.ptr.lock()) {
+            node->As<GameNode>()->Update(delta);
+        } else {
+            // TODO: handle removed game nodes
+        }
+    }
+}
+
 }

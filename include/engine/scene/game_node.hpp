@@ -9,8 +9,7 @@ namespace engine {
 
 class GameNode : public Node {
 public:
-    // TODO: add a virtual Update function
-    // TODO: add a virtual OnKeyboardEvent function
+    virtual auto Update(double delta) -> void = 0;
 };
 
 }

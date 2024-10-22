@@ -31,7 +31,9 @@ auto main() -> int {
     camera->TranslateZ(2.0f);
 
     auto game = std::make_shared<Game>();
-    window.Start([&renderer, &game, &camera](const double){
+    window.Start([&renderer, &game, &camera](const double delta){
+        game->ProcessUpdates(delta);
+
         renderer.Render(game.get(), camera.get());
     });
 
