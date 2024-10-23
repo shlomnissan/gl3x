@@ -3,7 +3,7 @@
 
 #include "core/window_impl.hpp"
 
-#include "core/event.hpp"
+#include "core/event_dispatcher.hpp"
 #include "core/logger.hpp"
 
 #include <memory>
@@ -80,12 +80,8 @@ auto Window::Impl::LogContextInfo() const -> void {
 }
 
 Window::Impl::~Impl() {
-    if (window_) {
-        glfwDestroyWindow(window_);
-    }
-    if (initialized_) {
-        glfwTerminate();
-    }
+    if (window_) glfwDestroyWindow(window_);
+    if (initialized_) glfwTerminate();
 }
 
 static auto glfw_get_error() -> std::string {
@@ -95,23 +91,18 @@ static auto glfw_get_error() -> std::string {
 }
 
 static auto glfw_keyboard_event(GLFWwindow* window, int key, int scancode, int action, int mods) -> void {
-    auto window_impl = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
-    auto& callback = window_impl->EventCallback();
-    if (!callback) {
-        Logger::Log(LogLevel::Error, "Unhandled event. Event callback missing");
-        return;
-    }
-
     if (action == GLFW_PRESS) {
-        callback(std::make_unique<KeyboardEvent>(
-            KeyboardEvent::Type::KeyPressed
-        ));
+        EventDispatcher::Get().Dispatch(
+            "keyboard_event",
+            std::make_unique<KeyboardEvent>(KeyboardEvent::Type::KeyPressed)
+        );
     }
 
     if (action == GLFW_RELEASE) {
-        callback(std::make_unique<KeyboardEvent>(
-            KeyboardEvent::Type::KeyReleased
-        ));
+        EventDispatcher::Get().Dispatch(
+            "keyboard_event",
+            std::make_unique<KeyboardEvent>(KeyboardEvent::Type::KeyReleased)
+        );
     }
 }
 

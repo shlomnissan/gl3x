@@ -46,10 +46,6 @@ auto main() -> int {
     scene->Add(flat_mesh);
     scene->Add(shiny_mesh);
 
-    window.OnEvent([&scene](std::unique_ptr<Event>){
-        // TODO: dispatch event
-    });
-
     window.Start([&](const double delta){
         scene->ProcessUpdates(delta);
 

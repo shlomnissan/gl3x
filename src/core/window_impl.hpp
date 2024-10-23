@@ -22,21 +22,15 @@ public:
 
     auto Start(const OnTickCallback& on_tick) -> void;
 
-    auto OnEvent(const OnEventCallback& on_event) { event_callback_ = on_event; }
-
     auto BufferWidth() const { return buffer_width_; }
 
     auto BufferHeight() const { return buffer_height_; }
 
     auto HasErrors() const { return !initialized_; }
 
-    auto& EventCallback() const { return event_callback_; }
-
     ~Impl();
 
 private:
-    OnEventCallback event_callback_ {};
-
     bool initialized_ {false};
 
     int buffer_width_ {0};

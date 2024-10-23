@@ -43,6 +43,11 @@ private:
     std::set<GameNodeRef> game_nodes_;
 
     /**
+     * @brief Add event listeners to manage game nodes within the scene.
+     */
+    auto AddEventListeners() -> void;
+
+    /**
      * @brief Factory for game node references.
      *
      * @param game_node A `std::shared_ptr<Node>` pointing to the game node to reference.

@@ -14,25 +14,34 @@
 namespace engine {
 
 Scene::Scene() {
-    // When adding a game node to the scene, store it in a quick-access
-    // ordered-set based on the node's level. This allows for efficient
-    // invocation of updates and events without traversing the entire graph.
+    AddEventListeners();
+}
+
+auto Scene::AddEventListeners() -> void {
     EventDispatcher::Get().AddEventListener("added_to_scene", [&](Event* e) {
+        // When adding a game node to the scene, store it in an ordered set based
+        // on the node’s level for efficient invocation of updates and events
+        // without the need to traverse the entire graph.
         auto scene_event = e->As<SceneEvent>();
         if (scene_event->node->Is<GameNode>()) {
             game_nodes_.emplace(CreateGameNodeRef(scene_event->node));
         }
     });
 
-    // When removing a game node from the scene, check if it's stored in the
-    // quick-access ordered-set. If so, remove it.
     EventDispatcher::Get().AddEventListener("removed_from_scene", [&](Event* e) {
+        // Remove game nodes from the ordered set as they're removed from the scene.
         auto scene_event = e->As<SceneEvent>();
         if (scene_event->node->Is<GameNode>()) {
             auto node = CreateGameNodeRef(scene_event->node);
             auto it = game_nodes_.find(node);
             if (it != end(game_nodes_)) game_nodes_.erase(node);
         }
+    });
+
+    EventDispatcher::Get().AddEventListener("keyboard_event", [&](Event* e) {
+        // Dispatch keyboard events to game nodes hierarchically,
+        // starting from the lowest level in the graph and moving upwards.
+        // TODO: dispatch keyboard event
     });
 }
 
