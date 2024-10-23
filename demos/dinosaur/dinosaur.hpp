@@ -15,6 +15,8 @@ public:
 
     auto Update(double delta) -> void override;
 
+    auto OnKeyboardEvent(engine::KeyboardEvent* event) -> void override;
+
 private:
     std::shared_ptr<engine::Mesh> mesh_;
     std::shared_ptr<engine::FlatMaterial> material_;

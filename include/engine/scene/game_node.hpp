@@ -5,11 +5,15 @@
 
 #include "engine/scene/node.hpp"
 
+#include "core/event.hpp"
+
 namespace engine {
 
 class GameNode : public Node {
 public:
     virtual auto Update(double delta) -> void = 0;
+
+    virtual auto OnKeyboardEvent(KeyboardEvent* event) -> void = 0;
 };
 
 }

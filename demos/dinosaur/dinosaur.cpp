@@ -16,5 +16,9 @@ Dinosaur::Dinosaur() : material_(engine::FlatMaterial::Create()) {
 }
 
 auto Dinosaur::Update(double delta) -> void {
-    // TODO: implement update function
+    // TODO: handle updates
+}
+
+auto Dinosaur::OnKeyboardEvent(engine::KeyboardEvent* event) -> void {
+    // TODO: handle keyboard events
 }
