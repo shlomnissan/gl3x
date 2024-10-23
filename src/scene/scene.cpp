@@ -42,6 +42,7 @@ auto Scene::AddEventListeners() -> void {
         // Dispatch keyboard events to game nodes hierarchically,
         // starting from the lowest level in the graph and moving upwards.
         for (auto it = rbegin(game_nodes_); it != rend(game_nodes_); ++it) {
+            if (e->handled) return;
             if (auto node = it->ptr.lock()) {
                 node->As<GameNode>()->OnKeyboardEvent(e->As<KeyboardEvent>());
             }
