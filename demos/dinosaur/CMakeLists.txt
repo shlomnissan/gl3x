@@ -6,6 +6,8 @@ set(SOURCE_CODE
     "dinosaur.hpp"
     "game.cpp"
     "game.hpp"
+    "ground.cpp"
+    "ground.hpp"
     "main.cpp"
 )
 

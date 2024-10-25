@@ -46,11 +46,9 @@ auto main() -> int {
     scene->Add(flat_mesh);
     scene->Add(shiny_mesh);
 
-    window.OnEvent([&scene](std::unique_ptr<Event>){
-        // TODO: dispatch event
-    });
+    window.Start([&](const double delta){
+        scene->ProcessUpdates(delta);
 
-    window.Start([&](const double){
         flat_mesh->RotateY(0.01f);
         shiny_mesh->RotateX(0.01f);
 

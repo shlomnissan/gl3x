@@ -5,6 +5,7 @@
 #include "engine/math/transformations.hpp"
 
 #include "core/event_dispatcher.hpp"
+#include "core/logger.hpp"
 
 #include <ranges>
 
@@ -20,28 +21,28 @@ auto Node::Add(const std::shared_ptr<Node>& node) -> void {
 
     EventDispatcher::Get().Dispatch(
         "added_to_scene",
-        std::make_unique<SceneEvent>(
-            SceneEvent::Type::AddedToScene,
-            node
-        )
+        std::make_unique<SceneEvent>(SceneEvent::Type::AddedToScene, node)
     );
 }
 
 auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
     auto it = std::ranges::find(children_, node);
     if (it != children_.end()) {
+        EventDispatcher::Get().Dispatch(
+            "removed_from_scene",
+            std::make_unique<SceneEvent>(SceneEvent::Type::RemovedFromScene, node)
+        );
         children_.erase(it);
+        node->parent_ = nullptr;
+        UpdateLevel(node);
+    } else {
+        Logger::Log(
+            LogLevel::Warning,
+            "Attempting to remove a node that was not added to the graph {}",
+            *node
+        );
     }
-    node->parent_ = nullptr;
-    UpdateLevel(node);
 
-    EventDispatcher::Get().Dispatch(
-        "removed_from_scene",
-        std::make_unique<SceneEvent>(
-            SceneEvent::Type::RemovedFromScene,
-            node
-        )
-    );
 }
 
 auto Node::UpdateLevel(const std::shared_ptr<Node>& node) -> void {

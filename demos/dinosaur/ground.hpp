@@ -9,9 +9,9 @@
 #include <engine/materials/flat_material.hpp>
 #include <engine/scene/mesh.hpp>
 
-class Dinosaur : public engine::GameNode {
+class Ground : public engine::GameNode {
 public:
-    Dinosaur();
+    Ground();
 
     auto Update(double delta) -> void override;
 

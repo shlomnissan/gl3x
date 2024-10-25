@@ -8,6 +8,7 @@
 #include <engine/scene/scene.hpp>
 
 #include "dinosaur.hpp"
+#include "ground.hpp"
 
 class Game : public engine::Scene {
 public:
@@ -15,4 +16,5 @@ public:
 
 private:
     std::shared_ptr<Dinosaur> dinosaur_ = std::make_shared<Dinosaur>();
+    std::shared_ptr<Ground> ground_ = std::make_shared<Ground>();
 };

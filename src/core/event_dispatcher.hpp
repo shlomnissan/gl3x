@@ -24,7 +24,7 @@ public:
         return instance;
     }
 
-    auto AddEventListener(const std::string& name, EventListener listener) {
+    auto AddEventListener(const std::string& name, std::weak_ptr<EventListener> listener) {
         if (callbacks_.contains(name)) {
             callbacks_.at(name).emplace_back(listener);
         } else {
@@ -34,8 +34,11 @@ public:
 
     auto Dispatch(const std::string& name, std::unique_ptr<Event> event) {
         if (!callbacks_.contains(name)) return;
-        for (const auto& callback : callbacks_[name]) {
-            callback(event.get());
+        auto& callbacks = callbacks_[name];
+        for (auto i = 0; i < callbacks.size(); ++i) {
+            if (auto callback = callbacks[i].lock()) {
+                (*callback)(event.get());
+            }
         }
     }
 
@@ -43,7 +46,7 @@ private:
     EventDispatcher() = default;
     ~EventDispatcher() = default;
 
-    std::unordered_map<std::string, std::vector<EventListener>> callbacks_;
+    std::unordered_map<std::string, std::vector<std::weak_ptr<EventListener>>> callbacks_;
 };
 
 }

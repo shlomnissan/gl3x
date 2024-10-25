@@ -14,10 +14,6 @@ auto Window::Start(const OnTickCallback& tick) const -> void {
     impl_->Start(tick);
 }
 
-auto Window::OnEvent(const OnEventCallback& on_event) const -> void {
-    impl_->OnEvent(on_event);
-}
-
 auto Window::Width() const -> int {
     return impl_->BufferWidth();
 }
