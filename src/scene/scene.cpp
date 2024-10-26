@@ -49,7 +49,7 @@ auto Scene::AddEventListeners() -> void {
 
     EventDispatcher::Get().AddEventListener("added_to_scene", added_to_scene_listener_);
     EventDispatcher::Get().AddEventListener("removed_from_scene", removed_from_scene_listener_);
-    EventDispatcher::Get().AddEventListener("keyboard_event", keyboard_input_listener_);
+    EventDispatcher::Get().AddEventListener("keyboard_input", keyboard_input_listener_);
 }
 
 auto Scene::ProcessUpdates(double delta) -> void {

@@ -12,7 +12,7 @@
 namespace engine {
 
 static auto glfw_get_error() -> std::string;
-static auto glfw_keyboard_event(GLFWwindow* window, int key, int scancode, int action, int mods) -> void;
+static auto glfw_keyboard_input(GLFWwindow* window, int key, int scancode, int action, int mods) -> void;
 
 Window::Impl::Impl(const Window::Parameters& params) {
     if (!glfwInit()) {
@@ -55,7 +55,7 @@ Window::Impl::Impl(const Window::Parameters& params) {
 
     glfwSwapInterval(1);
     glfwSetWindowUserPointer(window_, this);
-    glfwSetKeyCallback(window_, glfw_keyboard_event);
+    glfwSetKeyCallback(window_, glfw_keyboard_input);
     glfwGetFramebufferSize(window_, &buffer_width_, &buffer_height_);
 }
 
@@ -90,17 +90,17 @@ static auto glfw_get_error() -> std::string {
     return error_description;
 }
 
-static auto glfw_keyboard_event(const GLFWwindow* window, int key, int scancode, int action, int mods) -> void {
+static auto glfw_keyboard_input(GLFWwindow* window, int key, int scancode, int action, int mods) -> void {
     if (action == GLFW_PRESS) {
         EventDispatcher::Get().Dispatch(
-            "keyboard_event",
+            "keyboard_input",
             std::make_unique<KeyboardEvent>(KeyboardEvent::Type::KeyPressed)
         );
     }
 
     if (action == GLFW_RELEASE) {
         EventDispatcher::Get().Dispatch(
-            "keyboard_event",
+            "keyboard_input",
             std::make_unique<KeyboardEvent>(KeyboardEvent::Type::KeyReleased)
         );
     }
