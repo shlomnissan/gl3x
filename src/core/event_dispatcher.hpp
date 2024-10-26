@@ -29,18 +29,16 @@ public:
         if (callbacks_.contains(name)) {
             callbacks_.at(name).emplace_back(listener);
         } else {
-            callbacks_.emplace(name, std::vector{listener});
+            callbacks_.try_emplace(name, std::vector{listener});
         }
     }
 
     auto RemoveEventListener(const std::string& name, std::shared_ptr<EventListener> listener) {
-        auto removed_callbacks = 0;
+        auto removed_callbacks = 0UL;
         if (callbacks_.contains(name)) {
             auto& callbacks = callbacks_[name];
             removed_callbacks = std::erase_if(callbacks, [&listener](const auto& callback) {
-                if (auto c = callback.lock()) {
-                    return c == listener;
-                }
+                if (auto c = callback.lock()) return c == listener;
                 return false;
             });
         }
@@ -56,11 +54,13 @@ public:
     auto Dispatch(const std::string& name, std::unique_ptr<Event> event) {
         if (!callbacks_.contains(name)) return;
         auto& callbacks = callbacks_[name];
-        for (auto& callback : callbacks) {
-            if (const auto& c = callback.lock()) {
-                (*c)(event.get());
+        for (auto iter = begin(callbacks); iter != end(callbacks);) {
+            if (const auto& callback = iter->lock()) {
+                (*callback)(event.get());
+                iter++;
+            } else {
+                callbacks.erase(iter);
             }
-            // TODO: remove deleted callback
         }
     }
 

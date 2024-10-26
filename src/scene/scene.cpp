@@ -53,15 +53,14 @@ auto Scene::AddEventListeners() -> void {
 }
 
 auto Scene::ProcessUpdates(double delta) -> void {
-    auto to_remove = std::vector<GameNodeRef> {};
-    for (auto& game_node : game_nodes_) {
-        if (auto node = game_node.ptr.lock()) {
+    for (auto iter = begin(game_nodes_); iter != end(game_nodes_);) {
+        if (auto node = iter->ptr.lock()) {
             node->As<GameNode>()->Update(delta);
+            iter++;
         } else {
-            to_remove.emplace_back(game_node);
+            game_nodes_.erase(iter);
         }
     }
-    for (auto& node : to_remove) game_nodes_.erase(node);
 }
 
 auto Scene::CreateGameNodeRef(std::shared_ptr<Node> game_node) const -> GameNodeRef {
