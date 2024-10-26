@@ -4,6 +4,7 @@
 #pragma once
 
 #include "core/event.hpp"
+#include "core/logger.hpp"
 
 #include <functional>
 #include <memory>
@@ -32,13 +33,34 @@ public:
         }
     }
 
+    auto RemoveEventListener(const std::string& name, std::shared_ptr<EventListener> listener) {
+        auto removed_callbacks = 0;
+        if (callbacks_.contains(name)) {
+            auto& callbacks = callbacks_[name];
+            removed_callbacks = std::erase_if(callbacks, [&listener](const auto& callback) {
+                if (auto c = callback.lock()) {
+                    return c == listener;
+                }
+                return false;
+            });
+        }
+        if (removed_callbacks == 0) {
+            Logger::Log(
+                LogLevel::Warning,
+                "Attempting to remove an event listener that doesn't exist '{}'",
+                name
+            );
+        }
+    }
+
     auto Dispatch(const std::string& name, std::unique_ptr<Event> event) {
         if (!callbacks_.contains(name)) return;
         auto& callbacks = callbacks_[name];
-        for (auto i = 0; i < callbacks.size(); ++i) {
-            if (auto callback = callbacks[i].lock()) {
-                (*callback)(event.get());
+        for (auto& callback : callbacks) {
+            if (const auto& c = callback.lock()) {
+                (*c)(event.get());
             }
+            // TODO: remove deleted callback
         }
     }
 
