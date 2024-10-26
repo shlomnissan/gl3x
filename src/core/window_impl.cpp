@@ -90,7 +90,7 @@ static auto glfw_get_error() -> std::string {
     return error_description;
 }
 
-static auto glfw_keyboard_event(GLFWwindow* window, int key, int scancode, int action, int mods) -> void {
+static auto glfw_keyboard_event(const GLFWwindow* window, int key, int scancode, int action, int mods) -> void {
     if (action == GLFW_PRESS) {
         EventDispatcher::Get().Dispatch(
             "keyboard_event",
