@@ -4,6 +4,7 @@ set(SOURCE_CODE
     "core/disposable.hpp"
     "core/event.hpp"
     "core/event_dispatcher.hpp"
+    "core/event_dispatcher.cpp"
     "core/geometry.cpp"
     "core/identity.hpp"
     "core/image.hpp"
