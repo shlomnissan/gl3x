@@ -52,13 +52,22 @@ public:
     }
 
     auto Dispatch(const std::string& name, std::unique_ptr<Event> event) {
-        if (!callbacks_.contains(name)) return;
+        if (!callbacks_.contains(name)) {
+            Logger::Log(
+                LogLevel::Warning,
+                "Attempting to dispatch an event that doesn't exist '{}'",
+                name
+            );
+            return;
+        }
+
         auto& callbacks = callbacks_[name];
         for (auto iter = begin(callbacks); iter != end(callbacks);) {
             if (const auto& callback = iter->lock()) {
                 (*callback)(event.get());
                 iter++;
             } else {
+                Logger::Log(LogLevel::Warning, "Removed expired event listener '{}'", name);
                 callbacks.erase(iter);
             }
         }
