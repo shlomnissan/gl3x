@@ -9,7 +9,7 @@ set(SOURCE_CODE
     "core/identity.hpp"
     "core/image.hpp"
     "core/logger.cpp"
-    "core/logger.hpp"
+
     "core/program_attributes.cpp"
     "core/program_attributes.hpp"
     "core/renderer.cpp"
@@ -56,6 +56,7 @@ set(SOURCE_CODE
 
 set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/geometry.hpp"
+    "${PUBLIC_HEADERS_DIR}/core/logger.hpp"
     "${PUBLIC_HEADERS_DIR}/core/renderer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"

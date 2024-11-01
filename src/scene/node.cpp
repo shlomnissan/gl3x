@@ -2,10 +2,11 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include "engine/scene/node.hpp"
+
+#include "engine/core/logger.hpp"
 #include "engine/math/transformations.hpp"
 
 #include "core/event_dispatcher.hpp"
-#include "core/logger.hpp"
 
 #include <ranges>
 

@@ -3,7 +3,8 @@
 
 #include "renderer/gl/gl_renderer_impl.hpp"
 
-#include "core/logger.hpp"
+#include "engine/core/logger.hpp"
+
 #include "core/program_attributes.hpp"
 
 #include <glad/glad.h>

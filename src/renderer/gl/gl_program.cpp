@@ -4,9 +4,9 @@
 #include "renderer/gl/gl_program.hpp"
 
 #include "engine/core/geometry.hpp"
+#include "engine/core/logger.hpp"
 
 #include "core/shader_library.hpp"
-#include "core/logger.hpp"
 
 namespace engine {
 

@@ -4,7 +4,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include "loaders/image_loader.hpp"
-#include "core/logger.hpp"
+
+#include "engine/core/logger.hpp"
 
 #include <optional>
 

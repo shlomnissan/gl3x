@@ -4,8 +4,7 @@
 #include "engine/scene/scene.hpp"
 
 #include "engine/scene/game_node.hpp"
-
-#include "core/logger.hpp"
+#include "engine/core/logger.hpp"
 
 #include <vector>
 

@@ -3,7 +3,8 @@
 
 #include "engine/textures/texture_2d.hpp"
 
-#include "core/logger.hpp"
+#include "engine/core/logger.hpp"
+
 #include "loaders/image_loader.hpp"
 
 namespace engine {
