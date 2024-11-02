@@ -8,9 +8,12 @@
 Ground::Ground() : material_(engine::FlatMaterial::Create()) {
     material_->color = 0xDBB68F;
     mesh_ = engine::Mesh::Create(
-        engine::PlaneGeometry::Create({.width = 600.0f, .height = 20.0f}),
+        engine::PlaneGeometry::Create({.width = 600.0f, .height = 12.0f}),
         material_
     );
+
+    mesh_->TranslateX(300.0f);
+    mesh_->TranslateY(138.0f);
 
     Add(mesh_);
 }

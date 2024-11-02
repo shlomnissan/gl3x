@@ -8,9 +8,12 @@
 Dinosaur::Dinosaur() : material_(engine::FlatMaterial::Create()) {
     material_->color = 0x628B48;
     mesh_ = engine::Mesh::Create(
-        engine::PlaneGeometry::Create({.width = 40.0f, .height = 40.0f}),
+        engine::PlaneGeometry::Create({.width = 44.0f, .height = 47.0f}),
         material_
     );
+
+    mesh_->TranslateX(50.0f);
+    mesh_->TranslateY(93.0f);
 
     Add(mesh_);
 }
