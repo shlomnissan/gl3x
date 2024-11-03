@@ -9,7 +9,6 @@ set(SOURCE_CODE
     "core/identity.hpp"
     "core/image.hpp"
     "core/logger.cpp"
-
     "core/program_attributes.cpp"
     "core/program_attributes.hpp"
     "core/renderer.cpp"
@@ -62,6 +61,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"
     "${PUBLIC_HEADERS_DIR}/geometry/box_geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/geometry/plane_geometry.hpp"
+    "${PUBLIC_HEADERS_DIR}/lights/light.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/flat_material.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/phong_material.hpp"
     "${PUBLIC_HEADERS_DIR}/math/color.hpp"
