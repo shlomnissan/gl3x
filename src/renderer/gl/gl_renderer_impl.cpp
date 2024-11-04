@@ -31,6 +31,10 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
                 return;
             }
 
+            if (material->SupportsLights()) {
+                // TODO: add lights
+            }
+
             buffers_.Bind(geometry);
             if (attrs.texture_map) {
                 textures_.Bind(material->As<MaterialWithTextureMap>()->texture_map.get());

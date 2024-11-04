@@ -40,6 +40,8 @@ public:
 
     virtual auto Type() const -> MaterialType = 0;
 
+    virtual auto SupportsLights() const -> bool = 0;
+
     template<class T> requires std::is_base_of_v<Material, T>
     [[nodiscard]] auto Is() const {
         return dynamic_cast<const T*>(this) != nullptr;
