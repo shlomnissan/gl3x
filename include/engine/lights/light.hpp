@@ -10,6 +10,15 @@
 namespace engine {
 
 /**
+ * @brief Enum representing the type of light.
+ */
+enum class LightType {
+    Ambient,        ///< Ambient light.
+    Directional,    ///< Directional light.
+    Spotlight       ///< Spotlight.
+};
+
+/**
  * @brief Class representing a light source in the scene.
  *
  * This abstract class provides a base for different types of lights,
@@ -18,15 +27,6 @@ namespace engine {
  */
 class ENGINE_EXPORT Light : public Node {
 public:
-    /**
-     * @brief Enum representing the type of light.
-     */
-    enum class Type {
-        Ambient,        ///< Ambient light.
-        Directional,    ///< Directional light.
-        Spotlight       ///< Spotlight.
-    };
-
     /// @brief The color of the light.
     Color color;
     /// @brief The intensity of the light.
@@ -46,7 +46,7 @@ public:
      *
      * @return Light::Type The type of the light.
      */
-    [[nodiscard]] virtual auto Type() -> Light::Type = 0;
+    [[nodiscard]] virtual auto Type() const -> LightType = 0;
 
     /**
      * @brief Default destructor for the Light class.

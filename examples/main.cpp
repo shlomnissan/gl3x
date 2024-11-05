@@ -4,6 +4,7 @@
 #include <engine/core/renderer.hpp>
 #include <engine/core/window.hpp>
 #include <engine/geometry/box_geometry.hpp>
+#include <engine/lights/directional_light.hpp>
 #include <engine/materials/flat_material.hpp>
 #include <engine/materials/phong_material.hpp>
 #include <engine/scene/camera_perspective.hpp>
@@ -45,6 +46,9 @@ auto main() -> int {
 
     scene->Add(flat_mesh);
     scene->Add(shiny_mesh);
+
+    auto light = DirectionalLight::Create();
+    scene->Add(light);
 
     window.Start([&](const double delta){
         scene->ProcessUpdates(delta);

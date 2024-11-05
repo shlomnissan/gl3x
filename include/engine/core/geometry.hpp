@@ -61,8 +61,7 @@ public:
      * @param index_data A vector containing the index data (optional).
      * @return std::shared_ptr<Geometry> A shared pointer to the newly created Geometry object.
      */
-    [[nodiscard]]
-    static auto Create(
+    [[nodiscard]] static auto Create(
         const std::vector<float>& vertex_data,
         const std::vector<unsigned int>& index_data = {}
     ){

@@ -6,11 +6,13 @@
 #include "engine_export.h"
 #include "engine/scene/node.hpp"
 #include "engine/scene/game_node.hpp"
+#include "engine/lights/light.hpp"
 
 #include "core/event_dispatcher.hpp"
 
 #include <memory>
 #include <set>
+#include <vector>
 
 namespace engine {
 
@@ -41,8 +43,12 @@ public:
     }
 
 private:
+    /// @brief An array of light refenrences in the scene.
+    std::vector<std::weak_ptr<Node>> lights_;
+
     /// @brief A set of game node references in the scene ordered by level.
     std::set<GameNodeRef> game_nodes_;
+
     /// @brief Event listener for handling nodes added to the scene.
     std::shared_ptr<EventListener> added_to_scene_listener_;
     /// @brief Event listener for handling nodes removed from the scene.

@@ -20,18 +20,28 @@ auto Scene::AddEventListeners() -> void {
     // without the need to traverse the entire graph.
     added_to_scene_listener_ = std::make_shared<EventListener>([&](Event* e) {
         auto scene_event = e->As<SceneEvent>();
+
         if (scene_event->node->Is<GameNode>()) {
             game_nodes_.emplace(CreateGameNodeRef(scene_event->node));
+        }
+
+        if (scene_event->node->Is<Light>()) {
+            // TODO: add light
         }
     });
 
     // Remove game nodes from the ordered set as they're removed from the scene.
     removed_from_scene_listener_ = std::make_shared<EventListener>([&](Event* e) {
         auto scene_event = e->As<SceneEvent>();
+
         if (scene_event->node->Is<GameNode>()) {
             auto node = CreateGameNodeRef(scene_event->node);
             auto it = game_nodes_.find(node);
             if (it != end(game_nodes_)) game_nodes_.erase(node);
+        }
+
+        if (scene_event->node->Is<Light>()) {
+            // TODO: remove light
         }
     });
 
