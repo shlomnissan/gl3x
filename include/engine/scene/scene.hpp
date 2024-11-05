@@ -43,9 +43,11 @@ public:
 private:
     /// @brief A set of game node references in the scene ordered by level.
     std::set<GameNodeRef> game_nodes_;
-
+    /// @brief Event listener for handling nodes added to the scene.
     std::shared_ptr<EventListener> added_to_scene_listener_;
+    /// @brief Event listener for handling nodes removed from the scene.
     std::shared_ptr<EventListener> removed_from_scene_listener_;
+    /// @brief Event listener for handling keyboard input events.
     std::shared_ptr<EventListener> keyboard_input_listener_;
 
     /**
