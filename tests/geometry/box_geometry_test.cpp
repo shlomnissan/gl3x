@@ -48,13 +48,13 @@ TEST_F(BoxGeometryTest, AttributesConfiguredCorrectly) {
 
     EXPECT_EQ(attrs.size(), 3);
 
-    EXPECT_EQ(attrs[0].type, kPosition);
+    EXPECT_EQ(attrs[0].type, Position);
     EXPECT_EQ(attrs[0].item_size, 3u);
 
-    EXPECT_EQ(attrs[1].type, kNormal);
+    EXPECT_EQ(attrs[1].type, Normal);
     EXPECT_EQ(attrs[1].item_size, 3u);
 
-    EXPECT_EQ(attrs[2].type, kUV);
+    EXPECT_EQ(attrs[2].type, UV);
     EXPECT_EQ(attrs[2].item_size, 2u);
 }
 

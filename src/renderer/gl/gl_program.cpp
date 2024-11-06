@@ -11,9 +11,9 @@
 namespace engine {
 
 static const auto VertexAttributesMap = std::unordered_map<std::string, GeometryAttributeType> {
-    {"aPosition", GeometryAttributeType::kPosition},
-    {"aNormal", GeometryAttributeType::kNormal},
-    {"aTexCoordinates", GeometryAttributeType::kUV}
+    {"aPosition", GeometryAttributeType::Position},
+    {"aNormal", GeometryAttributeType::Normal},
+    {"aTexCoordinates", GeometryAttributeType::UV}
 };
 
 GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {

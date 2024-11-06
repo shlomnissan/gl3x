@@ -18,9 +18,9 @@ namespace engine {
  * @brief Enum representing the type of a geometry attribute.
  */
 enum class GeometryAttributeType {
-    kPosition,  ///< Position attribute.
-    kNormal,    ///< Normal attribute.
-    kUV,        ///< UV attribute.
+    Position,  ///< Position attribute.
+    Normal,    ///< Normal attribute.
+    UV,        ///< UV attribute.
 };
 
 /**

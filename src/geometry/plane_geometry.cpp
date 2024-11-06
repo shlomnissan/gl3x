@@ -66,17 +66,17 @@ auto PlaneGeometry::GenerateGeometry(const Parameters& params) -> void {
 
 auto PlaneGeometry::SetAttributes() -> void {
     SetAttribute({
-        .type = GeometryAttributeType::kPosition,
+        .type = GeometryAttributeType::Position,
         .item_size = 3
     });
 
     SetAttribute({
-        .type = GeometryAttributeType::kNormal,
+        .type = GeometryAttributeType::Normal,
         .item_size = 3
     });
 
     SetAttribute({
-        .type = GeometryAttributeType::kUV,
+        .type = GeometryAttributeType::UV,
         .item_size = 2
     });
 }
