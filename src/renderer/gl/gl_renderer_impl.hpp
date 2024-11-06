@@ -24,6 +24,8 @@ public:
     auto Render(Scene* scene, Camera* camera) -> void;
 
 private:
+    bool curr_backface_culling {true};
+
     Renderer::Parameters params_;
 
     GLBuffers buffers_;

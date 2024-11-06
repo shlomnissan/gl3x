@@ -42,15 +42,6 @@ public:
     }
 
     /**
-     * @brief Indicates whether the material supports lighting.
-     *
-     * @return `true` if the material supports lights, otherwise `false`.
-     */
-    auto SupportsLights() const -> bool override {
-        return false;
-    }
-
-    /**
      * @brief Creates a new instance of FlatMaterial.
      *
      * @return A `std::shared_ptr` to a new instance of FlatMaterial.

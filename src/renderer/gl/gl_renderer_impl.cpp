@@ -31,7 +31,12 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
                 return;
             }
 
-            if (material->SupportsLights()) {
+            if (curr_backface_culling != material->cull_backfaces) {
+                material->cull_backfaces ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
+                curr_backface_culling = material->cull_backfaces;
+            }
+
+            if (material->supports_lights) {
                 // TODO: add lights
             }
 

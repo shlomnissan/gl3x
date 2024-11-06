@@ -31,6 +31,9 @@ static auto ToString(MaterialType type) {
 
 class Material : public Identity {
 public:
+    bool cull_backfaces {true};
+    bool supports_lights {false};
+
     Material() = default;
 
     Material(const Material&) = delete;
@@ -39,8 +42,6 @@ public:
     auto operator=(Material&&) -> Material& = delete;
 
     virtual auto Type() const -> MaterialType = 0;
-
-    virtual auto SupportsLights() const -> bool = 0;
 
     template<class T> requires std::is_base_of_v<Material, T>
     [[nodiscard]] auto Is() const {

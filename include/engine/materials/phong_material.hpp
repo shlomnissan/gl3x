@@ -31,7 +31,9 @@ public:
      */
     explicit PhongMaterial() :
       MaterialWithColor(Color {1.0f, 1.0f, 1.0f}),
-      MaterialWithTextureMap(nullptr) {}
+      MaterialWithTextureMap(nullptr) {
+        supports_lights = true;
+      }
 
     /**
      * @brief Retrieves the type of the material.
@@ -40,15 +42,6 @@ public:
      */
     auto Type() const -> MaterialType override {
         return MaterialType::kPhongMaterial;
-    }
-
-    /**
-     * @brief Indicates whether the material supports lighting.
-     *
-     * @return `true` if the material supports lights, otherwise `false`.
-     */
-    auto SupportsLights() const -> bool override {
-        return true;
     }
 
     /**
