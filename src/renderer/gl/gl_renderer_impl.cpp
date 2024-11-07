@@ -16,58 +16,67 @@ Renderer::Impl::Impl(const Renderer::Parameters& params) : params_(params) {
     glViewport(0, 0, params.width, params.height);
 }
 
-auto Renderer::Impl::RenderObject(const Node* object, Camera* camera) -> void {
+auto Renderer::Impl::ProcessSceneObjects(const Node* object, Camera* camera) -> void {
     for (const auto c : object->Children()) {
-        if (c->Is<Mesh>()) {
-            auto mesh = c->As<Mesh>();
-            auto geometry = mesh->GetGeometry();
-            auto material = mesh->GetMaterial();
+        if (auto mesh = c->As<Mesh>()) {
+            RenderMesh(mesh, camera);
+        }
 
-            if (!IsValidMesh(mesh)) continue;
-
-            auto attrs = ProgramAttributes {material};
-            auto program = programs_.GetProgram(attrs);
-            if (!program->IsValid()) {
-                return;
-            }
-
-            if (curr_backface_culling != material->cull_backfaces) {
-                material->cull_backfaces ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
-                curr_backface_culling = material->cull_backfaces;
-            }
-
-            if (material->supports_lights) {
-                // TODO: add lights
-            }
-
-            buffers_.Bind(geometry);
-            if (attrs.texture_map) {
-                textures_.Bind(material->As<MaterialWithTextureMap>()->texture_map.get());
-            }
-
-            SetUniforms(program, &attrs, mesh, camera);
-
-            program->Use();
-            program->UpdateUniforms();
-
-            auto primitive = GL_TRIANGLES;
-            if (geometry->primitive == GeometryPrimitiveType::Lines) {
-                primitive = GL_LINES;
-            }
-
-            if (geometry->IndexData().empty()) {
-                glDrawArrays(primitive, 0, geometry->VertexCount());
-            } else {
-                glDrawElements(
-                    primitive,
-                    geometry->IndexData().size(),
-                    GL_UNSIGNED_INT,
-                    nullptr
-                );
+        if (auto light = c->As<Light>()) {
+            if (light->debug_mode && light->debug_mesh.has_value()) {
+                RenderMesh(light->debug_mesh.value().get(), camera);
             }
         }
 
-        RenderObject(c.get(), camera);
+        ProcessSceneObjects(c.get(), camera);
+    }
+}
+
+auto Renderer::Impl::RenderMesh(Mesh* mesh, Camera* camera) -> void {
+    auto geometry = mesh->GetGeometry();
+    auto material = mesh->GetMaterial();
+
+    if (!IsValidMesh(mesh)) return;
+
+    auto attrs = ProgramAttributes {material};
+    auto program = programs_.GetProgram(attrs);
+    if (!program->IsValid()) {
+        return;
+    }
+
+    if (curr_backface_culling != material->cull_backfaces) {
+        material->cull_backfaces ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
+        curr_backface_culling = material->cull_backfaces;
+    }
+
+    if (material->supports_lights) {
+        // TODO: add lights
+    }
+
+    buffers_.Bind(geometry);
+    if (attrs.texture_map) {
+        textures_.Bind(material->As<MaterialWithTextureMap>()->texture_map.get());
+    }
+
+    SetUniforms(program, &attrs, mesh, camera);
+
+    program->Use();
+    program->UpdateUniforms();
+
+    auto primitive = GL_TRIANGLES;
+    if (geometry->primitive == GeometryPrimitiveType::Lines) {
+        primitive = GL_LINES;
+    }
+
+    if (geometry->IndexData().empty()) {
+        glDrawArrays(primitive, 0, geometry->VertexCount());
+    } else {
+        glDrawElements(
+            primitive,
+            geometry->IndexData().size(),
+            GL_UNSIGNED_INT,
+            nullptr
+        );
     }
 }
 
@@ -139,7 +148,7 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     scene->UpdateTransforms();
     camera->UpdateTransforms();
 
-    RenderObject(scene, camera);
+    ProcessSceneObjects(scene, camera);
 }
 
 }

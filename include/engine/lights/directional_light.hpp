@@ -35,6 +35,16 @@ public:
     auto Type() const -> LightType override {
         return LightType::Directional;
     }
+
+    /**
+     * @brief Toggles debug mode and initializes debug geometry if needed.
+     */
+    auto SetDebugMode(bool enabled) -> void override {
+        debug_mode = enabled;
+        if (debug_mode && !debug_mesh.has_value()) {
+            // TODO: initialize geometry
+        }
+    }
 };
 
 }

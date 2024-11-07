@@ -48,6 +48,7 @@ auto main() -> int {
     scene->Add(shiny_mesh);
 
     auto light = DirectionalLight::Create();
+    light->SetDebugMode(true);
     scene->Add(light);
 
     window.Start([&](const double delta){

@@ -4,8 +4,13 @@
 #pragma once
 
 #include "engine_export.h"
+
 #include "engine/math/color.hpp"
 #include "engine/scene/node.hpp"
+#include "engine/scene/mesh.hpp"
+
+#include <memory>
+#include <optional>
 
 namespace engine {
 
@@ -31,6 +36,10 @@ public:
     Color color;
     /// @brief The intensity of the light.
     float intensity;
+    /// @brief Debug visualization mode flag for this light.
+    bool debug_mode {false};
+    /// @brief Optional debug mesh.
+    std::optional<std::shared_ptr<Mesh>> debug_mesh;
 
     /**
      * @brief Constructs a Light object with specified color and intensity.
@@ -47,6 +56,11 @@ public:
      * @return Light::Type The type of the light.
      */
     [[nodiscard]] virtual auto Type() const -> LightType = 0;
+
+    /**
+     * @brief Pure virtual function to toggle debug mode.
+     */
+    virtual auto SetDebugMode(bool enabled) -> void = 0;
 
     /**
      * @brief Default destructor for the Light class.
