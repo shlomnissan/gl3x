@@ -20,6 +20,7 @@ set(SOURCE_CODE
     "core/window_impl.hpp"
     "geometry/box_geometry.cpp"
     "geometry/plane_geometry.cpp"
+    "lights/directional_light.cpp"
     "loaders/image_loader.cpp"
     "loaders/image_loader.hpp"
     "materials/material.hpp"

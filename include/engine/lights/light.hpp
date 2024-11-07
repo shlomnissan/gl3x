@@ -38,8 +38,6 @@ public:
     float intensity;
     /// @brief Debug visualization mode flag for this light.
     bool debug_mode {false};
-    /// @brief Optional debug mesh.
-    std::optional<std::shared_ptr<Mesh>> debug_mesh;
 
     /**
      * @brief Constructs a Light object with specified color and intensity.

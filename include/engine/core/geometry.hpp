@@ -46,6 +46,7 @@ struct GeometryAttribute {
  */
 class ENGINE_EXPORT Geometry : public Disposable, public Identity {
 public:
+    /// @brief The primitive type of the geometry (e.g., triangles, lines).
     GeometryPrimitiveType primitive { GeometryPrimitiveType::Triangles };
 
     /**
@@ -83,8 +84,7 @@ public:
      *
      * @return const std::vector<float>& A reference to the vector containing the vertex data.
      */
-    [[nodiscard]]
-    const auto& VertexData() const { return vertex_data_; }
+    [[nodiscard]] const auto& VertexData() const { return vertex_data_; }
 
     /**
      * @brief Calculates the number of vertex elements.
@@ -98,16 +98,14 @@ public:
      *
      * @return const std::vector<unsigned int>& A reference to the vector containing the index data.
      */
-    [[nodiscard]]
-    const auto& IndexData() const { return index_data_; }
+    [[nodiscard]] const auto& IndexData() const { return index_data_; }
 
     /**
      * @brief Gets the attributes of the geometry.
      *
      * @return const std::vector<GeometryAttribute>& A reference to the vector containing the geometry attributes.
      */
-    [[nodiscard]]
-    const auto& Attributes() const { return attributes_; }
+    [[nodiscard]] const auto& Attributes() const { return attributes_; }
 
     /**
      * @brief Calculates the stride based on existing attributes.
@@ -128,8 +126,7 @@ public:
      *
      * @return std::shared_ptr<Geometry> A shared pointer to the newly created Geometry object.
      */
-    [[nodiscard]]
-    static auto Create() {
+    [[nodiscard]] static auto Create() {
         return std::make_shared<Geometry>();
     }
 

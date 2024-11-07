@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine/lights/light.hpp"
+#include "engine/math/vector3.hpp"
 
 #include <memory>
 
@@ -18,6 +19,9 @@ namespace engine {
  */
 class DirectionalLight : public Light {
 public:
+    /// @brief The target point that the light is directed towards.
+    Vector3 target {0.0f};
+
     /**
      * @brief Creates a new DirectionalLight instance.
      *
@@ -37,14 +41,12 @@ public:
     }
 
     /**
-     * @brief Toggles debug mode and initializes debug geometry if needed.
+     * @brief Toggles debug mode and create debug mesh if needed.
      */
-    auto SetDebugMode(bool enabled) -> void override {
-        debug_mode = enabled;
-        if (debug_mode && !debug_mesh.has_value()) {
-            // TODO: initialize geometry
-        }
-    }
+    auto SetDebugMode(bool enabled) -> void override;
+
+private:
+    auto CreateDebugMesh() -> void;
 };
 
 }

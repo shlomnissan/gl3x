@@ -38,8 +38,7 @@ public:
      * @param params Parameters defining the size and segmentation of the plane.
      * @return std::shared_ptr<PlaneGeometry> A shared pointer to the newly created object.
      */
-    [[nodiscard]]
-    static auto Create(const Parameters& params){
+    [[nodiscard]] static auto Create(const Parameters& params){
         return std::make_shared<PlaneGeometry>(params);
     }
 
