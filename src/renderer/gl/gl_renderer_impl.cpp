@@ -50,11 +50,16 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
             program->Use();
             program->UpdateUniforms();
 
+            auto primitive = GL_TRIANGLES;
+            if (geometry->primitive == GeometryPrimitiveType::Lines) {
+                primitive = GL_LINES;
+            }
+
             if (geometry->IndexData().empty()) {
-                glDrawArrays(GL_TRIANGLES, 0, geometry->VertexCount());
+                glDrawArrays(primitive, 0, geometry->VertexCount());
             } else {
                 glDrawElements(
-                    GL_TRIANGLES,
+                    primitive,
                     geometry->IndexData().size(),
                     GL_UNSIGNED_INT,
                     nullptr

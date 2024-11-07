@@ -24,6 +24,14 @@ enum class GeometryAttributeType {
 };
 
 /**
+ * @brief Enum representing the primitive type used for geometry rendering.
+ */
+enum class GeometryPrimitiveType {
+    Triangles,  ///< Render triangles.
+    Lines       ///< Render lines.
+};
+
+/**
  * @brief Structure representing a geometry attribute.
  */
 struct GeometryAttribute {
@@ -38,6 +46,8 @@ struct GeometryAttribute {
  */
 class ENGINE_EXPORT Geometry : public Disposable, public Identity {
 public:
+    GeometryPrimitiveType primitive { GeometryPrimitiveType::Triangles };
+
     /**
      * @brief Default construction.
      */
