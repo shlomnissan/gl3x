@@ -16,7 +16,7 @@ Renderer::Impl::Impl(const Renderer::Parameters& params) : params_(params) {
     glViewport(0, 0, params.width, params.height);
 }
 
-auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
+auto Renderer::Impl::RenderObject(const Node* object, Camera* camera) -> void {
     for (const auto c : object->Children()) {
         if (c->Is<Mesh>()) {
             auto mesh = c->As<Mesh>();
@@ -71,7 +71,7 @@ auto Renderer::Impl::RenderObject(Node* object, Camera* camera) -> void {
     }
 }
 
-auto Renderer::Impl::SetUniforms(GLProgram* program, ProgramAttributes* attrs, Mesh* mesh, Camera* camera) -> void {
+auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes* attrs, Mesh* mesh, const Camera* camera) const -> void {
     auto material = mesh->GetMaterial();
 
     program->SetUniform(

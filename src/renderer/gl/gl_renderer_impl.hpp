@@ -32,9 +32,9 @@ private:
     GLPrograms programs_;
     GLTextures textures_;
 
-    auto RenderObject(Node* object, Camera* camera) -> void;
+    auto RenderObject(const Node* object, Camera* camera) -> void;
 
-    auto SetUniforms(GLProgram* program, ProgramAttributes* attrs, Mesh* mesh, Camera* camera) -> void;
+    auto SetUniforms(GLProgram* program, const ProgramAttributes* attrs, Mesh* mesh, const Camera* camera) const -> void;
 
     [[nodiscard]] auto IsValidMesh(Mesh* mesh) const -> bool;
 };
