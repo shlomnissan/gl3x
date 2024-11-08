@@ -28,6 +28,9 @@ public:
     /// @brief Flag indicating whether the transform should be automatically updated.
     bool transformAutoUpdate {true};
 
+    /// @brief Flag indicating whether the node is culled by the view frustum.
+    bool frustumCulled {true};
+
     /**
      * @brief Adds a child node to this node.
      *
