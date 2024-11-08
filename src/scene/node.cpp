@@ -98,32 +98,4 @@ auto Node::ShouldUpdateTransform() const -> bool {
            parent_ && parent_->ShouldUpdateChildren();
 }
 
-auto Node::Scale(float value) -> void {
-    transform.Scale(value);
-}
-
-auto Node::RotateX(float distance) -> void {
-    transform.Rotate(Vector3::Right(), distance);
-}
-
-auto Node::RotateY(float distance) -> void {
-    transform.Rotate(Vector3::Up(), distance);
-}
-
-auto Node::RotateZ(float distance) -> void {
-    transform.Rotate(Vector3::Forward(), distance);
-}
-
-auto Node::TranslateX(float distance) -> void {
-    transform.Translate(Vector3::Right(), distance);
-}
-
-auto Node::TranslateY(float distance) -> void {
-    transform.Translate(Vector3::Up(), distance);
-}
-
-auto Node::TranslateZ(float distance) -> void {
-    transform.Translate(Vector3::Forward(), distance);
-}
-
 }

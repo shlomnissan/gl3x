@@ -54,57 +54,11 @@ TEST(Node, UpdateLevel) {
 
 #pragma endregion
 
-#pragma region Transformations
-
-TEST(Node, ScaleTransform) {
-    auto node = std::make_shared<engine::Node>();
-    node->Scale(2.0f);
-
-    node->UpdateTransforms();
-
-    EXPECT_MAT4_EQ(node->GetWorldTransform(), {
-        2.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 2.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 2.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f
-    });
-}
-
-TEST(Node, RotateXTransform) {
-    auto node = std::make_shared<engine::Node>();
-    node->RotateZ(0.5f);
-
-    node->UpdateTransforms();
-
-    EXPECT_MAT4_NEAR(node->GetWorldTransform(), {
-        0.8f, -0.4f, 0.0f, 0.0f,
-        0.4f,  0.8f, 0.0f, 0.0f,
-        0.0f,  0.0f, 1.0f, 0.0f,
-        0.0f,  0.0f, 0.0f, 1.0f
-    }, 0.1f);
-}
-
-TEST(Node, TranslateXTransform) {
-    auto node = std::make_shared<engine::Node>();
-    node->TranslateX(5.0f);
-
-    node->UpdateTransforms();
-
-    EXPECT_MAT4_EQ(node->GetWorldTransform(), {
-        1.0f, 0.0f, 0.0f, 5.0f,
-        0.0f, 1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f
-    });
-}
-
-#pragma endregion
-
 #pragma region Update Transforms
 
 TEST(Node, UpdateTransformsWithoutParent) {
     auto node = std::make_shared<engine::Node>();
-    node->Scale(2.0f);
+    node->transform.Scale(2.0f);
 
     node->UpdateTransforms();
 
@@ -120,7 +74,7 @@ TEST(Node, UpdateTransformsWithParent) {
     auto parent = engine::Node::Create();
     auto child = engine::Node::Create();
 
-    parent->Scale(2.0f);
+    parent->transform.Scale(2.0f);
     parent->Add(child);
 
     parent->UpdateTransforms();
@@ -133,13 +87,15 @@ TEST(Node, UpdateTransformsWithParent) {
     });
 }
 
+// TODO: add test skip transform updates
+
 #pragma endregion
 
 #pragma region ShouldUpdate Checks
 
 TEST(Node, ShouldUpdateTransformWhenDirty) {
     auto node = engine::Node::Create();
-    node->Scale(0.5f);
+    node->transform.Scale(0.5f);
 
     EXPECT_TRUE(node->ShouldUpdateTransform());
 }

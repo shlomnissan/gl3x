@@ -28,38 +28,34 @@ auto main() -> int {
 
     auto scene = Scene::Create();
     auto camera = CameraPerspective::Create(60.0f, window.AspectRatio());
-    camera->TranslateZ(2.0f);
+    camera->transform.Translate(Vector3::Forward(), 2.0f);
 
     auto flat_material = FlatMaterial::Create();
     auto flat_mesh = Mesh::Create(BoxGeometry::Create({}), flat_material);
 
     flat_material->texture_map = Texture2D::Create("assets/checker.png");
-    flat_mesh->TranslateX(0.6f);
-    flat_mesh->Scale(0.7f);
+    flat_mesh->transform.Translate(Vector3::Right(), 0.6f);
+    flat_mesh->transform.Scale(0.7f);
 
     auto shiny_material = PhongMaterial::Create();
     auto shiny_mesh = Mesh::Create(BoxGeometry::Create({}), shiny_material);
 
     shiny_material->color = 0x47A8BD; // Moonstone
-    shiny_mesh->TranslateX(-0.6f);
-    shiny_mesh->Scale(0.7f);
+    shiny_mesh->transform.Translate(Vector3::Right(), -0.6f);
+    shiny_mesh->transform.Scale(0.7f);
 
     scene->Add(flat_mesh);
     scene->Add(shiny_mesh);
 
     auto light = DirectionalLight::Create();
-    light->TranslateX(1.0f);
-    light->TranslateY(1.0f);
-    light->TranslateZ(1.0f);
-
     light->SetDebugMode(true);
     scene->Add(light);
 
     window.Start([&](const double delta){
         scene->ProcessUpdates(delta);
 
-        flat_mesh->RotateY(0.01f);
-        shiny_mesh->RotateX(0.01f);
+        flat_mesh->transform.Rotate(Vector3::Up(), 0.01f);
+        shiny_mesh->transform.Rotate(Vector3::Right(), 0.01f);
 
         renderer.Render(scene.get(), camera.get());
     });
