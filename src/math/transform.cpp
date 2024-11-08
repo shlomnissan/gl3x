@@ -12,8 +12,13 @@ auto Transform::Scale(float value) -> void {
     is_dirty_ = true;
 }
 
-auto Transform::Translate(const Vector3& axis, float distance) -> void {
-    position_ = position_ + (axis * distance);
+auto Transform::Scale(const Vector3& value) -> void {
+    scale_ = scale_ * value;
+    is_dirty_ = true;
+}
+
+auto Transform::Translate(const Vector3& value) -> void {
+    position_ = position_ + value;
     is_dirty_ = true;
 }
 

@@ -19,9 +19,15 @@ public:
      * @brief Applies a uniform scaling transformation.
      *
      * @param value The scaling factor to apply.
-     *
      */
     auto Scale(float value) -> void;
+
+    /**
+     * @brief Applies a scaling transformation.
+     *
+     * @param value The scaling vector to apply.
+     */
+    auto Scale(const Vector3& value) -> void;
 
     /**
      * @brief Applies a rotation transformation around a specified axis.
@@ -34,10 +40,9 @@ public:
     /**
      * @brief Applies a translation transformation.
      *
-     * @param axis The direction in which to translate.
-     * @param distance The distance to translate along the specified axis.
+     * @param value The translation vector to apply.
      */
-    auto Translate(const Vector3& axis, float distance) -> void;
+    auto Translate(const Vector3& value) -> void;
 
     /**
      * @brief Computes the current transformation matrix.
@@ -55,6 +60,27 @@ public:
      * @return True if the transformation matrix needs to be recalculated, false otherwise.
      */
     [[nodiscard]] auto IsDirty() const { return is_dirty_; }
+
+    /**
+     * @brief Retrieves the position vector.
+     *
+     * @return The position vector.
+     */
+    [[nodiscard]] auto Position() const { return position_; }
+
+    /**
+     * @brief Retrieves the scale vector.
+     *
+     * @return The scale vector.
+     */
+    [[nodiscard]] auto Scale() const { return scale_; }
+
+    /**
+     * @brief Retrieves the rotation vector.
+     *
+     * @return The rotation vector.
+     */
+    [[nodiscard]] auto Rotation() const { return euler_; }
 
 private:
     /// @brief Flag indicating if the transformation matrix needs to be recalculated.

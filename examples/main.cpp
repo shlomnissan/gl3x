@@ -28,20 +28,20 @@ auto main() -> int {
 
     auto scene = Scene::Create();
     auto camera = CameraPerspective::Create(60.0f, window.AspectRatio());
-    camera->transform.Translate(Vector3::Forward(), 2.0f);
+    camera->transform.Translate({0.0f, 0.0f, 2.0f});
 
     auto flat_material = FlatMaterial::Create();
     auto flat_mesh = Mesh::Create(BoxGeometry::Create({}), flat_material);
 
     flat_material->texture_map = Texture2D::Create("assets/checker.png");
-    flat_mesh->transform.Translate(Vector3::Right(), 0.6f);
+    flat_mesh->transform.Translate({0.6f, 0.0f, 0.0f});
     flat_mesh->transform.Scale(0.7f);
 
     auto shiny_material = PhongMaterial::Create();
     auto shiny_mesh = Mesh::Create(BoxGeometry::Create({}), shiny_material);
 
     shiny_material->color = 0x47A8BD; // Moonstone
-    shiny_mesh->transform.Translate(Vector3::Right(), -0.6f);
+    shiny_mesh->transform.Translate({-0.6f, 0.0f, 0.0f});
     shiny_mesh->transform.Scale(0.7f);
 
     scene->Add(flat_mesh);

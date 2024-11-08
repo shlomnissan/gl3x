@@ -266,6 +266,17 @@ TEST(Vector3, ScalarMultiplicationInPlace) {
 
 #pragma endregion
 
+#pragma region Vector Multiplication
+
+TEST(Vector3, VectorMultiplication) {
+    const auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    const auto v2 = engine::Vector3 {4.0f, 5.0f, 6.0f};
+
+    EXPECT_VEC3_EQ(v1 * v2, {4.0f, 10.0f, 18.0f});
+}
+
+#pragma endregion
+
 #pragma region Scalar Division
 
 TEST(Vector3, ScalarDivisionPositiveScalar) {

@@ -155,6 +155,19 @@ private:
     }
 
     /**
+     * @brief Multiplies two vectors component-wise.
+     * @related Vector4
+     *
+     * @param a The first vector.
+     * @param b The second vector.
+     * @return Vector4 A new vector that is the component-wise product of the two input vectors.
+     */
+    [[nodiscard]]
+    friend auto operator*(const Vector4& a, const Vector4& b) {
+        return Vector4 {a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w};
+    }
+
+    /**
      * @brief Divides the vector by a scalar value.
      * @related Vector4
      *

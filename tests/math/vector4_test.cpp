@@ -208,6 +208,17 @@ TEST(Vector4, ScalarMultiplicationInPlace) {
 
 #pragma endregion
 
+#pragma region Vcetor Multiplication
+
+TEST(Vector4, VectorMultiplication) {
+    const auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    const auto v2 = engine::Vector4 {4.0f, 5.0f, 6.0f, 7.0f};
+
+    EXPECT_VEC4_EQ(v1 * v2, {4.0f, 10.0f, 18.0f, 28.0f});
+}
+
+#pragma endregion
+
 #pragma region Scalar Division
 
 TEST(Vector4, ScalarDivisionPositiveScalar) {
