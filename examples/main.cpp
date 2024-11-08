@@ -48,6 +48,10 @@ auto main() -> int {
     scene->Add(shiny_mesh);
 
     auto light = DirectionalLight::Create();
+    light->TranslateX(1.0f);
+    light->TranslateY(1.0f);
+    light->TranslateZ(1.0f);
+
     light->SetDebugMode(true);
     scene->Add(light);
 

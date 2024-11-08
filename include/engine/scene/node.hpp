@@ -19,8 +19,14 @@ namespace engine {
  */
 class ENGINE_EXPORT Node : public Identity {
 public:
+    /// @brief Node's local transformation.
+    Transform transform;
+
     /// @brief The current level in the scene graph.
     int level {0};
+
+    /// @brief Flag indicating whether the transform should be automatically updated.
+    bool transformAutoUpdate {true};
 
     /**
      * @brief Adds a child node to this node.
@@ -175,9 +181,6 @@ public:
 private:
     /// @brief List of child nodes.
     std::vector<std::shared_ptr<Node>> children_;
-
-    /// @brief Node's local transformation.
-    Transform local_transform_;
 
     /// @brief Node's world transform matrix.
     Matrix4 world_transform_ {1.0f};

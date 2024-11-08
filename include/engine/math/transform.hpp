@@ -47,16 +47,14 @@ public:
      *
      * @return The transformation matrix representing the current scaling and translation.
      */
-    [[nodiscard]]
-    auto ToMatrix() -> Matrix4;
+    [[nodiscard]] auto ToMatrix() -> Matrix4;
 
     /**
      * @brief Checks if the transformation matrix is dirty.
      *
      * @return True if the transformation matrix needs to be recalculated, false otherwise.
      */
-    [[nodiscard]]
-    auto IsDirty() const { return is_dirty_; }
+    [[nodiscard]] auto IsDirty() const { return is_dirty_; }
 
 private:
     /// @brief Flag indicating if the transformation matrix needs to be recalculated.

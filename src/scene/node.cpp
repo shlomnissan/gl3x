@@ -70,11 +70,11 @@ auto Node::GetWorldTransform() const -> Matrix4 {
 }
 
 auto Node::UpdateTransforms() -> void {
-    if (ShouldUpdateTransform()) {
+    if (transformAutoUpdate && ShouldUpdateTransform()) {
         if (parent_ == nullptr) {
-            world_transform_ = local_transform_.ToMatrix();
+            world_transform_ = transform.ToMatrix();
         } else {
-            world_transform_ = parent_->GetWorldTransform() * local_transform_.ToMatrix();
+            world_transform_ = parent_->GetWorldTransform() * transform.ToMatrix();
         }
         // when update_children_ is set to true, we are ensuring that all the
         // nodes in this node’s subtree will update their world transforms,
@@ -94,36 +94,36 @@ auto Node::UpdateTransforms() -> void {
 }
 
 auto Node::ShouldUpdateTransform() const -> bool {
-    return local_transform_.IsDirty() ||
+    return transform.IsDirty() ||
            parent_ && parent_->ShouldUpdateChildren();
 }
 
 auto Node::Scale(float value) -> void {
-    local_transform_.Scale(value);
+    transform.Scale(value);
 }
 
 auto Node::RotateX(float distance) -> void {
-    local_transform_.Rotate(Vector3::Right(), distance);
+    transform.Rotate(Vector3::Right(), distance);
 }
 
 auto Node::RotateY(float distance) -> void {
-    local_transform_.Rotate(Vector3::Up(), distance);
+    transform.Rotate(Vector3::Up(), distance);
 }
 
 auto Node::RotateZ(float distance) -> void {
-    local_transform_.Rotate(Vector3::Forward(), distance);
+    transform.Rotate(Vector3::Forward(), distance);
 }
 
 auto Node::TranslateX(float distance) -> void {
-    local_transform_.Translate(Vector3::Right(), distance);
+    transform.Translate(Vector3::Right(), distance);
 }
 
 auto Node::TranslateY(float distance) -> void {
-    local_transform_.Translate(Vector3::Up(), distance);
+    transform.Translate(Vector3::Up(), distance);
 }
 
 auto Node::TranslateZ(float distance) -> void {
-    local_transform_.Translate(Vector3::Forward(), distance);
+    transform.Translate(Vector3::Forward(), distance);
 }
 
 }
