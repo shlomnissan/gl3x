@@ -30,7 +30,17 @@ TEST(Node, RemoveChild) {
     EXPECT_TRUE(parent->Children().empty());
 }
 
-// TODO: add test to remove all children
+TEST(Node, RemoveAllChildren) {
+    auto parent = engine::Node::Create();
+    auto child1 = engine::Node::Create();
+    auto child2 = engine::Node::Create();
+
+    parent->Add(child1);
+    parent->Add(child2);
+    parent->RemoveAllChildren();
+
+    EXPECT_TRUE(parent->Children().empty());
+}
 
 TEST(Node, UpdateLevel) {
     auto parent = engine::Node::Create();
@@ -89,7 +99,29 @@ TEST(Node, UpdateTransformsWithParent) {
     });
 }
 
-// TODO: add test skip transform updates
+TEST(Node, DisableTransformAutoUpdate) {
+    auto parent = engine::Node::Create();
+    auto child = engine::Node::Create();
+    child->transformAutoUpdate = false;
+
+    parent->transform.Scale(2.0f);
+    parent->Add(child);
+    parent->UpdateTransforms();
+
+    EXPECT_MAT4_EQ(parent->GetWorldTransform(), {
+        2.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 2.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 2.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+
+    EXPECT_MAT4_EQ(child->GetWorldTransform(), {
+        1.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+}
 
 #pragma endregion
 

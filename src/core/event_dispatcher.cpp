@@ -34,11 +34,6 @@ auto EventDispatcher::RemoveEventListener(const std::string& name, std::shared_p
 
 auto EventDispatcher::Dispatch(const std::string& name, std::unique_ptr<Event> event) -> void {
     if (!callbacks_.contains(name)) {
-        Logger::Log(
-            LogLevel::Warning,
-            "Attempting to dispatch an event that doesn't exist '{}'",
-            name
-        );
         return;
     }
 
