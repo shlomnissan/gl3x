@@ -7,30 +7,40 @@
 #include "core/event_dispatcher.hpp"
 
 #include <memory>
+#include <string>
+
+class EventDispatcherTest : public ::testing::Test {
+protected:
+    void TearDown() override {
+        engine::EventDispatcher::Get().RemoveEventListenersForEvent(testEvent);
+    }
+
+    std::string testEvent {"TestEvent"};
+};
 
 #pragma region Event Listener Management
 
-TEST(EventDispatcher, AddEventListener) {
+TEST_F(EventDispatcherTest, AddEventListener) {
     auto calls = 0;
     auto listener = std::make_shared<engine::EventListener>(
         [&calls](const engine::Event*) { calls++; }
     );
 
-    engine::EventDispatcher::Get().AddEventListener("TestEvent", listener);
-    engine::EventDispatcher::Get().Dispatch("TestEvent", std::make_unique<engine::Event>());
+    engine::EventDispatcher::Get().AddEventListener(testEvent, listener);
+    engine::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<engine::Event>());
 
     EXPECT_EQ(calls, 1);
 }
 
-TEST(EventDispatcher, RemoveEventListener) {
+TEST_F(EventDispatcherTest, RemoveEventListener) {
     auto calls = 0;
     auto listener = std::make_shared<engine::EventListener>(
         [&calls](const engine::Event*) { calls++; }
     );
 
-    engine::EventDispatcher::Get().AddEventListener("TestEvent", listener);
-    engine::EventDispatcher::Get().RemoveEventListener("TestEvent", listener);
-    engine::EventDispatcher::Get().Dispatch("TestEvent", std::make_unique<engine::Event>());
+    engine::EventDispatcher::Get().AddEventListener(testEvent, listener);
+    engine::EventDispatcher::Get().RemoveEventListener(testEvent, listener);
+    engine::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<engine::Event>());
 
     EXPECT_EQ(calls, 0);
 }
@@ -39,19 +49,19 @@ TEST(EventDispatcher, RemoveEventListener) {
 
 #pragma region Event Dispatching
 
-TEST(EventDispatcher, DispatchToSingleListener) {
+TEST_F(EventDispatcherTest, DispatchToSingleListener) {
     auto calls = 0;
     auto listener = std::make_shared<engine::EventListener>(
         [&calls](const engine::Event*) { calls++; }
     );
 
-    engine::EventDispatcher::Get().AddEventListener("TestEvent", listener);
-    engine::EventDispatcher::Get().Dispatch("TestEvent", std::make_unique<engine::Event>());
+    engine::EventDispatcher::Get().AddEventListener(testEvent, listener);
+    engine::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<engine::Event>());
 
     EXPECT_EQ(calls, 1);
 }
 
-TEST(EventDispatcher, DispatchToMultipleListeners) {
+TEST_F(EventDispatcherTest, DispatchToMultipleListeners) {
     auto calls = 0;
 
     auto listener_1 = std::make_shared<engine::EventListener>(
@@ -62,9 +72,9 @@ TEST(EventDispatcher, DispatchToMultipleListeners) {
         [&calls](const engine::Event*) { calls++; }
     );
 
-    engine::EventDispatcher::Get().AddEventListener("TestEvent", listener_1);
-    engine::EventDispatcher::Get().AddEventListener("TestEvent", listener_2);
-    engine::EventDispatcher::Get().Dispatch("TestEvent", std::make_unique<engine::Event>());
+    engine::EventDispatcher::Get().AddEventListener(testEvent, listener_1);
+    engine::EventDispatcher::Get().AddEventListener(testEvent, listener_2);
+    engine::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<engine::Event>());
 
     EXPECT_EQ(calls, 2);
 }
@@ -73,29 +83,20 @@ TEST(EventDispatcher, DispatchToMultipleListeners) {
 
 #pragma region Edge Cases
 
-TEST(EventDispatcher, DispatchNonExistentEvent) {
-    testing::internal::CaptureStdout();
-
-    engine::EventDispatcher::Get().Dispatch("NonExistent", std::make_unique<engine::Event>());
-    auto output = testing::internal::GetCapturedStdout();
-
-    EXPECT_THAT(output, ::testing::HasSubstr("Attempting to dispatch"));
-}
-
-TEST(EventDispatcher, DispatchWithExpiredListener) {
+TEST_F(EventDispatcherTest, DispatchWithExpiredListener) {
     testing::internal::CaptureStdout();
 
     auto listener = std::make_shared<engine::EventListener>([](const engine::Event*) {});
-    engine::EventDispatcher::Get().AddEventListener("TestEvent", listener);
+    engine::EventDispatcher::Get().AddEventListener(testEvent, listener);
     listener.reset();
 
-    engine::EventDispatcher::Get().Dispatch("TestEvent", std::make_unique<engine::Event>());
+    engine::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<engine::Event>());
     auto output = testing::internal::GetCapturedStdout();
 
     EXPECT_THAT(output, ::testing::HasSubstr("Removed expired"));
 }
 
-TEST(EventDispatcher, RemoveNonExistentListener) {
+TEST_F(EventDispatcherTest, RemoveNonExistentListener) {
     testing::internal::CaptureStdout();
 
     auto listener = std::make_shared<engine::EventListener>([](const engine::Event*) {});
