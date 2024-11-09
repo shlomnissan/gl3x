@@ -30,6 +30,8 @@ public:
 
     auto RemoveEventListener(const std::string& name, std::shared_ptr<EventListener> listener) -> void;
 
+    auto RemoveEventListenersForEvent(const std::string& name) -> void;
+
     auto Dispatch(const std::string& name, std::unique_ptr<Event> event) -> void;
 
 private:

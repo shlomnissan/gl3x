@@ -32,6 +32,10 @@ auto EventDispatcher::RemoveEventListener(const std::string& name, std::shared_p
     }
 }
 
+auto EventDispatcher::RemoveEventListenersForEvent(const std::string& name) -> void {
+    callbacks_.erase(name);
+}
+
 auto EventDispatcher::Dispatch(const std::string& name, std::unique_ptr<Event> event) -> void {
     if (!callbacks_.contains(name)) {
         return;
