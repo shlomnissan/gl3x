@@ -11,23 +11,31 @@
 
 namespace engine {
 
-auto DirectionalLight::SetDebugMode(bool enabled) -> void {
-    debug_mode = enabled;
-    if (debug_mode && Children().empty()) {
-        CreateDebugMesh();
+auto DirectionalLight::BeforeRender() -> void {
+    if (debug_mode) {
+        UpdateDebugMesh();
     }
 }
 
-auto DirectionalLight::CreateDebugMesh() -> void {
-    auto geometry = Geometry::Create({
-        1.0f, 1.0f, 1.0f,
+auto DirectionalLight::UpdateDebugMesh() -> void {
+    RemoveAllChildren();
+
+    auto position = transform.Position();
+    auto material = FlatMaterial::Create();
+    material->color = color;
+
+    auto debugLine = Geometry::Create({
+        position.x, position.y, position.z,
         target.x, target.y, target.z
     });
-    geometry->primitive = GeometryPrimitiveType::Lines;
-    geometry->SetAttribute({GeometryAttributeType::Position, 3});
+    debugLine->primitive = GeometryPrimitiveType::Lines;
+    debugLine->SetAttribute({GeometryAttributeType::Position, 3});
 
-    auto mesh = Mesh::Create(geometry, FlatMaterial::Create());
+    // TODO: create debug plane
+
+    auto mesh = Mesh::Create(debugLine, material);
     mesh->transformAutoUpdate = false;
+
     Add(mesh);
 }
 

@@ -43,7 +43,18 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
             *node
         );
     }
+}
 
+auto Node::RemoveAllChildren() -> void {
+    for (const auto& node : children_) {
+        EventDispatcher::Get().Dispatch(
+            "removed_from_scene",
+            std::make_unique<SceneEvent>(SceneEvent::Type::RemovedFromScene, node)
+        );
+        node->parent_ = nullptr;
+        UpdateLevel(node);
+    }
+    children_.clear();
 }
 
 auto Node::UpdateLevel(const std::shared_ptr<Node>& node) -> void {

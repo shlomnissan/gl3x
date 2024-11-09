@@ -46,6 +46,11 @@ public:
     auto Remove(const std::shared_ptr<Node>& node) -> void;
 
     /**
+     * @brief Removes all child nodes from this node.
+     */
+    auto RemoveAllChildren() -> void;
+
+    /**
      * @brief Retrieves the list of child nodes.
      *
      * @return A constant reference to a vector of child nodes.
@@ -72,11 +77,6 @@ public:
      * @return True if the transform is dirty or the parent requires an update.
      */
     [[nodiscard]] auto ShouldUpdateTransform() const -> bool;
-
-    /**
-     * @brief Updates the node's world transform and propagates updates to children.
-     */
-    virtual auto UpdateTransforms() -> void;
 
     /**
      * @brief Retrieves the world transform matrix of the node.
@@ -126,6 +126,16 @@ public:
     [[nodiscard]] auto As() const {
         return dynamic_cast<const T*>(this);
     }
+
+    /**
+     * @brief Invoked before rendering the node.
+     */
+    virtual auto BeforeRender() -> void { /* No-op by default */ }
+
+    /**
+     * @brief Updates the node's world transform and propagates updates to children.
+     */
+    virtual auto UpdateTransforms() -> void;
 
     /**
      * @brief Default destructor.

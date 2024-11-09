@@ -34,8 +34,10 @@ class ENGINE_EXPORT Light : public Node {
 public:
     /// @brief The color of the light.
     Color color;
+
     /// @brief The intensity of the light.
     float intensity;
+
     /// @brief Debug visualization mode flag for this light.
     bool debug_mode {false};
 
@@ -58,7 +60,12 @@ public:
     /**
      * @brief Pure virtual function to toggle debug mode.
      */
-    virtual auto SetDebugMode(bool enabled) -> void = 0;
+    virtual auto SetDebugMode(bool enabled) -> void {
+        debug_mode = enabled;
+        if (!debug_mode) {
+            RemoveAllChildren();
+        }
+    }
 
     /**
      * @brief Default destructor for the Light class.

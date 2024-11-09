@@ -30,6 +30,8 @@ TEST(Node, RemoveChild) {
     EXPECT_TRUE(parent->Children().empty());
 }
 
+// TODO: add test to remove all children
+
 TEST(Node, UpdateLevel) {
     auto parent = engine::Node::Create();
     auto child = engine::Node::Create();

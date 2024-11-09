@@ -41,12 +41,12 @@ public:
     }
 
     /**
-     * @brief Toggles debug mode and create debug mesh if needed.
+     * @brief Override this function to update debug geometry before rendering.
      */
-    auto SetDebugMode(bool enabled) -> void override;
+    auto BeforeRender() -> void override;
 
 private:
-    auto CreateDebugMesh() -> void;
+    auto UpdateDebugMesh() -> void;
 };
 
 }
