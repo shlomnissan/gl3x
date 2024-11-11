@@ -14,6 +14,8 @@
 
 namespace engine {
 
+struct KeyboardEvent; ///< Forward declaration
+
 /**
  * @brief Represents a node in a scene graph.
  */
@@ -128,11 +130,6 @@ public:
     }
 
     /**
-     * @brief Invoked before rendering the node.
-     */
-    virtual auto Update(double delta) -> void { /* No-op by default */ }
-
-    /**
      * @brief Updates the node's world transform and propagates updates to children.
      */
     virtual auto UpdateTransforms() -> void;
@@ -141,6 +138,22 @@ public:
      * @brief Default destructor.
      */
     virtual ~Node() = default;
+
+    #pragma region Events
+
+    /**
+     * @brief Invoked before rendering the node.
+     */
+    virtual auto Update(double delta) -> void { /* No-op by default */ }
+
+    /**
+     * @brief Invoked when a keyboard event is received.
+     *
+     * @param event A pointer to the keyboard event.
+     */
+    virtual auto OnKeyboardEvent(KeyboardEvent* event) -> void { /* No-op by default */ }
+
+    #pragma endregion
 
 private:
     /// @brief List of child nodes.

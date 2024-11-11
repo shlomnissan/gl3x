@@ -15,7 +15,7 @@ Scene::Scene() {
 
 auto Scene::AddEventListeners() -> void {
     keyboard_input_listener_ = std::make_shared<EventListener>([&](Event* e) {
-        // TODO: dispatch event to nodes
+        HandleKeyboardInput(shared_from_this(), e->As<KeyboardEvent>());
     });
 
     EventDispatcher::Get().AddEventListener("keyboard_input", keyboard_input_listener_);
@@ -31,6 +31,19 @@ auto Scene::HandleNodeUpdates(std::weak_ptr<Node> node, double delta) -> void {
         for (const auto& child : n->Children()) {
             HandleNodeUpdates(child, delta);
         }
+    }
+}
+
+auto Scene::HandleKeyboardInput(std::weak_ptr<Node> node, KeyboardEvent* event) -> void {
+    // Events are propagated from the bottom of the scene graph to the top.
+    // This allows nodes at the bottom of the graph to mark events as handled
+    // and prevent them from being processed by parent nodes.
+    if (const auto n = node.lock()) {
+        for (const auto& child : n->Children()) {
+            if (event->handled) return;
+            HandleKeyboardInput(child, event);
+        }
+        n->OnKeyboardEvent(event);
     }
 }
 
