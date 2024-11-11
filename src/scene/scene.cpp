@@ -23,8 +23,19 @@ auto Scene::AddEventListeners() -> void {
     EventDispatcher::Get().AddEventListener("keyboard_input", keyboard_input_listener_);
 }
 
-auto Scene::ProcessUpdates(double delta) -> void {
-    // TODO: iterate through nodes to execute their update functions
+auto Scene::Update(double delta) -> void {
+    for (const auto& node : Children()) {
+        ProcessUpdates(node, delta);
+    }
+}
+
+auto Scene::ProcessUpdates(std::weak_ptr<Node> node, double delta) -> void {
+    if (const auto n = node.lock()) {
+        n->Update(delta);
+        for (const auto& child : n->Children()) {
+            ProcessUpdates(child, delta);
+        }
+    }
 }
 
 }

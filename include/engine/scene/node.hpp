@@ -130,7 +130,7 @@ public:
     /**
      * @brief Invoked before rendering the node.
      */
-    virtual auto BeforeRender() -> void { /* No-op by default */ }
+    virtual auto Update(double delta) -> void { /* No-op by default */ }
 
     /**
      * @brief Updates the node's world transform and propagates updates to children.

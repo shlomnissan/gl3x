@@ -18,8 +18,6 @@ Renderer::Impl::Impl(const Renderer::Parameters& params) : params_(params) {
 
 auto Renderer::Impl::RenderObjects(const Node* object, Camera* camera) -> void {
     for (const auto node : object->Children()) {
-        node->BeforeRender();
-
         if (node->Is<Mesh>()) {
             auto mesh = node->As<Mesh>();
             auto geometry = mesh->GetGeometry();

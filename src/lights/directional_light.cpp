@@ -11,7 +11,7 @@
 
 namespace engine {
 
-auto DirectionalLight::BeforeRender() -> void {
+auto DirectionalLight::Update(double delta) -> void {
     if (debug_mode) {
         UpdateDebugMesh();
     }

@@ -41,9 +41,11 @@ public:
     }
 
     /**
-     * @brief Override this function to update debug geometry before rendering.
+     * @brief Overrides the update function to update the light debug geometry.
+     *
+     * @param delta The time in seconds since the last update.
      */
-    auto BeforeRender() -> void override;
+    auto Update(double delta) -> void override;
 
 private:
     auto UpdateDebugMesh() -> void;
