@@ -15,7 +15,7 @@ namespace engine {
 /**
  * @brief Represents the scene's root node.
  */
-class ENGINE_EXPORT Scene : public Node {
+class ENGINE_EXPORT Scene : public Node, public std::enable_shared_from_this<Scene> {
 public:
     // @brief Initializes a scene object.
     Scene();
@@ -25,7 +25,7 @@ public:
      *
      * @param delta The time in seconds since the last update.
      */
-    auto Update(double delta) -> void override;
+    auto ProcessUpdates(double delta) -> void;
 
     /**
      * @brief Creates a new instance of the Scene class.
@@ -46,7 +46,11 @@ private:
      * @param node The node to update.
      * @param delta The time in seconds since the last update.
      */
-    auto ProcessUpdates(std::weak_ptr<Node> node, double delta) -> void;
+    auto HandleNodeUpdates(std::weak_ptr<Node> node, double delta) -> void;
+
+    // TODO: handle keyboard input event propagation
+
+    // TODO: handle mouse input event propagation
 
     /**
      * @brief Add event listeners to manage game nodes within the scene.

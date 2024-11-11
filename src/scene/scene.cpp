@@ -14,26 +14,22 @@ Scene::Scene() {
 }
 
 auto Scene::AddEventListeners() -> void {
-    // Dispatch keyboard events to game nodes hierarchically,
-    // starting from the lowest level in the graph and moving upwards.
     keyboard_input_listener_ = std::make_shared<EventListener>([&](Event* e) {
-        // TODO: iterate through the scene's game nodes and dispatch the event
+        // TODO: dispatch event to nodes
     });
 
     EventDispatcher::Get().AddEventListener("keyboard_input", keyboard_input_listener_);
 }
 
-auto Scene::Update(double delta) -> void {
-    for (const auto& node : Children()) {
-        ProcessUpdates(node, delta);
-    }
+auto Scene::ProcessUpdates(double delta) -> void {
+    HandleNodeUpdates(shared_from_this(), delta);
 }
 
-auto Scene::ProcessUpdates(std::weak_ptr<Node> node, double delta) -> void {
+auto Scene::HandleNodeUpdates(std::weak_ptr<Node> node, double delta) -> void {
     if (const auto n = node.lock()) {
         n->Update(delta);
         for (const auto& child : n->Children()) {
-            ProcessUpdates(child, delta);
+            HandleNodeUpdates(child, delta);
         }
     }
 }
