@@ -78,7 +78,6 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/scene/camera.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/camera_orthographic.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/camera_perspective.hpp"
-    "${PUBLIC_HEADERS_DIR}/scene/game_node.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/mesh.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/node.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/scene.hpp"
