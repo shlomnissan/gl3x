@@ -38,7 +38,9 @@ public:
 
 private:
     /// @brief Event listener for handling keyboard input events.
-    std::shared_ptr<EventListener> keyboard_input_listener_;
+    std::shared_ptr<EventListener> keyboard_event_listener_;
+    /// @brief Event listener for handling mouse input events.
+    std::shared_ptr<EventListener> mouse_event_listener_;
 
     /**
      * @brief Propagate the "update event" to game nodes within the scene.

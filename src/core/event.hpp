@@ -47,14 +47,26 @@ enum class Key; // forward declaration
 
 struct KeyboardEvent : public Event {
     enum class Type {
-        KeyPressed,
-        KeyReleased
+        Pressed,
+        Released
     };
 
     KeyboardEvent::Type type;
     Key key;
 
-    explicit KeyboardEvent(Type type, Key key) : type(type), key(key) {}
+    KeyboardEvent(Type type, Key key) : type(type), key(key) {}
+};
+
+struct MouseEvent : public Event {
+    enum class Type {
+        Moved,
+    };
+
+    MouseEvent::Type type;
+    double x;
+    double y;
+
+    MouseEvent(Type type, double x, double y) : type(type), x(x), y(y) {}
 };
 
 enum class Key {

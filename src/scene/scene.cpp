@@ -4,8 +4,10 @@
 #include "engine/scene/scene.hpp"
 
 #include "core/event.hpp"
+#include "core/event_dispatcher.hpp"
 #include "engine/core/logger.hpp"
 
+#include <memory>
 #include <vector>
 
 namespace engine {
@@ -15,10 +17,15 @@ Scene::Scene() {
 }
 
 auto Scene::AddEventListeners() -> void {
-    keyboard_input_listener_ = std::make_shared<EventListener>([&](Event* e) {
+    keyboard_event_listener_ = std::make_shared<EventListener>([&](Event* e) {
         HandleInputEvent(shared_from_this(), e);
     });
-    EventDispatcher::Get().AddEventListener("keyboard_input", keyboard_input_listener_);
+    EventDispatcher::Get().AddEventListener("keyboard_event", keyboard_event_listener_);
+
+    mouse_event_listener_ = std::make_shared<EventListener>([&](Event* e) {
+        HandleInputEvent(shared_from_this(), e);
+    });
+    EventDispatcher::Get().AddEventListener("mouse_event", mouse_event_listener_);
 }
 
 auto Scene::ProcessUpdates(double delta) -> void {
@@ -45,6 +52,7 @@ auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
         }
 
         if (auto e = event->As<KeyboardEvent>()) n->OnKeyboardEvent(e);
+        if (auto e = event->As<MouseEvent>()) n->OnMouseEvent(e);
     }
 }
 

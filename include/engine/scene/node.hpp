@@ -15,6 +15,7 @@
 namespace engine {
 
 struct KeyboardEvent; ///< Forward declaration
+struct MouseEvent; ///< Forward declaration
 
 /**
  * @brief Represents a node in a scene graph.
@@ -152,6 +153,13 @@ public:
      * @param event A pointer to the keyboard event.
      */
     virtual auto OnKeyboardEvent(KeyboardEvent* event) -> void { /* No-op by default */ }
+
+    /**
+     * @brief Invoked when a mouse event is received.
+     *
+     * @param event A pointer to the mouse event.
+     */
+    virtual auto OnMouseEvent(MouseEvent* event) -> void { /* No-op by default */ }
 
     #pragma endregion
 

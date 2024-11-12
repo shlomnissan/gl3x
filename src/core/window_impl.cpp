@@ -13,7 +13,8 @@
 namespace engine {
 
 static auto glfw_get_error() -> std::string;
-static auto glfw_keyboard_input(GLFWwindow*, int key, int scancode, int action, int mods) -> void;
+static auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, int mods) -> void;
+static auto glfw_cursor_pos_callback(GLFWwindow*, double x, double y) -> void;
 static auto glfw_keyboard_map(int key) -> engine::Key;
 
 Window::Impl::Impl(const Window::Parameters& params) {
@@ -28,6 +29,7 @@ Window::Impl::Impl(const Window::Parameters& params) {
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
     glfwWindowHint(GLFW_ALPHA_BITS, 8);
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glfwWindowHint(GLFW_STENCIL_BITS, 8);
@@ -60,8 +62,10 @@ Window::Impl::Impl(const Window::Parameters& params) {
 
     glfwSwapInterval(1);
     glfwSetWindowUserPointer(window_, this);
-    glfwSetKeyCallback(window_, glfw_keyboard_input);
     glfwGetFramebufferSize(window_, &buffer_width_, &buffer_height_);
+
+    glfwSetKeyCallback(window_, glfw_key_callback);
+    glfwSetCursorPosCallback(window_, glfw_cursor_pos_callback);
 }
 
 auto Window::Impl::Start(const std::function<void(const double)>& tick) -> void {
@@ -95,26 +99,30 @@ static auto glfw_get_error() -> std::string {
     return error_description;
 }
 
-static auto glfw_keyboard_input(GLFWwindow*, int key, int scancode, int action, int mods) -> void {
+static auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, int mods) -> void {
+    auto event = std::make_unique<KeyboardEvent>(
+        KeyboardEvent::Type::Pressed,
+        glfw_keyboard_map(key)
+    );
+
     if (action == GLFW_PRESS) {
-        EventDispatcher::Get().Dispatch(
-            "keyboard_input",
-            std::make_unique<KeyboardEvent>(
-                KeyboardEvent::Type::KeyPressed,
-                glfw_keyboard_map(key)
-            )
-        );
+        EventDispatcher::Get().Dispatch("keyboard_event", std::move(event));
     }
 
     if (action == GLFW_RELEASE) {
-        EventDispatcher::Get().Dispatch(
-            "keyboard_input",
-            std::make_unique<KeyboardEvent>(
-                KeyboardEvent::Type::KeyReleased,
-                glfw_keyboard_map(key)
-            )
-        );
+        event->type = KeyboardEvent::Type::Released;
+        EventDispatcher::Get().Dispatch("keyboard_event", std::move(event));
     }
+}
+
+static auto glfw_cursor_pos_callback(GLFWwindow*, double x, double y) -> void {
+    EventDispatcher::Get().Dispatch(
+        "mouse_event",
+        std::make_unique<MouseEvent>(
+            MouseEvent::Type::Moved,
+            x, y
+        )
+    );
 }
 
 auto glfw_keyboard_map(int key) -> engine::Key {
