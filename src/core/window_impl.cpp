@@ -15,7 +15,10 @@ namespace engine {
 static auto glfw_get_error() -> std::string;
 static auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, int mods) -> void;
 static auto glfw_cursor_pos_callback(GLFWwindow*, double x, double y) -> void;
-static auto glfw_keyboard_map(int key) -> engine::Key;
+static auto glfw_mouse_button_callback(GLFWwindow*, int button, int action, int mods) -> void;
+static auto glfw_scroll_callback(GLFWwindow*, double x, double y) -> void;
+static auto glfw_mouse_button_map(int button) -> MouseButton;
+static auto glfw_keyboard_map(int key) -> Key;
 
 Window::Impl::Impl(const Window::Parameters& params) {
     if (!glfwInit()) {
@@ -66,6 +69,8 @@ Window::Impl::Impl(const Window::Parameters& params) {
 
     glfwSetKeyCallback(window_, glfw_key_callback);
     glfwSetCursorPosCallback(window_, glfw_cursor_pos_callback);
+    glfwSetMouseButtonCallback(window_, glfw_mouse_button_callback);
+    glfwSetScrollCallback(window_, glfw_scroll_callback);
 }
 
 auto Window::Impl::Start(const std::function<void(const double)>& tick) -> void {
@@ -100,10 +105,9 @@ static auto glfw_get_error() -> std::string {
 }
 
 static auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, int mods) -> void {
-    auto event = std::make_unique<KeyboardEvent>(
-        KeyboardEvent::Type::Pressed,
-        glfw_keyboard_map(key)
-    );
+    auto event = std::make_unique<KeyboardEvent>();
+    event->type = KeyboardEvent::Type::Pressed;
+    event->key = glfw_keyboard_map(key);
 
     if (action == GLFW_PRESS) {
         EventDispatcher::Get().Dispatch("keyboard_event", std::move(event));
@@ -115,14 +119,59 @@ static auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, in
     }
 }
 
-static auto glfw_cursor_pos_callback(GLFWwindow*, double x, double y) -> void {
-    EventDispatcher::Get().Dispatch(
-        "mouse_event",
-        std::make_unique<MouseEvent>(
-            MouseEvent::Type::Moved,
-            x, y
-        )
-    );
+static auto glfw_cursor_pos_callback(GLFWwindow* window, double x, double y) -> void {
+    auto event = std::make_unique<MouseEvent>();
+    auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
+    instance->mouse_pos_x = x;
+    instance->mouse_pos_y = y;
+
+    event->type = MouseEvent::Type::Moved;
+    event->button = MouseButton::Unknown;
+    event->position = {x, y};
+    event->scroll = {0.0, 0.0};
+
+    EventDispatcher::Get().Dispatch("mouse_event", std::move(event));
+}
+
+static auto glfw_mouse_button_callback(GLFWwindow* window, int button, int action, int mods) -> void {
+    auto event = std::make_unique<MouseEvent>();
+    auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
+
+    event->type = MouseEvent::Type::ButtonPressed;
+    event->button = glfw_mouse_button_map(button);
+    event->position = {instance->mouse_pos_x, instance->mouse_pos_y};
+    event->scroll = {0.0, 0.0};
+
+    if (action == GLFW_PRESS) {
+        EventDispatcher::Get().Dispatch("mouse_event", std::move(event));
+    }
+
+    if (action == GLFW_RELEASE) {
+        event->type = MouseEvent::Type::ButtonReleased;
+        EventDispatcher::Get().Dispatch("mouse_event", std::move(event));
+    }
+}
+
+static auto glfw_scroll_callback(GLFWwindow* window, double x, double y) -> void {
+    auto event = std::make_unique<MouseEvent>();
+    auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
+
+    event->type = MouseEvent::Type::Scrolled;
+    event->button = MouseButton::Unknown;
+    event->position = {instance->mouse_pos_x, instance->mouse_pos_y};
+    event->scroll = {x, y};
+
+    EventDispatcher::Get().Dispatch("mouse_event", std::move(event));
+}
+
+auto glfw_mouse_button_map(int button) -> MouseButton {
+    switch(button) {
+        case GLFW_MOUSE_BUTTON_LEFT: return MouseButton::Left;
+        case GLFW_MOUSE_BUTTON_RIGHT: return MouseButton::Right;
+        case GLFW_MOUSE_BUTTON_MIDDLE: return MouseButton::Middle;
+        default: Logger::Log(LogLevel::Error, "Unrecognized GLFW mouse button key {}", button);
+    }
+    return MouseButton::Unknown;
 }
 
 auto glfw_keyboard_map(int key) -> engine::Key {

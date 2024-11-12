@@ -13,6 +13,9 @@ namespace engine {
 
 class Window::Impl {
 public:
+    double mouse_pos_x {0.0};
+    double mouse_pos_y {0.0};
+
     explicit Impl(const Window::Parameters& params);
 
     Impl(const Impl&) = delete;
@@ -31,10 +34,10 @@ public:
     ~Impl();
 
 private:
-    bool initialized_ {false};
-
     int buffer_width_ {0};
     int buffer_height_ {0};
+
+    bool initialized_ {false};
 
     Timer timer_ {};
 

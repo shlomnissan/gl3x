@@ -43,7 +43,7 @@ struct SceneEvent : public Event {
     SceneEvent(Type type, std::shared_ptr<Node> node) : type(type), node(node) {}
 };
 
-enum class Key; // forward declaration
+enum class Key; ///< forward declaration
 
 struct KeyboardEvent : public Event {
     enum class Type {
@@ -53,20 +53,30 @@ struct KeyboardEvent : public Event {
 
     KeyboardEvent::Type type;
     Key key;
-
-    KeyboardEvent(Type type, Key key) : type(type), key(key) {}
 };
+
+enum class MouseButton; ///< forward declaration
 
 struct MouseEvent : public Event {
     enum class Type {
         Moved,
+        ButtonPressed,
+        ButtonReleased,
+        Scrolled
     };
 
-    MouseEvent::Type type;
-    double x;
-    double y;
+    std::pair<double, double> position;
+    std::pair<double, double> scroll;
 
-    MouseEvent(Type type, double x, double y) : type(type), x(x), y(y) {}
+    MouseEvent::Type type;
+    MouseButton button;
+};
+
+enum class MouseButton {
+    Unknown,
+    Left,
+    Right,
+    Middle
 };
 
 enum class Key {
