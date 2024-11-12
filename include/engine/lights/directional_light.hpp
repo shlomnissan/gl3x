@@ -41,7 +41,7 @@ public:
     }
 
     /**
-     * @brief Overrides the update function to update the light debug geometry.
+     * @brief Invoked when the node is updated.
      *
      * @param delta The time in seconds since the last update.
      */

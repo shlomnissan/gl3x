@@ -7,6 +7,7 @@
 #include <engine/lights/directional_light.hpp>
 #include <engine/materials/flat_material.hpp>
 #include <engine/materials/phong_material.hpp>
+#include <engine/resources/camera_orbit.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
 #include <engine/scene/scene.hpp>
@@ -28,6 +29,8 @@ auto main() -> int {
 
     auto scene = Scene::Create();
     auto camera = CameraPerspective::Create(60.0f, window.AspectRatio());
+    auto camera_controls = CameraOrbit::Create(camera);
+
     camera->transform.Translate({0.0f, 0.0f, 2.0f});
 
     auto flat_material = FlatMaterial::Create();
@@ -44,6 +47,7 @@ auto main() -> int {
     shiny_mesh->transform.Translate({-0.6f, 0.0f, 0.0f});
     shiny_mesh->transform.Scale(0.7f);
 
+    scene->Add(camera_controls);
     scene->Add(flat_mesh);
     scene->Add(shiny_mesh);
 
