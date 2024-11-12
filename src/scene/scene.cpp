@@ -3,6 +3,7 @@
 
 #include "engine/scene/scene.hpp"
 
+#include "core/event.hpp"
 #include "engine/core/logger.hpp"
 
 #include <vector>
@@ -15,9 +16,8 @@ Scene::Scene() {
 
 auto Scene::AddEventListeners() -> void {
     keyboard_input_listener_ = std::make_shared<EventListener>([&](Event* e) {
-        HandleKeyboardInput(shared_from_this(), e->As<KeyboardEvent>());
+        HandleInputEvent(shared_from_this(), e);
     });
-
     EventDispatcher::Get().AddEventListener("keyboard_input", keyboard_input_listener_);
 }
 
@@ -34,16 +34,17 @@ auto Scene::HandleNodeUpdates(std::weak_ptr<Node> node, double delta) -> void {
     }
 }
 
-auto Scene::HandleKeyboardInput(std::weak_ptr<Node> node, KeyboardEvent* event) -> void {
+auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
     // Events are propagated from the bottom of the scene graph to the top.
     // This allows nodes at the bottom of the graph to mark events as handled
     // and prevent them from being processed by parent nodes.
     if (const auto n = node.lock()) {
         for (const auto& child : n->Children()) {
             if (event->handled) return;
-            HandleKeyboardInput(child, event);
+            HandleInputEvent(child, event);
         }
-        n->OnKeyboardEvent(event);
+
+        if (auto e = event->As<KeyboardEvent>()) n->OnKeyboardEvent(e);
     }
 }
 

@@ -48,8 +48,13 @@ private:
      */
     auto HandleNodeUpdates(std::weak_ptr<Node> node, double delta) -> void;
 
-    // TODO: generalize this method to handle all types of input events.
-    auto HandleKeyboardInput(std::weak_ptr<Node> node, KeyboardEvent* event) -> void;
+    /**
+     * @brief Propagate input events to nodes within the scene.
+     *
+     * @param node The node to update.
+     * @param event The input event to handle.
+     */
+    auto HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void;
 
     /**
      * @brief Add event listeners to manage game nodes within the scene.
