@@ -40,7 +40,7 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) -> std::vect
     Logger::Log(
         LogLevel::Error,
         "Shader source not found for unknown material {}_material",
-        ToString(material->Type())
+        MaterialTypeToString(material->Type())
     );
 
     return {};

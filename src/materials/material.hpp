@@ -8,29 +8,30 @@
 
 #include "core/identity.hpp"
 
-#include <string>
 #include <memory>
+#include <optional>
+#include <string>
 
 namespace engine {
+
+#pragma region Types
 
 enum class MaterialType {
     kFlatMaterial,
     kPhongMaterial
 };
 
-static auto ToString(MaterialType type) {
-    switch(type) {
-        case MaterialType::kFlatMaterial:
-            return "flat";
-        case MaterialType::kPhongMaterial:
-            return "phong";
-        default:
-            return "unkonwn";
-    }
-}
+struct PolygonOffset {
+    float factor {0.0f};
+    float units {0.0f};
+};
+
+#pragma endregion
 
 class Material : public Identity {
 public:
+    std::optional<PolygonOffset> polygon_offset;
+
     bool cull_backfaces {true};
     bool supports_lights {false};
 
@@ -76,6 +77,21 @@ struct MaterialWithTextureMap : virtual Material {
     explicit MaterialWithTextureMap(std::shared_ptr<Texture2D> texture)
       : texture_map(texture) {}
 };
+
+#pragma endregion
+
+#pragma region Utility Functions
+
+static auto MaterialTypeToString(MaterialType type) {
+    switch(type) {
+        case MaterialType::kFlatMaterial:
+            return "flat";
+        case MaterialType::kPhongMaterial:
+            return "phong";
+        default:
+            return "unkonwn";
+    }
+}
 
 #pragma endregion
 

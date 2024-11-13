@@ -26,7 +26,7 @@ auto ProgramAttributes::PermutationKey() const -> std::string {
 
     return fmt::format(
         "{}_material|p{}",
-        ToString(material->Type()),
+        MaterialTypeToString(material->Type()),
         attrs.to_ulong()
     );
 }

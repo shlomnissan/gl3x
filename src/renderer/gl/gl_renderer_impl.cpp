@@ -31,9 +31,21 @@ auto Renderer::Impl::RenderObjects(const Node* object, Camera* camera) -> void {
                 return;
             }
 
+            // Handle backface culling
             if (curr_backface_culling != material->cull_backfaces) {
                 material->cull_backfaces ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
                 curr_backface_culling = material->cull_backfaces;
+            }
+
+            // Handle polygon offset
+            if (material->polygon_offset.has_value()) {
+                glEnable(GL_POLYGON_OFFSET_FILL);
+                glPolygonOffset(
+                    material->polygon_offset->factor,
+                    material->polygon_offset->units
+                );
+            } else {
+                glDisable(GL_POLYGON_OFFSET_FILL);
             }
 
             if (material->supports_lights) {
