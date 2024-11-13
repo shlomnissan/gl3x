@@ -126,14 +126,14 @@ static auto glfw_cursor_pos_callback(GLFWwindow* window, double x, double y) -> 
     instance->mouse_pos_y = y;
 
     event->type = MouseEvent::Type::Moved;
-    event->button = MouseButton::Unknown;
+    event->button = MouseButton::None;
     event->position = {x, y};
     event->scroll = {0.0, 0.0};
 
     EventDispatcher::Get().Dispatch("mouse_event", std::move(event));
 }
 
-static auto glfw_mouse_button_callback(GLFWwindow* window, int button, int action, int mods) -> void {
+static auto glfw_mouse_button_callback(GLFWwindow* window, int button, int action, int) -> void {
     auto event = std::make_unique<MouseEvent>();
     auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
 
@@ -157,24 +157,24 @@ static auto glfw_scroll_callback(GLFWwindow* window, double x, double y) -> void
     auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
 
     event->type = MouseEvent::Type::Scrolled;
-    event->button = MouseButton::Unknown;
+    event->button = MouseButton::None;
     event->position = {instance->mouse_pos_x, instance->mouse_pos_y};
     event->scroll = {x, y};
 
     EventDispatcher::Get().Dispatch("mouse_event", std::move(event));
 }
 
-auto glfw_mouse_button_map(int button) -> MouseButton {
+static auto glfw_mouse_button_map(int button) -> MouseButton {
     switch(button) {
         case GLFW_MOUSE_BUTTON_LEFT: return MouseButton::Left;
         case GLFW_MOUSE_BUTTON_RIGHT: return MouseButton::Right;
         case GLFW_MOUSE_BUTTON_MIDDLE: return MouseButton::Middle;
         default: Logger::Log(LogLevel::Error, "Unrecognized GLFW mouse button key {}", button);
     }
-    return MouseButton::Unknown;
+    return MouseButton::None;
 }
 
-auto glfw_keyboard_map(int key) -> engine::Key {
+static auto glfw_keyboard_map(int key) -> engine::Key {
     switch(key) {
         case GLFW_KEY_SPACE: return engine::Key::Space;
         case GLFW_KEY_APOSTROPHE: return engine::Key::Apostrophe;
@@ -298,7 +298,7 @@ auto glfw_keyboard_map(int key) -> engine::Key {
         case GLFW_KEY_MENU: return engine::Key::Menu;
         default: Logger::Log(LogLevel::Error, "Unrecognized GLFW key {}", key);
     }
-    return engine::Key::Unknown;
+    return engine::Key::None;
 }
 
 }

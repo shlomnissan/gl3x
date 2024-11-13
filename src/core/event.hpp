@@ -73,14 +73,14 @@ struct MouseEvent : public Event {
 };
 
 enum class MouseButton {
-    Unknown,
+    None,
     Left,
     Right,
     Middle
 };
 
 enum class Key {
-    Unknown,
+    None,
     Space,
     Apostrophe,
     Comma,

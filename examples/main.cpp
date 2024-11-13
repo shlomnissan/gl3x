@@ -60,8 +60,8 @@ auto main() -> int {
     window.Start([&](const double delta){
         scene->ProcessUpdates(delta);
 
-        flat_mesh->transform.Rotate(Vector3::Up(), 0.01f);
-        shiny_mesh->transform.Rotate(Vector3::Right(), 0.01f);
+        flat_mesh->transform.Rotate(Vector3::Up(), 1.0f * delta);
+        shiny_mesh->transform.Rotate(Vector3::Right(), 1.0f * delta);
 
         renderer.Render(scene.get(), camera.get());
     });

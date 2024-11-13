@@ -54,6 +54,18 @@ public:
 private:
     /// @brief The camera to orbit around.
     std::shared_ptr<CameraPerspective> camera_;
+
+    /// @brief The current mouse position.
+    std::pair<float, float> curr_mouse_pos_ {0.0f, 0.0f};
+
+    /// @brief The previous mouse position.
+    std::pair<float, float> prev_mouse_pos_ {0.0f, 0.0f};
+
+    /// @brief The current mouse button.
+    MouseButton curr_mouse_button_ {MouseButton::None};
+
+    /// @brief Flag indicating whether the camera has been updated before.
+    bool first_update_ {true};
 };
 
 }

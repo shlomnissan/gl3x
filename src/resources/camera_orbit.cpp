@@ -3,16 +3,33 @@
 
 #include "engine/resources/camera_orbit.hpp"
 
-#include "engine/core/logger.hpp"
-
 namespace engine {
 
 auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {
-    // TODO: implement mouse events
+    using enum MouseButton;
+    using enum MouseEvent::Type;
+
+    curr_mouse_pos_ = event->position;
+    if (!first_update_) {
+        first_update_ = true;
+        prev_mouse_pos_ = curr_mouse_pos_;
+    }
+
+
+    if (event->type == ButtonPressed && curr_mouse_button_ == None) {
+        curr_mouse_button_ = event->button;
+    }
+
+    if (event->type == ButtonReleased && event->button == curr_mouse_button_) {
+        curr_mouse_button_ = None;
+    }
 }
 
 auto CameraOrbit::Update(double delta) -> void {
-    // TODO: implement camera orbit update
+    if (curr_mouse_button_ == MouseButton::Left) {
+        // TODO: implement camera orbit
+        prev_mouse_pos_ = curr_mouse_pos_;
+    }
 }
 
 }
