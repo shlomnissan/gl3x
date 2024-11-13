@@ -37,6 +37,17 @@ public:
      */
     Vector2(float x, float y);
 
+private:
+    /**
+     * @brief Checks if two vectors are equal, component-wise.
+     *
+     * @param a The first vector to compare.
+     * @param b The second vector to compare.
+     * @return bool `true` if the vectors are equal, `false` otherwise.
+     */
+    [[nodiscard]]
+    friend bool operator==(const Vector2& a, const Vector2& b) = default;
+
     /**
      * @brief Subtracts the second vector from the first vector component-wise.
      * @related Vector2

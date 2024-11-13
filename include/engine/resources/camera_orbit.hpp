@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/math/vector2.hpp"
 #include "engine/scene/node.hpp"
 #include "engine/scene/camera_perspective.hpp"
 
@@ -18,6 +19,8 @@ namespace engine {
  */
 class ENGINE_EXPORT CameraOrbit : public Node {
 public:
+    float orbit_speed = 1.0f;
+
     /**
      * @brief Constructs a CameraOrbit object.
      *
@@ -52,20 +55,22 @@ public:
     auto Update(double delta) -> void override;
 
 private:
-    /// @brief The camera to orbit around.
-    std::shared_ptr<CameraPerspective> camera_;
-
     /// @brief The current mouse position.
-    std::pair<float, float> curr_mouse_pos_ {0.0f, 0.0f};
+    Vector2 curr_mouse_pos_ {0.0f, 0.0f};
 
     /// @brief The previous mouse position.
-    std::pair<float, float> prev_mouse_pos_ {0.0f, 0.0f};
+    Vector2 prev_mouse_pos_ {0.0f, 0.0f};
+
+    /// @brief The camera to orbit around.
+    std::shared_ptr<CameraPerspective> camera_;
 
     /// @brief The current mouse button.
     MouseButton curr_mouse_button_ {MouseButton::None};
 
     /// @brief Flag indicating whether the camera has been updated before.
     bool first_update_ {true};
+
+    auto Orbit(const Vector2& mouse_offset, double delta) -> void;
 };
 
 }

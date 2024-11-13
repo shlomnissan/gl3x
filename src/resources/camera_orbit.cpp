@@ -27,9 +27,19 @@ auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {
 
 auto CameraOrbit::Update(double delta) -> void {
     if (curr_mouse_button_ == MouseButton::Left) {
-        // TODO: implement camera orbit
+        auto mouse_offset = curr_mouse_pos_ - prev_mouse_pos_;
+
+        if (curr_mouse_button_ == MouseButton::Left) {
+            Orbit(mouse_offset, delta);
+        }
+
         prev_mouse_pos_ = curr_mouse_pos_;
     }
+}
+
+auto CameraOrbit::Orbit(const Vector2& offset, double delta) -> void {
+    camera_->transform.Rotate(Vector3::Up(), -offset.x * orbit_speed * delta);
+    camera_->transform.Rotate(Vector3::Right(), -offset.y * orbit_speed * delta);
 }
 
 }

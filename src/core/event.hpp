@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "engine/math/vector2.hpp"
 #include "engine/scene/node.hpp"
 
 #include <memory>
@@ -65,8 +66,8 @@ struct MouseEvent : public Event {
         Scrolled
     };
 
-    std::pair<double, double> position;
-    std::pair<double, double> scroll;
+    Vector2 position;
+    Vector2 scroll;
 
     MouseEvent::Type type;
     MouseButton button;

@@ -51,3 +51,25 @@ TEST(Vector2, SubtractionFromZeroVector) {
 }
 
 #pragma endregion
+
+#pragma region Equality Operator
+
+TEST(Vector2, EqualityOperator) {
+    const auto v1 = engine::Vector2 {1.0f, 2.0f};
+    const auto v2 = engine::Vector2 {1.0f, 2.0f};
+    const auto v3 = engine::Vector2 {4.0f, 5.0f};
+
+    EXPECT_TRUE(v1 == v2);
+    EXPECT_FALSE(v1 == v3);
+}
+
+TEST(Vector2, InequalityOperator) {
+    const auto v1 = engine::Vector2 {1.0f, 2.0f};
+    const auto v2 = engine::Vector2 {1.0f, 2.0f};
+    const auto v3 = engine::Vector2 {4.0f, 5.0f};
+
+    EXPECT_FALSE(v1 != v2);
+    EXPECT_TRUE(v1 != v3);
+}
+
+#pragma endregion
