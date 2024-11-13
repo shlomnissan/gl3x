@@ -7,6 +7,7 @@
 
 #include <engine/math/matrix3.hpp>
 #include <engine/math/matrix4.hpp>
+#include <engine/math/vector2.hpp>
 #include <engine/math/vector3.hpp>
 #include <engine/math/vector4.hpp>
 
@@ -80,6 +81,11 @@ auto EXPECT_MAT4_NEAR(const engine::Matrix4& a, const engine::Matrix4& b, float 
     EXPECT_NEAR(a(3, 1), b(3, 1), v);
     EXPECT_NEAR(a(3, 2), b(3, 2), v);
     EXPECT_NEAR(a(3, 3), b(3, 3), v);
+}
+
+auto EXPECT_VEC2_EQ(const engine::Vector2& a, const engine::Vector2& b) -> void {
+    EXPECT_EQ(a.x, b.x);
+    EXPECT_EQ(a.y, b.y);
 }
 
 auto EXPECT_VEC3_EQ(const engine::Vector3& a, const engine::Vector3& b) -> void {

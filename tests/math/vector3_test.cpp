@@ -184,21 +184,21 @@ TEST(Vector3, AdditionBasic) {
     const auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
     const auto v2 = engine::Vector3 {4.0f, 5.0f, 6.0f};
 
-    EXPECT_VEC3_EQ(v1 + v2, engine::Vector3 {5.0f, 7.0f, 9.0f});
+    EXPECT_VEC3_EQ(v1 + v2, {5.0f, 7.0f, 9.0f});
 }
 
 TEST(Vector3, AdditionZeroVector) {
     const auto v1 = engine::Vector3 {7.0f, -3.0f, 2.0f};
     const auto v2 = engine::Vector3 {0.0f, 0.0f, 0.0f};
 
-    EXPECT_VEC3_EQ(v1 + v2, engine::Vector3 {7.0f, -3.0f, 2.0f});
+    EXPECT_VEC3_EQ(v1 + v2, {7.0f, -3.0f, 2.0f});
 }
 
 TEST(Vector3, AdditionNegativeValues) {
     const auto v1 = engine::Vector3 {-1.0f, -2.0f, -3.0f};
     const auto v2 = engine::Vector3 {-4.0f, -5.0f, -6.0f};
 
-    EXPECT_VEC3_EQ(v1 + v2, engine::Vector3 {-5.0f, -7.0f, -9.0f});
+    EXPECT_VEC3_EQ(v1 + v2, {-5.0f, -7.0f, -9.0f});
 }
 
 #pragma endregion
@@ -209,20 +209,20 @@ TEST(Vector3, SubtractionBasic) {
     const auto v1 = engine::Vector3 {5.0f, 6.0f, 7.0f};
     const auto v2 = engine::Vector3 {3.0f, 2.0f, 1.0f};
 
-    EXPECT_VEC3_EQ(v1 - v2, engine::Vector3 {2.0f, 4.0f, 6.0f});
+    EXPECT_VEC3_EQ(v1 - v2, {2.0f, 4.0f, 6.0f});
 }
 
 TEST(Vector3, SubtractionFromSelf) {
     const auto v = engine::Vector3 {9.0f, 8.0f, 7.0f};
 
-    EXPECT_VEC3_EQ(v - v, engine::Vector3 {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(v - v, {0.0f, 0.0f, 0.0f});
 }
 
 TEST(Vector3, SubtractionFromZeroVector) {
     const auto v1 = engine::Vector3 {0.0f, 0.0f, 0.0f};
     const auto v2 = engine::Vector3 {2.0f, 4.0f, 6.0f};
 
-    EXPECT_VEC3_EQ(v1 - v2, engine::Vector3 {-2.0f, -4.0f, -6.0f});
+    EXPECT_VEC3_EQ(v1 - v2, {-2.0f, -4.0f, -6.0f});
 }
 
 #pragma endregion
