@@ -14,6 +14,10 @@ auto Window::Start(const OnTickCallback& tick) const -> void {
     impl_->Start(tick);
 }
 
+auto Window::SetTitle(std::string_view title) -> void {
+    impl_->SetTitle(title);
+}
+
 auto Window::Width() const -> int {
     return impl_->BufferWidth();
 }

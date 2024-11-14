@@ -26,10 +26,10 @@ public:
      * @brief Parameters used to initialize the window.
      */
     struct Parameters {
-        int width = 800;        ///< Width of the window in pixels.
-        int height = 600;       ///< Height of the window in pixels.
-        std::string_view title; ///< Title of the window.
-        bool vsync = true;      ///< Enable vertical synchronization.
+        int width;              ///< Width of the window in pixels.
+        int height;             ///< Height of the window in pixels.
+        int samples;            ///< Number of samples for multisampling.
+        bool vsync;             ///< Enable vertical synchronization.
     };
 
     /**
@@ -75,6 +75,13 @@ public:
     * takes a single `double` argument representing the elapsed time in seconds.
     */
     auto Start(const OnTickCallback& tick) const -> void;
+
+    /**
+     * @brief Sets the title of the window.
+     *
+     * @param title The new title of the window.
+     */
+    auto SetTitle(std::string_view title) -> void;
 
     /**
      * @brief Checks if there are any errors associated with the window.

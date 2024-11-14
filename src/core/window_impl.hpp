@@ -25,6 +25,8 @@ public:
 
     auto Start(const OnTickCallback& on_tick) -> void;
 
+    auto SetTitle(std::string_view title) -> void;
+
     auto BufferWidth() const { return buffer_width_; }
 
     auto BufferHeight() const { return buffer_height_; }

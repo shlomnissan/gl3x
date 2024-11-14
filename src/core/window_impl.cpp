@@ -32,22 +32,16 @@ Window::Impl::Impl(const Window::Parameters& params) {
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
     glfwWindowHint(GLFW_ALPHA_BITS, 8);
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glfwWindowHint(GLFW_STENCIL_BITS, 8);
+    glfwWindowHint(GLFW_SAMPLES, params.samples);
 
     #ifdef __APPLE__
         glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_TRUE);
     #endif
 
-    window_ = glfwCreateWindow(
-        params.width,
-        params.height,
-        params.title.data(),
-        nullptr,
-        nullptr
-    );
+    window_ = glfwCreateWindow(params.width, params.height, "Untitled", nullptr, nullptr);
 
     if (window_ == nullptr) {
         Logger::Log(LogLevel::Error, "Failed to create a GLFW window {}", glfw_get_error());
@@ -84,6 +78,10 @@ auto Window::Impl::Start(const std::function<void(const double)>& tick) -> void 
         glfwSwapBuffers(window_);
         glfwPollEvents();
     }
+}
+
+auto Window::Impl::SetTitle(std::string_view title) -> void {
+    glfwSetWindowTitle(window_, title.data());
 }
 
 auto Window::Impl::LogContextInfo() const -> void {

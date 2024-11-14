@@ -16,16 +16,13 @@
 using namespace engine;
 
 auto main() -> int {
-    auto window = Window {{.title = "Examples"}};
-    if (window.HasErrors()) {
-        return EXIT_FAILURE;
-    }
+    auto window = Window {{.width = 800, .height = 600, .samples = 4, .vsync = true}};
+    if (window.HasErrors()) return EXIT_FAILURE;
 
-    auto renderer = Renderer({
-        .width = window.Width(),
-        .height = window.Height(),
-        .clear_color = {0.0f, 0.0f, 0.5f, 1.0f}
-    });
+    window.SetTitle("Engine");
+
+    auto renderer = Renderer({.width = window.Width(), .height = window.Height()});
+    renderer.SetClearColor({0.0f, 0.0f, 0.5f, 1.0f});
 
     auto scene = Scene::Create();
     auto camera = CameraPerspective::Create(60.0f, window.AspectRatio());

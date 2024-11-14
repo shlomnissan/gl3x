@@ -14,6 +14,10 @@ auto Renderer::Render(Scene* scene, Camera* camera) -> void {
     impl_->Render(scene, camera);
 }
 
+auto Renderer::SetClearColor(const Color &color) -> void {
+    impl_->SetClearColor(color);
+}
+
 Renderer::~Renderer() = default;
 
 }

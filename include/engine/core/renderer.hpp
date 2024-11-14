@@ -23,7 +23,6 @@ public:
     struct Parameters {
         int width;              ///< The width of the rendering viewport.
         int height;             ///< The height of the rendering viewport.
-        Color clear_color = {}; ///< The clear color used to clear the rendering target.
     };
 
     /**
@@ -40,6 +39,13 @@ public:
      * @param camera A pointer to the camera defining the viewpoint for rendering.
      */
     auto Render(Scene* scene, Camera* camera) -> void;
+
+    /**
+     * @brief Sets the color to clear the screen with.
+     *
+     * @param color The color to clear the screen with.
+     */
+    auto SetClearColor(const Color& color) -> void;
 
     /**
      * @brief Destructor for the Renderer class.

@@ -11,7 +11,7 @@
 
 namespace engine {
 
-Renderer::Impl::Impl(const Renderer::Parameters& params) : params_(params) {
+Renderer::Impl::Impl(const Renderer::Parameters& params) {
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, params.width, params.height);
 }
@@ -139,12 +139,7 @@ auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
 }
 
 auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
-    glClearColor(
-        params_.clear_color.r,
-        params_.clear_color.g,
-        params_.clear_color.b,
-        params_.clear_color.a
-    );
+    glClearColor(clear_color_.r, clear_color_.g, clear_color_.b, clear_color_.a);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

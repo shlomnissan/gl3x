@@ -23,14 +23,16 @@ public:
 
     auto Render(Scene* scene, Camera* camera) -> void;
 
+    auto SetClearColor(const Color& color) -> void { clear_color_ = color; }
+
 private:
-    bool curr_backface_culling {true};
-
-    Renderer::Parameters params_;
-
     GLBuffers buffers_;
     GLPrograms programs_;
     GLTextures textures_;
+
+    Color clear_color_ {0.0f, 0.0f, 0.0f, 1.0f};
+
+    bool curr_backface_culling {true};
 
     auto RenderObjects(const Node* object, Camera* camera) -> void;
 
