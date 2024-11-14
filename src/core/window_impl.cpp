@@ -63,7 +63,7 @@ Window::Impl::Impl(const Window::Parameters& params) {
     LogContextInfo();
     initialized_ = true;
 
-    glfwSwapInterval(1);
+    glfwSwapInterval(params.vsync ? 1 : 0);
     glfwSetWindowUserPointer(window_, this);
     glfwGetFramebufferSize(window_, &buffer_width_, &buffer_height_);
 

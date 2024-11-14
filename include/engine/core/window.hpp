@@ -29,6 +29,7 @@ public:
         int width = 800;        ///< Width of the window in pixels.
         int height = 600;       ///< Height of the window in pixels.
         std::string_view title; ///< Title of the window.
+        bool vsync = true;      ///< Enable vertical synchronization.
     };
 
     /**
