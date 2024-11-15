@@ -26,10 +26,10 @@ public:
      * @brief Parameters used to initialize the window.
      */
     struct Parameters {
-        int width;              ///< Width of the window in pixels.
-        int height;             ///< Height of the window in pixels.
-        int samples;            ///< Number of samples for multisampling.
-        bool vsync;             ///< Enable vertical synchronization.
+        int width;          ///< Width of the window in pixels.
+        int height;         ///< Height of the window in pixels.
+        int antialiasing;   ///< Number of samples for multisampling.
+        bool vsync;         ///< Enable vertical synchronization.
     };
 
     /**
