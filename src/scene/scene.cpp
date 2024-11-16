@@ -28,11 +28,11 @@ auto Scene::AddEventListeners() -> void {
     EventDispatcher::Get().AddEventListener("mouse_event", mouse_event_listener_);
 }
 
-auto Scene::ProcessUpdates(double delta) -> void {
+auto Scene::ProcessUpdates(float delta) -> void {
     HandleNodeUpdates(shared_from_this(), delta);
 }
 
-auto Scene::HandleNodeUpdates(std::weak_ptr<Node> node, double delta) -> void {
+auto Scene::HandleNodeUpdates(std::weak_ptr<Node> node, float delta) -> void {
     if (const auto n = node.lock()) {
         n->Update(delta);
         for (const auto& child : n->Children()) {

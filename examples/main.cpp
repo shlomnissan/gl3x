@@ -55,7 +55,7 @@ auto main() -> int {
     scene->Add(light);
 
     window.Start([&](const double delta){
-        scene->ProcessUpdates(delta);
+        scene->ProcessUpdates(static_cast<float>(delta));
 
         flat_mesh->transform.Rotate(Vector3::Up(), 1.0f * delta);
         shiny_mesh->transform.Rotate(Vector3::Right(), 1.0f * delta);

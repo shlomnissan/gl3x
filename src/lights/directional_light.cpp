@@ -11,7 +11,7 @@
 
 namespace engine {
 
-auto DirectionalLight::Update(double delta) -> void {
+auto DirectionalLight::Update(float delta) -> void {
     if (debug_mode) {
         UpdateDebugMesh();
     }

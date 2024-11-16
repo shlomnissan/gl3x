@@ -145,7 +145,7 @@ public:
     /**
      * @brief Invoked before rendering the node.
      */
-    virtual auto Update(double delta) -> void { /* No-op by default */ }
+    virtual auto Update(float delta) -> void { /* No-op by default */ }
 
     /**
      * @brief Invoked when a keyboard event is received.

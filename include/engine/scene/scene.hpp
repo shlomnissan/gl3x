@@ -25,7 +25,7 @@ public:
      *
      * @param delta The time in seconds since the last update.
      */
-    auto ProcessUpdates(double delta) -> void;
+    auto ProcessUpdates(float delta) -> void;
 
     /**
      * @brief Creates a new instance of the Scene class.
@@ -48,7 +48,7 @@ private:
      * @param node The node to update.
      * @param delta The time in seconds since the last update.
      */
-    auto HandleNodeUpdates(std::weak_ptr<Node> node, double delta) -> void;
+    auto HandleNodeUpdates(std::weak_ptr<Node> node, float delta) -> void;
 
     /**
      * @brief Propagate input events to nodes within the scene.

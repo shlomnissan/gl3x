@@ -45,7 +45,7 @@ public:
      *
      * @param delta The time in seconds since the last update.
      */
-    auto Update(double delta) -> void override;
+    auto Update(float delta) -> void override;
 
 private:
     auto UpdateDebugMesh() -> void;

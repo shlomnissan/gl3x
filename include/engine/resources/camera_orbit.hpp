@@ -52,7 +52,7 @@ public:
      *
      * @param delta The time in seconds since the last update.
      */
-    auto Update(double delta) -> void override;
+    auto Update(float delta) -> void override;
 
 private:
     /// @brief The current mouse position.
@@ -70,7 +70,7 @@ private:
     /// @brief Flag indicating whether the camera has been updated before.
     bool first_update_ {true};
 
-    auto Orbit(const Vector2& mouse_offset, double delta) -> void;
+    auto Orbit(const Vector2& mouse_offset, float delta) -> void;
 };
 
 }
