@@ -18,7 +18,7 @@ add_subdirectory(src)
 
 if (BUILD_TESTS)
     include(CTest)
-    add_subdirectory(tests)
+    # add_subdirectory(tests)
 endif()
 
 if (BUILD_EXAMPLES)

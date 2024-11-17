@@ -7,21 +7,21 @@
 
 precision mediump float;
 
-layout (location = 0) out vec4 FragColor;
+layout (location = 0) out vec4 v_FragColor;
 
-in vec2 TexCoordinates;
+in vec2 v_TexCoord;
 
-uniform sampler2D AttribTextureMap;
-uniform vec4 AttribColor;
+uniform sampler2D u_AttribTextureMap;
+uniform vec4 u_AttribColor;
 
 void main() {
-    FragColor = vec4(1.0);
+    v_FragColor = vec4(1.0);
 
     #ifdef USE_COLOR
-        FragColor = FragColor * AttribColor;
+        v_FragColor *= u_AttribColor;
     #endif
 
     #ifdef USE_TEXTURE_MAP
-        FragColor = FragColor * texture(AttribTextureMap, TexCoordinates);
+        v_FragColor *= texture(u_AttribTextureMap, v_TexCoord);
     #endif
 }

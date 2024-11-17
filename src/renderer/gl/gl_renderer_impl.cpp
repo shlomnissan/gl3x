@@ -87,25 +87,25 @@ auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes* at
     auto material = mesh->GetMaterial();
 
     program->SetUniform(
-        "Projection",
+        "u_Projection",
         camera->GetProjectionMatrix()
     );
 
     program->SetUniform(
-        "ModelView",
+        "u_ModelView",
         camera->GetViewMatrix() * mesh->GetWorldTransform()
     );
 
     if (attrs->color) {
         program->SetUniform(
-            "AttribColor",
+            "u_AttribColor",
             material->As<MaterialWithColor>()->color
         );
     }
 
     if (attrs->texture_map) {
         program->SetUniform(
-            "AttribTextureMap",
+            "u_AttribTextureMap",
             0
         );
     }
