@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/math/vector4.hpp"
 
 #include <cassert>
 
@@ -41,6 +42,13 @@ public:
      * @param z The z component of the vector.
      */
     Vector3(float x, float y, float z);
+
+    /**
+     * @brief Constructs a Vector3 object from a Vector4 object.
+     *
+     * @param v The Vector4 object from which to extract the x, y, and z components.
+     */
+    Vector3(const Vector4& v);
 
     /**
      * @brief Returns a unit vector along the X axis.

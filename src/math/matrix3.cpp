@@ -31,4 +31,6 @@ Matrix3::Matrix3(
     c.x, c.y, c.z
 } {}
 
+Matrix3::Matrix3(const Matrix4& m) : Matrix3({m[0], m[1], m[2]}) {}
+
 }

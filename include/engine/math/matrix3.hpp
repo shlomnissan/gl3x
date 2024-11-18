@@ -5,6 +5,7 @@
 
 #include "engine_export.h"
 #include "engine/math/vector3.hpp"
+#include "engine/math/matrix4.hpp"
 
 #include <array>
 
@@ -65,6 +66,13 @@ public:
         const Vector3& b,
         const Vector3& c
     );
+
+    /**
+     * @brief Constructs a new Matrix3 object from a Matrix4 object.
+     *
+     * @param m The 4x4 matrix from which to extract the 3x3 matrix.
+     */
+    Matrix3(const Matrix4& m);
 
     /**
      * @brief Creates an identity matrix.

@@ -5,6 +5,7 @@
 #include <test_helpers.hpp>
 
 #include <engine/math/matrix3.hpp>
+#include <engine/math/matrix4.hpp>
 
 #pragma region Constructors
 
@@ -53,6 +54,23 @@ TEST(Matrix3, ConstructorVector) {
         1.0f, 2.0f, 3.0f,
         4.0f, 5.0f, 6.0f,
         7.0f, 8.0f, 9.0f
+    });
+}
+
+TEST(Matrix3, ConstructWithMatrix4) {
+    const auto m = engine::Matrix3 {
+        engine::Matrix4 {
+            1.0f,  2.0f,  3.0f,  4.0f,
+            5.0f,  6.0f,  7.0f,  8.0f,
+            9.0f, 10.0f, 11.0f, 12.0f,
+           13.0f, 14.0f, 15.0f, 16.0f
+        }
+    };
+
+    EXPECT_MAT3_EQ(m, {
+        1.0f,  2.0f,  3.0f,
+        5.0f,  6.0f,  7.0f,
+        9.0f, 10.0f, 11.0f
     });
 }
 
