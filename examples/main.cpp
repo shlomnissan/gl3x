@@ -55,8 +55,8 @@ auto main() -> int {
     scene->Add(shiny_mesh);
 
     auto light = DirectionalLight::Create();
-    light->color = 0x47A8BD; // Moonstone
-    light->transform.Translate({1.0f, 1.0f, 1.0f});
+    light->color = 0xFFFFFF;
+    light->transform.Translate({2.0f, 2.0f, 2.0f});
     light->SetDebugMode(true);
     scene->Add(light);
 

@@ -9,17 +9,64 @@ precision mediump float;
 
 layout (location = 0) out vec4 v_FragColor;
 
+struct LightInfo {
+    vec4 Position;
+    vec3 L;  // Diffuse/Specular
+    vec3 La; // Ambient
+};
+
+struct MaterialInfo {
+    vec3 Ka; // Ambient
+    vec3 Kd; // Diffuse
+    vec3 Ks; // Specular
+    float Shininess;
+};
+
 in vec2 v_TexCoord;
+in vec3 v_Position;
+in vec3 v_Normal;
 
 uniform sampler2D u_AttribTextureMap;
 uniform vec4 u_AttribColor;
 
-void main() {
-    v_FragColor = vec4(1.0);
+vec3 phongModel(in LightInfo light, in MaterialInfo material, in vec3 position, in vec3 normal) {
+    vec3 s = normalize(vec3(light.Position) - position);
+    float s_dot_n = max(dot(s, normal), 0.0);
 
-    #ifdef USE_COLOR
-        v_FragColor *= u_AttribColor;
-    #endif
+    vec3 ambient = light.La * material.Ka;
+    vec3 diffuse = light.L * material.Kd * s_dot_n;
+    vec3 specular = vec3(0.0);
+
+    // Without checking s_dot_n before computing the specular component,
+    // specular highlights could appear on surfaces facing away from
+    // the light, leading to unrealistic results. Some address this by
+    // multiplying the specular component by the diffuse component, reducing
+    // and altering its color. The solution here avoids this with an if statement.
+    if (s_dot_n > 0.0) {
+        vec3 v = normalize(-position.xyz);
+        vec3 r = reflect(-s, normal);
+        specular = light.L * material.Ks *
+            pow(max(dot(v, r), 0.0), material.Shininess);
+    }
+
+    return ambient + diffuse + specular;
+}
+
+void main() {
+    LightInfo light = LightInfo(
+        vec4(2.0, 2.0, 2.0, 1.0),
+        vec3(1.0, 1.0, 1.0),
+        vec3(0.3, 0.3, 0.3)
+    );
+
+    MaterialInfo material = MaterialInfo(
+        vec3(0.3, 0.3, 0.3),
+        vec3(u_AttribColor),
+        vec3(0.2, 0.2, 0.2),
+        16.0
+    );
+
+    v_FragColor = vec4(phongModel(light, material, v_Position, v_Normal), 1.0);
 
     #ifdef USE_TEXTURE_MAP
         v_FragColor *= texture(u_AttribTextureMap, v_TexCoord);
