@@ -205,4 +205,13 @@ private:
  */
 [[nodiscard]] ENGINE_EXPORT auto Inverse(const Matrix4& m) -> Matrix4;
 
+/**
+ * @brief Computes the transpose of a 4x4 matrix.
+ * @related Matrix4
+ *
+ * @param m The input 4x4 matrix to be transposed.
+ * @return A new `Matrix4` object that represents the transpose of the input matrix.
+ */
+[[nodiscard]] ENGINE_EXPORT auto Transpose(const Matrix4& m) -> Matrix4;
+
 }

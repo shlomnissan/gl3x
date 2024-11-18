@@ -53,5 +53,12 @@ auto Inverse(const Matrix3& m) -> Matrix3 {
     };
 }
 
+auto Transpose(const Matrix3& m) -> Matrix3 {
+    auto output = Matrix3 {};
+    output[0] = {m[0][0], m[1][0], m[2][0]};
+    output[1] = {m[0][1], m[1][1], m[2][1]};
+    output[2] = {m[0][2], m[1][2], m[2][2]};
+    return output;
+}
 
 }

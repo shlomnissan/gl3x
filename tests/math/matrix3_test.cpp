@@ -207,6 +207,34 @@ TEST(Matrix3, Inverse) {
 
 #pragma endregion
 
+#pragma region Transpose
+
+TEST(Matrix3, TransposeIdentity) {
+    const auto m = engine::Matrix3::Identity();
+
+    EXPECT_MAT3_EQ(engine::Transpose(m), {
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
+    });
+}
+
+TEST(Matrix3, TransposeNonIdentity) {
+    const auto m = engine::Matrix3 {
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
+    };
+
+    EXPECT_MAT3_EQ(engine::Transpose(m), {
+        1.0f, 4.0f, 7.0f,
+        2.0f, 5.0f, 8.0f,
+        3.0f, 6.0f, 9.0f
+    });
+}
+
+#pragma endregion
+
 #pragma region Operators
 
 TEST(Matrix3, SubscriptOperatorReturnsColumnVector) {

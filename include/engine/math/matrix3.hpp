@@ -194,4 +194,13 @@ private:
  */
 [[nodiscard]] ENGINE_EXPORT auto Inverse(const Matrix3& m) -> Matrix3;
 
+/**
+ * @brief Computes the transpose of a 3x3 matrix.
+ * @related Matrix3
+ *
+ * @param m The input 3x3 matrix to be transposed.
+ * @return A new `Matrix3` object that represents the transpose of the input matrix.
+ */
+[[nodiscard]] ENGINE_EXPORT auto Transpose(const Matrix3& m) -> Matrix3;
+
 }
