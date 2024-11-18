@@ -48,7 +48,7 @@ auto Renderer::Impl::RenderObjects(const Node* object, Camera* camera) -> void {
                 glDisable(GL_POLYGON_OFFSET_FILL);
             }
 
-            if (material->supports_lights) {
+            if (attrs.lights) {
                 // TODO: add lights
             }
 
@@ -57,7 +57,7 @@ auto Renderer::Impl::RenderObjects(const Node* object, Camera* camera) -> void {
                 textures_.Bind(material->As<MaterialWithTextureMap>()->texture_map.get());
             }
 
-            SetUniforms(program, &attrs, mesh, camera);
+            SetUniforms(program, attrs, mesh, camera);
 
             program->Use();
             program->UpdateUniforms();
@@ -83,31 +83,23 @@ auto Renderer::Impl::RenderObjects(const Node* object, Camera* camera) -> void {
     }
 }
 
-auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes* attrs, Mesh* mesh, const Camera* camera) const -> void {
+auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, const Camera* camera) const -> void {
     auto material = mesh->GetMaterial();
+    auto model_view = camera->GetViewMatrix() * mesh->GetWorldTransform();
 
-    program->SetUniform(
-        "u_Projection",
-        camera->GetProjectionMatrix()
-    );
+    program->SetUniform("u_Projection", camera->GetProjectionMatrix());
+    program->SetUniform("u_ModelView", model_view);
 
-    program->SetUniform(
-        "u_ModelView",
-        camera->GetViewMatrix() * mesh->GetWorldTransform()
-    );
-
-    if (attrs->color) {
-        program->SetUniform(
-            "u_AttribColor",
-            material->As<MaterialWithColor>()->color
-        );
+    if (attrs.color) {
+        program->SetUniform("u_AttribColor", material->As<MaterialWithColor>()->color);
     }
 
-    if (attrs->texture_map) {
-        program->SetUniform(
-            "u_AttribTextureMap",
-            0
-        );
+    if (attrs.texture_map) {
+        program->SetUniform("u_AttribTextureMap", 0);
+    }
+
+    if (attrs.lights) {
+        program->SetUniform("u_NormalMatrix", Transpose(Inverse(Matrix3(model_view))));
     }
 }
 

@@ -12,6 +12,8 @@ namespace engine {
 ProgramAttributes::ProgramAttributes(Material* material) {
     this->material = material;
 
+    lights = material->supports_lights;
+
     auto colorMaterial = material->As<MaterialWithColor>();
     color = (colorMaterial != nullptr);
 
@@ -20,9 +22,10 @@ ProgramAttributes::ProgramAttributes(Material* material) {
 }
 
 auto ProgramAttributes::PermutationKey() const -> std::string {
-    auto attrs = std::bitset<2> {};
+    auto attrs = std::bitset<3> {};
     attrs[0] = color;
     attrs[1] = texture_map;
+    attrs[2] = lights;
 
     return fmt::format(
         "{}_material|p{}",

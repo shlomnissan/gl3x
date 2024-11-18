@@ -5,6 +5,7 @@
 
 #include "engine/core/logger.hpp"
 #include "engine/math/color.hpp"
+#include "engine/math/matrix3.hpp"
 #include "engine/math/matrix4.hpp"
 #include "engine/math/vector4.hpp"
 
@@ -15,7 +16,7 @@
 
 namespace engine {
 
-using GLUniformValue = std::variant<GLint, GLfloat, Color, Matrix4, Vector4>;
+using GLUniformValue = std::variant<GLint, GLfloat, Color, Matrix3, Matrix4, Vector4>;
 
 class GLUniform {
 public:

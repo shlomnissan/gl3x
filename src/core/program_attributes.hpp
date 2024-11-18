@@ -14,6 +14,7 @@ struct ProgramAttributes {
 
     bool color {false};
     bool texture_map {false};
+    bool lights {false};
 
     explicit ProgramAttributes(Material* material);
 
