@@ -178,16 +178,12 @@ private:
 
 /**
  * @brief Computes the determinant of a 3x3 matrix.
+ * @related Matrix3
  *
  * @param m The input 3x3 matrix for which the determinant is to be computed.
  * @return The determinant of the matrix as a floating-point value.
  */
-[[nodiscard]] inline ENGINE_EXPORT
-auto Determinant(const Matrix3& m) {
-    return m(0, 0) * (m(1, 1) * m(2, 2) - m(1, 2) * m(2, 1))
-         + m(0, 1) * (m(1, 2) * m(2, 0) - m(1, 0) * m(2, 2))
-         + m(0, 2) * (m(1, 0) * m(2, 1) - m(1, 1) * m(2, 0));
-}
+[[nodiscard]] ENGINE_EXPORT auto Determinant(const Matrix3& m) -> float;
 
 /**
  * @brief Computes the inverse of a 3x3 matrix.
@@ -196,23 +192,6 @@ auto Determinant(const Matrix3& m) {
  * @param m The input 3x3 matrix whose inverse is to be computed.
  * @return A new `Matrix3` object that represents the inverse of the input matrix.
  */
-[[nodiscard]] inline ENGINE_EXPORT
-auto Inverse(const Matrix3& m) {
-    const auto& a = m[0];
-    const auto& b = m[1];
-    const auto& c = m[2];
-
-    auto r0 = Cross(b, c);
-    auto r1 = Cross(c, a);
-    auto r2 = Cross(a, b);
-
-    auto inv_det = 1.0f / Dot(r2, c);
-
-    return Matrix3 {
-        r0.x * inv_det, r0.y * inv_det, r0.z * inv_det,
-        r1.x * inv_det, r1.y * inv_det, r1.z * inv_det,
-        r2.x * inv_det, r2.y * inv_det, r2.z * inv_det
-    };
-}
+[[nodiscard]] ENGINE_EXPORT auto Inverse(const Matrix3& m) -> Matrix3;
 
 }

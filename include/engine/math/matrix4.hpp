@@ -189,30 +189,12 @@ private:
 
 /**
  * @brief Computes the determinant of a 4x4 matrix.
+ * @related Matrix3
  *
  * @param m The input 4x4 matrix for which the determinant is to be computed.
  * @return The determinant of the matrix as a floating-point value.
  */
-[[nodiscard]] inline ENGINE_EXPORT
-auto Determinant(const Matrix4& m) {
-    return m(0, 0) * (
-        m(1, 1) * (m(2, 2) * m(3, 3) - m(2, 3) * m(3, 2)) -
-        m(1, 2) * (m(2, 1) * m(3, 3) - m(2, 3) * m(3, 1)) +
-        m(1, 3) * (m(2, 1) * m(3, 2) - m(2, 2) * m(3, 1))
-    ) - m(0, 1) * (
-        m(1, 0) * (m(2, 2) * m(3, 3) - m(2, 3) * m(3, 2)) -
-        m(1, 2) * (m(2, 0) * m(3, 3) - m(2, 3) * m(3, 0)) +
-        m(1, 3) * (m(2, 0) * m(3, 2) - m(2, 2) * m(3, 0))
-    ) + m(0, 2) * (
-        m(1, 0) * (m(2, 1) * m(3, 3) - m(2, 3) * m(3, 1)) -
-        m(1, 1) * (m(2, 0) * m(3, 3) - m(2, 3) * m(3, 0)) +
-        m(1, 3) * (m(2, 0) * m(3, 1) - m(2, 1) * m(3, 0))
-    ) - m(0, 3) * (
-        m(1, 0) * (m(2, 1) * m(3, 2) - m(2, 2) * m(3, 1)) -
-        m(1, 1) * (m(2, 0) * m(3, 2) - m(2, 2) * m(3, 0)) +
-        m(1, 2) * (m(2, 0) * m(3, 1) - m(2, 1) * m(3, 0))
-    );
-}
+[[nodiscard]] ENGINE_EXPORT auto Determinant(const Matrix4& m) -> float;
 
 /**
  * @brief Computes the inverse of a 4x4 matrix.
@@ -221,40 +203,6 @@ auto Determinant(const Matrix4& m) {
  * @param m The input 4x4 matrix whose inverse is to be computed.
  * @return A new `Matrix4` object that represents the inverse of the input matrix.
  */
-[[nodiscard]] inline ENGINE_EXPORT
-auto Inverse(const Matrix4& m) {
-    const auto& a = reinterpret_cast<const Vector3&>(m[0]);
-    const auto& b = reinterpret_cast<const Vector3&>(m[1]);
-    const auto& c = reinterpret_cast<const Vector3&>(m[2]);
-    const auto& d = reinterpret_cast<const Vector3&>(m[3]);
-
-    const float& x = m(3, 0);
-    const float& y = m(3, 1);
-    const float& z = m(3, 2);
-    const float& w = m(3, 3);
-
-    auto s = Cross(a, b);
-    auto t = Cross(c, d);
-    auto u = (a * y) - (b * x);
-    auto v = (c * w) - (d * z);
-
-    const auto inv_det = 1.0f / (Dot(s, v) + Dot(t, u));
-    s *= inv_det;
-    t *= inv_det;
-    u *= inv_det;
-    v *= inv_det;
-
-    auto r0 = Cross(b, v) + t * y;
-    auto r1 = Cross(v, a) - t * x;
-    auto r2 = Cross(d, u) + s * w;
-    auto r3 = Cross(u, c) - s * z;
-
-    return Matrix4 {
-        r0.x, r0.y, r0.z, -Dot(b, t),
-        r1.x, r1.y, r1.z,  Dot(a, t),
-        r2.x, r2.y, r2.z, -Dot(d, s),
-        r3.x, r3.y, r3.z,  Dot(c, s)
-    };
-}
+[[nodiscard]] ENGINE_EXPORT auto Inverse(const Matrix4& m) -> Matrix4;
 
 }
