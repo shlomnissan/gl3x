@@ -16,7 +16,13 @@
 using namespace engine;
 
 auto main() -> int {
-    auto window = Window {{.width = 800, .height = 600, .antialiasing = 4, .vsync = true}};
+    auto window = Window {{
+        .width = 800,
+        .height = 600,
+        .antialiasing = 4,
+        .vsync = true
+    }};
+
     if (window.HasErrors()) return EXIT_FAILURE;
 
     window.SetTitle("Engine");
