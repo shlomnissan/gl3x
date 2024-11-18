@@ -3,6 +3,7 @@ fmt/8.1.1
 glad/0.1.36
 glfw/3.3.8
 gtest/1.15.0
+imgui/1.90.1
 stb/cci.20240531
 
 [generators]
