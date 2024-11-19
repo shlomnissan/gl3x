@@ -13,12 +13,14 @@
 #include <engine/scene/scene.hpp>
 #include <engine/textures/texture_2d.hpp>
 
+#include <imgui.h>
+
 using namespace engine;
 
 auto main() -> int {
     auto window = Window {{
-        .width = 800,
-        .height = 600,
+        .width = 1024,
+        .height = 768,
         .antialiasing = 4,
         .vsync = true
     }};
@@ -61,6 +63,10 @@ auto main() -> int {
     scene->Add(light);
 
     window.Start([&](const double delta){
+        ImGui::Begin("Hello, ImGui!");
+        ImGui::Text("This is a minimal UI example.");
+        ImGui::End();
+
         scene->ProcessUpdates(static_cast<float>(delta));
 
         flat_mesh->transform.Rotate(Vector3::Up(), 1.0f * delta);

@@ -88,21 +88,30 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/textures/texture_2d.hpp"
 )
 
+set(EXTERNAL_SOURCES
+    "${CMAKE_SOURCE_DIR}/external/imgui/imgui_impl_glfw.cpp"
+    "${CMAKE_SOURCE_DIR}/external/imgui/imgui_impl_opengl3.cpp"
+)
+
 include(ShaderProcessor)
 
-add_library(${PROJECT_NAME} ${SOURCE_CODE})
+add_library(${PROJECT_NAME} ${SOURCE_CODE} ${EXTERNAL_SOURCES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/external>
 )
 
-find_package(fmt REQUIRED)
 find_package(OpenGL REQUIRED)
-find_package(glfw3 REQUIRED)
+find_package(fmt REQUIRED)
 find_package(glad REQUIRED)
+find_package(glfw3 REQUIRED)
+find_package(imgui REQUIRED)
 find_package(stb REQUIRED)
+
+target_compile_definitions(${PROJECT_NAME} PUBLIC IMGUI_IMPL_OPENGL_ES3)
 
 target_link_libraries(${PROJECT_NAME}
 PRIVATE
@@ -112,6 +121,7 @@ PRIVATE
     stb::stb
 PUBLIC
     fmt::fmt
+    imgui::imgui
 )
 
 if (BUILD_SHARED_LIBS)
