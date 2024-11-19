@@ -19,18 +19,18 @@ namespace engine {
  * FlatMaterial renders objects without the influence of lighting. The material can be assigned a solid color
  * and optionally a texture map to apply onto the surface. This makes it ideal for simple, unlit geometries.
  */
-class ENGINE_EXPORT FlatMaterial :
-    public virtual Material,
-    public MaterialWithColor,
-    public MaterialWithTextureMap
-{
+class ENGINE_EXPORT FlatMaterial : public Material {
 public:
+    /// @brief The color of the material.
+    Color color = {1.0f, 1.0f, 1.0f, 1.0f};
+
+    /// @brief The texture map to apply to the geometry.
+    std::shared_ptr<Texture2D> texture_map = nullptr;
+
     /**
-     * @brief Constructs a FlatMaterial with a default white color and no texture.
+     * @brief Constructs a FlatMaterial with default values.
      */
-    explicit FlatMaterial() :
-      MaterialWithColor(Color {1.0f, 1.0f, 1.0f}),
-      MaterialWithTextureMap(nullptr) {}
+    FlatMaterial() = default;
 
     /**
      * @brief Retrieves the type of the material.

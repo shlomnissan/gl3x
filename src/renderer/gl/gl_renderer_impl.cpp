@@ -54,7 +54,7 @@ auto Renderer::Impl::RenderObjects(const Node* object, Camera* camera) -> void {
 
             buffers_.Bind(geometry);
             if (attrs.texture_map) {
-                textures_.Bind(material->As<MaterialWithTextureMap>()->texture_map.get());
+                // textures_.Bind(material->As<MaterialWithTextureMap>()->texture_map.get());
             }
 
             SetUniforms(program, attrs, mesh, camera);
@@ -91,7 +91,7 @@ auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& at
     program->SetUniform("u_ModelView", model_view);
 
     if (attrs.color) {
-        program->SetUniform("u_AttribColor", material->As<MaterialWithColor>()->color);
+        // program->SetUniform("u_AttribColor", material->As<MaterialWithColor>()->color);
     }
 
     if (attrs.texture_map) {

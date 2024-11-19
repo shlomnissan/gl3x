@@ -10,7 +10,6 @@
 namespace engine {
 
 auto GLPrograms::GetProgram(const ProgramAttributes& attrs) -> GLProgram* {
-    auto material = attrs.material;
     auto key = attrs.PermutationKey();
     if (!programs_.contains(key)) {
         auto sources = shader_lib_.GetShaderSource(attrs);

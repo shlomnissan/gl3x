@@ -20,20 +20,18 @@ namespace engine {
  * to calculate the reflectance of surfaces. It supports both a solid color and a texture map for
  * rendering geometries.
  */
-class ENGINE_EXPORT PhongMaterial :
-    public virtual Material,
-    public MaterialWithColor,
-    public MaterialWithTextureMap
-{
+class ENGINE_EXPORT PhongMaterial : public Material {
 public:
+    /// @brief The color of the material.
+    Color color = {1.0f, 1.0f, 1.0f, 1.0f};
+
+    /// @brief The texture map to apply to the geometry.
+    std::shared_ptr<Texture2D> texture_map = nullptr;
+
     /**
-     * @brief Constructs a PhongMaterial with a default white color and no texture.
+     * @brief Constructs a PhongMaterial with default values.
      */
-    explicit PhongMaterial() :
-      MaterialWithColor(Color {1.0f, 1.0f, 1.0f}),
-      MaterialWithTextureMap(nullptr) {
-        supports_lights = true;
-      }
+    PhongMaterial() = default;
 
     /**
      * @brief Retrieves the type of the material.

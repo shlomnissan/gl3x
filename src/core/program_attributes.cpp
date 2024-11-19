@@ -2,6 +2,8 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include "core/program_attributes.hpp"
+#include "engine/materials/flat_material.hpp"
+#include "engine/materials/phong_material.hpp"
 
 #include <bitset>
 
@@ -10,15 +12,18 @@
 namespace engine {
 
 ProgramAttributes::ProgramAttributes(Material* material) {
-    this->material = material;
+    type = material->Type();
 
-    lights = material->supports_lights;
+    if (auto m = material->As<FlatMaterial>()) {
+        color = true;
+        texture_map = m->texture_map != nullptr;
+    }
 
-    auto colorMaterial = material->As<MaterialWithColor>();
-    color = (colorMaterial != nullptr);
-
-    auto textureMapMaterial = material->As<MaterialWithTextureMap>();
-    texture_map = (textureMapMaterial && textureMapMaterial->texture_map);
+    if (auto m = material->As<PhongMaterial>()) {
+        color = true;
+        lights = true;
+        texture_map = m->texture_map != nullptr;
+    }
 }
 
 auto ProgramAttributes::PermutationKey() const -> std::string {
@@ -27,11 +32,7 @@ auto ProgramAttributes::PermutationKey() const -> std::string {
     attrs[1] = texture_map;
     attrs[2] = lights;
 
-    return fmt::format(
-        "{}_material|p{}",
-        MaterialTypeToString(material->Type()),
-        attrs.to_ulong()
-    );
+    return fmt::format("{}_material|p{}", MaterialTypeToString(type), attrs.to_ulong());
 }
 
 }

@@ -10,7 +10,7 @@
 namespace engine {
 
 struct ProgramAttributes {
-    Material* material;
+    MaterialType type;
 
     bool color {false};
     bool texture_map {false};

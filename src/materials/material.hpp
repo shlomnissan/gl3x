@@ -33,7 +33,6 @@ public:
     std::optional<PolygonOffset> polygon_offset;
 
     bool cull_backfaces {true};
-    bool supports_lights {false};
 
     Material() = default;
 
@@ -62,26 +61,6 @@ public:
     virtual ~Material() = default;
 };
 
-#pragma region Material Attributes
-
-struct MaterialWithColor : virtual Material {
-    Color color;
-
-    explicit MaterialWithColor(const Color& color)
-      : color(color) {}
-};
-
-struct MaterialWithTextureMap : virtual Material {
-    std::shared_ptr<Texture2D> texture_map;
-
-    explicit MaterialWithTextureMap(std::shared_ptr<Texture2D> texture)
-      : texture_map(texture) {}
-};
-
-#pragma endregion
-
-#pragma region Utility Functions
-
 static auto MaterialTypeToString(MaterialType type) {
     switch(type) {
         case MaterialType::kFlatMaterial:
@@ -92,7 +71,5 @@ static auto MaterialTypeToString(MaterialType type) {
             return "unkonwn";
     }
 }
-
-#pragma endregion
 
 }
