@@ -5,8 +5,7 @@
 #include <engine/core/window.hpp>
 #include <engine/geometry/box_geometry.hpp>
 #include <engine/lights/directional_light.hpp>
-#include <engine/materials/flat_material.hpp>
-#include <engine/materials/phong_material.hpp>
+#include <engine/materials/materials.hpp>
 #include <engine/resources/camera_orbit.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>

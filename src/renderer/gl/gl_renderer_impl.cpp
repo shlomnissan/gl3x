@@ -6,6 +6,7 @@
 #include "engine/core/logger.hpp"
 
 #include "core/program_attributes.hpp"
+#include "engine/materials/materials.hpp"
 
 #include <glad/glad.h>
 
@@ -49,13 +50,10 @@ auto Renderer::Impl::RenderObjects(const Node* object, Camera* camera) -> void {
             }
 
             if (attrs.lights) {
-                // TODO: add lights
+                // TODO: process lights
             }
 
             buffers_.Bind(geometry);
-            if (attrs.texture_map) {
-                // textures_.Bind(material->As<MaterialWithTextureMap>()->texture_map.get());
-            }
 
             SetUniforms(program, attrs, mesh, camera);
 
@@ -83,23 +81,30 @@ auto Renderer::Impl::RenderObjects(const Node* object, Camera* camera) -> void {
     }
 }
 
-auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, const Camera* camera) const -> void {
+auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, const Camera* camera) -> void {
     auto material = mesh->GetMaterial();
     auto model_view = camera->GetViewMatrix() * mesh->GetWorldTransform();
 
     program->SetUniform("u_Projection", camera->GetProjectionMatrix());
     program->SetUniform("u_ModelView", model_view);
 
-    if (attrs.color) {
-        // program->SetUniform("u_AttribColor", material->As<MaterialWithColor>()->color);
+    if (attrs.type == MaterialType::kFlatMaterial) {
+        auto m = material->As<FlatMaterial>();
+        program->SetUniform("u_AttribColor", m->color);
+        if (attrs.texture_map) {
+            program->SetUniform("u_AttribTextureMap", 0);
+            textures_.Bind(m->texture_map.get());
+        }
     }
 
-    if (attrs.texture_map) {
-        program->SetUniform("u_AttribTextureMap", 0);
-    }
-
-    if (attrs.lights) {
+    if (attrs.type == MaterialType::kPhongMaterial) {
+        auto m = material->As<PhongMaterial>();
+        program->SetUniform("u_AttribColor", m->color);
         program->SetUniform("u_NormalMatrix", Transpose(Inverse(Matrix3(model_view))));
+        if (attrs.texture_map) {
+            program->SetUniform("u_AttribTextureMap", 0);
+            textures_.Bind(m->texture_map.get());
+        }
     }
 }
 

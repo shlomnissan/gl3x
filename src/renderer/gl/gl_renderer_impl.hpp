@@ -36,7 +36,7 @@ private:
 
     auto RenderObjects(const Node* object, Camera* camera) -> void;
 
-    auto SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, const Camera* camera) const -> void;
+    auto SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, const Camera* camera) -> void;
 
     [[nodiscard]] auto IsValidMesh(Mesh* mesh) const -> bool;
 };

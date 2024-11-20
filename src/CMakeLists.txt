@@ -66,6 +66,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/geometry/plane_geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/lights/directional_light.hpp"
     "${PUBLIC_HEADERS_DIR}/lights/light.hpp"
+    "${PUBLIC_HEADERS_DIR}/materials/materials.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/flat_material.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/phong_material.hpp"
     "${PUBLIC_HEADERS_DIR}/math/color.hpp"

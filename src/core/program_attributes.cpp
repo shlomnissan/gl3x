@@ -2,8 +2,7 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include "core/program_attributes.hpp"
-#include "engine/materials/flat_material.hpp"
-#include "engine/materials/phong_material.hpp"
+#include "engine/materials/materials.hpp"
 
 #include <bitset>
 
@@ -14,14 +13,15 @@ namespace engine {
 ProgramAttributes::ProgramAttributes(Material* material) {
     type = material->Type();
 
-    if (auto m = material->As<FlatMaterial>()) {
+    if (type == MaterialType::kFlatMaterial) {
         color = true;
+        auto m = material->As<FlatMaterial>();
         texture_map = m->texture_map != nullptr;
     }
 
-    if (auto m = material->As<PhongMaterial>()) {
+    if (type == MaterialType::kPhongMaterial) {
         color = true;
-        lights = true;
+        auto m = material->As<PhongMaterial>();
         texture_map = m->texture_map != nullptr;
     }
 }
