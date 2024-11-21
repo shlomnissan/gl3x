@@ -4,7 +4,7 @@
 #include <engine/core/renderer.hpp>
 #include <engine/core/window.hpp>
 #include <engine/geometry/box_geometry.hpp>
-#include <engine/lights/directional_light.hpp>
+#include <engine/lights/lights.hpp>
 #include <engine/materials/materials.hpp>
 #include <engine/resources/camera_orbit.hpp>
 #include <engine/scene/camera_perspective.hpp>
@@ -55,11 +55,13 @@ auto main() -> int {
     scene->Add(flat_mesh);
     scene->Add(shiny_mesh);
 
-    auto light = DirectionalLight::Create();
-    light->color = 0xFFFFFF;
-    light->transform.Translate({2.0f, 2.0f, 2.0f});
-    light->SetDebugMode(true);
-    scene->Add(light);
+    auto ambient_light = AmbientLight::Create(0xffffff, 0.5f);
+    scene->Add(ambient_light);
+
+    auto directional_light = DirectionalLight::Create(0xffffff, 1.0f);
+    directional_light->transform.Translate({5.0f, 5.0f, 5.0f});
+    directional_light->SetDebugMode(true);
+    scene->Add(directional_light);
 
     window.Start([&](const double delta){
         ImGui::Begin("Hello, ImGui!");

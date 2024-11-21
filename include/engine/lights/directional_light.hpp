@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include "engine/lights/light.hpp"
+#include "lights/light.hpp"
+
 #include "engine/math/vector3.hpp"
 
 #include <memory>
@@ -23,12 +24,23 @@ public:
     Vector3 target {0.0f};
 
     /**
+     * @brief Constructs a new DirectionalLight instance.
+     *
+     * @param color The color of the light.
+     * @param intensity The intensity of the light.
+     */
+    DirectionalLight(Color color = {0xffffff}, float intensity = 1.0f)
+        : Light(color, intensity) {}
+
+    /**
      * @brief Creates a new DirectionalLight instance.
      *
+    * @param color The color of the light.
+     * @param intensity The intensity of the light.
      * @return A shared pointer to the created DirectionalLight.
      */
-    [[nodiscard]] static auto Create() {
-        return std::make_shared<DirectionalLight>();
+    [[nodiscard]] static auto Create(Color color = {0xffffff}, float intensity = 1.0f) {
+        return std::make_shared<DirectionalLight>(color, intensity);
     }
 
     /**
@@ -46,6 +58,11 @@ public:
      * @param delta The time in seconds since the last update.
      */
     auto Update(float delta) -> void override;
+
+    /**
+     * @brief Default destructor.
+     */
+    ~DirectionalLight() override = default;
 
 private:
     auto UpdateDebugMesh() -> void;
