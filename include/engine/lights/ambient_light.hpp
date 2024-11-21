@@ -24,8 +24,9 @@ public:
      * @param color The color of the light.
      * @param intensity The intensity of the light.
      */
-    AmbientLight(Color color = {0xffffff}, float intensity = 1.0f)
-        : Light(color, intensity) {}
+    AmbientLight(Color color = {0xffffff}, float intensity = 1.0f) : Light(color, intensity) {
+        SetName("Ambient Light");
+    }
 
     /**
      * @brief Creates a new AmbientLight instance.

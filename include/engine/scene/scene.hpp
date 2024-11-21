@@ -7,8 +7,10 @@
 #include "engine/scene/node.hpp"
 
 #include "core/event_dispatcher.hpp"
+#include "lights/light.hpp"
 
 #include <memory>
+#include <vector>
 
 namespace engine {
 
@@ -37,10 +39,24 @@ public:
     }
 
 private:
-    /// @brief Event listener for handling keyboard input events.
-    std::shared_ptr<EventListener> keyboard_event_listener_;
-    /// @brief Event listener for handling mouse input events.
-    std::shared_ptr<EventListener> mouse_event_listener_;
+    /// @brief Event listener for handling input events.
+    std::shared_ptr<EventListener> input_event_listener_;
+
+    /// @brief Event listener for handling scene events.
+    std::shared_ptr<EventListener> scene_event_listener_;
+
+    /**
+     * @brief A vector of weak pointers to lights in the scene.
+     *
+     * This vector stores weak pointers to `Light` objects that are part of the scene.
+     * Storing light pointers in the scene object allows for quick access to light nodes.
+     */
+    std::vector<std::weak_ptr<Light>> lights_;
+
+    /**
+     * @brief Add event listeners to manage game nodes within the scene.
+     */
+    auto AddEventListeners() -> void;
 
     /**
      * @brief Propagate the "update event" to game nodes within the scene.
@@ -59,9 +75,25 @@ private:
     auto HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void;
 
     /**
-     * @brief Add event listeners to manage game nodes within the scene.
+     * @brief Handles events related to the scene.
+     *
+     * @param event The scene event to handle.
      */
-    auto AddEventListeners() -> void;
+    auto HandleSceneEvents(SceneEvent* event) -> void;
+
+    /**
+     * @brief Adds a light to the scene.
+     *
+     * @param light A shared pointer to the light to be added.
+     */
+    auto AddLight(std::shared_ptr<Light> light) -> void;
+
+    /**
+     * @brief Removes a light from the scene.
+     *
+     * @param light A shared pointer to the light to be removed.
+    */
+    auto RemoveLight(std::shared_ptr<Light> light) -> void;
 };
 
 }

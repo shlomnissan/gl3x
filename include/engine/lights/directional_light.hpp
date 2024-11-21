@@ -29,8 +29,9 @@ public:
      * @param color The color of the light.
      * @param intensity The intensity of the light.
      */
-    DirectionalLight(Color color = {0xffffff}, float intensity = 1.0f)
-        : Light(color, intensity) {}
+    DirectionalLight(Color color = {0xffffff}, float intensity = 1.0f) : Light(color, intensity) {
+        SetName("Directional Light");
+    }
 
     /**
      * @brief Creates a new DirectionalLight instance.

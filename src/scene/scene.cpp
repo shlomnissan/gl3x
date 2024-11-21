@@ -7,6 +7,7 @@
 #include "core/event_dispatcher.hpp"
 #include "engine/core/logger.hpp"
 
+#include <algorithm>
 #include <memory>
 #include <vector>
 
@@ -17,15 +18,17 @@ Scene::Scene() {
 }
 
 auto Scene::AddEventListeners() -> void {
-    keyboard_event_listener_ = std::make_shared<EventListener>([&](Event* e) {
-        HandleInputEvent(shared_from_this(), e);
+    scene_event_listener_ = std::make_shared<EventListener>([&](Event* e) {
+        HandleSceneEvents(e->As<SceneEvent>());
     });
-    EventDispatcher::Get().AddEventListener("keyboard_event", keyboard_event_listener_);
+    EventDispatcher::Get().AddEventListener("added_to_scene", scene_event_listener_);
+    EventDispatcher::Get().AddEventListener("removed_from_scene", scene_event_listener_);
 
-    mouse_event_listener_ = std::make_shared<EventListener>([&](Event* e) {
+    input_event_listener_ = std::make_shared<EventListener>([&](Event* e) {
         HandleInputEvent(shared_from_this(), e);
     });
-    EventDispatcher::Get().AddEventListener("mouse_event", mouse_event_listener_);
+    EventDispatcher::Get().AddEventListener("keyboard_event", input_event_listener_);
+    EventDispatcher::Get().AddEventListener("mouse_event", input_event_listener_);
 }
 
 auto Scene::ProcessUpdates(float delta) -> void {
@@ -53,6 +56,37 @@ auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
 
         if (auto e = event->As<KeyboardEvent>()) n->OnKeyboardEvent(e);
         if (auto e = event->As<MouseEvent>()) n->OnMouseEvent(e);
+    }
+}
+
+auto Scene::HandleSceneEvents(SceneEvent* event) -> void {
+    if (!event->node->Is<Light>()) return;
+    if (event->type == SceneEvent::Type::AddedToScene) {
+        AddLight(std::dynamic_pointer_cast<Light>(event->node));
+    }
+    if (event->type == SceneEvent::Type::RemovedFromScene) {
+        RemoveLight(std::dynamic_pointer_cast<Light>(event->node));
+    }
+}
+
+auto Scene::AddLight(std::shared_ptr<Light> light) -> void {
+    lights_.emplace_back(light);
+    Logger::Log(LogLevel::Info, "Added light to scene {}", *light);
+}
+
+auto Scene::RemoveLight(std::shared_ptr<Light> light) -> void {
+    const auto erased = std::erase_if(lights_, [&](const std::weak_ptr<Light>& weak_light) {
+        if (auto shared_light = weak_light.lock()) {
+            return shared_light == light;
+        } else {
+            Logger::Log(LogLevel::Warning, "Removed dangling light {}", *shared_light);
+            return true;
+        }
+    });
+    if (erased > 0) {
+        Logger::Log(LogLevel::Info, "Removed light from scene {}", *light);
+    } else {
+        Logger::Log(LogLevel::Error, "Failed to remove light from scene {}", *light);
     }
 }
 
