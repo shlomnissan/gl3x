@@ -11,6 +11,8 @@
 #include "shaders/headers/phong_material_vert.h"
 #include "shaders/headers/phong_material_frag.h"
 
+#include <fmt/format.h>
+
 namespace engine {
 
 auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) -> std::vector<ShaderInfo> {
@@ -51,7 +53,10 @@ auto ShaderLibrary::InjectAttributes(
 
     if (attrs.color) features += "#define USE_COLOR\n";
     if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
-    if (attrs.lights) features += "#define USE_LIGHTS\n";
+
+    features += fmt::format("#define NUM_DIR_LIGHTS = {}\n", attrs.num_directional_lights);
+    features += fmt::format("#define NUM_POINT_LIGHTS = {}\n", attrs.num_point_lights);
+    features += fmt::format("#define NUM_SPOT_LIGHTS = {}\n", attrs.num_spot_lights);
 
     auto output = std::string {source};
     auto token = std::string_view {"#pragma inject_attributes"};

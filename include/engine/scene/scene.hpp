@@ -45,6 +45,8 @@ private:
     /// @brief Event listener for handling scene events.
     std::shared_ptr<EventListener> scene_event_listener_;
 
+    friend class ProgramAttributes; ///< Allows `ProgramAttributes` to access private members.
+
     /**
      * @brief A vector of weak pointers to lights in the scene.
      *

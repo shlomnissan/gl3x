@@ -53,8 +53,8 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
 
 auto GLTextures::TextureCallbacks(Texture* texture) -> void {
     texture->OnDispose([this](Disposable* target) {
-        auto& uuid = static_cast<Texture*>(target)->UUID();
-        auto& state = this->bindings_[uuid];
+        const auto& uuid = static_cast<Texture*>(target)->UUID();
+        const auto& state = this->bindings_[uuid];
         glDeleteTextures(1, &state.texture_id);
         this->bindings_.erase(uuid);
     });

@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "engine/scene/scene.hpp"
+
 #include "materials/material.hpp"
 
 #include <string>
@@ -12,13 +14,17 @@ namespace engine {
 struct ProgramAttributes {
     MaterialType type;
 
+    size_t num_directional_lights = 0;
+    size_t num_point_lights = 0;
+    size_t num_spot_lights = 0;
+
     bool color {false};
     bool texture_map {false};
     bool lights {false};
 
-    explicit ProgramAttributes(Material* material);
+    ProgramAttributes(const Material* material, const Scene* scene);
 
-    auto PermutationKey() const -> std::string;
+    auto MaterialPermutationHash() const -> std::string;
 };
 
 }

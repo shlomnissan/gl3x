@@ -17,8 +17,8 @@ Renderer::Impl::Impl(const Renderer::Parameters& params) {
     glViewport(0, 0, params.width, params.height);
 }
 
-auto Renderer::Impl::RenderObjects(const Node* object, Camera* camera) -> void {
-    for (const auto node : object->Children()) {
+auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> void {
+    for (const auto node : node->Children()) {
         if (node->Is<Mesh>()) {
             auto mesh = node->As<Mesh>();
             auto geometry = mesh->GetGeometry();
@@ -26,7 +26,7 @@ auto Renderer::Impl::RenderObjects(const Node* object, Camera* camera) -> void {
 
             if (!IsValidMesh(mesh)) continue;
 
-            auto attrs = ProgramAttributes {material};
+            auto attrs = ProgramAttributes {material, scene};
             auto program = programs_.GetProgram(attrs);
             if (!program->IsValid()) {
                 return;
@@ -77,7 +77,7 @@ auto Renderer::Impl::RenderObjects(const Node* object, Camera* camera) -> void {
             }
         }
 
-        RenderObjects(node.get(), camera);
+        RenderObjects(node.get(), scene, camera);
     }
 }
 
@@ -143,7 +143,7 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     scene->UpdateTransforms();
     camera->UpdateTransforms();
 
-    RenderObjects(scene, camera);
+    RenderObjects(scene, scene, camera);
 }
 
 }

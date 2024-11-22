@@ -2,7 +2,11 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include "core/program_attributes.hpp"
+
+#include "engine/core/logger.hpp"
 #include "engine/materials/materials.hpp"
+
+#include "lights/light.hpp"
 
 #include <bitset>
 
@@ -10,7 +14,7 @@
 
 namespace engine {
 
-ProgramAttributes::ProgramAttributes(Material* material) {
+ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scene) {
     type = material->Type();
 
     if (type == MaterialType::kFlatMaterial) {
@@ -21,16 +25,28 @@ ProgramAttributes::ProgramAttributes(Material* material) {
 
     if (type == MaterialType::kPhongMaterial) {
         color = true;
+        lights = true;
         auto m = material->As<PhongMaterial>();
         texture_map = m->texture_map != nullptr;
     }
+
+    for (auto weak_light : scene->lights_) {
+        if (auto light = weak_light.lock()) {
+            switch (light->Type()) {
+                case LightType::Ambient: /* noop */ break;
+                case LightType::Directional: num_directional_lights++; break;
+                case LightType::Point: num_point_lights++; break;
+                case LightType::Spotlight: num_spot_lights++; break;
+                default: Logger::Log(LogLevel::Error, "Unknown light type"); break;
+            }
+        }
+    }
 }
 
-auto ProgramAttributes::PermutationKey() const -> std::string {
-    auto attrs = std::bitset<3> {};
+auto ProgramAttributes::MaterialPermutationHash() const -> std::string {
+    auto attrs = std::bitset<2> {};
     attrs[0] = color;
     attrs[1] = texture_map;
-    attrs[2] = lights;
 
     return fmt::format("{}_material|p{}", MaterialTypeToString(type), attrs.to_ulong());
 }

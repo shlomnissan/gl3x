@@ -34,7 +34,7 @@ private:
 
     bool curr_backface_culling {true};
 
-    auto RenderObjects(const Node* object, Camera* camera) -> void;
+    auto RenderObjects(Node* node, Scene* scene, Camera* camera) -> void;
 
     auto SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, const Camera* camera) -> void;
 
