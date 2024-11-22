@@ -4,6 +4,7 @@
 #include "renderer/gl/gl_renderer_impl.hpp"
 
 #include "engine/core/logger.hpp"
+#include "engine/lights/lights.hpp"
 
 #include "core/program_attributes.hpp"
 #include "engine/materials/materials.hpp"
@@ -49,9 +50,7 @@ auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> 
                 glDisable(GL_POLYGON_OFFSET_FILL);
             }
 
-            if (attrs.lights) {
-                // TODO: process lights
-            }
+            if (attrs.lights) UpdateLights(scene, program);
 
             buffers_.Bind(geometry);
 
@@ -90,22 +89,41 @@ auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& at
 
     if (attrs.type == MaterialType::kFlatMaterial) {
         auto m = material->As<FlatMaterial>();
-        program->SetUniform("u_AttribColor", m->color);
+        program->SetUniform("u_Color", m->color);
         if (attrs.texture_map) {
-            program->SetUniform("u_AttribTextureMap", 0);
+            program->SetUniform("u_TextureMap", 0);
             textures_.Bind(m->texture_map.get());
         }
     }
 
     if (attrs.type == MaterialType::kPhongMaterial) {
         auto m = material->As<PhongMaterial>();
-        program->SetUniform("u_AttribColor", m->color);
+        program->SetUniform("u_Color", m->color);
         program->SetUniform("u_NormalMatrix", Transpose(Inverse(Matrix3(model_view))));
         if (attrs.texture_map) {
-            program->SetUniform("u_AttribTextureMap", 0);
+            program->SetUniform("u_TextureMap", 0);
             textures_.Bind(m->texture_map.get());
         }
     }
+}
+
+auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program) const -> void {
+    auto ambient_light = Color {0.0f, 0.0f, 0.0f};
+
+    for (auto weak_light : scene->Lights()) {
+        if (auto light = weak_light.lock()) {
+            const auto& color = light->color;
+            const auto intensity = light->intensity;
+
+            if (auto ambient = light->As<AmbientLight>()) {
+                ambient_light.r += color.r * intensity;
+                ambient_light.g += color.g * intensity;
+                ambient_light.b += color.b * intensity;
+            }
+        }
+    }
+
+    program->SetUniform("u_AmbientLight", ambient_light);
 }
 
 auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {

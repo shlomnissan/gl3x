@@ -12,11 +12,9 @@ layout (location = 0) out vec4 v_FragColor;
 struct LightInfo {
     vec4 Position;
     vec3 L;  // Diffuse/Specular
-    vec3 La; // Ambient
 };
 
 struct MaterialInfo {
-    vec3 Ka; // Ambient
     vec3 Kd; // Diffuse
     vec3 Ks; // Specular
     float Shininess;
@@ -26,14 +24,14 @@ in vec2 v_TexCoord;
 in vec3 v_Position;
 in vec3 v_Normal;
 
-uniform sampler2D u_AttribTextureMap;
-uniform vec4 u_AttribColor;
+uniform sampler2D u_TextureMap;
+uniform vec4 u_Color;
+uniform vec4 u_AmbientLight;
 
 vec3 phongModel(in LightInfo light, in MaterialInfo material, in vec3 position, in vec3 normal) {
     vec3 s = normalize(vec3(light.Position) - position);
     float s_dot_n = max(dot(s, normal), 0.0);
 
-    vec3 ambient = light.La * material.Ka;
     vec3 diffuse = light.L * material.Kd * s_dot_n;
     vec3 specular = vec3(0.0);
 
@@ -49,19 +47,17 @@ vec3 phongModel(in LightInfo light, in MaterialInfo material, in vec3 position, 
             pow(max(dot(v, r), 0.0), material.Shininess);
     }
 
-    return ambient + diffuse + specular;
+    return u_AmbientLight.rgb + diffuse + specular;
 }
 
 void main() {
     LightInfo light = LightInfo(
         vec4(2.0, 2.0, 2.0, 1.0),
-        vec3(1.0, 1.0, 1.0),
-        vec3(0.3, 0.3, 0.3)
+        vec3(1.0, 1.0, 1.0)
     );
 
     MaterialInfo material = MaterialInfo(
-        vec3(0.3, 0.3, 0.3),
-        vec3(u_AttribColor),
+        vec3(u_Color),
         vec3(0.2, 0.2, 0.2),
         16.0
     );
@@ -69,6 +65,6 @@ void main() {
     v_FragColor = vec4(phongModel(light, material, v_Position, v_Normal), 1.0);
 
     #ifdef USE_TEXTURE_MAP
-        v_FragColor *= texture(u_AttribTextureMap, v_TexCoord);
+        v_FragColor *= texture(u_TextureMap, v_TexCoord);
     #endif
 }

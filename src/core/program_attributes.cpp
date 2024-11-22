@@ -30,7 +30,7 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
         texture_map = m->texture_map != nullptr;
     }
 
-    for (auto weak_light : scene->lights_) {
+    for (auto weak_light : scene->Lights()) {
         if (auto light = weak_light.lock()) {
             switch (light->Type()) {
                 case LightType::Ambient: /* noop */ break;

@@ -55,7 +55,7 @@ auto main() -> int {
     scene->Add(flat_mesh);
     scene->Add(shiny_mesh);
 
-    auto ambient_light = AmbientLight::Create(0xffffff, 0.5f);
+    auto ambient_light = AmbientLight::Create(0x47A8BD, 0.3f);
     scene->Add(ambient_light);
 
     auto directional_light = DirectionalLight::Create(0xffffff, 1.0f);

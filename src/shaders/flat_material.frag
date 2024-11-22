@@ -11,17 +11,17 @@ layout (location = 0) out vec4 v_FragColor;
 
 in vec2 v_TexCoord;
 
-uniform vec4 u_AttribColor;
-uniform sampler2D u_AttribTextureMap;
+uniform vec4 u_Color;
+uniform sampler2D u_TextureMap;
 
 void main() {
     v_FragColor = vec4(1.0);
 
     #ifdef USE_COLOR
-        v_FragColor *= u_AttribColor;
+        v_FragColor *= u_Color;
     #endif
 
     #ifdef USE_TEXTURE_MAP
-        v_FragColor *= texture(u_AttribTextureMap, v_TexCoord);
+        v_FragColor *= texture(u_TextureMap, v_TexCoord);
     #endif
 }

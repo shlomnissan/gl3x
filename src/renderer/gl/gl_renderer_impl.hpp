@@ -38,6 +38,8 @@ private:
 
     auto SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, const Camera* camera) -> void;
 
+    auto UpdateLights(const Scene* scene, GLProgram* program) const -> void;
+
     [[nodiscard]] auto IsValidMesh(Mesh* mesh) const -> bool;
 };
 
