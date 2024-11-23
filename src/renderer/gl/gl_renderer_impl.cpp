@@ -5,9 +5,10 @@
 
 #include "engine/core/logger.hpp"
 #include "engine/lights/lights.hpp"
+#include "engine/materials/materials.hpp"
+#include "engine/math/vector3.hpp"
 
 #include "core/program_attributes.hpp"
-#include "engine/materials/materials.hpp"
 
 #include <glad/glad.h>
 
@@ -124,6 +125,10 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program) const 
     }
 
     program->SetUniform("u_AmbientLight", ambient_light);
+
+    // TODO: Replace with directional lights
+    program->SetUniform("u_DirectionalLights[0].Direction", Normalize(Vector3 {2.0f, 2.0f, 2.0f}));
+    program->SetUniform("u_DirectionalLights[0].Color", Color {1.0f, 1.0f, 1.0f});
 }
 
 auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {

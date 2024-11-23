@@ -23,6 +23,9 @@ auto GLUniform::SetValueIfNeeded(const GLUniformValue& v) -> void {
         case GL_FLOAT:
             is_set = SetValue<GLfloat>(v);
             break;
+        case GL_FLOAT_VEC3:
+            is_set = SetValue<Vector3>(v);
+            break;
         case GL_FLOAT_VEC4:
             is_set = SetValue<Color, Vector4>(v);
             break;
@@ -66,6 +69,9 @@ auto GLUniform::UpdateUniformIfNeeded() -> void {
         break;
         case GL_FLOAT:
             glUniform1f(location_, *reinterpret_cast<const GLfloat*>(&value_));
+        break;
+        case GL_FLOAT_VEC3:
+            glUniform3fv(location_, 1, reinterpret_cast<const GLfloat*>(&value_));
         break;
         case GL_FLOAT_VEC4:
             glUniform4fv(location_, 1, reinterpret_cast<const GLfloat*>(&value_));

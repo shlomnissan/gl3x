@@ -16,7 +16,7 @@
 
 namespace engine {
 
-using GLUniformValue = std::variant<GLint, GLfloat, Color, Matrix3, Matrix4, Vector4>;
+using GLUniformValue = std::variant<GLint, GLfloat, Color, Matrix3, Matrix4, Vector3, Vector4>;
 
 class GLUniform {
 public:
