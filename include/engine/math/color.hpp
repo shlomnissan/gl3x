@@ -5,6 +5,7 @@
 
 #include "engine_export.h"
 
+#include <algorithm>
 #include <cassert>
 
 namespace engine {
@@ -95,6 +96,19 @@ public:
         return *this;
     }
 
+    /**
+     * @brief Multiplies the color by a scalar value.
+     *
+     * @param n The scalar value to multiply with.
+     * @return Color& A reference to the updated color.
+     */
+    auto operator*=(float n) -> Color& {
+        r = std::clamp(r * n, 0.0f, 1.0f);
+        g = std::clamp(g * n, 0.0f, 1.0f);
+        b = std::clamp(b * n, 0.0f, 1.0f);
+        return *this;
+    }
+
 private:
     /**
      * @brief Checks if two colors are equal, component-wise.
@@ -103,8 +117,35 @@ private:
      * @param b The second color to compare.
      * @return bool `true` if the color are equal, `false` otherwise.
      */
-    [[nodiscard]]
-    friend bool operator==(const Color& a, const Color& b) = default;
+    [[nodiscard]] friend bool operator==(const Color& a, const Color& b) = default;
+
+    /**
+     * @brief Multiplies the color by a scalar value.
+     * @related Color
+     *
+     * @param v The color to be scaled.
+     * @param n The scalar value to multiply with.
+     * @return Color A new color that is the result of scaling the original color.
+     */
+    [[nodiscard]] friend auto operator*(const Color& v, float n) {
+        return Color {
+            std::clamp(v.r * n, 0.0f, 1.0f),
+            std::clamp(v.g * n, 0.0f, 1.0f),
+            std::clamp(v.b * n, 0.0f, 1.0f)
+        };
+    }
+
+    /**
+     * @brief Multiplies a scalar value by a color.
+     * @related Color
+     *
+     * @param n The scalar value to multiply with.
+     * @param v The color to be scaled.
+     * @return Color A new color that is the result of scaling the original color.
+     */
+    [[nodiscard]] friend auto operator*(float n, const Color& v) {
+        return v * n;
+    }
 };
 
 }

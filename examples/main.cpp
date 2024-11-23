@@ -59,7 +59,7 @@ auto main() -> int {
     scene->Add(ambient_light);
 
     auto directional_light = DirectionalLight::Create(0xffffff, 1.0f);
-    directional_light->transform.Translate({5.0f, 5.0f, 5.0f});
+    directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
     directional_light->SetDebugMode(true);
     scene->Add(directional_light);
 

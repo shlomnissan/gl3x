@@ -4,6 +4,7 @@
 #include "renderer/gl/gl_renderer_impl.hpp"
 
 #include "engine/core/logger.hpp"
+#include "engine/lights/directional_light.hpp"
 #include "engine/lights/lights.hpp"
 #include "engine/materials/materials.hpp"
 #include "engine/math/vector3.hpp"
@@ -112,6 +113,7 @@ auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& at
 
 auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program) const -> void {
     auto ambient_light = Color {0.0f, 0.0f, 0.0f};
+    auto dir_index = 0;
 
     for (auto weak_light : scene->Lights()) {
         if (auto light = weak_light.lock()) {
@@ -123,14 +125,21 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program) const 
                 ambient_light.g += color.g * intensity;
                 ambient_light.b += color.b * intensity;
             }
+
+            if (auto directional = light->As<DirectionalLight>()) {
+                const auto name = fmt::format("u_DirectionalLights[{}]", dir_index++);
+
+                // TODO: calculate the direction using the target and convert it to view space
+                const auto direction = Normalize(directional->transform.Position());
+                const auto color = directional->color * directional->intensity;
+
+                program->SetUniform(name + ".Direction", direction);
+                program->SetUniform(name + ".Color", color);
+            }
         }
     }
 
     program->SetUniform("u_AmbientLight", ambient_light);
-
-    // TODO: Replace with directional lights
-    program->SetUniform("u_DirectionalLights[0].Direction", Normalize(Vector3 {2.0f, 2.0f, 2.0f}));
-    program->SetUniform("u_DirectionalLights[0].Color", Color {1.0f, 1.0f, 1.0f});
 }
 
 auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {

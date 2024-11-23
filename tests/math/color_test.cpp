@@ -103,3 +103,25 @@ TEST(Color, InequalityOperator) {
 }
 
 #pragma endregion
+
+#pragma region Scalar Multiplication
+
+TEST(Color, ScalarMultiplication) {
+    const auto c = engine::Color {0.2f, 0.4f, 0.6f} * 2.0f;
+
+    EXPECT_FLOAT_EQ(c.r, 0.4f);
+    EXPECT_FLOAT_EQ(c.g, 0.8f);
+    EXPECT_FLOAT_EQ(c.b, 1.0f); // Clamped to 1.0f
+}
+
+
+TEST(Color, ScalarMultiplicationInPlace) {
+    auto c = engine::Color {0.2f, 0.4f, 0.6f};
+    c *= 2.0f;
+
+    EXPECT_FLOAT_EQ(c.r, 0.4f);
+    EXPECT_FLOAT_EQ(c.g, 0.8f);
+    EXPECT_FLOAT_EQ(c.b, 1.0f); // Clamped to 1.0f
+}
+
+#pragma endregion
