@@ -25,6 +25,12 @@ public:
     /// @brief The color of the material.
     Color color = {1.0f, 1.0f, 1.0f, 1.0f};
 
+    /// @brief The specular color of the material.
+    Color specular = {0.1f, 0.1f, 0.1f, 0.1f};
+
+    /// @brief The shininess of the material.
+    float shininess = 32.0f;
+
     /// @brief The texture map to apply to the geometry.
     std::shared_ptr<Texture2D> texture_map = nullptr;
 
