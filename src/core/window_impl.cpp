@@ -79,7 +79,7 @@ Window::Impl::Impl(const Window::Parameters& params) {
     imgui_initialize(window_);
 }
 
-auto Window::Impl::Start(const std::function<void(const double)>& tick) -> void {
+auto Window::Impl::Start(const OnTickCallback& tick) -> void {
     timer_.Start();
     while(!glfwWindowShouldClose(window_)) {
         auto delta = timer_.GetElapsedSeconds();
@@ -87,7 +87,7 @@ auto Window::Impl::Start(const std::function<void(const double)>& tick) -> void 
 
         imgui_before_render();
 
-        tick(delta);
+        tick(static_cast<float>(delta));
 
         imgui_after_render();
 

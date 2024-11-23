@@ -23,7 +23,7 @@ public:
     Impl& operator=(const Impl&) = delete;
     Impl& operator=(Impl&&) = delete;
 
-    auto Start(const OnTickCallback& on_tick) -> void;
+    auto Start(const OnTickCallback& tick) -> void;
 
     auto SetTitle(std::string_view title) -> void;
 

@@ -63,12 +63,12 @@ auto main() -> int {
     directional_light->SetDebugMode(true);
     scene->Add(directional_light);
 
-    window.Start([&](const double delta){
+    window.Start([&](const float delta){
         ImGui::Begin("Hello, ImGui!");
         ImGui::Text("This is a minimal UI example.");
         ImGui::End();
 
-        scene->ProcessUpdates(static_cast<float>(delta));
+        scene->ProcessUpdates(delta);
 
         flat_mesh->transform.Rotate(Vector3::Up(), 1.0f * delta);
         shiny_mesh->transform.Rotate(Vector3::Right(), 1.0f * delta);
