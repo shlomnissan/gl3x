@@ -20,9 +20,6 @@ namespace engine {
  */
 class DirectionalLight : public Light {
 public:
-    /// @brief The target point that the light is directed towards.
-    Vector3 target {0.0f};
-
     /**
      * @brief Constructs a new DirectionalLight instance.
      *
@@ -51,6 +48,16 @@ public:
      */
     auto Type() const -> LightType override {
         return LightType::Directional;
+    }
+
+    /**
+     * @brief Retrieves the direction of the light based on the light's target.
+     *
+     * @return The direction of the light.
+     */
+    [[nodiscard]] auto Direction() const -> Vector3 {
+        // TODO: Once the target is implemented, return the direction to the target.
+        return Normalize(GetWorldTransform()[3]);
     }
 
     /**

@@ -26,7 +26,7 @@ auto DirectionalLight::UpdateDebugMesh() -> void {
 
     auto debugLine = Geometry::Create({
         position.x, position.y, position.z,
-        target.x, target.y, target.z
+        0.0f, 0.0f, 0.0f // currently, the light always points to the origin
     });
     debugLine->primitive = GeometryPrimitiveType::Lines;
     debugLine->SetAttribute({GeometryAttributeType::Position, 3});

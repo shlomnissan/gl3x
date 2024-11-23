@@ -105,8 +105,7 @@ private:
      * @param b The second Transform object to compare.
      * @return bool `true` if the Euler objcets are equal, `false` otherwise.
      */
-    [[nodiscard]]
-    friend bool operator==(const Transform& a, const Transform& b) = default;
+    [[nodiscard]] friend bool operator==(const Transform& a, const Transform& b) = default;
 };
 
 }

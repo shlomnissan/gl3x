@@ -127,14 +127,11 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program) const 
             }
 
             if (auto directional = light->As<DirectionalLight>()) {
-                const auto name = fmt::format("u_DirectionalLights[{}]", dir_index++);
-
-                // TODO: calculate the direction using the target and convert it to view space
-                const auto direction = Normalize(directional->transform.Position());
+                const auto uniform_name = fmt::format("u_DirectionalLights[{}]", dir_index++);
+                const auto direction = directional->Direction();
                 const auto color = directional->color * directional->intensity;
-
-                program->SetUniform(name + ".Direction", direction);
-                program->SetUniform(name + ".Color", color);
+                program->SetUniform(uniform_name + ".Direction", direction);
+                program->SetUniform(uniform_name + ".Color", color);
             }
         }
     }
