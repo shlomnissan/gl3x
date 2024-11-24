@@ -13,15 +13,18 @@
 
 class Application : public engine::ApplicationContext {
 public:
+    auto Configure() -> void override{
+        params.vsync = false;
+    }
+
     auto Setup() -> void override {
-        window_parameters.vsync = false;
+        ApplicationContext::Setup();
 
-        auto scene = engine::Scene::Create();
-        SetScene(scene);
+        window->SetTitle("Examples");
+        renderer->SetClearColor({0.0f, 0.0f, 0.5f, 1.0f});
 
-        auto camera = engine::CameraPerspective::Create(60.0f, 1.33f);
-        SetCamera(camera);
-
+        scene = engine::Scene::Create();
+        camera = engine::CameraPerspective::Create(60.0f, window->AspectRatio());
         camera->transform.Translate({0.0f, 0.0f, 2.0f});
 
         auto geometry = engine::BoxGeometry::Create({});

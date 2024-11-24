@@ -5,57 +5,64 @@
 
 #include "engine/core/logger.hpp"
 
-/*
-TODOs:
-- Add doxygen comments
-- Make scene and camera public
-- Add ApplicationContextParamaters
-- Create a configure step
-- Create a separate paramaters object for the window
-- Create accessors for the window, renderer, scene, and camera
-- Improve error messages
-- Break the loop if the update function returns false
-*/
-
 namespace engine {
 
 auto ApplicationContext::Start() -> void {
+    Configure();
     Setup();
 
-    if (!scene_) {
-        Logger::Log(LogLevel::Error, "Scene is not set.");
+    if (!initialized_) {
+        Logger::Log(
+            LogLevel::Error,
+            "The application context was not initialized properly. "
+            "Please ensure that ApplicationContext::Setup has been called, "
+            "and check the console logs for any errors."
+        );
         return;
     }
 
-    if (!camera_) {
-        Logger::Log(LogLevel::Error, "Camera is not set.");
+    if (!scene) {
+        Logger::Log(
+            LogLevel::Error,
+            "You must override the Setup method and create a Scene object."
+        );
         return;
     }
 
-    if (!InitializeWindow() || !InitializeRenderer()) {
+    if (!camera) {
+        Logger::Log(
+            LogLevel::Error,
+            "You must override the Setup method and create a Camera object."
+        );
         return;
     }
 
-    window_->Start([&](float delta) {
+    window->Start([&](float delta) {
         if (!Update(delta)) {
-            // TODO: exit game loop
+            window->Break();
         }
-        scene_->ProcessUpdates(delta);
-        renderer_->Render(scene_.get(), camera_.get());
+        scene->ProcessUpdates(delta);
+        renderer->Render(scene.get(), camera.get());
     });
 }
 
 auto ApplicationContext::InitializeWindow() -> bool {
-    window_ = std::make_unique<Window>(window_parameters);
-    return window_->HasErrors() ? false : true;
+    const auto window_params = Window::Parameters {
+        .width = params.width,
+        .height = params.height,
+        .antialiasing = params.antialiasing,
+        .vsync = params.vsync
+    };
+    window = std::make_unique<Window>(window_params);
+    return window->HasErrors() ? false : true;
 }
 
 auto ApplicationContext::InitializeRenderer() -> bool {
-    const auto params = Renderer::Parameters {
-        .width = window_->Width(),
-        .height = window_->Height()
+    const auto renderer_params = Renderer::Parameters {
+        .width = window->Width(),
+        .height = window->Height()
     };
-    renderer_ = std::make_unique<Renderer>(params);
+    renderer = std::make_unique<Renderer>(renderer_params);
     return true;
 }
 

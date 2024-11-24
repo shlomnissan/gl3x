@@ -77,6 +77,11 @@ public:
     auto Start(const OnTickCallback& tick) const -> void;
 
     /**
+     * @brief If this method is called while the loop is running, it will stop the loop.
+     */
+    auto Break() -> void;
+
+    /**
      * @brief Sets the title of the window.
      *
      * @param title The new title of the window.

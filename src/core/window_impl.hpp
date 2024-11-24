@@ -25,6 +25,8 @@ public:
 
     auto Start(const OnTickCallback& tick) -> void;
 
+    auto Break() -> void;
+
     auto SetTitle(std::string_view title) -> void;
 
     auto BufferWidth() const { return buffer_width_; }
@@ -40,6 +42,7 @@ private:
     int buffer_height_ {0};
 
     bool initialized_ {false};
+    bool break_ {false};
 
     Timer timer_ {};
 

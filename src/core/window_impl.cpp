@@ -81,7 +81,7 @@ Window::Impl::Impl(const Window::Parameters& params) {
 
 auto Window::Impl::Start(const OnTickCallback& tick) -> void {
     timer_.Start();
-    while(!glfwWindowShouldClose(window_)) {
+    while(!glfwWindowShouldClose(window_) && !break_) {
         auto delta = timer_.GetElapsedSeconds();
         timer_.Reset();
 
@@ -94,6 +94,10 @@ auto Window::Impl::Start(const OnTickCallback& tick) -> void {
         glfwSwapBuffers(window_);
         glfwPollEvents();
     }
+}
+
+auto Window::Impl::Break() -> void {
+    break_ = true;
 }
 
 auto Window::Impl::SetTitle(std::string_view title) -> void {
