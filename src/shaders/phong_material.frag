@@ -32,19 +32,18 @@ uniform sampler2D u_TextureMap;
 uniform vec4 u_AmbientLight;
 uniform DirectionalLight u_DirectionalLights[NUM_DIR_LIGHTS];
 
-vec3 phongDirectional(const in int light_index, in PhongMaterial material, in vec3 position, in vec3 normal) {
-    DirectionalLight light = u_DirectionalLights[light_index];
-
-    float dot_dir_normal = max(dot(light.Direction, normal), 0.0);
-
-    vec3 diffuse = light.Color.rgb * material.DiffuseColor * dot_dir_normal;
+vec3 phongDirectional(const in DirectionalLight light, in PhongMaterial material) {
+    float diffuse_factor = max(dot(light.Direction, v_Normal), 0.0);
+    vec3 diffuse = light.Color.rgb * material.DiffuseColor * diffuse_factor;
     vec3 specular = vec3(0.0);
 
-    if (dot_dir_normal > 0.0) {
-        vec3 v = normalize(-position.xyz);
-        vec3 r = reflect(-light.Direction, normal);
+    // If the diffuse factor is zero, the light is facing away from the surface
+    // and no light contribution should be calculated, so we skip specular calculation.
+    if (diffuse_factor > 0.0) {
+        vec3 view_dir = normalize(-v_Position.xyz);
+        vec3 halfway = normalize(light.Direction + view_dir);
         specular = light.Color.rgb * material.SpecularColor *
-            pow(max(dot(v, r), 0.0), material.Shininess);
+            pow(max(dot(halfway, v_Normal), 0.0), material.Shininess);
     }
 
     return diffuse + specular;
@@ -58,11 +57,12 @@ void main() {
     );
 
     #ifdef USE_TEXTURE_MAP
-        material.DiffuseColor = u_Diffuse.rgb * texture(u_TextureMap, v_TexCoord);
+        material.DiffuseColor *= texture(u_TextureMap, v_TexCoord).rgb;
     #endif
 
-    v_FragColor = u_AmbientLight;
+    v_FragColor = u_AmbientLight * vec4(material.DiffuseColor, 1.0);
+
     for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
-        v_FragColor += vec4(phongDirectional(i, material, v_Position, v_Normal), 1.0);
+        v_FragColor += vec4(phongDirectional(u_DirectionalLights[i], material), 1.0);
     }
 }
