@@ -1,6 +1,7 @@
 set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(SOURCE_CODE
+    "core/application_context.cpp"
     "core/disposable.hpp"
     "core/event.hpp"
     "core/event_dispatcher.hpp"
@@ -58,6 +59,7 @@ set(SOURCE_CODE
 )
 
 set(PUBLIC_HEADERS
+    "${PUBLIC_HEADERS_DIR}/core/application_context.hpp"
     "${PUBLIC_HEADERS_DIR}/core/geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/core/logger.hpp"
     "${PUBLIC_HEADERS_DIR}/core/renderer.hpp"
