@@ -1,14 +1,12 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "engine/materials/flat_material.hpp"
 #include <engine/core/application_context.hpp>
 #include <engine/geometry/box_geometry.hpp>
-#include <engine/materials/materials.hpp>
 #include <engine/lights/lights.hpp>
+#include <engine/materials/materials.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
-#include <engine/scene/scene.hpp>
 
 #include <imgui.h>
 
