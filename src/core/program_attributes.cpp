@@ -25,7 +25,7 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
 
     if (type == MaterialType::kPhongMaterial) {
         color = true;
-        lights = true;
+        lights = !scene->Lights().empty();
         auto m = material->As<PhongMaterial>();
         texture_map = m->texture_map != nullptr;
     }
@@ -34,9 +34,9 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
         if (auto light = weak_light.lock()) {
             switch (light->Type()) {
                 case LightType::Ambient: /* noop */ break;
-                case LightType::Directional: num_directional_lights++; break;
-                case LightType::Point: num_point_lights++; break;
-                case LightType::Spotlight: num_spot_lights++; break;
+                case LightType::Directional: directional_lights++; break;
+                case LightType::Point: point_lights++; break;
+                case LightType::Spotlight: spot_lights++; break;
                 default: Logger::Log(LogLevel::Error, "Unknown light type"); break;
             }
         }

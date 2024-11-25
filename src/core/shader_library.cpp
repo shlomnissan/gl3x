@@ -54,9 +54,9 @@ auto ShaderLibrary::InjectAttributes(
     if (attrs.color) features += "#define USE_COLOR\n";
     if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
 
-    features += fmt::format("#define NUM_DIR_LIGHTS {}\n", attrs.num_directional_lights);
-    features += fmt::format("#define NUM_POINT_LIGHTS {}\n", attrs.num_point_lights);
-    features += fmt::format("#define NUM_SPOT_LIGHTS {}\n", attrs.num_spot_lights);
+    features += fmt::format("#define NUM_DIR_LIGHTS {}\n", attrs.directional_lights);
+    features += fmt::format("#define NUM_POINT_LIGHTS {}\n", attrs.point_lights);
+    features += fmt::format("#define NUM_SPOT_LIGHTS {}\n", attrs.spot_lights);
 
     auto output = std::string {source};
     auto token = std::string_view {"#pragma inject_attributes"};

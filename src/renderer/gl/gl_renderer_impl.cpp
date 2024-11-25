@@ -101,9 +101,13 @@ auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& at
     if (attrs.type == MaterialType::kPhongMaterial) {
         auto m = material->As<PhongMaterial>();
         program->SetUniform("u_Diffuse", m->color);
-        program->SetUniform("u_Specular", m->specular);
-        program->SetUniform("u_Shininess", m->shininess);
-        program->SetUniform("u_NormalMatrix", Transpose(Inverse(Matrix3(model_view))));
+
+        if (attrs.directional_lights || attrs.point_lights || attrs.point_lights) {
+            program->SetUniform("u_Specular", m->specular);
+            program->SetUniform("u_Shininess", m->shininess);
+            program->SetUniform("u_NormalMatrix", Transpose(Inverse(Matrix3(model_view))));
+        }
+
         if (attrs.texture_map) {
             program->SetUniform("u_TextureMap", 0);
             textures_.Bind(m->texture_map.get());

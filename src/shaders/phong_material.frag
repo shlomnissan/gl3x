@@ -30,7 +30,9 @@ uniform vec4 u_Specular;
 uniform float u_Shininess;
 uniform sampler2D u_TextureMap;
 
-uniform DirectionalLight u_DirectionalLights[NUM_DIR_LIGHTS];
+#if NUM_DIR_LIGHTS > 0
+    uniform DirectionalLight u_DirectionalLights[NUM_DIR_LIGHTS];
+#endif
 
 vec3 phongShading(
     const in vec3 light_dir,
@@ -66,8 +68,10 @@ void main() {
 
     v_FragColor = u_AmbientLight * vec4(material.DiffuseColor, 1.0);
 
-    for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
-        DirectionalLight light = u_DirectionalLights[i];
-        v_FragColor += vec4(phongShading(light.Direction, light.Color.rgb, material), 1.0);
-    }
+    #if NUM_DIR_LIGHTS > 0
+        for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
+            DirectionalLight light = u_DirectionalLights[i];
+            v_FragColor += vec4(phongShading(light.Direction, light.Color.rgb, material), 1.0);
+        }
+    #endif
 }

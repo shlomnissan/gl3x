@@ -14,9 +14,9 @@ namespace engine {
 struct ProgramAttributes {
     MaterialType type;
 
-    size_t num_directional_lights = 0;
-    size_t num_point_lights = 0;
-    size_t num_spot_lights = 0;
+    size_t directional_lights = 0;
+    size_t point_lights = 0;
+    size_t spot_lights = 0;
 
     bool color {false};
     bool texture_map {false};
