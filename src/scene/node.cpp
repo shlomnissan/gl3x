@@ -75,16 +75,12 @@ auto Node::ShouldUpdateChildren() const -> bool {
     return update_children_;
 }
 
-auto Node::GetWorldTransform() const -> Matrix4 {
-    return world_transform_;
-}
-
 auto Node::UpdateTransforms() -> void {
     if (transformAutoUpdate && ShouldUpdateTransform()) {
         if (parent_ == nullptr) {
-            world_transform_ = transform.ToMatrix();
+            world_transform = transform;
         } else {
-            world_transform_ = parent_->GetWorldTransform() * transform.ToMatrix();
+            world_transform = parent_->world_transform * transform;
         }
         // when update_children_ is set to true, we are ensuring that all the
         // nodes in this node’s subtree will update their world transforms,

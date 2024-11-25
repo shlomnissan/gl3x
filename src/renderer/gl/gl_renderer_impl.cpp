@@ -84,7 +84,7 @@ auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> 
 
 auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, const Camera* camera) -> void {
     auto material = mesh->GetMaterial();
-    auto model_view = camera->GetViewMatrix() * mesh->GetWorldTransform();
+    auto model_view = camera->GetViewMatrix() * mesh->world_transform.Get();
 
     program->SetUniform("u_Projection", camera->GetProjectionMatrix());
     program->SetUniform("u_ModelView", model_view);
@@ -102,7 +102,7 @@ auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& at
         auto m = material->As<PhongMaterial>();
         program->SetUniform("u_Diffuse", m->color);
 
-        if (attrs.directional_lights || attrs.point_lights || attrs.point_lights) {
+        if (attrs.directional_lights || attrs.point_lights || attrs.spot_lights) {
             program->SetUniform("u_Specular", m->specular);
             program->SetUniform("u_Shininess", m->shininess);
             program->SetUniform("u_NormalMatrix", Transpose(Inverse(Matrix3(model_view))));
@@ -121,7 +121,7 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program) const 
 
     for (auto weak_light : scene->Lights()) {
         if (auto light = weak_light.lock()) {
-            const auto& color = light->color;
+            const auto color = light->color;
             const auto intensity = light->intensity;
 
             if (auto ambient = light->As<AmbientLight>()) {
@@ -131,11 +131,11 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program) const 
             }
 
             if (auto directional = light->As<DirectionalLight>()) {
-                const auto uniform_name = fmt::format("u_DirectionalLights[{}]", dir_index++);
-                const auto direction = directional->Direction();
-                const auto color = directional->color * directional->intensity;
-                program->SetUniform(uniform_name + ".Direction", direction);
-                program->SetUniform(uniform_name + ".Color", color);
+                const auto u_name = fmt::format("u_DirectionalLights[{}]", dir_index++);
+                const auto u_dir = directional->world_transform.Position();
+                const auto u_color = directional->color * directional->intensity;
+                program->SetUniform(u_name + ".Direction", Vector3(u_dir));
+                program->SetUniform(u_name + ".Color", u_color);
             }
         }
     }

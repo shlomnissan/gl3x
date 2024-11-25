@@ -4,7 +4,6 @@
 #pragma once
 
 #include "engine_export.h"
-#include "engine/math/matrix4.hpp"
 #include "engine/math/transform.hpp"
 
 #include "core/identity.hpp"
@@ -24,6 +23,9 @@ class ENGINE_EXPORT Node : public Identity {
 public:
     /// @brief Node's local transformation.
     Transform transform;
+
+    /// @brief Node's world transformation.
+    Transform world_transform;
 
     /// @brief The current level in the scene graph.
     int level {0};
@@ -80,13 +82,6 @@ public:
      * @return True if the transform is dirty or the parent requires an update.
      */
     [[nodiscard]] auto ShouldUpdateTransform() const -> bool;
-
-    /**
-     * @brief Retrieves the world transform matrix of the node.
-     *
-     * @return The world transform matrix.
-     */
-    [[nodiscard]] auto GetWorldTransform() const -> Matrix4;
 
     /**
      * @brief Creates a new instance of the Node class.
@@ -166,9 +161,6 @@ public:
 private:
     /// @brief List of child nodes.
     std::vector<std::shared_ptr<Node>> children_;
-
-    /// @brief Node's world transform matrix.
-    Matrix4 world_transform_ {1.0f};
 
     /// @brief Pointer to the parent node.
     Node* parent_ {nullptr};

@@ -37,10 +37,8 @@ auto Transform::Rotate(const Vector3& axis, float angle) -> void {
     is_dirty_ = true;
 }
 
-auto Transform::ToMatrix() -> Matrix4 {
-    if (is_dirty_) {
-        is_dirty_ = false;
-    }
+auto Transform::Get() -> Matrix4 {
+    if (is_dirty_) is_dirty_ = false;
     return transform_;
 }
 

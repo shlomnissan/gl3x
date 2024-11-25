@@ -56,14 +56,12 @@ public:
     auto Translate(const Vector3& value) -> void;
 
     /**
-     * @brief Computes the current transformation matrix.
+     * @brief Returns the transformation matrix.
      *
-     * This method calculates and returns the transformation matrix, If the transformation
-     * is marked as dirty, it will be recalculated before being returned.
      *
-     * @return The transformation matrix representing the current scaling and translation.
+     * @return The transformation matrix representing the current scaling, translation and rotation.
      */
-    [[nodiscard]] auto ToMatrix() -> Matrix4;
+    [[nodiscard]] auto Get() -> Matrix4;
 
     /**
      * @brief Checks if the transformation matrix is dirty.
@@ -71,6 +69,13 @@ public:
      * @return True if the transformation matrix needs to be recalculated, false otherwise.
      */
     [[nodiscard]] auto IsDirty() const { return is_dirty_; }
+
+    /**
+     * @brief Retrieves the position component of the transformation matrix.
+     *
+     * @return The position vector of the transformation.
+     */
+    [[nodiscard]] auto Position() const { return transform_[3];}
 
 private:
     /// @brief Flag indicating if the transformation matrix needs to be recalculated.

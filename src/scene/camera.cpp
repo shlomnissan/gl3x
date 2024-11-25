@@ -9,7 +9,7 @@ auto Camera::UpdateTransforms() -> void {
     const auto view_needs_update = Node::ShouldUpdateTransform();
     Node::UpdateTransforms();
     if (view_needs_update) {
-        this->view_transform_ = engine::Inverse(GetWorldTransform());
+        this->view_transform_ = engine::Inverse(world_transform.Get());
     }
 }
 

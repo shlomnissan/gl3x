@@ -74,7 +74,7 @@ TEST(Node, UpdateTransformsWithoutParent) {
 
     node->UpdateTransforms();
 
-    EXPECT_MAT4_EQ(node->GetWorldTransform(), {
+    EXPECT_MAT4_EQ(node->world_transform.Get(), {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 2.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 2.0f, 0.0f,
@@ -91,7 +91,7 @@ TEST(Node, UpdateTransformsWithParent) {
 
     parent->UpdateTransforms();
 
-    EXPECT_MAT4_EQ(child->GetWorldTransform(), {
+    EXPECT_MAT4_EQ(child->world_transform.Get(), {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 2.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 2.0f, 0.0f,
@@ -108,14 +108,14 @@ TEST(Node, DisableTransformAutoUpdate) {
     parent->Add(child);
     parent->UpdateTransforms();
 
-    EXPECT_MAT4_EQ(parent->GetWorldTransform(), {
+    EXPECT_MAT4_EQ(parent->world_transform.Get(), {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 2.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 2.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 1.0f
     });
 
-    EXPECT_MAT4_EQ(child->GetWorldTransform(), {
+    EXPECT_MAT4_EQ(child->world_transform.Get(), {
         1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,

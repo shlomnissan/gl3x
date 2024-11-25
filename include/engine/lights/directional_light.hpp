@@ -51,16 +51,6 @@ public:
     }
 
     /**
-     * @brief Retrieves the direction of the light based on the light's target.
-     *
-     * @return The direction of the light.
-     */
-    [[nodiscard]] auto Direction() const -> Vector3 {
-        // TODO: Once the target is implemented, return the direction to the target.
-        return Normalize(GetWorldTransform()[3]);
-    }
-
-    /**
      * @brief Invoked when the node is updated.
      *
      * @param delta The time in seconds since the last update.
