@@ -15,6 +15,18 @@ namespace engine {
 class ENGINE_EXPORT Transform {
 public:
     /**
+     * @brief Default constructor that initializes the transformation matrix to the identity matrix.
+     */
+    Transform() = default;
+
+    /**
+     * @brief Constructs a transformation from a 4x4 matrix.
+     *
+     * @param m The 4x4 matrix to initialize the transformation with.
+     */
+    explicit Transform(const Matrix4& m) : transform_(m) {}
+
+    /**
      * @brief Applies a uniform scaling transformation.
      *
      * @param value The scaling factor to apply.
@@ -74,7 +86,18 @@ private:
      * @param b The second Transform object to compare.
      * @return bool `true` if the Transform objects are equal, `false` otherwise.
      */
-    [[nodiscard]] friend bool operator==(const Transform& a, const Transform& b) = default;
+    [[nodiscard]] friend auto operator==(const Transform& a, const Transform& b) -> bool = default;
+
+    /**
+     * @brief Multiplies two Transform objects.
+     *
+     * @param a The first Transform object.
+     * @param b The second Transform object.
+     * @return Transform The result of multiplying the two Transform objects.
+     */
+    [[nodiscard]] friend auto operator*(const Transform& a, const Transform& b) -> Transform {
+        return Transform {a.transform_ * b.transform_};
+    }
 };
 
 }

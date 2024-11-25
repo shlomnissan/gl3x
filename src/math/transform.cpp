@@ -9,7 +9,7 @@
 namespace engine {
 
 auto Transform::Scale(float value) -> void {
-    Scale(Vector3(value, value, value));
+    Scale({value, value, value});
 }
 
 auto Transform::Scale(const Vector3& value) -> void {
@@ -20,9 +20,7 @@ auto Transform::Scale(const Vector3& value) -> void {
 }
 
 auto Transform::Translate(const Vector3& value) -> void {
-    transform_[3][0] += value.x;
-    transform_[3][1] += value.y;
-    transform_[3][2] += value.z;
+    transform_[3] = transform_[0] * value.x + transform_[1] * value.y + transform_[2] * value.z + transform_[3];
     is_dirty_ = true;
 }
 
