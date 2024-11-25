@@ -20,7 +20,7 @@ auto DirectionalLight::Update(float delta) -> void {
 auto DirectionalLight::UpdateDebugMesh() -> void {
     RemoveAllChildren();
 
-    auto position = transform.Position();
+    auto position = GetWorldTransform()[3];
     auto material = FlatMaterial::Create();
     material->color = color;
 

@@ -53,6 +53,16 @@ public:
     auto SetRotationOrder(RotationOrder order) { order_ = order; }
 
     /**
+    * @brief Rotates a matrix by a given angle around a specified axis.
+    *
+    * @param m The matrix to be rotated.
+    * @param angle The angle of rotation in radians.
+    * @param v The axis of rotation.
+    * @return Matrix4 The resulting matrix after rotation.
+    */
+    auto Rotate(const Matrix4& m, float angle, const Vector3& v) const -> Matrix4;
+
+    /**
      * @brief Computes the rotation matrix based on the Euler angles and rotation order.
      *
      * @return The rotation matrix corresponding to the Euler angles and rotation order.
