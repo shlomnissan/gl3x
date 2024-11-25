@@ -17,6 +17,13 @@ auto DirectionalLight::Update(float delta) -> void {
     }
 }
 
+auto DirectionalLight::Direction() const -> Vector3 {
+    if (target != nullptr) {
+        return Normalize(target->world_transform.Position() - world_transform.Position());
+    }
+    return Normalize(world_transform.Position());
+}
+
 auto DirectionalLight::UpdateDebugMesh() -> void {
     RemoveAllChildren();
 
@@ -24,9 +31,10 @@ auto DirectionalLight::UpdateDebugMesh() -> void {
     auto material = FlatMaterial::Create();
     material->color = color;
 
+    auto target_pos = target != nullptr ? target->world_transform.Position() : Vector3::Zero();
     auto debugLine = Geometry::Create({
         position.x, position.y, position.z,
-        0.0f, 0.0f, 0.0f // currently, the light always points to the origin
+        target_pos.x, target_pos.y, target_pos.z
     });
     debugLine->primitive = GeometryPrimitiveType::Lines;
     debugLine->SetAttribute({GeometryAttributeType::Position, 3});

@@ -71,11 +71,7 @@ void main() {
     #if NUM_DIR_LIGHTS > 0
         for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
             DirectionalLight light = u_DirectionalLights[i];
-            v_FragColor += vec4(phongShading(
-                normalize(light.Direction),
-                light.Color.rgb,
-                material
-            ), 1.0);
+            v_FragColor += vec4(phongShading(light.Direction, light.Color.rgb, material), 1.0);
         }
     #endif
 }

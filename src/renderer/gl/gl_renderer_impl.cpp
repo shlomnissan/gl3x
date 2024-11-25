@@ -132,7 +132,7 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program) const 
 
             if (auto directional = light->As<DirectionalLight>()) {
                 const auto u_name = fmt::format("u_DirectionalLights[{}]", dir_index++);
-                const auto u_dir = directional->world_transform.Position();
+                const auto u_dir = directional->Direction();
                 const auto u_color = directional->color * directional->intensity;
                 program->SetUniform(u_name + ".Direction", Vector3(u_dir));
                 program->SetUniform(u_name + ".Color", u_color);

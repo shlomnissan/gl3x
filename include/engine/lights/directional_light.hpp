@@ -21,6 +21,13 @@ namespace engine {
 class DirectionalLight : public Light {
 public:
     /**
+     * @brief The target node that the light is pointing towards.
+     *
+     * If this is not set, the light will always point towards the origin.
+     */
+    std::shared_ptr<Node> target {nullptr};
+
+    /**
      * @brief Constructs a new DirectionalLight instance.
      *
      * @param color The color of the light.
@@ -49,6 +56,13 @@ public:
     auto Type() const -> LightType override {
         return LightType::Directional;
     }
+
+    /**
+     * @brief Retrieves the direction of the light based on the light's target.
+     *
+     * @return The direction of the light.
+     */
+    [[nodiscard]] auto Direction() const -> Vector3;
 
     /**
      * @brief Invoked when the node is updated.

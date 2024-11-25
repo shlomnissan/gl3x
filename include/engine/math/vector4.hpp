@@ -46,6 +46,14 @@ public:
     Vector4(float x, float y, float z, float w);
 
     /**
+     * @brief Returns a zero vector.
+     *
+     * @return Vector4 A `Vector4` instance representing the zero vector.
+     */
+    [[nodiscard]]
+    static auto Zero() { return Vector4 {0.0f}; }
+
+    /**
      * @brief Calculates the length (magnitude) of the vector.
      *
      * @return float The length of the vector.

@@ -75,6 +75,14 @@ public:
     static auto Forward() { return Vector3 {0.0f, 0.0f, 1.0f}; }
 
     /**
+     * @brief Returns a zero vector.
+     *
+     * @return Vector3 A `Vector3` instance representing the zero vector.
+     */
+    [[nodiscard]]
+    static auto Zero() { return Vector3 {0.0f}; }
+
+    /**
      * @brief Calculates the length (magnitude) of the vector.
      *
      * @return float The length of the vector.
