@@ -9,14 +9,17 @@
 namespace engine {
 
 Euler::Euler(float pitch, float yaw, float roll, RotationOrder order)
-  : pitch_(pitch), yaw_(yaw), roll_(roll), order_(order) {}
+  : pitch(pitch),
+    yaw(yaw),
+    roll(roll),
+    order_(order) {}
 
 auto Euler::GetMatrix() const -> Matrix4 {
     // TODO: generates the rotation matrix in place instead of performing
     // matrix multiplication for each rotation axis.
-    const auto rotation_x = Rotate(Matrix4{1.0f}, pitch_, Vector3::Right());
-    const auto rotation_y = Rotate(Matrix4{1.0f}, yaw_, Vector3::Up());
-    const auto rotation_z = Rotate(Matrix4{1.0f}, roll_, Vector3::Forward());
+    const auto rotation_x = Rotate(Matrix4{1.0f}, pitch, Vector3::Right());
+    const auto rotation_y = Rotate(Matrix4{1.0f}, yaw, Vector3::Up());
+    const auto rotation_z = Rotate(Matrix4{1.0f}, roll, Vector3::Forward());
 
     auto output = Matrix4 {0.0f};
     switch (order_) {

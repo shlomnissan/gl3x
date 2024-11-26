@@ -28,11 +28,11 @@ auto Transform::Translate(const Vector3& value) -> void {
 auto Transform::Rotate(const Vector3& axis, float angle) -> void {
     Euler rotation_euler(0.0f, 0.0f, 0.0f);
     if (axis == Vector3::Right()) {
-        rotation_euler.pitch_ = angle;
+        rotation_euler.pitch = angle;
     } else if (axis == Vector3::Up()) {
-        rotation_euler.yaw_ = angle;
+        rotation_euler.yaw = angle;
     } else if (axis == Vector3::Forward()) {
-        rotation_euler.roll_ = angle;
+        rotation_euler.roll = angle;
     }
     transform_ = transform_ * rotation_euler.GetMatrix();
     is_dirty_ = true;

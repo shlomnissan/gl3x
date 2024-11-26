@@ -13,6 +13,13 @@ namespace engine {
  */
 class ENGINE_EXPORT Euler  {
 public:
+    /// @brief The pitch angle (rotation around X-axis), in radians.
+    float pitch {0.0f};
+    /// @brief The yaw angle (rotation around Y-axis), in radians.
+    float yaw {0.0f};
+    /// @brief The roll angle (rotation around Z-axis), in radians.
+    float roll {0.0f};
+
     /**
      * @brief Enum representing different rotation orders.
      */
@@ -67,23 +74,11 @@ public:
      *
      * @return The rotation matrix corresponding to the Euler angles and rotation order.
      */
-    [[nodiscard]]
-    auto GetMatrix() const -> Matrix4;
+    [[nodiscard]] auto GetMatrix() const -> Matrix4;
 
 private:
-    /// @brief The pitch angle (rotation around X-axis), in radians.
-    float pitch_ {0.0f};
-
-    /// @brief The yaw angle (rotation around Y-axis), in radians.
-    float yaw_ {0.0f};
-
-    /// @brief The roll angle (rotation around Z-axis), in radians.
-    float roll_ {0.0f};
-
     /// @brief The order in which rotations are applied.
     RotationOrder order_ = default_order;
-
-    friend class Transform; ///< Allows `Transform` to access private members.
 
    /**
      * @brief Checks if two Euler objects are equal, component-wise.
@@ -92,8 +87,7 @@ private:
      * @param b The second Euler object to compare.
      * @return bool `true` if the Euler objcets are equal, `false` otherwise.
      */
-   [[nodiscard]]
-    friend bool operator==(const Euler& a, const Euler& b) = default;
+   [[nodiscard]] friend bool operator==(const Euler& a, const Euler& b) = default;
 };
 
 }

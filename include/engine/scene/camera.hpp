@@ -13,19 +13,11 @@ namespace engine {
  */
 class Camera : public Node {
 public:
-    /**
-     * @brief Retrieves the projection matrix of the camera.
-     *
-     * @return The projection matrix as a Matrix4 object.
-     */
-    auto GetProjectionMatrix() const { return projection_transform_; }
+    /// @brief The projection matrix of the camera.
+    Matrix4 projection_transform;
 
-    /**
-     * @brief Retrieves the view matrix of the camera.
-     *
-     * @return The view matrix as a Matrix4 object.
-     */
-    auto GetViewMatrix() const { return view_transform_; }
+    /// @brief The inverse of the world transform attached to the node.
+    Matrix4 view_transform;
 
     /**
      * @brief Overrides the Node class function to update the world matrix.
@@ -45,10 +37,6 @@ protected:
     float near_;
     /// @brief The far clipping plane distance.
     float far_;
-    /// @brief The projection matrix of the camera.
-    Matrix4 projection_transform_;
-    /// @brief The inverse of the world transform attached to the node.
-    Matrix4 view_transform_;
 
     /**
      * @brief Updates the projection transform.
