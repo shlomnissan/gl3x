@@ -12,21 +12,7 @@ namespace engine {
         float aspect,
         float near,
         float far
-    ) :
-        fov_(fov),
-        aspect_(aspect)
-    {
-        near_ = near;
-        far_ = far;
-        CameraPerspective::UpdateProjectionTransform();
-    }
-
-    auto CameraPerspective::UpdateProjectionTransform() -> void {
-        const auto tan_half_fov = std::tan((engine::math::DegToRad(fov_)) / 2);
-        projection_transform = Matrix4 {1.0f};
-        projection_transform[0] = {1.0f / (aspect_ * tan_half_fov), 0.0f, 0.0f, 0.0f};
-        projection_transform[1] = {0.0f, 1.0f / tan_half_fov, 0.0f, 0.0f};
-        projection_transform[2] = {0.0f, 0.0f, -(far_ + near_) / (far_ - near_), -1.0f};
-        projection_transform[3] = {0.0f, 0.0f, -(2 * far_ * near_) / (far_ - near_), 0.0f};
+    ) {
+        projection_transform.Perspective(fov, aspect, near, far);
     }
 }

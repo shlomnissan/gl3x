@@ -14,6 +14,9 @@ namespace engine {
  */
 class ENGINE_EXPORT Transform {
 public:
+    /// @brief Flag indicating if the transformation matrix was modified.
+    bool touched {true};
+
     /**
      * @brief Default constructor that initializes the transformation matrix to the identity matrix.
      */
@@ -61,14 +64,7 @@ public:
      *
      * @return The transformation matrix representing the current scaling, translation and rotation.
      */
-    [[nodiscard]] auto Get() -> Matrix4;
-
-    /**
-     * @brief Checks if the transformation matrix is dirty.
-     *
-     * @return True if the transformation matrix needs to be recalculated, false otherwise.
-     */
-    [[nodiscard]] auto IsDirty() const { return is_dirty_; }
+    [[nodiscard]] auto Get() const { return transform_; }
 
     /**
      * @brief Retrieves the position component of the transformation matrix.
@@ -84,10 +80,29 @@ public:
      */
     [[nodiscard]] auto GetScale() const -> Vector3;
 
-private:
-    /// @brief Flag indicating if the transformation matrix needs to be recalculated.
-    bool is_dirty_ {true};
+    /**
+     * @brief Applies a perspective transformation.
+     *
+     * @param fov The field of view in degrees.
+     * @param aspect_ratio The aspect ratio of the view.
+     * @param near The near clipping plane distance.
+     * @param far The far clipping plane distance.
+     */
+    auto Perspective(float fov, float aspect_ratio, float near, float far) -> void;
 
+    /**
+     * @brief Applies an orthographic transformation.
+     *
+     * @param left The left bound of the view volume.
+     * @param right The right bound of the view volume.
+     * @param bottom The bottom bound of the view volume.
+     * @param top The top bound of the view volume.
+     * @param near The distance to the near clipping plane.
+     * @param far The distance to the far clipping plane.
+     */
+    auto Orthographic(float left, float right, float bottom, float top, float near, float far) -> void;
+
+private:
     /// @brief The transformation matrix, initialized to identity.
     Matrix4 transform_ {1.0f};
 

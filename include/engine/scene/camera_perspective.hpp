@@ -50,19 +50,6 @@ public:
     ) {
         return std::make_shared<CameraPerspective>(fov, aspect, near, far);
     }
-
-private:
-    /// @brief The field of view in degrees.
-    float fov_;
-    /// @brief The aspect ratio of the camera (width/height).
-    float aspect_;
-
-    /**
-     * @brief Updates the projection matrix for the perspective camera.
-     *
-     * This method overrides the pure virtual function in the Camera class.
-     */
-    auto UpdateProjectionTransform() -> void override;
 };
 
 }

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "engine/math/matrix4.hpp"
+#include "engine/math/transform.hpp"
 #include "engine/scene/node.hpp"
 
 namespace engine {
@@ -14,10 +14,10 @@ namespace engine {
 class Camera : public Node {
 public:
     /// @brief The projection matrix of the camera.
-    Matrix4 projection_transform;
+    Transform projection_transform;
 
     /// @brief The inverse of the world transform attached to the node.
-    Matrix4 view_transform;
+    Transform view_transform;
 
     /**
      * @brief Overrides the Node class function to update the world matrix.
@@ -31,20 +31,6 @@ public:
      * @brief Virtual destructor for the Camera class.
      */
     virtual ~Camera() = default;
-
-protected:
-    /// @brief The near clipping plane distance.
-    float near_;
-    /// @brief The far clipping plane distance.
-    float far_;
-
-    /**
-     * @brief Updates the projection transform.
-     *
-     * This pure virtual function must be implemented by derived classes to
-     * update the projection matrix based on camera parameters.
-     */
-    virtual auto UpdateProjectionTransform() -> void = 0;
 };
 
 }

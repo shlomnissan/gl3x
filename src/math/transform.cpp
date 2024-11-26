@@ -6,6 +6,9 @@
 #include "engine/math/euler.hpp"
 #include "engine/math/matrix4.hpp"
 #include "engine/math/vector3.hpp"
+#include "engine/math/utilities.hpp"
+
+#include <cmath>
 
 namespace engine {
 
@@ -17,12 +20,12 @@ auto Transform::Scale(const Vector3& value) -> void {
     transform_[0] *= value.x;
     transform_[1] *= value.y;
     transform_[2] *= value.z;
-    is_dirty_ = true;
+    touched = true;
 }
 
 auto Transform::Translate(const Vector3& value) -> void {
     transform_[3] = transform_[0] * value.x + transform_[1] * value.y + transform_[2] * value.z + transform_[3];
-    is_dirty_ = true;
+    touched = true;
 }
 
 auto Transform::Rotate(const Vector3& axis, float angle) -> void {
@@ -35,12 +38,29 @@ auto Transform::Rotate(const Vector3& axis, float angle) -> void {
         rotation_euler.roll = angle;
     }
     transform_ = transform_ * rotation_euler.GetMatrix();
-    is_dirty_ = true;
+    touched = true;
 }
 
-auto Transform::Get() -> Matrix4 {
-    if (is_dirty_) is_dirty_ = false;
-    return transform_;
+auto Transform::Perspective(float fov, float aspect_ratio, float near, float far) -> void {
+    const auto tan_half_fov = std::tan((engine::math::DegToRad(fov)) / 2);
+    transform_[0] = {1.0f / (aspect_ratio * tan_half_fov), 0.0f, 0.0f, 0.0f};
+    transform_[1] = {0.0f, 1.0f / tan_half_fov, 0.0f, 0.0f};
+    transform_[2] = {0.0f, 0.0f, -(far + near) / (far - near), -1.0f};
+    transform_[3] = {0.0f, 0.0f, -(2 * far * near) / (far - near), 0.0f};
+    touched = true;
+}
+
+auto Transform::Orthographic(float left, float right, float bottom, float top, float near, float far) -> void {
+    transform_[0] = {2.0f / (right - left), 0.0f, 0.0f, 0.0f};
+    transform_[1] = {0.0f, 2.0f / (top - bottom), 0.0f, 0.0f};
+    transform_[2] = {0.0f, 0.0f, -2.0f / (far - near), 0.0f};
+    transform_[3] = {
+        -(right + left) / (right - left),
+        -(top + bottom) / (top - bottom),
+        -(far + near) / (far - near),
+        1.0f
+    };
+    touched = true;
 }
 
 auto Transform::GetPosition() const -> Vector3 {

@@ -77,11 +77,11 @@ public:
     [[nodiscard]] auto ShouldUpdateChildren() const -> bool;
 
     /**
-     * @brief Determines if the node's transform should be updated.
+     * @brief Determines if the node's world transform should be updated.
      *
-     * @return True if the transform is dirty or the parent requires an update.
+     * @return True if the transform was modified or the parent requires an update.
      */
-    [[nodiscard]] auto ShouldUpdateTransform() const -> bool;
+    [[nodiscard]] auto ShouldUpdateWorldTransform() const -> bool;
 
     /**
      * @brief Creates a new instance of the Node class.

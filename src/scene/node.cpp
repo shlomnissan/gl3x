@@ -76,20 +76,17 @@ auto Node::ShouldUpdateChildren() const -> bool {
 }
 
 auto Node::UpdateTransforms() -> void {
-    if (transformAutoUpdate && ShouldUpdateTransform()) {
+    if (transformAutoUpdate && ShouldUpdateWorldTransform()) {
         if (parent_ == nullptr) {
             world_transform = transform;
         } else {
             world_transform = parent_->world_transform * transform;
         }
-        // when update_children_ is set to true, we are ensuring that all the
-        // nodes in this node’s subtree will update their world transforms,
-        // even if no new transformations have been applied
+        transform.touched = false;
         update_children_ = true;
     }
 
-    // check for updates in child nodes, even if this node
-    // doesn't require an update
+    // check for updates in child nodes, even if this node doesn't require an update
     for (const auto child : children_) {
         if (child != nullptr) {
             child->UpdateTransforms();
@@ -99,9 +96,8 @@ auto Node::UpdateTransforms() -> void {
     update_children_ = false;
 }
 
-auto Node::ShouldUpdateTransform() const -> bool {
-    return transform.IsDirty() ||
-           parent_ && parent_->ShouldUpdateChildren();
+auto Node::ShouldUpdateWorldTransform() const -> bool {
+    return transform.touched || (parent_ && parent_->ShouldUpdateChildren());
 }
 
 }

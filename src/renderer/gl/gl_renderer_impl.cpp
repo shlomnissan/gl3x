@@ -82,11 +82,11 @@ auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> 
     }
 }
 
-auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, const Camera* camera) -> void {
+auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, Camera* camera) -> void {
     auto material = mesh->GetMaterial();
-    auto model_view = camera->view_transform * mesh->world_transform.Get();
+    auto model_view = camera->view_transform.Get() * mesh->world_transform.Get();
 
-    program->SetUniform("u_Projection", camera->projection_transform);
+    program->SetUniform("u_Projection", camera->projection_transform.Get());
     program->SetUniform("u_ModelView", model_view);
 
     if (attrs.type == MaterialType::kFlatMaterial) {

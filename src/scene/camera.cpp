@@ -6,10 +6,10 @@
 namespace engine {
 
 auto Camera::UpdateTransforms() -> void {
-    const auto view_needs_update = Node::ShouldUpdateTransform();
+    const auto view_needs_update = ShouldUpdateWorldTransform();
     Node::UpdateTransforms();
     if (view_needs_update) {
-        this->view_transform = engine::Inverse(world_transform.Get());
+        this->view_transform = Transform { Inverse(world_transform.Get()) };
     }
 }
 

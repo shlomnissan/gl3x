@@ -61,23 +61,6 @@ public:
             left, right, bottom, top, near, far
         );
     }
-
-private:
-    /// @brief The left bound of the orthographic view volume.
-    float left_;
-    /// @brief The right bound of the orthographic view volume.
-    float right_;
-    /// @brief The top bound of the orthographic view volume.
-    float top_;
-    /// @brief The bottom bound of the orthographic view volume.
-    float bottom_;
-
-    /**
-     * @brief Updates the projection matrix for the orthographic camera.
-     *
-     * This method overrides the pure virtual function in the Camera class.
-     */
-    auto UpdateProjectionTransform() -> void override;
 };
 
 }

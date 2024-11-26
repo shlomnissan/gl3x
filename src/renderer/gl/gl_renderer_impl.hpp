@@ -36,7 +36,7 @@ private:
 
     auto RenderObjects(Node* node, Scene* scene, Camera* camera) -> void;
 
-    auto SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, const Camera* camera) -> void;
+    auto SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, Camera* camera) -> void;
 
     auto UpdateLights(const Scene* scene, GLProgram* program) const -> void;
 

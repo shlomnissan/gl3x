@@ -131,7 +131,7 @@ TEST(Node, ShouldUpdateTransformWhenDirty) {
     auto node = engine::Node::Create();
     node->transform.Scale(0.5f);
 
-    EXPECT_TRUE(node->ShouldUpdateTransform());
+    EXPECT_TRUE(node->ShouldUpdateWorldTransform());
 }
 
 #pragma endregion
