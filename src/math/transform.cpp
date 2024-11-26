@@ -4,6 +4,7 @@
 #include "engine/math/transform.hpp"
 
 #include "engine/math/euler.hpp"
+#include "engine/math/matrix4.hpp"
 #include "engine/math/vector3.hpp"
 
 namespace engine {
@@ -40,6 +41,18 @@ auto Transform::Rotate(const Vector3& axis, float angle) -> void {
 auto Transform::Get() -> Matrix4 {
     if (is_dirty_) is_dirty_ = false;
     return transform_;
+}
+
+auto Transform::GetPosition() const -> Vector3 {
+    return transform_[3];
+}
+
+auto Transform::GetScale() const -> Vector3 {
+    return {
+        transform_[0].Length(),
+        transform_[1].Length(),
+        transform_[2].Length()
+    };
 }
 
 }

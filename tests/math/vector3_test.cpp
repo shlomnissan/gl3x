@@ -164,25 +164,25 @@ TEST(Vector3, DotProductParallelVectors) {
 TEST(Vector3, LengthPositiveValues) {
     const auto v = engine::Vector3 {3.0f, 4.0f, 0.0f};
 
-    EXPECT_FLOAT_EQ(v.length(), 5.0f);
+    EXPECT_FLOAT_EQ(v.Length(), 5.0f);
 }
 
 TEST(Vector3, LengthNegativeValues) {
     const auto v = engine::Vector3 {-3.0f, -4.0f, 0.0f};
 
-    EXPECT_FLOAT_EQ(v.length(), 5.0f);
+    EXPECT_FLOAT_EQ(v.Length(), 5.0f);
 }
 
 TEST(Vector3, LengthZeroVector) {
     const auto v = engine::Vector3 {0.0f, 0.0f, 0.0f};
 
-    EXPECT_FLOAT_EQ(v.length(), 0.0f);
+    EXPECT_FLOAT_EQ(v.Length(), 0.0f);
 }
 
 TEST(Vector3, LengthUnitVector) {
     const auto v = engine::Vector3 {1.0f, 0.0f, 0.0f};
 
-    EXPECT_FLOAT_EQ(v.length(), 1.0f);
+    EXPECT_FLOAT_EQ(v.Length(), 1.0f);
 }
 
 #pragma endregion

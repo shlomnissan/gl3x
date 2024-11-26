@@ -75,7 +75,14 @@ public:
      *
      * @return The position vector of the transformation.
      */
-    [[nodiscard]] auto Position() const { return transform_[3];}
+    [[nodiscard]] auto GetPosition() const -> Vector3;
+
+    /**
+     * @brief Retrieves the scale component of the transformation matrix.
+     *
+     * @return The scale vector of the transformation.
+     */
+    [[nodiscard]] auto GetScale() const -> Vector3;
 
 private:
     /// @brief Flag indicating if the transformation matrix needs to be recalculated.

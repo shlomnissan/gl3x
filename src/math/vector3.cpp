@@ -15,7 +15,7 @@ Vector3::Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
 
 Vector3::Vector3(const Vector4& v) : x(v.x), y(v.y), z(v.z) {}
 
-auto Vector3::length() const -> float {
+auto Vector3::Length() const -> float {
     return std::sqrt(Dot(*this, *this));
 }
 

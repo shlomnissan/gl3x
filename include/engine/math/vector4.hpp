@@ -59,7 +59,7 @@ public:
      * @return float The length of the vector.
      */
     [[nodiscard]]
-    auto length() const -> float;
+    auto Length() const -> float;
 
     /**
      * @brief Accesses the component at the specified index.
@@ -213,7 +213,7 @@ auto Dot(const Vector4& a, const Vector4& b) {
  */
 [[nodiscard]] inline ENGINE_EXPORT
 auto Normalize(const Vector4& v) {
-    const auto len = v.length();
+    const auto len = v.Length();
     if (len == 0.0f) {
         return Vector4 {0.0f};
     }
