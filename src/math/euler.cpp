@@ -4,7 +4,7 @@
 #include "engine/math/euler.hpp"
 #include "engine/math/vector3.hpp"
 
-#include <math.h>
+#include <cmath>
 
 namespace engine {
 

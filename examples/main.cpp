@@ -5,14 +5,19 @@
 #include <engine/geometry/box_geometry.hpp>
 #include <engine/lights/lights.hpp>
 #include <engine/materials/materials.hpp>
+#include <engine/resources/camera_orbit.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
 
 #include <imgui.h>
 
-class Application : public engine::ApplicationContext {
+using namespace engine;
+
+class Application : public ApplicationContext {
 public:
     auto Configure() -> void override{
+        params.width = 1024;
+        params.height = 768;
         params.vsync = false;
     }
 
@@ -22,22 +27,26 @@ public:
         window->SetTitle("Examples");
         renderer->SetClearColor({0.0f, 0.0f, 0.5f, 1.0f});
 
-        scene = engine::Scene::Create();
-        camera = engine::CameraPerspective::Create(60.0f, window->AspectRatio());
+        scene = Scene::Create();
+        camera = CameraPerspective::Create(60.0f, window->AspectRatio());
         camera->transform.Translate({0.0f, 0.0f, 2.0f});
 
-        auto ambient_light = engine::AmbientLight::Create(0xffffff, 0.2f);
+        scene->Add(CameraOrbit::Create(
+            std::dynamic_pointer_cast<CameraPerspective>(camera)
+        ));
+
+        auto ambient_light = AmbientLight::Create(0xffffff, 0.2f);
         scene->Add(ambient_light);
 
-        auto directional_light = engine::DirectionalLight::Create(0xffffff, 1.0f);
+        auto directional_light = DirectionalLight::Create(0xffffff, 1.0f);
         directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
         directional_light->SetDebugMode(true);
         scene->Add(directional_light);
 
-        auto geometry = engine::BoxGeometry::Create({});
-        auto material = engine::PhongMaterial::Create();
-        material->texture_map = engine::Texture2D::Create("assets/checker.png");
-        mesh_ = engine::Mesh::Create(geometry, material);
+        auto geometry = BoxGeometry::Create({});
+        auto material = PhongMaterial::Create();
+        material->texture_map = Texture2D::Create("assets/checker.png");
+        mesh_ = Mesh::Create(geometry, material);
         mesh_->transform.Scale(0.7f);
 
         scene->Add(mesh_);
@@ -47,14 +56,14 @@ public:
         ImGui::Begin("Examples");
         ImGui::End();
 
-        mesh_->transform.Rotate(engine::Vector3::Up(), 0.7f * delta);
-        mesh_->transform.Rotate(engine::Vector3::Right(), 0.7f * delta);
+        mesh_->transform.Rotate(Vector3::Up(), 0.7f * delta);
+        mesh_->transform.Rotate(Vector3::Right(), 0.7f * delta);
 
         return true;
     }
 
 private:
-    std::shared_ptr<engine::Mesh> mesh_;
+    std::shared_ptr<Mesh> mesh_;
 };
 
 auto main() -> int {
