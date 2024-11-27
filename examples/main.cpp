@@ -1,6 +1,7 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
+#include "engine/math/vector3.hpp"
 #include <engine/core/application_context.hpp>
 #include <engine/geometry/box_geometry.hpp>
 #include <engine/lights/lights.hpp>
@@ -29,11 +30,11 @@ public:
 
         scene = Scene::Create();
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
-        camera->transform.Translate({0.0f, 0.0f, 2.0f});
 
-        scene->Add(CameraOrbit::Create(
-            std::dynamic_pointer_cast<CameraPerspective>(camera)
-        ));
+        auto camera_controls = CameraOrbit::Create(camera);
+        camera_controls->distance = 2.0f;
+
+        scene->Add(camera_controls);
 
         auto ambient_light = AmbientLight::Create(0xffffff, 0.2f);
         scene->Add(ambient_light);
@@ -48,6 +49,7 @@ public:
         material->texture_map = Texture2D::Create("assets/checker.png");
         mesh_ = Mesh::Create(geometry, material);
         mesh_->transform.Scale(0.7f);
+        mesh_->transform.Rotate(Vector3::Up(), 15.0f);
 
         scene->Add(mesh_);
     }
@@ -56,8 +58,7 @@ public:
         ImGui::Begin("Examples");
         ImGui::End();
 
-        mesh_->transform.Rotate(Vector3::Up(), 0.7f * delta);
-        mesh_->transform.Rotate(Vector3::Right(), 0.7f * delta);
+        // TODO: application logic
 
         return true;
     }

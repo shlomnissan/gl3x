@@ -22,19 +22,21 @@ namespace engine {
  */
 class ENGINE_EXPORT CameraOrbit : public Node {
 public:
-    static constexpr float pitch_limit = math::half_pi - 0.01f;
+    /// @brief The maximum pitch angle limit to prevent the camera from flipping over.
+    static constexpr float pitch_limit = math::half_pi - 0.1f;
 
     /// @brief The speed at which the camera orbits around the target point.
-    float orbit_speed = 1.0f;
+    float orbit_speed = 3.5f;
+
+    /// @brief The distance from the camera to the target point.
+    float distance = 1.0f;
 
     /**
      * @brief Constructs a CameraOrbit object.
      *
      * @param camera A shared pointer to the camera to orbit around.
      */
-    explicit CameraOrbit(const std::shared_ptr<CameraPerspective>& camera)
-        : camera_(camera) {}
-
+    explicit CameraOrbit(const std::shared_ptr<Camera>& camera) : camera_(camera) {}
 
     /**
      * @brief Creates a new instance of the CameraOrbit class.
@@ -42,7 +44,7 @@ public:
      * @param camera A shared pointer to the camera to orbit around.
      * @return A `std::shared_ptr<CameraOrbit>` pointing to the newly created instance.
      */
-    [[nodiscard]] static auto Create(const std::shared_ptr<CameraPerspective>& camera) {
+    [[nodiscard]] static auto Create(const std::shared_ptr<Camera>& camera) {
         return std::make_shared<CameraOrbit>(camera);
     }
 
@@ -68,7 +70,7 @@ private:
     MouseButton curr_mouse_button_ {MouseButton::None};
 
     /// @brief The camera to orbit around.
-    std::shared_ptr<CameraPerspective> camera_;
+    std::shared_ptr<Camera> camera_;
 
     /// @brief The target point around which the camera orbits.
     Vector3 target = Vector3::Zero();
@@ -79,12 +81,15 @@ private:
     /// @brief The previous mouse position.
     Vector2 prev_mouse_pos_ {0.0f, 0.0f};
 
-    /// @brief The distance from the camera to the target point.
-    float distance_ = 0;
-
     /// @brief Flag indicating whether the camera has been updated before.
     bool first_update_ {true};
 
+    /**
+     * @brief Orbits the camera around the target point.
+     *
+     * @param mouse_offset The offset of the mouse position.
+     * @param delta The time in seconds since the last update.
+     */
     auto Orbit(const Vector2& mouse_offset, float delta) -> void;
 };
 
