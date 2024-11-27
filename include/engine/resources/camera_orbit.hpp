@@ -4,7 +4,10 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/math/euler.hpp"
 #include "engine/math/vector2.hpp"
+#include "engine/math/vector3.hpp"
+#include "engine/math/utilities.hpp"
 #include "engine/scene/node.hpp"
 #include "engine/scene/camera_perspective.hpp"
 
@@ -19,6 +22,9 @@ namespace engine {
  */
 class ENGINE_EXPORT CameraOrbit : public Node {
 public:
+    static constexpr float pitch_limit = math::half_pi - 0.01f;
+
+    /// @brief The speed at which the camera orbits around the target point.
     float orbit_speed = 1.0f;
 
     /**
@@ -55,17 +61,26 @@ public:
     auto Update(float delta) -> void override;
 
 private:
+    /// @brief The current orientation of the camera in Euler angles.
+    Euler orientation_ {};
+
+    /// @brief The current mouse button.
+    MouseButton curr_mouse_button_ {MouseButton::None};
+
+    /// @brief The camera to orbit around.
+    std::shared_ptr<CameraPerspective> camera_;
+
+    /// @brief The target point around which the camera orbits.
+    Vector3 target = Vector3::Zero();
+
     /// @brief The current mouse position.
     Vector2 curr_mouse_pos_ {0.0f, 0.0f};
 
     /// @brief The previous mouse position.
     Vector2 prev_mouse_pos_ {0.0f, 0.0f};
 
-    /// @brief The camera to orbit around.
-    std::shared_ptr<CameraPerspective> camera_;
-
-    /// @brief The current mouse button.
-    MouseButton curr_mouse_button_ {MouseButton::None};
+    /// @brief The distance from the camera to the target point.
+    float distance_ = 0;
 
     /// @brief Flag indicating whether the camera has been updated before.
     bool first_update_ {true};

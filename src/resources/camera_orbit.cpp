@@ -3,6 +3,8 @@
 
 #include "engine/resources/camera_orbit.hpp"
 
+#include <algorithm>
+
 namespace engine {
 
 auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {
@@ -38,8 +40,8 @@ auto CameraOrbit::Update(float delta) -> void {
 }
 
 auto CameraOrbit::Orbit(const Vector2& offset, float delta) -> void {
-    camera_->transform.Rotate(Vector3::Up(), -offset.x * orbit_speed * delta);
-    camera_->transform.Rotate(Vector3::Right(), -offset.y * orbit_speed * delta);
+    orientation_.yaw -= offset.x * orbit_speed * delta;
+    orientation_.pitch -= std::clamp(offset.y * orbit_speed * delta, -pitch_limit, pitch_limit);
 }
 
 }
