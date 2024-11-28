@@ -32,7 +32,7 @@ public:
     float zoom_speed = 50.0f;
 
     /// @brief The speed at which the camera pans around the target point.
-    float pan_speed = 3.5f;
+    float pan_speed = 2.0f;
 
     /// @brief The distance from the camera to the target point.
     float distance = 1.0f;

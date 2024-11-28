@@ -53,7 +53,7 @@ auto CameraOrbit::Update(float delta) -> void {
 
     prev_mouse_pos_ = curr_mouse_pos_;
 
-    const auto position = Vector3 {
+    const auto position = target + Vector3 {
         distance * std::sin(orientation_.yaw) * std::cos(orientation_.pitch),
         distance * std::sin(orientation_.pitch),
         distance * std::cos(orientation_.yaw) * std::cos(orientation_.pitch)
@@ -90,7 +90,7 @@ auto CameraOrbit::Pan(const Vector2& offset, float delta) -> void {
     const auto up = Cross(right, forward);
 
     const auto pan_h = right * offset.x * pan_speed * delta;
-    const auto pan_v = up * offset.y * pan_speed * delta;
+    const auto pan_v = up * -offset.y * pan_speed * delta;
 
     target = target - (pan_h + pan_v);
 }
