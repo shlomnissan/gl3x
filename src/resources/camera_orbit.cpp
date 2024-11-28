@@ -42,6 +42,10 @@ auto CameraOrbit::Update(float delta) -> void {
         Orbit(mouse_offset, delta);
     }
 
+    if (curr_mouse_button_ == MouseButton::Right) {
+        Pan(mouse_offset, delta);
+    }
+
     if (curr_scroll_offset_ != 0.0f) {
         Zoom(curr_scroll_offset_, delta);
         curr_scroll_offset_ = 0.0f;
@@ -55,16 +59,16 @@ auto CameraOrbit::Update(float delta) -> void {
         distance * std::cos(orientation_.yaw) * std::cos(orientation_.pitch)
     };
 
-    auto f = Normalize(position - target);
-    auto r = Normalize(Cross(Vector3::Up(), f));
-    auto u = Cross(f, r);
+    const auto forward = Normalize(position - target);
+    const auto right = Normalize(Cross(Vector3::Up(), forward));
+    const auto up = Cross(forward, right);
 
     // the camera's transform will be inversed when the camera is updated
     // so there's no need to invert the 'look at' matrix here.
     camera_->transform = Transform {{
-        {r.x, r.y, r.z, 0.0f},
-        {u.x, u.y, u.z, 0.0f},
-        {f.x, f.y, f.z, 0.0f},
+        {right.x, right.y, right.z, 0.0f},
+        {up.x, up.y, up.z, 0.0f},
+        {forward.x, forward.y, forward.z, 0.0f},
         {position.x, position.y, position.z, 1.0f}
     }};
 }
@@ -81,7 +85,14 @@ auto CameraOrbit::Zoom(float scroll_offset, float delta) -> void {
 }
 
 auto CameraOrbit::Pan(const Vector2& offset, float delta) -> void {
-    // TODO: implement panning
+    const auto forward = Normalize(target - camera_->transform.GetPosition());
+    const auto right = Normalize(Cross(forward, Vector3::Up()));
+    const auto up = Cross(right, forward);
+
+    const auto pan_h = right * offset.x * pan_speed * delta;
+    const auto pan_v = up * offset.y * pan_speed * delta;
+
+    target = target - (pan_h + pan_v);
 }
 
 }
