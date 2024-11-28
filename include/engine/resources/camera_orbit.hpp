@@ -29,7 +29,10 @@ public:
     float orbit_speed = 3.5f;
 
     /// @brief The speed at which the camera zooms in and out.
-    float zoom_speed = 3.5f;
+    float zoom_speed = 50.0f;
+
+    /// @brief The speed at which the camera pans around the target point.
+    float pan_speed = 3.5f;
 
     /// @brief The distance from the camera to the target point.
     float distance = 1.0f;
@@ -84,6 +87,9 @@ private:
     /// @brief The previous mouse position.
     Vector2 prev_mouse_pos_ {0.0f, 0.0f};
 
+    /// @brief The current vertical scroll offset.
+    float curr_scroll_offset_ {0.0f};
+
     /// @brief Flag indicating whether the camera has been updated before.
     bool first_update_ {true};
 
@@ -98,10 +104,18 @@ private:
     /**
      * @brief Zooms the camera in and out.
      *
+     * @param scroll_offset The vertical offset of the scroll wheel.
+     * @param delta The time in seconds since the last update.
+     */
+    auto Zoom(float scroll_offset, float delta) -> void;
+
+    /**
+     * @brief Pans the camera around the target point.
+     *
      * @param mouse_offset The offset of the mouse position.
      * @param delta The time in seconds since the last update.
      */
-    auto Zoom(const Vector2& mouse_offset, float delta) -> void;
+    auto Pan(const Vector2& mouse_offset, float delta) -> void;
 };
 
 }

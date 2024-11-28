@@ -2,6 +2,7 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include "engine/resources/camera_orbit.hpp"
+
 #include "engine/math/vector3.hpp"
 
 #include <algorithm>
@@ -15,16 +16,16 @@ auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {
 
     curr_mouse_pos_ = event->position;
 
-
     if (event->type == ButtonPressed && curr_mouse_button_ == None) {
         curr_mouse_button_ = event->button;
-        if (curr_mouse_button_ == Left) {
-            prev_mouse_pos_ = curr_mouse_pos_;
-        }
     }
 
     if (event->type == ButtonReleased && event->button == curr_mouse_button_) {
         curr_mouse_button_ = None;
+    }
+
+    if (event->type == Scrolled) {
+        curr_scroll_offset_ = event->scroll.y;
     }
 }
 
@@ -41,8 +42,9 @@ auto CameraOrbit::Update(float delta) -> void {
         Orbit(mouse_offset, delta);
     }
 
-    if (curr_mouse_button_ == MouseButton::Right) {
-        Zoom(mouse_offset, delta);
+    if (curr_scroll_offset_ != 0.0f) {
+        Zoom(curr_scroll_offset_, delta);
+        curr_scroll_offset_ = 0.0f;
     }
 
     prev_mouse_pos_ = curr_mouse_pos_;
@@ -70,13 +72,16 @@ auto CameraOrbit::Update(float delta) -> void {
 auto CameraOrbit::Orbit(const Vector2& offset, float delta) -> void {
     orientation_.yaw -= offset.x * orbit_speed * delta;
     orientation_.pitch += offset.y * orbit_speed * delta;
-
     orientation_.pitch = std::clamp(orientation_.pitch, -pitch_limit, pitch_limit);
 }
 
-auto CameraOrbit::Zoom(const Vector2& offset, float delta) -> void {
-    distance -= offset.y * zoom_speed * delta;
+auto CameraOrbit::Zoom(float scroll_offset, float delta) -> void {
+    distance -= scroll_offset * zoom_speed * delta;
     distance = std::max(0.1f, distance);
+}
+
+auto CameraOrbit::Pan(const Vector2& offset, float delta) -> void {
+    // TODO: implement panning
 }
 
 }
