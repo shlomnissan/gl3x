@@ -54,10 +54,10 @@ auto CameraOrbit::Update(float delta) -> void {
     prev_mouse_pos_ = curr_mouse_pos_;
 
     const auto position = target + Vector3 {
-        distance * std::sin(orientation_.yaw) * std::cos(orientation_.pitch),
-        distance * std::sin(orientation_.pitch),
-        distance * std::cos(orientation_.yaw) * std::cos(orientation_.pitch)
-    };
+        std::sin(orientation_.yaw) * std::cos(orientation_.pitch),
+        std::sin(orientation_.pitch),
+        std::cos(orientation_.yaw) * std::cos(orientation_.pitch)
+    } * distance;
 
     const auto forward = Normalize(position - target);
     const auto right = Normalize(Cross(Vector3::Up(), forward));
