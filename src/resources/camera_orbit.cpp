@@ -41,6 +41,10 @@ auto CameraOrbit::Update(float delta) -> void {
         Orbit(mouse_offset, delta);
     }
 
+    if (curr_mouse_button_ == MouseButton::Right) {
+        Zoom(mouse_offset, delta);
+    }
+
     prev_mouse_pos_ = curr_mouse_pos_;
 
     const auto position = Vector3 {
@@ -68,6 +72,11 @@ auto CameraOrbit::Orbit(const Vector2& offset, float delta) -> void {
     orientation_.pitch += offset.y * orbit_speed * delta;
 
     orientation_.pitch = std::clamp(orientation_.pitch, -pitch_limit, pitch_limit);
+}
+
+auto CameraOrbit::Zoom(const Vector2& offset, float delta) -> void {
+    distance -= offset.y * zoom_speed * delta;
+    distance = std::max(0.1f, distance);
 }
 
 }

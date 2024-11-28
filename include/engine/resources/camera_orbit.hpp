@@ -28,6 +28,9 @@ public:
     /// @brief The speed at which the camera orbits around the target point.
     float orbit_speed = 3.5f;
 
+    /// @brief The speed at which the camera zooms in and out.
+    float zoom_speed = 3.5f;
+
     /// @brief The distance from the camera to the target point.
     float distance = 1.0f;
 
@@ -91,6 +94,14 @@ private:
      * @param delta The time in seconds since the last update.
      */
     auto Orbit(const Vector2& mouse_offset, float delta) -> void;
+
+    /**
+     * @brief Zooms the camera in and out.
+     *
+     * @param mouse_offset The offset of the mouse position.
+     * @param delta The time in seconds since the last update.
+     */
+    auto Zoom(const Vector2& mouse_offset, float delta) -> void;
 };
 
 }
