@@ -36,11 +36,11 @@ Window::Impl::Impl(const Window::Parameters& params) {
         return;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_ALPHA_BITS, 8);
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
@@ -59,8 +59,8 @@ Window::Impl::Impl(const Window::Parameters& params) {
     }
 
     glfwMakeContextCurrent(window_);
-    if (!gladLoadGLES2Loader((GLADloadproc)glfwGetProcAddress)) {
-        Logger::Log(LogLevel::Error, "Failed to initialize GLAD using GLES2 loader");
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        Logger::Log(LogLevel::Error, "Failed to initialize GLAD OpenGL loader");
         return;
     }
 
