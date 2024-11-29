@@ -1,4 +1,4 @@
-#version 320 es
+#version 410 core
 
 #pragma inject_attributes
 

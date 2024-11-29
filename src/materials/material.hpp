@@ -34,6 +34,8 @@ public:
 
     bool cull_backfaces {true};
 
+    bool wireframe {false};
+
     Material() = default;
 
     Material(const Material&) = delete;

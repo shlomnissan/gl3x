@@ -19,7 +19,7 @@ public:
     auto Configure() -> void override{
         params.width = 1024;
         params.height = 768;
-        params.vsync = false;
+        params.antialiasing = 0;
     }
 
     auto Setup() -> void override {

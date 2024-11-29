@@ -36,9 +36,17 @@ auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> 
             }
 
             // Handle backface culling
-            if (curr_backface_culling != material->cull_backfaces) {
+            if (curr_backface_culling_mode != material->cull_backfaces) {
                 material->cull_backfaces ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
-                curr_backface_culling = material->cull_backfaces;
+                curr_backface_culling_mode = material->cull_backfaces;
+            }
+
+            // Handle wireframe mode
+            if (curr_wireframe_mode_ != material->wireframe) {
+                material->wireframe
+                    ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+                    : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                curr_wireframe_mode_ = material->wireframe;
             }
 
             // Handle polygon offset
@@ -61,10 +69,9 @@ auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> 
             program->Use();
             program->UpdateUniforms();
 
-            auto primitive = GL_TRIANGLES;
-            if (geometry->primitive == GeometryPrimitiveType::Lines) {
-                primitive = GL_LINES;
-            }
+            auto primitive = geometry->primitive == GeometryPrimitiveType::Triangles
+                ? GL_TRIANGLES
+                : GL_LINES;
 
             if (geometry->IndexData().empty()) {
                 glDrawArrays(primitive, 0, geometry->VertexCount());
@@ -179,6 +186,9 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     camera->UpdateTransforms();
 
     RenderObjects(scene, scene, camera);
+
+    // TODO: reset rendering states
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 }
