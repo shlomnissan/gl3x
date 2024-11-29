@@ -4,6 +4,7 @@
 #include "engine/scene/node.hpp"
 
 #include "engine/core/logger.hpp"
+#include "engine/scene/camera.hpp"
 
 #include "core/event_dispatcher.hpp"
 
@@ -75,7 +76,11 @@ auto Node::ShouldUpdateChildren() const -> bool {
     return update_children_;
 }
 
-auto Node::UpdateTransforms() -> void {
+auto Node::UpdateTransforms(bool update_parents, bool update_children) -> void {
+    if (update_parents && parent_ != nullptr) {
+        parent_->UpdateTransforms(true, false);
+    }
+
     if (transformAutoUpdate && ShouldUpdateWorldTransform()) {
         if (parent_ == nullptr) {
             world_transform = transform;
@@ -87,9 +92,11 @@ auto Node::UpdateTransforms() -> void {
     }
 
     // check for updates in child nodes, even if this node doesn't require an update
-    for (const auto child : children_) {
-        if (child != nullptr) {
-            child->UpdateTransforms();
+    if (update_children) {
+        for (const auto child : children_) {
+            if (child != nullptr) {
+                child->UpdateTransforms();
+            }
         }
     }
 
@@ -98,6 +105,16 @@ auto Node::UpdateTransforms() -> void {
 
 auto Node::ShouldUpdateWorldTransform() const -> bool {
     return transform.touched || (parent_ && parent_->ShouldUpdateChildren());
+}
+
+auto Node::LookAt(const Vector3& target) -> void {
+    UpdateTransforms(true, false);
+    const auto position = world_transform.GetPosition();
+    if (this->Is<Camera>()) {
+        transform.LookAt(position, target, up);
+    } else {
+        transform.LookAt(target, position, up);
+    }
 }
 
 }

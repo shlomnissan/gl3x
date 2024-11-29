@@ -25,7 +25,7 @@ public:
      * This function updates the underlying world matrix and copies its inverse
      * to the view transform matrix.
      */
-    auto UpdateTransforms() -> void override;
+    auto UpdateTransforms(bool update_parents = false, bool update_children = true) -> void override;
 
     /**
      * @brief Virtual destructor for the Camera class.

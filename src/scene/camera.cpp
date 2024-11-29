@@ -5,7 +5,7 @@
 
 namespace engine {
 
-auto Camera::UpdateTransforms() -> void {
+auto Camera::UpdateTransforms(bool update_parents, bool update_children) -> void {
     const auto view_needs_update = ShouldUpdateWorldTransform();
     Node::UpdateTransforms();
     if (view_needs_update) {

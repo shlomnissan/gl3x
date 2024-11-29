@@ -5,6 +5,7 @@
 
 #include "engine_export.h"
 #include "engine/math/transform.hpp"
+#include "engine/math/vector3.hpp"
 
 #include "core/identity.hpp"
 
@@ -26,6 +27,9 @@ public:
 
     /// @brief Node's world transformation.
     Transform world_transform;
+
+    /// @brief The up vector of the node.
+    Vector3 up {Vector3::Up()};
 
     /// @brief The current level in the scene graph.
     int level {0};
@@ -70,6 +74,14 @@ public:
     [[nodiscard]] auto Parent() const -> const Node*;
 
     /**
+     * @brief Updates the node's transformation matrix.
+     *
+     * @param update_parents Flag indicating if the parent nodes should be updated.
+     * @param update_children Flag indicating if the child nodes should be updated.
+     */
+    virtual auto UpdateTransforms(bool update_parents = false, bool update_children = true) -> void;
+
+    /**
      * @brief Checks if the node's children should be updated.
      *
      * @return True if children need updating, false otherwise.
@@ -82,6 +94,13 @@ public:
      * @return True if the transform was modified or the parent requires an update.
      */
     [[nodiscard]] auto ShouldUpdateWorldTransform() const -> bool;
+
+    /**
+     * @brief Rotates the object to face a point in world space.
+     *
+     * @param target The target position to look at.
+     */
+    auto LookAt(const Vector3& target) -> void;
 
     /**
      * @brief Creates a new instance of the Node class.
@@ -124,11 +143,6 @@ public:
     [[nodiscard]] auto As() const {
         return dynamic_cast<const T*>(this);
     }
-
-    /**
-     * @brief Updates the node's world transform and propagates updates to children.
-     */
-    virtual auto UpdateTransforms() -> void;
 
     /**
      * @brief Default destructor.

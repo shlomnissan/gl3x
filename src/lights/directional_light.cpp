@@ -45,21 +45,12 @@ auto DirectionalLight::UpdateDebugMesh() -> void {
 
     auto mesh_plane = Mesh::Create(debugPlane, material);
     auto mesh_line = Mesh::Create(debugLine, material);
-    mesh_line->transformAutoUpdate = false;
-
-    const auto forward = Normalize(position - target_pos);
-    const auto right = Normalize(Cross(forward, Vector3::Up()));
-    const auto up = Cross(right, forward);
-
-    mesh_plane->transform = Transform {{
-        {right.x, right.y, right.z, 0.0f},
-        {up.x, up.y, up.z, 0.0f},
-        {forward.x, forward.y, forward.z, 0.0f},
-        {0.0f, 0.0f, 0.0f, 1.0f}
-    }};
 
     Add(mesh_plane);
     Add(mesh_line);
+
+    mesh_plane->LookAt(target_pos);
+    mesh_line->transformAutoUpdate = false;
 }
 
 }

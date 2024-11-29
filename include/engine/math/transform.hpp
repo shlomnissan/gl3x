@@ -74,11 +74,27 @@ public:
     [[nodiscard]] auto GetPosition() const -> Vector3;
 
     /**
+     * @brief Sets the position component of the transformation matrix.
+     *
+     * @param position The position vector to set.
+     */
+    auto SetPosition(const Vector3& position) -> void;
+
+    /**
      * @brief Retrieves the scale component of the transformation matrix.
      *
      * @return The scale vector of the transformation.
      */
     [[nodiscard]] auto GetScale() const -> Vector3;
+
+    /**
+     * @brief Applies a LookAt transformation.
+     *
+     * @param position The position of the object.
+     * @param target The target position to look at.
+     * @param world_up The up vector of the world.
+     */
+    auto LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) -> void;
 
     /**
      * @brief Applies a perspective transformation.

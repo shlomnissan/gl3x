@@ -59,18 +59,8 @@ auto CameraOrbit::Update(float delta) -> void {
         std::cos(orientation_.yaw) * std::cos(orientation_.pitch)
     } * distance;
 
-    const auto forward = Normalize(position - target);
-    const auto right = Normalize(Cross(Vector3::Up(), forward));
-    const auto up = Cross(forward, right);
-
-    // the camera's transform will be inversed when the camera is updated
-    // so there's no need to invert the 'look at' matrix here.
-    camera_->transform = Transform {{
-        {right.x, right.y, right.z, 0.0f},
-        {up.x, up.y, up.z, 0.0f},
-        {forward.x, forward.y, forward.z, 0.0f},
-        {position.x, position.y, position.z, 1.0f}
-    }};
+    camera_->transform.SetPosition(position);
+    camera_->LookAt(target);
 }
 
 auto CameraOrbit::Orbit(const Vector2& offset, float delta) -> void {
@@ -89,7 +79,7 @@ auto CameraOrbit::Pan(const Vector2& offset, float delta) -> void {
     const auto right = Normalize(Cross(forward, Vector3::Up()));
     const auto up = Cross(right, forward);
 
-    const auto pan_h = right * offset.x * pan_speed * delta;
+    const auto pan_h = right * offset.x * pan_speed * delta * -1;
     const auto pan_v = up * -offset.y * pan_speed * delta;
 
     target = target - (pan_h + pan_v);

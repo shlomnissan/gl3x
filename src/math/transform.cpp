@@ -41,6 +41,38 @@ auto Transform::Rotate(const Vector3& axis, float angle) -> void {
     touched = true;
 }
 
+auto Transform::GetPosition() const -> Vector3 {
+    return transform_[3];
+}
+
+auto Transform::SetPosition(const Vector3& position) -> void {
+    transform_[3] = {position.x, position.y, position.z, 1.0f};
+    touched = true;
+}
+
+auto Transform::GetScale() const -> Vector3 {
+    return {
+        transform_[0].Length(),
+        transform_[1].Length(),
+        transform_[2].Length()
+    };
+}
+
+auto Transform::LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) -> void {
+    auto forward = Normalize(position - target);
+    // TODO: handle case where position and target are the same
+
+    auto right = Normalize(Cross(world_up, forward));
+    // TODO: handle case where world_up and forward are parallel
+
+    auto up = Cross(forward, right);
+
+    transform_[0] = {right.x, right.y, right.z, 0.0f};
+    transform_[1] = {up.x, up.y, up.z, 0.0f};
+    transform_[2] = {forward.x, forward.y, forward.z, 0.0f};
+    touched = true;
+}
+
 auto Transform::Perspective(float fov, float aspect_ratio, float near, float far) -> void {
     const auto tan_half_fov = std::tan((engine::math::DegToRad(fov)) / 2);
     transform_[0] = {1.0f / (aspect_ratio * tan_half_fov), 0.0f, 0.0f, 0.0f};
@@ -61,18 +93,6 @@ auto Transform::Orthographic(float left, float right, float bottom, float top, f
         1.0f
     };
     touched = true;
-}
-
-auto Transform::GetPosition() const -> Vector3 {
-    return transform_[3];
-}
-
-auto Transform::GetScale() const -> Vector3 {
-    return {
-        transform_[0].Length(),
-        transform_[1].Length(),
-        transform_[2].Length()
-    };
 }
 
 }
