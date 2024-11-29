@@ -9,10 +9,15 @@
 #include <engine/resources/camera_orbit.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
+#include <engine/core/timer.hpp>
 
 #include <imgui.h>
 
+#include <cmath>
+
 using namespace engine;
+
+float velo = 1.0f;
 
 class Application : public ApplicationContext {
 public:
@@ -32,31 +37,45 @@ public:
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
 
         auto camera_controls = CameraOrbit::Create(camera);
-        camera_controls->distance = 2.0f;
+        camera_controls->distance = 6.0f;
 
         scene->Add(camera_controls);
 
         auto ambient_light = AmbientLight::Create(0xffffff, 0.2f);
         scene->Add(ambient_light);
 
+
+
+        auto geometry = BoxGeometry::Create({});
+        auto material = FlatMaterial::Create();
+        material->wireframe = true;
+        mesh_ = Mesh::Create(geometry, material);
+
+        scene->Add(mesh_);
+
         auto directional_light = DirectionalLight::Create(0xffffff, 1.0f);
-        directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
+        directional_light->transform.Translate({2.0f, 2.0f, 0.0f});
+        directional_light->color = 0xff0000;
         directional_light->SetDebugMode(true);
         scene->Add(directional_light);
 
-        auto geometry = BoxGeometry::Create({});
-        auto material = PhongMaterial::Create();
-        material->texture_map = Texture2D::Create("assets/checker.png");
-        mesh_ = Mesh::Create(geometry, material);
-        mesh_->transform.Scale(0.7f);
-        mesh_->transform.Rotate(Vector3::Up(), 15.0f);
+        directional_light->target = mesh_;
 
-        scene->Add(mesh_);
+        timer_.Start();
     }
 
     auto Update(float delta) -> bool override {
-        ImGui::Begin("Examples");
+        ImGui::SetNextWindowSize(ImVec2(250, 748));
+        ImGui::SetNextWindowPos(ImVec2(10, 10));
+        ImGui::Begin("Examples", nullptr,
+            ImGuiWindowFlags_NoResize |
+            ImGuiWindowFlags_NoMove |
+            ImGuiWindowFlags_NoSavedSettings
+        );
+
         ImGui::End();
+
+        mesh_->transform.Translate({0.0f, 0.0f, std::cos(timer_.GetElapsedSeconds()) * delta});
 
         // TODO: application logic
 
@@ -65,6 +84,8 @@ public:
 
 private:
     std::shared_ptr<Mesh> mesh_;
+
+    Timer timer_;
 };
 
 auto main() -> int {

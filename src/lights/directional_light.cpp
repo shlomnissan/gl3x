@@ -4,6 +4,7 @@
 #include "engine/lights/directional_light.hpp"
 
 #include "engine/core/geometry.hpp"
+#include "engine/geometry/plane_geometry.hpp"
 #include "engine/materials/flat_material.hpp"
 #include "engine/scene/mesh.hpp"
 
@@ -30,6 +31,7 @@ auto DirectionalLight::UpdateDebugMesh() -> void {
     auto position = world_transform.GetPosition();
     auto material = FlatMaterial::Create();
     material->color = color;
+    material->wireframe = true;
 
     auto target_pos = target != nullptr ? target->world_transform.GetPosition() : Vector3::Zero();
     auto debugLine = Geometry::Create({
@@ -39,12 +41,25 @@ auto DirectionalLight::UpdateDebugMesh() -> void {
     debugLine->primitive = GeometryPrimitiveType::Lines;
     debugLine->SetAttribute({GeometryAttributeType::Position, 3});
 
-    // TODO: create debug plane
+    auto debugPlane = PlaneGeometry::Create({});
 
-    auto mesh = Mesh::Create(debugLine, material);
-    mesh->transformAutoUpdate = false;
+    auto mesh_plane = Mesh::Create(debugPlane, material);
+    auto mesh_line = Mesh::Create(debugLine, material);
+    mesh_line->transformAutoUpdate = false;
 
-    Add(mesh);
+    const auto forward = Normalize(position - target_pos);
+    const auto right = Normalize(Cross(forward, Vector3::Up()));
+    const auto up = Cross(right, forward);
+
+    mesh_plane->transform = Transform {{
+        {right.x, right.y, right.z, 0.0f},
+        {up.x, up.y, up.z, 0.0f},
+        {forward.x, forward.y, forward.z, 0.0f},
+        {0.0f, 0.0f, 0.0f, 1.0f}
+    }};
+
+    Add(mesh_plane);
+    Add(mesh_line);
 }
 
 }

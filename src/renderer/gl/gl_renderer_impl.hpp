@@ -32,7 +32,7 @@ private:
 
     Color clear_color_ {0.0f, 0.0f, 0.0f, 1.0f};
 
-    bool curr_backface_culling_mode {true};
+    bool curr_backface_culling_mode {false};
 
     bool curr_wireframe_mode_ {false};
 

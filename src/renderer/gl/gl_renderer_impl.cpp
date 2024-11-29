@@ -188,7 +188,10 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     RenderObjects(scene, scene, camera);
 
     // TODO: reset rendering states
+    glDisable(GL_CULL_FACE);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    curr_wireframe_mode_ = false;
+    curr_backface_culling_mode = false;
 }
 
 }

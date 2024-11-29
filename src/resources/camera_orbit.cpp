@@ -85,7 +85,7 @@ auto CameraOrbit::Zoom(float scroll_offset, float delta) -> void {
 }
 
 auto CameraOrbit::Pan(const Vector2& offset, float delta) -> void {
-    const auto forward = Normalize(target - camera_->transform.GetPosition());
+    const auto forward = Normalize(camera_->transform.GetPosition() - target);
     const auto right = Normalize(Cross(forward, Vector3::Up()));
     const auto up = Cross(right, forward);
 
