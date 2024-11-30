@@ -47,6 +47,7 @@ set(SOURCE_CODE
     "renderer/gl/gl_uniform.cpp"
     "renderer/gl/gl_uniform.hpp"
     "resources/camera_orbit.cpp"
+    "resources/grid.cpp"
     "scene/camera.cpp"
     "scene/camera_orthographic.cpp"
     "scene/camera_perspective.cpp"
@@ -58,6 +59,10 @@ set(SOURCE_CODE
 )
 
 set(PUBLIC_HEADERS
+    "${PUBLIC_HEADERS_DIR}/lights.hpp"
+    "${PUBLIC_HEADERS_DIR}/materials/materials.hpp"
+    "${PUBLIC_HEADERS_DIR}/resources.hpp"
+
     "${PUBLIC_HEADERS_DIR}/core/application_context.hpp"
     "${PUBLIC_HEADERS_DIR}/core/geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/core/logger.hpp"
@@ -68,8 +73,6 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/geometry/plane_geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/lights/ambient_light.hpp"
     "${PUBLIC_HEADERS_DIR}/lights/directional_light.hpp"
-    "${PUBLIC_HEADERS_DIR}/lights/lights.hpp"
-    "${PUBLIC_HEADERS_DIR}/materials/materials.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/flat_material.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/phong_material.hpp"
     "${PUBLIC_HEADERS_DIR}/math/color.hpp"
@@ -82,6 +85,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/math/vector3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector4.hpp"
     "${PUBLIC_HEADERS_DIR}/resources/camera_orbit.hpp"
+    "${PUBLIC_HEADERS_DIR}/resources/grid.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/camera.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/camera_orthographic.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/camera_perspective.hpp"

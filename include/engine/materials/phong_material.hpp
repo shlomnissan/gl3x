@@ -23,10 +23,10 @@ namespace engine {
 class ENGINE_EXPORT PhongMaterial : public Material {
 public:
     /// @brief The color of the material.
-    Color color = {1.0f, 1.0f, 1.0f, 1.0f};
+    Color color = 0xFFFFFF;
 
     /// @brief The specular color of the material.
-    Color specular = {0.1f, 0.1f, 0.1f, 0.1f};
+    Color specular = 0x191919;
 
     /// @brief The shininess of the material.
     float shininess = 32.0f;
@@ -35,9 +35,11 @@ public:
     std::shared_ptr<Texture2D> texture_map = nullptr;
 
     /**
-     * @brief Constructs a PhongMaterial with default values.
+     * @brief Constructs a FlatMaterial with a specified color.
+     *
+     * @param color The color of the material.
      */
-    PhongMaterial() = default;
+    explicit PhongMaterial(const Color& color) : color(color) {}
 
     /**
      * @brief Retrieves the type of the material.
@@ -53,8 +55,8 @@ public:
      *
      * @return A `std::shared_ptr` to a new instance of PhongMaterial.
      */
-    [[nodiscard]] static auto Create() {
-        return std::make_shared<PhongMaterial>();
+    [[nodiscard]] static auto Create(const Color& color = 0xFFFFFF) {
+        return std::make_shared<PhongMaterial>(color);
     }
 };
 

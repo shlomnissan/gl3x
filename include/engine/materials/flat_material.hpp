@@ -22,15 +22,17 @@ namespace engine {
 class ENGINE_EXPORT FlatMaterial : public Material {
 public:
     /// @brief The color of the material.
-    Color color = {1.0f, 1.0f, 1.0f, 1.0f};
+    Color color = 0xFFFFFF;
 
     /// @brief The texture map to apply to the geometry.
     std::shared_ptr<Texture2D> texture_map = nullptr;
 
     /**
-     * @brief Constructs a FlatMaterial with default values.
+     * @brief Constructs a FlatMaterial with a specified color.
+     *
+     * @param color The color of the material.
      */
-    FlatMaterial() = default;
+    explicit FlatMaterial(const Color& color) : color(color) {}
 
     /**
      * @brief Retrieves the type of the material.
@@ -46,8 +48,8 @@ public:
      *
      * @return A `std::shared_ptr` to a new instance of FlatMaterial.
      */
-    [[nodiscard]] static auto Create() {
-        return std::make_shared<FlatMaterial>();
+    [[nodiscard]] static auto Create(const Color& color = 0xFFFFFF) {
+        return std::make_shared<FlatMaterial>(color);
     }
 };
 

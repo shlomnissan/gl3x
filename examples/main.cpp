@@ -1,19 +1,19 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "engine/math/vector3.hpp"
 #include <engine/core/application_context.hpp>
 #include <engine/geometry/box_geometry.hpp>
-#include <engine/lights/lights.hpp>
-#include <engine/materials/materials.hpp>
-#include <engine/resources/camera_orbit.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
 #include <engine/core/timer.hpp>
 
-#include <imgui.h>
+#include <engine/lights.hpp>
+#include <engine/materials.hpp>
+#include <engine/resources.hpp>
 
 #include <cmath>
+
+#include <imgui.h>
 
 using namespace engine;
 
@@ -36,8 +36,10 @@ public:
 
         auto camera_controls = CameraOrbit::Create(camera);
         camera_controls->distance = 3.0f;
-
         scene->Add(camera_controls);
+
+        auto grid = Grid::Create(12.0f);
+        scene->Add(grid);
 
         auto geometry = BoxGeometry::Create({});
         auto material = PhongMaterial::Create();
@@ -60,13 +62,19 @@ public:
     }
 
     auto Update(float delta) -> bool override {
-        ImGui::SetNextWindowSize(ImVec2(250, 748));
-        ImGui::SetNextWindowPos(ImVec2(10, 10));
+        ImGui::SetNextWindowSize({250, 748});
+        ImGui::SetNextWindowPos({10, 10});
         ImGui::Begin("Examples", nullptr,
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove |
             ImGuiWindowFlags_NoSavedSettings
         );
+            if (ImGui::BeginListBox("##ListBox", {234, 0})) {
+                ImGui::Selectable("Flat Color");
+                ImGui::Separator();
+                ImGui::Selectable("Directional Light");
+                ImGui::EndListBox();
+            }
 
         ImGui::End();
 

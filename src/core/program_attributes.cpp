@@ -4,7 +4,7 @@
 #include "core/program_attributes.hpp"
 
 #include "engine/core/logger.hpp"
-#include "engine/materials/materials.hpp"
+#include "engine/materials.hpp"
 
 #include "lights/light.hpp"
 
