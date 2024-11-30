@@ -20,7 +20,7 @@ auto DirectionalLight::Update(float delta) -> void {
 
 auto DirectionalLight::Direction() -> Vector3 {
     if (target != nullptr) {
-        return Normalize(target->GetWorldPosition() - GetWorldPosition());
+        return Normalize(GetWorldPosition() - target->GetWorldPosition());
     }
     return Normalize(GetWorldPosition());
 }

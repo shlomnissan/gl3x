@@ -17,8 +17,6 @@
 
 using namespace engine;
 
-float velo = 1.0f;
-
 class Application : public ApplicationContext {
 public:
     auto Configure() -> void override{
@@ -37,25 +35,22 @@ public:
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
 
         auto camera_controls = CameraOrbit::Create(camera);
-        camera_controls->distance = 6.0f;
+        camera_controls->distance = 3.0f;
 
         scene->Add(camera_controls);
 
-        auto ambient_light = AmbientLight::Create(0xffffff, 0.2f);
-        scene->Add(ambient_light);
-
-
-
         auto geometry = BoxGeometry::Create({});
-        auto material = FlatMaterial::Create();
-        material->wireframe = true;
+        auto material = PhongMaterial::Create();
+        material->texture_map = Texture2D::Create("assets/checker.png");
         mesh_ = Mesh::Create(geometry, material);
 
         scene->Add(mesh_);
 
+        auto ambient_light = AmbientLight::Create(0xffffff, 0.2f);
+        scene->Add(ambient_light);
+
         auto directional_light = DirectionalLight::Create(0xffffff, 1.0f);
         directional_light->transform.Translate({2.0f, 2.0f, 0.0f});
-        directional_light->color = 0xff0000;
         directional_light->SetDebugMode(true);
         scene->Add(directional_light);
 
