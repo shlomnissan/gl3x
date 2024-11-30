@@ -62,7 +62,7 @@ public:
      *
      * @return The direction of the light.
      */
-    [[nodiscard]] auto Direction() const -> Vector3;
+    [[nodiscard]] auto Direction() -> Vector3;
 
     /**
      * @brief Invoked when the node is updated.

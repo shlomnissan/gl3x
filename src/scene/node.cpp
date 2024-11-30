@@ -107,9 +107,14 @@ auto Node::ShouldUpdateWorldTransform() const -> bool {
     return transform.touched || (parent_ && parent_->ShouldUpdateChildren());
 }
 
+auto Node::GetWorldPosition() -> Vector3 {
+    UpdateTransforms(true, false);
+    return world_transform.GetPosition();
+}
+
 auto Node::LookAt(const Vector3& target) -> void {
     UpdateTransforms(true, false);
-    const auto position = world_transform.GetPosition();
+    const auto position = GetWorldPosition();
     if (this->Is<Camera>()) {
         transform.LookAt(position, target, up);
     } else {

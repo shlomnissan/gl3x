@@ -18,22 +18,23 @@ auto DirectionalLight::Update(float delta) -> void {
     }
 }
 
-auto DirectionalLight::Direction() const -> Vector3 {
+auto DirectionalLight::Direction() -> Vector3 {
     if (target != nullptr) {
-        return Normalize(target->world_transform.GetPosition() - world_transform.GetPosition());
+        return Normalize(target->GetWorldPosition() - GetWorldPosition());
     }
-    return Normalize(world_transform.GetPosition());
+    return Normalize(GetWorldPosition());
 }
 
 auto DirectionalLight::UpdateDebugMesh() -> void {
     RemoveAllChildren();
 
-    auto position = world_transform.GetPosition();
+    auto position = GetWorldPosition();
     auto material = FlatMaterial::Create();
+    material->cull_backfaces = false;
     material->color = color;
     material->wireframe = true;
 
-    auto target_pos = target != nullptr ? target->world_transform.GetPosition() : Vector3::Zero();
+    auto target_pos = target != nullptr ? target->GetWorldPosition() : Vector3::Zero();
     auto debugLine = Geometry::Create({
         position.x, position.y, position.z,
         target_pos.x, target_pos.y, target_pos.z

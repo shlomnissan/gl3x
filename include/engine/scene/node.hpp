@@ -96,6 +96,13 @@ public:
     [[nodiscard]] auto ShouldUpdateWorldTransform() const -> bool;
 
     /**
+     * @brief Retrieves the world position of the node.
+     *
+     * @return The world position of the node.
+     */
+    [[nodiscard]] auto GetWorldPosition() -> Vector3;
+
+    /**
      * @brief Rotates the object to face a point in world space.
      *
      * @param target The target position to look at.
