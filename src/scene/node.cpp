@@ -59,7 +59,7 @@ auto Node::RemoveAllChildren() -> void {
 
 auto Node::UpdateLevel(const std::shared_ptr<Node>& node) -> void {
     node->level = node->parent_ == nullptr ? 0 : node->parent_->level + 1;
-    for (auto& child : node->children_) {
+    for (const auto& child : node->children_) {
         UpdateLevel(child);
     }
 }

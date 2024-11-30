@@ -5,11 +5,10 @@
 
 namespace engine {
 
-auto Camera::UpdateTransforms(bool update_parents, bool update_children) -> void {
-    const auto view_needs_update = ShouldUpdateWorldTransform();
-    Node::UpdateTransforms();
-    if (view_needs_update) {
-        this->view_transform = Transform { Inverse(world_transform.Get()) };
+auto Camera::UpdateTransforms() -> void {
+    if (ShouldUpdateWorldTransform()) {
+        Node::UpdateTransforms(true, false);
+        this->view_transform = Inverse(world_transform.Get());
     }
 }
 

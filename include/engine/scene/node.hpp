@@ -79,7 +79,7 @@ public:
      * @param update_parents Flag indicating if the parent nodes should be updated.
      * @param update_children Flag indicating if the child nodes should be updated.
      */
-    virtual auto UpdateTransforms(bool update_parents = false, bool update_children = true) -> void;
+    auto UpdateTransforms(bool update_parents = false, bool update_children = true) -> void;
 
     /**
      * @brief Determines if the node's world transform should be updated.

@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "engine/math/matrix4.hpp"
 #include "engine/math/transform.hpp"
 #include "engine/scene/node.hpp"
 
@@ -17,7 +18,7 @@ public:
     Transform projection_transform;
 
     /// @brief The inverse of the world transform attached to the node.
-    Transform view_transform;
+    Matrix4 view_transform;
 
     /**
      * @brief Overrides the Node class function to update the world matrix.
@@ -25,7 +26,7 @@ public:
      * This function updates the underlying world matrix and copies its inverse
      * to the view transform matrix.
      */
-    auto UpdateTransforms(bool update_parents = false, bool update_children = true) -> void override;
+    auto UpdateTransforms() -> void;
 
     /**
      * @brief Virtual destructor for the Camera class.
