@@ -9,6 +9,8 @@
 
 namespace engine {
 
+class Vector3;
+
 /**
  * @brief A 4D vector class for mathematical operations.
  */
@@ -44,6 +46,14 @@ public:
      * @param w The w component of the vector.
      */
     Vector4(float x, float y, float z, float w);
+
+    /**
+     * @brief Constructs a Vector4 object from a Vector3 object.
+     *
+     * @param v The Vector3 object from which to extract the x, y, and z components.
+     * @param w The w component of the vector.
+     */
+    Vector4(const Vector3&v, float w);
 
     /**
      * @brief Returns a zero vector.

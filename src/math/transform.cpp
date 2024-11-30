@@ -42,7 +42,7 @@ auto Transform::Rotate(const Vector3& axis, float angle) -> void {
 }
 
 auto Transform::GetPosition() const -> Vector3 {
-    return transform_[3];
+    return Vector3 { transform_[3] };
 }
 
 auto Transform::SetPosition(const Vector3& position) -> void {

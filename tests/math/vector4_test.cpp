@@ -7,6 +7,7 @@
 #include <limits>
 
 #include <engine/math/vector4.hpp>
+#include <engine/math/vector3.hpp>
 
 #pragma region Constructors
 
@@ -26,6 +27,12 @@ TEST(Vector4, ConstructorParameterized) {
     const auto v = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0};
 
     EXPECT_VEC4_EQ(v, {1.0f, 2.0f, 3.0f, 4.0});
+}
+
+TEST(Vector4, ConstructWithVector3) {
+    const auto v = engine::Vector4 {engine::Vector3(1.0f, 2.0f, 3.0f), 0.0f};
+
+    EXPECT_VEC4_EQ(v, {1.0f, 2.0f, 3.0f, 0.0f});
 }
 
 #pragma endregion

@@ -3,6 +3,8 @@
 
 #include "engine/math/vector3.hpp"
 
+#include "engine/math/vector4.hpp"
+
 #include <cmath>
 
 namespace engine {

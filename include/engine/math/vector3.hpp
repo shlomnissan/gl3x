@@ -4,11 +4,12 @@
 #pragma once
 
 #include "engine_export.h"
-#include "engine/math/vector4.hpp"
 
 #include <cassert>
 
 namespace engine {
+
+class Vector4;
 
 /**
  * @brief A 3D vector class for mathematical operations.
@@ -48,7 +49,7 @@ public:
      *
      * @param v The Vector4 object from which to extract the x, y, and z components.
      */
-    Vector3(const Vector4& v);
+    explicit Vector3(const Vector4& v);
 
     /**
      * @brief Returns a unit vector along the X axis.
