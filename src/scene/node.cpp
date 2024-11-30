@@ -72,10 +72,6 @@ auto Node::Parent() const -> const Node* {
     return parent_;
 }
 
-auto Node::ShouldUpdateChildren() const -> bool {
-    return update_children_;
-}
-
 auto Node::UpdateTransforms(bool update_parents, bool update_children) -> void {
     if (update_parents && parent_ != nullptr) {
         parent_->UpdateTransforms(true, false);
@@ -88,7 +84,7 @@ auto Node::UpdateTransforms(bool update_parents, bool update_children) -> void {
             world_transform = parent_->world_transform * transform;
         }
         transform.touched = false;
-        update_children_ = true;
+        world_transform.touched = true;
     }
 
     // check for updates in child nodes, even if this node doesn't require an update
@@ -100,11 +96,11 @@ auto Node::UpdateTransforms(bool update_parents, bool update_children) -> void {
         }
     }
 
-    update_children_ = false;
+    world_transform.touched = false;
 }
 
 auto Node::ShouldUpdateWorldTransform() const -> bool {
-    return transform.touched || (parent_ && parent_->ShouldUpdateChildren());
+    return transform.touched || (parent_ && parent_->world_transform.touched);
 }
 
 auto Node::GetWorldPosition() -> Vector3 {

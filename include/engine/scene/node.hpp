@@ -82,13 +82,6 @@ public:
     virtual auto UpdateTransforms(bool update_parents = false, bool update_children = true) -> void;
 
     /**
-     * @brief Checks if the node's children should be updated.
-     *
-     * @return True if children need updating, false otherwise.
-     */
-    [[nodiscard]] auto ShouldUpdateChildren() const -> bool;
-
-    /**
      * @brief Determines if the node's world transform should be updated.
      *
      * @return True if the transform was modified or the parent requires an update.
@@ -185,9 +178,6 @@ private:
 
     /// @brief Pointer to the parent node.
     Node* parent_ {nullptr};
-
-    /// @brief Flag indicating if children need updating.
-    bool update_children_ {false};
 
     /**
      * @brief Updates the level of the specified child node.
