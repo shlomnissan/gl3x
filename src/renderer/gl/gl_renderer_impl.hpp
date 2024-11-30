@@ -40,7 +40,7 @@ private:
 
     auto SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, Camera* camera) -> void;
 
-    auto UpdateLights(const Scene* scene, GLProgram* program) const -> void;
+    auto UpdateLights(const Scene* scene, GLProgram* program, Camera* camera) const -> void;
 
     [[nodiscard]] auto IsValidMesh(Mesh* mesh) const -> bool;
 };

@@ -60,7 +60,7 @@ auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> 
                 glDisable(GL_POLYGON_OFFSET_FILL);
             }
 
-            if (attrs.lights) UpdateLights(scene, program);
+            if (attrs.lights) UpdateLights(scene, program, camera);
 
             buffers_.Bind(geometry);
 
@@ -122,7 +122,7 @@ auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& at
     }
 }
 
-auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program) const -> void {
+auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, Camera* camera) const -> void {
     auto ambient_light = Color {0.0f, 0.0f, 0.0f};
     auto dir_index = 0;
 
@@ -139,9 +139,9 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program) const 
 
             if (auto directional = light->As<DirectionalLight>()) {
                 const auto u_name = fmt::format("u_DirectionalLights[{}]", dir_index++);
-                const auto u_dir = directional->Direction();
+                const auto u_dir = camera->view_transform * Vector4(directional->Direction(), 0.0f);
                 const auto u_color = directional->color * directional->intensity;
-                program->SetUniform(u_name + ".Direction", Vector3(u_dir));
+                program->SetUniform(u_name + ".Direction", u_dir);
                 program->SetUniform(u_name + ".Color", u_color);
             }
         }

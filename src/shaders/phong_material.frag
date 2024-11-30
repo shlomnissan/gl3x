@@ -10,7 +10,7 @@ precision highp float;
 layout (location = 0) out vec4 v_FragColor;
 
 struct DirectionalLight {
-    vec3 Direction;
+    vec4 Direction;
     vec4 Color;
 };
 
@@ -71,7 +71,7 @@ void main() {
     #if NUM_DIR_LIGHTS > 0
         for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
             DirectionalLight light = u_DirectionalLights[i];
-            v_FragColor += vec4(phongShading(light.Direction, light.Color.rgb, material), 1.0);
+            v_FragColor += vec4(phongShading(vec3(light.Direction), light.Color.rgb, material), 1.0);
         }
     #endif
 }

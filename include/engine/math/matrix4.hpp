@@ -185,6 +185,26 @@ private:
             a(3, 0) * b(0, 3) + a(3, 1) * b(1, 3) + a(3, 2) * b(2, 3) + a(3, 3) * b(3, 3)
         };
     }
+
+    /**
+     * @brief Multiplies a 4x4 matrix by a 4D vector.
+     * @related Matrix4
+     *
+     * Performs matrix-vector multiplication between the input matrix and vector.
+     *
+     * @param m The 4x4 matrix to multiply.
+     * @param v The 4D vector to multiply.
+     * @return Vector4 The resulting 4D vector after multiplication.
+     */
+    [[nodiscard]]
+    friend auto operator*(const Matrix4& m, const Vector4& v) {
+        return Vector4 {
+            m(0, 0) * v.x + m(0, 1) * v.y + m(0, 2) * v.z + m(0, 3) * v.w,
+            m(1, 0) * v.x + m(1, 1) * v.y + m(1, 2) * v.z + m(1, 3) * v.w,
+            m(2, 0) * v.x + m(2, 1) * v.y + m(2, 2) * v.z + m(2, 3) * v.w,
+            m(3, 0) * v.x + m(3, 1) * v.y + m(3, 2) * v.z + m(3, 3) * v.w
+        };
+    }
 };
 
 /**
