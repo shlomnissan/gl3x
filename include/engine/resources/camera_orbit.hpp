@@ -42,7 +42,7 @@ public:
      *
      * @param camera A shared pointer to the camera to orbit around.
      */
-    explicit CameraOrbit(const std::shared_ptr<Camera>& camera) : camera_(camera) {}
+    explicit CameraOrbit(const std::shared_ptr<Camera>& camera);
 
     /**
      * @brief Creates a new instance of the CameraOrbit class.

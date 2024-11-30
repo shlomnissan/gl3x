@@ -10,13 +10,14 @@
 
 namespace engine {
     Grid::Grid(int dimensions) {
-        mesh_ = Mesh::Create(CreateGeometry(dimensions), FlatMaterial::Create(0xFF0000));
+        mesh_ = Mesh::Create(CreateGeometry(dimensions), FlatMaterial::Create(0x404040));
         Add(mesh_);
     }
 
     auto Grid::CreateGeometry(int dimensions) const -> std::shared_ptr<Geometry> {
         std::vector<float> vertices;
-        const auto half_dimensions = dimensions / 2;
+        const auto scale = 0.25f;
+        const auto half_dimensions = static_cast<float>(dimensions / 2) * scale;
 
         auto x_offset = -half_dimensions;
         for (auto i = 0; i <= dimensions; ++i) {
@@ -26,7 +27,7 @@ namespace engine {
             vertices.emplace_back(x_offset);
             vertices.emplace_back(0.0f);
             vertices.emplace_back(half_dimensions);
-            x_offset += 1;
+            x_offset += scale;
         }
 
         auto z_offset = -half_dimensions;
@@ -37,7 +38,7 @@ namespace engine {
             vertices.emplace_back(half_dimensions);
             vertices.emplace_back(0.0f);
             vertices.emplace_back(z_offset);
-            z_offset += 1;
+            z_offset += scale;
         }
 
         auto geometry = Geometry::Create(vertices, {});

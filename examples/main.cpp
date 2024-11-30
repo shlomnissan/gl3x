@@ -7,6 +7,7 @@
 #include <engine/scene/mesh.hpp>
 #include <engine/core/timer.hpp>
 
+#include <engine/math/utilities.hpp>
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
@@ -29,16 +30,18 @@ public:
         ApplicationContext::Setup();
 
         window->SetTitle("Examples");
-        renderer->SetClearColor({0.0f, 0.0f, 0.5f, 1.0f});
+        renderer->SetClearColor(0x5C5C5C);
 
         scene = Scene::Create();
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
+        camera->transform.Rotate(Vector3::Up(), math::DegToRad(45.0f));
+        camera->transform.Rotate(Vector3::Right(), math::DegToRad(-15.0f));
+        camera->transform.Translate({0.0f, 0.0f, 5.0f});
 
-        auto camera_controls = CameraOrbit::Create(camera);
-        camera_controls->distance = 3.0f;
-        scene->Add(camera_controls);
+        // auto camera_controls = CameraOrbit::Create(camera);
+        // scene->Add(camera_controls);
 
-        auto grid = Grid::Create(12.0f);
+        auto grid = Grid::Create(20.0f);
         scene->Add(grid);
 
         auto geometry = BoxGeometry::Create({});
@@ -66,8 +69,7 @@ public:
         ImGui::SetNextWindowPos({10, 10});
         ImGui::Begin("Examples", nullptr,
             ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_NoMove |
-            ImGuiWindowFlags_NoSavedSettings
+            ImGuiWindowFlags_NoMove
         );
             if (ImGui::BeginListBox("##ListBox", {234, 0})) {
                 ImGui::Selectable("Flat Color");
@@ -78,8 +80,8 @@ public:
 
         ImGui::End();
 
-        auto velocity = static_cast<float>(std::cos(timer_.GetElapsedSeconds()));
-        mesh_->transform.Translate({0.0f, 0.0f, velocity * delta});
+        // auto velocity = static_cast<float>(std::cos(timer_.GetElapsedSeconds()));
+        // mesh_->transform.Translate({0.0f, 0.0f, velocity * delta});
 
         return true;
     }
