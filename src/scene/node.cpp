@@ -72,31 +72,35 @@ auto Node::Parent() const -> const Node* {
     return parent_;
 }
 
-auto Node::UpdateTransforms(bool update_parents, bool update_children) -> void {
-    if (update_parents && parent_ != nullptr) {
-        parent_->UpdateTransforms(true, false);
-    }
-
+auto Node::UpdateTransformHierarchy() -> void {
     if (transformAutoUpdate && ShouldUpdateWorldTransform()) {
-        if (parent_ == nullptr) {
-            world_transform = transform;
-        } else {
-            world_transform = parent_->world_transform * transform;
-        }
+        world_transform = parent_ == nullptr
+            ? transform
+            : parent_->world_transform * transform;
         transform.touched = false;
         world_transform.touched = true;
     }
 
-    // check for updates in child nodes, even if this node doesn't require an update
-    if (update_children) {
-        for (const auto child : children_) {
-            if (child != nullptr) {
-                child->UpdateTransforms();
-            }
+    for (const auto child : children_) {
+        if (child != nullptr) {
+            child->UpdateTransformHierarchy();
         }
     }
 
     world_transform.touched = false;
+}
+
+auto Node::UpdateWorldTransform() -> void {
+    if (parent_ != nullptr) {
+        parent_->UpdateWorldTransform();
+    }
+
+    if (ShouldUpdateWorldTransform()) {
+        world_transform = parent_ == nullptr
+            ? transform
+            : parent_->world_transform * transform;
+        transform.touched = false;
+    }
 }
 
 auto Node::ShouldUpdateWorldTransform() const -> bool {
@@ -104,12 +108,12 @@ auto Node::ShouldUpdateWorldTransform() const -> bool {
 }
 
 auto Node::GetWorldPosition() -> Vector3 {
-    UpdateTransforms(true, false);
+    UpdateWorldTransform();
     return world_transform.GetPosition();
 }
 
 auto Node::LookAt(const Vector3& target) -> void {
-    UpdateTransforms(true, false);
+    UpdateWorldTransform();
     const auto position = GetWorldPosition();
     if (this->Is<Camera>()) {
         transform.LookAt(position, target, up);

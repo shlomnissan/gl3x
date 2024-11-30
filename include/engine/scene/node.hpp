@@ -74,12 +74,22 @@ public:
     [[nodiscard]] auto Parent() const -> const Node*;
 
     /**
-     * @brief Updates the node's transformation matrix.
+     * @brief Updates the transformation matrix of this node and all its child nodes.
      *
-     * @param update_parents Flag indicating if the parent nodes should be updated.
-     * @param update_children Flag indicating if the child nodes should be updated.
+     * This function updates the transformation matrix of the current node first,
+     * and then recursively updates the transformation matrices of all child nodes.
+     * This ensures that the entire transformation hierarchy is updated correctly.
      */
-    auto UpdateTransforms(bool update_parents = false, bool update_children = true) -> void;
+    auto UpdateTransformHierarchy() -> void;
+
+    /**
+     * @brief Updates the world transform of this node and all its parent nodes.
+     *
+     * This function ensures that the world transform of all parent nodes is updated
+     * before updating the world transform of this node. This is necessary to maintain
+     * the correct transformation hierarchy when fetching the current world position.
+     */
+    auto UpdateWorldTransform() -> void;
 
     /**
      * @brief Determines if the node's world transform should be updated.

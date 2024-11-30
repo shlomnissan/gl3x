@@ -21,12 +21,9 @@ public:
     Matrix4 view_transform;
 
     /**
-     * @brief Overrides the Node class function to update the world matrix.
-     *
-     * This function updates the underlying world matrix and copies its inverse
-     * to the view transform matrix.
+     * @brief Updates the view transformation matrix of the camera.
      */
-    auto UpdateTransforms() -> void;
+    auto UpdateViewTransform() -> void;
 
     /**
      * @brief Virtual destructor for the Camera class.

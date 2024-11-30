@@ -5,9 +5,9 @@
 
 namespace engine {
 
-auto Camera::UpdateTransforms() -> void {
+auto Camera::UpdateViewTransform() -> void {
     if (ShouldUpdateWorldTransform()) {
-        Node::UpdateTransforms(true, false);
+        UpdateWorldTransform();
         this->view_transform = Inverse(world_transform.Get());
     }
 }
