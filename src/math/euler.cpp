@@ -14,6 +14,10 @@ Euler::Euler(float pitch, float yaw, float roll, RotationOrder order)
     roll(roll),
     order_(order) {}
 
+Euler::Euler(const Matrix4& m, RotationOrder order) {
+    // TODO: implement the extraction of Euler angles from a rotation matrix.
+}
+
 auto Euler::GetMatrix() const -> Matrix4 {
     // TODO: generates the rotation matrix in place instead of performing
     // matrix multiplication for each rotation axis.

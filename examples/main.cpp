@@ -34,9 +34,9 @@ public:
 
         scene = Scene::Create();
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
-        camera->transform.Rotate(Vector3::Up(), math::DegToRad(45.0f));
-        camera->transform.Rotate(Vector3::Right(), math::DegToRad(-15.0f));
-        camera->transform.Translate({0.0f, 0.0f, 5.0f});
+        camera->transform.Rotate(Vector3::Up(), math::DegToRad(-45.0f));
+        camera->transform.Rotate(Vector3::Right(), math::DegToRad(-25.0f));
+        camera->transform.Translate({0.0f, 0.0f, 4.0f});
 
         // auto camera_controls = CameraOrbit::Create(camera);
         // scene->Add(camera_controls);
@@ -55,7 +55,7 @@ public:
         scene->Add(ambient_light);
 
         auto directional_light = DirectionalLight::Create(0xffffff, 1.0f);
-        directional_light->transform.Translate({2.0f, 2.0f, 0.0f});
+        directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
         directional_light->SetDebugMode(true);
         scene->Add(directional_light);
 

@@ -33,7 +33,7 @@ public:
     };
 
     /// @brief The default rotation order, XYZ.
-    static const auto default_order = RotationOrder::XYZ;
+    static const auto default_order = RotationOrder::YXZ;
 
     /**
      * @brief Default constructor.
@@ -41,6 +41,14 @@ public:
      * Initializes the Euler angles to zero and uses the default rotation order.
      */
     Euler() = default;
+
+    /**
+     * @brief Constructor with initial values for Euler angles and rotation order.
+     *
+     * @param m The rotation matrix to extract Euler angles from.
+     * @param order The rotation order to be used, defaults to `default_order`.
+     */
+    Euler(const Matrix4& m, RotationOrder order = default_order);
 
     /**
      * @brief Constructor with initial values for Euler angles and rotation order.
