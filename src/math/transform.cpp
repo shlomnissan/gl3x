@@ -60,11 +60,24 @@ auto Transform::GetScale() const -> Vector3 {
 
 auto Transform::LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) -> void {
     auto forward = Normalize(position - target);
-    // TODO: handle case where position and target are the same
+    if (forward == Vector3::Zero()) {
+        // The position and target are the same, so we can't determine a forward vector.
+        forward = Vector3::Forward();
+    }
 
-    auto right = Normalize(Cross(world_up, forward));
-    // TODO: handle case where world_up and forward are parallel
+    auto right = Cross(world_up, forward);
+    if (right.Length() == 0.0f) {
+        // If the right vector is zero, the forward vector is parallel to the world up vector.
+        if (std::abs(world_up.z) == 1.0f) {
+            forward.x += 0.0001f;
+        } else {
+            forward.z += 0.0001f;
+        }
+        forward.Normalize();
+        right = Cross(world_up, forward);
+    }
 
+    right.Normalize();
     auto up = Cross(forward, right);
 
     transform_[0] = {right.x, right.y, right.z, 0.0f};

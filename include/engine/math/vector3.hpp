@@ -128,6 +128,19 @@ public:
         return *this;
     }
 
+    /**
+     * @brief Normalizes the vector.
+     *
+     * @return Vector3& A reference to the normalized vector.
+     */
+    auto Normalize() -> Vector3& {
+        const auto len = Length();
+        if (len == 0.0f) {
+            return *this;
+        }
+        return *this *= (1.0f / len);
+    }
+
 private:
     /**
      * @brief Checks if two vectors are equal, component-wise.
@@ -255,13 +268,11 @@ auto Dot(const Vector3& a, const Vector3& b) {
  *
  * @param v The vector to normalize.
  * @return Vector3 A new vector that is the normalized version of the input vector.
- *         If the input vector has zero length, returns a zero vector.
  */
-[[nodiscard]] inline ENGINE_EXPORT
-auto Normalize(const Vector3& v) {
+[[nodiscard]] inline ENGINE_EXPORT auto Normalize(const Vector3& v) {
     const auto len = v.Length();
     if (len == 0.0f) {
-        return Vector3 {0.0f};
+        return Vector3::Zero();
     }
     return v * (1.0f / len);
 }
