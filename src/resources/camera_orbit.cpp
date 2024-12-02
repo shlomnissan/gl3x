@@ -12,6 +12,7 @@ namespace engine {
 
 CameraOrbit::CameraOrbit(const std::shared_ptr<Camera>& camera) : camera_(camera) {
     distance = camera->transform.GetPosition().Length();
+    orientation_ = Euler(camera->transform.Get());
 }
 
 auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {

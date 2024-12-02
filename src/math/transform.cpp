@@ -80,9 +80,9 @@ auto Transform::LookAt(const Vector3& position, const Vector3& target, const Vec
     right.Normalize();
     auto up = Cross(forward, right);
 
-    transform_[0] = {right.x, right.y, right.z, 0.0f};
-    transform_[1] = {up.x, up.y, up.z, 0.0f};
-    transform_[2] = {forward.x, forward.y, forward.z, 0.0f};
+    transform_[0] = {right, 0.0f};
+    transform_[1] = {up, 0.0f};
+    transform_[2] = {forward, 0.0f};
     touched = true;
 }
 

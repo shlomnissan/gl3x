@@ -8,81 +8,35 @@
 
 namespace engine {
 
-Euler::Euler(float pitch, float yaw, float roll, RotationOrder order)
-  : pitch(pitch),
-    yaw(yaw),
-    roll(roll),
-    order_(order) {}
+Euler::Euler(float pitch, float yaw, float roll) : pitch(pitch), yaw(yaw), roll(roll) {}
 
-Euler::Euler(const Matrix4& m, RotationOrder order) {
-    // TODO: implement the extraction of Euler angles from a rotation matrix.
+Euler::Euler(const Matrix4& m) {
+    pitch = std::asin(m[1].z);
+    if (std::cos(pitch) > 1e-6) {
+        yaw = std::atan2(-m[0].z, m[2].z);
+        roll = std::atan2(-m[1].x, m[1].y);
+    } else {
+        // If cos(pitch) is close to zero, we have a gimble lock
+        // so only one of the angles can be determined
+        yaw = 0.0f;
+        roll = std::atan2(m[0].y, m[0].x);
+    }
 }
 
 auto Euler::GetMatrix() const -> Matrix4 {
-    // TODO: generates the rotation matrix in place instead of performing
-    // matrix multiplication for each rotation axis.
-    const auto rotation_x = Rotate(Matrix4{1.0f}, pitch, Vector3::Right());
-    const auto rotation_y = Rotate(Matrix4{1.0f}, yaw, Vector3::Up());
-    const auto rotation_z = Rotate(Matrix4{1.0f}, roll, Vector3::Forward());
+    const auto cos_p = std::cos(pitch);
+    const auto sin_p = std::sin(pitch);
+    const auto cos_y = std::cos(yaw);
+    const auto sin_y = std::sin(yaw);
+    const auto cos_r = std::cos(roll);
+    const auto sin_r = std::sin(roll);
 
-    auto output = Matrix4 {0.0f};
-    switch (order_) {
-        case RotationOrder::XYZ:
-            output = rotation_z * rotation_y * rotation_x;
-            break;
-        case RotationOrder::XZY:
-            output = rotation_y * rotation_z * rotation_x;
-            break;
-        case RotationOrder::YXZ:
-            output = rotation_z * rotation_x * rotation_y;
-            break;
-        case RotationOrder::YZX:
-            output = rotation_x * rotation_z * rotation_y;
-            break;
-        case RotationOrder::ZXY:
-            output = rotation_y * rotation_x * rotation_z;
-            break;
-        case RotationOrder::ZYX:
-            output = rotation_x * rotation_y * rotation_z;
-            break;
-    }
-
-    return output;
-}
-
-auto Euler::Rotate(const Matrix4& m, float angle, const Vector3& v) const -> Matrix4 {
-    const auto a = angle;
-    const auto c = std::cos(a);
-    const auto s = std::sin(a);
-    const auto axis = Normalize(v);
-    const auto temp = (1.0f - c) * axis;
-
-    auto rotate = engine::Matrix4 {};
-    rotate[0] = {
-        c + temp[0] * axis[0],
-        temp[0] * axis[1] + s * axis[2],
-        temp[0] * axis[2] - s * axis[1],
-        0.0f
+    return {
+        cos_r * cos_y - sin_r * sin_p * sin_y, -sin_r * cos_p, cos_r * sin_y + sin_r * sin_p * cos_y, 0.0f,
+        sin_r * cos_y + cos_r * sin_p * sin_y, cos_r * cos_p, sin_r * sin_y - cos_r * sin_p * cos_y, 0.0f,
+        -cos_p * sin_y, sin_p, cos_p * cos_y, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
     };
-    rotate[1] = {
-        temp[1] * axis[0] - s * axis[2],
-        c + temp[1] * axis[1],
-        temp[1] * axis[2] + s * axis[0],
-        0.0f
-    };
-    rotate[2] = {
-        temp[2] * axis[0] + s * axis[1],
-        temp[2] * axis[1] - s * axis[0],
-        c + temp[2] * axis[2],
-        0.0f
-    };
-
-    auto output = engine::Matrix4 {};
-    output[0] = m[0] * rotate[0][0] + m[1] * rotate[0][1] + m[2] * rotate[0][2];
-    output[1] = m[0] * rotate[1][0] + m[1] * rotate[1][1] + m[2] * rotate[1][2];
-    output[2] = m[0] * rotate[2][0] + m[1] * rotate[2][1] + m[2] * rotate[2][2];
-    output[3] = m[3];
-    return output;
 }
 
 }
