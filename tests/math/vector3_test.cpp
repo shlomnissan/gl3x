@@ -335,6 +335,27 @@ TEST(Vector3, NormalizeZeroVector) {
     EXPECT_VEC3_EQ(engine::Normalize(v), {0.0f, 0.0f, 0.0f});
 }
 
+TEST(Vector3, NormalizeMemberBasic) {
+    auto v = engine::Vector3 {3.0f, 4.0f, 0.0f};
+    v.Normalize();
+
+    EXPECT_VEC3_EQ(v, {0.6f, 0.8f, 0.0f});
+}
+
+TEST(Vector3, NormalizeMemberNormalizedVector) {
+    auto v = engine::Vector3 {0.6f, 0.8f, 0.0f};
+    v.Normalize();
+
+    EXPECT_VEC3_EQ(v, {0.6f, 0.8f, 0.0f});
+}
+
+TEST(Vector3, NormalizedMemberZeroVector) {
+    auto v = engine::Vector3 {0.0f, 0.0f, 0.0f};
+    v.Normalize();
+
+    EXPECT_VEC3_EQ(v, {0.0f, 0.0f, 0.0f});
+}
+
 #pragma endregion
 
 #pragma region Equality Operator

@@ -275,6 +275,27 @@ TEST(Vector4, NormalizeZeroVector) {
     EXPECT_VEC4_EQ(engine::Normalize(v), {0.0f, 0.0f, 0.0f, 0.0f});
 }
 
+TEST(Vector4, NormalizedMemberBasic) {
+    auto v = engine::Vector4 {3.0f, 4.0f, 0.0f, 0.0f};
+    v.Normalize();
+
+    EXPECT_VEC4_EQ(v, {0.6f, 0.8f, 0.0f, 0.0f});
+}
+
+TEST(Vector4, NormalizedMemberNormalizedVector) {
+    auto v = engine::Vector4 {0.6f, 0.8f, 0.0f, 0.0f};
+    v.Normalize();
+
+    EXPECT_VEC4_EQ(v, {0.6f, 0.8f, 0.0f, 0.0f});
+}
+
+TEST(Vector4, NormalizedMemberZeroVector) {
+    auto v = engine::Vector4 {0.0f, 0.0f, 0.0f, 0.0f};
+    v.Normalize();
+
+    EXPECT_VEC4_EQ(v, {0.0f, 0.0f, 0.0f, 0.0f});
+}
+
 #pragma endregion
 
 #pragma region Equality Operator
