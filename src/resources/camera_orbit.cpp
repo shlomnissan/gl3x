@@ -86,7 +86,7 @@ auto CameraOrbit::Pan(const Vector2& offset, float delta) -> void {
     const auto pan_h = right * offset.x * pan_speed * delta * -1;
     const auto pan_v = up * -offset.y * pan_speed * delta;
 
-    target = target - (pan_h + pan_v);
+    target -= (pan_h + pan_v);
 }
 
 }

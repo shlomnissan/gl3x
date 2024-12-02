@@ -210,6 +210,13 @@ TEST(Vector3, AdditionNegativeValues) {
     EXPECT_VEC3_EQ(v1 + v2, {-5.0f, -7.0f, -9.0f});
 }
 
+TEST(Vector3, AdditionAssignment) {
+    auto v = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    v += engine::Vector3 {4.0f, 5.0f, 6.0f};
+
+    EXPECT_VEC3_EQ(v, {5.0f, 7.0f, 9.0f});
+}
+
 #pragma endregion
 
 #pragma region Subtraction
@@ -232,6 +239,13 @@ TEST(Vector3, SubtractionFromZeroVector) {
     const auto v2 = engine::Vector3 {2.0f, 4.0f, 6.0f};
 
     EXPECT_VEC3_EQ(v1 - v2, {-2.0f, -4.0f, -6.0f});
+}
+
+TEST(Vector3, SubtractionAssignment) {
+    auto v = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    v -= engine::Vector3 {4.0f, 5.0f, 6.0f};
+
+    EXPECT_VEC3_EQ(v, {-3.0f, -3.0f, -3.0f});
 }
 
 #pragma endregion

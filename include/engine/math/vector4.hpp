@@ -110,6 +110,34 @@ public:
     }
 
     /**
+     * @brief Adds a vector to the current vector.
+     *
+     * @param v The vector to add.
+     * @return Vector4& A reference to the updated vector.
+     */
+    auto operator+=(const Vector4& v) -> Vector4& {
+        x += v.x;
+        y += v.y;
+        z += v.z;
+        w += v.w;
+        return *this;
+    }
+
+    /**
+     * @brief Subtracts a vector from the current vector.
+     *
+     * @param v The vector to subtract.
+     * @return Vector4& A reference to the updated vector.
+     */
+    auto operator-=(const Vector4& v) -> Vector4& {
+        x -= v.x;
+        y -= v.y;
+        z -= v.z;
+        w -= v.w;
+        return *this;
+    }
+
+    /**
      * @brief Normalizes the vector.
      *
      * @return Vector4& A reference to the normalized vector.
