@@ -139,7 +139,7 @@ private:
      * @return Transform The result of multiplying the two Transform objects.
      */
     [[nodiscard]] friend auto operator*(const Transform& a, const Transform& b) -> Transform {
-        return Transform {a.transform_ * b.transform_};
+        return Transform {a.Get() * b.Get()};
     }
 };
 

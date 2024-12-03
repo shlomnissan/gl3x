@@ -34,12 +34,11 @@ public:
 
         scene = Scene::Create();
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
-        camera->transform.Rotate(Vector3::Up(), math::DegToRad(-45.0f));
-        camera->transform.Rotate(Vector3::Right(), math::DegToRad(-25.0f));
         camera->transform.Translate({0.0f, 0.0f, 4.0f});
 
-        // auto camera_controls = CameraOrbit::Create(camera);
-        // scene->Add(camera_controls);
+        const auto initial_orientation = Euler {math::DegToRad(25.0f), math::DegToRad(-45.0f), 0.0f};
+        const auto camera_controls = CameraOrbit::Create(camera, initial_orientation);
+        scene->Add(camera_controls);
 
         auto grid = Grid::Create(20.0f);
         scene->Add(grid);

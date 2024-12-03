@@ -41,17 +41,19 @@ public:
      * @brief Constructs a CameraOrbit object.
      *
      * @param camera A shared pointer to the camera to orbit around.
+     * @param orientation The initial orientation of the camera in Euler angles.
      */
-    explicit CameraOrbit(const std::shared_ptr<Camera>& camera);
+    CameraOrbit(const std::shared_ptr<Camera>& camera, const Euler& orientation = {});
 
     /**
      * @brief Creates a new instance of the CameraOrbit class.
      *
      * @param camera A shared pointer to the camera to orbit around.
+     * @param orientation_ The initial orientation of the camera in Euler angles.
      * @return A `std::shared_ptr<CameraOrbit>` pointing to the newly created instance.
      */
-    [[nodiscard]] static auto Create(const std::shared_ptr<Camera>& camera) {
-        return std::make_shared<CameraOrbit>(camera);
+    [[nodiscard]] static auto Create(const std::shared_ptr<Camera>& camera, const Euler& orientation = {}) {
+        return std::make_shared<CameraOrbit>(camera, orientation);
     }
 
     /**
