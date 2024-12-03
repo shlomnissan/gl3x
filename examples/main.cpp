@@ -36,7 +36,7 @@ public:
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
         camera->transform.Translate({0.0f, 0.0f, 4.0f});
 
-        const auto initial_orientation = Euler {math::DegToRad(25.0f), math::DegToRad(-45.0f), 0.0f};
+        const auto initial_orientation = Euler {{.pitch = math::DegToRad(25.0f), .yaw = math::DegToRad(-45.0f)}};
         const auto camera_controls = CameraOrbit::Create(camera, initial_orientation);
         scene->Add(camera_controls);
 

@@ -29,7 +29,7 @@ auto Transform::Translate(const Vector3& value) -> void {
 }
 
 auto Transform::Rotate(const Vector3& axis, float angle) -> void {
-    Euler rotation_euler(0.0f, 0.0f, 0.0f);
+    Euler rotation_euler {};
     if (axis == Vector3::Right()) {
         rotation_euler.pitch = angle;
     } else if (axis == Vector3::Up()) {

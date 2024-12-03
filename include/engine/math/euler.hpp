@@ -37,14 +37,18 @@ public:
     explicit Euler(const Matrix4& m);
 
     /**
+     * @brief Represents a set of Euler angles.
+     *
+     * This struct is used for designated initialization.
+     */
+    struct EulerAngles { float pitch; float yaw; float roll; };
+
+    /**
      * @brief Constructor with initial values for Euler angles and rotation order.
      *
-     * @param pitch The initial pitch angle (rotation around X-axis), in radians.
-     * @param yaw The initial yaw angle (rotation around Y-axis), in radians.
-     * @param roll The initial roll angle (rotation around Z-axis), in radians.
-     * @param order The rotation order to be used, defaults to `default_order`.
+     * @param e The Euler angles to initialize the object with.
      */
-    Euler(float pitch, float yaw, float roll);
+    explicit Euler(const EulerAngles& e);
 
     /**
      * @brief Computes the rotation matrix based on the Euler angles and rotation order.

@@ -16,7 +16,7 @@ auto Rotate(float angle, const engine::Vector3& v) -> engine::Matrix4;
 #pragma region Constructor
 
 TEST(Euler, ConstructorWithEulerAngles) {
-    const auto e = engine::Euler {0.5f, 0.2f, 0.3f};
+    const auto e = engine::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.3f}};
 
     EXPECT_FLOAT_EQ(e.pitch, 0.5f);
     EXPECT_FLOAT_EQ(e.yaw, 0.2f);
@@ -24,7 +24,7 @@ TEST(Euler, ConstructorWithEulerAngles) {
 }
 
 TEST(Euler, ConstructorWithMatrix) {
-    const auto in = engine::Euler {0.5f, 0.2f, 0.3f};
+    const auto in = engine::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.3f}};
     const auto out = engine::Euler {in.GetMatrix()};
 
     EXPECT_EQ(in.pitch, out.pitch);
@@ -37,7 +37,7 @@ TEST(Euler, ConstructorWithMatrix) {
 #pragma region Get Matrix
 
 TEST(Euler, GetMatrixBasic) {
-    const auto e = engine::Euler {0.5f, 0.2f, 0.0f};
+    const auto e = engine::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.3f}};
     const auto m = e.GetMatrix();
 
     const auto rotation_x = Rotate(e.pitch, engine::Vector3::Right());
@@ -57,7 +57,7 @@ TEST(Euler, ConstrucotrWithMatrixGimbalLock) {
     const auto yaw = 0.0f;
     const auto roll = 0.0f;
 
-    const auto e = engine::Euler {pitch, yaw, roll};
+    const auto e = engine::Euler {{.pitch = pitch, .yaw = yaw, .roll = roll}};
     const auto m = e.GetMatrix();
     const auto output = engine::Euler {m};
 
@@ -75,18 +75,18 @@ TEST(Euler, ConstrucotrWithMatrixGimbalLock) {
 #pragma region Equality Operator
 
 TEST(Euler, EqualityOperator) {
-    const auto e1 = engine::Euler {0.5f, 0.2f, 0.0f};
-    const auto e2 = engine::Euler {0.5f, 0.2f, 0.0f};
-    const auto e3 = engine::Euler {0.1f, 0.2f, 0.0f};
+    const auto e1 = engine::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.0f}};
+    const auto e2 = engine::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.0f}};
+    const auto e3 = engine::Euler {{.pitch = 0.1f, .yaw = 0.2f, .roll = 0.0f}};
 
     EXPECT_TRUE(e1 == e2);
     EXPECT_FALSE(e1 == e3);
 }
 
 TEST(Euler, InequalityOperator) {
-    const auto e1 = engine::Euler {0.5f, 0.2f, 0.0f};
-    const auto e2 = engine::Euler {0.5f, 0.2f, 0.0f};
-    const auto e3 = engine::Euler {0.1f, 0.2f, 0.0f};
+    const auto e1 = engine::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.0f}};
+    const auto e2 = engine::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.0f}};
+    const auto e3 = engine::Euler {{.pitch = 0.1f, .yaw = 0.2f, .roll = 0.0f}};
 
     EXPECT_FALSE(e1 != e2);
     EXPECT_TRUE(e1 != e3);

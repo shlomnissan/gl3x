@@ -8,7 +8,7 @@
 
 namespace engine {
 
-Euler::Euler(float pitch, float yaw, float roll) : pitch(pitch), yaw(yaw), roll(roll) {}
+Euler::Euler(const EulerAngles& e) : pitch(e.pitch), yaw(e.yaw), roll(e.roll) {}
 
 Euler::Euler(const Matrix4& m) {
     pitch = std::asin(m[1].z);
