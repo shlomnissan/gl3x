@@ -79,8 +79,8 @@ public:
 
         ImGui::End();
 
-        // auto velocity = static_cast<float>(std::cos(timer_.GetElapsedSeconds()));
-        // mesh_->transform.Translate({0.0f, 0.0f, velocity * delta});
+        auto velocity = static_cast<float>(std::cos(timer_.GetElapsedSeconds()));
+        mesh_->transform.Translate({0.0f, 0.0f, velocity * delta});
 
         return true;
     }
