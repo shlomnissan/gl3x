@@ -14,7 +14,20 @@ namespace engine {
 
 auto DirectionalLight::Update(float delta) -> void {
     if (debug_mode) {
-        UpdateDebugMesh();
+        if (debug_mesh_line_ == nullptr || debug_mesh_plane_ == nullptr) {
+            CreateDebugMesh();
+        }
+
+        const auto target_world_pos = target != nullptr
+            ? target->GetWorldPosition()
+            : Vector3::Zero();
+
+
+        debug_mesh_plane_->LookAt(target_world_pos);
+        debug_mesh_line_->LookAt(target_world_pos);
+
+        const auto length = (target_world_pos - GetWorldPosition()).Length();
+        debug_mesh_line_->transform.Scale({1.0f, 1.0f, length});
     }
 }
 
@@ -25,33 +38,34 @@ auto DirectionalLight::Direction() -> Vector3 {
     return Normalize(GetWorldPosition());
 }
 
-auto DirectionalLight::UpdateDebugMesh() -> void {
-    RemoveAllChildren();
+auto DirectionalLight::CreateDebugMesh() -> void {
+    using enum GeometryAttributeType;
+    using enum GeometryPrimitiveType;
 
-    auto position = GetWorldPosition();
     auto material = FlatMaterial::Create();
     material->cull_backfaces = false;
     material->color = color;
     material->wireframe = true;
 
-    auto target_pos = target != nullptr ? target->GetWorldPosition() : Vector3::Zero();
-    auto debugLine = Geometry::Create({
-        position.x, position.y, position.z,
-        target_pos.x, target_pos.y, target_pos.z
-    });
-    debugLine->primitive = GeometryPrimitiveType::Lines;
-    debugLine->SetAttribute({GeometryAttributeType::Position, 3});
+    debug_mesh_line_ = Mesh::Create(Geometry::Create({
+        0, 0, 0,
+        0, 0, 1
+    }), material);
+    debug_mesh_line_->GetGeometry()->SetAttribute({Position, 3});
+    debug_mesh_line_->GetGeometry()->primitive = Lines;
+    debug_mesh_line_->transformAutoUpdate = false;
+    Add(debug_mesh_line_);
 
-    auto debugPlane = PlaneGeometry::Create({});
-
-    auto mesh_plane = Mesh::Create(debugPlane, material);
-    auto mesh_line = Mesh::Create(debugLine, material);
-
-    Add(mesh_plane);
-    Add(mesh_line);
-
-    mesh_plane->LookAt(target_pos);
-    mesh_line->transformAutoUpdate = false;
+    debug_mesh_plane_ = Mesh::Create(Geometry::Create({
+        -1,  1, 0,
+         1,  1, 0,
+         1, -1, 0,
+        -1, -1, 0
+    }), material);
+    debug_mesh_plane_->GetGeometry()->SetAttribute({Position, 3});
+    debug_mesh_plane_->GetGeometry()->primitive = LineLoop;
+    debug_mesh_plane_->transformAutoUpdate = false;
+    Add(debug_mesh_plane_);
 }
 
 }

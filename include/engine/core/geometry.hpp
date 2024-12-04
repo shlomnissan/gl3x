@@ -28,7 +28,8 @@ enum class GeometryAttributeType {
  */
 enum class GeometryPrimitiveType {
     Triangles,  ///< Render triangles.
-    Lines       ///< Render lines.
+    Lines,      ///< Render lines.
+    LineLoop    ///< Render a line loop.
 };
 
 /**
@@ -91,7 +92,7 @@ public:
      *
      * @return The vertex count calculated by dividing the size of the vertex data by the stride.
      */
-    [[nodiscard]] auto VertexCount() const -> int;
+    [[nodiscard]] auto VertexCount() const -> size_t;
 
     /**
      * @brief Gets the index data of the geometry.
@@ -112,7 +113,7 @@ public:
      *
      * @return The stride calculated by the sum of attribute item sizes.
      */
-    [[nodiscard]] auto Stride() const -> int;
+    [[nodiscard]] auto Stride() const -> size_t;
 
     /**
      * @brief Sets a geometry attribute.

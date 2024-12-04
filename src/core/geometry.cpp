@@ -13,14 +13,14 @@ auto Geometry::SetAttribute(const GeometryAttribute &attribute) -> void {
     attributes_.emplace_back(attribute);
 }
 
-auto Geometry::VertexCount() const -> int {
+auto Geometry::VertexCount() const -> size_t {
     if (vertex_data_.empty() || attributes_.empty()) {
         return 0;
     }
     return vertex_data_.size() / Stride();
 }
 
-auto Geometry::Stride() const -> int {
+auto Geometry::Stride() const -> size_t {
     return std::accumulate(begin(attributes_), end(attributes_), 0,
         [](auto sum, const auto& attr){
             return sum + attr.item_size;

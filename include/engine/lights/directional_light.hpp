@@ -5,6 +5,7 @@
 
 #include "lights/light.hpp"
 
+#include "engine/scene/mesh.hpp"
 #include "engine/math/vector3.hpp"
 
 #include <memory>
@@ -77,7 +78,12 @@ public:
     ~DirectionalLight() override = default;
 
 private:
-    auto UpdateDebugMesh() -> void;
+    /// @brief The debug mesh used to visualize the direction of the light.
+    std::shared_ptr<Mesh> debug_mesh_line_;
+    /// @brief The debug mesh used to visualize the position of the light.
+    std::shared_ptr<Mesh> debug_mesh_plane_;
+
+    auto CreateDebugMesh() -> void;
 };
 
 }

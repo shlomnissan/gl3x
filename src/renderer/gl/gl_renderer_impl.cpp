@@ -68,9 +68,13 @@ auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> 
             program->Use();
             program->UpdateUniforms();
 
-            auto primitive = geometry->primitive == GeometryPrimitiveType::Triangles
-                ? GL_TRIANGLES
-                : GL_LINES;
+            auto primitive = GL_TRIANGLES;
+            if (geometry->primitive == GeometryPrimitiveType::Lines) {
+                primitive = GL_LINES;
+            }
+            if (geometry->primitive == GeometryPrimitiveType::LineLoop) {
+                primitive = GL_LINE_LOOP;
+            }
 
             if (geometry->IndexData().empty()) {
                 glDrawArrays(primitive, 0, geometry->VertexCount());
