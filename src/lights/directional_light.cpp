@@ -3,13 +3,6 @@
 
 #include "engine/lights/directional_light.hpp"
 
-#include "engine/core/geometry.hpp"
-#include "engine/geometry/plane_geometry.hpp"
-#include "engine/materials/flat_material.hpp"
-#include "engine/scene/mesh.hpp"
-
-#include <vector>
-
 namespace engine {
 
 auto DirectionalLight::Update(float delta) -> void {
@@ -22,6 +15,7 @@ auto DirectionalLight::Update(float delta) -> void {
             ? target->GetWorldPosition()
             : Vector3::Zero();
 
+        debug_mesh_material_->color = color;
 
         debug_mesh_plane_->LookAt(target_world_pos);
         debug_mesh_line_->LookAt(target_world_pos);
@@ -42,15 +36,15 @@ auto DirectionalLight::CreateDebugMesh() -> void {
     using enum GeometryAttributeType;
     using enum GeometryPrimitiveType;
 
-    auto material = FlatMaterial::Create();
-    material->cull_backfaces = false;
-    material->color = color;
-    material->wireframe = true;
+    debug_mesh_material_ = FlatMaterial::Create();
+    debug_mesh_material_->cull_backfaces = false;
+    debug_mesh_material_->color = color;
+    debug_mesh_material_->wireframe = true;
 
     debug_mesh_line_ = Mesh::Create(Geometry::Create({
         0, 0, 0,
         0, 0, 1
-    }), material);
+    }), debug_mesh_material_);
     debug_mesh_line_->GetGeometry()->SetAttribute({Position, 3});
     debug_mesh_line_->GetGeometry()->primitive = Lines;
     debug_mesh_line_->transformAutoUpdate = false;
@@ -61,7 +55,7 @@ auto DirectionalLight::CreateDebugMesh() -> void {
          1,  1, 0,
          1, -1, 0,
         -1, -1, 0
-    }), material);
+    }), debug_mesh_material_);
     debug_mesh_plane_->GetGeometry()->SetAttribute({Position, 3});
     debug_mesh_plane_->GetGeometry()->primitive = LineLoop;
     debug_mesh_plane_->transformAutoUpdate = false;

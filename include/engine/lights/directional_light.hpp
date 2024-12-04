@@ -5,8 +5,9 @@
 
 #include "lights/light.hpp"
 
-#include "engine/scene/mesh.hpp"
+#include "engine/materials/flat_material.hpp"
 #include "engine/math/vector3.hpp"
+#include "engine/scene/mesh.hpp"
 
 #include <memory>
 
@@ -82,6 +83,8 @@ private:
     std::shared_ptr<Mesh> debug_mesh_line_;
     /// @brief The debug mesh used to visualize the position of the light.
     std::shared_ptr<Mesh> debug_mesh_plane_;
+    /// @brief The material used for the debug mesh.
+    std::shared_ptr<FlatMaterial> debug_mesh_material_;
 
     auto CreateDebugMesh() -> void;
 };
