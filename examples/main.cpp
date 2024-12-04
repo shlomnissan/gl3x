@@ -71,9 +71,11 @@ public:
             ImGuiWindowFlags_NoMove
         );
             if (ImGui::BeginListBox("##ListBox", {234, 0})) {
-                ImGui::Selectable("Flat Color");
+                ImGui::Selectable("Flat Material");
+                ImGui::Selectable("Phong Material");
                 ImGui::Separator();
                 ImGui::Selectable("Directional Light");
+                ImGui::Selectable("Point Light");
                 ImGui::EndListBox();
             }
 

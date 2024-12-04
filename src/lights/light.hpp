@@ -27,18 +27,15 @@ public:
 
     float intensity;
 
-    bool debug_mode {false};
+    bool debug_mode_enabled {false};
 
     Light(Color color = {0xffffff}, float intensity = 1.0f)
         : color(color), intensity(intensity) {}
 
     [[nodiscard]] virtual auto Type() const -> LightType = 0;
 
-    virtual auto SetDebugMode(bool enabled) -> void {
-        debug_mode = enabled;
-        if (!debug_mode) {
-            RemoveAllChildren();
-        }
+    virtual auto SetDebugMode(bool is_debug_mode) -> void {
+        debug_mode_enabled = is_debug_mode;
     }
 
     ~Light() override = default;

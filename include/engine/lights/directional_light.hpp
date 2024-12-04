@@ -60,6 +60,13 @@ public:
     }
 
     /**
+     * @brief Enables or disables the debug mode for the light.
+     *
+     * @param is_debug_mode A flag indicating whether debug mode should be enabled.
+     */
+    auto SetDebugMode(bool is_debug_mode) -> void override;
+
+    /**
      * @brief Retrieves the direction of the light based on the light's target.
      *
      * @return The direction of the light.

@@ -3,6 +3,8 @@
 
 #include "renderer/gl/gl_buffers.hpp"
 
+#include "engine/core/logger.hpp"
+
 namespace engine {
 
 #define BUFFER_OFFSET(offset) ((void*)(offset * sizeof(GLfloat)))
@@ -71,6 +73,7 @@ auto GLBuffers::GenerateBuffers(const Geometry* geometry, GLBufferState& state) 
 
 auto GLBuffers::GeometryCallbacks(Geometry* geometry) -> void {
     geometry->OnDispose([this](Disposable* target){
+        Logger::Log(LogLevel::Error, "Geometry buffer cleared {}", *static_cast<Geometry*>(target));
         auto& uuid = static_cast<Geometry*>(target)->UUID();
         auto& state = this->bindings_[uuid];
         glDeleteBuffers(state.buffers.size(), state.buffers.data());

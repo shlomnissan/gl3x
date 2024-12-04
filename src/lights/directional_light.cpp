@@ -6,11 +6,7 @@
 namespace engine {
 
 auto DirectionalLight::Update(float delta) -> void {
-    if (debug_mode) {
-        if (debug_mesh_line_ == nullptr || debug_mesh_plane_ == nullptr) {
-            CreateDebugMesh();
-        }
-
+    if (debug_mode_enabled) {
         const auto target_world_pos = target != nullptr
             ? target->GetWorldPosition()
             : Vector3::Zero();
@@ -22,6 +18,20 @@ auto DirectionalLight::Update(float delta) -> void {
 
         const auto length = (target_world_pos - GetWorldPosition()).Length();
         debug_mesh_line_->transform.Scale({1.0f, 1.0f, length});
+    }
+}
+
+auto DirectionalLight::SetDebugMode(bool is_debug_mode) -> void {
+    if (debug_mode_enabled != is_debug_mode) {
+        if (is_debug_mode) {
+            CreateDebugMesh();
+        } else {
+            Remove(debug_mesh_line_);
+            Remove(debug_mesh_plane_);
+            debug_mesh_line_.reset();
+            debug_mesh_plane_.reset();
+        }
+        debug_mode_enabled = is_debug_mode;
     }
 }
 
@@ -45,6 +55,7 @@ auto DirectionalLight::CreateDebugMesh() -> void {
         0, 0, 0,
         0, 0, 1
     }), debug_mesh_material_);
+    debug_mesh_line_->GetGeometry()->SetName("directional light line");
     debug_mesh_line_->GetGeometry()->SetAttribute({Position, 3});
     debug_mesh_line_->GetGeometry()->primitive = Lines;
     debug_mesh_line_->transformAutoUpdate = false;
@@ -56,6 +67,7 @@ auto DirectionalLight::CreateDebugMesh() -> void {
          1, -1, 0,
         -1, -1, 0
     }), debug_mesh_material_);
+    debug_mesh_plane_->GetGeometry()->SetName("directional light plane");
     debug_mesh_plane_->GetGeometry()->SetAttribute({Position, 3});
     debug_mesh_plane_->GetGeometry()->primitive = LineLoop;
     debug_mesh_plane_->transformAutoUpdate = false;
