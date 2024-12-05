@@ -11,6 +11,7 @@
 namespace engine {
     Grid::Grid(int dimensions) {
         mesh_ = Mesh::Create(CreateGeometry(dimensions), FlatMaterial::Create(0x404040));
+        mesh_->GetGeometry()->SetName("grid");
         Add(mesh_);
     }
 

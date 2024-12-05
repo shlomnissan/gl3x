@@ -25,7 +25,7 @@ public:
      * @param intensity The intensity of the light.
      */
     AmbientLight(Color color = {0xffffff}, float intensity = 1.0f) : Light(color, intensity) {
-        SetName("Ambient Light");
+        SetName("ambient light");
     }
 
     /**

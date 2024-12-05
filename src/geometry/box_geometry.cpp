@@ -15,6 +15,8 @@ BoxGeometry::BoxGeometry(const Parameters& params) {
     assert(params.height_segments > 0);
     assert(params.depth_segments > 0);
 
+    SetName("box");
+
     BuildPlane({
         'z', 'y', 'x', -1, -1,
         params.depth, params.height, params.width,

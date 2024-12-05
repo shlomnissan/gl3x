@@ -13,6 +13,8 @@ PlaneGeometry::PlaneGeometry(const Parameters& params) {
     assert(params.width_segments > 0);
     assert(params.height_segments > 0);
 
+    SetName("box");
+
     GenerateGeometry(params);
     SetAttributes();
 }
