@@ -5,14 +5,10 @@
 #include <engine/geometry/box_geometry.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
-#include <engine/core/timer.hpp>
 
-#include <engine/math/utilities.hpp>
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
-
-#include <cmath>
 
 #include <imgui.h>
 
@@ -23,44 +19,33 @@ public:
     auto Configure() -> void override{
         params.width = 1024;
         params.height = 768;
-        params.antialiasing = 0;
+        params.antialiasing = 4;
     }
 
     auto Setup() -> void override {
         ApplicationContext::Setup();
 
         window->SetTitle("Examples");
-        renderer->SetClearColor(0x5C5C5C);
+        renderer->SetClearColor(0x000080);
 
         scene = Scene::Create();
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
-        camera->transform.Translate({0.0f, 0.0f, 4.0f});
+        camera->transform.Translate({0.0f, 0.0f, 3.0f});
 
-        const auto initial_orientation = Euler {{.pitch = math::DegToRad(25.0f), .yaw = math::DegToRad(-45.0f)}};
-        const auto camera_controls = CameraOrbit::Create(camera, initial_orientation);
+        const auto camera_controls = CameraOrbit::Create(camera);
         scene->Add(camera_controls);
-
-        auto grid = Grid::Create(20.0f);
-        scene->Add(grid);
 
         auto geometry = BoxGeometry::Create({});
         auto material = PhongMaterial::Create();
-        material->texture_map = Texture2D::Create("assets/checker.png");
+        material->color = 0x47A8BD;
         mesh_ = Mesh::Create(geometry, material);
 
         scene->Add(mesh_);
-
-        auto ambient_light = AmbientLight::Create(0xffffff, 0.2f);
-        scene->Add(ambient_light);
 
         auto directional_light = DirectionalLight::Create(0xffffff, 1.0f);
         directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
         directional_light->SetDebugMode(true);
         scene->Add(directional_light);
-
-        directional_light->target = mesh_;
-
-        timer_.Start();
     }
 
     auto Update(float delta) -> bool override {
@@ -80,17 +65,13 @@ public:
             }
 
         ImGui::End();
-
-        auto velocity = static_cast<float>(std::cos(timer_.GetElapsedSeconds()));
-        mesh_->transform.Translate({0.0f, 0.0f, velocity * delta});
+        mesh_->transform.Rotate(Vector3::Up(), 0.007f);
 
         return true;
     }
 
 private:
     std::shared_ptr<Mesh> mesh_;
-
-    Timer timer_;
 };
 
 auto main() -> int {
