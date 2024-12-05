@@ -23,14 +23,13 @@ enum class LightType {
 
 class ENGINE_EXPORT Light : public Node {
 public:
-    Color color;
+    Color color {0xffffff};
 
-    float intensity;
+    float intensity {1.0f};
 
     bool debug_mode_enabled {false};
 
-    Light(Color color = {0xffffff}, float intensity = 1.0f)
-        : color(color), intensity(intensity) {}
+    Light(Color color, float intensity) : color(color), intensity(intensity) {}
 
     [[nodiscard]] virtual auto Type() const -> LightType = 0;
 

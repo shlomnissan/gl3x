@@ -10,44 +10,50 @@
 namespace engine {
 
 /**
- * @brief A light that gets emitted in all directions.
+ * @brief A light that gets emitted from a single point in all directions.
  */
-class AmbientLight : public Light {
+class PointLight : public Light {
 public:
+    /// @brief The amount the light dims along the distance of the light.
+    float decay {2.0f};
+
+    /// @brief Maximum range of the light.
+    float distance {0.0f};
+
     /**
-     * @brief Constructs a new AmbientLight instance.
+     * @brief Constructs a new PointLight instance.
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
      */
-    AmbientLight(Color color, float intensity) : Light(color, intensity) {
-        SetName("ambient light");
+    PointLight(Color color, float intensity) : Light(color, intensity) {
+        SetName("point light");
     }
 
     /**
-     * @brief Creates a new AmbientLight instance.
+     * @brief Creates a new PointLight instance.
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
-     * @return A shared pointer to the created AmbientLight.
+     * @return A shared pointer to the created PointLight.
      */
     [[nodiscard]] static auto Create(Color color = {0xffffff}, float intensity = 1.0f) {
-        return std::make_shared<AmbientLight>(color, intensity);
+        return std::make_shared<PointLight>(color, intensity);
     }
 
     /**
      * @brief Retrieves the type of the light.
      *
-     * @return LightType::Ambient.
+     * @return LightType::Point.
      */
     [[nodiscard]] auto Type() const -> LightType override {
-        return LightType::Ambient;
+        return LightType::Point;
     }
 
     /**
      * @brief Default destructor.
      */
-    ~AmbientLight() override = default;
+    ~PointLight() override = default;
 };
 
 }

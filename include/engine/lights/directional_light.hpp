@@ -15,10 +15,6 @@ namespace engine {
 
 /**
  * @brief A light that gets emitted in a specific direction.
- *
- * This light behaves as though it is infinitely far away, producing parallel
- * rays. Commonly used to simulate daylight, as the sun is far enough away
- * that its position can be considered infinite, and all light rays are parallel.
  */
 class DirectionalLight : public Light {
 public:
@@ -35,7 +31,7 @@ public:
      * @param color The color of the light.
      * @param intensity The intensity of the light.
      */
-    DirectionalLight(Color color = {0xffffff}, float intensity = 1.0f) : Light(color, intensity) {
+    DirectionalLight(Color color, float intensity) : Light(color, intensity) {
         SetName("directional light");
     }
 
