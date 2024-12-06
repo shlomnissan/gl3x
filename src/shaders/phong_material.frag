@@ -9,11 +9,6 @@ precision highp float;
 
 layout (location = 0) out vec4 v_FragColor;
 
-struct DirectionalLight {
-    vec4 Direction;
-    vec4 Color;
-};
-
 struct PhongMaterial {
     vec3 DiffuseColor;
     vec3 SpecularColor;
@@ -21,8 +16,8 @@ struct PhongMaterial {
 };
 
 in vec2 v_TexCoord;
-in vec3 v_Position;
 in vec3 v_Normal;
+in vec4 v_Position;
 
 uniform vec4 u_AmbientLight;
 uniform vec4 u_Diffuse;
@@ -31,15 +26,26 @@ uniform float u_Shininess;
 uniform sampler2D u_TextureMap;
 
 #if NUM_DIR_LIGHTS > 0
+    struct DirectionalLight {
+        vec3 Direction;
+        vec4 Color;
+    };
+
     uniform DirectionalLight u_DirectionalLights[NUM_DIR_LIGHTS];
 #endif
 
-vec3 phongShading(
-    const in vec3 light_dir,
-    const in vec3 light_color,
-    const in PhongMaterial material
-) {
-    float diffuse_factor = max(dot(light_dir, v_Normal), 0.0);
+#if NUM_POINT_LIGHTS > 0
+    struct PointLight {
+        vec4 Position;
+        vec4 Color;
+    };
+
+    uniform PointLight u_PointLights[NUM_POINT_LIGHTS];
+#endif
+
+vec3 phongShading(const in vec3 light_dir, const in vec3 light_color, const in PhongMaterial material) {
+    vec3 normal = normalize(v_Normal);
+    float diffuse_factor = max(dot(light_dir, normal), 0.0);
     vec3 diffuse = light_color * material.DiffuseColor * diffuse_factor;
     vec3 specular = vec3(0.0);
 
@@ -49,7 +55,7 @@ vec3 phongShading(
         vec3 view_dir = normalize(-v_Position.xyz);
         vec3 halfway = normalize(light_dir + view_dir);
         specular = light_color * material.SpecularColor *
-            pow(max(dot(halfway, v_Normal), 0.0), material.Shininess);
+            pow(max(dot(halfway, normal), 0.0), material.Shininess);
     }
 
     return diffuse + specular;
@@ -71,7 +77,17 @@ void main() {
     #if NUM_DIR_LIGHTS > 0
         for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
             DirectionalLight light = u_DirectionalLights[i];
-            v_FragColor += vec4(phongShading(vec3(light.Direction), light.Color.rgb, material), 1.0);
+            v_FragColor += vec4(phongShading(light.Direction, light.Color.rgb, material), 1.0);
         }
     #endif
+
+    #if NUM_POINT_LIGHTS > 0
+        for (int i = 0; i < NUM_POINT_LIGHTS; i++) {
+            PointLight light = u_PointLights[i];
+            vec3 light_dir = normalize(light.Position.xyz - v_Position.xyz);
+            v_FragColor += vec4(phongShading(light_dir.xyz, light.Color.rgb, material), 1.0);
+        }
+    #endif
+
+    v_FragColor = clamp(v_FragColor, 0.0, 1.0);
 }

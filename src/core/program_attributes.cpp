@@ -32,11 +32,12 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
 
     for (auto weak_light : scene->Lights()) {
         if (auto light = weak_light.lock()) {
+            using enum LightType;
             switch (light->Type()) {
-                case LightType::Ambient: /* noop */ break;
-                case LightType::Directional: directional_lights++; break;
-                case LightType::Point: point_lights++; break;
-                case LightType::Spotlight: spot_lights++; break;
+                case Ambient: /* noop */ break;
+                case Directional: directional_lights++; break;
+                case Point: point_lights++; break;
+                case Spotlight: spot_lights++; break;
                 default: Logger::Log(LogLevel::Error, "Unknown light type"); break;
             }
         }

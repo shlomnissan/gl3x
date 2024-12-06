@@ -29,7 +29,12 @@ public:
      */
     auto ProcessUpdates(float delta) -> void;
 
-    const auto Lights() const { return lights_; }
+    /**
+     * @brief Retrieves a vector of lights in the scene.
+     *
+     * @return A vector of weak pointers to lights in the scene.
+     */
+    [[nodiscard]] const auto Lights() const { return lights_; }
 
     /**
      * @brief Creates a new instance of the Scene class.

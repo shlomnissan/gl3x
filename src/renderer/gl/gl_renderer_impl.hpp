@@ -14,7 +14,7 @@ namespace engine {
 
 class Renderer::Impl {
 public:
-    Impl(const Renderer::Parameters& params);
+    explicit Impl(const Renderer::Parameters& params);
 
     Impl(const Impl&) = delete;
     Impl(Impl&&) = delete;
@@ -40,7 +40,7 @@ private:
 
     auto SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, Camera* camera) -> void;
 
-    auto UpdateLights(const Scene* scene, GLProgram* program, Camera* camera) const -> void;
+    auto UpdateLights(const Scene* scene, GLProgram* program, const Camera* camera) const -> void;
 
     [[nodiscard]] auto IsValidMesh(Mesh* mesh) const -> bool;
 };

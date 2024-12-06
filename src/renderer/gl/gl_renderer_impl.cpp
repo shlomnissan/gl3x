@@ -125,9 +125,10 @@ auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& at
     }
 }
 
-auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, Camera* camera) const -> void {
+auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const Camera* camera) const -> void {
     auto ambient_light = Color {0.0f, 0.0f, 0.0f};
-    auto dir_index = 0;
+    auto directional_idx = 0;
+    auto point_idx = 0;
 
     for (auto weak_light : scene->Lights()) {
         if (auto light = weak_light.lock()) {
@@ -141,11 +142,21 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, Camera
             }
 
             if (auto directional = light->As<DirectionalLight>()) {
-                const auto u_name = fmt::format("u_DirectionalLights[{}]", dir_index++);
+                const auto u_name = fmt::format("u_DirectionalLights[{}]", directional_idx);
                 const auto u_dir = camera->view_transform * Vector4(directional->Direction(), 0.0f);
                 const auto u_color = directional->color * directional->intensity;
-                program->SetUniform(u_name + ".Direction", u_dir);
+                program->SetUniform(u_name + ".Direction", Vector3(u_dir));
                 program->SetUniform(u_name + ".Color", u_color);
+                directional_idx++;
+            }
+
+            if (auto point = light->As<PointLight>()) {
+                const auto u_name = fmt::format("u_PointLights[{}]", point_idx);
+                const auto u_pos = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
+                const auto u_color = point->color * point->intensity;
+                program->SetUniform(u_name + ".Position", u_pos);
+                program->SetUniform(u_name + ".Color", u_color);
+                point_idx++;
             }
         }
     }

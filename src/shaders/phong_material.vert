@@ -15,12 +15,12 @@ uniform mat4 u_Projection;
 
 out vec2 v_TexCoord;
 out vec3 v_Normal;
-out vec3 v_Position;
+out vec4 v_Position;
 
 void main() {
     v_TexCoord = a_TexCoord;
     v_Normal = normalize(u_NormalMatrix * a_Normal);
-    v_Position = (u_ModelView * vec4(a_Position, 1.0)).xyz;
+    v_Position = u_ModelView * vec4(a_Position, 1.0);
 
-    gl_Position = u_Projection * vec4(v_Position, 1.0);
+    gl_Position = u_Projection * v_Position;
 }

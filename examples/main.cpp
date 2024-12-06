@@ -19,7 +19,7 @@ public:
     auto Configure() -> void override{
         params.width = 1024;
         params.height = 768;
-        params.antialiasing = 4;
+        params.antialiasing = 0;
     }
 
     auto Setup() -> void override {
@@ -37,15 +37,14 @@ public:
 
         auto geometry = BoxGeometry::Create({});
         auto material = PhongMaterial::Create();
-        material->color = 0x47A8BD;
         mesh_ = Mesh::Create(geometry, material);
 
         scene->Add(mesh_);
 
-        auto directional_light = DirectionalLight::Create(0xffffff, 1.0f);
-        directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
-        directional_light->SetDebugMode(true);
-        scene->Add(directional_light);
+        auto point_light = PointLight::Create(0xf00ff0, 1.0f);
+        point_light->transform.Translate({2.0f, 2.0f, 2.0f});
+        point_light->SetDebugMode(true);
+        scene->Add(point_light);
     }
 
     auto Update(float delta) -> bool override {
