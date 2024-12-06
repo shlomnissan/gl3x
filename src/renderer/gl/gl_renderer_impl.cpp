@@ -156,6 +156,8 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
                 const auto u_color = point->color * point->intensity;
                 program->SetUniform(u_name + ".Position", u_pos);
                 program->SetUniform(u_name + ".Color", u_color);
+                program->SetUniform(u_name + ".Distance", point->distance);
+                program->SetUniform(u_name + ".Decay", point->decay);
                 point_idx++;
             }
         }

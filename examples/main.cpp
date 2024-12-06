@@ -37,6 +37,7 @@ public:
 
         auto geometry = BoxGeometry::Create({});
         auto material = PhongMaterial::Create();
+        material->color = 0x47A8BD;
         mesh_ = Mesh::Create(geometry, material);
 
         scene->Add(mesh_);

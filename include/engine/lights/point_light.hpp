@@ -15,7 +15,7 @@ namespace engine {
 class PointLight : public Light {
 public:
     /// @brief The amount the light dims along the distance of the light.
-    float decay {2.0f};
+    float decay {1.0f};
 
     /// @brief Maximum range of the light.
     float distance {0.0f};
