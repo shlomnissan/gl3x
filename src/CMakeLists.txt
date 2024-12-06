@@ -60,8 +60,9 @@ set(SOURCE_CODE
 )
 
 set(PUBLIC_HEADERS
+    "${PUBLIC_HEADERS_DIR}/geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/lights.hpp"
-    "${PUBLIC_HEADERS_DIR}/materials/materials.hpp"
+    "${PUBLIC_HEADERS_DIR}/materials.hpp"
     "${PUBLIC_HEADERS_DIR}/resources.hpp"
 
     "${PUBLIC_HEADERS_DIR}/core/application_context.hpp"

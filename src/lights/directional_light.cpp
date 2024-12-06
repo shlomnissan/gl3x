@@ -5,20 +5,11 @@
 
 namespace engine {
 
-auto DirectionalLight::Update(float delta) -> void {
-    if (debug_mode_enabled) {
-        const auto target_world_pos = target != nullptr
-            ? target->GetWorldPosition()
-            : Vector3::Zero();
-
-        debug_mesh_material_->color = color;
-
-        debug_mesh_plane_->LookAt(target_world_pos);
-        debug_mesh_line_->LookAt(target_world_pos);
-
-        const auto length = (target_world_pos - GetWorldPosition()).Length();
-        debug_mesh_line_->transform.Scale({1.0f, 1.0f, length});
+auto DirectionalLight::Direction() -> Vector3 {
+    if (target != nullptr) {
+        return Normalize(GetWorldPosition() - target->GetWorldPosition());
     }
+    return Normalize(GetWorldPosition());
 }
 
 auto DirectionalLight::SetDebugMode(bool is_debug_mode) -> void {
@@ -35,11 +26,21 @@ auto DirectionalLight::SetDebugMode(bool is_debug_mode) -> void {
     }
 }
 
-auto DirectionalLight::Direction() -> Vector3 {
-    if (target != nullptr) {
-        return Normalize(GetWorldPosition() - target->GetWorldPosition());
+auto DirectionalLight::Update(float delta) -> void {
+    if (debug_mode_enabled) {
+        const auto target_world_pos = target != nullptr
+            ? target->GetWorldPosition()
+            : Vector3::Zero();
+
+        debug_mesh_material_->color = color;
+
+        debug_mesh_plane_->LookAt(target_world_pos);
+        debug_mesh_line_->LookAt(target_world_pos);
+
+        const auto length = (target_world_pos - GetWorldPosition()).Length();
+        debug_mesh_plane_->transform.Scale(debug_mesh_size);
+        debug_mesh_line_->transform.Scale({1.0f, 1.0f, length});
     }
-    return Normalize(GetWorldPosition());
 }
 
 auto DirectionalLight::CreateDebugMesh() -> void {

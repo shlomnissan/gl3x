@@ -2,10 +2,10 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include <engine/core/application_context.hpp>
-#include <engine/geometry/box_geometry.hpp>
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
 
+#include <engine/geometry.hpp>
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>

@@ -25,6 +25,9 @@ public:
      */
     std::shared_ptr<Node> target {nullptr};
 
+    /// @brief The size of the debug mesh used to visualize the position of the light.
+    float debug_mesh_size {1.0f};
+
     /**
      * @brief Constructs a new DirectionalLight instance.
      *
@@ -56,18 +59,18 @@ public:
     }
 
     /**
-     * @brief Enables or disables the debug mode for the light.
-     *
-     * @param is_debug_mode A flag indicating whether debug mode should be enabled.
-     */
-    auto SetDebugMode(bool is_debug_mode) -> void override;
-
-    /**
      * @brief Retrieves the direction of the light based on the light's target.
      *
      * @return The direction of the light.
      */
     [[nodiscard]] auto Direction() -> Vector3;
+
+    /**
+     * @brief Enables or disables the debug mode for the light.
+     *
+     * @param is_debug_mode A flag indicating whether debug mode should be enabled.
+     */
+    auto SetDebugMode(bool is_debug_mode) -> void override;
 
     /**
      * @brief Invoked when the node is updated.
@@ -89,6 +92,9 @@ private:
     /// @brief The material used for the debug mesh.
     std::shared_ptr<FlatMaterial> debug_mesh_material_;
 
+    /**
+     * @brief Creates the debug mesh and material for the light.
+     */
     auto CreateDebugMesh() -> void;
 };
 
