@@ -4,8 +4,8 @@ set(SOURCE_CODE
     "core/application_context.cpp"
     "core/disposable.hpp"
     "core/event.hpp"
-    "core/event_dispatcher.hpp"
     "core/event_dispatcher.cpp"
+    "core/event_dispatcher.hpp"
     "core/geometry.cpp"
     "core/identity.hpp"
     "core/image.hpp"
@@ -20,6 +20,7 @@ set(SOURCE_CODE
     "core/window_impl.cpp"
     "core/window_impl.hpp"
     "geometries/box_geometry.cpp"
+    "geometries/cylinder_geometry.cpp"
     "geometries/plane_geometry.cpp"
     "lights/directional_light.cpp"
     "lights/light.hpp"
@@ -60,11 +61,6 @@ set(SOURCE_CODE
 )
 
 set(PUBLIC_HEADERS
-    "${PUBLIC_HEADERS_DIR}/geometries.hpp"
-    "${PUBLIC_HEADERS_DIR}/lights.hpp"
-    "${PUBLIC_HEADERS_DIR}/materials.hpp"
-    "${PUBLIC_HEADERS_DIR}/resources.hpp"
-
     "${PUBLIC_HEADERS_DIR}/core/application_context.hpp"
     "${PUBLIC_HEADERS_DIR}/core/geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/core/logger.hpp"
@@ -72,6 +68,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"
     "${PUBLIC_HEADERS_DIR}/geometries/box_geometry.hpp"
+    "${PUBLIC_HEADERS_DIR}/geometries/cylinder_geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/geometries/plane_geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/lights/ambient_light.hpp"
     "${PUBLIC_HEADERS_DIR}/lights/directional_light.hpp"
@@ -96,6 +93,13 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/scene/node.hpp"
     "${PUBLIC_HEADERS_DIR}/scene/scene.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture_2d.hpp"
+)
+
+set(HEADER_BUNDLES
+    "${PUBLIC_HEADERS_DIR}/geometries.hpp"
+    "${PUBLIC_HEADERS_DIR}/lights.hpp"
+    "${PUBLIC_HEADERS_DIR}/materials.hpp"
+    "${PUBLIC_HEADERS_DIR}/resources.hpp"
 )
 
 set(EXTERNAL_SOURCES
