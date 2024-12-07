@@ -3,5 +3,5 @@
 
 #pragma once
 
-#include "engine/geometry/box_geometry.hpp"
-#include "engine/geometry/plane_geometry.hpp"
+#include "engine/geometries/box_geometry.hpp"
+#include "engine/geometries/plane_geometry.hpp"

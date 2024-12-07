@@ -19,8 +19,8 @@ set(SOURCE_CODE
     "core/window.cpp"
     "core/window_impl.cpp"
     "core/window_impl.hpp"
-    "geometry/box_geometry.cpp"
-    "geometry/plane_geometry.cpp"
+    "geometries/box_geometry.cpp"
+    "geometries/plane_geometry.cpp"
     "lights/directional_light.cpp"
     "lights/light.hpp"
     "lights/point_light.cpp"
@@ -60,7 +60,7 @@ set(SOURCE_CODE
 )
 
 set(PUBLIC_HEADERS
-    "${PUBLIC_HEADERS_DIR}/geometry.hpp"
+    "${PUBLIC_HEADERS_DIR}/geometries.hpp"
     "${PUBLIC_HEADERS_DIR}/lights.hpp"
     "${PUBLIC_HEADERS_DIR}/materials.hpp"
     "${PUBLIC_HEADERS_DIR}/resources.hpp"
@@ -71,8 +71,8 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/renderer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"
-    "${PUBLIC_HEADERS_DIR}/geometry/box_geometry.hpp"
-    "${PUBLIC_HEADERS_DIR}/geometry/plane_geometry.hpp"
+    "${PUBLIC_HEADERS_DIR}/geometries/box_geometry.hpp"
+    "${PUBLIC_HEADERS_DIR}/geometries/plane_geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/lights/ambient_light.hpp"
     "${PUBLIC_HEADERS_DIR}/lights/directional_light.hpp"
     "${PUBLIC_HEADERS_DIR}/lights/point_light.hpp"

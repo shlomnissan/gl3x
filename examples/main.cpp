@@ -5,7 +5,7 @@
 #include <engine/scene/camera_perspective.hpp>
 #include <engine/scene/mesh.hpp>
 
-#include <engine/geometry.hpp>
+#include <engine/geometries.hpp>
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>

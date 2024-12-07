@@ -3,7 +3,7 @@
 
 #include "engine/lights/point_light.hpp"
 
-#include "engine/geometry/box_geometry.hpp"
+#include "engine/geometries/box_geometry.hpp"
 
 namespace engine {
 
