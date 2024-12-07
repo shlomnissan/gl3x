@@ -36,13 +36,12 @@ public:
     explicit BoxGeometry(const Parameters& params);
 
     /**
-     * @brief Creates a shared pointer to a BoxGeometry object with the specified parameters.
+     * @brief Creates a shared pointer to a BoxGeometry object with the given parameters.
      *
      * @param params Parameters defining the size and segmentation of the box.
      * @return std::shared_ptr<BoxGeometry> A shared pointer to the newly created object.
      */
-    [[nodiscard]]
-    static auto Create(const Parameters& params){
+    [[nodiscard]] static auto Create(const Parameters& params){
         return std::make_shared<BoxGeometry>(params);
     }
 
