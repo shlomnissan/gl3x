@@ -56,12 +56,21 @@ public:
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove
         );
-            if (ImGui::BeginListBox("##ListBox", {234, 0})) {
+            if (ImGui::BeginListBox("##ListBox", {234, 188})) {
                 ImGui::Selectable("Flat Material");
                 ImGui::Selectable("Phong Material");
                 ImGui::Separator();
+                ImGui::Selectable("Plane Geometry");
+                ImGui::Selectable("Box Geometry");
+                ImGui::Selectable("Cylinder Geometry");
+                ImGui::Separator();
                 ImGui::Selectable("Directional Light");
                 ImGui::Selectable("Point Light");
+                ImGui::Separator();
+                ImGui::Selectable("2D Texture");
+                ImGui::Separator();
+                ImGui::Selectable("Orbit Camera");
+                ImGui::Selectable("Grid");
                 ImGui::EndListBox();
             }
 
