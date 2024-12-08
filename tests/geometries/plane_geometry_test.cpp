@@ -24,8 +24,8 @@ protected:
 TEST_F(PlaneGeometryTest, ConstructorInitializesVertexData) {
     const auto& verts = plane_.VertexData();
 
-    // 9 attributes, 8 vertices
-    EXPECT_EQ(verts.size(), 9 * 8);
+    // 8 attributes, 9 vertices
+    EXPECT_EQ(verts.size(), 8 * 9);
 }
 
 TEST_F(PlaneGeometryTest, ConstructorInitializesIndexData) {
@@ -45,13 +45,10 @@ TEST_F(PlaneGeometryTest, AttributesConfiguredCorrectly) {
     const auto& attrs = plane_.Attributes();
 
     EXPECT_EQ(attrs.size(), 3);
-
     EXPECT_EQ(attrs[0].type, Position);
     EXPECT_EQ(attrs[0].item_size, 3u);
-
     EXPECT_EQ(attrs[1].type, Normal);
     EXPECT_EQ(attrs[1].item_size, 3u);
-
     EXPECT_EQ(attrs[2].type, UV);
     EXPECT_EQ(attrs[2].item_size, 2u);
 }

@@ -67,20 +67,11 @@ auto PlaneGeometry::GenerateGeometry(const Parameters& params) -> void {
 }
 
 auto PlaneGeometry::SetAttributes() -> void {
-    SetAttribute({
-        .type = GeometryAttributeType::Position,
-        .item_size = 3
-    });
+    using enum GeometryAttributeType;
 
-    SetAttribute({
-        .type = GeometryAttributeType::Normal,
-        .item_size = 3
-    });
-
-    SetAttribute({
-        .type = GeometryAttributeType::UV,
-        .item_size = 2
-    });
+    SetAttribute({.type = Position, .item_size = 3});
+    SetAttribute({.type = Normal, .item_size = 3});
+    SetAttribute({.type = UV, .item_size = 2});
 }
 
 }
