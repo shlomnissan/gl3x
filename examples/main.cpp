@@ -35,15 +35,16 @@ public:
         const auto camera_controls = CameraOrbit::Create(camera);
         scene->Add(camera_controls);
 
-        auto geometry = BoxGeometry::Create({});
+        auto geometry = CylinderGeometry::Create({});
         auto material = PhongMaterial::Create();
         material->color = 0x47A8BD;
+        material->cull_backfaces = false;
         mesh_ = Mesh::Create(geometry, material);
 
         scene->Add(mesh_);
 
         auto point_light = PointLight::Create(0xf00ff0, 1.0f);
-        point_light->transform.Translate({2.0f, 2.0f, 2.0f});
+        point_light->transform.Translate({3.0f, 3.0f, 3.0f});
         point_light->SetDebugMode(true);
         scene->Add(point_light);
     }

@@ -19,9 +19,9 @@ public:
      * @brief Structure containing parameters for the cylinder geometry.
      */
     struct Paramaters {
-        float radius_top {1};               ///< Radius of the cylinder.
-        float radius_bottom {1};            ///< Height of the cylinder.
-        float height {1};                   ///< Height of the cylinder.
+        float radius_top {1.0f};            ///< Radius of the cylinder.
+        float radius_bottom {1.0f};         ///< Height of the cylinder.
+        float height {1.0f};                ///< Height of the cylinder.
         unsigned int radial_segments {32};  ///< Number of segments along the radius.
         unsigned int height_segments {1};   ///< Number of segments along the height.
         bool open_ended {false};            ///< Whether the cylinder is open ended.
@@ -47,8 +47,10 @@ public:
 private:
     /**
      * @brief Generates the torso of the cylinder geometry.
+     *
+     * @param params Parameters defining the size and segmentation of the cylinder.
      */
-    auto GenerateTorso() -> void;
+    auto GenerateTorso(const Paramaters& params) -> void;
 
     /**
      * @brief Generates the cap of the cylinder geometry.
