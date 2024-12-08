@@ -5,8 +5,9 @@
 
 #include "engine/core/renderer.hpp"
 #include "engine/core/window.hpp"
-#include "engine/scene/camera.hpp"
-#include "engine/scene/scene.hpp"
+#include "engine/nodes/scene.hpp"
+
+#include "nodes/camera.hpp"
 
 #include <memory>
 

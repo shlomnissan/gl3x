@@ -6,8 +6,8 @@
 #include "engine_export.h"
 
 #include "engine/math/color.hpp"
-#include "engine/scene/mesh.hpp"
-#include "engine/scene/node.hpp"
+#include "engine/nodes/mesh.hpp"
+#include "engine/nodes/node.hpp"
 
 #include <memory>
 #include <optional>

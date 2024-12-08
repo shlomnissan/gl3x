@@ -4,8 +4,8 @@
 #pragma once
 
 #include "engine_export.h"
-#include "engine/scene/mesh.hpp"
-#include "engine/scene/node.hpp"
+#include "engine/nodes/mesh.hpp"
+#include "engine/nodes/node.hpp"
 
 #include <memory>
 

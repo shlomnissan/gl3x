@@ -4,7 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
-#include "engine/scene/node.hpp"
+#include "engine/nodes/node.hpp"
 
 #include "core/event_dispatcher.hpp"
 #include "lights/light.hpp"

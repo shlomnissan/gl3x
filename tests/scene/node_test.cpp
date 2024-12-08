@@ -4,9 +4,9 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <engine/scene/camera_perspective.hpp>
-#include <engine/scene/mesh.hpp>
-#include <engine/scene/node.hpp>
+#include <engine/nodes/camera_perspective.hpp>
+#include <engine/nodes/mesh.hpp>
+#include <engine/nodes/node.hpp>
 
 #pragma region Node Operations
 

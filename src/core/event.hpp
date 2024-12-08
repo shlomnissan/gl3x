@@ -4,7 +4,7 @@
 #pragma once
 
 #include "engine/math/vector2.hpp"
-#include "engine/scene/node.hpp"
+#include "engine/nodes/node.hpp"
 
 #include <memory>
 #include <type_traits>

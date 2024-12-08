@@ -5,7 +5,7 @@
 
 #include "engine_export.h"
 #include "engine/core/geometry.hpp"
-#include "engine/scene/node.hpp"
+#include "engine/nodes/node.hpp"
 
 #include "materials/material.hpp"
 

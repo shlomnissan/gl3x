@@ -1,13 +1,11 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include <engine/core/application_context.hpp>
-#include <engine/scene/camera_perspective.hpp>
-#include <engine/scene/mesh.hpp>
-
+#include <engine/core.hpp>
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
+#include <engine/nodes.hpp>
 #include <engine/resources.hpp>
 
 #include <imgui.h>
@@ -25,7 +23,7 @@ public:
     auto Setup() -> void override {
         ApplicationContext::Setup();
 
-        window->SetTitle("Examples");
+        window->SetTitle("Heritage3 Engine v0.1.0 - Examples");
         renderer->SetClearColor(0x000080);
 
         scene = Scene::Create();

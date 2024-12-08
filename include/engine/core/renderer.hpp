@@ -5,8 +5,9 @@
 
 #include "engine_export.h"
 #include "engine/math/color.hpp"
-#include "engine/scene/camera.hpp"
-#include "engine/scene/scene.hpp"
+#include "engine/nodes/scene.hpp"
+
+#include "nodes/camera.hpp"
 
 #include <memory>
 

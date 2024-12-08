@@ -8,8 +8,8 @@
 #include "engine/math/vector2.hpp"
 #include "engine/math/vector3.hpp"
 #include "engine/math/utilities.hpp"
-#include "engine/scene/node.hpp"
-#include "engine/scene/camera_perspective.hpp"
+#include "engine/nodes/node.hpp"
+#include "engine/nodes/camera_perspective.hpp"
 
 #include "core/event.hpp"
 

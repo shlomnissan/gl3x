@@ -7,7 +7,7 @@
 
 #include "engine/materials/flat_material.hpp"
 #include "engine/math/vector3.hpp"
-#include "engine/scene/mesh.hpp"
+#include "engine/nodes/mesh.hpp"
 
 #include <memory>
 

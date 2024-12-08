@@ -1,12 +1,12 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "engine/scene/node.hpp"
+#include "engine/nodes/node.hpp"
 
 #include "engine/core/logger.hpp"
-#include "engine/scene/camera.hpp"
 
 #include "core/event_dispatcher.hpp"
+#include "nodes/camera.hpp"
 
 #include <ranges>
 

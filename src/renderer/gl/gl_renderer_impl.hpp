@@ -4,7 +4,7 @@
 #pragma once
 
 #include "engine/core/renderer.hpp"
-#include "engine/scene/mesh.hpp"
+#include "engine/nodes/mesh.hpp"
 
 #include "renderer/gl/gl_buffers.hpp"
 #include "renderer/gl/gl_programs.hpp"
