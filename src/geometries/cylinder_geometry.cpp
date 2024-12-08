@@ -19,20 +19,27 @@ CylinderGeometry::CylinderGeometry(const Paramaters& params) {
     SetName("cylinder geometry");
 
     GenerateTorso(params);
+    if (!params.open_ended) {
+        if (params.radius_top > 0) GenerateCap(params, true);
+        if (params.radius_bottom > 0) GenerateCap(params, false);
+    }
+
     SetAttributes();
 }
 
 auto CylinderGeometry::GenerateTorso(const Paramaters& params) -> void {
     const auto half_height = params.height / 2;
     const auto slope = (params.radius_bottom - params.radius_top) / params.height;
+
     for (auto y = 0; y <= params.height_segments; ++y) {
         const auto v = static_cast<float>(y) / static_cast<float>(params.height_segments);
         const auto radius = params.radius_top + (params.radius_bottom - params.radius_top) * v;
+
         for (auto x = 0; x <= params.radial_segments; ++x) {
             const auto u = static_cast<float>(x) / static_cast<float>(params.radial_segments);
-            const auto segment = u * math::two_pi;
-            const auto sin_theta = std::sin(segment);
-            const auto cos_theta = std::cos(segment);
+            const auto theta = u * math::two_pi;
+            const auto cos_theta = std::cos(theta);
+            const auto sin_theta = std::sin(theta);
             const auto normal = Vector3(sin_theta, slope, cos_theta).Normalize();
 
             vertex_data_.emplace_back(radius * sin_theta);                  // pos x
@@ -63,25 +70,63 @@ auto CylinderGeometry::GenerateTorso(const Paramaters& params) -> void {
     }
 }
 
-auto CylinderGeometry::GenerateCap(bool top) -> void {
-    // TODO: impl.
+auto CylinderGeometry::GenerateCap(const Paramaters& params, bool top) -> void {
+    const auto half_height = params.height / 2;
+    const auto sign = top ? 1.0f : -1.0f;
+    const auto center_index_start = vertex_data_.size() / 8;
+
+    for (auto x = 0; x < params.radial_segments; ++x) {
+        vertex_data_.emplace_back(0);                   // pos x
+        vertex_data_.emplace_back(half_height * sign);  // pos y
+        vertex_data_.emplace_back(0);                   // pos z
+        vertex_data_.emplace_back(0);                   // normal x
+        vertex_data_.emplace_back(sign);                // normal y
+        vertex_data_.emplace_back(0);                   // normal z
+        vertex_data_.emplace_back(0.5f);                // u
+        vertex_data_.emplace_back(0.5f);                // v
+    }
+
+    const auto radius = top ? params.radius_top : params.radius_bottom;
+    const auto center_index_end = vertex_data_.size() / 8;
+
+    for (auto x = 0; x <= params.radial_segments; ++x) {
+        const auto u = static_cast<float>(x) / static_cast<float>(params.radial_segments);
+        const auto theta = u * math::two_pi;
+        const auto cos_theta = std::cos(theta);
+        const auto sin_theta = std::sin(theta);
+
+        vertex_data_.emplace_back(radius * sin_theta);              // pos x
+        vertex_data_.emplace_back(half_height * sign);              // pos y
+        vertex_data_.emplace_back(radius * cos_theta);              // pos z
+        vertex_data_.emplace_back(0);                               // normal x
+        vertex_data_.emplace_back(sign);                            // normal y
+        vertex_data_.emplace_back(0);                               // normal z
+        vertex_data_.emplace_back(cos_theta * 0.5f + 0.5f);         // u
+        vertex_data_.emplace_back(sin_theta * 0.5f * sign + 0.5f);  // v
+    }
+
+    for (auto x = 0; x < params.radial_segments; ++x) {
+        const auto c = center_index_start + x;
+        const auto i = center_index_end + x;
+
+        if (top) {
+            index_data_.emplace_back(i);
+            index_data_.emplace_back(i + 1);
+            index_data_.emplace_back(c);
+        } else {
+            index_data_.emplace_back(i + 1);
+            index_data_.emplace_back(i);
+            index_data_.emplace_back(c);
+        }
+    }
 }
 
 auto CylinderGeometry::SetAttributes() -> void {
-    SetAttribute({
-        .type = GeometryAttributeType::Position,
-        .item_size = 3
-    });
+    using enum GeometryAttributeType;
 
-    SetAttribute({
-        .type = GeometryAttributeType::Normal,
-        .item_size = 3
-    });
-
-    SetAttribute({
-        .type = GeometryAttributeType::UV,
-        .item_size = 2
-    });
+    SetAttribute({.type = Position, .item_size = 3});
+    SetAttribute({.type = Normal, .item_size = 3});
+    SetAttribute({.type = UV, .item_size = 2});
 }
 
 }

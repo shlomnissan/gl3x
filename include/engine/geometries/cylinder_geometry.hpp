@@ -55,9 +55,10 @@ private:
     /**
      * @brief Generates the cap of the cylinder geometry.
      *
+     * @param params Parameters defining the size and segmentation of the cylinder.
      * @param top Whether the cap is at the top or bottom of the cylinder.
      */
-    auto GenerateCap(bool top) -> void;
+    auto GenerateCap(const Paramaters& params, bool top) -> void;
 
     /**
      * @brief Sets the attributes for the cylinder geometry.
