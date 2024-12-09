@@ -90,4 +90,11 @@ auto Scene::RemoveLight(std::shared_ptr<Light> light) -> void {
     }
 }
 
+Scene::~Scene() {
+    EventDispatcher::Get().RemoveEventListener("added_to_scene", scene_event_listener_);
+    EventDispatcher::Get().RemoveEventListener("removed_from_scene", scene_event_listener_);
+    EventDispatcher::Get().RemoveEventListener("keyboard_event", input_event_listener_);
+    EventDispatcher::Get().RemoveEventListener("mouse_event", input_event_listener_);
+}
+
 }

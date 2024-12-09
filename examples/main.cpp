@@ -2,13 +2,15 @@
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
 #include <engine/core.hpp>
-#include <engine/geometries.hpp>
-#include <engine/lights.hpp>
-#include <engine/materials.hpp>
-#include <engine/nodes.hpp>
 #include <engine/resources.hpp>
 
+#include "examples.hpp"
+
 #include <imgui.h>
+
+#include <memory>
+#include <string>
+#include <string_view>
 
 using namespace engine;
 
@@ -26,25 +28,9 @@ public:
         window->SetTitle("Heritage3 Engine Examples");
         renderer->SetClearColor(0x000080);
 
-        scene = Scene::Create();
+        LoadScene(examples.front());
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
         camera->transform.Translate({0.0f, 0.0f, 3.0f});
-
-        const auto camera_controls = CameraOrbit::Create(camera);
-        scene->Add(camera_controls);
-
-        auto geometry = CylinderGeometry::Create({});
-        auto material = PhongMaterial::Create();
-        material->color = 0x47A8BD;
-        material->cull_backfaces = false;
-        mesh_ = Mesh::Create(geometry, material);
-
-        scene->Add(mesh_);
-
-        auto point_light = PointLight::Create(0xf00ff0, 1.0f);
-        point_light->transform.Translate({3.0f, 3.0f, 3.0f});
-        point_light->SetDebugMode(true);
-        scene->Add(point_light);
     }
 
     auto Update(float delta) -> bool override {
@@ -55,31 +41,29 @@ public:
             ImGuiWindowFlags_NoMove
         );
             if (ImGui::BeginListBox("##ListBox", {234, 188})) {
-                ImGui::Selectable("Flat Material");
-                ImGui::Selectable("Phong Material");
-                ImGui::Separator();
-                ImGui::Selectable("Plane Geometry");
-                ImGui::Selectable("Box Geometry");
-                ImGui::Selectable("Cylinder Geometry");
-                ImGui::Separator();
-                ImGui::Selectable("Directional Light");
-                ImGui::Selectable("Point Light");
-                ImGui::Separator();
-                ImGui::Selectable("2D Texture");
-                ImGui::Separator();
-                ImGui::Selectable("Orbit Camera");
-                ImGui::Selectable("Grid");
+                for (auto i = 0; i < examples.size(); i++) {
+                    if (ImGui::Selectable(examples[i], current_scene_ == i)) {
+                        current_scene_ = i;
+                        LoadScene(examples[i]);
+                    }
+                }
                 ImGui::EndListBox();
             }
-
         ImGui::End();
-        mesh_->transform.Rotate(Vector3::Up(), 0.007f);
-
         return true;
     }
 
 private:
-    std::shared_ptr<Mesh> mesh_;
+    int current_scene_ = 0;
+
+    auto LoadScene(const std::string_view scene_name) -> void {
+        if (scene_name == "Flat Material") {
+            scene = std::make_shared<ExampleFlatMaterial>(camera);
+        }
+        if (scene_name == "Phong Material") {
+            scene = std::make_shared<ExamplePhongMaterial>(camera);
+        }
+    }
 };
 
 auto main() -> int {

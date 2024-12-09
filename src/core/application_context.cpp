@@ -24,7 +24,7 @@ auto ApplicationContext::Start() -> void {
     if (!scene) {
         Logger::Log(
             LogLevel::Error,
-            "You must override the Setup method and create a Scene object."
+            "You must override the Setup method and assign a Scene object."
         );
         return;
     }
@@ -32,7 +32,7 @@ auto ApplicationContext::Start() -> void {
     if (!camera) {
         Logger::Log(
             LogLevel::Error,
-            "You must override the Setup method and create a Camera object."
+            "You must override the Setup method and assign a Camera object."
         );
         return;
     }

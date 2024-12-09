@@ -34,7 +34,7 @@ public:
      *
      * @return A vector of weak pointers to lights in the scene.
      */
-    [[nodiscard]] const auto Lights() const { return lights_; }
+    [[nodiscard]] auto Lights() const { return lights_; }
 
     /**
      * @brief Creates a new instance of the Scene class.
@@ -44,6 +44,11 @@ public:
     [[nodiscard]] static auto Create() {
         return std::make_shared<Scene>();
     }
+
+    /**
+     * @brief Destructor for the Scene class.
+     */
+    virtual ~Scene() override;
 
 private:
     /// @brief Event listener for handling input events.

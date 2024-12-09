@@ -1,7 +1,19 @@
 # Copyright 2024 Betamark Pty Ltd. All rights reserved.
 # Author: Shlomi Nissan (shlomi@betamark.com)
 
-add_executable(engine-examples main.cpp)
+set(SOURCE_CODE
+    "example_flat_material.cpp"
+    "example_flat_material.hpp"
+    "example_phong_material.cpp"
+    "example_phong_material.hpp"
+)
+
+add_executable(engine-examples main.cpp ${SOURCE_CODE})
+
+target_include_directories(${PROJECT_NAME} PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>
+)
+
 
 target_link_libraries(engine-examples PRIVATE engine)
 
