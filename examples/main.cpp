@@ -23,7 +23,7 @@ public:
     auto Setup() -> void override {
         ApplicationContext::Setup();
 
-        window->SetTitle("Heritage3 Engine v0.1.0 - Examples");
+        window->SetTitle("Heritage3 Engine Examples");
         renderer->SetClearColor(0x000080);
 
         scene = Scene::Create();

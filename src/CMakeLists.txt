@@ -129,8 +129,6 @@ find_package(glfw3 REQUIRED)
 find_package(imgui REQUIRED)
 find_package(stb REQUIRED)
 
-target_compile_definitions(${PROJECT_NAME} PUBLIC IMGUI_IMPL_OPENGL_ES3)
-
 target_link_libraries(${PROJECT_NAME}
 PRIVATE
     OpenGL::GL
