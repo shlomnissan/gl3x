@@ -12,20 +12,18 @@
 using namespace engine;
 
 ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera) {
+    const auto camera_controls = CameraOrbit::Create(camera);
+    Add(camera_controls);
+
     auto geometry = BoxGeometry::Create({});
     auto material = FlatMaterial::Create();
-    material->color = 0x47A8BD;
-    material->cull_backfaces = false;
+    material->color = 0x049EF4;
+    material->cull_backfaces = true;
     mesh_ = Mesh::Create(geometry, material);
-
-    auto point_light = PointLight::Create(0xf00ff0, 1.0f);
-    point_light->transform.Translate({1.0f, 1.0f, 1.0f});
-    point_light->SetDebugMode(true);
-    Add(point_light);
-
     Add(mesh_);
 }
 
 auto ExampleFlatMaterial::Update(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
+    mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
 }

@@ -25,12 +25,13 @@ public:
     auto Setup() -> void override {
         ApplicationContext::Setup();
 
-        window->SetTitle("Heritage3 Engine Examples");
+        window->SetTitle("Glide3 Engine Examples");
         renderer->SetClearColor(0x000080);
 
-        LoadScene(examples.front());
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
         camera->transform.Translate({0.0f, 0.0f, 3.0f});
+
+        LoadScene(examples.front());
     }
 
     auto Update(float delta) -> bool override {
@@ -42,7 +43,7 @@ public:
         );
             if (ImGui::BeginListBox("##ListBox", {234, 188})) {
                 for (auto i = 0; i < examples.size(); i++) {
-                    if (ImGui::Selectable(examples[i], current_scene_ == i)) {
+                    if (ImGui::Selectable(examples[i], current_scene_ == i) && current_scene_ != i) {
                         current_scene_ = i;
                         LoadScene(examples[i]);
                     }
