@@ -12,5 +12,7 @@
 
 static const auto examples = std::vector {
     "Flat Material",
-    "Phong Material"
+    "Phong Material",
+    "",
+    "Directional Light"
 };

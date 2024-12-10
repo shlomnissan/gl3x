@@ -1,16 +1,14 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
+#include <memory>
+#include <string_view>
+
 #include <engine/core.hpp>
 #include <engine/resources.hpp>
-
-#include "examples.hpp"
-
 #include <imgui.h>
 
-#include <memory>
-#include <string>
-#include <string_view>
+#include "examples.hpp"
 
 using namespace engine;
 
@@ -26,7 +24,7 @@ public:
         ApplicationContext::Setup();
 
         window->SetTitle("Glide3 Engine Examples");
-        renderer->SetClearColor(0x000080);
+        renderer->SetClearColor(0x444444);
 
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
         camera->transform.Translate({0.0f, 0.0f, 3.0f});
@@ -43,9 +41,14 @@ public:
         );
             if (ImGui::BeginListBox("##ListBox", {234, 188})) {
                 for (auto i = 0; i < examples.size(); i++) {
-                    if (ImGui::Selectable(examples[i], current_scene_ == i) && current_scene_ != i) {
+                    const auto name = examples[i];
+                    if (name == "") {
+                        ImGui::Separator();
+                        continue;
+                    }
+                    if (ImGui::Selectable(name, current_scene_ == i) && current_scene_ != i) {
                         current_scene_ = i;
-                        LoadScene(examples[i]);
+                        LoadScene(name);
                     }
                 }
                 ImGui::EndListBox();
