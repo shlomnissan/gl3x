@@ -59,7 +59,7 @@ auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
     }
 }
 
-auto Scene::HandleSceneEvents(SceneEvent* event) -> void {
+auto Scene::HandleSceneEvents(const SceneEvent* event) -> void {
     if (!event->node->Is<Light>()) return;
     if (event->type == SceneEvent::Type::AddedToScene) {
         AddLight(std::dynamic_pointer_cast<Light>(event->node));
@@ -71,7 +71,6 @@ auto Scene::HandleSceneEvents(SceneEvent* event) -> void {
 
 auto Scene::AddLight(std::shared_ptr<Light> light) -> void {
     lights_.emplace_back(light);
-    Logger::Log(LogLevel::Info, "Added light to scene {}", *light);
 }
 
 auto Scene::RemoveLight(std::shared_ptr<Light> light) -> void {
@@ -83,9 +82,7 @@ auto Scene::RemoveLight(std::shared_ptr<Light> light) -> void {
             return true;
         }
     });
-    if (erased > 0) {
-        Logger::Log(LogLevel::Info, "Removed light from scene {}", *light);
-    } else {
+    if (erased == 0) {
         Logger::Log(LogLevel::Error, "Failed to remove light from scene {}", *light);
     }
 }

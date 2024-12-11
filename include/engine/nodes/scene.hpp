@@ -91,7 +91,7 @@ private:
      *
      * @param event The scene event to handle.
      */
-    auto HandleSceneEvents(SceneEvent* event) -> void;
+    auto HandleSceneEvents(const SceneEvent* event) -> void;
 
     /**
      * @brief Adds a light to the scene.
