@@ -25,7 +25,7 @@ public:
     auto GetShaderSource(const ProgramAttributes& attrs) -> std::vector<ShaderInfo>;
 
 private:
-    auto InjectAttributes(const ProgramAttributes& attrs, std::string_view source) -> std::string;
+    auto InjectAttributes(const ProgramAttributes& attrs, std::string_view source) const -> std::string;
 };
 
 }

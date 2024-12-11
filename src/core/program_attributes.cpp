@@ -8,7 +8,7 @@
 
 #include "lights/light.hpp"
 
-#include <bitset>
+#include <array>
 
 #include <fmt/format.h>
 
@@ -44,12 +44,15 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
     }
 }
 
-auto ProgramAttributes::MaterialPermutationHash() const -> std::string {
-    auto attrs = std::bitset<2> {};
-    attrs[0] = color;
-    attrs[1] = texture_map;
+auto ProgramAttributes::ProgramPermutationHash() const -> std::string {
+    auto attrs = std::array<int, 5> {};
+    attrs[0] = color ? 1 : 0;
+    attrs[1] = texture_map ? 1 : 0;
+    attrs[2] = directional_lights;
+    attrs[3] = point_lights;
+    attrs[4] = spot_lights;
 
-    return fmt::format("{}_material|p{}", MaterialTypeToString(type), attrs.to_ulong());
+    return fmt::format("{}_material|p{}", MaterialTypeToString(type), fmt::join(attrs, ""));
 }
 
 }

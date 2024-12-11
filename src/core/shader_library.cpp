@@ -48,7 +48,7 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) -> std::vect
 auto ShaderLibrary::InjectAttributes(
     const ProgramAttributes& attrs,
     std::string_view source
-) -> std::string {
+) const -> std::string {
     auto features = std::string {};
 
     if (attrs.color) features += "#define USE_COLOR\n";

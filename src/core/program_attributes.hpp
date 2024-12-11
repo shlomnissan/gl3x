@@ -14,9 +14,9 @@ namespace engine {
 struct ProgramAttributes {
     MaterialType type;
 
-    size_t directional_lights = 0;
-    size_t point_lights = 0;
-    size_t spot_lights = 0;
+    int directional_lights = 0;
+    int point_lights = 0;
+    int spot_lights = 0;
 
     bool color {false};
     bool texture_map {false};
@@ -24,7 +24,7 @@ struct ProgramAttributes {
 
     ProgramAttributes(const Material* material, const Scene* scene);
 
-    auto MaterialPermutationHash() const -> std::string;
+    auto ProgramPermutationHash() const -> std::string;
 };
 
 }
