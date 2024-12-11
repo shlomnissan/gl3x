@@ -17,7 +17,10 @@ namespace engine {
 
     auto Grid::CreateGeometry(const Parameters& params) const -> std::shared_ptr<Geometry> {
         std::vector<float> vertices;
-        const auto half_dimensions = static_cast<float>(params.dimensions / 2) * params.scale;
+        auto half_dimensions = static_cast<float>(params.dimensions / 2) * params.scale;
+        if (params.dimensions & 1) {
+            half_dimensions += params.scale / 2;
+        }
 
         auto x_offset = -half_dimensions;
         for (auto i = 0; i <= params.dimensions; ++i) {
