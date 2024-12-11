@@ -20,8 +20,10 @@ auto PointLight::SetDebugMode(bool is_debug_mode) -> void {
 }
 
 auto PointLight::Update(float delta) -> void {
-    debug_mesh_sphere_->world_transform = world_transform;
-    debug_mesh_sphere_->world_transform.Scale(debug_mesh_size);
+    if (debug_mode_enabled) {
+        debug_mesh_sphere_->world_transform = world_transform;
+        debug_mesh_sphere_->world_transform.Scale(debug_mesh_size);
+    }
 }
 
 auto PointLight::CreateDebugMesh() -> void {
