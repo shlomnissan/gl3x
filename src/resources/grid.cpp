@@ -9,37 +9,36 @@
 #include <vector>
 
 namespace engine {
-    Grid::Grid(int dimensions) {
-        mesh_ = Mesh::Create(CreateGeometry(dimensions), FlatMaterial::Create(0x404040));
+    Grid::Grid(const Parameters& params) {
+        mesh_ = Mesh::Create(CreateGeometry(params), FlatMaterial::Create(params.color));
         mesh_->GetGeometry()->SetName("grid");
         Add(mesh_);
     }
 
-    auto Grid::CreateGeometry(int dimensions) const -> std::shared_ptr<Geometry> {
+    auto Grid::CreateGeometry(const Parameters& params) const -> std::shared_ptr<Geometry> {
         std::vector<float> vertices;
-        const auto scale = 0.25f;
-        const auto half_dimensions = static_cast<float>(dimensions / 2) * scale;
+        const auto half_dimensions = static_cast<float>(params.dimensions / 2) * params.scale;
 
         auto x_offset = -half_dimensions;
-        for (auto i = 0; i <= dimensions; ++i) {
+        for (auto i = 0; i <= params.dimensions; ++i) {
             vertices.emplace_back(x_offset);
             vertices.emplace_back(0.0f);
             vertices.emplace_back(-half_dimensions);
             vertices.emplace_back(x_offset);
             vertices.emplace_back(0.0f);
             vertices.emplace_back(half_dimensions);
-            x_offset += scale;
+            x_offset += params.scale;
         }
 
         auto z_offset = -half_dimensions;
-        for (auto i = 0; i <= dimensions; ++i) {
+        for (auto i = 0; i <= params.dimensions; ++i) {
             vertices.emplace_back(-half_dimensions);
             vertices.emplace_back(0.0f);
             vertices.emplace_back(z_offset);
             vertices.emplace_back(half_dimensions);
             vertices.emplace_back(0.0f);
             vertices.emplace_back(z_offset);
-            z_offset += scale;
+            z_offset += params.scale;
         }
 
         auto geometry = Geometry::Create(vertices, {});
