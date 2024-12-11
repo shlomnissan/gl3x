@@ -2,10 +2,12 @@
 # Author: Shlomi Nissan (shlomi@betamark.com)
 
 set(SOURCE_CODE
-    "example_flat_material.cpp"
-    "example_flat_material.hpp"
-    "example_phong_material.cpp"
-    "example_phong_material.hpp"
+    "example_light_directional.cpp"
+    "example_light_directional.hpp"
+    "example_material_flat.cpp"
+    "example_material_flat.hpp"
+    "example_material_phong.cpp"
+    "example_material_phong.hpp"
 )
 
 add_executable(engine-examples main.cpp ${SOURCE_CODE})

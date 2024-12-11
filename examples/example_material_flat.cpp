@@ -1,18 +1,17 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "example_flat_material.hpp"
+#include "example_material_flat.hpp"
 
-#include <engine/core.hpp>
-#include <engine/materials.hpp>
 #include <engine/geometries.hpp>
-#include <engine/lights.hpp>
+#include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
 using namespace engine;
 
-ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera) {
+ExampleMaterialFlat::ExampleMaterialFlat(std::shared_ptr<engine::Camera> camera) {
     const auto camera_controls = CameraOrbit::Create(camera);
+    camera_controls->distance = 3.0f;
     Add(camera_controls);
 
     auto geometry = BoxGeometry::Create({});
@@ -23,7 +22,7 @@ ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera)
     Add(mesh_);
 }
 
-auto ExampleFlatMaterial::Update(float delta) -> void {
+auto ExampleMaterialFlat::Update(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
     mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
 }

@@ -1,9 +1,8 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "example_phong_material.hpp"
+#include "example_material_phong.hpp"
 
-#include <engine/core.hpp>
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
@@ -11,8 +10,9 @@
 
 using namespace engine;
 
-ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camera) {
+ExampleMaterialPhong::ExampleMaterialPhong(std::shared_ptr<engine::Camera> camera) {
     const auto camera_controls = CameraOrbit::Create(camera);
+    camera_controls->distance = 3.0f;
     Add(camera_controls);
 
     auto geometry = BoxGeometry::Create({});
@@ -27,11 +27,10 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camer
 
     auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
     point_light->transform.Translate({2.0f, 2.0f, 2.0f});
-    point_light->SetDebugMode(true);
     Add(point_light);
 }
 
-auto ExamplePhongMaterial::Update(float delta) -> void {
+auto ExampleMaterialPhong::Update(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
     mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
 }
