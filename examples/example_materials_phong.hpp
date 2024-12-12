@@ -7,9 +7,9 @@
 
 #include <memory>
 
-class ExampleMaterialFlat : public engine::Scene {
+class ExampleMaterialsPhong : public engine::Scene {
 public:
-    explicit ExampleMaterialFlat(std::shared_ptr<engine::Camera>);
+    explicit ExampleMaterialsPhong(std::shared_ptr<engine::Camera> camera);
 
     auto Update(float delta) -> void override;
 

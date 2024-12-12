@@ -7,10 +7,10 @@
 
 #include <engine/nodes.hpp>
 
-#include "example_light_directional.hpp"
-#include "example_light_point.hpp"
-#include "example_material_flat.hpp"
-#include "example_material_phong.hpp"
+#include "example_lights_directional.hpp"
+#include "example_lights_point.hpp"
+#include "example_materials_flat.hpp"
+#include "example_materials_phong.hpp"
 
 static const auto examples = std::vector {
     "Flat Material",

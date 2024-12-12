@@ -7,9 +7,9 @@
 
 #include <memory>
 
-class ExampleLightPoint : public engine::Scene {
+class ExampleMaterialsFlat : public engine::Scene {
 public:
-    explicit ExampleLightPoint(std::shared_ptr<engine::Camera>);
+    explicit ExampleMaterialsFlat(std::shared_ptr<engine::Camera>);
 
     auto Update(float delta) -> void override;
 

@@ -1,7 +1,7 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "example_light_point.hpp"
+#include "example_lights_point.hpp"
 
 #include <engine/materials.hpp>
 #include <engine/geometries.hpp>
@@ -11,7 +11,7 @@
 
 using namespace engine;
 
-ExampleLightPoint::ExampleLightPoint(std::shared_ptr<engine::Camera> camera) {
+ExampleLightsPoint::ExampleLightsPoint(std::shared_ptr<engine::Camera> camera) {
     const auto orientation = Euler({
         .pitch = math::DegToRad(25.0f),
         .yaw = math::DegToRad(45.0f),
@@ -44,6 +44,6 @@ ExampleLightPoint::ExampleLightPoint(std::shared_ptr<engine::Camera> camera) {
     Add(mesh_);
 }
 
-auto ExampleLightPoint::Update(float delta) -> void {
+auto ExampleLightsPoint::Update(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
 }

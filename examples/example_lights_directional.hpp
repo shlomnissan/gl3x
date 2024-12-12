@@ -7,9 +7,9 @@
 
 #include <memory>
 
-class ExampleMaterialPhong : public engine::Scene {
+class ExampleLightsDirectional : public engine::Scene {
 public:
-    explicit ExampleMaterialPhong(std::shared_ptr<engine::Camera> camera);
+    explicit ExampleLightsDirectional(std::shared_ptr<engine::Camera>);
 
     auto Update(float delta) -> void override;
 

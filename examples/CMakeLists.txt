@@ -2,14 +2,14 @@
 # Author: Shlomi Nissan (shlomi@betamark.com)
 
 set(SOURCE_CODE
-    "example_light_directional.cpp"
-    "example_light_directional.hpp"
-    "example_light_point.cpp"
-    "example_light_point.hpp"
-    "example_material_flat.cpp"
-    "example_material_flat.hpp"
-    "example_material_phong.cpp"
-    "example_material_phong.hpp"
+    "example_lights_directional.cpp"
+    "example_lights_directional.hpp"
+    "example_lights_point.cpp"
+    "example_lights_point.hpp"
+    "example_materials_flat.cpp"
+    "example_materials_flat.hpp"
+    "example_materials_phong.cpp"
+    "example_materials_phong.hpp"
 )
 
 add_executable(engine-examples main.cpp ${SOURCE_CODE})

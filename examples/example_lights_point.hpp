@@ -7,9 +7,9 @@
 
 #include <memory>
 
-class ExampleLightDirectional : public engine::Scene {
+class ExampleLightsPoint : public engine::Scene {
 public:
-    explicit ExampleLightDirectional(std::shared_ptr<engine::Camera>);
+    explicit ExampleLightsPoint(std::shared_ptr<engine::Camera>);
 
     auto Update(float delta) -> void override;
 
