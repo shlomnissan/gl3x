@@ -72,14 +72,17 @@ private:
     int current_scene_ = 0;
 
     auto LoadScene(const std::string_view scene_name) -> void {
-        if (scene_name == "Directional Light") {
-            scene = std::make_shared<ExampleLightDirectional>(camera);
-        }
         if (scene_name == "Flat Material") {
             scene = std::make_shared<ExampleMaterialFlat>(camera);
         }
         if (scene_name == "Phong Material") {
             scene = std::make_shared<ExampleMaterialPhong>(camera);
+        }
+        if (scene_name == "Directional Light") {
+            scene = std::make_shared<ExampleLightDirectional>(camera);
+        }
+        if (scene_name == "Point Light") {
+            scene = std::make_shared<ExampleLightPoint>(camera);
         }
     }
 };
