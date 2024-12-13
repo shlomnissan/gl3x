@@ -95,14 +95,19 @@ public:
      */
     auto Start() -> void;
 
-
+    /**
+     * @brief Destructor for the application context.
+     */
     virtual ~ApplicationContext() = default;
 
 private:
     /// @brief The time structure used to measure the frame rate.
     struct Time {
         double last_frame_time = 0.0f;
-    } time_;
+    };
+
+    /// @brief The time structure used to measure the frame rate.
+    Time time_;
 
     /// @brief Indicates whether the application context has been initialized.
     bool initialized_ {false};
