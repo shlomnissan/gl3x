@@ -57,10 +57,10 @@ public:
     auto DrawExamplesList() -> void {
         if (ImGui::BeginListBox("##ListBox", {250, 0})) {
             for (auto i = 0; i < examples.size(); i++) {
-                const auto name = examples[i];
-                if (name == "") {
+                const auto name = std::string_view {examples[i]};
+                if (name.empty()) {
                     ImGui::Separator();
-                } else if (ImGui::Selectable(name, current_scene_ == i) && current_scene_ != i) {
+                } else if (ImGui::Selectable(name.data(), current_scene_ == i) && current_scene_ != i) {
                     current_scene_ = i;
                     LoadScene(name);
                 }

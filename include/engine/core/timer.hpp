@@ -16,6 +16,13 @@ namespace engine {
 class ENGINE_EXPORT Timer {
 public:
     /**
+     * @brief Constructs a new Timer object.
+     *
+     * @param auto_start Indicates whether the timer should start immediately.
+     */
+    explicit Timer(bool auto_start);
+
+    /**
      * @brief Starts the timer.
      *
      * If the timer is already running, this function has no effect.
@@ -23,17 +30,10 @@ public:
     auto Start() -> void;
 
     /**
-     * @brief Resets the timer.
-     *
-     * If the timer was running, it will be stopped and reset to zero.
-     */
-    auto Reset() -> void;
-
-    /**
      * @brief Returns the elapsed time in milliseconds.
      *
      * @return double The elapsed time in milliseconds,
-     * or -1 if the timer has not been started.
+     * or 0 if the timer has not been started.
      */
     [[nodiscard]] auto GetElapsedMilliseconds() const -> double;
 
@@ -41,7 +41,7 @@ public:
      * @brief Returns the elapsed time in seconds.
      *
      * @return double The elapsed time in seconds,
-     * or -1 if the timer has not been started.
+     * or 0 if the timer has not been started.
      */
     [[nodiscard]] auto GetElapsedSeconds() const -> double;
 

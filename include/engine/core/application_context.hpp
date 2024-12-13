@@ -52,7 +52,7 @@ public:
     std::shared_ptr<Camera> camera {nullptr};
 
     /// @brief The timer used to measure elapsed time.
-    Timer timer;
+    Timer timer {false};
 
     /**
      * @brief Sets up the application context.

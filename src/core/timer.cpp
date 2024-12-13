@@ -11,17 +11,25 @@ namespace engine {
 
 using Clock = std::chrono::steady_clock;
 
-auto Timer::Start() -> void {
-    running_ = true;
-    Reset();
+Timer::Timer(bool auto_start) {
+    if (auto_start) Start();
 }
 
-auto Timer::Reset() -> void {
+auto Timer::Start() -> void {
+    if (running_) {
+        Logger::Log(LogLevel::Warning, "The timer is already running");
+        return;
+    }
+
+    running_ = true;
     start_time_ = Clock::now();
 }
 
 auto Timer::GetElapsedMilliseconds() const -> double {
-    if (!running_) return -1.0;
+    if (!running_) {
+        Logger::Log(LogLevel::Warning, "The timer has not been started");
+        return 0.0;
+    }
 
     return static_cast<double>(
         std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -31,7 +39,10 @@ auto Timer::GetElapsedMilliseconds() const -> double {
 }
 
 auto Timer::GetElapsedSeconds() const -> double {
-    if (!running_) return -1.0;
+    if (!running_) {
+        Logger::Log(LogLevel::Warning, "The timer has not been started");
+        return 0.0;
+    }
 
     return std::chrono::duration_cast<std::chrono::duration<double>>(
         Clock::now() - start_time_
