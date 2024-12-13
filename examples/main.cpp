@@ -6,11 +6,17 @@
 
 #include <engine/core.hpp>
 #include <engine/resources.hpp>
+#include <engine/math.hpp>
 #include <imgui.h>
 
 #include "examples.hpp"
 
 using namespace engine;
+
+struct SceneSettings {
+    bool fog_enabled = false;
+    Color fog_color = 0x3f7b9d;
+};
 
 class Application : public ApplicationContext {
 public:
@@ -24,7 +30,7 @@ public:
     auto Setup() -> void override {
         ApplicationContext::Setup();
 
-        window->SetTitle("Glide3");
+        window->SetTitle("Glide");
         renderer->SetClearColor(0x444444);
 
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
@@ -35,10 +41,9 @@ public:
 
     auto Update(float delta) -> bool override {
         const auto height = static_cast<float>(params.height) - 20.0f;
-
         ImGui::SetNextWindowSize({250, height - 20.0f});
         ImGui::SetNextWindowPos({10, 10});
-        ImGui::Begin("Glide3 Engine", nullptr,
+        ImGui::Begin("Glide Engine", nullptr,
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove
         );
@@ -65,10 +70,13 @@ public:
     }
 
     auto DrawSceneSettings() -> void {
-        ImGui::Text("Add Scene settings");
+        ImGui::Checkbox("Fog Enabled", &scene_settings_.fog_enabled);
+        ImGui::ColorEdit3("Fog Color", &scene_settings_.fog_color[0]);
     }
 
 private:
+    SceneSettings scene_settings_;
+
     int current_scene_ = 0;
 
     auto LoadScene(const std::string_view scene_name) -> void {
