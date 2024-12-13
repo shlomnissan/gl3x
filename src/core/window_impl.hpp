@@ -4,7 +4,6 @@
 #pragma once
 
 #include "engine/core/window.hpp"
-#include "engine/core/timer.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -43,8 +42,6 @@ private:
 
     bool initialized_ {false};
     bool break_ {false};
-
-    Timer timer_ {};
 
     GLFWwindow* window_ {nullptr};
 

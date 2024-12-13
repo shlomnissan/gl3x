@@ -80,17 +80,12 @@ Window::Impl::Impl(const Window::Parameters& params) {
 }
 
 auto Window::Impl::Start(const OnTickCallback& tick) -> void {
-    timer_.Start();
     while(!glfwWindowShouldClose(window_) && !break_) {
-        auto delta = timer_.GetElapsedSeconds();
-        timer_.Reset();
-
         imgui_before_render();
 
-        tick(static_cast<float>(delta));
+        tick();
 
         imgui_after_render();
-
         glfwSwapBuffers(window_);
         glfwPollEvents();
     }

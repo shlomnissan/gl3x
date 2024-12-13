@@ -14,7 +14,7 @@
 
 namespace engine {
 
-using OnTickCallback = std::function<void(const float)>;
+using OnTickCallback = std::function<void()>;
 using OnEventCallback = std::function<void(std::unique_ptr<Event> event)>;
 
 /**

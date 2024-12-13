@@ -3,6 +3,8 @@
 
 #include "engine/core/timer.hpp"
 
+#include "engine/core/logger.hpp"
+
 #include <fmt/format.h>
 
 namespace engine {
@@ -10,7 +12,7 @@ namespace engine {
 using Clock = std::chrono::steady_clock;
 
 auto Timer::Start() -> void {
-    started_ = true;
+    running_ = true;
     Reset();
 }
 
@@ -19,7 +21,7 @@ auto Timer::Reset() -> void {
 }
 
 auto Timer::GetElapsedMilliseconds() const -> double {
-    if (!started_) return -1.0;
+    if (!running_) return -1.0;
 
     return static_cast<double>(
         std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -29,7 +31,7 @@ auto Timer::GetElapsedMilliseconds() const -> double {
 }
 
 auto Timer::GetElapsedSeconds() const -> double {
-    if (!started_) return -1.0;
+    if (!running_) return -1.0;
 
     return std::chrono::duration_cast<std::chrono::duration<double>>(
         Clock::now() - start_time_

@@ -35,8 +35,7 @@ public:
      * @return double The elapsed time in milliseconds,
      * or -1 if the timer has not been started.
      */
-    [[nodiscard]]
-    auto GetElapsedMilliseconds() const -> double;
+    [[nodiscard]] auto GetElapsedMilliseconds() const -> double;
 
     /**
      * @brief Returns the elapsed time in seconds.
@@ -44,8 +43,7 @@ public:
      * @return double The elapsed time in seconds,
      * or -1 if the timer has not been started.
      */
-    [[nodiscard]]
-    auto GetElapsedSeconds() const -> double;
+    [[nodiscard]] auto GetElapsedSeconds() const -> double;
 
     /**
      * @brief Gets the current timestamp in a formatted string.
@@ -55,12 +53,11 @@ public:
      *
      * @return std::string The current timestamp as a formatted string.
      */
-    [[nodiscard]] static
-    auto GetTimestamp() -> std::string;
+    [[nodiscard]] static auto GetTimestamp() -> std::string;
 
 private:
-    /// @brief Indicates whether the timer has been started.
-    bool started_ {false};
+    /// @brief Indicates whether the timer is currently running.
+    bool running_ {false};
 
     /// @brief Time when the timer was started.
     std::chrono::time_point<std::chrono::steady_clock> start_time_;

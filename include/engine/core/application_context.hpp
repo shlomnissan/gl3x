@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine/core/renderer.hpp"
+#include "engine/core/timer.hpp"
 #include "engine/core/window.hpp"
 #include "engine/nodes/scene.hpp"
 
@@ -50,6 +51,9 @@ public:
     /// @brief The camera managed by the application context.
     std::shared_ptr<Camera> camera {nullptr};
 
+    /// @brief The timer used to measure elapsed time.
+    Timer timer;
+
     /**
      * @brief Sets up the application context.
      *
@@ -95,6 +99,11 @@ public:
     virtual ~ApplicationContext() = default;
 
 private:
+    /// @brief The time structure used to measure the frame rate.
+    struct Time {
+        double last_frame_time = 0.0f;
+    } time_;
+
     /// @brief Indicates whether the application context has been initialized.
     bool initialized_ {false};
 

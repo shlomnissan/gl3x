@@ -37,12 +37,19 @@ auto ApplicationContext::Start() -> void {
         return;
     }
 
-    window->Start([&](float delta) {
-        if (!Update(delta)) {
+    timer.Start();
+
+    window->Start([&]() {
+        const auto now = timer.GetElapsedSeconds();
+        const auto delta = static_cast<float>(now - time_.last_frame_time);
+        time_.last_frame_time = now;
+
+        if (Update(delta)) {
+            scene->ProcessUpdates(delta);
+            renderer->Render(scene.get(), camera.get());
+        } else {
             window->Break();
         }
-        scene->ProcessUpdates(delta);
-        renderer->Render(scene.get(), camera.get());
     });
 }
 
