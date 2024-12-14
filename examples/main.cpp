@@ -57,7 +57,7 @@ public:
     }
 
     auto DrawPerformance() -> void {
-        ImGui::Text("FPS: %.2f", frames_per_second_.last_value);
+        ImGui::Text("FPS: %.2f", frames_per_second_.LastValue());
         ImGui::PlotHistogram(
             "##Frames Per Second",
             frames_per_second_.Buffer(), 150, 0, nullptr, 0.0f, 120.0f, {235, 40}
