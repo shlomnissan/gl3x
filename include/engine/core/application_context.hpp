@@ -104,6 +104,9 @@ private:
     /// @brief The time structure used to measure the frame rate.
     struct Time {
         double last_frame_time = 0.0f;
+        double last_frame_rate_update = 0.0f;
+        unsigned int frame_count = 0;
+        unsigned int frames_per_second = 0;
     };
 
     /// @brief The time structure used to measure the frame rate.

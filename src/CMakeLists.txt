@@ -59,6 +59,7 @@ set(SOURCE_CODE
     "nodes/scene.cpp"
     "textures/texture.hpp"
     "textures/texture_2d.cpp"
+    "utilities/data_series.hpp"
 )
 
 set(PUBLIC_HEADERS
