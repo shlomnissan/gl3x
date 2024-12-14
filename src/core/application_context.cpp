@@ -43,13 +43,12 @@ auto ApplicationContext::Start() -> void {
         const auto now = timer.GetElapsedSeconds();
         const auto delta = static_cast<float>(now - time_.last_frame_time);
         time_.last_frame_time = now;
-
         time_.frame_count++;
+
         if (now - time_.last_frame_rate_update >= 1.0) {
-            time_.frames_per_second = time_.frame_count;
+            frames_per_second_.Push(time_.frame_count);
             time_.frame_count = 0;
             time_.last_frame_rate_update = now;
-            Logger::Log(LogLevel::Info, "FPS: {}", time_.frames_per_second);
         }
 
         if (Update(delta)) {

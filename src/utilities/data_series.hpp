@@ -24,7 +24,7 @@ public:
     T last_value {0};
     bool has_values {false};
 
-    auto AddValue(const T value) {
+    auto Push(const T value) {
         has_values = true;
 
         sum_ += value - buffer_[idx_];

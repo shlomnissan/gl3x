@@ -21,7 +21,7 @@ struct SceneSettings {
 class Application : public ApplicationContext {
 public:
     auto Configure() -> void override {
-        params.vsync = false;
+        params.vsync = true;
         params.width = 1536;
         params.height = 1152;
         params.antialiasing = 0;
@@ -30,7 +30,7 @@ public:
     auto Setup() -> void override {
         ApplicationContext::Setup();
 
-        window->SetTitle("Glide");
+        window->SetTitle("Glide Engine");
         renderer->SetClearColor(0x444444);
 
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
@@ -47,6 +47,8 @@ public:
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove
         );
+            DrawPerformance();
+            ImGui::Separator();
             if (ImGui::CollapsingHeader("Examples")) DrawExamplesList();
             if (ImGui::CollapsingHeader("Scene")) DrawSceneSettings();
         ImGui::End();
@@ -54,8 +56,16 @@ public:
         return true;
     }
 
+    auto DrawPerformance() -> void {
+        ImGui::Text("FPS: %.2f", frames_per_second_.last_value);
+        ImGui::PlotHistogram(
+            "##Frames Per Second",
+            frames_per_second_.Buffer(), 150, 0, nullptr, 0.0f, 120.0f, {235, 40}
+        );
+    }
+
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {250, 0})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 0})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.empty()) {
