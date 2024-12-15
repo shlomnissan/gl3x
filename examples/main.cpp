@@ -14,14 +14,16 @@
 using namespace engine;
 
 struct SceneSettings {
-    bool fog_enabled = false;
     Color fog_color = 0x3f7b9d;
+    float fog_near = 1.0f;
+    float fog_far = 1000.0f;
+    bool fog_enabled = false;
 };
 
 class Application : public ApplicationContext {
 public:
     auto Configure() -> void override {
-        params.vsync = true;
+        params.vsync = false;
         params.width = 1536;
         params.height = 1152;
         params.antialiasing = 0;
@@ -80,8 +82,23 @@ public:
     }
 
     auto DrawSceneSettings() -> void {
+        float near = 1.0f;
+        float far = 1000.0f;
         ImGui::Checkbox("Fog Enabled", &scene_settings_.fog_enabled);
-        ImGui::ColorEdit3("Fog Color", &scene_settings_.fog_color[0]);
+        if (scene_settings_.fog_enabled) {
+            ImGui::ColorEdit3("Fog Color", &scene_settings_.fog_color[0]);
+
+            const auto AddSlider = [](std::string_view label, float* val) {
+                ImGui::Text(label.data());
+                ImGui::SameLine();
+                ImGui::PushItemWidth(200.0f);
+                ImGui::SliderFloat(fmt::format("##{}", label).c_str(), val, 0.0f, 1500.0f);
+                ImGui::PopItemWidth();
+            };
+
+            AddSlider("Near", &scene_settings_.fog_near);
+            AddSlider("Far ", &scene_settings_.fog_far);
+        }
     }
 
 private:
