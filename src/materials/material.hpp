@@ -14,22 +14,18 @@
 
 namespace engine {
 
-#pragma region Types
-
 enum class MaterialType {
     kFlatMaterial,
     kPhongMaterial
 };
 
-struct PolygonOffset {
-    float factor {0.0f};
-    float units {0.0f};
-};
-
-#pragma endregion
-
 class Material : public Identity {
 public:
+    struct PolygonOffset {
+        float factor {0.0f};
+        float units {0.0f};
+    };
+
     std::optional<PolygonOffset> polygon_offset;
 
     bool cull_backfaces {true};

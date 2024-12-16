@@ -10,6 +10,7 @@
 #include "lights/light.hpp"
 
 #include <memory>
+#include <optional>
 #include <vector>
 
 namespace engine {
@@ -19,6 +20,16 @@ namespace engine {
  */
 class ENGINE_EXPORT Scene : public Node, public std::enable_shared_from_this<Scene> {
 public:
+    /// @brief Represents the fog properties of the scene.
+    struct Fog {
+        Color color; ///< The color of the fog.
+        float near;  ///< The distance from the camera where the fog starts.
+        float far;   ///< The distance from the camera where the fog ends.
+    };
+
+    /// @brief The fog properties of the scene.
+    std::optional<Fog> fog;
+
     // @brief Initializes a scene object.
     Scene();
 
