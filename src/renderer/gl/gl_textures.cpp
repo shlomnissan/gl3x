@@ -33,11 +33,13 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
     glTexImage2D(
         GL_TEXTURE_2D,
         0,
-        GL_RGB8,
+        // We currently use stb_image to load images and set the desired number
+        // of channels to four, so the data is always in RGBA format.
+        GL_RGBA8,
         texture_2d->Image().Width(),
         texture_2d->Image().Height(),
         0,
-        GL_RGB,
+        GL_RGBA,
         GL_UNSIGNED_BYTE,
         texture_2d->Image().Data()
     );

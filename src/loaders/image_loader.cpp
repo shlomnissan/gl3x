@@ -24,7 +24,7 @@ auto ImageLoader::Load(const fs::path& path, bool flip_y) -> std::optional<Image
     auto width = 0;
     auto height = 0;
     auto depth = 0;
-    auto data = stbi_load(path.string().c_str(), &width, &height, &depth, 0);
+    auto data = stbi_load(path.string().c_str(), &width, &height, &depth, 4);
 
     if (data == nullptr) {
         Logger::Log(LogLevel::Error, "Failed to load image '{}'", path.string());
