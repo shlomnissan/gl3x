@@ -55,7 +55,7 @@ public:
         return true;
     }
 
-    auto DrawPerformance() -> void {
+    auto DrawPerformance() const -> void {
         ImGui::Text("FPS: %.2f", frames_per_second_.LastValue());
         ImGui::PlotHistogram(
             "##Frames Per Second",
@@ -71,6 +71,7 @@ public:
                     ImGui::Separator();
                 } else if (ImGui::Selectable(name.data(), current_scene_ == i) && current_scene_ != i) {
                     current_scene_ = i;
+                    scene_settings_.fog_enabled = false;
                     LoadScene(name);
                 }
             }
@@ -85,22 +86,23 @@ public:
                 scene->fog = Scene::Fog {
                     .color = 0x3f7b9d,
                     .near = 1.0f,
-                    .far = 1000.0f
+                    .far = 5.0f
                 };
             }
-
-            ImGui::ColorEdit3("Fog Color", &(scene->fog.value().color[0]));
 
             const auto AddSlider = [](std::string_view label, float* val) {
                 ImGui::Text(label.data());
                 ImGui::SameLine();
                 ImGui::PushItemWidth(200.0f);
-                ImGui::SliderFloat(fmt::format("##{}", label).c_str(), val, 0.0f, 1500.0f);
+                ImGui::SliderFloat(fmt::format("##{}", label).c_str(), val, 0.0f, 50.0f);
                 ImGui::PopItemWidth();
             };
 
+            ImGui::ColorEdit3("Fog Color", &(scene->fog.value().color[0]));
             AddSlider("Near", &scene->fog.value().near);
             AddSlider("Far ", &scene->fog.value().far);
+        } else {
+            scene->fog.reset();
         }
     }
 

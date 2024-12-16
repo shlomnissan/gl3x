@@ -15,6 +15,7 @@ struct PhongMaterial {
     float Shininess;
 };
 
+in float v_FogDepth;
 in vec2 v_TexCoord;
 in vec3 v_Normal;
 in vec4 v_Position;
@@ -24,6 +25,16 @@ uniform vec4 u_Diffuse;
 uniform vec4 u_Specular;
 uniform float u_Shininess;
 uniform sampler2D u_TextureMap;
+
+#ifdef USE_FOG
+    struct Fog {
+        vec4 Color;
+        float Near;
+        float Far;
+    };
+
+    uniform Fog u_Fog;
+#endif
 
 #if NUM_DIR_LIGHTS > 0
     struct DirectionalLight {
@@ -99,6 +110,11 @@ void main() {
             light.Color *= distanceAttenuation(light_distance, light.Distance, light.Decay);
             v_FragColor += vec4(phongShading(direction, light.Color.rgb, material), 1.0);
         }
+    #endif
+
+    #ifdef USE_FOG
+        float fog_factor = smoothstep(u_Fog.Near, u_Fog.Far, v_FogDepth);
+        v_FragColor = mix(v_FragColor, u_Fog.Color, fog_factor);
     #endif
 
     v_FragColor = clamp(v_FragColor, 0.0, 1.0);

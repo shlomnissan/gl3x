@@ -63,7 +63,7 @@ auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> 
 
             buffers_.Bind(geometry);
 
-            SetUniforms(program, attrs, mesh, camera);
+            SetUniforms(program, &attrs, mesh, camera, scene);
 
             program->Use();
             program->UpdateUniforms();
@@ -92,36 +92,48 @@ auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> 
     }
 }
 
-auto Renderer::Impl::SetUniforms(GLProgram* program, const ProgramAttributes& attrs, Mesh* mesh, Camera* camera) -> void {
+auto Renderer::Impl::SetUniforms(
+    GLProgram* program,
+    ProgramAttributes* attrs,
+    Mesh* mesh,
+    Camera* camera,
+    Scene* scene
+) -> void {
     auto material = mesh->GetMaterial();
     auto model_view = camera->view_transform * mesh->world_transform.Get();
 
     program->SetUniform("u_Projection", camera->projection_transform.Get());
     program->SetUniform("u_ModelView", model_view);
 
-    if (attrs.type == MaterialType::kFlatMaterial) {
+    if (attrs->type == MaterialType::kFlatMaterial) {
         auto m = material->As<FlatMaterial>();
         program->SetUniform("u_Color", m->color);
-        if (attrs.texture_map) {
+        if (attrs->texture_map) {
             program->SetUniform("u_TextureMap", 0);
             textures_.Bind(m->texture_map.get());
         }
     }
 
-    if (attrs.type == MaterialType::kPhongMaterial) {
+    if (attrs->type == MaterialType::kPhongMaterial) {
         auto m = material->As<PhongMaterial>();
         program->SetUniform("u_Diffuse", m->color);
 
-        if (attrs.directional_lights || attrs.point_lights || attrs.spot_lights) {
+        if (attrs->directional_lights || attrs->point_lights || attrs->spot_lights) {
             program->SetUniform("u_Specular", m->specular);
             program->SetUniform("u_Shininess", m->shininess);
             program->SetUniform("u_NormalMatrix", Transpose(Inverse(Matrix3(model_view))));
         }
 
-        if (attrs.texture_map) {
+        if (attrs->texture_map) {
             program->SetUniform("u_TextureMap", 0);
             textures_.Bind(m->texture_map.get());
         }
+    }
+
+    if (attrs->fog) {
+        program->SetUniform("u_Fog.Color", scene->fog.value().color);
+        program->SetUniform("u_Fog.Near", scene->fog.value().near);
+        program->SetUniform("u_Fog.Far", scene->fog.value().far);
     }
 }
 

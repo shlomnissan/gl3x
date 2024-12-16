@@ -28,7 +28,9 @@ public:
 
     std::optional<PolygonOffset> polygon_offset;
 
-    bool cull_backfaces {true};
+    bool fog {true};
+
+    bool cull_backfaces {false};
 
     bool wireframe {false};
 

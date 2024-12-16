@@ -12,9 +12,14 @@ in vec2 a_TexCoord;
 uniform mat4 u_ModelView;
 uniform mat4 u_Projection;
 
+out float v_FogDepth;
 out vec2 v_TexCoord;
+out vec4 v_Position;
 
 void main() {
     v_TexCoord = a_TexCoord;
-    gl_Position = u_Projection * u_ModelView * vec4(a_Position, 1.0);
+    v_Position = u_ModelView * vec4(a_Position, 1.0);
+    v_FogDepth = -v_Position.z;
+
+    gl_Position = u_Projection * v_Position;
 }

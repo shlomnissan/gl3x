@@ -30,6 +30,8 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
         texture_map = m->texture_map != nullptr;
     }
 
+    fog = scene->fog.has_value() && material->fog;
+
     for (auto weak_light : scene->Lights()) {
         if (auto light = weak_light.lock()) {
             using enum LightType;
@@ -45,14 +47,20 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
 }
 
 auto ProgramAttributes::ProgramPermutationHash() const -> std::string {
-    auto attrs = std::array<int, 5> {};
-    attrs[0] = color ? 1 : 0;
-    attrs[1] = texture_map ? 1 : 0;
-    attrs[2] = directional_lights;
-    attrs[3] = point_lights;
-    attrs[4] = spot_lights;
+    auto attrs = std::array<int, 6> {
+        color ? 1 : 0,
+        texture_map ? 1 : 0,
+        fog ? 1 : 0,
+        directional_lights,
+        point_lights,
+        spot_lights
+    };
 
-    return fmt::format("{}_material|p{}", MaterialTypeToString(type), fmt::join(attrs, ""));
+    return fmt::format(
+        "{}_material|p{}",
+        MaterialTypeToString(type),
+        fmt::join(attrs, "")
+    );
 }
 
 }
