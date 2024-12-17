@@ -18,7 +18,7 @@ public:
     bool touched {true};
 
     /**
-     * @brief Default constructor that initializes the transformation matrix to the identity matrix.
+     * @brief Initializes the transformation matrix to the identity matrix.
      */
     Transform() = default;
 
@@ -60,7 +60,6 @@ public:
 
     /**
      * @brief Returns the transformation matrix.
-     *
      *
      * @return The transformation matrix representing the current scaling, translation and rotation.
      */
@@ -138,7 +137,7 @@ private:
      * @param b The second Transform object.
      * @return Transform The result of multiplying the two Transform objects.
      */
-    [[nodiscard]] friend auto operator*(const Transform& a, const Transform& b) -> Transform {
+    [[nodiscard]] friend auto operator*(const Transform& a, const Transform& b) {
         return Transform {a.Get() * b.Get()};
     }
 };
