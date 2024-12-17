@@ -14,8 +14,17 @@ namespace engine {
  */
 class ENGINE_EXPORT Transform2D {
 public:
-    // @brief The position of the transformation.
+    /// @brief The position of the transformation.
     Vector2 position {0.0f, 0.0f};
+
+    /// @brief The scale of the transformation.
+    Vector2 scale {1.0f, 1.0f};
+
+    /// @brief The center of the transformation.
+    Vector2 center {0.0f, 0.0f};
+
+    /// @brief The rotation of the transformation.
+    float rotation = 0.0f;
 
     /**
      * @brief Initializes the transformation matrix to the identity matrix.
