@@ -190,7 +190,7 @@ TEST(Vector4, SubtractionAssignment) {
 
 #pragma endregion
 
-#pragma region Scalar Multiplication
+#pragma region Multiplication
 
 TEST(Vector4, ScalarMultiplicationPositiveScalar) {
     const auto v = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
@@ -220,16 +220,19 @@ TEST(Vector4, ScalarMultiplicationIdentity) {
     EXPECT_VEC4_EQ(1.0f * v, {1.0f, 2.0f, 3.0f, 4.0f});
 }
 
-TEST(Vector4, ScalarMultiplicationInPlace) {
+TEST(Vector4, ScalarMultiplicationAssignment) {
     auto v = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
     v *= 2.0f;
 
     EXPECT_VEC4_EQ(v, {2.0f, 4.0f, 6.0f, 8.0f});
 }
 
-#pragma endregion
+TEST(Vector4, VectorMultiplicationAssignment) {
+    auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    v1 *= engine::Vector4 {4.0f, 5.0f, 6.0f, 7.0f};
 
-#pragma region Vcetor Multiplication
+    EXPECT_VEC4_EQ(v1, {4.0f, 10.0f, 18.0f, 28.0f});
+}
 
 TEST(Vector4, VectorMultiplication) {
     const auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
@@ -240,7 +243,7 @@ TEST(Vector4, VectorMultiplication) {
 
 #pragma endregion
 
-#pragma region Scalar Division
+#pragma region Division
 
 TEST(Vector4, ScalarDivisionPositiveScalar) {
     const auto v = engine::Vector4 {2.0f, 4.0f, 6.0f, 8.0f};

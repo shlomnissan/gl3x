@@ -250,7 +250,7 @@ TEST(Vector3, SubtractionAssignment) {
 
 #pragma endregion
 
-#pragma region Scalar Multiplication
+#pragma region Multiplication
 
 TEST(Vector3, ScalarMultiplicationPositiveScalar) {
     const auto v = engine::Vector3 {1.0f, 2.0f, 3.0f};
@@ -280,16 +280,12 @@ TEST(Vector3, ScalarMultiplicationIdentity) {
     EXPECT_VEC3_EQ(1.0f * v, {1.0f, 2.0f, 3.0f});
 }
 
-TEST(Vector3, ScalarMultiplicationInPlace) {
+TEST(Vector3, ScalarMultiplicationAssignment) {
     auto v = engine::Vector3 {1.0f, 2.0f, 3.0f};
     v *= 2.0f;
 
     EXPECT_VEC3_EQ(v, {2.0f, 4.0f, 6.0f});
 }
-
-#pragma endregion
-
-#pragma region Vector Multiplication
 
 TEST(Vector3, VectorMultiplication) {
     const auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
@@ -298,9 +294,16 @@ TEST(Vector3, VectorMultiplication) {
     EXPECT_VEC3_EQ(v1 * v2, {4.0f, 10.0f, 18.0f});
 }
 
+TEST(Vector3, VectorMultiplicationAssignment) {
+    auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    v1 *= engine::Vector3 {4.0f, 5.0f, 6.0f};
+
+    EXPECT_VEC3_EQ(v1, {4.0f, 10.0f, 18.0f});
+}
+
 #pragma endregion
 
-#pragma region Scalar Division
+#pragma region Division
 
 TEST(Vector3, ScalarDivisionPositiveScalar) {
     const auto v = engine::Vector3 {2.0f, 4.0f, 6.0f};

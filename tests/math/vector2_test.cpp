@@ -28,6 +28,38 @@ TEST(Vector2, ConstructorParameterized) {
 
 #pragma endregion
 
+#pragma region Addition
+
+TEST(Vector2, AdditionBasic) {
+    const auto v1 = engine::Vector2 {1.0f, 2.0f};
+    const auto v2 = engine::Vector2 {3.0f, 4.0f};
+
+    EXPECT_VEC2_EQ(v1 + v2, {4.0f, 6.0f});
+}
+
+TEST(Vector2, AdditionZeroVector) {
+    const auto v1 = engine::Vector2 {1.0f, 2.0f};
+    const auto zero = engine::Vector2 {0.0f, 0.0f};
+
+    EXPECT_VEC2_EQ(v1 + zero, {1.0f, 2.0f});
+}
+
+TEST(Vector2, AdditionNegativeValues) {
+    const auto v1 = engine::Vector2 {1.0f, 2.0f};
+    const auto v2 = engine::Vector2 {-3.0f, -4.0f};
+
+    EXPECT_VEC2_EQ(v1 + v2, {-2.0f, -2.0f});
+}
+
+TEST(Vector2, AdditionAssignment) {
+    auto v1 = engine::Vector2 {1.0f, 2.0f};
+    v1 += engine::Vector2 {3.0f, 4.0f};
+
+    EXPECT_VEC2_EQ(v1, {4.0f, 6.0f});
+}
+
+#pragma endregion
+
 #pragma region Subtraction
 
 TEST(Vector2, SubtractionBasic) {
@@ -48,6 +80,31 @@ TEST(Vector2, SubtractionFromZeroVector) {
     const auto v2 = engine::Vector2 {2.0f, 4.0f};
 
     EXPECT_VEC2_EQ(v1 - v2, {-2.0f, -4.0f});
+}
+
+TEST(Vector2, SubtractionAssignment) {
+    auto v = engine::Vector2 {5.0f, 6.0f};
+    v -= engine::Vector2 {3.0f, 2.0f};
+
+    EXPECT_VEC2_EQ(v, {2.0f, 4.0f});
+}
+
+#pragma endregion
+
+#pragma region Multiplication
+
+TEST(Vector2, ScalarMultiplicationAssignment) {
+    auto v = engine::Vector2 {1.0f, 2.0f};
+    v *= 2.0f;
+
+    EXPECT_VEC2_EQ(v, {2.0f, 4.0f});
+}
+
+TEST(Vector2, VectorMultiplicationAssignment) {
+    auto v1 = engine::Vector2 {1.0f, 2.0f};
+    v1 *= engine::Vector2 {4.0f, 5.0f};
+
+    EXPECT_VEC2_EQ(v1, {4.0f, 10.0f});
 }
 
 #pragma endregion
