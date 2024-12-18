@@ -129,6 +129,19 @@ public:
     }
 
     /**
+     * @brief Multiplies the vector by another vector.
+     *
+     * @param v The Vector to multiply with.
+     * @return Vector3& A reference to the updated vector.
+     */
+    auto operator*=(const Vector3& v) -> Vector3& {
+        x *= v.x;
+        y *= v.y;
+        z *= v.z;
+        return *this;
+    }
+
+    /**
      * @brief Adds a vector to the current vector.
      *
      * @param v The vector to add.

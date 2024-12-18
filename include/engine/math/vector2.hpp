@@ -37,6 +37,54 @@ public:
      */
     Vector2(float x, float y);
 
+    /**
+     * @brief Adds a vector to the current vector.
+     *
+     * @param v The vector to add.
+     * @return Vector2& A reference to the updated vector.
+     */
+    auto operator+=(const Vector2& v) -> Vector2& {
+        x += v.x;
+        y += v.y;
+        return *this;
+    }
+
+    /**
+     * @brief Subtracts a vector from the current vector.
+     *
+     * @param v The vector to subtract.
+     * @return Vector2& A reference to the updated vector.
+     */
+    auto operator-=(const Vector2& v) -> Vector2& {
+        x -= v.x;
+        y -= v.y;
+        return *this;
+    }
+
+    /**
+     * @brief Multiplies the vector by a scalar value.
+     *
+     * @param n The scalar value to multiply with.
+     * @return Vector2& A reference to the updated vector.
+     */
+    auto operator*=(float n) -> Vector2& {
+        x *= n;
+        y *= n;
+        return *this;
+    }
+
+    /**
+     * @brief Multiplies the vector by another vector.
+     *
+     * @param v The Vector to multiply with.
+     * @return Vector2& A reference to the updated vector.
+     */
+    auto operator*=(const Vector2& v) -> Vector2& {
+        x *= v.x;
+        y *= v.y;
+        return *this;
+    }
+
 private:
     /**
      * @brief Checks if two vectors are equal, component-wise.
@@ -59,6 +107,19 @@ private:
     [[nodiscard]]
     friend auto operator-(const Vector2& a, const Vector2& b) {
         return Vector2 {a.x - b.x, a.y - b.y};
+    }
+
+     /**
+     * @brief Adds two vectors component-wise.
+     * @related Vector2
+     *
+     * @param a The first vector.
+     * @param b The second vector.
+     * @return Vector2 A new vector that is the component-wise sum of the two vectors.
+     */
+    [[nodiscard]]
+    friend auto operator+(const Vector2& a, const Vector2& b) {
+        return Vector2 {a.x + b.x, a.y + b.y};
     }
 };
 
