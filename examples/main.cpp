@@ -20,10 +20,11 @@ struct SceneSettings {
 class Application : public ApplicationContext {
 public:
     auto Configure() -> void override {
-        params.vsync = false;
         params.width = 1536;
         params.height = 1152;
         params.antialiasing = 0;
+        params.vsync = false;
+        params.show_stats = true;
     }
 
     auto Setup() -> void override {
@@ -39,28 +40,19 @@ public:
     }
 
     auto Update(float delta) -> bool override {
-        const auto height = static_cast<float>(params.height) - 20.0f;
+        const auto height = static_cast<float>(params.height);
         ImGui::SetNextWindowSize({250, height - 20.0f});
         ImGui::SetNextWindowPos({10, 10});
+        ImGui::SetNextWindowFocus();
         ImGui::Begin("Glide Engine", nullptr,
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove
         );
-            DrawPerformance();
-            ImGui::Separator();
-            if (ImGui::CollapsingHeader("Examples")) DrawExamplesList();
-            if (ImGui::CollapsingHeader("Scene")) DrawSceneSettings();
+        if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) DrawExamplesList();
+        if (ImGui::CollapsingHeader("Scene")) DrawSceneSettings();
         ImGui::End();
 
         return true;
-    }
-
-    auto DrawPerformance() const -> void {
-        ImGui::Text("FPS: %.2f", frames_per_second_.LastValue());
-        ImGui::PlotHistogram(
-            "##Frames Per Second",
-            frames_per_second_.Buffer(), 150, 0, nullptr, 0.0f, 120.0f, {235, 40}
-        );
     }
 
     auto DrawExamplesList() -> void {
@@ -91,7 +83,7 @@ public:
             }
 
             const auto AddSlider = [](std::string_view label, float* val) {
-                ImGui::Text(label.data());
+                ImGui::Text("%s", label.data());
                 ImGui::SameLine();
                 ImGui::PushItemWidth(200.0f);
                 ImGui::SliderFloat(fmt::format("##{}", label).c_str(), val, 0.0f, 50.0f);

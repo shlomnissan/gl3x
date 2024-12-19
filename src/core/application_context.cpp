@@ -5,7 +5,15 @@
 
 #include "engine/core/logger.hpp"
 
+#include <imgui.h>
+
 namespace engine {
+
+auto ApplicationContext::Setup() -> void {
+    InitializeWindow();
+    InitializeRenderer();
+    initialized_ = true;
+}
 
 auto ApplicationContext::Start() -> void {
     Configure();
@@ -54,6 +62,9 @@ auto ApplicationContext::Start() -> void {
         if (Update(delta)) {
             scene->ProcessUpdates(delta);
             renderer->Render(scene.get(), camera.get());
+            if (params.show_stats) {
+                RenderStats();
+            }
         } else {
             window->Break();
         }
@@ -78,6 +89,24 @@ auto ApplicationContext::InitializeRenderer() -> bool {
     };
     renderer = std::make_unique<Renderer>(renderer_params);
     return true;
+}
+
+auto ApplicationContext::RenderStats() const -> void {
+    static const auto window_width = 250.0f;
+    ImGui::SetNextWindowSize({window_width, 74.0f});
+    ImGui::SetNextWindowPos({params.width - window_width - 10.0f, 10});
+    ImGui::Begin("##Stats", nullptr,
+        ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_NoMove |
+        ImGuiWindowFlags_NoCollapse |
+        ImGuiWindowFlags_NoTitleBar
+    );
+    ImGui::Text("FPS: %.2f", frames_per_second_.LastValue());
+    ImGui::PlotHistogram(
+        "##FPS",
+        frames_per_second_.Buffer(), 150, 0, nullptr, 0.0f, 120.0f, {235, 40}
+    );
+    ImGui::End();
 }
 
 }

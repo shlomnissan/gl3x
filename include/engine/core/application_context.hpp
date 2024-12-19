@@ -28,6 +28,7 @@ public:
         int height;         ///< Height of the window in pixels.
         int antialiasing;   ///< Number of samples for multisampling.
         bool vsync;         ///< Enable vertical synchronization.
+        bool show_stats;    ///< Render application statistics window.
     };
 
     /**
@@ -37,7 +38,8 @@ public:
         .width = 1024,
         .height = 768,
         .antialiasing = 4,
-        .vsync = true
+        .vsync = true,
+        .show_stats = false
     };
 
     /// @brief The window managed by the application context.
@@ -61,11 +63,7 @@ public:
      * This method can be overridden by the client to provide custom setup logic.
      * If the client overrides this method, they must call the base class Setup function first.
      */
-    virtual auto Setup() -> void {
-        InitializeWindow();
-        InitializeRenderer();
-        initialized_ = true;
-    }
+    virtual auto Setup() -> void;
 
     /**
      * @brief Configures the application context.
@@ -121,17 +119,18 @@ private:
 
     /**
      * @brief Initializes the window.
-     *
-     * This method sets up the window with the specified parameters.
      */
     auto InitializeWindow() -> bool;
 
     /**
      * @brief Initializes the renderer.
-     *
-     * This method sets up the renderer with the specified parameters.
      */
     auto InitializeRenderer() -> bool;
+
+    /**
+     * @brief Renders the application statistics (currently, the frames per second).
+     */
+    auto RenderStats() const -> void;
 };
 
 }
