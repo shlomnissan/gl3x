@@ -14,60 +14,113 @@ namespace engine {
  */
 class ENGINE_EXPORT Transform2D {
 public:
-    /// @brief The position of the transformation.
-    Vector2 position {0.0f, 0.0f};
-
-    /// @brief The scale of the transformation.
-    Vector2 scale {1.0f, 1.0f};
-
-    /// @brief The center of the transformation.
-    Vector2 center {0.0f, 0.0f};
-
-    /// @brief The rotation of the transformation.
-    float rotation = 0.0f;
-
     /**
      * @brief Initializes the transformation matrix to the identity matrix.
      */
     Transform2D() = default;
 
     /**
-     * @brief Constructs a transformation from a 3x3 matrix.
+     * @brief Applies a translation transformation.
      *
-     * @param m The 3x3 matrix to initialize the transformation with.
+     * @param value The translation vector to apply.
      */
-    explicit Transform2D(const Matrix3& m) : transform_(m) {}
+    auto Translate(const Vector2& value) -> void;
+
+    /**
+     * @brief Applies a scaling transformation.
+     *
+     * @param value The scaling vector to apply.
+     */
+    auto Scale(const Vector2& value) -> void;
+
+    /**
+     * @brief Applies a rotation transformation.
+     *
+     * @param angle The angle to rotate by, in radians.
+     */
+    auto Rotate(float angle) -> void;
+
+    /**
+     * @brief Sets the position of the transformation.
+     *
+     * @param position The position vector to set.
+     */
+    auto SetPosition(const Vector2& position) -> void;
+
+    /**
+     * @brief Sets the scale of the transformation.
+     *
+     * @param scale The scale vector to set.
+     */
+    auto SetScale(const Vector2& scale) -> void;
+
+    /**
+     * @brief Sets the rotation of the transformation.
+     *
+     * @param rotation The rotation angle to set.
+     */
+    auto SetRotation(float rotation) -> void;
+
+    /**
+     * @brief Sets the center of the transformation.
+     *
+     * @param center The center vector to set.
+     */
+    auto SetCenter(const Vector2& center) -> void;
+
+    /**
+     * @brief Retrieves the position component of the transformation matrix.
+     *
+     * @return The position vector of the transformation.
+     */
+    [[nodiscard]] auto GetPosition() const { return position_; }
+
+    /**
+     * @brief Retrieves the scale component of the transformation matrix.
+     *
+     * @return The scale vector of the transformation.
+     */
+    [[nodiscard]] auto GetScale() const { return scale_; }
+
+    /**
+     * @brief Retrieves the rotation component of the transformation matrix.
+     *
+     * @return The rotation angle of the transformation.
+     */
+    [[nodiscard]] auto GetRotation() const { return rotation_; }
+
+    /**
+     * @brief Retrieves the center component of the transformation matrix.
+     *
+     * @return The center vector of the transformation.
+     */
+    [[nodiscard]] auto GetCenter() const { return center_; }
 
     /**
      * @brief Returns the transformation matrix.
      *
      * @return The transformation matrix representing the current scaling, translation and rotation.
      */
-    [[nodiscard]] auto Get() const -> Matrix3;
+    [[nodiscard]] auto Get() -> Matrix3;
 
 private:
     /// @brief The transformation matrix, initialized to identity.
     Matrix3 transform_ {1.0f};
 
-    /**
-     * @brief Checks if two Transform objects are equal, component-wise.
-     *
-     * @param a The first Transform object to compare.
-     * @param b The second Transform object to compare.
-     * @return bool `true` if the Transform objects are equal, `false` otherwise.
-     */
-    [[nodiscard]] friend auto operator==(const Transform2D& a, const Transform2D& b) -> bool = default;
+    /// @brief The position of the transformation.
+    Vector2 position_ {0.0f, 0.0f};
 
-    /**
-     * @brief Multiplies two Transform objects.
-     *
-     * @param a The first Transform object.
-     * @param b The second Transform object.
-     * @return Transform The result of multiplying the two Transform objects.
-     */
-    [[nodiscard]] friend auto operator*(const Transform2D& a, const Transform2D& b) {
-        return Transform2D {a.Get() * b.Get()};
-    }
+    /// @brief The scale of the transformation.
+    Vector2 scale_ {1.0f, 1.0f};
+
+    /// @brief The center of the transformation.
+    Vector2 center_ {0.0f, 0.0f};
+
+    /// @brief The rotation of the transformation.
+    float rotation_ {0.0f};
+
+    /// @brief Flag indicating if the matrix should be recalculated.
+    bool touched_ {true};
 };
 
 }
