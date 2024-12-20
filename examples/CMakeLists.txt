@@ -6,6 +6,8 @@ set(SOURCE_CODE
     "example_lights_directional.hpp"
     "example_lights_point.cpp"
     "example_lights_point.hpp"
+    "example_lights_spot.cpp"
+    "example_lights_spot.hpp"
     "example_materials_flat.cpp"
     "example_materials_flat.hpp"
     "example_materials_phong.cpp"

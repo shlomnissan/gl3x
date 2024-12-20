@@ -116,6 +116,9 @@ private:
         if (scene_name == "Point Light") {
             scene = std::make_shared<ExampleLightsPoint>(camera);
         }
+        if (scene_name == "Spot Light") {
+            scene = std::make_shared<ExampleLightsSpot>(camera);
+        }
     }
 };
 

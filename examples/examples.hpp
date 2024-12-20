@@ -9,6 +9,7 @@
 
 #include "example_lights_directional.hpp"
 #include "example_lights_point.hpp"
+#include "example_lights_spot.hpp"
 #include "example_materials_flat.hpp"
 #include "example_materials_phong.hpp"
 
@@ -18,4 +19,5 @@ static const auto examples = std::vector {
     "",
     "Directional Light",
     "Point Light",
+    "Spot Light",
 };
