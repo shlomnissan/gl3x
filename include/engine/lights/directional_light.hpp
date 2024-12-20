@@ -3,8 +3,7 @@
 
 #pragma once
 
-#include "lights/light.hpp"
-
+#include "engine/lights/light.hpp"
 #include "engine/materials/flat_material.hpp"
 #include "engine/math/vector3.hpp"
 #include "engine/nodes/mesh.hpp"

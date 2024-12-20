@@ -4,9 +4,11 @@
 #include "core/program_attributes.hpp"
 
 #include "engine/core/logger.hpp"
-#include "engine/materials.hpp"
-
-#include "lights/light.hpp"
+#include "engine/lights/ambient_light.hpp"
+#include "engine/lights/directional_light.hpp"
+#include "engine/lights/point_light.hpp"
+#include "engine/materials/flat_material.hpp"
+#include "engine/materials/phong_material.hpp"
 
 #include <array>
 
@@ -39,7 +41,7 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
                 case Ambient: /* noop */ break;
                 case Directional: directional_lights++; break;
                 case Point: point_lights++; break;
-                case Spotlight: spot_lights++; break;
+                case Spot: spot_lights++; break;
                 default: Logger::Log(LogLevel::Error, "Unknown light type"); break;
             }
         }

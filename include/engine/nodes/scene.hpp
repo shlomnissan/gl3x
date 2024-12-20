@@ -5,9 +5,9 @@
 
 #include "engine_export.h"
 #include "engine/nodes/node.hpp"
+#include "engine/lights/light.hpp"
 
 #include "core/event_dispatcher.hpp"
-#include "lights/light.hpp"
 
 #include <memory>
 #include <optional>

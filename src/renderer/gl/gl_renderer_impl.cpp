@@ -4,8 +4,11 @@
 #include "renderer/gl/gl_renderer_impl.hpp"
 
 #include "engine/core/logger.hpp"
-#include "engine/lights.hpp"
-#include "engine/materials.hpp"
+#include "engine/lights/ambient_light.hpp"
+#include "engine/lights/directional_light.hpp"
+#include "engine/lights/point_light.hpp"
+#include "engine/materials/flat_material.hpp"
+#include "engine/materials/phong_material.hpp"
 #include "engine/math/vector3.hpp"
 
 #include "core/program_attributes.hpp"

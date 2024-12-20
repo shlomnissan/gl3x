@@ -4,7 +4,7 @@
 #include "engine/resources/grid.hpp"
 
 #include "engine/core/geometry.hpp"
-#include "engine/materials.hpp"
+#include "engine/materials/flat_material.hpp"
 
 #include <vector>
 

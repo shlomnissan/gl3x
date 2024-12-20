@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "lights/light.hpp"
+#include "engine/lights/light.hpp"
 
 #include <memory>
 
