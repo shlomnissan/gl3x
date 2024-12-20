@@ -5,6 +5,7 @@
 
 #include "engine/lights/light.hpp"
 #include "engine/materials/flat_material.hpp"
+#include "engine/math/utilities.hpp"
 #include "engine/nodes/mesh.hpp"
 
 #include <memory>
@@ -12,47 +13,47 @@
 namespace engine {
 
 /**
- * @brief A light that gets emitted from a single point in all directions.
+ * @brief This light gets emittedin one direction along a cone.
  */
-class PointLight : public Light {
+class SpotLight : public Light {
 public:
+    /// @brief The angle of the light cone.
+    float cutoff_angle {math::pi / 3.0f};
+
     /// @brief The amount the light dims along the distance of the light.
-    float decay {2.0f};
+    float decay {1.0f};
 
     /// @brief Maximum range of the light.
     float distance {0.0f};
 
-    /// @brief The size of the debug mesh used to visualize the position of the light.
-    float debug_mesh_size {0.3f};
-
     /**
-     * @brief Constructs a new PointLight instance.
+     * @brief Construct a new SpotLight instance.
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
      */
-    PointLight(Color color, float intensity) : Light(color, intensity) {
-        SetName("point light");
+    SpotLight(Color color, float intensity) : Light(color, intensity) {
+        SetName("spot light");
     }
 
     /**
-     * @brief Creates a new PointLight instance.
+     * @brief Creates a new SpotLight instance.
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
-     * @return A shared pointer to the created PointLight.
+     * @return A shared pointer to the created SpotLight.
      */
     [[nodiscard]] static auto Create(Color color = {0xffffff}, float intensity = 1.0f) {
-        return std::make_shared<PointLight>(color, intensity);
+        return std::make_shared<SpotLight>(color, intensity);
     }
 
     /**
      * @brief Retrieves the type of the light.
      *
-     * @return LightType::Point.
+     * @return LightType::Spot.
      */
     [[nodiscard]] auto Type() const -> LightType override {
-        return LightType::Point;
+        return LightType::Spot;
     }
 
     /**
@@ -72,17 +73,17 @@ public:
     /**
      * @brief Default destructor.
      */
-    ~PointLight() override = default;
+    ~SpotLight() override = default;
 
 private:
     /// @brief The debug mesh used to visualize the position of the light.
-    std::shared_ptr<Mesh> debug_mesh_sphere_;
+    std::shared_ptr<Mesh> debug_mesh_;
 
-    /// @brief The material used for the debug mesh.
+    /// @brief The material of the debug mesh.
     std::shared_ptr<FlatMaterial> debug_mesh_material_;
 
     /**
-     * @brief Creates the debug mesh and material for the light.
+     * @brief Creates a debug mesh to visualize the the light.
      */
     auto CreateDebugMesh() -> void;
 };

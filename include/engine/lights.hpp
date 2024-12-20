@@ -6,3 +6,4 @@
 #include "engine/lights/ambient_light.hpp"
 #include "engine/lights/directional_light.hpp"
 #include "engine/lights/point_light.hpp"
+#include "engine/lights/spot_light.hpp"

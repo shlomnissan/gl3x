@@ -1,4 +1,4 @@
-set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include)
+set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/engine)
 
 set(SOURCE_CODE
     "core/application_context.cpp"
@@ -24,6 +24,7 @@ set(SOURCE_CODE
     "geometries/plane_geometry.cpp"
     "lights/directional_light.cpp"
     "lights/point_light.cpp"
+    "lights/spot_light.cpp"
     "loaders/image_loader.cpp"
     "loaders/image_loader.hpp"
     "materials/material.hpp"
@@ -116,7 +117,13 @@ set(EXTERNAL_SOURCES
 
 include(ShaderProcessor)
 
-add_library(${PROJECT_NAME} ${SOURCE_CODE} ${EXTERNAL_SOURCES})
+add_library(
+    ${PROJECT_NAME}
+    ${PUBLIC_HEADERS}
+    ${HEADER_BUNDLES}
+    ${SOURCE_CODE}
+    ${EXTERNAL_SOURCES}
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>

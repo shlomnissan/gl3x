@@ -86,8 +86,10 @@ public:
 private:
     /// @brief The debug mesh used to visualize the direction of the light.
     std::shared_ptr<Mesh> debug_mesh_line_;
+
     /// @brief The debug mesh used to visualize the position of the light.
     std::shared_ptr<Mesh> debug_mesh_plane_;
+
     /// @brief The material used for the debug mesh.
     std::shared_ptr<FlatMaterial> debug_mesh_material_;
 
