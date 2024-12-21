@@ -7,6 +7,7 @@
 #include "engine/lights/ambient_light.hpp"
 #include "engine/lights/directional_light.hpp"
 #include "engine/lights/point_light.hpp"
+#include "engine/lights/spot_light.hpp"
 #include "engine/materials/flat_material.hpp"
 #include "engine/materials/phong_material.hpp"
 #include "engine/math/vector3.hpp"
@@ -146,6 +147,7 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
     auto ambient_light = Color {0.0f, 0.0f, 0.0f};
     auto directional_idx = 0;
     auto point_idx = 0;
+    auto spot_idx = 0;
 
     for (auto weak_light : scene->Lights()) {
         if (auto light = weak_light.lock()) {
@@ -176,6 +178,17 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
                 program->SetUniform(u_name + ".Distance", point->distance);
                 program->SetUniform(u_name + ".Decay", point->decay);
                 point_idx++;
+            }
+
+            if (auto spot = light->As<SpotLight>()) {
+                const auto u_name = fmt::format("u_SpotLights[{}]", spot_idx);
+                const auto u_pos = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
+                const auto u_color = spot->color * spot->intensity;
+                program->SetUniform(u_name + ".Position", u_pos);
+                program->SetUniform(u_name + ".Color", u_color);
+                program->SetUniform(u_name + ".Distance", spot->distance);
+                program->SetUniform(u_name + ".Decay", spot->decay);
+                spot_idx++;
             }
         }
     }

@@ -56,6 +56,17 @@ uniform sampler2D u_TextureMap;
     uniform PointLight u_PointLights[NUM_POINT_LIGHTS];
 #endif
 
+#if NUM_SPOT_LIGHTS > 0
+    struct SpotLight {
+        vec4 Position;
+        vec4 Color;
+        float Distance;
+        float Decay;
+    };
+
+    uniform SpotLight u_SpotLights[NUM_SPOT_LIGHTS];
+#endif
+
 float distanceAttenuation(const in float light_distance, const in float cutoff_distance, const in float decay_exponent) {
 	if( cutoff_distance > 0.0 && decay_exponent > 0.0 ) {
 		return pow(clamp(-light_distance / cutoff_distance + 1.0, 0.0, 1.0), decay_exponent);
@@ -104,6 +115,19 @@ void main() {
     #if NUM_POINT_LIGHTS > 0
         for (int i = 0; i < NUM_POINT_LIGHTS; i++) {
             PointLight light = u_PointLights[i];
+            vec3 v = light.Position.xyz - v_Position.xyz;
+            vec3 direction = normalize(v);
+            float light_distance = length(v);
+            light.Color *= distanceAttenuation(light_distance, light.Distance, light.Decay);
+            v_FragColor += vec4(phongShading(direction, light.Color.rgb, material), 1.0);
+        }
+    #endif
+
+    #if NUM_SPOT_LIGHTS > 0
+        for (int i = 0; i < NUM_SPOT_LIGHTS; i++) {
+            SpotLight light = u_SpotLights[i];
+
+            // TODO: temporary point light code
             vec3 v = light.Position.xyz - v_Position.xyz;
             vec3 direction = normalize(v);
             float light_distance = length(v);
