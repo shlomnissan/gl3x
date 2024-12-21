@@ -32,6 +32,8 @@ ExampleLightsSpot::ExampleLightsSpot(std::shared_ptr<engine::Camera> camera) {
 
     const auto spot_light = SpotLight::Create(0xFFFFFF, 1.0f);
     spot_light->transform.Translate({2.0f, 2.0f, -1.0f});
+    spot_light->cutoff_angle = math::DegToRad(10.0f);
+    spot_light->distance = 4.0f;
     spot_light->SetDebugMode(true);
     Add(spot_light);
 
@@ -39,6 +41,7 @@ ExampleLightsSpot::ExampleLightsSpot(std::shared_ptr<engine::Camera> camera) {
     auto material = PhongMaterial::Create();
     material->color = 0x049EF4;
     material->cull_backfaces = true;
+    material->polygon_offset = {-0.5f, 0.5f};
     mesh_ = Mesh::Create(geometry, material);
     mesh_->transform.Rotate(Vector3::Right(), math::DegToRad(-90.0f));
     Add(mesh_);

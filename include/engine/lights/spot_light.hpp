@@ -17,8 +17,11 @@ namespace engine {
  */
 class SpotLight : public Light {
 public:
+    /// @brief The target node that the light is pointing towards.
+    std::shared_ptr<Node> target {nullptr};
+
     /// @brief The angle of the light cone.
-    float cutoff_angle {math::pi / 3.0f};
+    float cutoff_angle {math::DegToRad(20.0f)};
 
     /// @brief The amount the light dims along the distance of the light.
     float decay {1.0f};

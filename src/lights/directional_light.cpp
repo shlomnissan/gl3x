@@ -31,11 +31,9 @@ auto DirectionalLight::Update(float delta) -> void {
         const auto target_world_pos = target != nullptr
             ? target->GetWorldPosition()
             : Vector3::Zero();
-
-        debug_mesh_material_->color = color;
-
         debug_mesh_plane_->LookAt(target_world_pos);
         debug_mesh_line_->LookAt(target_world_pos);
+        debug_mesh_material_->color = color;
 
         const auto length = (target_world_pos - GetWorldPosition()).Length();
         debug_mesh_plane_->transform.Scale(debug_mesh_size);

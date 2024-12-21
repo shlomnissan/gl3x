@@ -17,11 +17,7 @@ namespace engine {
  */
 class DirectionalLight : public Light {
 public:
-    /**
-     * @brief The target node that the light is pointing towards.
-     *
-     * If this is not set, the light will always point towards the origin.
-     */
+    /// @brief The target node that the light is pointing towards.
     std::shared_ptr<Node> target {nullptr};
 
     /// @brief The size of the debug mesh used to visualize the position of the light.
