@@ -31,6 +31,7 @@ auto PointLight::CreateDebugMesh() -> void {
     debug_mesh_material_->cull_backfaces = false;
     debug_mesh_material_->color = color;
     debug_mesh_material_->wireframe = true;
+    debug_mesh_material_->fog = false;
 
     debug_mesh_sphere_ = Mesh::Create(BoxGeometry::Create({}), debug_mesh_material_);
     debug_mesh_sphere_->GetGeometry()->SetName("point light sphere");

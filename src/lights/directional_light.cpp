@@ -51,6 +51,7 @@ auto DirectionalLight::CreateDebugMesh() -> void {
     debug_mesh_material_->cull_backfaces = false;
     debug_mesh_material_->color = color;
     debug_mesh_material_->wireframe = true;
+    debug_mesh_material_->fog = false;
 
     debug_mesh_line_ = Mesh::Create(Geometry::Create({
         0, 0, 0,

@@ -31,7 +31,7 @@ public:
         ApplicationContext::Setup();
 
         window->SetTitle("Glide Engine");
-        renderer->SetClearColor(0x444444);
+        renderer->SetClearColor(0x000000);
 
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
         camera->transform.Translate({0.0f, 0.0f, 3.0f});

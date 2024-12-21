@@ -77,7 +77,7 @@ public:
 
 private:
     /// @brief The debug mesh used to visualize the position of the light.
-    std::shared_ptr<Mesh> debug_mesh_;
+    std::shared_ptr<Mesh> debug_mesh_cone_;
 
     /// @brief The material of the debug mesh.
     std::shared_ptr<FlatMaterial> debug_mesh_material_;
