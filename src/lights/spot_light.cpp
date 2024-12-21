@@ -7,6 +7,13 @@
 
 namespace engine {
 
+auto SpotLight::Direction() -> Vector3 {
+    if (target != nullptr) {
+        return Normalize(GetWorldPosition() - target->GetWorldPosition());
+    }
+    return Normalize(GetWorldPosition());
+}
+
 auto SpotLight::SetDebugMode(bool is_debug_mode) -> void {
     if (debug_mode_enabled != is_debug_mode) {
         if (is_debug_mode) {
@@ -22,7 +29,7 @@ auto SpotLight::SetDebugMode(bool is_debug_mode) -> void {
 auto SpotLight::Update(float delta) -> void {
     if (debug_mode_enabled) {
         const auto cone_length = distance > 0 ? distance : 100.0f;
-        const auto cone_width = std::tan(cutoff_angle) * cone_length;
+        const auto cone_width = std::tan(angle) * cone_length;
         const auto target_world_pos = target != nullptr
             ? target->GetWorldPosition()
             : Vector3::Zero();

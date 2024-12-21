@@ -32,7 +32,7 @@ ExampleLightsSpot::ExampleLightsSpot(std::shared_ptr<engine::Camera> camera) {
 
     const auto spot_light = SpotLight::Create(0xFFFFFF, 1.0f);
     spot_light->transform.Translate({2.0f, 2.0f, -1.0f});
-    spot_light->cutoff_angle = math::DegToRad(10.0f);
+    spot_light->angle = math::DegToRad(10.0f);
     spot_light->distance = 4.0f;
     spot_light->SetDebugMode(true);
     Add(spot_light);

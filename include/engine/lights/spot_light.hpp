@@ -20,8 +20,11 @@ public:
     /// @brief The target node that the light is pointing towards.
     std::shared_ptr<Node> target {nullptr};
 
+    /// @brief The penumbra angle of the light cone.
+    float penumbra {0.0f};
+
     /// @brief The angle of the light cone.
-    float cutoff_angle {math::DegToRad(20.0f)};
+    float angle {math::DegToRad(20.0f)};
 
     /// @brief The amount the light dims along the distance of the light.
     float decay {1.0f};
@@ -58,6 +61,13 @@ public:
     [[nodiscard]] auto Type() const -> LightType override {
         return LightType::Spot;
     }
+
+    /**
+     * @brief Retrieves the direction of the light based on the light's target.
+     *
+     * @return The direction of the light.
+     */
+    [[nodiscard]] auto Direction() -> Vector3;
 
     /**
      * @brief Enables or disables the debug mode for the light.
