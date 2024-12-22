@@ -4,7 +4,6 @@
 #pragma once
 
 #include "engine_export.h"
-#include "engine/math/euler.hpp"
 #include "engine/math/vector2.hpp"
 #include "engine/math/vector3.hpp"
 #include "engine/math/utilities.hpp"
@@ -25,17 +24,20 @@ public:
     /// @brief The maximum pitch angle limit to prevent the camera from flipping over.
     static constexpr float pitch_limit = math::half_pi - 0.1f;
 
-    /// @brief The speed at which the camera orbits around the target point.
-    float orbit_speed = 3.5f;
+    /**
+     * @brief The parameters for the CameraOrbit class.
+     */
+    struct Paramaters {
+        float orbit_speed {3.5f};   ///< The speed at which the camera orbits around the target point.
+        float zoom_speed {50.0f};   ///< The speed at which the camera zooms in and out.
+        float pan_speed {1.5f};     ///< The speed at which the camera pans around the target point.
+        float distance {1.0f};      ///< The distance from the camera to the target point.
+        float pitch {0.0f};         ///< The pitch angle of the camera in radians.
+        float yaw {0.0f};           ///< The yaw angle of the camera in radians.
+    };
 
-    /// @brief The speed at which the camera zooms in and out.
-    float zoom_speed = 50.0f;
-
-    /// @brief The speed at which the camera pans around the target point.
-    float pan_speed = 0.5f;
-
-    /// @brief The distance from the camera to the target point.
-    float distance = 1.0f;
+    /// @brief The parameters for the CameraOrbit class.
+    Paramaters params;
 
     /**
      * @brief Constructs a CameraOrbit object.
@@ -43,7 +45,7 @@ public:
      * @param camera A shared pointer to the camera to orbit around.
      * @param orientation The initial orientation of the camera in Euler angles.
      */
-    CameraOrbit(const std::shared_ptr<Camera>& camera, const Euler& orientation = {});
+    CameraOrbit(const std::shared_ptr<Camera>& camera, const Paramaters& params);
 
     /**
      * @brief Creates a new instance of the CameraOrbit class.
@@ -52,8 +54,8 @@ public:
      * @param orientation_ The initial orientation of the camera in Euler angles.
      * @return A `std::shared_ptr<CameraOrbit>` pointing to the newly created instance.
      */
-    [[nodiscard]] static auto Create(const std::shared_ptr<Camera>& camera, const Euler& orientation = {}) {
-        return std::make_shared<CameraOrbit>(camera, orientation);
+    [[nodiscard]] static auto Create(const std::shared_ptr<Camera>& camera, const Paramaters& params) {
+        return std::make_shared<CameraOrbit>(camera, params);
     }
 
     /**
@@ -71,9 +73,6 @@ public:
     auto Update(float delta) -> void override;
 
 private:
-    /// @brief The current orientation of the camera in Euler angles.
-    Euler orientation_ {};
-
     /// @brief The current mouse button.
     MouseButton curr_mouse_button_ {MouseButton::None};
 

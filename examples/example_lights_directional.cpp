@@ -12,12 +12,11 @@
 using namespace engine;
 
 ExampleLightsDirectional::ExampleLightsDirectional(std::shared_ptr<engine::Camera> camera) {
-    const auto orientation = Euler({
+    const auto camera_controls = CameraOrbit::Create(camera, {
+        .distance = 3.0f,
         .pitch = math::DegToRad(25.0f),
-        .yaw = math::DegToRad(45.0f),
+        .yaw = math::DegToRad(45.0f)
     });
-    const auto camera_controls = CameraOrbit::Create(camera, orientation);
-    camera_controls->distance = 4.0f;
     Add(camera_controls);
 
     const auto grid = Grid::Create({

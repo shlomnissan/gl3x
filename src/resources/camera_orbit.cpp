@@ -10,11 +10,9 @@
 
 namespace engine {
 
-CameraOrbit::CameraOrbit(const std::shared_ptr<Camera>& camera, const Euler& orientation)
-  : orientation_(orientation),
-    camera_(camera) {
-    distance = camera->transform.GetPosition().Length();
-}
+CameraOrbit::CameraOrbit(const std::shared_ptr<Camera>& camera, const Paramaters& p)
+  : params(p),
+    camera_(camera) {}
 
 auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {
     using enum MouseButton;
@@ -60,24 +58,24 @@ auto CameraOrbit::Update(float delta) -> void {
     prev_mouse_pos_ = curr_mouse_pos_;
 
     const auto position = target + Vector3 {
-        std::sin(orientation_.yaw) * std::cos(orientation_.pitch),
-        std::sin(orientation_.pitch),
-        std::cos(orientation_.yaw) * std::cos(orientation_.pitch)
-    } * distance;
+        std::sin(params.yaw) * std::cos(params.pitch),
+        std::sin(params.pitch),
+        std::cos(params.yaw) * std::cos(params.pitch)
+    } * params.distance;
 
     camera_->transform.SetPosition(position);
     camera_->LookAt(target);
 }
 
 auto CameraOrbit::Orbit(const Vector2& offset, float delta) -> void {
-    orientation_.yaw -= offset.x * orbit_speed * delta;
-    orientation_.pitch += offset.y * orbit_speed * delta;
-    orientation_.pitch = std::clamp(orientation_.pitch, -pitch_limit, pitch_limit);
+    params.yaw -= offset.x * params.orbit_speed * delta;
+    params.pitch += offset.y * params.orbit_speed * delta;
+    params.pitch = std::clamp(params.pitch, -pitch_limit, pitch_limit);
 }
 
 auto CameraOrbit::Zoom(float scroll_offset, float delta) -> void {
-    distance -= scroll_offset * zoom_speed * delta;
-    distance = std::max(0.1f, distance);
+    params.distance -= scroll_offset * params.zoom_speed * delta;
+    params.distance = std::max(0.1f, params.distance);
 }
 
 auto CameraOrbit::Pan(const Vector2& offset, float delta) -> void {
@@ -85,8 +83,8 @@ auto CameraOrbit::Pan(const Vector2& offset, float delta) -> void {
     const auto right = Normalize(Cross(forward, Vector3::Up()));
     const auto up = Cross(right, forward);
 
-    const auto pan_h = right * offset.x * pan_speed * delta * -1;
-    const auto pan_v = up * -offset.y * pan_speed * delta;
+    const auto pan_h = right * offset.x * params.pan_speed * delta * -1;
+    const auto pan_v = up * -offset.y * params.pan_speed * delta;
 
     target -= (pan_h + pan_v);
 }
