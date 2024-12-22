@@ -6,8 +6,7 @@
 #include "engine_export.h"
 #include "engine/core/geometry.hpp"
 #include "engine/nodes/node.hpp"
-
-#include "materials/material.hpp"
+#include "engine/materials/material.hpp"
 
 #include <memory>
 

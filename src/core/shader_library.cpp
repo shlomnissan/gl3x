@@ -40,7 +40,7 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) -> std::vect
     Logger::Log(
         LogLevel::Error,
         "Shader source not found for unknown material {}_material",
-        MaterialTypeToString(attrs.type)
+        Material::TypeToString(attrs.type)
     );
 
     return {};
@@ -67,7 +67,7 @@ auto ShaderLibrary::InjectAttributes(
         Logger::Log(
             LogLevel::Error,
             "The '#pragma inject_attributes' token is missing in program {}",
-            MaterialTypeToString(attrs.type)
+            Material::TypeToString(attrs.type)
         );
         return output;
     }

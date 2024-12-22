@@ -60,7 +60,7 @@ auto ProgramAttributes::ProgramPermutationHash() const -> std::string {
 
     return fmt::format(
         "{}_material|p{}",
-        MaterialTypeToString(type),
+        Material::TypeToString(type),
         fmt::join(attrs, "")
     );
 }

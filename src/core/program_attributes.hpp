@@ -4,8 +4,7 @@
 #pragma once
 
 #include "engine/nodes/scene.hpp"
-
-#include "materials/material.hpp"
+#include "engine/materials/material.hpp"
 
 #include <string>
 

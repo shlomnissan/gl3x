@@ -5,8 +5,8 @@
 
 #include "engine_export.h"
 #include "engine/math/color.hpp"
+#include "engine/materials/material.hpp"
 
-#include "materials/material.hpp"
 #include "textures/texture.hpp"
 
 #include <memory>
