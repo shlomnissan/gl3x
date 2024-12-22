@@ -4,7 +4,6 @@
 #pragma once
 
 #include "engine_export.h"
-
 #include "engine/math/color.hpp"
 #include "engine/nodes/node.hpp"
 
@@ -16,14 +15,14 @@ namespace engine {
  * @brief The type of light.
  */
 enum class LightType {
-    Ambient,    ///< Ambient light.
-    Directional,///< Directional light.
-    Point,      ///< Point light.
-    Spot        ///< Spot light.
+    AmbientLight,
+    DirectionalLight,
+    PointLight,
+    SpotLight
 };
 
 /**
- * @brief Base class for all light sources.
+ * @brief Abstract base class for light sources.
  */
 class ENGINE_EXPORT Light : public Node {
 public:

@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "engine_export.h"
 #include "engine/math/color.hpp"
 #include "engine/textures/texture_2d.hpp"
 
@@ -18,17 +19,17 @@ namespace engine {
  * @brief The type of material.
  */
 enum class MaterialType {
-    kFlatMaterial,
-    kPhongMaterial
+    FlatMaterial,
+    PhongMaterial
 };
 
 /**
- * @brief Base class for all materials.
+ * @brief Abstract base class for materials.
  */
-class Material : public Identity {
+class ENGINE_EXPORT Material : public Identity {
 public:
     /**
-     * @brief Structure to define polygon offset parameters.
+     * @brief ENGINE_EXPORT Structure to define polygon offset parameters.
      */
     struct PolygonOffset {
         /// @brief Scales the maximum depth slope of a polygon for depth offset.
@@ -102,9 +103,9 @@ public:
      */
     [[nodiscard]] inline static auto TypeToString(MaterialType type) {
         switch(type) {
-            case MaterialType::kFlatMaterial:
+            case MaterialType::FlatMaterial:
                 return "flat";
-            case MaterialType::kPhongMaterial:
+            case MaterialType::PhongMaterial:
                 return "phong";
             default:
                 return "unkonwn";

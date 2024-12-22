@@ -4,9 +4,9 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/textures/texture.hpp"
 
 #include "core/image.hpp"
-#include "textures/texture.hpp"
 
 #include <memory>
 #include <string_view>
@@ -30,16 +30,14 @@ public:
      *
      * @return True if the texture is loaded, false otherwise.
      */
-    [[nodiscard]]
-    auto Loaded() const { return loaded_; }
+    [[nodiscard]] auto Loaded() const { return loaded_; }
 
     /**
      * @brief Retrieves the image associated with the texture.
      *
      * @return A const reference to the Image object.
      */
-    [[nodiscard]]
-    auto& Image() { return image_; }
+    [[nodiscard]] auto& Image() { return image_; }
 
     /**
      * @brief Creates a shared pointer to a Texture2D object.
@@ -47,9 +45,17 @@ public:
      * @param image_path The path to the image file used to create the texture.
      * @return A shared pointer to the created Texture2D object.
      */
-    [[nodiscard]]
-    static auto Create(std::string_view image_path) {
+    [[nodiscard]] static auto Create(std::string_view image_path) {
         return std::make_shared<Texture2D>(image_path);
+    }
+
+    /**
+     * @brief Retrieves the type of the texture.
+     *
+     * @return TextureType::Texture2D.
+     */
+    [[nodiscard]] auto Type() const -> TextureType override {
+        return TextureType::Texture2D;
     }
 
 private:

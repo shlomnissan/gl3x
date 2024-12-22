@@ -57,7 +57,6 @@ set(SOURCE_CODE
     "nodes/mesh.cpp"
     "nodes/node.cpp"
     "nodes/scene.cpp"
-    "textures/texture.hpp"
     "textures/texture_2d.cpp"
     "utilities/data_series.hpp"
 )
@@ -96,6 +95,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/nodes/mesh.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/node.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/scene.hpp"
+    "${PUBLIC_HEADERS_DIR}/textures/texture.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture_2d.hpp"
 )
 

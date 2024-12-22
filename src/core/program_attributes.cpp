@@ -19,13 +19,13 @@ namespace engine {
 ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scene) {
     type = material->Type();
 
-    if (type == MaterialType::kFlatMaterial) {
+    if (type == MaterialType::FlatMaterial) {
         color = true;
         auto m = material->As<FlatMaterial>();
         texture_map = m->texture_map != nullptr;
     }
 
-    if (type == MaterialType::kPhongMaterial) {
+    if (type == MaterialType::PhongMaterial) {
         color = true;
         lights = !scene->Lights().empty();
         auto m = material->As<PhongMaterial>();
@@ -38,10 +38,10 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
         if (auto light = weak_light.lock()) {
             using enum LightType;
             switch (light->Type()) {
-                case Ambient: /* noop */ break;
-                case Directional: directional_lights++; break;
-                case Point: point_lights++; break;
-                case Spot: spot_lights++; break;
+                case AmbientLight: /* noop */ break;
+                case DirectionalLight: directional_lights++; break;
+                case PointLight: point_lights++; break;
+                case SpotLight: spot_lights++; break;
                 default: Logger::Log(LogLevel::Error, "Unknown light type"); break;
             }
         }

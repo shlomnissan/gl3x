@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "textures/texture.hpp"
+#include "engine/textures/texture.hpp"
 
 #include <string_view>
 #include <unordered_map>

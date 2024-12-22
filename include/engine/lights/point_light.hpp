@@ -52,7 +52,7 @@ public:
      * @return LightType::Point.
      */
     [[nodiscard]] auto Type() const -> LightType override {
-        return LightType::Point;
+        return LightType::PointLight;
     }
 
     /**

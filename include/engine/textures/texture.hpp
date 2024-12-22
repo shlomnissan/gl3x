@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "engine_export.h"
 #include "engine/math/transform_2d.hpp"
 
 #include "core/disposable.hpp"
@@ -11,12 +12,26 @@
 namespace engine {
 
 /**
- * @brief Texutre base class.
+ * @brief The type of texture.
  */
-class Texture : public Disposable, public Identity {
+enum class TextureType {
+    Texture2D
+};
+
+/**
+ * @brief Abstract base class for textures.
+ */
+class ENGINE_EXPORT Texture : public Disposable, public Identity {
 public:
     /// @brief The UV transformation matrix.
     Transform2D transform;
+
+    /**
+     * @brief Retrieves the type of the texture.
+     *
+     * @return TextureType The type of the texture.
+     */
+    [[nodiscard]] virtual auto Type() const -> TextureType = 0;
 
     /**
      * @brief Set the offset of the texture on the X-axis.
@@ -37,11 +52,6 @@ public:
      * @brief Set the rotation angle of the texture.
      */
     auto Rotate(float angle) { transform.Rotate(angle); }
-
-    /**
-     * @brief Set the center of UV transformation.
-     */
-    auto SetCenter(float x, float y) { transform.SetCenter({x, y}); }
 };
 
 }

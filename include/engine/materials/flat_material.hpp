@@ -4,10 +4,9 @@
 #pragma once
 
 #include "engine_export.h"
-#include "engine/math/color.hpp"
 #include "engine/materials/material.hpp"
-
-#include "textures/texture.hpp"
+#include "engine/math/color.hpp"
+#include "engine/textures/texture.hpp"
 
 #include <memory>
 
@@ -40,7 +39,7 @@ public:
      * @return The type of the material as `MaterialType::kFlatMaterial`.
      */
     auto Type() const -> MaterialType override {
-        return MaterialType::kFlatMaterial;
+        return MaterialType::FlatMaterial;
     }
 
     /**

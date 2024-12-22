@@ -41,7 +41,7 @@ public:
      * @return LightType::Ambient.
      */
     [[nodiscard]] auto Type() const -> LightType override {
-        return LightType::Ambient;
+        return LightType::AmbientLight;
     }
 
     /**

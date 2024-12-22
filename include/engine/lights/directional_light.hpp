@@ -50,7 +50,7 @@ public:
      * @return LightType::Directional.
      */
     auto Type() const -> LightType override {
-        return LightType::Directional;
+        return LightType::DirectionalLight;
     }
 
     /**

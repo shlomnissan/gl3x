@@ -109,7 +109,7 @@ auto Renderer::Impl::SetUniforms(
     program->SetUniform("u_Projection", camera->projection_transform.Get());
     program->SetUniform("u_ModelView", model_view);
 
-    if (attrs->type == MaterialType::kFlatMaterial) {
+    if (attrs->type == MaterialType::FlatMaterial) {
         auto m = material->As<FlatMaterial>();
         program->SetUniform("u_Color", m->color);
         if (attrs->texture_map) {
@@ -119,7 +119,7 @@ auto Renderer::Impl::SetUniforms(
         }
     }
 
-    if (attrs->type == MaterialType::kPhongMaterial) {
+    if (attrs->type == MaterialType::PhongMaterial) {
         auto m = material->As<PhongMaterial>();
         program->SetUniform("u_Diffuse", m->color);
 

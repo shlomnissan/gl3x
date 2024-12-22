@@ -17,7 +17,7 @@
 namespace engine {
 
 auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) -> std::vector<ShaderInfo> {
-    if (attrs.type == MaterialType::kFlatMaterial) {
+    if (attrs.type == MaterialType::FlatMaterial) {
         return {{
             ShaderType::kVertexShader,
             InjectAttributes(attrs, _SHADER_flat_material_vert)
@@ -27,7 +27,7 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) -> std::vect
         )}};
     }
 
-    if (attrs.type == MaterialType::kPhongMaterial) {
+    if (attrs.type == MaterialType::PhongMaterial) {
         return {{
             ShaderType::kVertexShader,
             InjectAttributes(attrs, _SHADER_phong_material_vert)
