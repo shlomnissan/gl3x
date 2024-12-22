@@ -10,7 +10,7 @@
 using namespace engine;
 
 ExampleMaterialsFlat::ExampleMaterialsFlat(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(camera, {.distance = 3.0f});
+    const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
     Add(camera_controls);
 
     auto geometry = BoxGeometry::Create({});
