@@ -22,8 +22,8 @@ public:
      * @brief Parameters used to initialize the renderer.
      */
     struct Parameters {
-        int width;              ///< The width of the rendering viewport.
-        int height;             ///< The height of the rendering viewport.
+        int width;  ///< The width of the rendering viewport.
+        int height; ///< The height of the rendering viewport.
     };
 
     /**

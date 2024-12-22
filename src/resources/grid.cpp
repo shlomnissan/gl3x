@@ -11,7 +11,6 @@
 namespace engine {
     Grid::Grid(const Parameters& params) {
         mesh_ = Mesh::Create(CreateGeometry(params), FlatMaterial::Create(params.color));
-        mesh_->GetMaterial()->fog = false;
         mesh_->GetGeometry()->SetName("grid");
         Add(mesh_);
     }
