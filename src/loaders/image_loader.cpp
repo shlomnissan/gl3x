@@ -5,7 +5,7 @@
 
 #include "loaders/image_loader.hpp"
 
-#include "engine/core/logger.hpp"
+#include "utilities/logger.hpp"
 
 #include <optional>
 

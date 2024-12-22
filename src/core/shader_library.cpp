@@ -3,9 +3,10 @@
 
 #include "core/shader_library.hpp"
 
-#include "engine/core/logger.hpp"
 #include "engine/materials/flat_material.hpp"
 #include "engine/materials/phong_material.hpp"
+
+#include "utilities/logger.hpp"
 
 #include "shaders/headers/flat_material_vert.h"
 #include "shaders/headers/flat_material_frag.h"

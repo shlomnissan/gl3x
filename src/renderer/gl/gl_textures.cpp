@@ -3,8 +3,9 @@
 
 #include "renderer/gl/gl_textures.hpp"
 
-#include "engine/core/logger.hpp"
 #include "engine/textures/texture_2d.hpp"
+
+#include "utilities/logger.hpp"
 
 namespace engine {
 

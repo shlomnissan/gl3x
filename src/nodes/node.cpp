@@ -3,10 +3,9 @@
 
 #include "engine/nodes/node.hpp"
 
-#include "engine/core/logger.hpp"
-
 #include "core/event_dispatcher.hpp"
 #include "nodes/camera.hpp"
+#include "utilities/logger.hpp"
 
 #include <ranges>
 

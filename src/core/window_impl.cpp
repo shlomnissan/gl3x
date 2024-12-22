@@ -3,9 +3,8 @@
 
 #include "core/window_impl.hpp"
 
-#include "engine/core/logger.hpp"
-
 #include "core/event_dispatcher.hpp"
+#include "utilities/logger.hpp"
 
 #include <memory>
 #include <string>

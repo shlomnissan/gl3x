@@ -5,7 +5,7 @@
 
 #include "core/event.hpp"
 #include "core/event_dispatcher.hpp"
-#include "engine/core/logger.hpp"
+#include "utilities/logger.hpp"
 
 #include <algorithm>
 #include <memory>

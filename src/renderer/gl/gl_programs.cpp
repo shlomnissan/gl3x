@@ -3,7 +3,7 @@
 
 #include "renderer/gl/gl_programs.hpp"
 
-#include "engine/core/logger.hpp"
+#include "utilities/logger.hpp"
 
 #include <vector>
 

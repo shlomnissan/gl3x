@@ -3,11 +3,12 @@
 
 #pragma once
 
-#include "engine/core/logger.hpp"
 #include "engine/math/color.hpp"
 #include "engine/math/matrix3.hpp"
 #include "engine/math/matrix4.hpp"
 #include "engine/math/vector4.hpp"
+
+#include "utilities/logger.hpp"
 
 #include <string>
 #include <variant>

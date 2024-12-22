@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include <engine/core/logger.hpp>
+#include <utilities/logger.hpp>
 
 #include <string>
 

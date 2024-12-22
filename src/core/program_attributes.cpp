@@ -3,12 +3,13 @@
 
 #include "core/program_attributes.hpp"
 
-#include "engine/core/logger.hpp"
 #include "engine/lights/ambient_light.hpp"
 #include "engine/lights/directional_light.hpp"
 #include "engine/lights/point_light.hpp"
 #include "engine/materials/flat_material.hpp"
 #include "engine/materials/phong_material.hpp"
+
+#include "utilities/logger.hpp"
 
 #include <array>
 

@@ -9,7 +9,6 @@ set(SOURCE_CODE
     "core/geometry.cpp"
     "core/identity.hpp"
     "core/image.hpp"
-    "core/logger.cpp"
     "core/program_attributes.cpp"
     "core/program_attributes.hpp"
     "core/renderer.cpp"
@@ -59,12 +58,13 @@ set(SOURCE_CODE
     "nodes/scene.cpp"
     "textures/texture_2d.cpp"
     "utilities/data_series.hpp"
+    "utilities/logger.cpp"
+    "utilities/logger.hpp"
 )
 
 set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/application_context.hpp"
     "${PUBLIC_HEADERS_DIR}/core/geometry.hpp"
-    "${PUBLIC_HEADERS_DIR}/core/logger.hpp"
     "${PUBLIC_HEADERS_DIR}/core/renderer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"

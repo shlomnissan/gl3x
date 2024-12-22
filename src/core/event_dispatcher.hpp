@@ -3,9 +3,8 @@
 
 #pragma once
 
-#include "engine/core/logger.hpp"
-
 #include "core/event.hpp"
+#include "utilities/logger.hpp"
 
 #include <functional>
 #include <memory>

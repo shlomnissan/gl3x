@@ -3,7 +3,7 @@
 
 #include "renderer/gl/gl_buffers.hpp"
 
-#include "engine/core/logger.hpp"
+#include "utilities/logger.hpp"
 
 namespace engine {
 

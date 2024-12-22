@@ -3,7 +3,7 @@
 
 #include "engine/core/timer.hpp"
 
-#include "engine/core/logger.hpp"
+#include "utilities/logger.hpp"
 
 #include <fmt/format.h>
 

@@ -3,7 +3,7 @@
 
 #include "engine/core/application_context.hpp"
 
-#include "engine/core/logger.hpp"
+#include "utilities/logger.hpp"
 
 #include <imgui.h>
 
