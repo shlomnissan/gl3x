@@ -50,13 +50,22 @@ public:
         );
         if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) DrawExamplesList();
         if (ImGui::CollapsingHeader("Scene")) DrawSceneSettings();
+
+        ImGui::PushStyleColor(ImGuiCol_Header, {0.0f, 0.56f, 0.63f, 1.0f});
+        ImGui::PushStyleColor(ImGuiCol_HeaderHovered, {0.0f, 0.56f, 0.63f, 1.0f});
+        ImGui::PushStyleColor(ImGuiCol_HeaderActive, {0.0f, 0.56f, 0.63f, 1.0f});
+        if (ImGui::CollapsingHeader("Dynamic")) {
+            // TODO: load dynamic settings
+        }
+        ImGui::PopStyleColor(3);
+
         ImGui::End();
 
         return true;
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 0})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 200})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.empty()) {
@@ -101,7 +110,7 @@ public:
 private:
     SceneSettings scene_settings_;
 
-    int current_scene_ = 0;
+    int current_scene_ = 7;
 
     auto LoadScene(const std::string_view scene_name) -> void {
         if (scene_name == "Flat Material") {
@@ -118,6 +127,9 @@ private:
         }
         if (scene_name == "Spot Light") {
             scene = std::make_shared<ExampleLightsSpot>(camera);
+        }
+        if (scene_name == "Plane Geometry") {
+            scene = std::make_shared<ExampleGeometriesPlane>(camera);
         }
     }
 };

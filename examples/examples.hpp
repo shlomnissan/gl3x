@@ -7,6 +7,7 @@
 
 #include <engine/nodes.hpp>
 
+#include "example_geometries_plane.hpp"
 #include "example_lights_directional.hpp"
 #include "example_lights_point.hpp"
 #include "example_lights_spot.hpp"
@@ -20,4 +21,6 @@ static const auto examples = std::vector {
     "Directional Light",
     "Point Light",
     "Spot Light",
+    "",
+    "Plane Geometry",
 };

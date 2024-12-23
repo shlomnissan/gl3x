@@ -150,12 +150,10 @@ PUBLIC
     imgui::imgui
 )
 
-if (BUILD_SHARED_LIBS)
-    set_target_properties(${TARGET_NAME} PROPERTIES
-        VERSION ${engine_VERSION_MAJOR}.${engine_VERSION_MINOR}.${engine_VERSION_PATCH}
-        SOVERSION ${engine_VERSION_MAJOR}
-    )
-endif()
+set_target_properties(${TARGET_NAME} PROPERTIES
+    VERSION ${engine_VERSION_MAJOR}.${engine_VERSION_MINOR}.${engine_VERSION_PATCH}
+    SOVERSION ${engine_VERSION_MAJOR}
+)
 
 include(GenerateExportHeader)
 generate_export_header(${PROJECT_NAME})

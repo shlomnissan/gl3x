@@ -2,6 +2,8 @@
 # Author: Shlomi Nissan (shlomi@betamark.com)
 
 set(SOURCE_CODE
+    "example_geometries_plane.cpp"
+    "example_geometries_plane.hpp"
     "example_lights_directional.cpp"
     "example_lights_directional.hpp"
     "example_lights_point.cpp"

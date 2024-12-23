@@ -43,7 +43,3 @@ ExampleLightsSpot::ExampleLightsSpot(std::shared_ptr<engine::Camera> camera) {
     mesh_->transform.Rotate(Vector3::Right(), math::DegToRad(-90.0f));
     Add(mesh_);
 }
-
-auto ExampleLightsSpot::Update(float delta) -> void {
-    // TODO: implement.
-}
