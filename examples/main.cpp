@@ -110,7 +110,7 @@ public:
 private:
     SceneSettings scene_settings_;
 
-    int current_scene_ = 7;
+    int current_scene_ = 0;
 
     auto LoadScene(const std::string_view scene_name) -> void {
         if (scene_name == "Flat Material") {
@@ -130,6 +130,9 @@ private:
         }
         if (scene_name == "Plane Geometry") {
             scene = std::make_shared<ExampleGeometriesPlane>(camera);
+        }
+        if (scene_name == "Sphere Geometry") {
+            scene = std::make_shared<ExampleGeometriesSphere>(camera);
         }
     }
 };
