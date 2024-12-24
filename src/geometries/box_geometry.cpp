@@ -8,9 +8,9 @@
 namespace engine {
 
 BoxGeometry::BoxGeometry(const Parameters& params) {
-    assert(params.width > 0);
-    assert(params.height > 0);
-    assert(params.depth > 0);
+    assert(params.width > 0.0f);
+    assert(params.height > 0.0f);
+    assert(params.depth > 0.0f);
     assert(params.width_segments > 0);
     assert(params.height_segments > 0);
     assert(params.depth_segments > 0);

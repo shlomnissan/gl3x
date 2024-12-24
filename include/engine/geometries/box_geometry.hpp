@@ -20,9 +20,9 @@ public:
      * @brief Structure containing parameters for the box geometry.
      */
     struct Parameters {
-        float width {1};                ///< Width of the box.
-        float height {1};               ///< Height of the box.
-        float depth {1};                ///< Depth of the box.
+        float width {1.0f};             ///< Width of the box.
+        float height {1.0f};            ///< Height of the box.
+        float depth {1.0f};             ///< Depth of the box.
         unsigned width_segments {1};    ///< Number of segments along the width.
         unsigned height_segments {1};   ///< Number of segments along the height.
         unsigned depth_segments {1};    ///< Number of segments along the depth.

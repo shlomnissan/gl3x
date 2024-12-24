@@ -19,8 +19,8 @@ public:
      * @brief Structure containing parameters for the plane geometry.
      */
     struct Parameters {
-        float width {1};                ///< Width of the plane.
-        float height {1};               ///< Height of the plane.
+        float width {1.0f};             ///< Width of the plane.
+        float height {1.0f};            ///< Height of the plane.
         unsigned width_segments {1};    ///< Number of segments along the width.
         unsigned height_segments {1};   ///< Number of segments along the height.
     };

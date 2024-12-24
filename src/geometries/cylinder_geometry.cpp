@@ -12,7 +12,7 @@
 namespace engine {
 
 CylinderGeometry::CylinderGeometry(const Paramaters& params) {
-    assert(params.height > 0);
+    assert(params.height > 0.0f);
     assert(params.radial_segments > 0);
     assert(params.height_segments > 0);
 

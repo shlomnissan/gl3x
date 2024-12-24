@@ -62,35 +62,17 @@ TEST_F(CylinderGeometryTest, AttributesConfiguredCorrectly) {
 
 #pragma region Assertions
 
-TEST(CylinderGeometry, DeathWhenParamsAreSetToZero) {
+TEST(CylinderGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        engine::CylinderGeometry({
-            .radius_top = 1.0f,
-            .radius_bottom = 1.0f,
-            .height = 0.0f,
-            .radial_segments = 6,
-            .height_segments = 1,
-        });
+        engine::CylinderGeometry({.height = 0.0f});
     }, ".*params.height > 0");
 
     EXPECT_DEATH({
-        engine::CylinderGeometry({
-            .radius_top = 1.0f,
-            .radius_bottom = 1.0f,
-            .height = 1.0f,
-            .radial_segments = 0,
-            .height_segments = 1,
-        });
+        engine::CylinderGeometry({.radial_segments = 0});
     }, ".*params.radial_segments > 0");
 
     EXPECT_DEATH({
-        engine::CylinderGeometry({
-            .radius_top = 1.0f,
-            .radius_bottom = 1.0f,
-            .height = 1.0f,
-            .radial_segments = 6,
-            .height_segments = 0,
-        });
+        engine::CylinderGeometry({.height_segments = 0});
     }, ".*params.height_segments > 0");
 }
 

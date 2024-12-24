@@ -59,71 +59,29 @@ TEST_F(BoxGeometryTest, AttributesConfiguredCorrectly) {
 
 #pragma region Assertions
 
-TEST(BoxGeometry, DeathWhenParamsAreSetToZero) {
+TEST(BoxGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        engine::BoxGeometry({
-            .width = 0.0f,
-            .height = 1.0f,
-            .depth = 1.0f,
-            .width_segments = 2,
-            .height_segments = 2,
-            .depth_segments = 2
-        });
+        engine::BoxGeometry({.width = 0.0f});
     }, ".*params.width > 0");
 
     EXPECT_DEATH({
-        engine::BoxGeometry({
-            .width = 1.0f,
-            .height = 0.0f,
-            .depth = 1.0f,
-            .width_segments = 2,
-            .height_segments = 2,
-            .depth_segments = 2
-        });
+        engine::BoxGeometry({.height = 0.0f});
     }, ".*params.height > 0");
 
     EXPECT_DEATH({
-        engine::BoxGeometry({
-            .width = 1.0f,
-            .height = 1.0f,
-            .depth = 0.0f,
-            .width_segments = 2,
-            .height_segments = 2,
-            .depth_segments = 2
-        });
+        engine::BoxGeometry({.depth = 0.0f});
     }, ".*params.depth > 0");
 
     EXPECT_DEATH({
-        engine::BoxGeometry({
-            .width = 1.0f,
-            .height = 1.0f,
-            .depth = 1.0f,
-            .width_segments = 0,
-            .height_segments = 2,
-            .depth_segments = 2
-        });
+        engine::BoxGeometry({.width_segments = 0});
     }, ".*params.width_segments > 0");
 
     EXPECT_DEATH({
-        engine::BoxGeometry({
-            .width = 1.0f,
-            .height = 1.0f,
-            .depth = 1.0f,
-            .width_segments = 2,
-            .height_segments = 0,
-            .depth_segments = 2
-        });
+        engine::BoxGeometry({.height_segments = 0});
     }, ".*params.height_segments > 0");
 
     EXPECT_DEATH({
-        engine::BoxGeometry({
-            .width = 1.0f,
-            .height = 1.0f,
-            .depth = 1.0f,
-            .width_segments = 2,
-            .height_segments = 2,
-            .depth_segments = 0
-        });
+        engine::BoxGeometry({.depth_segments = 0});
     }, ".*params.depth_segments > 0");
 }
 
