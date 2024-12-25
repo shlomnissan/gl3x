@@ -37,5 +37,6 @@ ExampleGeometriesSphere::ExampleGeometriesSphere(std::shared_ptr<engine::Camera>
 }
 
 auto ExampleGeometriesSphere::Update(float delta) -> void {
-    // TODO: implement update logic
+    mesh_->transform.Rotate(Vector3::Up(), 0.5f * delta);
+    mesh_->transform.Rotate(Vector3::Right(), 0.5f * delta);
 }

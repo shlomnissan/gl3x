@@ -37,6 +37,10 @@ TEST_F(BoxGeometryTest, ConstructorInitializesIndexData) {
     EXPECT_EQ(index.size(), 6 * 4 * 6);
 }
 
+TEST_F(BoxGeometryTest, ConstructorInitializesName) {
+    EXPECT_EQ(box_.Name(), "box geometry");
+}
+
 #pragma endregion
 
 #pragma region Attributes

@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 
 namespace engine {
 
@@ -19,6 +20,8 @@ SphereGeometry::SphereGeometry(const Parameters& params) {
     assert(params.theta_start >= 0.0f);
     assert(params.theta_length >= 0.0f);
 
+    SetName("sphere geometry");
+
     GenerateGeometry(params);
     SetAttributes();
 }
@@ -28,6 +31,14 @@ auto SphereGeometry::GenerateGeometry(const Parameters& params) -> void {
 
     for (auto iy = 0; iy <= params.height_segments; ++iy) {
         const auto v = static_cast<float>(iy) / static_cast<float>(params.height_segments);
+
+        float offset = 0;
+        if (iy == 0 && params.theta_start == 0) {
+            offset = 0.5f / static_cast<float>(params.width_segments);
+        } else if (iy == params.height_segments && theta_end == math::pi) {
+            offset = -0.5f / static_cast<float>(params.width_segments);
+        }
+
         for (auto ix = 0; ix <= params.width_segments; ++ix) {
             const auto u = static_cast<float>(ix) / static_cast<float>(params.width_segments);
 
@@ -57,7 +68,7 @@ auto SphereGeometry::GenerateGeometry(const Parameters& params) -> void {
             vertex_data_.emplace_back(vec.z);  // normal z
 
             // set uvs
-            vertex_data_.insert(vertex_data_.end(), {u, 1 - v});
+            vertex_data_.insert(vertex_data_.end(), {u + offset, 1 - v});
         }
     }
 

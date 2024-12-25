@@ -40,6 +40,10 @@ TEST_F(CylinderGeometryTest, ConstructorInitializesIndexData) {
     EXPECT_EQ(index_size, 72);
 }
 
+TEST_F(CylinderGeometryTest, ConstructorInitializesName) {
+    EXPECT_EQ(cylinder_.Name(), "cylinder geometry");
+}
+
 #pragma endregion
 
 #pragma region Attributes

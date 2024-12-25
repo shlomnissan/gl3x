@@ -35,6 +35,10 @@ TEST_F(PlaneGeometryTest, ConstructorInitializesIndexData) {
     EXPECT_EQ(index.size(), 6 * 4);
 }
 
+TEST_F(PlaneGeometryTest, ConstructorInitializesName) {
+    EXPECT_EQ(plane_.Name(), "plane geometry");
+}
+
 #pragma endregion
 
 #pragma region Attributes
