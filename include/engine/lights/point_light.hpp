@@ -23,7 +23,7 @@ public:
     float distance {0.0f};
 
     /// @brief The size of the debug mesh used to visualize the position of the light.
-    float debug_mesh_size {0.3f};
+    float debug_mesh_size {0.4f};
 
     /**
      * @brief Constructs a new PointLight instance.

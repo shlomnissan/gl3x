@@ -3,7 +3,7 @@
 
 #include "engine/lights/point_light.hpp"
 
-#include "engine/geometries/box_geometry.hpp"
+#include "engine/geometries/sphere_geometry.hpp"
 
 namespace engine {
 
@@ -33,7 +33,11 @@ auto PointLight::CreateDebugMesh() -> void {
     debug_mesh_material_->wireframe = true;
     debug_mesh_material_->fog = false;
 
-    debug_mesh_sphere_ = Mesh::Create(BoxGeometry::Create({}), debug_mesh_material_);
+    debug_mesh_sphere_ = Mesh::Create(SphereGeometry::Create({
+        .radius = debug_mesh_size,
+        .width_segments = 4,
+        .height_segments = 2
+    }), debug_mesh_material_);
     debug_mesh_sphere_->GetGeometry()->SetName("point light sphere");
     debug_mesh_sphere_->transformAutoUpdate = false;
     Add(debug_mesh_sphere_);
