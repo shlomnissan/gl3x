@@ -3,10 +3,10 @@
 
 #pragma once
 
-#include <algorithm>
 #include <array>
 #include <cassert>
 #include <concepts>
+#include <ranges>
 
 template <typename T, size_t N>
 requires std::is_arithmetic_v<T>
@@ -19,7 +19,7 @@ public:
             buffer_[count_++] = value;
         } else {
             sum_ -= buffer_[0];
-            std::rotate(buffer_.begin(), buffer_.begin() + 1, buffer_.end());
+            std::ranges::rotate(buffer_, buffer_.begin() + 1);
             buffer_[N - 1] = value;
         }
         sum_ += value;
