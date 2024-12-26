@@ -30,7 +30,7 @@ public:
     auto Setup() -> void override {
         ApplicationContext::Setup();
 
-        window->SetTitle("Glide Engine");
+        window->SetTitle("Build Engine");
         renderer->SetClearColor(0x444444);
 
         camera = CameraPerspective::Create(60.0f, window->AspectRatio());
@@ -44,7 +44,7 @@ public:
         ImGui::SetNextWindowSize({250, height - 20.0f});
         ImGui::SetNextWindowPos({10, 10});
         ImGui::SetNextWindowFocus();
-        ImGui::Begin("Glide Engine", nullptr,
+        ImGui::Begin("Build Engine", nullptr,
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove
         );
