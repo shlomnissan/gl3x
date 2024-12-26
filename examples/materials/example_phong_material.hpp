@@ -7,13 +7,12 @@
 
 #include <memory>
 
-class ExampleGeometriesPlane : public engine::Scene {
+class ExamplePhongMaterial : public engine::Scene {
 public:
-    explicit ExampleGeometriesPlane(std::shared_ptr<engine::Camera>);
+    explicit ExamplePhongMaterial(std::shared_ptr<engine::Camera> camera);
 
     auto Update(float delta) -> void override;
 
 private:
     std::shared_ptr<engine::Mesh> mesh_;
-    std::shared_ptr<engine::Mesh> wireframes_;
 };

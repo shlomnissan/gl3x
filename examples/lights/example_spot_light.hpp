@@ -7,11 +7,9 @@
 
 #include <memory>
 
-class ExampleMaterialsPhong : public engine::Scene {
+class ExampleSpotLight : public engine::Scene {
 public:
-    explicit ExampleMaterialsPhong(std::shared_ptr<engine::Camera> camera);
-
-    auto Update(float delta) -> void override;
+    explicit ExampleSpotLight(std::shared_ptr<engine::Camera>);
 
 private:
     std::shared_ptr<engine::Mesh> mesh_;

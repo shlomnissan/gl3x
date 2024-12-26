@@ -2,20 +2,20 @@
 # Author: Shlomi Nissan (shlomi@betamark.com)
 
 set(SOURCE_CODE
-    "example_geometries_plane.cpp"
-    "example_geometries_plane.hpp"
-    "example_geometries_sphere.cpp"
-    "example_geometries_sphere.hpp"
-    "example_lights_directional.cpp"
-    "example_lights_directional.hpp"
-    "example_lights_point.cpp"
-    "example_lights_point.hpp"
-    "example_lights_spot.cpp"
-    "example_lights_spot.hpp"
-    "example_materials_flat.cpp"
-    "example_materials_flat.hpp"
-    "example_materials_phong.cpp"
-    "example_materials_phong.hpp"
+    "geometries/example_plane_geometry.cpp"
+    "geometries/example_plane_geometry.hpp"
+    "geometries/example_sphere_geometry.cpp"
+    "geometries/example_sphere_geometry.hpp"
+    "lights/example_directional_light.cpp"
+    "lights/example_directional_light.hpp"
+    "lights/example_point_light.cpp"
+    "lights/example_point_light.hpp"
+    "lights/example_spot_light.cpp"
+    "lights/example_spot_light.hpp"
+    "materials/example_flat_material.cpp"
+    "materials/example_flat_material.hpp"
+    "materials/example_phong_material.cpp"
+    "materials/example_phong_material.hpp"
 )
 
 add_executable(engine-examples main.cpp ${SOURCE_CODE})

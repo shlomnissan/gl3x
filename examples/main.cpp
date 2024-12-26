@@ -114,25 +114,25 @@ private:
 
     auto LoadScene(const std::string_view scene_name) -> void {
         if (scene_name == "Flat Material") {
-            scene = std::make_shared<ExampleMaterialsFlat>(camera);
+            scene = std::make_shared<ExampleFlatMaterial>(camera);
         }
         if (scene_name == "Phong Material") {
-            scene = std::make_shared<ExampleMaterialsPhong>(camera);
+            scene = std::make_shared<ExamplePhongMaterial>(camera);
         }
         if (scene_name == "Directional Light") {
-            scene = std::make_shared<ExampleLightsDirectional>(camera);
+            scene = std::make_shared<ExampleDirectionalLight>(camera);
         }
         if (scene_name == "Point Light") {
-            scene = std::make_shared<ExampleLightsPoint>(camera);
+            scene = std::make_shared<ExamplePointLight>(camera);
         }
         if (scene_name == "Spot Light") {
-            scene = std::make_shared<ExampleLightsSpot>(camera);
+            scene = std::make_shared<ExampleSpotLight>(camera);
         }
         if (scene_name == "Plane Geometry") {
-            scene = std::make_shared<ExampleGeometriesPlane>(camera);
+            scene = std::make_shared<ExamplePlaneGeometry>(camera);
         }
         if (scene_name == "Sphere Geometry") {
-            scene = std::make_shared<ExampleGeometriesSphere>(camera);
+            scene = std::make_shared<ExampleSphereGeometry>(camera);
         }
     }
 };

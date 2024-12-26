@@ -7,12 +7,13 @@
 
 #include <memory>
 
-class ExampleLightsPoint : public engine::Scene {
+class ExamplePlaneGeometry : public engine::Scene {
 public:
-    explicit ExampleLightsPoint(std::shared_ptr<engine::Camera>);
+    explicit ExamplePlaneGeometry(std::shared_ptr<engine::Camera>);
 
     auto Update(float delta) -> void override;
 
 private:
     std::shared_ptr<engine::Mesh> mesh_;
+    std::shared_ptr<engine::Mesh> wireframes_;
 };

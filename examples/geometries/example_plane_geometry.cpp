@@ -1,7 +1,7 @@
 // Copyright 2024 Betamark Pty Ltd. All rights reserved.
 // Author: Shlomi Nissan (shlomi@betamark.com)
 
-#include "example_geometries_sphere.hpp"
+#include "example_plane_geometry.hpp"
 
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
@@ -10,7 +10,7 @@
 
 using namespace engine;
 
-ExampleGeometriesSphere::ExampleGeometriesSphere(std::shared_ptr<engine::Camera> camera) {
+ExamplePlaneGeometry::ExamplePlaneGeometry(std::shared_ptr<engine::Camera> camera) {
     const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
     Add(camera_controls);
 
@@ -21,7 +21,12 @@ ExampleGeometriesSphere::ExampleGeometriesSphere(std::shared_ptr<engine::Camera>
     directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
     Add(directional_light);
 
-    auto geometry = SphereGeometry::Create({});
+    auto geometry = PlaneGeometry::Create({
+        .width = 1.5f,
+        .height = 1.5f,
+        .width_segments = 3,
+        .height_segments = 3
+    });
 
     auto base_material = PhongMaterial::Create();
     base_material->color = 0x049EF4;
@@ -36,7 +41,7 @@ ExampleGeometriesSphere::ExampleGeometriesSphere(std::shared_ptr<engine::Camera>
     mesh_->Add(wireframes_);
 }
 
-auto ExampleGeometriesSphere::Update(float delta) -> void {
-    mesh_->transform.Rotate(Vector3::Up(), 0.5f * delta);
-    mesh_->transform.Rotate(Vector3::Right(), 0.5f * delta);
+auto ExamplePlaneGeometry::Update(float delta) -> void {
+    mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
+    mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
 }
