@@ -99,10 +99,14 @@ auto Window::Impl::SetTitle(std::string_view title) -> void {
 }
 
 auto Window::Impl::LogContextInfo() const -> void {
-    Logger::Log(LogLevel::Info, "Vendor: {}", glGetString(GL_VENDOR));
-    Logger::Log(LogLevel::Info, "Renderer: {}", glGetString(GL_RENDERER));
-    Logger::Log(LogLevel::Info, "Version: {}", glGetString(GL_VERSION));
-    Logger::Log(LogLevel::Info, "GLSL Version: {}", glGetString(GL_SHADING_LANGUAGE_VERSION));
+    const auto getString = [](GLenum name) {
+        return reinterpret_cast<const char*>(glGetString(name));
+    };
+
+    Logger::Log(LogLevel::Info, "Vendor: {}", getString(GL_VENDOR));
+    Logger::Log(LogLevel::Info, "Renderer: {}", getString(GL_RENDERER));
+    Logger::Log(LogLevel::Info, "Version: {}", getString(GL_VERSION));
+    Logger::Log(LogLevel::Info, "GLSL Version: {}", getString(GL_SHADING_LANGUAGE_VERSION));
 }
 
 Window::Impl::~Impl() {

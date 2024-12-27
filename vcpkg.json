@@ -1,0 +1,29 @@
+{
+    "dependencies": [
+        {
+            "name": "fmt",
+            "version>=": "8.1.1"
+        },
+        {
+            "name": "glad",
+            "version>=": "0.1.36",
+            "features": ["gl-api-41"]
+        },
+        {
+            "name": "glfw3",
+            "version>=": "3.4"
+        },
+        {
+            "name": "gtest",
+            "version>=": "1.15.2"
+        },
+        {
+            "name": "imgui",
+            "version>=": "1.91.6"
+        },
+        {
+            "name": "stb",
+            "version>=": "2024-07-29#1"
+        }
+    ]
+}

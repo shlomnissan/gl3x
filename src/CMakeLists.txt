@@ -127,6 +127,13 @@ add_library(
     ${EXTERNAL_SOURCES}
 )
 
+find_package(OpenGL REQUIRED)
+find_package(fmt REQUIRED)
+find_package(glad REQUIRED)
+find_package(glfw3 REQUIRED)
+find_package(imgui REQUIRED)
+find_package(Stb REQUIRED)
+
 target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
@@ -134,19 +141,15 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/external>
 )
 
-find_package(OpenGL REQUIRED)
-find_package(fmt REQUIRED)
-find_package(glad REQUIRED)
-find_package(glfw3 REQUIRED)
-find_package(imgui REQUIRED)
-find_package(stb REQUIRED)
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${Stb_INCLUDE_DIR}
+)
 
 target_link_libraries(${PROJECT_NAME}
 PRIVATE
     OpenGL::GL
     glad::glad
     glfw
-    stb::stb
 PUBLIC
     fmt::fmt
     imgui::imgui
