@@ -4,18 +4,18 @@
 #include "engine/nodes/camera_orthographic.hpp"
 
 namespace engine {
-    CameraOrthographic::CameraOrthographic(const Parameters& params) {
-        SetProjection(params);
+    CameraOrthographic::CameraOrthographic(const Parameters& params) : params_(params) {
+        CameraOrthographic::SetProjection();
     }
 
-    auto CameraOrthographic::SetProjection(const Parameters& params) -> void {
-        projection_transform[0] = {2.0f / (params.right - params.left), 0.0f, 0.0f, 0.0f};
-        projection_transform[1] = {0.0f, 2.0f / (params.top - params.bottom), 0.0f, 0.0f};
-        projection_transform[2] = {0.0f, 0.0f, -2.0f / (params.far - params.near), 0.0f};
+    auto CameraOrthographic::SetProjection() -> void {
+        projection_transform[0] = {2.0f / (params_.right - params_.left), 0.0f, 0.0f, 0.0f};
+        projection_transform[1] = {0.0f, 2.0f / (params_.top - params_.bottom), 0.0f, 0.0f};
+        projection_transform[2] = {0.0f, 0.0f, -2.0f / (params_.far - params_.near), 0.0f};
         projection_transform[3] = {
-            -(params.right + params.left) / (params.right - params.left),
-            -(params.top + params.bottom) / (params.top - params.bottom),
-            -(params.far + params.near) / (params.far - params.near),
+            -(params_.right + params_.left) / (params_.right - params_.left),
+            -(params_.top + params_.bottom) / (params_.top - params_.bottom),
+            -(params_.far + params_.near) / (params_.far - params_.near),
             1.0f
         };
     }

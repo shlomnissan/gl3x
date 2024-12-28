@@ -6,9 +6,9 @@
 #include "engine/core/renderer.hpp"
 #include "engine/core/timer.hpp"
 #include "engine/core/window.hpp"
+#include "engine/nodes/camera.hpp"
 #include "engine/nodes/scene.hpp"
 
-#include "nodes/camera.hpp"
 #include "utilities/data_series.hpp"
 
 #include <memory>

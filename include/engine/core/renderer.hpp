@@ -4,10 +4,9 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/nodes/camera.hpp"
 #include "engine/math/color.hpp"
 #include "engine/nodes/scene.hpp"
-
-#include "nodes/camera.hpp"
 
 #include <memory>
 

@@ -5,7 +5,7 @@
 
 #include "engine_export.h"
 
-#include "nodes/camera.hpp"
+#include "engine/nodes/camera.hpp"
 
 #include <memory>
 
@@ -49,12 +49,13 @@ public:
     }
 
 private:
+    /// @brief The parameters of the orthographic camera.
+    Parameters params_;
+
     /**
      * @brief Sets the orthographic projection matrix.
-     *
-     * @param params The parameters struct of the orthographic camera.
      */
-    auto SetProjection(const Parameters& params) -> void;
+    auto SetProjection() -> void override;
 };
 
 }

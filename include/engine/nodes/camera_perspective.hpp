@@ -6,7 +6,7 @@
 #include "engine_export.h"
 #include "engine/math/utilities.hpp"
 
-#include "nodes/camera.hpp"
+#include "engine/nodes/camera.hpp"
 
 #include <memory>
 
@@ -48,12 +48,13 @@ public:
     }
 
 private:
+    /// @brief The parameters of the perspective camera.
+    Parameters params_;
+
     /**
      * @brief Sets the perspective projection matrix.
-     *
-     * @param params The parameters struct of the perspective camera.
      */
-    auto SetProjection(const Parameters& params) -> void;
+    auto SetProjection() -> void override;
 };
 
 }

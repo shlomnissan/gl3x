@@ -118,6 +118,4 @@ public:
     virtual ~Material() = default;
 };
 
-
-
 }
