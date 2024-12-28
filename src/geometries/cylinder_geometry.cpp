@@ -11,7 +11,7 @@
 
 namespace engine {
 
-CylinderGeometry::CylinderGeometry(const Paramaters& params) {
+CylinderGeometry::CylinderGeometry(const Parameters& params) {
     assert(params.height > 0.0f);
     assert(params.radial_segments > 0);
     assert(params.height_segments > 0);
@@ -27,7 +27,7 @@ CylinderGeometry::CylinderGeometry(const Paramaters& params) {
     SetAttributes();
 }
 
-auto CylinderGeometry::GenerateTorso(const Paramaters& params) -> void {
+auto CylinderGeometry::GenerateTorso(const Parameters& params) -> void {
     const auto half_height = params.height / 2;
     const auto slope = (params.radius_bottom - params.radius_top) / params.height;
 
@@ -70,7 +70,7 @@ auto CylinderGeometry::GenerateTorso(const Paramaters& params) -> void {
     }
 }
 
-auto CylinderGeometry::GenerateCap(const Paramaters& params, bool top) -> void {
+auto CylinderGeometry::GenerateCap(const Parameters& params, bool top) -> void {
     const auto half_height = params.height / 2;
     const auto sign = top ? 1.0f : -1.0f;
     const auto center_index_start = vertex_data_.size() / 8;

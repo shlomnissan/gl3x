@@ -21,12 +21,7 @@ ExamplePlaneGeometry::ExamplePlaneGeometry(std::shared_ptr<engine::Camera> camer
     directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
     Add(directional_light);
 
-    auto geometry = PlaneGeometry::Create({
-        .width = 1.5f,
-        .height = 1.5f,
-        .width_segments = 3,
-        .height_segments = 3
-    });
+    auto geometry = PlaneGeometry::Create();
 
     auto base_material = PhongMaterial::Create();
     base_material->color = 0x049EF4;

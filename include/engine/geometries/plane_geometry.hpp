@@ -33,6 +33,15 @@ public:
     explicit PlaneGeometry(const Parameters& params);
 
     /**
+     * @brief Creates a shared pointer to a PlaneGeometry object with default parameters.
+     *
+     * @return std::shared_ptr<PlaneGeometry> A shared pointer to the newly created object.
+     */
+    [[nodiscard]] static auto Create() {
+        return std::make_shared<PlaneGeometry>(Parameters {});
+    }
+
+    /**
      * @brief Creates a shared pointer to a PlaneGeometry object with the given parameters.
      *
      * @param params Parameters defining the size and segmentation of the plane.

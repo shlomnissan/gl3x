@@ -32,7 +32,7 @@ ExamplePointLight::ExamplePointLight(std::shared_ptr<engine::Camera> camera) {
     point_light->SetDebugMode(true);
     Add(point_light);
 
-    auto geometry = BoxGeometry::Create({});
+    auto geometry = BoxGeometry::Create();
     auto material = PhongMaterial::Create();
     material->color = 0x049EF4;
     material->cull_backfaces = true;

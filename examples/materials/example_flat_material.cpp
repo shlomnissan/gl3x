@@ -13,7 +13,7 @@ ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera)
     const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
     Add(camera_controls);
 
-    auto geometry = BoxGeometry::Create({});
+    auto geometry = BoxGeometry::Create();
     auto material = FlatMaterial::Create();
     material->color = 0x049EF4;
     material->cull_backfaces = true;

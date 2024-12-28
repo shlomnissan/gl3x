@@ -32,7 +32,7 @@ ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<engine::Camera>
     directional_light->SetDebugMode(true);
     Add(directional_light);
 
-    auto geometry = BoxGeometry::Create({});
+    auto geometry = BoxGeometry::Create();
     auto material = PhongMaterial::Create();
     material->color = 0x049EF4;
     material->cull_backfaces = true;

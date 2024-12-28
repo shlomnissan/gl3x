@@ -21,7 +21,7 @@ ExampleSphereGeometry::ExampleSphereGeometry(std::shared_ptr<engine::Camera> cam
     directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
     Add(directional_light);
 
-    auto geometry = SphereGeometry::Create({});
+    auto geometry = SphereGeometry::Create();
 
     auto base_material = PhongMaterial::Create();
     base_material->color = 0x049EF4;

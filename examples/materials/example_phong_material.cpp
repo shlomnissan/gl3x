@@ -14,7 +14,7 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camer
     const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
     Add(camera_controls);
 
-    auto geometry = BoxGeometry::Create({});
+    auto geometry = BoxGeometry::Create();
     auto material = PhongMaterial::Create();
     material->color = 0x049EF4;
     material->cull_backfaces = false;
