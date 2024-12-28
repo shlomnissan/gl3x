@@ -75,10 +75,10 @@ auto Node::Parent() const -> const Node* {
 auto Node::UpdateTransformHierarchy() -> void {
     if (transformAutoUpdate && ShouldUpdateWorldTransform()) {
         world_transform = parent_ == nullptr
-            ? transform
-            : parent_->world_transform * transform;
+            ? transform.Get()
+            : parent_->world_transform * transform.Get();
         transform.touched = false;
-        world_transform.touched = true;
+        world_transform_touched_ = true;
     }
 
     for (const auto child : children_) {
@@ -87,7 +87,7 @@ auto Node::UpdateTransformHierarchy() -> void {
         }
     }
 
-    world_transform.touched = false;
+    world_transform_touched_ = false;
 }
 
 auto Node::UpdateWorldTransform() -> void {
@@ -97,19 +97,19 @@ auto Node::UpdateWorldTransform() -> void {
 
     if (ShouldUpdateWorldTransform()) {
         world_transform = parent_ == nullptr
-            ? transform
-            : parent_->world_transform * transform;
+            ? transform.Get()
+            : parent_->world_transform * transform.Get();
         transform.touched = false;
     }
 }
 
 auto Node::ShouldUpdateWorldTransform() const -> bool {
-    return transform.touched || (parent_ && parent_->world_transform.touched);
+    return transform.touched || (parent_ && parent_->world_transform_touched_);
 }
 
 auto Node::GetWorldPosition() -> Vector3 {
     UpdateWorldTransform();
-    return world_transform.GetPosition();
+    return Vector3(world_transform[3]);
 }
 
 auto Node::LookAt(const Vector3& target) -> void {

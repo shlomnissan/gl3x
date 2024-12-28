@@ -6,6 +6,7 @@
 #include "engine_export.h"
 #include "engine/math/transform.hpp"
 #include "engine/math/vector3.hpp"
+#include "engine/math/matrix4.hpp"
 
 #include "core/identity.hpp"
 
@@ -26,7 +27,7 @@ public:
     Transform transform;
 
     /// @brief Node's world transformation.
-    Transform world_transform;
+    Matrix4 world_transform;
 
     /// @brief The up vector of the node.
     Vector3 up {Vector3::Up()};
@@ -188,6 +189,9 @@ private:
 
     /// @brief Pointer to the parent node.
     Node* parent_ {nullptr};
+
+    /// @brief Flag indicating whether the world transform was modified.
+    bool world_transform_touched_ {false};
 
     /**
      * @brief Updates the level of the specified child node.

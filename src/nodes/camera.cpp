@@ -8,7 +8,7 @@ namespace engine {
 auto Camera::UpdateViewTransform() -> void {
     if (ShouldUpdateWorldTransform()) {
         UpdateWorldTransform();
-        this->view_transform = Inverse(world_transform.Get());
+        this->view_transform = Inverse(world_transform);
     }
 }
 

@@ -5,6 +5,8 @@
 
 #include "engine/geometries/sphere_geometry.hpp"
 
+#include "engine/math/transform.hpp"
+
 namespace engine {
 
 auto PointLight::SetDebugMode(bool is_debug_mode) -> void {
@@ -21,8 +23,10 @@ auto PointLight::SetDebugMode(bool is_debug_mode) -> void {
 
 auto PointLight::Update(float delta) -> void {
     if (debug_mode_enabled) {
-        debug_mesh_sphere_->world_transform = world_transform;
-        debug_mesh_sphere_->world_transform.Scale(debug_mesh_size);
+        // TODO: update this logic once the transform class is refactored.
+        auto t = Transform {};
+        t.Scale(debug_mesh_size);
+        debug_mesh_sphere_->world_transform = world_transform * t.Get();
     }
 }
 
@@ -32,9 +36,8 @@ auto PointLight::CreateDebugMesh() -> void {
     debug_mesh_material_->color = color;
     debug_mesh_material_->wireframe = true;
     debug_mesh_material_->fog = false;
-
     debug_mesh_sphere_ = Mesh::Create(SphereGeometry::Create({
-        .radius = debug_mesh_size,
+        .radius = 1,
         .width_segments = 4,
         .height_segments = 2
     }), debug_mesh_material_);
