@@ -7,12 +7,15 @@
 #include <cmath>
 
 namespace engine {
-    CameraPerspective::CameraPerspective(
-        float fov,
-        float aspect,
-        float near,
-        float far
-    ) {
-        projection_transform.Perspective(fov, aspect, near, far);
+    CameraPerspective::CameraPerspective(const Parameters& params) {
+        SetProjection(params);
+    }
+
+    auto CameraPerspective::SetProjection(const Parameters& params) -> void {
+        const auto tan_half_fov = std::tan((engine::math::DegToRad(params.fov)) / 2);
+        projection_transform[0] = {1.0f / (params.aspect * tan_half_fov), 0.0f, 0.0f, 0.0f};
+        projection_transform[1] = {0.0f, 1.0f / tan_half_fov, 0.0f, 0.0f};
+        projection_transform[2] = {0.0f, 0.0f, -(params.far + params.near) / (params.far - params.near), -1.0f};
+        projection_transform[3] = {0.0f, 0.0f, -(2 * params.far * params.near) / (params.far - params.near), 0.0f};
     }
 }

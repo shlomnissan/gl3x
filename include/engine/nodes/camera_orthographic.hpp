@@ -20,48 +20,41 @@ namespace engine {
 class ENGINE_EXPORT CameraOrthographic : public Camera {
 public:
     /**
+     * @brief The parameters of the orthographic camera.
+     */
+    struct Parameters {
+        float left = -1.0f;     ///< The left bound of the view volume.
+        float right = 1.0f;     ///< The right bound of the view volume.
+        float top = 1.0f;       ///< The top bound of the view volume.
+        float bottom = -1.0f;   ///< The bottom bound of the view volume.
+        float near = 0.1f;      ///< The distance to the near clipping plane.
+        float far = 100.0f;     ///< The distance to the far clipping plane;
+    };
+
+    /**
      * @brief Constructs an orthographic camera object.
      *
-     * @param left The left bound of the view volume.
-     * @param right The right bound of the view volume.
-     * @param top The top bound of the view volume.
-     * @param bottom The bottom bound of the view volume.
-     * @param near The distance to the near clipping plane.
-     * @param far The distance to the far clipping plane.
+     * @param params The parameters struct of the orthographic camera.
      */
-    CameraOrthographic(
-        float left,
-        float right,
-        float top,
-        float bottom,
-        float near,
-        float far
-    );
+    explicit CameraOrthographic(const Parameters& params);
 
     /**
      * @brief Creates a new instance of the CameraOrthographic class with default parameters.
      *
-     * @param left The left bound of the orthographic view volume (default is -1.0f).
-     * @param right The right bound of the orthographic view volume (default is 1.0f).
-     * @param top The top bound of the orthographic view volume (default is 1.0f).
-     * @param bottom The bottom bound of the orthographic view volume (default is -1.0f).
-     * @param near The distance to the near clipping plane (default is 0.1f).
-     * @param far The distance to the far clipping plane (default is 100.0f).
+     * @param params The parameters struct of the orthographic camera.
      * @return A `std::shared_ptr<CameraOrthographic>` pointing to the newly created instance.
      */
-    [[nodiscard]]
-    static auto Create(
-        float left = -1.0f,
-        float right = 1.0f,
-        float top = 1.0f,
-        float bottom = -1.0f,
-        float near = 0.1f,
-        float far = 100.0f
-    ) {
-        return std::make_shared<CameraOrthographic>(
-            left, right, bottom, top, near, far
-        );
+    [[nodiscard]] static auto Create(const Parameters& params) {
+        return std::make_shared<CameraOrthographic>(params);
     }
+
+private:
+    /**
+     * @brief Sets the orthographic projection matrix.
+     *
+     * @param params The parameters struct of the orthographic camera.
+     */
+    auto SetProjection(const Parameters& params) -> void;
 };
 
 }

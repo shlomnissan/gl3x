@@ -4,14 +4,13 @@
 #pragma once
 
 #include "engine/math/matrix4.hpp"
-#include "engine/math/transform.hpp"
 #include "engine/nodes/node.hpp"
 
 namespace engine {
 
 class Camera : public Node {
 public:
-    Transform projection_transform;
+    Matrix4 projection_transform;
 
     Matrix4 view_transform;
 

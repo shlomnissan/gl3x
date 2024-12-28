@@ -33,7 +33,7 @@ public:
         window->SetTitle("Build Engine");
         renderer->SetClearColor(0x444444);
 
-        camera = CameraPerspective::Create(60.0f, window->AspectRatio());
+        camera = CameraPerspective::Create({.aspect = window->AspectRatio()});
         camera->transform.Translate({0.0f, 0.0f, 3.0f});
 
         LoadScene(examples[current_scene_]);

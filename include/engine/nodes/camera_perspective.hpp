@@ -21,36 +21,39 @@ namespace engine {
 class ENGINE_EXPORT CameraPerspective : public Camera {
 public:
     /**
+     * @brief The parameters of the perspective camera.
+     */
+    struct Parameters {
+        float fov = 60.0f;      ///< The field of view in degrees.
+        float aspect = 1.77f;   ///< The aspect ratio of the camera.
+        float near = 0.1f;      ///< The distance to the near clipping plane.
+        float far = 1000.0f;    ///< The distance to the far clipping plane.
+    };
+
+    /**
     * @brief Constructs a CameraPerspective object.
     *
-    * Initializes a perspective camera with the specified field of view (in radians), aspect ratio,
-    * and near and far clipping planes.
-    *
-    * @param fov The field of view in radians.
-    * @param aspect The aspect ratio of the camera.
-    * @param near The near clipping plane distance.
-    * @param far The far clipping plane distance.
+    * @param params The parameters struct of the perspective camera.
     */
-    CameraPerspective(float fov, float aspect, float near, float far);
+    explicit CameraPerspective(const Parameters& params);
 
     /**
      * @brief Creates a new instance of the CameraPerspective class with default parameters.
      *
-     * @param fov The field of view in degrees (default 60).
-     * @param aspect The aspect ratio of the camera (width/height). Default is 1.77f (16:9).
-     * @param near The near clipping plane distance. Default is 0.1f.
-     * @param far The far clipping plane distance. Default is 1000.0f.
+     * @param params The parameters struct of the perspective camera.
      * @return A `std::shared_ptr<CameraPerspective>` pointing to the newly created instance.
      */
-    [[nodiscard]]
-    static auto Create(
-        float fov = 60.0f,
-        float aspect = 1.77f,
-        float near = 0.1f,
-        float far = 1000.0f
-    ) {
-        return std::make_shared<CameraPerspective>(fov, aspect, near, far);
+    [[nodiscard]] static auto Create(const Parameters& params) {
+        return std::make_shared<CameraPerspective>(params);
     }
+
+private:
+    /**
+     * @brief Sets the perspective projection matrix.
+     *
+     * @param params The parameters struct of the perspective camera.
+     */
+    auto SetProjection(const Parameters& params) -> void;
 };
 
 }

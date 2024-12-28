@@ -86,26 +86,4 @@ auto Transform::LookAt(const Vector3& position, const Vector3& target, const Vec
     touched = true;
 }
 
-auto Transform::Perspective(float fov, float aspect_ratio, float near, float far) -> void {
-    const auto tan_half_fov = std::tan((engine::math::DegToRad(fov)) / 2);
-    transform_[0] = {1.0f / (aspect_ratio * tan_half_fov), 0.0f, 0.0f, 0.0f};
-    transform_[1] = {0.0f, 1.0f / tan_half_fov, 0.0f, 0.0f};
-    transform_[2] = {0.0f, 0.0f, -(far + near) / (far - near), -1.0f};
-    transform_[3] = {0.0f, 0.0f, -(2 * far * near) / (far - near), 0.0f};
-    touched = true;
-}
-
-auto Transform::Orthographic(float left, float right, float bottom, float top, float near, float far) -> void {
-    transform_[0] = {2.0f / (right - left), 0.0f, 0.0f, 0.0f};
-    transform_[1] = {0.0f, 2.0f / (top - bottom), 0.0f, 0.0f};
-    transform_[2] = {0.0f, 0.0f, -2.0f / (far - near), 0.0f};
-    transform_[3] = {
-        -(right + left) / (right - left),
-        -(top + bottom) / (top - bottom),
-        -(far + near) / (far - near),
-        1.0f
-    };
-    touched = true;
-}
-
 }

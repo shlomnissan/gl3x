@@ -95,28 +95,6 @@ public:
      */
     auto LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) -> void;
 
-    /**
-     * @brief Applies a perspective transformation.
-     *
-     * @param fov The field of view in degrees.
-     * @param aspect_ratio The aspect ratio of the view.
-     * @param near The near clipping plane distance.
-     * @param far The far clipping plane distance.
-     */
-    auto Perspective(float fov, float aspect_ratio, float near, float far) -> void;
-
-    /**
-     * @brief Applies an orthographic transformation.
-     *
-     * @param left The left bound of the view volume.
-     * @param right The right bound of the view volume.
-     * @param bottom The bottom bound of the view volume.
-     * @param top The top bound of the view volume.
-     * @param near The distance to the near clipping plane.
-     * @param far The distance to the far clipping plane.
-     */
-    auto Orthographic(float left, float right, float bottom, float top, float near, float far) -> void;
-
 private:
     /// @brief The transformation matrix, initialized to identity.
     Matrix4 transform_ {1.0f};
