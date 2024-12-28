@@ -40,6 +40,15 @@ public:
     /**
      * @brief Creates a new instance of the CameraPerspective class with default parameters.
      *
+     * @return A `std::shared_ptr<CameraPerspective>` pointing to the newly created instance.
+     */
+    [[nodiscard]] static auto Create() {
+        return std::make_shared<CameraPerspective>(Parameters {});
+    }
+
+    /**
+     * @brief Creates a new instance of the CameraPerspective class.
+     *
      * @param params The parameters struct of the perspective camera.
      * @return A `std::shared_ptr<CameraPerspective>` pointing to the newly created instance.
      */

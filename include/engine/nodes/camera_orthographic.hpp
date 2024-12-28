@@ -41,6 +41,15 @@ public:
     /**
      * @brief Creates a new instance of the CameraOrthographic class with default parameters.
      *
+     * @return A `std::shared_ptr<CameraOrthographic>` pointing to the newly created instance.
+     */
+    [[nodiscard]] static auto Create() {
+        return std::make_shared<CameraOrthographic>(Parameters {});
+    }
+
+    /**
+     * @brief Creates a new instance of the CameraOrthographic class.
+     *
      * @param params The parameters struct of the orthographic camera.
      * @return A `std::shared_ptr<CameraOrthographic>` pointing to the newly created instance.
      */

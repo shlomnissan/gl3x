@@ -166,7 +166,7 @@ TEST(Node, RemoveNonexistentChild) {
 #pragma region Type Helpers
 
 TEST(Node, TypeCheck) {
-    auto temp = engine::CameraPerspective::Create({});
+    auto temp = engine::CameraPerspective::Create();
     engine::Node* node = temp.get();
 
     EXPECT_TRUE(node->Is<engine::CameraPerspective>());
@@ -174,7 +174,7 @@ TEST(Node, TypeCheck) {
 }
 
 TEST(Node, TypeCast) {
-    auto temp = engine::CameraPerspective::Create({});
+    auto temp = engine::CameraPerspective::Create();
     engine::Node* node = temp.get();
 
     auto camera = node->As<engine::CameraPerspective>();
