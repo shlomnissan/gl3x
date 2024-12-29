@@ -104,7 +104,7 @@ auto Renderer::Impl::SetUniforms(
     Scene* scene
 ) -> void {
     auto material = mesh->GetMaterial();
-    auto model_view = camera->view_transform * mesh->world_transform;
+    auto model_view = camera->view_transform * mesh->GetWorldTransform();
 
     program->SetUniform("u_Projection", camera->projection_transform);
     program->SetUniform("u_ModelView", model_view);

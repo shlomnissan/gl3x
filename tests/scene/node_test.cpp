@@ -70,11 +70,11 @@ TEST(Node, UpdateLevel) {
 
 TEST(Node, UpdateTransformsWithoutParent) {
     auto node = std::make_shared<engine::Node>();
-    // node->transform.Scale(2.0f);
+    node->transform.SetScale({2.0f, 2.0f, 2.0f});
 
     node->UpdateTransformHierarchy();
 
-    EXPECT_MAT4_EQ(node->world_transform, {
+    EXPECT_MAT4_EQ(node->GetWorldTransform(), {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 2.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 2.0f, 0.0f,
@@ -91,7 +91,7 @@ TEST(Node, UpdateTransformsWithParent) {
 
     parent->UpdateTransformHierarchy();
 
-    EXPECT_MAT4_EQ(child->world_transform, {
+    EXPECT_MAT4_EQ(child->GetWorldTransform(), {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 2.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 2.0f, 0.0f,
@@ -108,14 +108,14 @@ TEST(Node, DisableTransformAutoUpdate) {
     parent->Add(child);
     parent->UpdateTransformHierarchy();
 
-    EXPECT_MAT4_EQ(parent->world_transform, {
+    EXPECT_MAT4_EQ(parent->GetWorldTransform(), {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 2.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 2.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 1.0f
     });
 
-    EXPECT_MAT4_EQ(child->world_transform, {
+    EXPECT_MAT4_EQ(child->GetWorldTransform(), {
         1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,

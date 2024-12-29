@@ -26,8 +26,7 @@ public:
     /// @brief Node's local transformation.
     Transform3D transform;
 
-    /// @brief Node's world transformation.
-    Matrix4 world_transform;
+
 
     /// @brief The up vector of the node.
     Vector3 up {Vector3::Up()};
@@ -105,6 +104,15 @@ public:
      * @return The world position of the node.
      */
     [[nodiscard]] auto GetWorldPosition() -> Vector3;
+
+    /**
+     * @brief Retrieves the world transformation matrix of the node.
+     *
+     * @return The world transformation matrix of the node.
+     */
+    [[nodiscard]] auto GetWorldTransform() -> Matrix4 {
+        return world_transform_;
+    }
 
     /**
      * @brief Rotates the object to face a point in world space.
@@ -189,6 +197,9 @@ private:
 
     /// @brief Pointer to the parent node.
     Node* parent_ {nullptr};
+
+    /// @brief Node's world transformation.
+    Matrix4 world_transform_;
 
     /// @brief Flag indicating whether the world transform was modified.
     bool world_transform_touched_ {false};
