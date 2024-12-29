@@ -17,11 +17,11 @@ public:
 
     Transform3D() = default;
 
-    auto Translate(const Vector3& axis, float value) -> void;
-
-    auto Scale(const Vector3& value) -> void;
+    auto Translate(const Vector3& value) -> void;
 
     auto Rotate(const Vector3& axis, float angle) -> void;
+
+    auto LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) -> void;
 
     auto SetPosition(const Vector3& position) -> void;
 

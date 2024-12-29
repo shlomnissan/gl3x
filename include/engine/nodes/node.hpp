@@ -4,9 +4,9 @@
 #pragma once
 
 #include "engine_export.h"
-#include "engine/math/transform.hpp"
-#include "engine/math/vector3.hpp"
 #include "engine/math/matrix4.hpp"
+#include "engine/math/transform_3d.hpp"
+#include "engine/math/vector3.hpp"
 
 #include "core/identity.hpp"
 
@@ -24,7 +24,7 @@ struct MouseEvent; ///< Forward declaration
 class ENGINE_EXPORT Node : public Identity {
 public:
     /// @brief Node's local transformation.
-    Transform transform;
+    Transform3D transform;
 
     /// @brief Node's world transformation.
     Matrix4 world_transform;

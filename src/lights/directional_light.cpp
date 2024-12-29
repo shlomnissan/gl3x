@@ -36,8 +36,8 @@ auto DirectionalLight::Update(float delta) -> void {
         debug_mesh_material_->color = color;
 
         const auto length = (target_world_pos - GetWorldPosition()).Length();
-        debug_mesh_plane_->transform.Scale(debug_mesh_size);
-        debug_mesh_line_->transform.Scale({1.0f, 1.0f, length});
+        debug_mesh_plane_->transform.SetScale({debug_mesh_size, debug_mesh_size, debug_mesh_size});
+        debug_mesh_line_->transform.SetScale({1.0f, 1.0f, length});
     }
 }
 
