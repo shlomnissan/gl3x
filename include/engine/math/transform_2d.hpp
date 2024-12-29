@@ -15,26 +15,21 @@ namespace engine {
 class ENGINE_EXPORT Transform2D {
 public:
     /**
-     * @brief Initializes the transformation matrix to the identity matrix.
-     */
-    Transform2D() = default;
-
-    /**
-     * @brief Applies a translation transformation.
+     * @brief Update the position of the transformation.
      *
      * @param value The translation vector to apply.
      */
     auto Translate(const Vector2& value) -> void;
 
     /**
-     * @brief Applies a scaling transformation.
+     * @brief Update the scale of the transformation.
      *
      * @param value The scaling vector to apply.
      */
     auto Scale(const Vector2& value) -> void;
 
     /**
-     * @brief Applies a rotation transformation.
+     * @brief Update the rotation of the transformation.
      *
      * @param angle The angle to rotate by, in radians.
      */

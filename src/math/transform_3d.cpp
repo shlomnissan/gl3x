@@ -12,6 +12,11 @@ auto Transform3D::Translate(const Vector3& value) -> void {
     touched = true;
 }
 
+auto Transform3D::Scale(const Vector3& value) -> void {
+    scale_ *= value;
+    touched = true;
+}
+
 auto Transform3D::Rotate(const Vector3& axis, float angle) -> void {
     assert(axis == Vector3::Right() || axis == Vector3::Up() || axis == Vector3::Forward());
     if (axis == Vector3::Right()) {
@@ -96,7 +101,6 @@ auto Transform3D::Get() -> Matrix4 {
         transform_ = translate * rotation_.GetMatrix() * scale;
         touched = false;
     }
-
     return transform_;
 }
 
