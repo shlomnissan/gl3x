@@ -173,56 +173,56 @@ public:
      *
      * @param value The amount to translate the node.
      */
-    auto TranslateX(float value) -> void;
+    auto TranslateX(float value) { transform.Translate({value, 0.0f, 0.0f}); }
 
     /**
      * @brief Translates the node along the Y-axis.
      *
      * @param value The amount to translate the node.
      */
-    auto TranslateY(float value) -> void;
+    auto TranslateY(float value) { transform.Translate({0.0f, value, 0.0f}); }
 
     /**
      * @brief Translates the node along the Z-axis.
      *
      * @param value The amount to translate the node.
      */
-    auto TranslateZ(float value) -> void;
+    auto TranslateZ(float value) { transform.Translate({0.0f, 0.0f, value}); }
 
     /**
      * @brief Rotates the node around the X-axis.
      *
      * @param value The angle to rotate the node.
      */
-    auto RotateX(float angle) -> void;
+    auto RotateX(float angle) { transform.Rotate(Vector3::Right(), angle); }
 
     /**
      * @brief Rotates the node around the Y-axis.
      *
      * @param value The angle to rotate the node.
      */
-    auto RotateY(float angle) -> void;
+    auto RotateY(float angle) { transform.Rotate(Vector3::Up(), angle); }
 
     /**
      * @brief Rotates the node around the Z-axis.
      *
      * @param value The angle to rotate the node.
      */
-    auto RotateZ(float angle) -> void;
+    auto RotateZ(float angle) { transform.Rotate(Vector3::Forward(), angle); }
 
     /**
      * @brief Set a uniform scale for the node.
      *
      * @param value The amount to scale the node.
      */
-    auto SetScale(float value) -> void;
+    auto SetScale(float value) { transform.SetScale({value, value, value}); }
 
     /**
      * @brief Set a scale for the node.
      *
      * @param value The amount to scale the node.
      */
-    auto SetScale(const Vector3& value) -> void;
+    auto SetScale(const Vector3& value) { transform.SetScale(value); }
 
     #pragma endregion
 

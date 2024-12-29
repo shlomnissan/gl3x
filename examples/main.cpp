@@ -50,17 +50,7 @@ public:
         );
         if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) DrawExamplesList();
         if (ImGui::CollapsingHeader("Scene")) DrawSceneSettings();
-
-        ImGui::PushStyleColor(ImGuiCol_Header, {0.0f, 0.56f, 0.63f, 1.0f});
-        ImGui::PushStyleColor(ImGuiCol_HeaderHovered, {0.0f, 0.56f, 0.63f, 1.0f});
-        ImGui::PushStyleColor(ImGuiCol_HeaderActive, {0.0f, 0.56f, 0.63f, 1.0f});
-        if (ImGui::CollapsingHeader("Dynamic")) {
-            // TODO: load dynamic settings
-        }
-        ImGui::PopStyleColor(3);
-
         ImGui::End();
-
         return true;
     }
 
