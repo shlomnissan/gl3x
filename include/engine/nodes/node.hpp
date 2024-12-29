@@ -26,8 +26,6 @@ public:
     /// @brief Node's local transformation.
     Transform3D transform;
 
-
-
     /// @brief The up vector of the node.
     Vector3 up {Vector3::Up()};
 
@@ -110,7 +108,7 @@ public:
      *
      * @return The world transformation matrix of the node.
      */
-    [[nodiscard]] auto GetWorldTransform() -> Matrix4 {
+    [[nodiscard]] auto GetWorldTransform() const -> Matrix4 {
         return world_transform_;
     }
 
@@ -168,6 +166,66 @@ public:
      */
     virtual ~Node() = default;
 
+    #pragma region Transformations
+
+    /**
+     * @brief Translates the node along the X-axis.
+     *
+     * @param value The amount to translate the node.
+     */
+    auto TranslateX(float value) -> void;
+
+    /**
+     * @brief Translates the node along the Y-axis.
+     *
+     * @param value The amount to translate the node.
+     */
+    auto TranslateY(float value) -> void;
+
+    /**
+     * @brief Translates the node along the Z-axis.
+     *
+     * @param value The amount to translate the node.
+     */
+    auto TranslateZ(float value) -> void;
+
+    /**
+     * @brief Rotates the node around the X-axis.
+     *
+     * @param value The angle to rotate the node.
+     */
+    auto RotateX(float angle) -> void;
+
+    /**
+     * @brief Rotates the node around the Y-axis.
+     *
+     * @param value The angle to rotate the node.
+     */
+    auto RotateY(float angle) -> void;
+
+    /**
+     * @brief Rotates the node around the Z-axis.
+     *
+     * @param value The angle to rotate the node.
+     */
+    auto RotateZ(float angle) -> void;
+
+    /**
+     * @brief Set a uniform scale for the node.
+     *
+     * @param value The amount to scale the node.
+     */
+    auto SetScale(float value) -> void;
+
+    /**
+     * @brief Set a scale for the node.
+     *
+     * @param value The amount to scale the node.
+     */
+    auto SetScale(const Vector3& value) -> void;
+
+    #pragma endregion
+
     #pragma region Events
 
     /**
@@ -199,7 +257,7 @@ private:
     Node* parent_ {nullptr};
 
     /// @brief Node's world transformation.
-    Matrix4 world_transform_;
+    Matrix4 world_transform_ {1.0f};
 
     /// @brief Flag indicating whether the world transform was modified.
     bool world_transform_touched_ {false};

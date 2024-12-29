@@ -34,7 +34,7 @@ auto SpotLight::Update(float delta) -> void {
             ? target->GetWorldPosition()
             : Vector3::Zero();
         debug_mesh_cone_->LookAt(target_world_pos);
-        debug_mesh_cone_->transform.SetScale({cone_width, cone_width, cone_length});
+        debug_mesh_cone_->SetScale({cone_width, cone_width, cone_length});
         debug_mesh_material_->color = color;
     }
 }

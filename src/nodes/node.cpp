@@ -122,4 +122,36 @@ auto Node::LookAt(const Vector3& target) -> void {
     }
 }
 
+auto Node::TranslateX(float value) -> void {
+    transform.Translate({value, 0.0f, 0.0f});
+}
+
+auto Node::TranslateY(float value) -> void {
+    transform.Translate({0.0f, value, 0.0f});
+}
+
+auto Node::TranslateZ(float value) -> void {
+    transform.Translate({0.0f, 0.0f, value});
+}
+
+auto Node::RotateX(float angle) -> void {
+    transform.Rotate(Vector3::Right(), angle);
+}
+
+auto Node::RotateY(float angle) -> void {
+    transform.Rotate(Vector3::Up(), angle);
+}
+
+auto Node::RotateZ(float angle) -> void {
+    transform.Rotate(Vector3::Forward(), angle);
+}
+
+auto Node::SetScale(float value) -> void {
+    transform.SetScale({value, value, value});
+}
+
+auto Node::SetScale(const Vector3& value) -> void {
+    transform.SetScale(value);
+}
+
 }

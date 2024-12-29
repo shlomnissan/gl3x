@@ -21,11 +21,7 @@ auto PointLight::SetDebugMode(bool is_debug_mode) -> void {
 
 auto PointLight::Update(float delta) -> void {
     if (debug_mode_enabled) {
-        debug_mesh_sphere_->transform.SetScale({
-            debug_mesh_size,
-            debug_mesh_size,
-            debug_mesh_size
-        });
+        debug_mesh_sphere_->SetScale(debug_mesh_size);
     }
 }
 
