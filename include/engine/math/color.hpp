@@ -11,7 +11,7 @@
 namespace engine {
 
 /**
- * @brief A color class representing RGBA color values.
+ * @brief A color class representing RGB color values.
  */
 class ENGINE_EXPORT Color  {
 public:
@@ -21,8 +21,6 @@ public:
     float g {1.0f};
     /// @brief The blue component.
     float b {1.0f};
-    /// @brief The alpha (transparency) component.
-    float a {1.0f};
 
     /**
      * @brief Default constructor that initializes the color to white with full opacity.
@@ -31,7 +29,6 @@ public:
 
     /**
      * @brief Constructs a color with the specified red, green, and blue components.
-     * The alpha component is set to 1.0 by default.
      *
      * @param r The red component of the color.
      * @param g The green component of the color.
@@ -39,17 +36,6 @@ public:
      */
     Color(float r, float g, float b)
         : r(r), g(g), b(b) {}
-
-    /**
-     * @brief Constructs a color with the specified red, green, blue, and alpha components.
-     *
-     * @param r The red component of the color.
-     * @param g The green component of the color.
-     * @param b The blue component of the color.
-     * @param a The alpha (transparency) component of the color.
-     */
-    Color(float r, float g, float b, float a)
-        : r(r), g(g), b(b), a(a) {}
 
     /**
      * @brief Constructs a color from a hexadecimal representation.
@@ -62,24 +48,24 @@ public:
         b(static_cast<float>(hex & 255) / 255.f) {}
 
     /**
-     * @brief Provides access to the red, green, blue, or alpha component of the color.
+     * @brief Provides access to the red, green, or blue component of the color.
      *
-     * @param i The index of the component to access (0 for red, 1 for green, 2 for blue, 3 for alpha).
+     * @param i The index of the component to access (0 for red, 1 for green, 2 for blue).
      * @return A reference to the color component.
      */
     [[nodiscard]] auto& operator[](int i) {
-        assert(i >= 0 && i < 4);
+        assert(i >= 0 && i < 3);
         return (reinterpret_cast<float*>(this))[i];
     }
 
     /**
-     * @brief Provides const access to the red, green, blue, or alpha component of the color.
+     * @brief Provides const access to the red, green, or blue component of the color.
      *
-     * @param i The index of the component to access (0 for red, 1 for green, 2 for blue, 3 for alpha).
+     * @param i The index of the component to access (0 for red, 1 for green, 2 for blue).
      * @return A const reference to the color component.
      */
     [[nodiscard]] const auto& operator[](int i) const {
-        assert(i >= 0 && i < 4);
+        assert(i >= 0 && i < 3);
         return (reinterpret_cast<const float*>(this))[i];
     }
 

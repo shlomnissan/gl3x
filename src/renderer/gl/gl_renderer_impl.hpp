@@ -30,7 +30,7 @@ private:
     GLPrograms programs_;
     GLTextures textures_;
 
-    Color clear_color_ {0.0f, 0.0f, 0.0f, 1.0f};
+    Color clear_color_ {0.0f, 0.0f, 0.0f};
 
     bool curr_backface_culling_mode {false};
 

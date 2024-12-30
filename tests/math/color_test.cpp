@@ -13,7 +13,6 @@ TEST(Color, ConstructorDefault) {
     EXPECT_FLOAT_EQ(color.r, 1.0f);
     EXPECT_FLOAT_EQ(color.g, 1.0f);
     EXPECT_FLOAT_EQ(color.b, 1.0f);
-    EXPECT_FLOAT_EQ(color.a, 1.0f);
 }
 
 TEST(Color, ConstructorRGB) {
@@ -22,16 +21,6 @@ TEST(Color, ConstructorRGB) {
     EXPECT_FLOAT_EQ(color.r, 0.5f);
     EXPECT_FLOAT_EQ(color.g, 0.25f);
     EXPECT_FLOAT_EQ(color.b, 0.75f);
-    EXPECT_FLOAT_EQ(color.a, 1.0f);
-}
-
-TEST(Color, ConstructorRGBA) {
-    auto color = engine::Color {0.3f, 0.6f, 0.9f, 0.5f};
-
-    EXPECT_FLOAT_EQ(color.r, 0.3f);
-    EXPECT_FLOAT_EQ(color.g, 0.6f);
-    EXPECT_FLOAT_EQ(color.b, 0.9f);
-    EXPECT_FLOAT_EQ(color.a, 0.5f);
 }
 
 TEST(Color, ConstructorHex) {
@@ -40,7 +29,6 @@ TEST(Color, ConstructorHex) {
     EXPECT_NEAR(color.r, 1.0f, 0.1f);
     EXPECT_NEAR(color.g, 0.4f, 0.1f);
     EXPECT_NEAR(color.b, 0.3f, 0.1f);
-    EXPECT_NEAR(color.a, 1.0f, 0.1f);
 }
 
 #pragma endregion
@@ -53,7 +41,6 @@ TEST(Color, ComponentAccessDirect) {
     EXPECT_NEAR(c.r, 1.0f, 0.1f);
     EXPECT_NEAR(c.g, 0.4f, 0.1f);
     EXPECT_NEAR(c.b, 0.3f, 0.1f);
-    EXPECT_NEAR(c.a, 1.0f, 0.1f);
 }
 
 TEST(Color, ComponentAccessRandomAccessOperator) {
@@ -62,8 +49,7 @@ TEST(Color, ComponentAccessRandomAccessOperator) {
     EXPECT_NEAR(c[0], 1.0f, 0.1f);
     EXPECT_NEAR(c[1], 0.4f, 0.1f);
     EXPECT_NEAR(c[2], 0.3f, 0.1f);
-    EXPECT_NEAR(c[3], 1.0f, 0.1f);
-    EXPECT_DEATH({ (void)c[4]; }, ".*i >= 0 && i < 4.*");
+    EXPECT_DEATH({ (void)c[3]; }, ".*i >= 0 && i < 3.*");
 }
 
 #pragma endregion
@@ -77,7 +63,6 @@ TEST(Color, AssignmentOperatorHex) {
     EXPECT_NEAR(color.r, 1.0f, 0.1f);
     EXPECT_NEAR(color.g, 0.2f, 0.1f);
     EXPECT_NEAR(color.b, 0.0f, 0.1f);
-    EXPECT_NEAR(color.a, 1.0f, 0.1f);
 }
 
 #pragma endregion

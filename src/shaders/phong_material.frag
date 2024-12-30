@@ -20,15 +20,15 @@ in vec2 v_TexCoord;
 in vec3 v_Normal;
 in vec4 v_Position;
 
-uniform vec4 u_AmbientLight;
-uniform vec4 u_Diffuse;
-uniform vec4 u_Specular;
+uniform vec3 u_AmbientLight;
+uniform vec3 u_Diffuse;
+uniform vec3 u_Specular;
 uniform float u_Shininess;
 uniform sampler2D u_TextureMap;
 
 #ifdef USE_FOG
     struct Fog {
-        vec4 Color;
+        vec3 Color;
         float Near;
         float Far;
     };
@@ -39,7 +39,7 @@ uniform sampler2D u_TextureMap;
 #if NUM_DIR_LIGHTS > 0
     struct DirectionalLight {
         vec3 Direction;
-        vec4 Color;
+        vec3 Color;
     };
 
     uniform DirectionalLight u_DirectionalLights[NUM_DIR_LIGHTS];
@@ -48,7 +48,7 @@ uniform sampler2D u_TextureMap;
 #if NUM_POINT_LIGHTS > 0
     struct PointLight {
         vec4 Position;
-        vec4 Color;
+        vec3 Color;
         float Distance;
         float Decay;
     };
@@ -59,7 +59,7 @@ uniform sampler2D u_TextureMap;
 #if NUM_SPOT_LIGHTS > 0
     struct SpotLight {
         vec4 Position;
-        vec4 Color;
+        vec3 Color;
         vec3 Direction;
         float Distance;
         float Decay;
@@ -106,7 +106,7 @@ void main() {
         material.DiffuseColor *= texture(u_TextureMap, v_TexCoord).rgb;
     #endif
 
-    v_FragColor = u_AmbientLight * vec4(material.DiffuseColor, 1.0);
+    v_FragColor = vec4(u_AmbientLight * material.DiffuseColor, 1.0f);
 
     #if NUM_DIR_LIGHTS > 0
         for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
@@ -138,14 +138,14 @@ void main() {
                 light.Color *= distanceAttenuation(light_distance, light.Distance, light.Decay);
                 v_FragColor += vec4(phongShading(direction, light.Color.rgb, material), 1.0);
             } else {
-                light.Color = vec4(0.0);
+                light.Color = vec3(0.0);
             }
         }
     #endif
 
     #ifdef USE_FOG
         float fog_factor = smoothstep(u_Fog.Near, u_Fog.Far, v_FogDepth);
-        v_FragColor = mix(v_FragColor, u_Fog.Color, fog_factor);
+        v_FragColor = mix(v_FragColor, vec4(u_Fog.Color, 1.0), fog_factor);
     #endif
 
     v_FragColor = clamp(v_FragColor, 0.0, 1.0);

@@ -228,7 +228,7 @@ auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
 }
 
 auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
-    glClearColor(clear_color_.r, clear_color_.g, clear_color_.b, clear_color_.a);
+    glClearColor(clear_color_.r, clear_color_.g, clear_color_.b, 1.0f);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

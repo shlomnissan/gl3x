@@ -12,12 +12,12 @@ layout (location = 0) out vec4 v_FragColor;
 in float v_FogDepth;
 in vec2 v_TexCoord;
 
-uniform vec4 u_Color;
+uniform vec3 u_Color;
 uniform sampler2D u_TextureMap;
 
 #ifdef USE_FOG
     struct Fog {
-        vec4 Color;
+        vec3 Color;
         float Near;
         float Far;
     };
@@ -29,7 +29,7 @@ void main() {
     v_FragColor = vec4(1.0);
 
     #ifdef USE_COLOR
-        v_FragColor *= u_Color;
+        v_FragColor *= vec4(u_Color, 1.0);
     #endif
 
     #ifdef USE_TEXTURE_MAP
@@ -38,7 +38,7 @@ void main() {
 
     #ifdef USE_FOG
         float fog_factor = smoothstep(u_Fog.Near, u_Fog.Far, v_FogDepth);
-        v_FragColor = mix(v_FragColor, u_Fog.Color, fog_factor);
+        v_FragColor = mix(v_FragColor, vec4(u_Fog.Color, 1.0), fog_factor);
     #endif
 
     v_FragColor = clamp(v_FragColor, 0.0, 1.0);
