@@ -11,11 +11,60 @@
 
 #pragma region Transformations
 
-// TODO: Translate
+TEST(Transform3D, SetPosition) {
+    auto t = engine::Transform3D {};
+    t.SetPosition({2.0f, 1.0f, 3.0f});
 
-// TODO: Scale
+    EXPECT_VEC3_EQ(t.GetPosition(), {2.0f, 1.0f, 3.0f});
+    EXPECT_MAT4_EQ(t.Get(), {
+        1.0f, 0.0f, 0.0f, 2.0f,
+        0.0f, 1.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 1.0f, 3.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+}
 
-// TODO: Rotate
+TEST(Transform3D, SetScale) {
+    auto t = engine::Transform3D {};
+    t.SetScale({2.0f, 1.0f, 3.0f});
+
+    EXPECT_VEC3_EQ(t.GetScale(), {2.0f, 1.0f, 3.0f});
+    EXPECT_MAT4_EQ(t.Get(), {
+        2.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 3.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+}
+
+TEST(Transform3D, SetRotation) {
+    auto t = engine::Transform3D {};
+    auto p = engine::math::half_pi;
+    t.SetRotation(engine::Euler {{
+        .pitch = p + 0.1f,
+        .yaw = p + 0.2f,
+        .roll = p + 0.3f
+    }});
+
+    const auto rotation = t.GetRotation();
+    EXPECT_NEAR(rotation.pitch, p + 0.1f, 0.0001f);
+    EXPECT_NEAR(rotation.yaw, p + 0.2f, 0.0001f);
+    EXPECT_NEAR(rotation.roll, p + 0.3f, 0.0001f);
+
+    const auto cos_p = std::cos(rotation.pitch);
+    const auto sin_p = std::sin(rotation.pitch);
+    const auto cos_y = std::cos(rotation.yaw);
+    const auto sin_y = std::sin(rotation.yaw);
+    const auto cos_r = std::cos(rotation.roll);
+    const auto sin_r = std::sin(rotation.roll);
+
+    EXPECT_MAT4_EQ(t.Get(), {
+        cos_r * cos_y - sin_r * sin_p * sin_y, -sin_r * cos_p, cos_r * sin_y + sin_r * sin_p * cos_y, 0.0f,
+        sin_r * cos_y + cos_r * sin_p * sin_y, cos_r * cos_p, sin_r * sin_y - cos_r * sin_p * cos_y, 0.0f,
+        -cos_p * sin_y, sin_p, cos_p * cos_y, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+}
 
 // TODO: TSR
 
