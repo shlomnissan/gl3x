@@ -66,11 +66,45 @@ TEST(Transform3D, SetRotation) {
     });
 }
 
-// TODO: TSR
+TEST(Transform3D, MultipleTransformations) {
+    auto t = engine::Transform3D {};
+    t.SetPosition({2.0f, 1.0f, 3.0f});
+    t.SetScale({2.0f, 1.0f, 3.0f});
+    t.SetRotation(engine::Euler {{
+        .pitch = engine::math::half_pi + 0.1f,
+        .yaw = engine::math::half_pi + 0.2f,
+        .roll = engine::math::half_pi + 0.3f
+    }});
 
-// TODO: LookAtWithIdentity
+    const auto& rotation = t.GetRotation();
+    const auto& position = t.GetPosition();
+    const auto& scale = t.GetScale();
+    const auto cos_p = std::cos(rotation.pitch);
+    const auto sin_p = std::sin(rotation.pitch);
+    const auto cos_y = std::cos(rotation.yaw);
+    const auto sin_y = std::sin(rotation.yaw);
+    const auto cos_r = std::cos(rotation.roll);
+    const auto sin_r = std::sin(rotation.roll);
 
-// TODO: LookAtWithTransformations
+    EXPECT_MAT4_EQ(t.Get(), {
+        scale.x * (cos_r * cos_y - sin_r * sin_p * sin_y),
+        scale.y * (-sin_r * cos_p),
+        scale.z * (cos_r * sin_y + sin_r * sin_p * cos_y),
+        position.x,
+
+        scale.x * (sin_r * cos_y + cos_r * sin_p * sin_y),
+        scale.y * (cos_r * cos_p),
+        scale.z * (sin_r * sin_y - cos_r * sin_p * cos_y),
+        position.y,
+
+        scale.x * (-cos_p * sin_y),
+        scale.y * sin_p,
+        scale.z * (cos_p * cos_y),
+        position.z,
+
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+}
 
 #pragma endregion
 

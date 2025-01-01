@@ -84,21 +84,32 @@ auto Transform3D::SetRotation(const Euler& rotation) -> void {
 
 auto Transform3D::Get() -> Matrix4 {
     if (touched) {
-        auto translate = Matrix4 {
-            1.0f, 0.0f, 0.0f, position_.x,
-            0.0f, 1.0f, 0.0f, position_.y,
-            0.0f, 0.0f, 1.0f, position_.z,
+        const auto cos_p = std::cos(rotation_.pitch);
+        const auto sin_p = std::sin(rotation_.pitch);
+        const auto cos_y = std::cos(rotation_.yaw);
+        const auto sin_y = std::sin(rotation_.yaw);
+        const auto cos_r = std::cos(rotation_.roll);
+        const auto sin_r = std::sin(rotation_.roll);
+
+        transform_ = {
+            scale_.x * (cos_r * cos_y - sin_r * sin_p * sin_y),
+            scale_.y * (-sin_r * cos_p),
+            scale_.z * (cos_r * sin_y + sin_r * sin_p * cos_y),
+            position_.x,
+
+            scale_.x * (sin_r * cos_y + cos_r * sin_p * sin_y),
+            scale_.y * (cos_r * cos_p),
+            scale_.z * (sin_r * sin_y - cos_r * sin_p * cos_y),
+            position_.y,
+
+            scale_.x * (-cos_p * sin_y),
+            scale_.y * sin_p,
+            scale_.z * (cos_p * cos_y),
+            position_.z,
+
             0.0f, 0.0f, 0.0f, 1.0f
         };
 
-        auto scale = Matrix4 {
-            scale_.x, 0.0f, 0.0f, 0.0f,
-            0.0f, scale_.y, 0.0f, 0.0f,
-            0.0f, 0.0f, scale_.z, 0.0f,
-            0.0f, 0.0f, 0.0f, 1.0f
-        };
-
-        transform_ = translate * rotation_.GetMatrix() * scale;
         touched = false;
     }
     return transform_;
