@@ -1,5 +1,5 @@
-// Copyright 2024 Betamark Pty Ltd. All rights reserved.
-// Author: Shlomi Nissan (shlomi@betamark.com)
+// Copyright © 2024 - Present, Shlomi Nissan.
+// All rights reserved.
 
 #include "engine/core/application_context.hpp"
 
