@@ -7,6 +7,8 @@
 
 #include <engine/nodes.hpp>
 
+#include "geometries/example_box_geometry.hpp"
+#include "geometries/example_cylinder_geometry.hpp"
 #include "geometries/example_plane_geometry.hpp"
 #include "geometries/example_sphere_geometry.hpp"
 #include "lights/example_directional_light.hpp"
@@ -23,6 +25,8 @@ static const auto examples = std::vector {
     "Point Light",
     "Spot Light",
     "",
+    "Box Geometry",
+    "Cylinder Geometry",
     "Plane Geometry",
     "Sphere Geometry",
 };

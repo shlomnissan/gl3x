@@ -2,6 +2,10 @@
 # Author: Shlomi Nissan (shlomi@betamark.com)
 
 set(SOURCE_CODE
+    "geometries/example_box_geometry.cpp"
+    "geometries/example_box_geometry.hpp"
+    "geometries/example_cylinder_geometry.cpp"
+    "geometries/example_cylinder_geometry.hpp"
     "geometries/example_plane_geometry.cpp"
     "geometries/example_plane_geometry.hpp"
     "geometries/example_sphere_geometry.cpp"

@@ -118,6 +118,12 @@ private:
         if (scene_name == "Spot Light") {
             scene = std::make_shared<ExampleSpotLight>(camera);
         }
+        if (scene_name == "Box Geometry") {
+            scene = std::make_shared<ExampleBoxGeometry>(camera);
+        }
+        if (scene_name == "Cylinder Geometry") {
+            scene = std::make_shared<ExampleCylinderGeometry>(camera);
+        }
         if (scene_name == "Plane Geometry") {
             scene = std::make_shared<ExamplePlaneGeometry>(camera);
         }
