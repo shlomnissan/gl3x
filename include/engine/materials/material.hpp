@@ -45,7 +45,10 @@ public:
     bool fog {true};
 
     /// @brief Flag indicating whether backfaces should be culled.
-    bool cull_backfaces {false};
+    bool cull_backfaces {true};
+
+    /// @brief Flag indicating whether the face orientation should be inverted.
+    bool invert_face_orientation {false};
 
     /// @brief Flag indicating whether the material should be rendered in wireframe mode.
     bool wireframe {false};
