@@ -32,9 +32,11 @@ private:
 
     Color clear_color_ {0.0f, 0.0f, 0.0f};
 
-    bool curr_backface_culling_mode {false};
+    bool backface_culling_mode {false};
 
-    bool curr_wireframe_mode_ {false};
+    bool invert_face_orientation_mode_ {false};
+
+    bool wireframe_mode_ {false};
 
     auto RenderObjects(Node* node, Scene* scene, Camera* camera) -> void;
 

@@ -39,17 +39,23 @@ auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> 
             }
 
             // Handle backface culling
-            if (curr_backface_culling_mode != material->cull_backfaces) {
+            if (backface_culling_mode != material->cull_backfaces) {
                 material->cull_backfaces ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
-                curr_backface_culling_mode = material->cull_backfaces;
+                backface_culling_mode = material->cull_backfaces;
+            }
+
+            // Handle face orientation
+            if (invert_face_orientation_mode_ != material->invert_face_orientation) {
+                material->invert_face_orientation ? glFrontFace(GL_CW) : glFrontFace(GL_CCW);
+                invert_face_orientation_mode_ = material->invert_face_orientation;
             }
 
             // Handle wireframe mode
-            if (curr_wireframe_mode_ != material->wireframe) {
+            if (wireframe_mode_ != material->wireframe) {
                 material->wireframe
                     ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
                     : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                curr_wireframe_mode_ = material->wireframe;
+                wireframe_mode_ = material->wireframe;
             }
 
             // Handle polygon offset
@@ -240,8 +246,10 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     // TODO: reset rendering states
     glDisable(GL_CULL_FACE);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    curr_wireframe_mode_ = false;
-    curr_backface_culling_mode = false;
+    glFrontFace(GL_CCW);
+    wireframe_mode_ = false;
+    backface_culling_mode = false;
+    invert_face_orientation_mode_ = false;
 }
 
 }
