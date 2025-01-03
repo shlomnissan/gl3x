@@ -18,6 +18,7 @@ struct PhongMaterial {
 in float v_FogDepth;
 in vec2 v_TexCoord;
 in vec3 v_Normal;
+in vec3 v_ViewDir;
 in vec4 v_Position;
 
 uniform vec3 u_AmbientLight;
@@ -78,18 +79,16 @@ float distanceAttenuation(const in float light_distance, const in float cutoff_d
 }
 
 vec3 phongShading(const in vec3 light_dir, const in vec3 light_color, const in PhongMaterial material) {
-    vec3 normal = normalize(v_Normal);
-    float diffuse_factor = max(dot(light_dir, normal), 0.0);
+    float diffuse_factor = max(dot(light_dir, v_Normal), 0.0);
     vec3 diffuse = light_color * material.DiffuseColor * diffuse_factor;
     vec3 specular = vec3(0.0);
 
     // If the diffuse factor is zero, the light is facing away from the surface
     // and no light contribution should be calculated, so we skip specular calculation.
     if (diffuse_factor > 0.0) {
-        vec3 view_dir = normalize(-v_Position.xyz);
-        vec3 halfway = normalize(light_dir + view_dir);
+        vec3 halfway = normalize(light_dir + v_ViewDir);
         specular = light_color * material.SpecularColor *
-            pow(max(dot(halfway, normal), 0.0), material.Shininess);
+            pow(max(dot(halfway, v_Normal), 0.0), material.Shininess);
     }
 
     return diffuse + specular;

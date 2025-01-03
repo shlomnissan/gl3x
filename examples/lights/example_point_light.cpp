@@ -28,19 +28,20 @@ ExamplePointLight::ExamplePointLight(std::shared_ptr<engine::Camera> camera) {
     Add(ambient_light);
 
     const auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
-    point_light->transform.Translate({1.0f, 2.0f, -2.0f});
+    point_light->transform.Translate({0.0f, 2.0f, 0.0f});
     point_light->SetDebugMode(true);
     Add(point_light);
 
-    auto geometry = BoxGeometry::Create();
+    auto geometry = SphereGeometry::Create({
+        .radius = 0.5f,
+        .width_segments = 32,
+        .height_segments = 32
+    });
+
     auto material = PhongMaterial::Create();
     material->color = 0x049EF4;
     material->cull_backfaces = true;
-    mesh_ = Mesh::Create(geometry, material);
+    const auto mesh_ = Mesh::Create(geometry, material);
     mesh_->transform.Translate({0.0f, 0.5f, 0.0f});
     Add(mesh_);
-}
-
-auto ExamplePointLight::Update(float delta) -> void {
-    mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
 }
