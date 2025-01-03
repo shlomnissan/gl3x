@@ -79,6 +79,11 @@ float distanceAttenuation(const in float light_distance, const in float cutoff_d
 }
 
 vec3 phongShading(const in vec3 light_dir, const in vec3 light_color, const in PhongMaterial material) {
+    // Skip diffuse and specular shading for back faces.
+    if (!gl_FrontFacing) {
+        return vec3(0.0);
+    }
+
     float diffuse_factor = max(dot(light_dir, v_Normal), 0.0);
     vec3 diffuse = light_color * material.DiffuseColor * diffuse_factor;
     vec3 specular = vec3(0.0);
