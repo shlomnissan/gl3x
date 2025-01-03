@@ -248,7 +248,7 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glFrontFace(GL_CCW);
     wireframe_mode_ = false;
-    backface_culling_mode = false;
+    backface_culling_mode = true;
     invert_face_orientation_mode_ = false;
 }
 

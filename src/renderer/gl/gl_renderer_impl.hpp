@@ -32,7 +32,7 @@ private:
 
     Color clear_color_ {0.0f, 0.0f, 0.0f};
 
-    bool backface_culling_mode {false};
+    bool backface_culling_mode {true};
 
     bool invert_face_orientation_mode_ {false};
 
