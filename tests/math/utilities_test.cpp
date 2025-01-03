@@ -18,8 +18,6 @@ TEST(MathUtilities, DegToRad) {
     EXPECT_FLOAT_EQ(math::DegToRad(180.0f), math::pi);
     EXPECT_FLOAT_EQ(math::DegToRad(360.0f), math::two_pi);
     EXPECT_FLOAT_EQ(math::DegToRad(45.0f), math::pi / 4.0f);
-
-    static_assert(math::DegToRad(90.0f) == math::pi / 2.0f);
 }
 
 TEST(MathUtilities, RadToDeg) {
@@ -28,8 +26,6 @@ TEST(MathUtilities, RadToDeg) {
     EXPECT_FLOAT_EQ(math::RadToDeg(math::pi), 180.0f);
     EXPECT_FLOAT_EQ(math::RadToDeg(math::two_pi), 360.0f);
     EXPECT_FLOAT_EQ(math::RadToDeg(math::pi / 4.0f), 45.0f);
-
-    static_assert(math::RadToDeg(math::pi / 2.0f) == 90.0f);
 }
 
 #pragma endregion

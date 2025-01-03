@@ -15,7 +15,7 @@ namespace engine {
 /**
  * @brief Class representing a mesh, which is a node in the scene with associated geometry and material.
  */
-class Mesh : public Node {
+class ENGINE_EXPORT Mesh : public Node {
 public:
     /**
      * @brief Constructs a Mesh object with the given geometry.

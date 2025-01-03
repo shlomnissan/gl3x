@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "engine_export.h"
 #include "engine/lights/light.hpp"
 #include "engine/materials/flat_material.hpp"
 #include "engine/nodes/mesh.hpp"
@@ -14,7 +15,7 @@ namespace engine {
 /**
  * @brief A light that gets emitted from a single point in all directions.
  */
-class PointLight : public Light {
+class ENGINE_EXPORT PointLight : public Light {
 public:
     /// @brief The amount the light dims along the distance of the light.
     float decay {2.0f};

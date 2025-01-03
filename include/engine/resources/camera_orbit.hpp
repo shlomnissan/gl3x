@@ -21,9 +21,6 @@ namespace engine {
  */
 class ENGINE_EXPORT CameraOrbit : public Node {
 public:
-    /// @brief The maximum pitch angle limit to prevent the camera from flipping over.
-    static constexpr float pitch_limit = math::half_pi - 0.1f;
-
     /// @brief The speed at which the camera orbits around the target point.
     float orbit_speed {3.5f};
 
@@ -93,6 +90,9 @@ private:
 
     /// @brief The current vertical scroll offset.
     float curr_scroll_offset_ {0.0f};
+
+    /// @brief The maximum pitch angle limit to prevent the camera from flipping over.
+    const float pitch_limit = math::half_pi - 0.1f;
 
     /// @brief Flag indicating whether the camera has been updated before.
     bool first_update_ {true};

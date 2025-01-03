@@ -28,7 +28,7 @@ ExamplePointLight::ExamplePointLight(std::shared_ptr<engine::Camera> camera) {
     Add(ambient_light);
 
     const auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
-    point_light->transform.Translate({0.0f, 2.0f, 0.0f});
+    point_light->transform.Translate({1.0f, 2.0f, -2.0f});
     point_light->SetDebugMode(true);
     Add(point_light);
 

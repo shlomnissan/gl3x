@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "engine_export.h"
 #include "engine/lights/light.hpp"
 #include "engine/materials/flat_material.hpp"
 #include "engine/math/utilities.hpp"
@@ -15,7 +16,7 @@ namespace engine {
 /**
  * @brief This light gets emittedin one direction along a cone.
  */
-class SpotLight : public Light {
+class ENGINE_EXPORT SpotLight : public Light {
 public:
     /// @brief The target node that the light is pointing towards.
     std::shared_ptr<Node> target {nullptr};
