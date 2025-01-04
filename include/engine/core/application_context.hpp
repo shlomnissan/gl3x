@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "engine_export.h"
 #include "engine/core/renderer.hpp"
 #include "engine/core/timer.hpp"
 #include "engine/core/window.hpp"
@@ -18,7 +19,7 @@ namespace engine {
 /**
  * @brief Base class responsible for setting up a common context for applications.
  */
-class ApplicationContext {
+class ENGINE_EXPORT ApplicationContext {
 public:
     /**
      * @brief Parameters for configuring the application context.
