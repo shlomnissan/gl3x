@@ -53,6 +53,9 @@ public:
     /// @brief Flag indicating whether the material should be rendered in wireframe mode.
     bool wireframe {false};
 
+    /// @brief Flag indicating whether the material is transparent.
+    bool transparent {false};
+
     /**
      * @brief Default constructor.
      */
