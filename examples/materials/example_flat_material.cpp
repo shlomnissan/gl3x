@@ -16,7 +16,6 @@ ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera)
     auto geometry = BoxGeometry::Create();
     auto material = FlatMaterial::Create();
     material->color = 0x049EF4;
-    material->cull_backfaces = true;
     mesh_ = Mesh::Create(geometry, material);
     Add(mesh_);
 }

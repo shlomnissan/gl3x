@@ -40,7 +40,6 @@ ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<engine::Camera>
 
     auto material = PhongMaterial::Create();
     material->color = 0x049EF4;
-    material->cull_backfaces = true;
 
     const auto mesh_ = Mesh::Create(geometry, material);
     mesh_->transform.Translate({0.0f, 0.5f, 0.0f});

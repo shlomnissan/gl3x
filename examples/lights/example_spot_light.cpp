@@ -37,7 +37,6 @@ ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
     auto geometry = PlaneGeometry::Create({3, 3});
     auto material = PhongMaterial::Create();
     material->color = 0x049EF4;
-    material->cull_backfaces = true;
     material->polygon_offset = {-0.5f, 0.5f};
     mesh_ = Mesh::Create(geometry, material);
     mesh_->transform.Rotate(Vector3::Right(), math::DegToRad(-90.0f));
