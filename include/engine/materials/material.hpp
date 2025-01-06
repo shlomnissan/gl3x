@@ -24,22 +24,25 @@ enum class MaterialType {
 };
 
 /**
+ * @brief Structure to define polygon offset parameters.
+ */
+struct ENGINE_EXPORT PolygonOffset {
+    /// @brief Scales the maximum depth slope of a polygon for depth offset.
+    float factor {0.0f};
+    /// @brief Specify a constant depth offset.
+    float units {0.0f};
+};
+
+/**
  * @brief Abstract base class for materials.
  */
 class ENGINE_EXPORT Material : public Identity {
 public:
-    /**
-     * @brief ENGINE_EXPORT Structure to define polygon offset parameters.
-     */
-    struct PolygonOffset {
-        /// @brief Scales the maximum depth slope of a polygon for depth offset.
-        float factor {0.0f};
-        /// @brief Specify a constant depth offset.
-        float units {0.0f};
-    };
-
     /// @brief Optional polygon offset to prevent z-fighting.
     std::optional<PolygonOffset> polygon_offset;
+
+    /// @brief The opacity of the material.
+    float opacity {1.0f};
 
     /// @brief Flag indicating whether the material is affected by fog.
     bool fog {true};

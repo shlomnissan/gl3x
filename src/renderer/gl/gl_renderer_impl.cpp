@@ -118,6 +118,7 @@ auto Renderer::Impl::SetUniforms(
     if (attrs->type == MaterialType::FlatMaterial) {
         auto m = material->As<FlatMaterial>();
         program->SetUniform("u_Color", m->color);
+        program->SetUniform("u_Opacity", m->opacity);
         if (attrs->texture_map) {
             program->SetUniform("u_TextureMap", 0);
             program->SetUniform("u_TextureTransform", m->texture_map->transform.Get());
@@ -127,7 +128,8 @@ auto Renderer::Impl::SetUniforms(
 
     if (attrs->type == MaterialType::PhongMaterial) {
         auto m = material->As<PhongMaterial>();
-        program->SetUniform("u_Diffuse", m->color);
+        program->SetUniform("u_Color", m->color);
+        program->SetUniform("u_Opacity", m->opacity);
 
         if (attrs->directional_lights || attrs->point_lights || attrs->spot_lights) {
             program->SetUniform("u_Specular", m->specular);

@@ -21,11 +21,13 @@ in vec3 v_Normal;
 in vec3 v_ViewDir;
 in vec4 v_Position;
 
+uniform vec3 u_Color;
+uniform float u_Opacity;
+uniform sampler2D u_TextureMap;
+
 uniform vec3 u_AmbientLight;
-uniform vec3 u_Diffuse;
 uniform vec3 u_Specular;
 uniform float u_Shininess;
-uniform sampler2D u_TextureMap;
 
 #ifdef USE_FOG
     struct Fog {
@@ -101,7 +103,7 @@ vec3 phongShading(const in vec3 light_dir, const in vec3 light_color, const in P
 
 void main() {
     PhongMaterial material = PhongMaterial(
-        u_Diffuse.rgb,
+        u_Color.rgb,
         u_Specular.rgb,
         u_Shininess
     );
@@ -152,5 +154,6 @@ void main() {
         v_FragColor = mix(v_FragColor, vec4(u_Fog.Color, 1.0), fog_factor);
     #endif
 
+    v_FragColor.a = u_Opacity;
     v_FragColor = clamp(v_FragColor, 0.0, 1.0);
 }

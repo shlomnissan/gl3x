@@ -13,6 +13,7 @@ in float v_FogDepth;
 in vec2 v_TexCoord;
 
 uniform vec3 u_Color;
+uniform float u_Opacity;
 uniform sampler2D u_TextureMap;
 
 #ifdef USE_FOG
@@ -41,5 +42,6 @@ void main() {
         v_FragColor = mix(v_FragColor, vec4(u_Fog.Color, 1.0), fog_factor);
     #endif
 
+    v_FragColor.a *= u_Opacity;
     v_FragColor = clamp(v_FragColor, 0.0, 1.0);
 }
