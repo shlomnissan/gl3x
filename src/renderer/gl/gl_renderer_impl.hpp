@@ -8,6 +8,7 @@
 
 #include "renderer/gl/gl_buffers.hpp"
 #include "renderer/gl/gl_programs.hpp"
+#include "renderer/gl/gl_state.hpp"
 #include "renderer/gl/gl_textures.hpp"
 
 namespace engine {
@@ -28,15 +29,10 @@ public:
 private:
     GLBuffers buffers_;
     GLPrograms programs_;
+    GLState state_;
     GLTextures textures_;
 
     Color clear_color_ {0.0f, 0.0f, 0.0f};
-
-    bool backface_culling_mode {true};
-
-    bool invert_face_orientation_mode_ {false};
-
-    bool wireframe_mode_ {false};
 
     auto RenderObjects(Node* node, Scene* scene, Camera* camera) -> void;
 

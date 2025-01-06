@@ -19,7 +19,6 @@
 namespace engine {
 
 Renderer::Impl::Impl(const Renderer::Parameters& params) {
-    glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, params.width, params.height);
 }
 
@@ -38,36 +37,7 @@ auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> 
                 return;
             }
 
-            // Handle backface culling
-            if (backface_culling_mode != material->cull_backfaces) {
-                material->cull_backfaces ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
-                backface_culling_mode = material->cull_backfaces;
-            }
-
-            // Handle face orientation
-            if (invert_face_orientation_mode_ != material->invert_face_orientation) {
-                material->invert_face_orientation ? glFrontFace(GL_CW) : glFrontFace(GL_CCW);
-                invert_face_orientation_mode_ = material->invert_face_orientation;
-            }
-
-            // Handle wireframe mode
-            if (wireframe_mode_ != material->wireframe) {
-                material->wireframe
-                    ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
-                    : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                wireframe_mode_ = material->wireframe;
-            }
-
-            // Handle polygon offset
-            if (material->polygon_offset.has_value()) {
-                glEnable(GL_POLYGON_OFFSET_FILL);
-                glPolygonOffset(
-                    material->polygon_offset->factor,
-                    material->polygon_offset->units
-                );
-            } else {
-                glDisable(GL_POLYGON_OFFSET_FILL);
-            }
+            state_.ProcessMaterial(material);
 
             if (attrs.lights) UpdateLights(scene, program, camera);
 
@@ -237,21 +207,12 @@ auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
 
 auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     glClearColor(clear_color_.r, clear_color_.g, clear_color_.b, 1.0f);
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     scene->UpdateTransformHierarchy();
     camera->UpdateViewTransform();
 
     RenderObjects(scene, scene, camera);
-
-    // TODO: reset rendering states
-    glDisable(GL_CULL_FACE);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glFrontFace(GL_CCW);
-    wireframe_mode_ = false;
-    backface_culling_mode = true;
-    invert_face_orientation_mode_ = false;
 }
 
 }

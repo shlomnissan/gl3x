@@ -50,6 +50,9 @@ public:
     /// @brief Flag indicating whether backfaces should be culled.
     bool cull_backfaces {true};
 
+    /// @brief Flag indicating whether depth testing should be enabled.
+    bool depth_test {true};
+
     /// @brief Flag indicating whether the face orientation should be inverted.
     bool invert_face_orientation {false};
 
