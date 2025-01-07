@@ -18,9 +18,20 @@ namespace engine {
 /**
  * @brief The type of material.
  */
-enum class MaterialType {
+enum class ENGINE_EXPORT MaterialType {
     FlatMaterial,
     PhongMaterial
+};
+
+/**
+ * @brief The type of blending to apply to the material.
+ */
+enum class ENGINE_EXPORT Blending {
+    None,
+    Normal,
+    Additive,
+    Subtractive,
+    Multiply
 };
 
 /**
@@ -61,6 +72,9 @@ public:
 
     /// @brief Flag indicating whether the material is transparent.
     bool transparent {false};
+
+    /// @brief The blending mode to apply to the material.
+    Blending blending {Blending::Normal};
 
     /**
      * @brief Default constructor.

@@ -24,6 +24,18 @@ private:
     bool curr_depth_test_ {false};
     bool curr_invert_face_orientation_ {false};
     bool curr_wireframe_mode_ {false};
+
+    auto SetBackfaceCulling(bool enabled) -> void;
+
+    auto SetDepthTest(bool enabled) -> void;
+
+    auto SetPolygonOffset(const std::optional<PolygonOffset>& polygon_offset) -> void;
+
+    auto SetInvertFaceOrientation(bool enabled) -> void;
+
+    auto SetWireframeMode(bool enabled) -> void;
+
+    auto SetBlending(Blending blending) -> void;
 };
 
 }

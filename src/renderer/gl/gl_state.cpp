@@ -8,30 +8,12 @@
 namespace engine {
 
 auto GLState::ProcessMaterial(const Material* material) -> void {
-    material->cull_backfaces ? Enable(GL_CULL_FACE) : Disable(GL_CULL_FACE);
-
-    material->depth_test ? Enable(GL_DEPTH_TEST) : Disable(GL_DEPTH_TEST);
-
-    if (material->polygon_offset) {
-        Enable(GL_POLYGON_OFFSET_FILL);
-        glPolygonOffset(
-            material->polygon_offset->factor,
-            material->polygon_offset->units);
-    } else {
-        Disable(GL_POLYGON_OFFSET_FILL);
-    }
-
-    if (curr_invert_face_orientation_ != material->invert_face_orientation) {
-        material->invert_face_orientation ? glFrontFace(GL_CW) : glFrontFace(GL_CCW);
-        curr_invert_face_orientation_ = material->invert_face_orientation;
-    }
-
-    if (curr_wireframe_mode_ != material->wireframe) {
-        material->wireframe
-            ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
-            : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        curr_wireframe_mode_ = material->wireframe;
-    }
+    SetBackfaceCulling(material->cull_backfaces);
+    SetDepthTest(material->depth_test);
+    SetPolygonOffset(material->polygon_offset);
+    SetInvertFaceOrientation(material->invert_face_orientation);
+    SetWireframeMode(material->wireframe);
+    SetBlending(!material->transparent ? Blending::None : material->blending);
 }
 
 auto GLState::Enable(int token) -> void {
@@ -46,6 +28,42 @@ auto GLState::Disable(int token) -> void {
         glDisable(token);
         features_[token] = false;
     }
+}
+
+auto GLState::SetBackfaceCulling(bool enabled) -> void {
+    enabled ? Enable(GL_CULL_FACE) : Disable(GL_CULL_FACE);
+}
+
+auto GLState::SetDepthTest(bool enabled) -> void {
+    enabled ? Enable(GL_DEPTH_TEST) : Disable(GL_DEPTH_TEST);
+}
+
+auto GLState::SetPolygonOffset(const std::optional<PolygonOffset>& polygon_offset) -> void {
+    if (polygon_offset) {
+        Enable(GL_POLYGON_OFFSET_FILL);
+        glPolygonOffset(polygon_offset->factor, polygon_offset->units);
+    } else {
+        Disable(GL_POLYGON_OFFSET_FILL);
+    }
+}
+
+auto GLState::SetInvertFaceOrientation(bool enabled) -> void {
+    if (curr_invert_face_orientation_ != enabled) {
+       enabled ? glFrontFace(GL_CW) : glFrontFace(GL_CCW);
+        curr_invert_face_orientation_ = enabled;
+    }
+}
+
+auto GLState::SetWireframeMode(bool enabled) -> void {
+    if (curr_wireframe_mode_ != enabled) {
+        enabled ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+                : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        curr_wireframe_mode_ = enabled;
+    }
+}
+
+auto GLState::SetBlending(Blending blending) -> void {
+    // TODO: implement
 }
 
 auto GLState::Reset() -> void {
