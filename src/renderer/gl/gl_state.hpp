@@ -20,6 +20,7 @@ public:
 private:
     std::unordered_map<int, bool> features_;
 
+    Blending curr_blending_ {Blending::None};
     bool curr_backface_culling_ {false};
     bool curr_depth_test_ {false};
     bool curr_invert_face_orientation_ {false};

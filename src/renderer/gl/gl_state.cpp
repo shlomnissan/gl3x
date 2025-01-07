@@ -63,7 +63,28 @@ auto GLState::SetWireframeMode(bool enabled) -> void {
 }
 
 auto GLState::SetBlending(Blending blending) -> void {
-    // TODO: implement
+    if (curr_blending_ != blending) {
+        if (blending == Blending::None) {
+            Disable(GL_BLEND);
+        } else {
+            Enable(GL_BLEND);
+            switch (blending) {
+            case Blending::Normal:
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                break;
+            case Blending::Additive:
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+                break;
+            case Blending::Subtractive:
+                glBlendFunc(GL_ZERO, GL_ONE_MINUS_SRC_COLOR);
+                break;
+            case Blending::Multiply:
+                glBlendFunc(GL_ZERO, GL_SRC_COLOR);
+                break;
+            }
+        }
+        curr_blending_ = blending;
+    }
 }
 
 auto GLState::Reset() -> void {
@@ -79,6 +100,7 @@ auto GLState::Reset() -> void {
 
     curr_invert_face_orientation_ = false;
     curr_wireframe_mode_ = false;
+    curr_blending_ = Blending::None;
 }
 
 }
