@@ -5,14 +5,14 @@
 
 #include "engine_export.h"
 
-#include "core/event.hpp"
-
 #include <functional>
 #include <memory>
 #include <string>
 #include <string_view>
 
 namespace engine {
+
+class Event;
 
 using OnTickCallback = std::function<void()>;
 using OnEventCallback = std::function<void(std::unique_ptr<Event> event)>;

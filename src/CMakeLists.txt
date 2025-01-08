@@ -2,12 +2,10 @@ set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/engine)
 
 set(SOURCE_CODE
     "core/application_context.cpp"
-    "core/disposable.hpp"
     "core/event.hpp"
     "core/event_dispatcher.cpp"
     "core/event_dispatcher.hpp"
     "core/geometry.cpp"
-    "core/identity.hpp"
     "core/image.hpp"
     "core/program_attributes.cpp"
     "core/program_attributes.hpp"
@@ -66,7 +64,9 @@ set(SOURCE_CODE
 
 set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/application_context.hpp"
+    "${PUBLIC_HEADERS_DIR}/core/disposable.hpp"
     "${PUBLIC_HEADERS_DIR}/core/geometry.hpp"
+    "${PUBLIC_HEADERS_DIR}/core/identity.hpp"
     "${PUBLIC_HEADERS_DIR}/core/renderer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/window.hpp"

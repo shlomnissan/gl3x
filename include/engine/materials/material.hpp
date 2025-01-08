@@ -4,10 +4,9 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/core/identity.hpp"
 #include "engine/math/color.hpp"
 #include "engine/textures/texture_2d.hpp"
-
-#include "core/identity.hpp"
 
 #include <memory>
 #include <optional>
