@@ -24,15 +24,13 @@ public:
 
     auto Render(Scene* scene, Camera* camera) -> void;
 
-    auto SetClearColor(const Color& color) -> void { clear_color_ = color; }
+    auto SetClearColor(const Color& color) -> void;
 
 private:
     GLBuffers buffers_;
     GLPrograms programs_;
     GLState state_;
     GLTextures textures_;
-
-    Color clear_color_ {0.0f, 0.0f, 0.0f};
 
     auto RenderObjects(Node* node, Scene* scene, Camera* camera) -> void;
 

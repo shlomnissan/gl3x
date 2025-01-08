@@ -204,13 +204,16 @@ auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
 }
 
 auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
-    glClearColor(clear_color_.r, clear_color_.g, clear_color_.b, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     scene->UpdateTransformHierarchy();
     camera->UpdateViewTransform();
 
     RenderObjects(scene, scene, camera);
+}
+
+auto Renderer::Impl::SetClearColor(const Color& color) -> void {
+    state_.SetClearColor(color);
 }
 
 }

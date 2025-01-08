@@ -81,9 +81,18 @@ auto GLState::SetBlending(Blending blending) -> void {
             case Blending::Multiply:
                 glBlendFunc(GL_ZERO, GL_SRC_COLOR);
                 break;
+            case Blending::None:
+                break;
             }
         }
         curr_blending_ = blending;
+    }
+}
+
+auto GLState::SetClearColor(const Color& color) -> void {
+    if (curr_clear_color_ != color) {
+        glClearColor(color.r, color.g, color.b, 1.0f);
+        curr_clear_color_ = color;
     }
 }
 
