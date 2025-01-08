@@ -121,6 +121,10 @@ set(EXTERNAL_SOURCES
 
 include(ShaderProcessor)
 
+if(NOT_APPLE)
+    set(CMAKE_INSTALL_RPATH "$ORIGIN")
+endif()
+
 add_library(
     ${PROJECT_NAME}
     ${PUBLIC_HEADERS}

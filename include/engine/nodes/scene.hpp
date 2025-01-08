@@ -7,13 +7,17 @@
 #include "engine/nodes/node.hpp"
 #include "engine/lights/light.hpp"
 
-#include "core/event_dispatcher.hpp"
-
+#include <functional>
 #include <memory>
 #include <optional>
 #include <vector>
 
 namespace engine {
+
+class Event;
+class SceneEvent;
+
+using EventListener = std::function<void(Event*)>;
 
 /**
  * @brief Represents the scene's root node.
