@@ -17,7 +17,7 @@ namespace engine {
 /**
  * @brief The type of material.
  */
-enum class ENGINE_EXPORT MaterialType {
+enum class MaterialType {
     FlatMaterial,
     PhongMaterial
 };
@@ -25,7 +25,7 @@ enum class ENGINE_EXPORT MaterialType {
 /**
  * @brief The type of blending to apply to the material.
  */
-enum class ENGINE_EXPORT Blending {
+enum class Blending {
     None,
     Normal,
     Additive,

@@ -279,7 +279,7 @@ private:
  * @param b The second vector.
  * @return Vector3 A new vector that is the result of the cross product of the two input vectors.
  */
-[[nodiscard]] inline ENGINE_EXPORT
+[[nodiscard]] inline
 auto Cross(const Vector3& a, const Vector3& b) {
     return Vector3 {
         a.y * b.z - a.z * b.y,
@@ -296,7 +296,7 @@ auto Cross(const Vector3& a, const Vector3& b) {
  * @param b The second vector.
  * @return float A scalar value that is the result of the dot product of the two input vectors.
  */
-[[nodiscard]] inline ENGINE_EXPORT
+[[nodiscard]] inline
 auto Dot(const Vector3& a, const Vector3& b) {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
@@ -308,7 +308,7 @@ auto Dot(const Vector3& a, const Vector3& b) {
  * @param v The vector to normalize.
  * @return Vector3 A new vector that is the normalized version of the input vector.
  */
-[[nodiscard]] inline ENGINE_EXPORT auto Normalize(const Vector3& v) {
+[[nodiscard]] inline auto Normalize(const Vector3& v) {
     const auto len = v.Length();
     if (len == 0.0f) {
         return Vector3::Zero();

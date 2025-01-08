@@ -263,7 +263,7 @@ private:
  * @param b The second vector.
  * @return float A scalar value that is the result of the dot product of the two input vectors.
  */
-[[nodiscard]] inline ENGINE_EXPORT
+[[nodiscard]] inline
 auto Dot(const Vector4& a, const Vector4& b) {
     return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
 }
@@ -275,7 +275,7 @@ auto Dot(const Vector4& a, const Vector4& b) {
  * @param v The vector to normalize.
  * @return Vector4 A new vector that is the normalized version of the input vector.
  */
-[[nodiscard]] inline ENGINE_EXPORT auto Normalize(const Vector4& v) {
+[[nodiscard]] inline auto Normalize(const Vector4& v) {
     const auto len = v.Length();
     if (len == 0.0f) {
         return Vector4::Zero();
