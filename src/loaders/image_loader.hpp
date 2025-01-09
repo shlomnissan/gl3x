@@ -4,8 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
-
-#include "core/image.hpp"
+#include "engine/core/image.hpp"
 
 #include <filesystem>
 #include <optional>

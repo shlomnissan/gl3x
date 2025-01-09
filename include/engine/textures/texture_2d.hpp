@@ -4,9 +4,8 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/core/image.hpp"
 #include "engine/textures/texture.hpp"
-
-#include "core/image.hpp"
 
 #include <memory>
 #include <string_view>
