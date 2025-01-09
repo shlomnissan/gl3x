@@ -3,6 +3,7 @@
 
 #include "engine/lights/spot_light.hpp"
 
+#include <cmath>
 #include <vector>
 
 namespace engine {

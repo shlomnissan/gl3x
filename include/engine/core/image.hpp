@@ -5,8 +5,6 @@
 
 #include "engine/core/disposable.hpp"
 
-#include "utilities/logger.hpp"
-
 #include <string>
 #include <memory>
 
@@ -40,28 +38,14 @@ public:
      * @param params The metadata for the image.
      * @param data The image data.
      */
-    Image(const ImageMetadata& params, ImageDataPtr data) :
-      data_(std::move(data)),
-      filename_(params.filename),
-      width_(params.width),
-      height_(params.height),
-      depth_(params.depth) {
-        Logger::Log(LogLevel::Info, "Image loaded '{}'", filename_);
-    }
+    Image(const ImageMetadata& params, ImageDataPtr data);
 
     /**
      * @brief Move constructor.
      *
      * @param other The other Image object to move from.
      */
-    Image(Image&& other) noexcept :
-      data_(std::move(other.data_)),
-      filename_(std::move(other.filename_)),
-      width_(other.width_),
-      height_(other.height_),
-      depth_(other.depth_) {
-        Reset(other);
-    }
+    Image(Image&& other) noexcept;
 
     /**
      * @brief Move assignment operator.
@@ -69,18 +53,7 @@ public:
      * @param other The other Image object to move from.
      * @return Image& A reference to the updated Image object.
      */
-    auto operator=(Image&& other) noexcept -> Image& {
-        if (this != &other) {
-            data_ = std::move(other.data_);
-            filename_ = std::move(other.filename_);
-            width_ = other.width_;
-            height_ = other.height_;
-            depth_ = other.depth_;
-
-            Reset(other);
-        }
-        return *this;
-    }
+    auto operator=(Image&& other) noexcept -> Image&;
 
     /**
      * @brief Gets the image data.
@@ -113,14 +86,7 @@ public:
     /**
      * @brief Disposes of the image data.
      */
-    auto Dispose() -> void override {
-        if (data_ != nullptr) {
-            data_.reset();
-            Logger::Log(LogLevel::Info, "Image memory cleared '{}'", filename_);
-            Disposable::Dispose();
-        }
-        Reset(*this);
-    }
+    auto Dispose() -> void override;
 
     /**
      * @brief Destructor for the Image class.
@@ -150,13 +116,7 @@ private:
      *
      * @param other The other Image object to reset.
      */
-    auto Reset(Image& instance) -> void {
-        instance.data_ = nullptr;
-        instance.filename_.clear();
-        instance.width_ = 0;
-        instance.height_ = 0;
-        instance.depth_ = 0;
-    }
+    auto Reset(Image& instance) const -> void;
 };
 
 }

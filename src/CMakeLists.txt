@@ -6,6 +6,7 @@ set(SOURCE_CODE
     "core/event_dispatcher.cpp"
     "core/event_dispatcher.hpp"
     "core/geometry.cpp"
+    "core/image.cpp"
     "core/program_attributes.cpp"
     "core/program_attributes.hpp"
     "core/renderer.cpp"

@@ -7,6 +7,8 @@
 #include <engine/core.hpp>
 #include <engine/resources.hpp>
 #include <engine/math.hpp>
+
+#include <fmt/format.h>
 #include <imgui.h>
 
 #include "examples.hpp"
