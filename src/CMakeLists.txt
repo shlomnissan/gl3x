@@ -155,10 +155,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME}
 PRIVATE
     OpenGL::GL
+    fmt::fmt
     glad::glad
     glfw
-PUBLIC
-    fmt::fmt
     imgui::imgui
 )
 
