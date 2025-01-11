@@ -10,8 +10,6 @@
 #include "engine/nodes/camera.hpp"
 #include "engine/nodes/scene.hpp"
 
-#include "utilities/data_series.hpp"
-
 #include <memory>
 
 namespace engine {
@@ -99,13 +97,6 @@ public:
      * @brief Destructor for the application context.
      */
     virtual ~ApplicationContext() = default;
-
-protected:
-    /// @brief Stores frame rate per second values.
-    DataSeries<float, 150> frames_per_second_ {};
-
-    /// @brief Stores frame time values in milliseconds.
-    DataSeries<float, 150> frame_time_ {};
 
 private:
     /// @brief The time structure used to measure the frame rate.

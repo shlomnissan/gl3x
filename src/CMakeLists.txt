@@ -166,6 +166,10 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     SOVERSION ${engine_VERSION_MAJOR}
 )
 
+include(GenerateExportHeader)
+generate_export_header(${PROJECT_NAME})
+
+include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(
@@ -180,11 +184,6 @@ configure_package_config_file(
     "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
     INSTALL_DESTINATION ${CONFIG_INSTALL_DIR}
 )
-
-include(GenerateExportHeader)
-generate_export_header(${PROJECT_NAME})
-
-include(GNUInstallDirs)
 
 install(TARGETS ${PROJECT_NAME}
     EXPORT ${PROJECT_NAME}

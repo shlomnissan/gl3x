@@ -3,11 +3,16 @@
 
 #include "engine/core/application_context.hpp"
 
+#include "utilities/data_series.hpp"
 #include "utilities/logger.hpp"
 
 #include <imgui.h>
+#include <vector>
 
 namespace engine {
+
+static DataSeries<float, 150> frames_per_second_;
+static DataSeries<float, 150> frame_time_;
 
 auto ApplicationContext::Setup() -> void {
     InitializeWindow();
