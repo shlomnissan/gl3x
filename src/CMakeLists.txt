@@ -166,18 +166,35 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     SOVERSION ${engine_VERSION_MAJOR}
 )
 
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+    VERSION ${engine_VERSION_MAJOR}.${engine_VERSION_MINOR}.${engine_VERSION_PATCH}
+    COMPATIBILITY SameMajorVersion
+)
+
+set(CONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
+configure_package_config_file(
+    "${CMAKE_SOURCE_DIR}/cmake/Config.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+    INSTALL_DESTINATION ${CONFIG_INSTALL_DIR}
+)
+
 include(GenerateExportHeader)
 generate_export_header(${PROJECT_NAME})
 
 include(GNUInstallDirs)
 
 install(TARGETS ${PROJECT_NAME}
+    EXPORT ${PROJECT_NAME}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         COMPONENT {PROJECT_NAME}_runtime
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         COMPONENT {PROJECT_NAME}_runtime
         NAMELINK_COMPONENT {PROJECT_NAME}_development
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 install(DIRECTORY "${PUBLIC_HEADERS_DIR}/"
@@ -185,6 +202,19 @@ install(DIRECTORY "${PUBLIC_HEADERS_DIR}/"
     FILES_MATCHING PATTERN "*.hpp"
 )
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/engine_export.h"
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/engine_export.h"
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+)
+
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+    DESTINATION ${CONFIG_INSTALL_DIR}
+)
+
+install(
+    EXPORT ${PROJECT_NAME}
+    DESTINATION ${CONFIG_INSTALL_DIR}
+    NAMESPACE ${PROJECT_NAME}::
 )
