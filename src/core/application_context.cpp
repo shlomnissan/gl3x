@@ -75,7 +75,7 @@ auto ApplicationContext::Start() -> void {
             renderer->Render(scene.get(), camera.get());
             time_.frame_time = timer.GetElapsedMilliseconds() - time_.frame_time;
 
-            if (params.show_stats) {
+            if (params.debug) {
                 RenderStats();
             }
         } else {

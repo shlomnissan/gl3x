@@ -26,7 +26,7 @@ public:
         params.height = 1152;
         params.antialiasing = 0;
         params.vsync = false;
-        params.show_stats = true;
+        params.debug = true;
     }
 
     auto Setup() -> void override {

@@ -27,7 +27,7 @@ public:
         int height;         ///< Height of the window in pixels.
         int antialiasing;   ///< Number of samples for multisampling.
         bool vsync;         ///< Enable vertical synchronization.
-        bool show_stats;    ///< Render application statistics window.
+        bool debug;         ///< Render application debug window.
     };
 
     /**
@@ -38,7 +38,7 @@ public:
         .height = 768,
         .antialiasing = 4,
         .vsync = true,
-        .show_stats = false
+        .debug = false
     };
 
     /// @brief The window managed by the application context.
