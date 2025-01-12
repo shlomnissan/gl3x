@@ -5,10 +5,14 @@
 
 #include "engine/math/vector3.hpp"
 
+#include "core/event.hpp"
+
 #include <algorithm>
 #include <cmath>
 
 namespace engine {
+
+static MouseButton curr_mouse_button {MouseButton::None};
 
 CameraOrbit::CameraOrbit(const std::shared_ptr<Camera>& camera, float d) : distance(d), camera_(camera) {}
 
@@ -18,12 +22,12 @@ auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {
 
     curr_mouse_pos_ = event->position;
 
-    if (event->type == ButtonPressed && curr_mouse_button_ == None) {
-        curr_mouse_button_ = event->button;
+    if (event->type == ButtonPressed && curr_mouse_button == None) {
+        curr_mouse_button = event->button;
     }
 
-    if (event->type == ButtonReleased && event->button == curr_mouse_button_) {
-        curr_mouse_button_ = None;
+    if (event->type == ButtonReleased && event->button == curr_mouse_button) {
+        curr_mouse_button = None;
     }
 
     if (event->type == Scrolled) {
@@ -40,11 +44,11 @@ auto CameraOrbit::Update(float delta) -> void {
 
     auto mouse_offset = curr_mouse_pos_ - prev_mouse_pos_;
 
-    if (curr_mouse_button_ == MouseButton::Left) {
+    if (curr_mouse_button == MouseButton::Left) {
         Orbit(mouse_offset, delta);
     }
 
-    if (curr_mouse_button_ == MouseButton::Right) {
+    if (curr_mouse_button == MouseButton::Right) {
         Pan(mouse_offset, delta);
     }
 

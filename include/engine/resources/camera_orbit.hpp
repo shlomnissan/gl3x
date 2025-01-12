@@ -10,11 +10,11 @@
 #include "engine/nodes/node.hpp"
 #include "engine/nodes/camera_perspective.hpp"
 
-#include "core/event.hpp"
-
 #include <memory>
 
 namespace engine {
+
+struct MouseEvent; ///< Forward declaration
 
 /**
  * @brief A camera orbit node that allows the user to orbit around a target point.
@@ -73,9 +73,6 @@ public:
     auto Update(float delta) -> void override;
 
 private:
-    /// @brief The current mouse button.
-    MouseButton curr_mouse_button_ {MouseButton::None};
-
     /// @brief The camera to orbit around.
     std::shared_ptr<Camera> camera_;
 
