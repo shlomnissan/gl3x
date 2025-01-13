@@ -3,7 +3,7 @@
 
 #include "engine/resources/camera_orbit.hpp"
 
-#include "engine/math/vector3.hpp"
+#include "engine/math/utilities.hpp"
 
 #include "core/event.hpp"
 
@@ -14,7 +14,8 @@ namespace engine {
 
 static MouseButton curr_mouse_button {MouseButton::None};
 
-CameraOrbit::CameraOrbit(const std::shared_ptr<Camera>& camera, float d) : distance(d), camera_(camera) {}
+CameraOrbit::CameraOrbit(const std::shared_ptr<Camera>& camera, float radius, float polar, float azimuth)
+  : camera_(camera), radius_(radius), polar_(polar), azimuth_(azimuth) {};
 
 auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {
     using enum MouseButton;
@@ -59,25 +60,28 @@ auto CameraOrbit::Update(float delta) -> void {
 
     prev_mouse_pos_ = curr_mouse_pos_;
 
+    // Convert spherical to cartesian coordinates
     const auto position = target + Vector3 {
-        std::sin(yaw) * std::cos(pitch),
-        std::sin(pitch),
-        std::cos(yaw) * std::cos(pitch)
-    } * distance;
+        radius_ * std::sin(azimuth_) * std::cos(polar_),
+        radius_ * std::sin(polar_),
+        radius_ * std::cos(azimuth_) * std::cos(polar_)
+    };
 
     camera_->transform.SetPosition(position);
     camera_->LookAt(target);
 }
 
 auto CameraOrbit::Orbit(const Vector2& offset, float delta) -> void {
-    yaw -= offset.x * orbit_speed * delta;
-    pitch += offset.y * orbit_speed * delta;
-    pitch = std::clamp(pitch, -pitch_limit, pitch_limit);
+    azimuth_ -= offset.x * orbit_speed * delta;
+    polar_ += offset.y * orbit_speed * delta;
+
+    static const float vertical_limit = math::half_pi - 0.1f;
+    polar_ = std::clamp(polar_, -vertical_limit, vertical_limit);
 }
 
 auto CameraOrbit::Zoom(float scroll_offset, float delta) -> void {
-    distance -= scroll_offset * zoom_speed * delta;
-    distance = std::max(0.1f, distance);
+    radius_ -= scroll_offset * zoom_speed * delta;
+    radius_ = std::max(0.1f, radius_);
 }
 
 auto CameraOrbit::Pan(const Vector2& offset, float delta) -> void {

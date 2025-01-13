@@ -6,7 +6,7 @@
 #include "engine_export.h"
 #include "engine/math/vector2.hpp"
 #include "engine/math/vector3.hpp"
-#include "engine/math/utilities.hpp"
+
 #include "engine/nodes/node.hpp"
 #include "engine/nodes/camera_perspective.hpp"
 
@@ -30,32 +30,32 @@ public:
     /// @brief The speed at which the camera pans around the target point.
     float pan_speed {1.5f};
 
-    /// @brief The distance from the camera to the target point.
-    float distance {1.0f};
-
-    /// @brief The pitch angle of the camera in radians.
-    float pitch {0.0f};
-
-    /// @brief The yaw angle of the camera in radians.
-    float yaw {0.0f};
-
     /**
      * @brief Constructs a CameraOrbit object.
      *
      * @param camera A shared pointer to the camera to orbit around.
-     * @param distance The initial distance from the camera to the target point.
+     * @param radius The initial radius of the camera's orbit around the target.
+     * @param polar The initial polar angle in radians.
+     * @param azimuth The initial azimuthal angle in radians.
      */
-    CameraOrbit(const std::shared_ptr<Camera>& camera, float distance);
+    CameraOrbit(const std::shared_ptr<Camera>& camera, float radius, float polar, float azimuth);
 
     /**
      * @brief Creates a new instance of the CameraOrbit class.
      *
      * @param camera A shared pointer to the camera to orbit around.
-     * @param distance The initial distance from the camera to the target point.
+     * @param radius The initial radius of the camera's orbit around the target.
+     * @param polar The initial polar angle in radians.
+     * @param azimuth The initial azimuthal angle in radians.
      * @return A `std::shared_ptr<CameraOrbit>` pointing to the newly created instance.
      */
-    [[nodiscard]] static auto Create(const std::shared_ptr<Camera>& camera, float distance) {
-        return std::make_shared<CameraOrbit>(camera, distance);
+    [[nodiscard]] static auto Create(
+        const std::shared_ptr<Camera>& camera,
+        float radius,
+        float polar = 0.0f,
+        float azimuth = 0.0f
+    ) {
+        return std::make_shared<CameraOrbit>(camera, radius, polar, azimuth);
     }
 
     /**
@@ -85,11 +85,17 @@ private:
     /// @brief The previous mouse position.
     Vector2 prev_mouse_pos_ {0.0f, 0.0f};
 
+    /// @brief The radius of the camera's orbit around the target.
+    float radius_;
+
+    /// @brief The polar angle in radians, measured from the vertical axis.
+    float polar_;
+
+    /// @brief The azimuthal angle in radians, measured from the horizontal axis.
+    float azimuth_;
+
     /// @brief The current vertical scroll offset.
     float curr_scroll_offset_ {0.0f};
-
-    /// @brief The maximum pitch angle limit to prevent the camera from flipping over.
-    const float pitch_limit = math::half_pi - 0.1f;
 
     /// @brief Flag indicating whether the camera has been updated before.
     bool first_update_ {true};
