@@ -3,7 +3,6 @@ set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/engine)
 set(SOURCE_CODE
     "core/application_context.cpp"
     "core/event.hpp"
-    "core/event_dispatcher.cpp"
     "core/event_dispatcher.hpp"
     "core/geometry.cpp"
     "core/image.cpp"
