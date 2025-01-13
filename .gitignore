@@ -13,6 +13,7 @@
 
 src/shaders/headers/*.h
 build/*
+release/*
 CMakeUserPresets.json
 
 imgui.ini
