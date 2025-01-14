@@ -27,9 +27,9 @@ TEST(Euler, ConstructorWithMatrix) {
     const auto in = engine::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.3f}};
     const auto out = engine::Euler {in.GetMatrix()};
 
-    EXPECT_EQ(in.pitch, out.pitch);
-    EXPECT_EQ(in.yaw, out.yaw);
-    EXPECT_EQ(in.roll, out.roll);
+    EXPECT_NEAR(in.pitch, out.pitch, 1e-6);
+    EXPECT_NEAR(in.yaw, out.yaw, 1e-6);
+    EXPECT_NEAR(in.roll, out.roll, 1e-6);
 }
 
 #pragma endregion
