@@ -1,0 +1,28 @@
+name: Ubuntu - Test
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          sudo apt-get -yq update
+          sudo apt-get install -yq cmake ninja-build libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config
+          gcc --version
+          git clone https://github.com/microsoft/vcpkg.git ${{github.workspace}}/vcpkg
+          ${{github.workspace}}/vcpkg/bootstrap-vcpkg.sh
+          echo "VCPKG_ROOT=${{github.workspace}}/vcpkg" >> $GITHUB_ENV
+      - name: Configure
+        shell: bash
+        run: |
+          cmake -G "Ninja" -B ${{github.workspace}}/build \
+            --preset="debug" -G "Ninja"
+      - name: Build
+        shell: bash
+        run: cmake --build ${{github.workspace}}/build
+      - name: Test
+        shell: bash
+        run: |
+          cd build
+          ctest -V
