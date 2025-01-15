@@ -1,0 +1,26 @@
+name: Windows - Test
+on: [push]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          choco install cmake
+          git clone https://github.com/microsoft/vcpkg.git ${{github.workspace}}/vcpkg
+          ${{github.workspace}}\vcpkg\bootstrap-vcpkg.bat
+          echo "VCPKG_ROOT=${{github.workspace}}\\vcpkg" >> $env:GITHUB_ENV
+      - name: Configure
+        shell: bash
+        run: |
+          cmake -B ${{github.workspace}}/build \
+            --preset="debug"
+      - name: Build
+        shell: bash
+        run: cmake --build ${{github.workspace}}/build . --config Debug
+      - name: Test
+        shell: bash
+        run: |
+          cd build
+          ctest -V
