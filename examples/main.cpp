@@ -105,6 +105,9 @@ private:
     int current_scene_ = 0;
 
     auto LoadScene(const std::string_view scene_name) -> void {
+        if (scene_name == "Sandbox") {
+            scene = std::make_shared<ExampleSandbox>(camera);
+        }
         if (scene_name == "Flat Material") {
             scene = std::make_shared<ExampleFlatMaterial>(camera);
         }
