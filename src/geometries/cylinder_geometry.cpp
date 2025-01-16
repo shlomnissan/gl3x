@@ -49,7 +49,7 @@ auto CylinderGeometry::GenerateTorso(const Parameters& params) -> void {
             vertex_data_.emplace_back(normal.y);                            // normal y
             vertex_data_.emplace_back(normal.z);                            // normal z
             vertex_data_.emplace_back(u);                                   // u
-            vertex_data_.emplace_back(1 - v);                               // v
+            vertex_data_.emplace_back(1.0f - v);                            // v
         }
     }
 
@@ -76,12 +76,12 @@ auto CylinderGeometry::GenerateCap(const Parameters& params, bool top) -> void {
     const auto center_index_start = vertex_data_.size() / 8;
 
     for (auto x = 0; x < params.radial_segments; ++x) {
-        vertex_data_.emplace_back(0);                   // pos x
+        vertex_data_.emplace_back(0.0f);                // pos x
         vertex_data_.emplace_back(half_height * sign);  // pos y
-        vertex_data_.emplace_back(0);                   // pos z
-        vertex_data_.emplace_back(0);                   // normal x
+        vertex_data_.emplace_back(0.0f);                // pos z
+        vertex_data_.emplace_back(0.0f);                // normal x
         vertex_data_.emplace_back(sign);                // normal y
-        vertex_data_.emplace_back(0);                   // normal z
+        vertex_data_.emplace_back(0.0f);                // normal z
         vertex_data_.emplace_back(0.5f);                // u
         vertex_data_.emplace_back(0.5f);                // v
     }
@@ -98,9 +98,9 @@ auto CylinderGeometry::GenerateCap(const Parameters& params, bool top) -> void {
         vertex_data_.emplace_back(radius * sin_theta);              // pos x
         vertex_data_.emplace_back(half_height * sign);              // pos y
         vertex_data_.emplace_back(radius * cos_theta);              // pos z
-        vertex_data_.emplace_back(0);                               // normal x
+        vertex_data_.emplace_back(0.0f);                            // normal x
         vertex_data_.emplace_back(sign);                            // normal y
-        vertex_data_.emplace_back(0);                               // normal z
+        vertex_data_.emplace_back(0.0f);                            // normal z
         vertex_data_.emplace_back(cos_theta * 0.5f + 0.5f);         // u
         vertex_data_.emplace_back(sin_theta * 0.5f * sign + 0.5f);  // v
     }

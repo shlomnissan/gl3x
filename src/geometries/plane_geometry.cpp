@@ -38,14 +38,14 @@ auto PlaneGeometry::GenerateGeometry(const Parameters& params) -> void {
             const auto u = static_cast<float>(ix) / grid_x;
             const auto v = 1 - (static_cast<float>(iy) / grid_y);
 
-            vertex_data_.emplace_back(x);  // pos x
-            vertex_data_.emplace_back(-y); // pos y
-            vertex_data_.emplace_back(0);  // pos z
-            vertex_data_.emplace_back(0);  // normal x
-            vertex_data_.emplace_back(0);  // normal y
-            vertex_data_.emplace_back(1);  // normal z
-            vertex_data_.emplace_back(u);  // u
-            vertex_data_.emplace_back(v);  // v
+            vertex_data_.emplace_back(x);     // pos x
+            vertex_data_.emplace_back(-y);    // pos y
+            vertex_data_.emplace_back(0.0f);  // pos z
+            vertex_data_.emplace_back(0.0f);  // normal x
+            vertex_data_.emplace_back(0.0f);  // normal y
+            vertex_data_.emplace_back(1.0f);  // normal z
+            vertex_data_.emplace_back(u);     // u
+            vertex_data_.emplace_back(v);     // v
         }
     }
 
