@@ -64,7 +64,7 @@ public:
                 iter++;
             } else {
                 Logger::Log(LogLevel::Warning, "Removed expired event listener '{}'", name);
-                callbacks.erase(iter);
+                iter = callbacks.erase(iter); // update iter to the next valid position
             }
         }
     }
