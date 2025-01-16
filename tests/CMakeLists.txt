@@ -25,6 +25,19 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${CMAKE_CURRENT_LIST_DIR})
 
+add_custom_command(
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/assets.stamp
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/assets
+        ${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/assets
+    COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/assets.stamp
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/assets
+)
+
+add_custom_target(copy_assets ALL
+    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/assets.stamp
+)
+
 foreach(TEST IN LISTS TEST_SOURCES)
     get_filename_component(FILE_NAME ${TEST} NAME)
     string(REGEX REPLACE "\\.[^.]*$" "" NAME_NO_EXT ${FILE_NAME})
@@ -35,10 +48,5 @@ foreach(TEST IN LISTS TEST_SOURCES)
     target_link_libraries(${TEST_TARGET} PRIVATE GTest::gtest GTest::gtest_main engine)
     add_test(${NAME_NO_EXT} ${TEST_TARGET})
 
-    add_custom_command(
-        TARGET ${TEST_TARGET} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_CURRENT_SOURCE_DIR}/assets
-        $<TARGET_FILE_DIR:${TEST_TARGET}>/assets
-    )
+    add_dependencies(${TEST_TARGET} copy_assets)
 endforeach()
