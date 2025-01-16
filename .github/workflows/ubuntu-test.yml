@@ -15,14 +15,12 @@ jobs:
           echo "VCPKG_ROOT=${{github.workspace}}/vcpkg" >> $GITHUB_ENV
       - name: Configure
         shell: bash
-        run: |
-          cmake -B ${{github.workspace}}/build \
-            --preset="debug" -G "Ninja"
+        run: cmake -B ${{github.workspace}}/build --preset="debug" -G "Ninja"
       - name: Build
         shell: bash
         run: cmake --build ${{github.workspace}}/build
       - name: Test
         shell: bash
         run: |
-          cd build
+          cd ${{github.workspace}}/build
           ctest -V
