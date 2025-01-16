@@ -1,4 +1,5 @@
 # Engine
 A 3D game engine library written in modern C++
 
-![something](https://github.com/shlomnissan/engine/actions/workflows/ubuntu-test.yml/badge.svg)
+![ubuntu-test-badge](https://github.com/shlomnissan/engine/actions/workflows/ubuntu-test.yml/badge.svg)
+![windows-test-badge](https://github.com/shlomnissan/engine/actions/workflows/windows-test.yml/badge.svg)
