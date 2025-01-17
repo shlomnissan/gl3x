@@ -9,6 +9,8 @@ set(SOURCE_CODE
     "core/program_attributes.cpp"
     "core/program_attributes.hpp"
     "core/renderer.cpp"
+    "core/render_lists.cpp"
+    "core/render_lists.hpp"
     "core/shader_library.cpp"
     "core/shader_library.hpp"
     "core/timer.cpp"

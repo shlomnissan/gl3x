@@ -11,7 +11,11 @@
 #include "renderer/gl/gl_state.hpp"
 #include "renderer/gl/gl_textures.hpp"
 
+#include <memory>
+
 namespace engine {
+
+class RenderLists;
 
 class Renderer::Impl {
 public:
@@ -26,11 +30,15 @@ public:
 
     auto SetClearColor(const Color& color) -> void;
 
+    ~Impl();
+
 private:
     GLBuffers buffers_;
     GLPrograms programs_;
     GLState state_;
     GLTextures textures_;
+
+    std::unique_ptr<RenderLists> render_lists_;
 
     auto RenderObjects(Node* node, Scene* scene, Camera* camera) -> void;
 

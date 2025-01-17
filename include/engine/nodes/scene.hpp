@@ -16,6 +16,7 @@ namespace engine {
 
 class Event;
 class SceneEvent;
+class Renderer;
 
 using EventListener = std::function<void(Event*)>;
 
@@ -44,15 +45,6 @@ public:
      */
     auto ProcessUpdates(float delta) -> void;
 
-     /**
-     * @brief Checks if the scene has been touched.
-     *
-     * "touched" means that a node was added or removed from the scene.
-     *
-     * @return True if the scene has been touched, false otherwise.
-     */
-    auto Touched() const { return touched_; }
-
     /**
      * @brief Retrieves a vector of lights in the scene.
      *
@@ -75,6 +67,9 @@ public:
     virtual ~Scene() override;
 
 private:
+    /// @brief The renderer needs access to the touched_ flag.
+    friend class Renderer;
+
     /// @brief Event listener for handling input events.
     std::shared_ptr<EventListener> input_event_listener_;
 

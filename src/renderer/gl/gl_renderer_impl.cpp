@@ -11,6 +11,7 @@
 #include "engine/materials/phong_material.hpp"
 #include "engine/math/vector3.hpp"
 
+#include "core/render_lists.hpp"
 #include "core/program_attributes.hpp"
 #include "utilities/logger.hpp"
 
@@ -18,7 +19,8 @@
 
 namespace engine {
 
-Renderer::Impl::Impl(const Renderer::Parameters& params) {
+Renderer::Impl::Impl(const Renderer::Parameters& params)
+  : render_lists_(std::make_unique<RenderLists>()) {
     glViewport(0, 0, params.width, params.height);
 }
 
@@ -209,11 +211,18 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     scene->UpdateTransformHierarchy();
     camera->UpdateViewTransform();
 
+    if (scene->touched_) {
+        render_lists_->ProcessScene(scene);
+        scene->touched_ = false;
+    }
+
     RenderObjects(scene, scene, camera);
 }
 
 auto Renderer::Impl::SetClearColor(const Color& color) -> void {
     state_.SetClearColor(color);
 }
+
+Renderer::Impl::~Impl() = default;
 
 }
