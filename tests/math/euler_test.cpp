@@ -94,7 +94,7 @@ TEST(Euler, InequalityOperator) {
 
 #pragma endregion
 
-#pragma Helpers
+#pragma region Helpers
 
 auto Rotate(float angle, const engine::Vector3& v) -> engine::Matrix4 {
     const auto a = angle;

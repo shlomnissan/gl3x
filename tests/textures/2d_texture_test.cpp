@@ -6,7 +6,7 @@
 
 #include <engine/textures/texture_2d.hpp>
 
-#pragma Constructors
+#pragma region Constructors
 
 // TODO: resolve assets copying issue in MSVC
 TEST(Texture2DTest, DISABLED_InitTexture) {

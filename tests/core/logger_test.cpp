@@ -10,7 +10,7 @@
 
 using namespace std::string_literals;
 
-#pragma Standard Logger
+#pragma region Standard Logger
 
 TEST(Logger, LogInfo) {
     testing::internal::CaptureStdout();
@@ -46,7 +46,7 @@ TEST(Logger, LogDebug) {
 
 #pragma endregion
 
-#pragma String formatting
+#pragma region String formatting
 
 TEST(Logger, StringFormatting) {
     testing::internal::CaptureStdout();
