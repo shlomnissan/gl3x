@@ -106,8 +106,8 @@ auto CylinderGeometry::GenerateCap(const Parameters& params, bool top) -> void {
     }
 
     for (auto x = 0; x < params.radial_segments; ++x) {
-        const auto c = center_index_start + x;
-        const auto i = center_index_end + x;
+        const auto c = static_cast<unsigned int>(center_index_start + x);
+        const auto i = static_cast<unsigned int>(center_index_end + x);
 
         if (top) {
             index_data_.emplace_back(i);
