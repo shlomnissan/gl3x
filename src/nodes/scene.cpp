@@ -21,12 +21,13 @@ auto Scene::AddEventListeners() -> void {
     scene_event_listener_ = std::make_shared<EventListener>([&](Event* e) {
         HandleSceneEvents(e->As<SceneEvent>());
     });
-    EventDispatcher::Get().AddEventListener("added_to_scene", scene_event_listener_);
-    EventDispatcher::Get().AddEventListener("removed_from_scene", scene_event_listener_);
 
     input_event_listener_ = std::make_shared<EventListener>([&](Event* e) {
         HandleInputEvent(shared_from_this(), e);
     });
+
+    EventDispatcher::Get().AddEventListener("added_to_scene", scene_event_listener_);
+    EventDispatcher::Get().AddEventListener("removed_from_scene", scene_event_listener_);
     EventDispatcher::Get().AddEventListener("keyboard_event", input_event_listener_);
     EventDispatcher::Get().AddEventListener("mouse_event", input_event_listener_);
 }
@@ -60,6 +61,9 @@ auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
 }
 
 auto Scene::HandleSceneEvents(const SceneEvent* event) -> void {
+    touched_ = true;
+
+    // TODO: this code should be removed once render lists are implemented.
     if (!event->node->Is<Light>()) return;
     if (event->type == SceneEvent::Type::AddedToScene) {
         AddLight(std::dynamic_pointer_cast<Light>(event->node));

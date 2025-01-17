@@ -44,6 +44,15 @@ public:
      */
     auto ProcessUpdates(float delta) -> void;
 
+     /**
+     * @brief Checks if the scene has been touched.
+     *
+     * "touched" means that a node was added or removed from the scene.
+     *
+     * @return True if the scene has been touched, false otherwise.
+     */
+    auto Touched() const { return touched_; }
+
     /**
      * @brief Retrieves a vector of lights in the scene.
      *
@@ -72,13 +81,11 @@ private:
     /// @brief Event listener for handling scene events.
     std::shared_ptr<EventListener> scene_event_listener_;
 
-    /**
-     * @brief A vector of weak pointers to lights in the scene.
-     *
-     * This vector stores weak pointers to `Light` objects that are part of the scene.
-     * Storing light pointers in the scene object allows for quick access to light nodes.
-     */
+    /// @brief A vector of weak pointers to lights in the scene.
     std::vector<std::weak_ptr<Light>> lights_;
+
+    /// @brief Indicates whether a node was added or removed from the scene.
+    bool touched_ = false;
 
     /**
      * @brief Add event listeners to manage game nodes within the scene.
