@@ -22,5 +22,6 @@ jobs:
       - name: Test
         shell: bash
         run: |
+          cp -r tests/assets build/tests
           cd build
           ctest -V

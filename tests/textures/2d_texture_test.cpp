@@ -8,8 +8,7 @@
 
 #pragma region Constructors
 
-// TODO: resolve assets copying issue in MSVC
-TEST(Texture2DTest, DISABLED_InitTexture) {
+TEST(Texture2DTest, InitTexture) {
     auto texture = engine::Texture2D::Create("assets/texture.png");
 
     EXPECT_TRUE(texture->Loaded());
