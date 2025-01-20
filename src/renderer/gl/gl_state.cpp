@@ -8,10 +8,9 @@
 namespace engine {
 
 auto GLState::ProcessMaterial(const Material* material) -> void {
-    SetBackfaceCulling(material->cull_backfaces);
+    SetBackfaceCulling(!material->two_sided);
     SetDepthTest(material->depth_test);
     SetPolygonOffset(material->polygon_offset);
-    SetInvertFaceOrientation(material->invert_face_orientation);
     SetWireframeMode(material->wireframe);
     SetBlending(!material->transparent ? Blending::None : material->blending);
 }
@@ -44,13 +43,6 @@ auto GLState::SetPolygonOffset(const std::optional<PolygonOffset>& polygon_offse
         glPolygonOffset(polygon_offset->factor, polygon_offset->units);
     } else {
         Disable(GL_POLYGON_OFFSET_FILL);
-    }
-}
-
-auto GLState::SetInvertFaceOrientation(bool enabled) -> void {
-    if (curr_invert_face_orientation_ != enabled) {
-       enabled ? glFrontFace(GL_CW) : glFrontFace(GL_CCW);
-        curr_invert_face_orientation_ = enabled;
     }
 }
 
@@ -107,7 +99,6 @@ auto GLState::Reset() -> void {
 
     features_.clear();
 
-    curr_invert_face_orientation_ = false;
     curr_wireframe_mode_ = false;
     curr_blending_ = Blending::None;
 }

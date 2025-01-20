@@ -57,14 +57,11 @@ public:
     /// @brief Flag indicating whether the material is affected by fog.
     bool fog {true};
 
-    /// @brief Flag indicating whether backfaces should be culled.
-    bool cull_backfaces {true};
+    /// @brief Flag indicating whether both sides should be rendered.
+    bool two_sided {false};
 
     /// @brief Flag indicating whether depth testing should be enabled.
     bool depth_test {true};
-
-    /// @brief Flag indicating whether the face orientation should be inverted.
-    bool invert_face_orientation {false};
 
     /// @brief Flag indicating whether the material should be rendered in wireframe mode.
     bool wireframe {false};

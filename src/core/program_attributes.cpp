@@ -33,6 +33,7 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
         texture_map = m->texture_map != nullptr;
     }
 
+    two_sided = material->two_sided;
     fog = scene->fog.has_value() && material->fog;
 
     for (auto weak_light : scene->Lights()) {
@@ -50,10 +51,11 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
 }
 
 auto ProgramAttributes::ProgramPermutationHash() const -> std::string {
-    auto attrs = std::array<int, 6> {
+    auto attrs = std::array<int, 7> {
         color ? 1 : 0,
         texture_map ? 1 : 0,
         fog ? 1 : 0,
+        two_sided ? 1 : 0,
         directional_lights,
         point_lights,
         spot_lights

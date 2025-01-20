@@ -17,7 +17,7 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camer
     auto geometry = BoxGeometry::Create();
     auto material = PhongMaterial::Create();
     material->color = 0x049EF4;
-    material->cull_backfaces = false;
+    material->two_sided = true;
     mesh_ = Mesh::Create(geometry, material);
     Add(mesh_);
 

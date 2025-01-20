@@ -54,8 +54,9 @@ auto ShaderLibrary::InjectAttributes(
     auto features = std::string {};
 
     if (attrs.color) features += "#define USE_COLOR\n";
-    if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
     if (attrs.fog) features += "#define USE_FOG\n";
+    if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
+    if (attrs.two_sided) features += "#define USE_TWO_SIDED\n";
 
     features += fmt::format("#define NUM_DIR_LIGHTS {}\n", attrs.directional_lights);
     features += fmt::format("#define NUM_POINT_LIGHTS {}\n", attrs.point_lights);

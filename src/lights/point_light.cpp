@@ -27,7 +27,7 @@ auto PointLight::Update(float delta) -> void {
 
 auto PointLight::CreateDebugMesh() -> void {
     debug_mesh_material_ = FlatMaterial::Create();
-    debug_mesh_material_->cull_backfaces = false;
+    debug_mesh_material_->two_sided = true;
     debug_mesh_material_->color = color;
     debug_mesh_material_->wireframe = true;
     debug_mesh_material_->fog = false;

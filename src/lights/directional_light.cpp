@@ -46,7 +46,7 @@ auto DirectionalLight::CreateDebugMesh() -> void {
     using enum GeometryPrimitiveType;
 
     debug_mesh_material_ = FlatMaterial::Create();
-    debug_mesh_material_->cull_backfaces = false;
+    debug_mesh_material_->two_sided = true;
     debug_mesh_material_->color = color;
     debug_mesh_material_->wireframe = true;
     debug_mesh_material_->fog = false;
