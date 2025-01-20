@@ -25,17 +25,17 @@ mkdir release
 cd release
 if errorlevel 1 goto :error
 
-:: Configure
+:: Configure the project
 echo Running CMake configuration with triplet: %triplet%
 cmake .. --preset "release" -DVCPKG_TARGET_TRIPLET=%triplet%
 if errorlevel 1 goto :error
 
-:: Build
+:: Build the project
 echo Building the project
 cmake --build . --config Release
 if errorlevel 1 goto :error
 
-:: Install
+:: Install the project
 echo Installing the project
 cmake --install .
 if errorlevel 1 goto :error
