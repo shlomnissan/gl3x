@@ -82,8 +82,7 @@ public:
      *
      * @return A `Matrix4` object representing the 4x4 identity matrix.
      */
-    [[nodiscard]]
-    static auto Identity() {
+    [[nodiscard]] static auto Identity() {
         return Matrix4 {
             1.0f, 0.0f, 0.0f, 0.0f,
             0.0f, 1.0f, 0.0f, 0.0f,
@@ -99,8 +98,7 @@ public:
      * @param j Column index.
      * @return float& Reference to the matrix element.
      */
-    [[nodiscard]]
-    auto& operator()(int i, int j) {
+    [[nodiscard]] auto& operator()(int i, int j) {
         return n[j][i];
     }
 
@@ -112,8 +110,7 @@ public:
      * @param j Column index.
      * @return const float& Const reference to the matrix element.
      */
-    [[nodiscard]]
-    const auto& operator()(int i, int j) const {
+    [[nodiscard]] const auto& operator()(int i, int j) const {
         return n[j][i];
     }
 
@@ -123,8 +120,7 @@ public:
      * @param j Column index.
      * @return Vector4& Reference to the column vector.
      */
-    [[nodiscard]]
-    auto& operator[](int j) {
+    [[nodiscard]] auto& operator[](int j) {
         return (*reinterpret_cast<Vector4*>(n[j].data()));
     }
 
@@ -135,8 +131,7 @@ public:
      * @param j Column index.
      * @return const Vector4& Const reference to the column vector.
      */
-    [[nodiscard]]
-    const auto& operator[](int j) const {
+    [[nodiscard]] const auto& operator[](int j) const {
         return (*reinterpret_cast<const Vector4*>(n[j].data()));
     }
 
@@ -151,8 +146,7 @@ private:
      * @param b The second matrix to compare.
      * @return bool `true` if the matrices are equal, `false` otherwise.
      */
-    [[nodiscard]]
-    friend bool operator==(const Matrix4& a, const Matrix4& b) = default;
+    [[nodiscard]] friend bool operator==(const Matrix4& a, const Matrix4& b) = default;
 
     /**
      * @brief Multiplies two 4x4 matrices and returns the result.
@@ -164,8 +158,7 @@ private:
      * @param b The second matrix in the multiplication.
      * @return Matrix4 The resulting matrix after multiplication.
      */
-    [[nodiscard]]
-    friend auto operator*(const Matrix4& a, const Matrix4& b) {
+    [[nodiscard]] friend auto operator*(const Matrix4& a, const Matrix4& b) {
         return Matrix4 {
             a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0) + a(0, 3) * b(3, 0),
             a(0, 0) * b(0, 1) + a(0, 1) * b(1, 1) + a(0, 2) * b(2, 1) + a(0, 3) * b(3, 1),
@@ -196,8 +189,7 @@ private:
      * @param v The 4D vector to multiply.
      * @return Vector4 The resulting 4D vector after multiplication.
      */
-    [[nodiscard]]
-    friend auto operator*(const Matrix4& m, const Vector4& v) {
+    [[nodiscard]] friend auto operator*(const Matrix4& m, const Vector4& v) {
         return Vector4 {
             m(0, 0) * v.x + m(0, 1) * v.y + m(0, 2) * v.z + m(0, 3) * v.w,
             m(1, 0) * v.x + m(1, 1) * v.y + m(1, 2) * v.z + m(1, 3) * v.w,

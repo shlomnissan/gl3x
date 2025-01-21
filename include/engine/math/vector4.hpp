@@ -60,16 +60,14 @@ public:
      *
      * @return Vector4 A `Vector4` instance representing the zero vector.
      */
-    [[nodiscard]]
-    static auto Zero() { return Vector4 {0.0f}; }
+    [[nodiscard]] static auto Zero() { return Vector4 {0.0f}; }
 
     /**
      * @brief Calculates the length (magnitude) of the vector.
      *
      * @return float The length of the vector.
      */
-    [[nodiscard]]
-    auto Length() const -> float;
+    [[nodiscard]] auto Length() const -> float;
 
     /**
      * @brief Accesses the component at the specified index.
@@ -77,8 +75,7 @@ public:
      * @param i The index of the component to access (0, 1, 2, or 3).
      * @return float& A reference to the component at the specified index.
      */
-    [[nodiscard]]
-    auto& operator[](int i) {
+    [[nodiscard]] auto& operator[](int i) {
         assert(i >= 0 && i < 4);
         return (reinterpret_cast<float*>(this))[i];
     }
@@ -89,8 +86,7 @@ public:
      * @param i The index of the component to access (0, 1, 2, or 3).
      * @return const float& A const reference to the component at the specified index.
      */
-    [[nodiscard]]
-    const auto& operator[](int i) const {
+    [[nodiscard]] const auto& operator[](int i) const {
         assert(i >= 0 && i < 4);
         return (reinterpret_cast<const float*>(this))[i];
     }
@@ -172,8 +168,7 @@ private:
      * @param b The second vector to compare.
      * @return bool `true` if the vectors are equal, `false` otherwise.
      */
-    [[nodiscard]]
-    friend bool operator==(const Vector4& a, const Vector4& b) = default;
+    [[nodiscard]] friend bool operator==(const Vector4& a, const Vector4& b) = default;
 
     /**
      * @brief Adds two vectors component-wise.
@@ -183,8 +178,7 @@ private:
      * @param b The second vector.
      * @return Vector4 A new vector that is the component-wise sum of the two vectors.
      */
-    [[nodiscard]]
-    friend auto operator+(const Vector4& a, const Vector4& b) {
+    [[nodiscard]] friend auto operator+(const Vector4& a, const Vector4& b) {
         return Vector4 {a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w};
     }
 
@@ -196,8 +190,7 @@ private:
      * @param b The vector to subtract.
      * @return Vector4 A new vector that is the component-wise difference of the two vectors.
      */
-    [[nodiscard]]
-    friend auto operator-(const Vector4& a, const Vector4& b) {
+    [[nodiscard]] friend auto operator-(const Vector4& a, const Vector4& b) {
         return Vector4 {a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w};
     }
 
@@ -209,8 +202,7 @@ private:
      * @param n The scalar value to multiply with.
      * @return Vector4 A new vector that is the result of scaling the original vector.
      */
-    [[nodiscard]]
-    friend auto operator*(const Vector4& v, float n) {
+    [[nodiscard]] friend auto operator*(const Vector4& v, float n) {
         return Vector4 {v.x * n, v.y * n, v.z * n, v.w * n};
     }
 
@@ -222,8 +214,7 @@ private:
      * @param v The vector to be scaled.
      * @return Vector4 A new vector that is the result of scaling the original vector.
      */
-    [[nodiscard]]
-    friend auto operator*(float n, const Vector4& v) {
+    [[nodiscard]] friend auto operator*(float n, const Vector4& v) {
         return v * n;
     }
 
@@ -235,8 +226,7 @@ private:
      * @param b The second vector.
      * @return Vector4 A new vector that is the component-wise product of the two input vectors.
      */
-    [[nodiscard]]
-    friend auto operator*(const Vector4& a, const Vector4& b) {
+    [[nodiscard]] friend auto operator*(const Vector4& a, const Vector4& b) {
         return Vector4 {a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w};
     }
 
@@ -248,8 +238,7 @@ private:
      * @param n The scalar value to divide by.
      * @return Vector4 A new vector that is the result of dividing the original vector by the scalar.
      */
-    [[nodiscard]]
-    friend auto operator/(const Vector4& v, float n) {
+    [[nodiscard]] friend auto operator/(const Vector4& v, float n) {
         n = 1.0f / n;
         return Vector4 {v.x * n, v.y * n, v.z * n, v.w * n};
     }
@@ -263,8 +252,7 @@ private:
  * @param b The second vector.
  * @return float A scalar value that is the result of the dot product of the two input vectors.
  */
-[[nodiscard]] inline
-auto Dot(const Vector4& a, const Vector4& b) {
+[[nodiscard]] inline auto Dot(const Vector4& a, const Vector4& b) {
     return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
 }
 

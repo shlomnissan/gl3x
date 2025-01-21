@@ -79,8 +79,7 @@ public:
      *
      * @return A `Matrix3` object representing the 3x3 identity matrix.
      */
-    [[nodiscard]]
-    static auto Identity() {
+    [[nodiscard]] static auto Identity() {
         return Matrix3 {
             1.0f, 0.0f, 0.0f,
             0.0f, 1.0f, 0.0f,
@@ -95,8 +94,7 @@ public:
      * @param j Column index.
      * @return float& Reference to the matrix element.
      */
-    [[nodiscard]]
-    auto& operator()(int i, int j) {
+    [[nodiscard]] auto& operator()(int i, int j) {
         return n[j][i];
     }
 
@@ -108,8 +106,7 @@ public:
      * @param j Column index.
      * @return const float& Const reference to the matrix element.
      */
-    [[nodiscard]]
-    const auto& operator()(int i, int j) const {
+    [[nodiscard]] const auto& operator()(int i, int j) const {
         return n[j][i];
     }
 
@@ -119,8 +116,7 @@ public:
      * @param j Column index.
      * @return Vector3& Reference to the column vector.
      */
-    [[nodiscard]]
-    auto& operator[](int j) {
+    [[nodiscard]] auto& operator[](int j) {
         return (*reinterpret_cast<Vector3*>(n[j].data()));
     }
 
@@ -131,8 +127,7 @@ public:
      * @param j Column index.
      * @return const Vector3& Const reference to the column vector.
      */
-    [[nodiscard]]
-    const auto& operator[](int j) const {
+    [[nodiscard]] const auto& operator[](int j) const {
         return (*reinterpret_cast<const Vector3*>(n[j].data()));
     }
 
@@ -147,8 +142,7 @@ private:
      * @param b The second matrix to compare.
      * @return bool `true` if the matrices are equal, `false` otherwise.
      */
-   [[nodiscard]]
-    friend bool operator==(const Matrix3& a, const Matrix3& b) = default;
+   [[nodiscard]] friend bool operator==(const Matrix3& a, const Matrix3& b) = default;
 
     /**
      * @brief Multiplies two 3x3 matrices and returns the result.
@@ -160,8 +154,7 @@ private:
      * @param b The second matrix in the multiplication.
      * @return Matrix3 The resulting matrix after multiplication.
      */
-    [[nodiscard]]
-    friend auto operator*(const Matrix3& a, const Matrix3& b) {
+    [[nodiscard]] friend auto operator*(const Matrix3& a, const Matrix3& b) {
         return Matrix3 {
             a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0),
             a(0, 0) * b(0, 1) + a(0, 1) * b(1, 1) + a(0, 2) * b(2, 1),

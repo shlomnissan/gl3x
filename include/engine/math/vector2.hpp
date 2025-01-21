@@ -93,8 +93,7 @@ private:
      * @param b The second vector to compare.
      * @return bool `true` if the vectors are equal, `false` otherwise.
      */
-    [[nodiscard]]
-    friend bool operator==(const Vector2& a, const Vector2& b) = default;
+    [[nodiscard]] friend bool operator==(const Vector2& a, const Vector2& b) = default;
 
     /**
      * @brief Subtracts the second vector from the first vector component-wise.
@@ -104,8 +103,7 @@ private:
      * @param b The vector to subtract.
      * @return Vector2 A new vector that is the component-wise difference of the two vectors.
      */
-    [[nodiscard]]
-    friend auto operator-(const Vector2& a, const Vector2& b) {
+    [[nodiscard]] friend auto operator-(const Vector2& a, const Vector2& b) {
         return Vector2 {a.x - b.x, a.y - b.y};
     }
 
@@ -117,8 +115,7 @@ private:
      * @param b The second vector.
      * @return Vector2 A new vector that is the component-wise sum of the two vectors.
      */
-    [[nodiscard]]
-    friend auto operator+(const Vector2& a, const Vector2& b) {
+    [[nodiscard]] friend auto operator+(const Vector2& a, const Vector2& b) {
         return Vector2 {a.x + b.x, a.y + b.y};
     }
 };
