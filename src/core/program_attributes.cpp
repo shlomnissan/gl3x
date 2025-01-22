@@ -17,7 +17,7 @@
 
 namespace engine {
 
-ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scene) {
+ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists* render_lists, const Scene* scene) {
     type = material->Type();
 
     if (type == MaterialType::FlatMaterial) {
@@ -26,7 +26,7 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
     }
 
     if (type == MaterialType::PhongMaterial) {
-        lights = !scene->Lights().empty();
+        lights = !render_lists->Lights().empty();
         auto m = material->As<PhongMaterial>();
         texture_map = m->texture_map != nullptr;
     }
@@ -34,7 +34,7 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
     two_sided = material->two_sided;
     fog = scene->fog.has_value() && material->fog;
 
-    for (auto weak_light : scene->Lights()) {
+    for (auto weak_light : render_lists->Lights()) {
         if (auto light = weak_light.lock()) {
             using enum LightType;
             switch (light->Type()) {

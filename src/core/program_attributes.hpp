@@ -3,8 +3,10 @@
 
 #pragma once
 
-#include "engine/nodes/scene.hpp"
 #include "engine/materials/material.hpp"
+#include "engine/nodes/scene.hpp"
+
+#include "core/render_lists.hpp"
 
 #include <string>
 
@@ -22,7 +24,7 @@ struct ProgramAttributes {
     bool texture_map {false};
     bool two_sided {false};
 
-    ProgramAttributes(const Material* material, const Scene* scene);
+    ProgramAttributes(const Material* material, const RenderLists* render_lists, const Scene* scene);
 
     auto ProgramPermutationHash() const -> std::string;
 };

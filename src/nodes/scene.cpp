@@ -62,33 +62,6 @@ auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
 
 auto Scene::HandleSceneEvents(const SceneEvent* event) -> void {
     touched_ = true;
-
-    // TODO: this code should be removed once render lists are implemented.
-    if (!event->node->Is<Light>()) return;
-    if (event->type == SceneEvent::Type::AddedToScene) {
-        AddLight(std::dynamic_pointer_cast<Light>(event->node));
-    }
-    if (event->type == SceneEvent::Type::RemovedFromScene) {
-        RemoveLight(std::dynamic_pointer_cast<Light>(event->node));
-    }
-}
-
-auto Scene::AddLight(std::shared_ptr<Light> light) -> void {
-    lights_.emplace_back(light);
-}
-
-auto Scene::RemoveLight(std::shared_ptr<Light> light) -> void {
-    const auto erased = std::erase_if(lights_, [&](const std::weak_ptr<Light>& weak_light) {
-        if (auto shared_light = weak_light.lock()) {
-            return shared_light == light;
-        } else {
-            Logger::Log(LogLevel::Warning, "Removed dangling light {}", *shared_light);
-            return true;
-        }
-    });
-    if (erased == 0) {
-        Logger::Log(LogLevel::Error, "Failed to remove light from scene {}", *light);
-    }
 }
 
 Scene::~Scene() {

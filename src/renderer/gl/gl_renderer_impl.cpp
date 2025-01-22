@@ -44,7 +44,7 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
 
     if (!IsValidMesh(mesh)) return;
 
-    auto attrs = ProgramAttributes {material, scene};
+    auto attrs = ProgramAttributes {material, render_lists_.get(), scene};
     auto program = programs_.GetProgram(attrs);
     if (!program->IsValid()) {
         return;

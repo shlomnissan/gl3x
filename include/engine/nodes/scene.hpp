@@ -4,8 +4,8 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/math/color.hpp"
 #include "engine/nodes/node.hpp"
-#include "engine/lights/light.hpp"
 
 #include <functional>
 #include <memory>
@@ -46,13 +46,6 @@ public:
     auto ProcessUpdates(float delta) -> void;
 
     /**
-     * @brief Retrieves a vector of lights in the scene.
-     *
-     * @return A vector of weak pointers to lights in the scene.
-     */
-    [[nodiscard]] auto Lights() const { return lights_; }
-
-    /**
      * @brief Creates a new instance of the Scene class.
      *
      * @return A `std::shared_ptr<Scene>` pointing to the newly created Scene instance.
@@ -75,9 +68,6 @@ private:
 
     /// @brief Event listener for handling scene events.
     std::shared_ptr<EventListener> scene_event_listener_;
-
-    /// @brief A vector of weak pointers to lights in the scene.
-    std::vector<std::weak_ptr<Light>> lights_;
 
     /// @brief Indicates whether a node was added or removed from the scene.
     bool touched_ = false;
@@ -109,20 +99,6 @@ private:
      * @param event The scene event to handle.
      */
     auto HandleSceneEvents(const SceneEvent* event) -> void;
-
-    /**
-     * @brief Adds a light to the scene.
-     *
-     * @param light A shared pointer to the light to be added.
-     */
-    auto AddLight(std::shared_ptr<Light> light) -> void;
-
-    /**
-     * @brief Removes a light from the scene.
-     *
-     * @param light A shared pointer to the light to be removed.
-    */
-    auto RemoveLight(std::shared_ptr<Light> light) -> void;
 };
 
 }
