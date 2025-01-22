@@ -27,11 +27,7 @@ uniform sampler2D u_TextureMap;
 #endif
 
 void main() {
-    v_FragColor = vec4(1.0);
-
-    #ifdef USE_COLOR
-        v_FragColor *= vec4(u_Color, 1.0);
-    #endif
+    v_FragColor = vec4(u_Color, 1.0);
 
     #ifdef USE_TEXTURE_MAP
         v_FragColor *= texture(u_TextureMap, v_TexCoord);

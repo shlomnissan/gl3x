@@ -21,13 +21,11 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
     type = material->Type();
 
     if (type == MaterialType::FlatMaterial) {
-        color = true;
         auto m = material->As<FlatMaterial>();
         texture_map = m->texture_map != nullptr;
     }
 
     if (type == MaterialType::PhongMaterial) {
-        color = true;
         lights = !scene->Lights().empty();
         auto m = material->As<PhongMaterial>();
         texture_map = m->texture_map != nullptr;
@@ -51,8 +49,7 @@ ProgramAttributes::ProgramAttributes(const Material* material, const Scene* scen
 }
 
 auto ProgramAttributes::ProgramPermutationHash() const -> std::string {
-    auto attrs = std::array<int, 7> {
-        color ? 1 : 0,
+    auto attrs = std::array<int, 6> {
         texture_map ? 1 : 0,
         fog ? 1 : 0,
         two_sided ? 1 : 0,

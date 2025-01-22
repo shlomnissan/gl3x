@@ -53,7 +53,6 @@ auto ShaderLibrary::InjectAttributes(
 ) const -> std::string {
     auto features = std::string {};
 
-    if (attrs.color) features += "#define USE_COLOR\n";
     if (attrs.fog) features += "#define USE_FOG\n";
     if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
     if (attrs.two_sided) features += "#define USE_TWO_SIDED\n";
