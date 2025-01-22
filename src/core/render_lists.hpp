@@ -5,6 +5,7 @@
 
 #include <engine/lights/light.hpp>
 #include <engine/nodes/mesh.hpp>
+#include <engine/nodes/node.hpp>
 #include <engine/nodes/scene.hpp>
 
 #include <memory>
@@ -25,6 +26,13 @@ private:
 
     /// @brief A vector of weak pointers to lights in the scene.
     std::vector<std::weak_ptr<Light>> lights_;
+
+    /**
+     * @brief Processes nodes in the scene recursively.
+     *
+     * @param node The node to process.
+     */
+    auto ProcessNode(const std::shared_ptr<Node>& node) -> void;
 
     /**
      * @brief Resets the render lists.

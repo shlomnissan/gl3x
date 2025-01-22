@@ -59,9 +59,9 @@ public:
     /**
      * @brief Retrieves the list of child nodes.
      *
-     * @return A constant reference to a vector of child nodes.
+     * @return A reference to a vector of child nodes.
      */
-    [[nodiscard]] auto Children() const -> const std::vector<std::shared_ptr<Node>>&;
+    [[nodiscard]] auto Children() -> std::vector<std::shared_ptr<Node>>&;
 
     /**
      * @brief Retrieves the parent node of this node.

@@ -64,7 +64,7 @@ auto Node::UpdateLevel(const std::shared_ptr<Node>& node) -> void {
     }
 }
 
-auto Node::Children() const -> const std::vector<std::shared_ptr<Node>>& {
+auto Node::Children() -> std::vector<std::shared_ptr<Node>>& {
     return children_;
 }
 
