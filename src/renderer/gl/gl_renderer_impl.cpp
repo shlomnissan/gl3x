@@ -24,53 +24,62 @@ Renderer::Impl::Impl(const Renderer::Parameters& params)
     glViewport(0, 0, params.width, params.height);
 }
 
-auto Renderer::Impl::RenderObjects(Node* node, Scene* scene, Camera* camera) -> void {
-    for (const auto node : node->Children()) {
-        if (node->Is<Mesh>()) {
-            auto mesh = node->As<Mesh>();
-            auto geometry = mesh->GetGeometry();
-            auto material = mesh->GetMaterial();
-
-            if (!IsValidMesh(mesh)) continue;
-
-            auto attrs = ProgramAttributes {material, scene};
-            auto program = programs_.GetProgram(attrs);
-            if (!program->IsValid()) {
-                return;
-            }
-
-            state_.ProcessMaterial(material);
-
-            if (attrs.lights) UpdateLights(scene, program, camera);
-
-            buffers_.Bind(geometry);
-
-            SetUniforms(program, &attrs, mesh, camera, scene);
-
-            program->Use();
-            program->UpdateUniforms();
-
-            auto primitive = GL_TRIANGLES;
-            if (geometry->primitive == GeometryPrimitiveType::Lines) {
-                primitive = GL_LINES;
-            }
-            if (geometry->primitive == GeometryPrimitiveType::LineLoop) {
-                primitive = GL_LINE_LOOP;
-            }
-
-            if (geometry->IndexData().empty()) {
-                glDrawArrays(primitive, 0, geometry->VertexCount());
-            } else {
-                glDrawElements(
-                    primitive,
-                    geometry->IndexData().size(),
-                    GL_UNSIGNED_INT,
-                    nullptr
-                );
-            }
+auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
+    for (auto weak_mesh : render_lists_->Opaque()) {
+        if (auto mesh = weak_mesh.lock()) {
+            RenderMesh(mesh.get(), scene, camera);
         }
+    }
 
-        RenderObjects(node.get(), scene, camera);
+    for (auto weak_mesh : render_lists_->Transparent()) {
+        if (auto mesh = weak_mesh.lock()) {
+            RenderMesh(mesh.get(), scene, camera);
+        }
+    }
+}
+
+auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> void {
+    auto geometry = mesh->GetGeometry();
+    auto material = mesh->GetMaterial();
+
+    if (!IsValidMesh(mesh)) return;
+
+    auto attrs = ProgramAttributes {material, scene};
+    auto program = programs_.GetProgram(attrs);
+    if (!program->IsValid()) {
+        return;
+    }
+
+    state_.ProcessMaterial(material);
+
+    if (attrs.lights && !render_lists_->Lights().empty()) {
+        UpdateLights(scene, program, camera);
+    }
+
+    buffers_.Bind(geometry);
+
+    SetUniforms(program, &attrs, mesh, camera, scene);
+
+    program->Use();
+    program->UpdateUniforms();
+
+    auto primitive = GL_TRIANGLES;
+    if (geometry->primitive == GeometryPrimitiveType::Lines) {
+        primitive = GL_LINES;
+    }
+    if (geometry->primitive == GeometryPrimitiveType::LineLoop) {
+        primitive = GL_LINE_LOOP;
+    }
+
+    if (geometry->IndexData().empty()) {
+        glDrawArrays(primitive, 0, geometry->VertexCount());
+    } else {
+        glDrawElements(
+            primitive,
+            geometry->IndexData().size(),
+            GL_UNSIGNED_INT,
+            nullptr
+        );
     }
 }
 
@@ -127,7 +136,7 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
     auto point_idx = 0;
     auto spot_idx = 0;
 
-    for (auto weak_light : scene->Lights()) {
+    for (auto weak_light : render_lists_->Lights()) {
         if (auto light = weak_light.lock()) {
             const auto color = light->color;
             const auto intensity = light->intensity;
@@ -216,7 +225,7 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
         scene->touched_ = false;
     }
 
-    RenderObjects(scene, scene, camera);
+    RenderObjects(scene, camera);
 }
 
 auto Renderer::Impl::SetClearColor(const Color& color) -> void {

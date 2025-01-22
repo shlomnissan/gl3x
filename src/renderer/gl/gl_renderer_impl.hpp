@@ -40,7 +40,9 @@ private:
 
     std::unique_ptr<RenderLists> render_lists_;
 
-    auto RenderObjects(Node* node, Scene* scene, Camera* camera) -> void;
+    auto RenderObjects(Scene* scene, Camera* camera) -> void;
+
+    auto RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> void;
 
     auto SetUniforms(
         GLProgram* program,
