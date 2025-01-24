@@ -1,6 +1,8 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
+#pragma once
+
 #include <engine/materials/material.hpp>
 #include <engine/math/color.hpp>
 
