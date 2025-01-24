@@ -67,7 +67,7 @@ private:
      * @param b The second Euler object to compare.
      * @return bool `true` if the Euler objcets are equal, `false` otherwise.
      */
-   [[nodiscard]] friend bool operator==(const Euler& a, const Euler& b) = default;
+   [[nodiscard]] friend auto operator==(const Euler& a, const Euler& b) -> bool = default;
 };
 
 }

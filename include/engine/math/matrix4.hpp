@@ -146,7 +146,7 @@ private:
      * @param b The second matrix to compare.
      * @return bool `true` if the matrices are equal, `false` otherwise.
      */
-    [[nodiscard]] friend bool operator==(const Matrix4& a, const Matrix4& b) = default;
+    [[nodiscard]] friend auto operator==(const Matrix4& a, const Matrix4& b) -> bool = default;
 
     /**
      * @brief Multiplies two 4x4 matrices and returns the result.

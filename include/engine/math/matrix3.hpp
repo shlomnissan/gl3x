@@ -142,7 +142,7 @@ private:
      * @param b The second matrix to compare.
      * @return bool `true` if the matrices are equal, `false` otherwise.
      */
-   [[nodiscard]] friend bool operator==(const Matrix3& a, const Matrix3& b) = default;
+   [[nodiscard]] friend auto operator==(const Matrix3& a, const Matrix3& b) -> bool = default;
 
     /**
      * @brief Multiplies two 3x3 matrices and returns the result.

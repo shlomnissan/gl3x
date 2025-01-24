@@ -93,7 +93,7 @@ private:
      * @param b The second vector to compare.
      * @return bool `true` if the vectors are equal, `false` otherwise.
      */
-    [[nodiscard]] friend bool operator==(const Vector2& a, const Vector2& b) = default;
+    [[nodiscard]] friend auto operator==(const Vector2& a, const Vector2& b) -> bool = default;
 
     /**
      * @brief Subtracts the second vector from the first vector component-wise.

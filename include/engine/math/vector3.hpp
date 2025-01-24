@@ -181,7 +181,7 @@ private:
      * @param b The second vector to compare.
      * @return bool `true` if the vectors are equal, `false` otherwise.
      */
-    [[nodiscard]] friend bool operator==(const Vector3& a, const Vector3& b) = default;
+    [[nodiscard]] friend auto operator==(const Vector3& a, const Vector3& b) -> bool = default;
 
     /**
      * @brief Adds two vectors component-wise.
