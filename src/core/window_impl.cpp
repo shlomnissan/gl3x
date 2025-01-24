@@ -3,7 +3,6 @@
 
 #include "core/window_impl.hpp"
 
-#include "core/event.hpp"
 #include "core/event_dispatcher.hpp"
 #include "utilities/logger.hpp"
 

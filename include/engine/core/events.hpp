@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "engine_export.h"
 #include "engine/math/vector2.hpp"
 #include "engine/nodes/node.hpp"
 
@@ -11,7 +12,7 @@
 
 namespace engine {
 
-struct Event {
+struct ENGINE_EXPORT Event {
     bool handled {false};
 
     template<class T> requires std::is_base_of_v<Event, T>
@@ -32,7 +33,7 @@ struct Event {
     virtual ~Event() = default;
 };
 
-struct SceneEvent : public Event {
+struct ENGINE_EXPORT SceneEvent : public Event {
     enum class Type {
         AddedToScene,
         RemovedFromScene
@@ -46,7 +47,7 @@ struct SceneEvent : public Event {
 
 enum class Key; ///< forward declaration
 
-struct KeyboardEvent : public Event {
+struct ENGINE_EXPORT KeyboardEvent : public Event {
     enum class Type {
         Pressed,
         Released
@@ -58,7 +59,7 @@ struct KeyboardEvent : public Event {
 
 enum class MouseButton; ///< forward declaration
 
-struct MouseEvent : public Event {
+struct ENGINE_EXPORT MouseEvent : public Event {
     enum class Type {
         Moved,
         ButtonPressed,

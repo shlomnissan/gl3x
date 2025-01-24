@@ -5,8 +5,6 @@
 
 #include "engine/math/utilities.hpp"
 
-#include "core/event.hpp"
-
 #include <algorithm>
 #include <cmath>
 

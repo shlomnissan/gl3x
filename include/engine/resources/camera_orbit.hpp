@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/core/events.hpp"
 #include "engine/math/vector2.hpp"
 #include "engine/math/vector3.hpp"
 
@@ -13,8 +14,6 @@
 #include <memory>
 
 namespace engine {
-
-struct MouseEvent; ///< Forward declaration
 
 /**
  * @brief A camera orbit node that allows the user to orbit around a target point.

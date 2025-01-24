@@ -3,7 +3,6 @@
 
 #include "engine/nodes/scene.hpp"
 
-#include "core/event.hpp"
 #include "core/event_dispatcher.hpp"
 #include "utilities/logger.hpp"
 
@@ -60,7 +59,7 @@ auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
     }
 }
 
-auto Scene::HandleSceneEvents(const SceneEvent* event) -> void {
+auto Scene::HandleSceneEvents(const SceneEvent*) -> void {
     touched_ = true;
 }
 

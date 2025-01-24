@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/core/events.hpp"
 #include "engine/math/color.hpp"
 #include "engine/nodes/node.hpp"
 
@@ -14,9 +15,7 @@
 
 namespace engine {
 
-class Event;
-class SceneEvent;
-class Renderer;
+class Renderer; ///< Forward declaration
 
 using EventListener = std::function<void(Event*)>;
 
@@ -98,7 +97,7 @@ private:
      *
      * @param event The scene event to handle.
      */
-    auto HandleSceneEvents(const SceneEvent* event) -> void;
+    auto HandleSceneEvents(const SceneEvent*) -> void;
 };
 
 }
