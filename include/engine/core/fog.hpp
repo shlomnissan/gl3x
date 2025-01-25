@@ -7,6 +7,8 @@
 
 #include "engine/math/color.hpp"
 
+#include <memory>
+
 namespace engine {
 
 /**
@@ -19,7 +21,9 @@ enum class FogType {
 
 struct Fog {
     /// @brief The color of the fog.
-    Color color {0.0f, 0.0f, 0.0f};
+    Color color;
+
+    explicit Fog(Color color) : color(color) {}
 
      /**
      * @brief Retrieves the type of fog.
@@ -37,9 +41,18 @@ struct Fog {
 struct LinearFog : public Fog {
     /// @brief The distance from the camera where the fog starts.
     float near;
-
     /// @brief The distance from the camera where the fog ends.
     float far;
+
+    /**
+     * @brief Constructs a new LinearFog object.
+     *
+     * @param color The color of the fog.
+     * @param near The distance from the camera where the fog starts.
+     * @param far The distance from the camera where the fog ends.
+     */
+    LinearFog(Color color, float near, float far)
+        : Fog(color), near(near), far(far) {}
 
     /**
      * @brief Retrieves the type of fog.
@@ -49,11 +62,29 @@ struct LinearFog : public Fog {
     auto Type() const -> FogType override {
         return FogType::LinearFog;
     }
+
+    /**
+     * @brief Creates a new instance of LinearFog.
+     *
+     * @return A `std::shared_ptr` to a new instance of LinearFog.
+     */
+    [[nodiscard]] static auto Create(Color color, float near, float far) {
+        return std::make_shared<LinearFog>(color, near, far);
+    }
 };
 
 struct ExponentialFog : public Fog {
     /// @brief The density of the fog.
     float density;
+
+    /**
+     * @brief Constructs a new ExponentialFog object.
+     *
+     * @param color The color of the fog.
+     * @param density The density of the fog.
+     */
+    explicit ExponentialFog(Color color, float density)
+        : Fog(color), density(density) {}
 
     /**
      * @brief Retrieves the type of fog.
@@ -62,6 +93,15 @@ struct ExponentialFog : public Fog {
      */
     auto Type() const -> FogType override {
         return FogType::ExponentialFog;
+    }
+
+    /**
+     * @brief Creates a new instance of ExponentialFog.
+     *
+     * @return A `std::shared_ptr` to a new instance of ExponentialFog.
+     */
+    [[nodiscard]] static auto Create(Color color, float density) {
+        return std::make_shared<ExponentialFog>(color, density);
     }
 };
 
