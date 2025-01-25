@@ -36,7 +36,7 @@ public:
     /**
      * @brief Retrieves the type of the material.
      *
-     * @return The type of the material as `MaterialType::kFlatMaterial`.
+     * @return The type of the material as `MaterialType::FlatMaterial`.
      */
     auto Type() const -> MaterialType override {
         return MaterialType::FlatMaterial;

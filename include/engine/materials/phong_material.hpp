@@ -43,7 +43,7 @@ public:
     /**
      * @brief Retrieves the type of the material.
      *
-     * @return The type of the material as `MaterialType::kPhongMaterial`.
+     * @return The type of the material as `MaterialType::PhongMaterial`.
      */
     auto Type() const -> MaterialType override {
         return MaterialType::PhongMaterial;
