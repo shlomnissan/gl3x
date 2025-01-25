@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine/core/application_context.hpp"
+#include "engine/core/fog.hpp"
 #include "engine/core/geometry.hpp"
 #include "engine/core/renderer.hpp"
 #include "engine/core/timer.hpp"

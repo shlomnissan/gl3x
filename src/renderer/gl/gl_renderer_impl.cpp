@@ -3,6 +3,7 @@
 
 #include "renderer/gl/gl_renderer_impl.hpp"
 
+#include "engine/core/fog.hpp"
 #include "engine/lights/ambient_light.hpp"
 #include "engine/lights/directional_light.hpp"
 #include "engine/lights/point_light.hpp"
@@ -123,10 +124,11 @@ auto Renderer::Impl::SetUniforms(
         }
     }
 
-    if (attrs->fog) {
-        program->SetUniform("u_Fog.Color", scene->fog.value().color);
-        program->SetUniform("u_Fog.Near", scene->fog.value().near);
-        program->SetUniform("u_Fog.Far", scene->fog.value().far);
+    if (attrs->linear_fog) {
+        const auto linear_fog = scene->fog->As<LinearFog>();
+        program->SetUniform("u_Fog.Color", linear_fog->color);
+        program->SetUniform("u_Fog.Near", linear_fog->near);
+        program->SetUniform("u_Fog.Far", linear_fog->far);
     }
 }
 

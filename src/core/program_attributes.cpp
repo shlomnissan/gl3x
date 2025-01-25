@@ -32,7 +32,12 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
     }
 
     two_sided = material->two_sided;
-    fog = scene->fog.has_value() && material->fog;
+
+    if (material->fog && scene->fog != nullptr) {
+        if (scene->fog->Type() == FogType::LinearFog) {
+            linear_fog = true;
+        }
+    }
 
     for (auto weak_light : render_lists->Lights()) {
         if (auto light = weak_light.lock()) {
@@ -51,7 +56,7 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
 auto ProgramAttributes::ProgramPermutationHash() const -> std::string {
     auto attrs = std::array<int, 6> {
         texture_map ? 1 : 0,
-        fog ? 1 : 0,
+        linear_fog ? 1 : 0,
         two_sided ? 1 : 0,
         directional_lights,
         point_lights,

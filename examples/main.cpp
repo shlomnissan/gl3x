@@ -75,12 +75,8 @@ public:
     auto DrawSceneSettings() -> void {
         ImGui::Checkbox("Fog Enabled", &scene_settings_.fog_enabled);
         if (scene_settings_.fog_enabled) {
-            if (!scene->fog.has_value()) {
-                scene->fog = Scene::Fog {
-                    .color = 0x3f7b9d,
-                    .near = 1.0f,
-                    .far = 5.0f
-                };
+            if (scene->fog == nullptr) {
+                scene->fog = LinearFog::Create(0x3f7b9d, 1.0f, 5.0f);
             }
 
             const auto AddSlider = [](std::string_view label, float* val) {
@@ -91,9 +87,10 @@ public:
                 ImGui::PopItemWidth();
             };
 
-            ImGui::ColorEdit3("Fog Color", &(scene->fog.value().color[0]));
-            AddSlider("Near", &scene->fog.value().near);
-            AddSlider("Far ", &scene->fog.value().far);
+            const auto linear_fog = scene->fog->As<LinearFog>();
+            ImGui::ColorEdit3("Fog Color", &(scene->fog->color[0]));
+            AddSlider("Near", &linear_fog->near);
+            AddSlider("Far ", &linear_fog->far);
         } else {
             scene->fog.reset();
         }

@@ -5,6 +5,7 @@
 
 #include "engine_export.h"
 #include "engine/core/events.hpp"
+#include "engine/core/fog.hpp"
 #include "engine/math/color.hpp"
 #include "engine/nodes/node.hpp"
 
@@ -24,15 +25,8 @@ using EventListener = std::function<void(Event*)>;
  */
 class ENGINE_EXPORT Scene : public Node, public std::enable_shared_from_this<Scene> {
 public:
-    /// @brief Represents the fog properties of the scene.
-    struct Fog {
-        Color color; ///< The color of the fog.
-        float near;  ///< The distance from the camera where the fog starts.
-        float far;   ///< The distance from the camera where the fog ends.
-    };
-
-    /// @brief The fog properties of the scene.
-    std::optional<Fog> fog;
+    /// @brief Unique pointer to a fog object for the scene.
+    std::unique_ptr<Fog> fog;
 
     // @brief Initializes a scene object.
     Scene();
@@ -56,7 +50,7 @@ public:
     /**
      * @brief Destructor for the Scene class.
      */
-    virtual ~Scene() override;
+    ~Scene() override;
 
 private:
     /// @brief The renderer needs access to the touched_ flag.

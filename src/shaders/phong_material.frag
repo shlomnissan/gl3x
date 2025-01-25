@@ -29,7 +29,7 @@ uniform vec3 u_AmbientLight;
 uniform vec3 u_Specular;
 uniform float u_Shininess;
 
-#ifdef USE_FOG
+#ifdef USE_LINEAR_FOG
     struct Fog {
         vec3 Color;
         float Near;
@@ -149,7 +149,7 @@ void main() {
         }
     #endif
 
-    #ifdef USE_FOG
+    #ifdef USE_LINEAR_FOG
         float fog_factor = smoothstep(u_Fog.Near, u_Fog.Far, v_FogDepth);
         v_FragColor = mix(v_FragColor, vec4(u_Fog.Color, 1.0), fog_factor);
     #endif
