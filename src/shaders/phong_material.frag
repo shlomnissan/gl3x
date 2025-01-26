@@ -35,8 +35,15 @@ uniform float u_Shininess;
         float Near;
         float Far;
     };
+    uniform Fog u_LinearFog;
+#endif
 
-    uniform Fog u_Fog;
+#ifdef USE_EXPONENTIAL_FOG
+    struct Fog {
+        vec3 Color;
+        float Density;
+    };
+    uniform Fog u_ExponentialFog;
 #endif
 
 #if NUM_DIR_LIGHTS > 0
@@ -44,7 +51,6 @@ uniform float u_Shininess;
         vec3 Direction;
         vec3 Color;
     };
-
     uniform DirectionalLight u_DirectionalLights[NUM_DIR_LIGHTS];
 #endif
 
@@ -55,7 +61,6 @@ uniform float u_Shininess;
         float Distance;
         float Decay;
     };
-
     uniform PointLight u_PointLights[NUM_POINT_LIGHTS];
 #endif
 
@@ -69,7 +74,6 @@ uniform float u_Shininess;
         float ConeCos;
         float PenumbraCos;
     };
-
     uniform SpotLight u_SpotLights[NUM_SPOT_LIGHTS];
 #endif
 
@@ -150,8 +154,13 @@ void main() {
     #endif
 
     #ifdef USE_LINEAR_FOG
-        float fog_factor = smoothstep(u_Fog.Near, u_Fog.Far, v_FogDepth);
-        v_FragColor = mix(v_FragColor, vec4(u_Fog.Color, 1.0), fog_factor);
+        float fog_factor = smoothstep(u_LinearFog.Near, u_LinearFog.Far, v_FogDepth);
+        v_FragColor = mix(v_FragColor, vec4(u_LinearFog.Color, 1.0), fog_factor);
+    #endif
+
+    #ifdef USE_EXPONENTIAL_FOG
+        float fog_factor = 1.0 - exp(-u_ExponentialFog.Density * -u_ExponentialFog.Density * v_FogDepth * v_FogDepth);
+        v_FragColor = mix(v_FragColor, vec4(u_ExponentialFog.Color, 1.0), fog_factor);
     #endif
 
     v_FragColor.a = u_Opacity;

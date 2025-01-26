@@ -126,9 +126,15 @@ auto Renderer::Impl::SetUniforms(
 
     if (attrs->linear_fog) {
         const auto linear_fog = scene->fog->As<LinearFog>();
-        program->SetUniform("u_Fog.Color", linear_fog->color);
-        program->SetUniform("u_Fog.Near", linear_fog->near);
-        program->SetUniform("u_Fog.Far", linear_fog->far);
+        program->SetUniform("u_LinearFog.Color", linear_fog->color);
+        program->SetUniform("u_LinearFog.Near", linear_fog->near);
+        program->SetUniform("u_LinearFog.Far", linear_fog->far);
+    }
+
+    if (attrs->exponential_fog) {
+        const auto exponential_fog = scene->fog->As<ExponentialFog>();
+        program->SetUniform("u_ExponentialFog.Color", exponential_fog->color);
+        program->SetUniform("u_ExponentialFog.Density", exponential_fog->density);
     }
 }
 

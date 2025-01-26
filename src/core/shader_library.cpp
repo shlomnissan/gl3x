@@ -53,7 +53,8 @@ auto ShaderLibrary::InjectAttributes(
 ) const -> std::string {
     auto features = std::string {};
 
-    if (attrs.linear_fog) features += "#define USE_LINEAR_FOG\n";
+    if (attrs.exponential_fog) features += "#define USE_EXPONENTIAL_FOG\n";
+    if (attrs.linear_fog) features += "#define USE_LINEARs_FOG\n";
     if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
     if (attrs.two_sided) features += "#define USE_TWO_SIDED\n";
 

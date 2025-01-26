@@ -37,6 +37,9 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
         if (scene->fog->Type() == FogType::LinearFog) {
             linear_fog = true;
         }
+        if (scene->fog->Type() == FogType::ExponentialFog) {
+            exponential_fog = true;
+        }
     }
 
     for (auto weak_light : render_lists->Lights()) {
@@ -54,13 +57,14 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
 }
 
 auto ProgramAttributes::ProgramPermutationHash() const -> std::string {
-    auto attrs = std::array<int, 6> {
-        texture_map ? 1 : 0,
-        linear_fog ? 1 : 0,
-        two_sided ? 1 : 0,
+    auto attrs = std::array<int, 7> {
         directional_lights,
+        exponential_fog ? 1 : 0,
+        linear_fog ? 1 : 0,
         point_lights,
-        spot_lights
+        spot_lights,
+        texture_map ? 1 : 0,
+        two_sided ? 1 : 0,
     };
 
     return fmt::format(
