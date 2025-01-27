@@ -159,7 +159,7 @@ void main() {
     #endif
 
     #ifdef USE_EXPONENTIAL_FOG
-        float fog_factor = 1.0 - exp(-u_ExponentialFog.Density * -u_ExponentialFog.Density * v_FogDepth * v_FogDepth);
+        float fog_factor = 1.0 - exp(-u_ExponentialFog.Density * u_ExponentialFog.Density * v_FogDepth * v_FogDepth);
         v_FragColor = mix(v_FragColor, vec4(u_ExponentialFog.Color, 1.0), fog_factor);
     #endif
 
