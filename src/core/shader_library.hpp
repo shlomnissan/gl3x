@@ -22,7 +22,7 @@ struct ShaderInfo {
 
 class ShaderLibrary {
 public:
-    auto GetShaderSource(const ProgramAttributes& attrs) -> std::vector<ShaderInfo>;
+    auto GetShaderSource(const ProgramAttributes& attrs) const -> std::vector<ShaderInfo>;
 
 private:
     auto InjectAttributes(const ProgramAttributes& attrs, std::string_view source) const -> std::string;

@@ -6,7 +6,6 @@
 #include "engine_export.h"
 #include "engine/core/identity.hpp"
 #include "engine/math/color.hpp"
-#include "engine/textures/texture_2d.hpp"
 
 #include <memory>
 #include <optional>
@@ -19,7 +18,8 @@ namespace engine {
  */
 enum class MaterialType {
     FlatMaterial,
-    PhongMaterial
+    PhongMaterial,
+    ShaderMaterial
 };
 
 /**

@@ -5,3 +5,4 @@
 
 #include "engine/materials/flat_material.hpp"
 #include "engine/materials/phong_material.hpp"
+#include "engine/materials/shader_material.hpp"

@@ -6,7 +6,7 @@
 #include "engine_export.h"
 #include "engine/materials/material.hpp"
 #include "engine/math/color.hpp"
-#include "engine/textures/texture.hpp"
+#include "engine/textures/texture_2d.hpp"
 
 #include <memory>
 
@@ -14,10 +14,6 @@ namespace engine {
 
 /**
  * @brief A material for drawing geometries using the Blinn-Phong shading model.
- *
- * PhongMaterial is based on the Blinn-Phong shading model, a simple, non-physically based model used
- * to calculate the reflectance of surfaces. It supports both a solid color and a texture map for
- * rendering geometries.
  */
 class ENGINE_EXPORT PhongMaterial : public Material {
 public:

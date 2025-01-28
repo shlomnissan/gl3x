@@ -6,17 +6,14 @@
 #include "engine_export.h"
 #include "engine/materials/material.hpp"
 #include "engine/math/color.hpp"
-#include "engine/textures/texture.hpp"
+#include "engine/textures/texture_2d.hpp"
 
 #include <memory>
 
 namespace engine {
 
 /**
- * @brief A material for drawing geometries in a flat-shaded mode.
- *
- * FlatMaterial renders objects without the influence of lighting. The material can be assigned a solid color
- * and optionally a texture map to apply onto the surface. This makes it ideal for simple, unlit geometries.
+ * @brief A material for drawing geometries without the influence of lighting.
  */
 class ENGINE_EXPORT FlatMaterial : public Material {
 public:
