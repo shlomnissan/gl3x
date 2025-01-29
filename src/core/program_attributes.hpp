@@ -9,11 +9,15 @@
 #include "core/render_lists.hpp"
 
 #include <string>
+#include <string_view>
 
 namespace engine {
 
 struct ProgramAttributes {
     MaterialType type;
+
+    std::string_view vertex_shader;
+    std::string_view fragment_shader;
 
     int directional_lights = 0;
     int point_lights = 0;

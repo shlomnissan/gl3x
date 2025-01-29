@@ -8,6 +8,7 @@
 #include "engine/lights/point_light.hpp"
 #include "engine/materials/flat_material.hpp"
 #include "engine/materials/phong_material.hpp"
+#include "engine/materials/shader_material.hpp"
 
 #include "utilities/logger.hpp"
 
@@ -26,9 +27,15 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
     }
 
     if (type == MaterialType::PhongMaterial) {
-        lights = !render_lists->Lights().empty();
         auto m = material->As<PhongMaterial>();
+        lights = !render_lists->Lights().empty();
         texture_map = m->texture_map != nullptr;
+    }
+
+    if (type == MaterialType::ShaderMaterial) {
+        auto m = material->As<ShaderMaterial>();
+        vertex_shader = m->vertex_shader_;
+        fragment_shader = m->fragment_shader_;
     }
 
     two_sided = material->two_sided;

@@ -5,6 +5,7 @@
 
 #include "engine/materials/flat_material.hpp"
 #include "engine/materials/phong_material.hpp"
+#include "engine/materials/shader_material.hpp"
 
 #include "utilities/logger.hpp"
 
@@ -24,8 +25,8 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std
             InjectAttributes(attrs, _SHADER_flat_material_vert)
         }, {
             ShaderType::kFragmentShader,
-            InjectAttributes(attrs, _SHADER_flat_material_frag
-        )}};
+            InjectAttributes(attrs, _SHADER_flat_material_frag)
+        }};
     }
 
     if (attrs.type == MaterialType::PhongMaterial) {
@@ -34,8 +35,18 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std
             InjectAttributes(attrs, _SHADER_phong_material_vert)
         }, {
             ShaderType::kFragmentShader,
-            InjectAttributes(attrs, _SHADER_phong_material_frag
-        )}};
+            InjectAttributes(attrs, _SHADER_phong_material_frag)
+        }};
+    }
+
+    if (attrs.type == MaterialType::ShaderMaterial) {
+        return {{
+            ShaderType::kVertexShader,
+            InjectAttributes(attrs, attrs.vertex_shader)
+        }, {
+            ShaderType::kFragmentShader,
+            InjectAttributes(attrs, attrs.fragment_shader)
+        }};
     }
 
     Logger::Log(

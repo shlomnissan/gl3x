@@ -27,8 +27,8 @@ public:
      * @param fragment_shader The fragment shader source code.
      */
     ShaderMaterial(std::string_view vertex_shader, std::string_view fragment_shader) :
-        vertex_shader(vertex_shader),
-        fragment_shader(fragment_shader) {}
+        vertex_shader_(vertex_shader),
+        fragment_shader_(fragment_shader) {}
 
     /**
      * @brief Retrieves the type of the material.
@@ -55,10 +55,10 @@ public:
 
 private:
     /// @brief The vertex shader source code.
-    std::string vertex_shader;
+    std::string vertex_shader_;
 
     /// @brief The fragment shader source code.
-    std::string fragment_shader;
+    std::string fragment_shader_;
 };
 
 }
