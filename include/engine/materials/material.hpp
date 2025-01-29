@@ -82,7 +82,7 @@ public:
      *
      * @return The type of the material.
      */
-    virtual auto Type() const -> MaterialType = 0;
+    [[nodiscard]] virtual auto Type() const -> MaterialType = 0;
 
     /**
      * @brief Checks if the material is of the specified type.

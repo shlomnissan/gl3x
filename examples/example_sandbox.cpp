@@ -22,22 +22,42 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     directional_light->SetDebugMode(true);
     Add(directional_light);
 
-    auto sphere_geometry = SphereGeometry::Create();
     auto plane_geometry = PlaneGeometry::Create({3.0f, 3.0f});
-
-    auto transparent_material = PhongMaterial::Create();
-    transparent_material->transparent = true;
-    transparent_material->opacity = 0.8f;
-    transparent_material->color = 0x049EF4;
-
     auto opaque_material = PhongMaterial::Create();
     opaque_material->color = 0xEF798A;
 
-    auto sphere_mesh = Mesh::Create(sphere_geometry, transparent_material);
-    Add(sphere_mesh);
+    auto shader_material = ShaderMaterial::Create(
+        // ----------------
+        // vertex shader
+        // ----------------
+        R"(#version 410 core
+        #pragma inject_attributes
+
+        in vec3 a_Position;
+
+        uniform mat4 u_ModelView;
+        uniform mat4 u_Projection;
+
+        void main() {
+            gl_Position = u_ModelView * u_Projection * vec4(a_Position, 1.0);
+        })",
+
+        // ----------------
+        // fragment shader
+        // ----------------
+        R"(#version 410 core
+        #pragma inject_attributes
+
+        precision mediump float;
+
+        layout (location = 0) out vec4 v_FragColor;
+
+        void main() {
+            v_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        })"
+    );
 
     auto plane_mesh = Mesh::Create(plane_geometry, opaque_material);
-    plane_mesh->TranslateZ(-1.0f);
     Add(plane_mesh);
 }
 

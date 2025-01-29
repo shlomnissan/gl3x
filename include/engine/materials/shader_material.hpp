@@ -4,10 +4,12 @@
 #pragma once
 
 #include "engine_export.h"
-
-#include "engine_export.h"
 #include "engine/materials/material.hpp"
 #include "engine/math/color.hpp"
+
+#include <string>
+#include <string_view>
+#include <memory>
 
 namespace engine {
 
@@ -15,6 +17,19 @@ namespace engine {
  * @brief A material rendered with custom shaders.
  */
 class ENGINE_EXPORT ShaderMaterial : public Material {
+public:
+    friend class ProgramAttributes;
+
+    /**
+     * @brief Construct a new Shader Material object.
+     *
+     * @param vertex_shader The vertex shader source code.
+     * @param fragment_shader The fragment shader source code.
+     */
+    ShaderMaterial(std::string_view vertex_shader, std::string_view fragment_shader) :
+        vertex_shader(vertex_shader),
+        fragment_shader(fragment_shader) {}
+
     /**
      * @brief Retrieves the type of the material.
      *
@@ -23,6 +38,27 @@ class ENGINE_EXPORT ShaderMaterial : public Material {
     auto Type() const -> MaterialType override {
         return MaterialType::ShaderMaterial;
     }
+
+    /**
+     * @brief Creates a new instance of ShaderMaterial.
+     *
+     * @param vertex_shader The vertex shader source code.
+     * @param fragment_shader The fragment shader source code.
+     * @return A `std::shared_ptr` to a new instance of ShaderMaterial.
+     */
+    [[nodiscard]] static auto Create(
+        std::string_view vertex_shader,
+        std::string_view fragment_shader
+    ) {
+        return std::make_shared<ShaderMaterial>(vertex_shader, fragment_shader);
+    }
+
+private:
+    /// @brief The vertex shader source code.
+    std::string vertex_shader;
+
+    /// @brief The fragment shader source code.
+    std::string fragment_shader;
 };
 
 }
