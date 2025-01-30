@@ -1,5 +1,7 @@
 #version 410 core
 
+#extension GL_ARB_shading_language_include : enable
+
 #pragma inject_attributes
 
 #pragma debug(on)
@@ -29,22 +31,7 @@ uniform vec3 u_AmbientLight;
 uniform vec3 u_Specular;
 uniform float u_Shininess;
 
-#ifdef USE_LINEAR_FOG
-    struct Fog {
-        vec3 Color;
-        float Near;
-        float Far;
-    };
-    uniform Fog u_LinearFog;
-#endif
-
-#ifdef USE_EXPONENTIAL_FOG
-    struct Fog {
-        vec3 Color;
-        float Density;
-    };
-    uniform Fog u_ExponentialFog;
-#endif
+#include "snippets/fog.glsl"
 
 #if NUM_DIR_LIGHTS > 0
     struct DirectionalLight {
@@ -153,14 +140,8 @@ void main() {
         }
     #endif
 
-    #ifdef USE_LINEAR_FOG
-        float fog_factor = smoothstep(u_LinearFog.Near, u_LinearFog.Far, v_FogDepth);
-        v_FragColor = mix(v_FragColor, vec4(u_LinearFog.Color, 1.0), fog_factor);
-    #endif
-
-    #ifdef USE_EXPONENTIAL_FOG
-        float fog_factor = 1.0 - exp(-u_ExponentialFog.Density * u_ExponentialFog.Density * v_FogDepth * v_FogDepth);
-        v_FragColor = mix(v_FragColor, vec4(u_ExponentialFog.Color, 1.0), fog_factor);
+    #ifdef USE_FOG
+        applyFog(v_FragColor, v_FogDepth);
     #endif
 
     v_FragColor.a = u_Opacity;
