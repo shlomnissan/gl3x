@@ -39,7 +39,7 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
         uniform mat4 u_Projection;
 
         void main() {
-            gl_Position = u_ModelView * u_Projection * vec4(a_Position, 1.0);
+            gl_Position = u_Projection * u_ModelView * vec4(a_Position, 1.0);
         })",
 
         // ----------------
@@ -52,12 +52,14 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
 
         layout (location = 0) out vec4 v_FragColor;
 
+        uniform float u_Opacity;
+
         void main() {
-            v_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+            v_FragColor = vec4(1.0, 0.0, 0.0, u_Opacity);
         })"
     );
 
-    auto plane_mesh = Mesh::Create(plane_geometry, opaque_material);
+    auto plane_mesh = Mesh::Create(plane_geometry, shader_material);
     Add(plane_mesh);
 }
 

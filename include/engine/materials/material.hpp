@@ -129,6 +129,8 @@ public:
                 return "flat";
             case MaterialType::PhongMaterial:
                 return "phong";
+            case MaterialType::ShaderMaterial:
+                return "shader";
             default:
                 return "unkonwn";
         }
