@@ -23,6 +23,7 @@ struct ProgramAttributes {
     int point_lights = 0;
     int spot_lights = 0;
 
+    bool color {false};
     bool exponential_fog {false};
     bool linear_fog {false};
     bool lights {false};

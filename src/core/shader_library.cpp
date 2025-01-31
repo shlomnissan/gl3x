@@ -18,8 +18,8 @@
 #include "shaders/snippets/headers/common_vert_varyings_glsl.h"
 #include "shaders/snippets/headers/fog_glsl.h"
 
-#include <unordered_map>
 #include <format>
+#include <unordered_map>
 
 namespace engine {
 
@@ -79,6 +79,7 @@ auto ShaderLibrary::InjectAttributes(
 ) const -> void {
     auto features = std::string {};
 
+    if (attrs.color) features += "#define USE_COLOR\n";
     if (attrs.exponential_fog) features += "#define USE_FOG\n#define USE_EXPONENTIAL_FOG\n";
     if (attrs.linear_fog) features += "#define USE_FOG\n#define USE_LINEAR_FOG\n";
     if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
@@ -111,7 +112,7 @@ auto ShaderLibrary::ResolveIncludes(std::string& source) const -> void {
     };
 
     for (const auto& [include, content] : include_map) {
-        auto token = fmt::format("#include \"{}\"", include);
+        auto token = std::format("#include \"{}\"", include);
         auto pos = source.find(token);
         if (pos != std::string::npos) {
             source.replace(pos, token.size(), content);
