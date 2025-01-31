@@ -7,9 +7,12 @@
 
 #include <memory>
 
-class ExampleSandbox : public engine::Scene {
+class ExampleShaderMaterial : public engine::Scene {
 public:
-    explicit ExampleSandbox(std::shared_ptr<engine::Camera>);
+    explicit ExampleShaderMaterial(std::shared_ptr<engine::Camera>);
 
     auto Update(float delta) -> void override;
+
+private:
+    std::shared_ptr<engine::Mesh> mesh_;
 };

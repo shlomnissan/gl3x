@@ -7,7 +7,6 @@
 
 #include <engine/nodes.hpp>
 
-#include "example_sandbox.hpp"
 #include "geometries/example_box_geometry.hpp"
 #include "geometries/example_cylinder_geometry.hpp"
 #include "geometries/example_plane_geometry.hpp"
@@ -17,12 +16,12 @@
 #include "lights/example_spot_light.hpp"
 #include "materials/example_flat_material.hpp"
 #include "materials/example_phong_material.hpp"
+#include "materials/example_shader_material.hpp"
 
 static const auto examples = std::vector {
-    "Sandbox",
-    "",
     "Flat Material",
     "Phong Material",
+    "Shader Material",
     "",
     "Directional Light",
     "Point Light",

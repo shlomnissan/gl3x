@@ -1,32 +1,20 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "example_sandbox.hpp"
+#include "example_shader_material.hpp"
 
 #include <engine/geometries.hpp>
-#include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
 using namespace engine;
 
-ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(camera, 6.0f);
+ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> camera) {
+    const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
     Add(camera_controls);
 
-    auto ambient = AmbientLight::Create(0xFFFFFF, 0.3f);
-    Add(ambient);
-
-    auto directional_light = DirectionalLight::Create(0xFFFFFF, 1.0f);
-    directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
-    directional_light->SetDebugMode(true);
-    Add(directional_light);
-
-    auto plane_geometry = PlaneGeometry::Create({3.0f, 3.0f});
-    auto opaque_material = PhongMaterial::Create();
-    opaque_material->color = 0xEF798A;
-
-    auto shader_material = ShaderMaterial::Create(
+    auto geometry = BoxGeometry::Create();
+    auto material = ShaderMaterial::Create(
         // ----------------
         // vertex shader
         // ----------------
@@ -70,10 +58,11 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
         }
     );
 
-    auto plane_mesh = Mesh::Create(plane_geometry, shader_material);
-    Add(plane_mesh);
+    mesh_ = Mesh::Create(geometry, material);
+    Add(mesh_);
 }
 
-auto ExampleSandbox::Update(float delta) -> void {
-    // TODO: implement.
+auto ExampleShaderMaterial::Update(float delta) -> void {
+    mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
+    mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
 }

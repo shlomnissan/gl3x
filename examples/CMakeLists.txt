@@ -2,8 +2,6 @@
 # Author: Shlomi Nissan (shlomi@betamark.com)
 
 set(SOURCE_CODE
-    "example_sandbox.cpp"
-    "example_sandbox.hpp"
     "geometries/example_box_geometry.cpp"
     "geometries/example_box_geometry.hpp"
     "geometries/example_cylinder_geometry.cpp"
@@ -22,6 +20,8 @@ set(SOURCE_CODE
     "materials/example_flat_material.hpp"
     "materials/example_phong_material.cpp"
     "materials/example_phong_material.hpp"
+    "materials/example_shader_material.cpp"
+    "materials/example_shader_material.hpp"
 )
 
 find_package(imgui REQUIRED)
