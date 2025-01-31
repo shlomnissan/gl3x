@@ -1,6 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
+#include <format>
 #include <memory>
 #include <string_view>
 
@@ -8,7 +9,6 @@
 #include <engine/resources.hpp>
 #include <engine/math.hpp>
 
-#include <fmt/format.h>
 #include <imgui.h>
 
 #include "examples.hpp"
@@ -83,7 +83,7 @@ public:
                 ImGui::Text("%s", label.data());
                 ImGui::SameLine();
                 ImGui::PushItemWidth(200.0f);
-                ImGui::SliderFloat(fmt::format("##{}", label).c_str(), val, 0.0f, 50.0f);
+                ImGui::SliderFloat(std::format("##{}", label).c_str(), val, 0.0f, 50.0f);
                 ImGui::PopItemWidth();
             };
 

@@ -24,7 +24,6 @@ set(SOURCE_CODE
     "materials/example_phong_material.hpp"
 )
 
-find_package(fmt REQUIRED)
 find_package(imgui REQUIRED)
 
 add_executable(engine-examples main.cpp ${SOURCE_CODE})
@@ -35,7 +34,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 target_link_libraries(engine-examples PRIVATE
     engine
-    fmt::fmt
     imgui::imgui
 )
 
