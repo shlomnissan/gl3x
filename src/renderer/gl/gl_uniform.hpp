@@ -17,13 +17,15 @@
 
 namespace engine {
 
-using GLUniformValue = std::variant<GLint, GLfloat, Color, Matrix3, Matrix4, Vector3, Vector4>;
+// UniformValue is also defined in include/engine/materials/shader_material.hpp
+// TODO: consolidate types
+using UniformValue = std::variant<int, float, Color, Matrix3, Matrix4, Vector3, Vector4>;
 
 class GLUniform {
 public:
     GLUniform(const std::string& name, GLint location, GLint size, GLenum type);
 
-    auto SetValueIfNeeded(const GLUniformValue& v) -> void;
+    auto SetValueIfNeeded(const UniformValue& v) -> void;
 
     auto UpdateUniformIfNeeded() -> void;
 
@@ -31,7 +33,7 @@ public:
 
 private:
     std::string name_ {};
-    GLUniformValue value_ {};
+    UniformValue value_ {};
     GLint location_ {0};
     GLint size_ {0};
     GLenum type_ {0};
@@ -39,12 +41,12 @@ private:
     bool needs_update_ {true};
 
     template <typename... T>
-    auto SetValue(const GLUniformValue& v) -> bool {
+    auto SetValue(const UniformValue& v) -> bool {
         return ((SetValueHelper<T>(v)) || ...);
     }
 
     template <typename T>
-    auto SetValueHelper(const GLUniformValue& v) -> bool {
+    auto SetValueHelper(const UniformValue& v) -> bool {
         if (const auto* f = std::get_if<T>(&v)) {
             value_ = *f;
             return true;

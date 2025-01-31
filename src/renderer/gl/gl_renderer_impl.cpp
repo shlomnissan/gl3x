@@ -10,6 +10,7 @@
 #include "engine/lights/spot_light.hpp"
 #include "engine/materials/flat_material.hpp"
 #include "engine/materials/phong_material.hpp"
+#include "engine/materials/shader_material.hpp"
 #include "engine/math/vector3.hpp"
 
 #include "core/render_lists.hpp"
@@ -94,9 +95,26 @@ auto Renderer::Impl::SetUniforms(
     auto material = mesh->GetMaterial();
     auto model_view = camera->view_transform * mesh->GetWorldTransform();
 
+    // shared uniforms
+
     program->SetUniform("u_Projection", camera->projection_transform);
     program->SetUniform("u_ModelView", model_view);
     program->SetUniform("u_Opacity", material->opacity);
+
+    if (attrs->linear_fog) {
+        const auto linear_fog = scene->fog->As<LinearFog>();
+        program->SetUniform("u_LinearFog.Color", linear_fog->color);
+        program->SetUniform("u_LinearFog.Near", linear_fog->near);
+        program->SetUniform("u_LinearFog.Far", linear_fog->far);
+    }
+
+    if (attrs->exponential_fog) {
+        const auto exponential_fog = scene->fog->As<ExponentialFog>();
+        program->SetUniform("u_ExponentialFog.Color", exponential_fog->color);
+        program->SetUniform("u_ExponentialFog.Density", exponential_fog->density);
+    }
+
+    // material-specific uniforms
 
     if (attrs->type == MaterialType::FlatMaterial) {
         auto m = material->As<FlatMaterial>();
@@ -124,18 +142,14 @@ auto Renderer::Impl::SetUniforms(
         }
     }
 
-    if (attrs->linear_fog) {
-        const auto linear_fog = scene->fog->As<LinearFog>();
-        program->SetUniform("u_LinearFog.Color", linear_fog->color);
-        program->SetUniform("u_LinearFog.Near", linear_fog->near);
-        program->SetUniform("u_LinearFog.Far", linear_fog->far);
+    if (attrs->type == MaterialType::ShaderMaterial) {
+        auto m = material->As<ShaderMaterial>();
+        for (const auto& [name, value] : m->uniforms) {
+            program->SetUniform(name, value);
+        }
     }
 
-    if (attrs->exponential_fog) {
-        const auto exponential_fog = scene->fog->As<ExponentialFog>();
-        program->SetUniform("u_ExponentialFog.Color", exponential_fog->color);
-        program->SetUniform("u_ExponentialFog.Density", exponential_fog->density);
-    }
+
 }
 
 auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const Camera* camera) const -> void {

@@ -11,7 +11,7 @@ GLUniform::GLUniform(const std::string& name, GLint location, GLint size, GLenum
     size_(size),
     type_(type) {}
 
-auto GLUniform::SetValueIfNeeded(const GLUniformValue& v) -> void {
+auto GLUniform::SetValueIfNeeded(const UniformValue& v) -> void {
     if (value_ == v && !needs_update_) return;
 
     auto is_set = false;
@@ -42,7 +42,6 @@ auto GLUniform::SetValueIfNeeded(const GLUniformValue& v) -> void {
                 name_, GLenumToString(type_)
             );
             return;
-            break;
     }
 
     if (is_set) {

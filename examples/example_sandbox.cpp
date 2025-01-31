@@ -52,13 +52,22 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
         #include "snippets/common_frag_params.glsl"
         #include "snippets/fog.glsl"
 
+        uniform vec3 u_ThisColor;
+
         void main() {
-            v_FragColor = vec4(1.0, 0.0, 0.0, u_Opacity);
+            v_FragColor = vec4(u_ThisColor, u_Opacity);
 
             #ifdef USE_FOG
                 applyFog(v_FragColor, v_FogDepth);
             #endif
-        })"
+        })",
+
+        // ----------------
+        // uniforms
+        // ----------------
+        {
+            {"u_ThisColor", Color(0x00FF00)}
+        }
     );
 
     auto plane_mesh = Mesh::Create(plane_geometry, shader_material);

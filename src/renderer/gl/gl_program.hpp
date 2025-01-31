@@ -36,7 +36,7 @@ public:
 
     auto IsValid() const { return !has_errors_ && program_ > 0; }
 
-    auto SetUniform(const std::string& name, const GLUniformValue& v) -> void;
+    auto SetUniform(const std::string& name, const UniformValue& v) -> void;
 
     ~GLProgram();
 
