@@ -12,6 +12,7 @@
 # conan/cmake
 
 src/shaders/headers/*.h
+src/shaders/snippets/headers/*.h
 build/*
 release/*
 CMakeUserPresets.json

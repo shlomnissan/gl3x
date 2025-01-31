@@ -13,8 +13,13 @@
 #include "shaders/headers/flat_material_frag.h"
 #include "shaders/headers/phong_material_vert.h"
 #include "shaders/headers/phong_material_frag.h"
+#include "shaders/snippets/headers/common_frag_params_glsl.h"
+#include "shaders/snippets/headers/common_vert_params_glsl.h"
+#include "shaders/snippets/headers/common_vert_varyings_glsl.h"
+#include "shaders/snippets/headers/fog_glsl.h"
 
-#include <fmt/format.h>
+#include <unordered_map>
+#include <format>
 
 namespace engine {
 
@@ -22,30 +27,30 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std
     if (attrs.type == MaterialType::FlatMaterial) {
         return {{
             ShaderType::kVertexShader,
-            InjectAttributes(attrs, _SHADER_flat_material_vert)
+            ProcessShader(attrs, _SHADER_flat_material_vert)
         }, {
             ShaderType::kFragmentShader,
-            InjectAttributes(attrs, _SHADER_flat_material_frag)
+            ProcessShader(attrs, _SHADER_flat_material_frag)
         }};
     }
 
     if (attrs.type == MaterialType::PhongMaterial) {
         return {{
             ShaderType::kVertexShader,
-            InjectAttributes(attrs, _SHADER_phong_material_vert)
+            ProcessShader(attrs, _SHADER_phong_material_vert)
         }, {
             ShaderType::kFragmentShader,
-            InjectAttributes(attrs, _SHADER_phong_material_frag)
+            ProcessShader(attrs, _SHADER_phong_material_frag)
         }};
     }
 
     if (attrs.type == MaterialType::ShaderMaterial) {
         return {{
             ShaderType::kVertexShader,
-            InjectAttributes(attrs, attrs.vertex_shader)
+            ProcessShader(attrs, attrs.vertex_shader)
         }, {
             ShaderType::kFragmentShader,
-            InjectAttributes(attrs, attrs.fragment_shader)
+            ProcessShader(attrs, attrs.fragment_shader)
         }};
     }
 
@@ -58,10 +63,20 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std
     return {};
 }
 
-auto ShaderLibrary::InjectAttributes(
+auto ShaderLibrary::ProcessShader(
     const ProgramAttributes& attrs,
     std::string_view source
 ) const -> std::string {
+    auto output = std::string {source};
+    InjectAttributes(attrs, output);
+    ResolveIncludes(output);
+    return output;
+}
+
+auto ShaderLibrary::InjectAttributes(
+    const ProgramAttributes& attrs,
+    std::string& source
+) const -> void {
     auto features = std::string {};
 
     if (attrs.exponential_fog) features += "#define USE_FOG\n#define USE_EXPONENTIAL_FOG\n";
@@ -69,25 +84,39 @@ auto ShaderLibrary::InjectAttributes(
     if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
     if (attrs.two_sided) features += "#define USE_TWO_SIDED\n";
 
-    features += fmt::format("#define NUM_DIR_LIGHTS {}\n", attrs.directional_lights);
-    features += fmt::format("#define NUM_POINT_LIGHTS {}\n", attrs.point_lights);
-    features += fmt::format("#define NUM_SPOT_LIGHTS {}\n", attrs.spot_lights);
+    features += std::format("#define NUM_DIR_LIGHTS {}\n", attrs.directional_lights);
+    features += std::format("#define NUM_POINT_LIGHTS {}\n", attrs.point_lights);
+    features += std::format("#define NUM_SPOT_LIGHTS {}\n", attrs.spot_lights);
 
-    auto output = std::string {source};
     auto token = std::string_view {"#pragma inject_attributes"};
-    auto pos = output.find(token);
+    auto pos = source.find(token);
     if (pos == std::string::npos) {
         Logger::Log(
             LogLevel::Error,
             "The '#pragma inject_attributes' token is missing in program {}",
             Material::TypeToString(attrs.type)
         );
-        return output;
+        return;
     }
 
-    output.replace(pos, token.size(), features);
+    source.replace(pos, token.size(), features);
+}
 
-    return output;
+auto ShaderLibrary::ResolveIncludes(std::string& source) const -> void {
+    static const std::unordered_map<std::string, std::string> include_map = {
+        {"snippets/common_vert_params.glsl", _SNIPPET_common_vert_params},
+        {"snippets/common_vert_varyings.glsl", _SNIPPET_common_vert_varyings},
+        {"snippets/common_frag_params.glsl", _SNIPPET_common_frag_params},
+        {"snippets/fog.glsl", _SNIPPET_fog},
+    };
+
+    for (const auto& [include, content] : include_map) {
+        auto token = fmt::format("#include \"{}\"", include);
+        auto pos = source.find(token);
+        if (pos != std::string::npos) {
+            source.replace(pos, token.size(), content);
+        }
+    }
 }
 
 }

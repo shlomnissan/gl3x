@@ -33,13 +33,12 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
         R"(#version 410 core
         #pragma inject_attributes
 
-        in vec3 a_Position;
-
-        uniform mat4 u_ModelView;
-        uniform mat4 u_Projection;
+        #include "snippets/common_vert_params.glsl"
 
         void main() {
-            gl_Position = u_Projection * u_ModelView * vec4(a_Position, 1.0);
+            #include "snippets/common_vert_varyings.glsl"
+
+            gl_Position = u_Projection * v_Position;
         })",
 
         // ----------------
@@ -50,12 +49,15 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
 
         precision mediump float;
 
-        layout (location = 0) out vec4 v_FragColor;
-
-        uniform float u_Opacity;
+        #include "snippets/common_frag_params.glsl"
+        #include "snippets/fog.glsl"
 
         void main() {
             v_FragColor = vec4(1.0, 0.0, 0.0, u_Opacity);
+
+            #ifdef USE_FOG
+                applyFog(v_FragColor, v_FogDepth);
+            #endif
         })"
     );
 

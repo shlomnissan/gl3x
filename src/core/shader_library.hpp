@@ -25,7 +25,11 @@ public:
     auto GetShaderSource(const ProgramAttributes& attrs) const -> std::vector<ShaderInfo>;
 
 private:
-    auto InjectAttributes(const ProgramAttributes& attrs, std::string_view source) const -> std::string;
+    auto ProcessShader(const ProgramAttributes& attrs, std::string_view source) const -> std::string;
+
+    auto InjectAttributes(const ProgramAttributes& attrs, std::string& source) const -> void;
+
+    auto ResolveIncludes(std::string& source) const -> void;
 };
 
 }
