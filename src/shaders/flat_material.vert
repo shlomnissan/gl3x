@@ -1,26 +1,16 @@
 #version 410 core
 
+#extension GL_ARB_shading_language_include : enable
+
 #pragma inject_attributes
 
 #pragma debug(on)
 #pragma optimize(off)
 
-in vec3 a_Position;
-in vec3 a_Normal;
-in vec2 a_TexCoord;
-
-uniform mat3 u_TextureTransform;
-uniform mat4 u_ModelView;
-uniform mat4 u_Projection;
-
-out float v_FogDepth;
-out vec2 v_TexCoord;
-out vec4 v_Position;
+#include "snippets/common_vert_params.glsl"
 
 void main() {
-    v_TexCoord = (u_TextureTransform * vec3(a_TexCoord, 1.0)).xy;
-    v_Position = u_ModelView * vec4(a_Position, 1.0);
-    v_FogDepth = -v_Position.z;
+    #include "snippets/common_vert_varyings.glsl"
 
     gl_Position = u_Projection * v_Position;
 }

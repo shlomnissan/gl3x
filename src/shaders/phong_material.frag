@@ -9,7 +9,8 @@
 
 precision highp float;
 
-layout (location = 0) out vec4 v_FragColor;
+#include "snippets/common_frag_params.glsl"
+#include "snippets/fog.glsl"
 
 struct PhongMaterial {
     vec3 DiffuseColor;
@@ -17,21 +18,9 @@ struct PhongMaterial {
     float Shininess;
 };
 
-in float v_FogDepth;
-in vec2 v_TexCoord;
-in vec3 v_Normal;
-in vec3 v_ViewDir;
-in vec4 v_Position;
-
-uniform vec3 u_Color;
-uniform float u_Opacity;
-uniform sampler2D u_TextureMap;
-
 uniform vec3 u_AmbientLight;
 uniform vec3 u_Specular;
 uniform float u_Shininess;
-
-#include "snippets/fog.glsl"
 
 #if NUM_DIR_LIGHTS > 0
     struct DirectionalLight {
