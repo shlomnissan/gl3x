@@ -4,7 +4,6 @@
 #include "example_shader_material.hpp"
 
 #include <engine/geometries.hpp>
-#include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
 using namespace engine;
@@ -14,9 +13,10 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> cam
     Add(camera_controls);
 
     auto geometry = BoxGeometry::Create();
-    auto material = ShaderMaterial::Create(
+
+    material_ = ShaderMaterial::Create(
         // ----------------
-        // vertex shader
+        // Vertex shader
         // ----------------
         R"(#version 410 core
         #pragma inject_attributes
@@ -30,7 +30,7 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> cam
         })",
 
         // ----------------
-        // fragment shader
+        // Fragment shader
         // ----------------
         R"(#version 410 core
         #pragma inject_attributes
@@ -40,29 +40,30 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> cam
         #include "snippets/common_frag_params.glsl"
         #include "snippets/fog.glsl"
 
-        uniform vec3 u_ThisColor;
+        uniform float u_Time;
+        uniform vec2 u_Resolution;
 
         void main() {
-            v_FragColor = vec4(u_ThisColor, u_Opacity);
-
+            vec2 uv = gl_FragCoord.xy / u_Resolution.xy;
+            vec3 col = 0.5 + 0.5 * cos(u_Time + uv.xyx + vec3(0,2,4));
+            v_FragColor = vec4(col, 1.0);
             #ifdef USE_FOG
                 applyFog(v_FragColor, v_FogDepth);
             #endif
         })",
 
         // ----------------
-        // uniforms
+        // Custom uniforms
         // ----------------
-        {
-            {"u_ThisColor", Color(0x00FF00)}
-        }
+        {{"u_Time", 0.0f}}
     );
 
-    mesh_ = Mesh::Create(geometry, material);
+    mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);
 }
 
 auto ExampleShaderMaterial::Update(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
     mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
+    material_->uniforms["u_Time"] = static_cast<float>(timer_.GetElapsedSeconds());
 }

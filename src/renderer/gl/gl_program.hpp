@@ -36,6 +36,8 @@ public:
 
     auto IsValid() const { return !has_errors_ && program_ > 0; }
 
+    auto SetUniformIfExists(const std::string& name, const UniformValue& v) -> void;
+
     auto SetUniform(const std::string& name, const UniformValue& v) -> void;
 
     ~GLProgram();

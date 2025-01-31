@@ -23,6 +23,9 @@ auto GLUniform::SetValueIfNeeded(const UniformValue& v) -> void {
         case GL_FLOAT:
             is_set = SetValue<GLfloat>(v);
             break;
+        case GL_FLOAT_VEC2:
+            is_set = SetValue<Vector2>(v);
+            break;
         case GL_FLOAT_VEC3:
             is_set = SetValue<Color, Vector3>(v);
             break;
@@ -58,9 +61,9 @@ auto GLUniform::SetValueIfNeeded(const UniformValue& v) -> void {
 auto GLUniform::UpdateUniformIfNeeded() -> void {
     if (!needs_update_) return;
 
-    // - This list is incomplete. Add new types as needed.
-    // - We use reinterpret_cast because multiple values can map onto the same GL type.
-    //   For instance, both Vector3 and Color map to GL_FLOAT_VEC4.
+    // This list is incomplete. Add new types as needed.
+    // We use reinterpret_cast because multiple values can map onto the same GL type.
+    // For instance, both Vector3 and Color map to GL_FLOAT_VEC3.
     switch (type_) {
         case GL_INT:
         case GL_SAMPLER_2D:
@@ -68,6 +71,9 @@ auto GLUniform::UpdateUniformIfNeeded() -> void {
         break;
         case GL_FLOAT:
             glUniform1f(location_, *reinterpret_cast<const GLfloat*>(&value_));
+        break;
+        case GL_FLOAT_VEC2:
+            glUniform2fv(location_, 1, reinterpret_cast<const GLfloat*>(&value_));
         break;
         case GL_FLOAT_VEC3:
             glUniform3fv(location_, 1, reinterpret_cast<const GLfloat*>(&value_));

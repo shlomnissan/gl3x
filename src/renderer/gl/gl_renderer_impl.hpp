@@ -38,6 +38,8 @@ private:
     GLState state_;
     GLTextures textures_;
 
+    Renderer::Parameters params_;
+
     std::unique_ptr<RenderLists> render_lists_;
 
     auto RenderObjects(Scene* scene, Camera* camera) -> void;

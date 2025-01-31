@@ -62,6 +62,12 @@ auto GLProgram::Use() const -> void {
     glUseProgram(program_);
 }
 
+auto GLProgram::SetUniformIfExists(const std::string& name, const UniformValue& v) -> void {
+    if (uniforms_.contains(name)) {
+        SetUniform(name, v);
+    }
+}
+
 auto GLProgram::SetUniform(const std::string& name, const UniformValue& v) -> void {
     if (!uniforms_.contains(name)) {
         Logger::Log(LogLevel::Error, "Uniform {} is not found", name);

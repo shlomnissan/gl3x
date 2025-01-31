@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <engine/core.hpp>
+#include <engine/materials.hpp>
 #include <engine/nodes.hpp>
 
 #include <memory>
@@ -14,5 +16,8 @@ public:
     auto Update(float delta) -> void override;
 
 private:
+    engine::Timer timer_ {true};
+
+    std::shared_ptr<engine::ShaderMaterial> material_;
     std::shared_ptr<engine::Mesh> mesh_;
 };

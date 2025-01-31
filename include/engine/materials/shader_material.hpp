@@ -5,7 +5,13 @@
 
 #include "engine_export.h"
 #include "engine/materials/material.hpp"
+
 #include "engine/math/color.hpp"
+#include "engine/math/matrix3.hpp"
+#include "engine/math/matrix4.hpp"
+#include "engine/math/vector2.hpp"
+#include "engine/math/vector3.hpp"
+#include "engine/math/vector4.hpp"
 
 #include <memory>
 #include <string>
@@ -16,8 +22,7 @@
 namespace engine {
 
 // UniformValue is also defined in include/renderer/gl/gl_uniform.hpp
-// TODO: consolidate types
-using UniformValue = std::variant<int, float, Color, Matrix3, Matrix4, Vector3, Vector4>;
+using UniformValue = std::variant<int, float, Color, Matrix3, Matrix4, Vector2, Vector3, Vector4>;
 using Uniforms = std::unordered_map<std::string, UniformValue>;
 
 /**

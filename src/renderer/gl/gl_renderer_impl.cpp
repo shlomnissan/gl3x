@@ -22,7 +22,8 @@
 namespace engine {
 
 Renderer::Impl::Impl(const Renderer::Parameters& params)
-  : render_lists_(std::make_unique<RenderLists>()) {
+  : params_(params),
+    render_lists_(std::make_unique<RenderLists>()) {
     glViewport(0, 0, params.width, params.height);
 }
 
@@ -95,26 +96,33 @@ auto Renderer::Impl::SetUniforms(
     auto material = mesh->GetMaterial();
     auto model_view = camera->view_transform * mesh->GetWorldTransform();
 
-    // shared uniforms
+    // Shared uniforms
+    // ----------------
+    // These uniforms are shared across all materials. They are set only if they exist in
+    // the shader source code to support custom shaders that may choose not to use them.
 
-    program->SetUniform("u_Projection", camera->projection_transform);
-    program->SetUniform("u_ModelView", model_view);
-    program->SetUniform("u_Opacity", material->opacity);
+    program->SetUniformIfExists("u_Projection", camera->projection_transform);
+    program->SetUniformIfExists("u_ModelView", model_view);
+    program->SetUniformIfExists("u_Opacity", material->opacity);
+    program->SetUniformIfExists("u_Resolution", Vector2(params_.width, params_.height));
 
     if (attrs->linear_fog) {
         const auto linear_fog = scene->fog->As<LinearFog>();
-        program->SetUniform("u_LinearFog.Color", linear_fog->color);
-        program->SetUniform("u_LinearFog.Near", linear_fog->near);
-        program->SetUniform("u_LinearFog.Far", linear_fog->far);
+        program->SetUniformIfExists("u_LinearFog.Color", linear_fog->color);
+        program->SetUniformIfExists("u_LinearFog.Near", linear_fog->near);
+        program->SetUniformIfExists("u_LinearFog.Far", linear_fog->far);
     }
 
     if (attrs->exponential_fog) {
         const auto exponential_fog = scene->fog->As<ExponentialFog>();
-        program->SetUniform("u_ExponentialFog.Color", exponential_fog->color);
-        program->SetUniform("u_ExponentialFog.Density", exponential_fog->density);
+        program->SetUniformIfExists("u_ExponentialFog.Color", exponential_fog->color);
+        program->SetUniformIfExists("u_ExponentialFog.Density", exponential_fog->density);
     }
 
-    // material-specific uniforms
+    // Material specific uniforms
+    // ----------------
+    // These uniforms are specific to the material type. These uniforms are always
+    // expected to be used in the shader source code that corresponds to the material type.
 
     if (attrs->type == MaterialType::FlatMaterial) {
         auto m = material->As<FlatMaterial>();
@@ -148,8 +156,6 @@ auto Renderer::Impl::SetUniforms(
             program->SetUniform(name, value);
         }
     }
-
-
 }
 
 auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const Camera* camera) const -> void {
