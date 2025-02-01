@@ -17,6 +17,8 @@
 #include "core/program_attributes.hpp"
 #include "utilities/logger.hpp"
 
+#include <format>
+
 #include <glad/glad.h>
 
 namespace engine {
@@ -176,7 +178,7 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
             }
 
             if (auto directional = light->As<DirectionalLight>()) {
-                const auto u_name = fmt::format("u_DirectionalLights[{}]", directional_idx);
+                const auto u_name = std::format("u_DirectionalLights[{}]", directional_idx);
                 const auto u_dir = camera->view_transform * Vector4(directional->Direction(), 0.0f);
                 const auto u_color = directional->color * directional->intensity;
                 program->SetUniform(u_name + ".Color", u_color);
@@ -185,7 +187,7 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
             }
 
             if (auto point = light->As<PointLight>()) {
-                const auto u_name = fmt::format("u_PointLights[{}]", point_idx);
+                const auto u_name = std::format("u_PointLights[{}]", point_idx);
                 const auto u_pos = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
                 const auto u_color = point->color * point->intensity;
                 program->SetUniform(u_name + ".Color", u_color);
@@ -196,7 +198,7 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
             }
 
             if (auto spot = light->As<SpotLight>()) {
-                const auto u_name = fmt::format("u_SpotLights[{}]", spot_idx);
+                const auto u_name = std::format("u_SpotLights[{}]", spot_idx);
                 const auto u_dir = camera->view_transform * Vector4(spot->Direction(), 0.0f);
                 const auto u_pos = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
                 const auto u_color = spot->color * spot->intensity;
