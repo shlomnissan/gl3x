@@ -9,11 +9,15 @@
 
 #include <memory>
 
-class ExampleShaderMaterial : public engine::Scene {
+#include "example_scene.hpp"
+
+class ExampleShaderMaterial : public ExampleScene {
 public:
     explicit ExampleShaderMaterial(std::shared_ptr<engine::Camera>);
 
     auto Update(float delta) -> void override;
+
+    auto ContextMenu() -> void override;
 
 private:
     engine::Timer timer_ {true};

@@ -9,6 +9,8 @@
 #include <engine/resources.hpp>
 #include <engine/math.hpp>
 
+#include <imgui.h>
+
 using namespace engine;
 
 ExamplePointLight::ExamplePointLight(std::shared_ptr<engine::Camera> camera) {
@@ -45,4 +47,8 @@ ExamplePointLight::ExamplePointLight(std::shared_ptr<engine::Camera> camera) {
     const auto mesh_ = Mesh::Create(geometry, material);
     mesh_->transform.Translate({0.0f, 0.5f, 0.0f});
     Add(mesh_);
+}
+
+auto ExamplePointLight::ContextMenu() -> void {
+    ImGui::Text("Point Light");
 }

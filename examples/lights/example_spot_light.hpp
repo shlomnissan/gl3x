@@ -7,9 +7,13 @@
 
 #include <memory>
 
-class ExampleSpotLight : public engine::Scene {
+#include "example_scene.hpp"
+
+class ExampleSpotLight : public ExampleScene {
 public:
     explicit ExampleSpotLight(std::shared_ptr<engine::Camera>);
+
+    auto ContextMenu() -> void override;
 
 private:
     std::shared_ptr<engine::Mesh> mesh_;

@@ -6,6 +6,8 @@
 #include <engine/geometries.hpp>
 #include <engine/resources.hpp>
 
+#include <imgui.h>
+
 using namespace engine;
 
 ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> camera) {
@@ -66,4 +68,8 @@ auto ExampleShaderMaterial::Update(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
     mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
     material_->uniforms["u_Time"] = static_cast<float>(timer_.GetElapsedSeconds());
+}
+
+auto ExampleShaderMaterial::ContextMenu() -> void {
+    ImGui::Text("Shader Material");
 }

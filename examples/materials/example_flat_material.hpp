@@ -7,11 +7,15 @@
 
 #include <memory>
 
-class ExampleFlatMaterial : public engine::Scene {
+#include "example_scene.hpp"
+
+class ExampleFlatMaterial : public ExampleScene {
 public:
     explicit ExampleFlatMaterial(std::shared_ptr<engine::Camera>);
 
     auto Update(float delta) -> void override;
+
+    auto ContextMenu() -> void override;
 
 private:
     std::shared_ptr<engine::Mesh> mesh_;

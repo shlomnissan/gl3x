@@ -8,6 +8,8 @@
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
+#include <imgui.h>
+
 using namespace engine;
 
 ExampleSphereGeometry::ExampleSphereGeometry(std::shared_ptr<engine::Camera> camera) {
@@ -39,4 +41,8 @@ ExampleSphereGeometry::ExampleSphereGeometry(std::shared_ptr<engine::Camera> cam
 auto ExampleSphereGeometry::Update(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 0.5f * delta);
     mesh_->transform.Rotate(Vector3::Right(), 0.5f * delta);
+}
+
+auto ExampleSphereGeometry::ContextMenu() -> void {
+    ImGui::Text("Sphere Geometry");
 }

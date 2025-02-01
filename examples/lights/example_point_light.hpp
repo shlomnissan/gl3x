@@ -7,7 +7,11 @@
 
 #include <memory>
 
-class ExamplePointLight : public engine::Scene {
+#include "example_scene.hpp"
+
+class ExamplePointLight : public ExampleScene {
 public:
     explicit ExamplePointLight(std::shared_ptr<engine::Camera>);
+
+    auto ContextMenu() -> void override;
 };

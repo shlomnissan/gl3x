@@ -7,11 +7,15 @@
 
 #include <memory>
 
-class ExampleBoxGeometry : public engine::Scene {
+#include "example_scene.hpp"
+
+class ExampleBoxGeometry : public ExampleScene {
 public:
     explicit ExampleBoxGeometry(std::shared_ptr<engine::Camera>);
 
     auto Update(float delta) -> void override;
+
+    auto ContextMenu() -> void override;
 
 private:
     std::shared_ptr<engine::Mesh> mesh_;

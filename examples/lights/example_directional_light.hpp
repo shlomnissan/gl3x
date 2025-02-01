@@ -7,7 +7,11 @@
 
 #include <memory>
 
-class ExampleDirectionalLight : public engine::Scene {
+#include "example_scene.hpp"
+
+class ExampleDirectionalLight : public ExampleScene {
 public:
     explicit ExampleDirectionalLight(std::shared_ptr<engine::Camera>);
+
+    auto ContextMenu() -> void override;
 };

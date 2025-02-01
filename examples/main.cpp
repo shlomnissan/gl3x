@@ -11,6 +11,7 @@
 
 #include <imgui.h>
 
+#include "example_scene.hpp"
 #include "examples.hpp"
 
 using namespace engine;
@@ -52,6 +53,12 @@ public:
         );
         if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) DrawExamplesList();
         if (ImGui::CollapsingHeader("Scene")) DrawSceneSettings();
+        if (auto example = dynamic_cast<ExampleScene*>(scene.get())) {
+            if (ImGui::CollapsingHeader("Settings")) {
+                example->ContextMenu();
+            }
+        }
+
         ImGui::End();
         return true;
     }

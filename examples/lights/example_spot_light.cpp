@@ -9,6 +9,8 @@
 #include <engine/materials.hpp>
 #include <engine/math.hpp>
 
+#include <imgui.h>
+
 using namespace engine;
 
 ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
@@ -43,4 +45,8 @@ ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
     mesh_ = Mesh::Create(geometry, material);
     mesh_->transform.Rotate(Vector3::Right(), math::DegToRad(-90.0f));
     Add(mesh_);
+}
+
+auto ExampleSpotLight::ContextMenu() -> void {
+    ImGui::Text("Spot Light");
 }

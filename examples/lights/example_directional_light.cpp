@@ -9,6 +9,8 @@
 #include <engine/resources.hpp>
 #include <engine/math.hpp>
 
+#include <imgui.h>
+
 using namespace engine;
 
 ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<engine::Camera> camera) {
@@ -46,4 +48,8 @@ ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<engine::Camera>
     const auto mesh_ = Mesh::Create(geometry, material);
     mesh_->transform.Translate({0.0f, 0.5f, 0.0f});
     Add(mesh_);
+}
+
+auto ExampleDirectionalLight::ContextMenu() -> void {
+    ImGui::Text("Directional Light");
 }

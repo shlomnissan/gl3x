@@ -7,11 +7,15 @@
 
 #include <memory>
 
-class ExamplePlaneGeometry : public engine::Scene {
+#include "example_scene.hpp"
+
+class ExamplePlaneGeometry : public ExampleScene {
 public:
     explicit ExamplePlaneGeometry(std::shared_ptr<engine::Camera>);
 
     auto Update(float delta) -> void override;
+
+    auto ContextMenu() -> void override;
 
 private:
     std::shared_ptr<engine::Mesh> mesh_;

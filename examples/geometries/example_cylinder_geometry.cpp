@@ -8,6 +8,8 @@
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
+#include <imgui.h>
+
 using namespace engine;
 
 ExampleCylinderGeometry::ExampleCylinderGeometry(std::shared_ptr<engine::Camera> camera) {
@@ -42,4 +44,8 @@ ExampleCylinderGeometry::ExampleCylinderGeometry(std::shared_ptr<engine::Camera>
 auto ExampleCylinderGeometry::Update(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
     mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
+}
+
+auto ExampleCylinderGeometry::ContextMenu() -> void {
+    ImGui::Text("Cylinder Geometry");
 }

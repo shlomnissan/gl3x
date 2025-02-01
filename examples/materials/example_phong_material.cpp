@@ -8,6 +8,8 @@
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
+#include <imgui.h>
+
 using namespace engine;
 
 ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camera) {
@@ -32,4 +34,8 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camer
 auto ExamplePhongMaterial::Update(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
     mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
+}
+
+auto ExamplePhongMaterial::ContextMenu() -> void {
+    ImGui::Text("Phong Material");
 }
