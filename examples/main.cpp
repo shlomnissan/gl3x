@@ -16,10 +16,6 @@
 
 using namespace engine;
 
-struct SceneSettings {
-    bool fog_enabled = false;
-};
-
 class Application : public ApplicationContext {
 public:
     auto Configure() -> void override {
@@ -52,7 +48,6 @@ public:
             ImGuiWindowFlags_NoMove
         );
         if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) DrawExamplesList();
-        if (ImGui::CollapsingHeader("Scene")) DrawSceneSettings();
         if (auto example = dynamic_cast<ExampleScene*>(scene.get())) {
             if (ImGui::CollapsingHeader("Settings")) {
                 example->ContextMenu();
@@ -71,7 +66,6 @@ public:
                     ImGui::Separator();
                 } else if (ImGui::Selectable(name.data(), current_scene_ == i) && current_scene_ != i) {
                     current_scene_ = i;
-                    scene_settings_.fog_enabled = false;
                     LoadScene(name);
                 }
             }
@@ -79,33 +73,7 @@ public:
         }
     }
 
-    auto DrawSceneSettings() -> void {
-        ImGui::Checkbox("Fog Enabled", &scene_settings_.fog_enabled);
-        if (scene_settings_.fog_enabled) {
-            if (scene->fog == nullptr) {
-                scene->fog = LinearFog::Create(0x3f7b9d, 1.0f, 5.0f);
-            }
-
-            const auto AddSlider = [](std::string_view label, float* val) {
-                ImGui::Text("%s", label.data());
-                ImGui::SameLine();
-                ImGui::PushItemWidth(200.0f);
-                ImGui::SliderFloat(std::format("##{}", label).c_str(), val, 0.0f, 50.0f);
-                ImGui::PopItemWidth();
-            };
-
-            const auto linear_fog = scene->fog->As<LinearFog>();
-            ImGui::ColorEdit3("Fog Color", &(scene->fog->color[0]));
-            AddSlider("Near", &linear_fog->near);
-            AddSlider("Far ", &linear_fog->far);
-        } else {
-            scene->fog.reset();
-        }
-    }
-
 private:
-    SceneSettings scene_settings_;
-
     int current_scene_ = 0;
 
     auto LoadScene(const std::string_view scene_name) -> void {
