@@ -3,6 +3,8 @@
 
 set(SOURCE_CODE
     "example_scene.hpp"
+    "effects/example_blending.cpp"
+    "effects/example_blending.hpp"
     "geometries/example_box_geometry.cpp"
     "geometries/example_box_geometry.hpp"
     "geometries/example_cylinder_geometry.cpp"

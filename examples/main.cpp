@@ -64,7 +64,7 @@ public:
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 200})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 220})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.empty()) {
@@ -138,6 +138,9 @@ private:
         }
         if (scene_name == "Sphere Geometry") {
             scene = std::make_shared<ExampleSphereGeometry>(camera);
+        }
+        if (scene_name == "Blending Effect") {
+            scene = std::make_shared<ExampleBlending>(camera);
         }
     }
 };

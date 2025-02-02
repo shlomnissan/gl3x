@@ -7,6 +7,7 @@
 
 #include <engine/nodes.hpp>
 
+#include "effects/example_blending.hpp"
 #include "geometries/example_box_geometry.hpp"
 #include "geometries/example_cylinder_geometry.hpp"
 #include "geometries/example_plane_geometry.hpp"
@@ -31,4 +32,6 @@ static const auto examples = std::vector {
     "Cylinder Geometry",
     "Plane Geometry",
     "Sphere Geometry",
+    "",
+    "Blending Effect",
 };
