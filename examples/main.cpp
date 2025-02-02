@@ -142,6 +142,9 @@ private:
         if (scene_name == "Blending Effect") {
             scene = std::make_shared<ExampleBlending>(camera);
         }
+        if (scene_name == "Fog Effect") {
+            scene = std::make_shared<ExampleFog>(camera);
+        }
     }
 };
 
