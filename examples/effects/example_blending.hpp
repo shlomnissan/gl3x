@@ -4,6 +4,7 @@
 #pragma once
 
 #include <engine/nodes.hpp>
+#include <engine/materials.hpp>
 
 #include <memory>
 
@@ -13,10 +14,16 @@ class ExampleBlending : public ExampleScene {
 public:
     explicit ExampleBlending(std::shared_ptr<engine::Camera>);
 
-    auto Update(float delta) -> void override;
-
     auto ContextMenu() -> void override;
 
+
+
 private:
-    std::shared_ptr<engine::Mesh> mesh_;
+    struct SceneSettings {
+        float opacity = 0.9f;
+    };
+
+    SceneSettings settings_;
+
+    std::shared_ptr<engine::PhongMaterial> transparent_material_;
 };

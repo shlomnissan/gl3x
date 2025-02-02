@@ -36,24 +36,24 @@ public:
         camera->transform.Translate({0.0f, 0.0f, 3.0f});
 
         LoadScene(examples[current_scene_]);
+
+        ImGui::SetNextWindowFocus();
     }
 
     auto Update(float delta) -> bool override {
         const auto height = static_cast<float>(params.height);
         ImGui::SetNextWindowSize({250, height - 20.0f});
         ImGui::SetNextWindowPos({10, 10});
-        ImGui::SetNextWindowFocus();
         ImGui::Begin("Build Engine", nullptr,
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove
         );
         if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) DrawExamplesList();
         if (auto example = dynamic_cast<ExampleScene*>(scene.get())) {
-            if (ImGui::CollapsingHeader("Settings")) {
+            if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
                 example->ContextMenu();
             }
         }
-
         ImGui::End();
         return true;
     }
