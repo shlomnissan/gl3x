@@ -17,7 +17,7 @@ ExampleFog::ExampleFog(std::shared_ptr<engine::Camera> camera) {
 
     auto geometry = BoxGeometry::Create();
     auto material = FlatMaterial::Create();
-    material->color = 0x0F012FA;
+    material->color = 0x049EF4;
     mesh_ = Mesh::Create(geometry, material);
     Add(mesh_);
 }
