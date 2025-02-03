@@ -37,7 +37,6 @@ public:
 
         LoadScene(examples[current_scene_]);
 
-        ImGui::SetNextWindowFocus();
     }
 
     auto Update(float delta) -> bool override {
