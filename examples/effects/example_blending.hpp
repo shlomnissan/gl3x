@@ -6,6 +6,7 @@
 #include <engine/nodes.hpp>
 #include <engine/materials.hpp>
 
+#include <array>
 #include <memory>
 
 #include "example_scene.hpp"
@@ -16,14 +17,10 @@ public:
 
     auto ContextMenu() -> void override;
 
-
-
 private:
-    struct SceneSettings {
-        float opacity = 0.9f;
-    };
-
-    SceneSettings settings_;
-
     std::shared_ptr<engine::PhongMaterial> transparent_material_;
+
+    std::array<const char*, 5> blending_modes_ {
+        "None", "Normal", "Additive", "Subtractive", "Multiply"
+    };
 };

@@ -28,7 +28,7 @@ ExampleBlending::ExampleBlending(std::shared_ptr<engine::Camera> camera) {
     auto sphere = Mesh::Create(sphere_geometry, transparent_material_);
     transparent_material_->color = 0x049EF4;
     transparent_material_->transparent = true;
-    transparent_material_->opacity = settings_.opacity;
+    transparent_material_->opacity = 0.9f;
     sphere->TranslateX(0.7f);
     Add(sphere);
 
@@ -43,10 +43,26 @@ ExampleBlending::ExampleBlending(std::shared_ptr<engine::Camera> camera) {
 auto ExampleBlending::ContextMenu() -> void {
     ImGui::Text("Opacity");
     ImGui::SetNextItemWidth(235);
-    if (ImGui::SliderFloat("##Opacity", &settings_.opacity, 0.0f, 1.0f)) {
-        transparent_material_->opacity = settings_.opacity;
-    }
+    ImGui::SliderFloat("##Opacity", &transparent_material_->opacity, 0.0f, 1.0f);
 
     ImGui::Text("Blending");
-    // TODO: add blending combo-box
+    ImGui::SetNextItemWidth(235);
+    static auto curr_blend_mode = "Normal";
+    if (ImGui::BeginCombo("##Blending", curr_blend_mode)) {
+        for (auto i = 0; i < blending_modes_.size(); i++) {
+            auto is_selected = (curr_blend_mode == blending_modes_[i]);
+            if (ImGui::Selectable(blending_modes_[i], is_selected)) {
+                curr_blend_mode = blending_modes_[i];
+                switch (i) {
+                    case 0: transparent_material_->blending = Blending::None; break;
+                    case 1: transparent_material_->blending = Blending::Normal; break;
+                    case 2: transparent_material_->blending = Blending::Additive; break;
+                    case 3: transparent_material_->blending = Blending::Subtractive; break;
+                    case 4: transparent_material_->blending = Blending::Multiply; break;
+                    default: break;
+                }
+            }
+        }
+        ImGui::EndCombo();
+    }
 }
