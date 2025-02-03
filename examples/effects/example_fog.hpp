@@ -14,4 +14,9 @@ public:
     explicit ExampleFog(std::shared_ptr<engine::Camera>);
 
     auto ContextMenu() -> void override;
+
+private:
+    std::array<const char*, 2> fog_function_ {
+        "Linear", "Exponential"
+    };
 };
