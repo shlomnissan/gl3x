@@ -36,7 +36,6 @@ public:
         camera->transform.Translate({0.0f, 0.0f, 3.0f});
 
         LoadScene(examples[current_scene_]);
-
     }
 
     auto Update(float delta) -> bool override {
@@ -52,6 +51,7 @@ public:
             ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.5f, 0.2f, 0.7f, 1.0f));
             ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.6f, 0.3f, 0.8f, 1.0f));
             ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.4f, 0.1f, 0.6f, 1.0f));
+            ImGui::Separator();
             if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
                 example->ContextMenu();
             }
