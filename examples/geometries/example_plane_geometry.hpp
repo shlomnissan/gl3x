@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <engine/geometries.hpp>
 #include <engine/nodes.hpp>
 
 #include <memory>
@@ -18,6 +19,10 @@ public:
     auto ContextMenu() -> void override;
 
 private:
+    engine::PlaneGeometry::Parameters params_;
+
     std::shared_ptr<engine::Mesh> mesh_;
     std::shared_ptr<engine::Mesh> wireframes_;
+
+    bool update_geometry_ {false};
 };

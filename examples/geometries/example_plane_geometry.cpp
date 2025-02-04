@@ -3,10 +3,11 @@
 
 #include "example_plane_geometry.hpp"
 
-#include <engine/geometries.hpp>
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
+
+#include <format>
 
 #include <imgui.h>
 
@@ -23,7 +24,7 @@ ExamplePlaneGeometry::ExamplePlaneGeometry(std::shared_ptr<engine::Camera> camer
     directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
     Add(directional_light);
 
-    auto geometry = PlaneGeometry::Create();
+    auto geometry = PlaneGeometry::Create(params_);
 
     auto base_material = PhongMaterial::Create();
     base_material->color = 0x049EF4;
@@ -39,10 +40,44 @@ ExamplePlaneGeometry::ExamplePlaneGeometry(std::shared_ptr<engine::Camera> camer
 }
 
 auto ExamplePlaneGeometry::Update(float delta) -> void {
-    mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
-    mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
+    if (update_geometry_) {
+        update_geometry_ = false;
+        auto geometry = PlaneGeometry::Create(params_);
+        // TODO: update geometry
+    }
 }
 
 auto ExamplePlaneGeometry::ContextMenu() -> void {
-    ImGui::Text("Plane Geometry");
+    static const auto SliderFloat = [&](
+        std::string_view label,
+        float& value,
+        unsigned min,
+        unsigned max)
+    {
+        ImGui::Text(label.data());
+        ImGui::SetNextItemWidth(235);
+        if (ImGui::SliderFloat(std::format("##{}", label).c_str(), &value, min, max)) {
+            update_geometry_ = true;
+        }
+    };
+
+    static const auto SliderUnsigned = [&](
+        std::string_view label,
+        unsigned& value,
+        unsigned min,
+        unsigned max)
+    {
+        auto v = static_cast<int>(value);
+        ImGui::Text(label.data());
+        ImGui::SetNextItemWidth(235);
+        if (ImGui::SliderInt(std::format("##{}", label).c_str(), &v, min, max)) {
+            value = static_cast<unsigned>(v);
+            update_geometry_ = true;
+        }
+    };
+
+    SliderFloat("Width", params_.width, 1.0f, 5.0f);
+    SliderFloat("Height", params_.height, 1.0f, 5.0f);
+    SliderUnsigned("Width Segments", params_.width_segments, 1, 20);
+    SliderUnsigned("Height Segments", params_.height_segments, 1, 20);
 }
