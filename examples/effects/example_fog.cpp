@@ -9,6 +9,7 @@
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
+#include <cstring>
 #include <imgui.h>
 
 using namespace engine;
@@ -52,10 +53,10 @@ auto ExampleFog::ContextMenu() -> void {
             auto is_selected = (curr_fog_function == fog_function);
             if (ImGui::Selectable(fog_function, is_selected)) {
                 curr_fog_function = fog_function;
-                if (curr_fog_function == "Linear") {
+                if (std::strcmp(curr_fog_function, "Linear") == 0) {
                     fog = LinearFog::Create(fog->color, 2.0f, 6.0f);
                 }
-                if (curr_fog_function == "Exponential") {
+                if (std::strcmp(curr_fog_function, "Exponential") == 0) {
                     fog = ExponentialFog::Create(fog->color, 0.2f);
                 }
             }
