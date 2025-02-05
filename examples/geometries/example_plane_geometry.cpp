@@ -39,29 +39,23 @@ ExamplePlaneGeometry::ExamplePlaneGeometry(std::shared_ptr<engine::Camera> camer
     mesh_->Add(wireframes_);
 }
 
-auto ExamplePlaneGeometry::Update(float delta) -> void {
-    if (update_geometry_) {
-        update_geometry_ = false;
-        auto geometry = PlaneGeometry::Create(params_);
-        // TODO: update geometry
-    }
-}
-
 auto ExamplePlaneGeometry::ContextMenu() -> void {
-    static const auto SliderFloat = [&](
+    static bool update_geometry = false;
+
+    static const auto SliderFloat = [](
         std::string_view label,
         float& value,
-        unsigned min,
-        unsigned max)
+        float min,
+        float max)
     {
         ImGui::Text(label.data());
         ImGui::SetNextItemWidth(235);
         if (ImGui::SliderFloat(std::format("##{}", label).c_str(), &value, min, max)) {
-            update_geometry_ = true;
+            update_geometry = true;
         }
     };
 
-    static const auto SliderUnsigned = [&](
+    static const auto SliderUnsigned = [](
         std::string_view label,
         unsigned& value,
         unsigned min,
@@ -72,7 +66,7 @@ auto ExamplePlaneGeometry::ContextMenu() -> void {
         ImGui::SetNextItemWidth(235);
         if (ImGui::SliderInt(std::format("##{}", label).c_str(), &v, min, max)) {
             value = static_cast<unsigned>(v);
-            update_geometry_ = true;
+            update_geometry = true;
         }
     };
 
@@ -80,4 +74,11 @@ auto ExamplePlaneGeometry::ContextMenu() -> void {
     SliderFloat("Height", params_.height, 1.0f, 5.0f);
     SliderUnsigned("Width Segments", params_.width_segments, 1, 20);
     SliderUnsigned("Height Segments", params_.height_segments, 1, 20);
+
+    if (update_geometry) {
+        update_geometry = false;
+        auto geometry = PlaneGeometry::Create(params_);
+        mesh_->SetGeometry(geometry);
+        wireframes_->SetGeometry(geometry);
+    }
 }

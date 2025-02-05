@@ -43,6 +43,20 @@ public:
     auto GetMaterial() -> Material* { return material_.get(); }
 
     /**
+     * @brief Sets the geometry associated with the mesh.
+     *
+     * @param geometry A shared pointer to the Geometry object to be associated with the mesh.
+     */
+    auto SetGeometry(std::shared_ptr<Geometry> geometry) { geometry_ = geometry; }
+
+    /**
+     * @brief Sets the material associated with the mesh.
+     *
+     * @param material A shared pointer to the Material object to be associated with the mesh.
+     */
+    auto SetMaterial(std::shared_ptr<Material> material) { material_ = material; }
+
+    /**
      * @brief Creates a shared pointer to a Mesh object with the specified geometry.
      *
      * @param geometry A shared pointer to the Geometry object to be associated with the mesh.

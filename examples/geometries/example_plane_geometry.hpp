@@ -14,8 +14,6 @@ class ExamplePlaneGeometry : public ExampleScene {
 public:
     explicit ExamplePlaneGeometry(std::shared_ptr<engine::Camera>);
 
-    auto Update(float delta) -> void override;
-
     auto ContextMenu() -> void override;
 
 private:
@@ -23,6 +21,4 @@ private:
 
     std::shared_ptr<engine::Mesh> mesh_;
     std::shared_ptr<engine::Mesh> wireframes_;
-
-    bool update_geometry_ {false};
 };
