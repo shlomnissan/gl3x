@@ -29,11 +29,13 @@ ExamplePlaneGeometry::ExamplePlaneGeometry(std::shared_ptr<engine::Camera> camer
     auto base_material = PhongMaterial::Create();
     base_material->color = 0x049EF4;
     base_material->polygon_offset = {1.0f, 1.0f};
+    base_material->two_sided = true;
     mesh_ = Mesh::Create(geometry, base_material);
     Add(mesh_);
 
     auto wireframe_material = FlatMaterial::Create();
     wireframe_material->wireframe = true;
+    wireframe_material->two_sided = true;
     wireframe_material->fog = false;
     wireframes_ = Mesh::Create(geometry, wireframe_material);
     mesh_->Add(wireframes_);
