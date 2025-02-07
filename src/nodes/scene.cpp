@@ -17,12 +17,17 @@ Scene::Scene() {
 }
 
 auto Scene::AddEventListeners() -> void {
-    scene_event_listener_ = std::make_shared<EventListener>([&](Event* e) {
-        HandleSceneEvents(e->As<SceneEvent>());
+    scene_event_listener_ = std::make_shared<EventListener>([&](Event* event) {
+        HandleSceneEvents(event->As<SceneEvent>());
     });
 
-    input_event_listener_ = std::make_shared<EventListener>([&](Event* e) {
-        HandleInputEvent(shared_from_this(), e);
+    input_event_listener_ = std::make_shared<EventListener>([&](Event* event) {
+        for (const auto& child : Children()) {
+            HandleInputEvent(child, event);
+        }
+        if (event->handled) return;
+        if (auto e = event->As<KeyboardEvent>()) OnKeyboardEvent(e);
+        if (auto e = event->As<MouseEvent>()) OnMouseEvent(e);
     });
 
     EventDispatcher::Get().AddEventListener("added_to_scene", scene_event_listener_);
@@ -32,7 +37,10 @@ auto Scene::AddEventListeners() -> void {
 }
 
 auto Scene::ProcessUpdates(float delta) -> void {
-    HandleNodeUpdates(shared_from_this(), delta);
+    Update(delta);
+     for (const auto& child : Children()) {
+        HandleNodeUpdates(child, delta);
+    }
 }
 
 auto Scene::HandleNodeUpdates(std::weak_ptr<Node> node, float delta) -> void {

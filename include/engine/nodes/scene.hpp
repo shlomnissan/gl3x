@@ -11,7 +11,6 @@
 
 #include <functional>
 #include <memory>
-#include <optional>
 #include <vector>
 
 namespace engine {
@@ -23,7 +22,7 @@ using EventListener = std::function<void(Event*)>;
 /**
  * @brief Represents the scene's root node.
  */
-class ENGINE_EXPORT Scene : public Node, public std::enable_shared_from_this<Scene> {
+class ENGINE_EXPORT Scene : public Node {
 public:
     /// @brief Unique pointer to a fog object for the scene.
     std::unique_ptr<Fog> fog;
