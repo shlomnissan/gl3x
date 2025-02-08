@@ -1,0 +1,24 @@
+name: MacOS - Test
+on: [push]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          brew install ninja
+          git clone https://github.com/microsoft/vcpkg.git ${{github.workspace}}/vcpkg
+          ${{github.workspace}}/vcpkg/bootstrap-vcpkg.sh
+          echo "VCPKG_ROOT=${{github.workspace}}/vcpkg" >> $GITHUB_ENV
+      - name: Configure
+        shell: bash
+        run: cmake -B ${{github.workspace}}/build --preset="debug" -G "Ninja"
+      - name: Build
+        shell: bash
+        run: cmake --build ${{github.workspace}}/build
+      - name: Test
+        shell: bash
+        run: |
+          cd ${{github.workspace}}/build
+          ctest -V
