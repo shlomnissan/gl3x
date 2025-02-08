@@ -35,7 +35,7 @@ public:
      *
      * @param value The value to initialize all components of the vector.
      */
-    explicit Vector4(float value);
+    Vector4(float value);
 
     /**
      * @brief Constructs a vector with the specified x, y, z, and w components.

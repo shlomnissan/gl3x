@@ -16,7 +16,7 @@ namespace engine {
     }
 
     auto Grid::CreateGeometry(const Parameters& params) const -> std::shared_ptr<Geometry> {
-        std::vector<float> vertices;
+        auto vertices = std::vector<float> {};
         auto half_dimensions = static_cast<float>(params.dimensions / 2) * params.scale;
         if (params.dimensions & 1) {
             half_dimensions += params.scale / 2;
@@ -44,7 +44,7 @@ namespace engine {
             z_offset += params.scale;
         }
 
-        auto geometry = Geometry::Create(vertices, {});
+        auto geometry = Geometry::Create(vertices);
         geometry->primitive = GeometryPrimitiveType::Lines;
         geometry->SetAttribute({
             .type = GeometryAttributeType::Position,

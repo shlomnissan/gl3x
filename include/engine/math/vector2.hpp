@@ -27,7 +27,7 @@ public:
      *
      * @param value The value to initialize all components of the vector.
      */
-    explicit Vector2(float value);
+    Vector2(float value);
 
     /**
      * @brief Constructs a vector with the specified x and y components.
