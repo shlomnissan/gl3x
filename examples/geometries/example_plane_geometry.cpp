@@ -50,9 +50,8 @@ auto ExamplePlaneGeometry::ContextMenu() -> void {
         float min,
         float max)
     {
-        ImGui::Text(label.data());
-        ImGui::SetNextItemWidth(235);
-        if (ImGui::SliderFloat(std::format("##{}", label).c_str(), &value, min, max)) {
+        ImGui::SetNextItemWidth(120);
+        if (ImGui::SliderFloat(std::format("{}", label).c_str(), &value, min, max)) {
             update_geometry = true;
         }
     };
@@ -64,18 +63,17 @@ auto ExamplePlaneGeometry::ContextMenu() -> void {
         unsigned max)
     {
         auto v = static_cast<int>(value);
-        ImGui::Text(label.data());
-        ImGui::SetNextItemWidth(235);
-        if (ImGui::SliderInt(std::format("##{}", label).c_str(), &v, min, max)) {
+        ImGui::SetNextItemWidth(120);
+        if (ImGui::SliderInt(std::format("{}", label).c_str(), &v, min, max)) {
             value = static_cast<unsigned>(v);
             update_geometry = true;
         }
     };
 
-    SliderFloat("Width", params_.width, 1.0f, 5.0f);
-    SliderFloat("Height", params_.height, 1.0f, 5.0f);
-    SliderUnsigned("Width Segments", params_.width_segments, 1, 20);
-    SliderUnsigned("Height Segments", params_.height_segments, 1, 20);
+    SliderFloat("width", params_.width, 1.0f, 5.0f);
+    SliderFloat("height", params_.height, 1.0f, 5.0f);
+    SliderUnsigned("width_segments", params_.width_segments, 1, 20);
+    SliderUnsigned("height_segments", params_.height_segments, 1, 20);
 
     if (update_geometry) {
         update_geometry = false;

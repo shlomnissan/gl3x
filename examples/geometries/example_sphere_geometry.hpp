@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <engine/geometries.hpp>
 #include <engine/nodes.hpp>
 
 #include <memory>
@@ -13,11 +14,11 @@ class ExampleSphereGeometry : public ExampleScene {
 public:
     explicit ExampleSphereGeometry(std::shared_ptr<engine::Camera>);
 
-    auto Update(float delta) -> void override;
-
     auto ContextMenu() -> void override;
 
 private:
+    engine::SphereGeometry::Parameters params_;
+
     std::shared_ptr<engine::Mesh> mesh_;
     std::shared_ptr<engine::Mesh> wireframes_;
 };

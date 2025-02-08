@@ -21,6 +21,6 @@ private:
     std::shared_ptr<engine::PhongMaterial> transparent_material_;
 
     std::array<const char*, 5> blending_modes_ {
-        "None", "Normal", "Additive", "Subtractive", "Multiply"
+        "none", "normal", "additive", "subtractive", "multiply"
     };
 };

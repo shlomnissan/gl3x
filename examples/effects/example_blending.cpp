@@ -41,14 +41,8 @@ ExampleBlending::ExampleBlending(std::shared_ptr<engine::Camera> camera) {
 }
 
 auto ExampleBlending::ContextMenu() -> void {
-    ImGui::Text("Opacity");
-    ImGui::SetNextItemWidth(235);
-    ImGui::SliderFloat("##Opacity", &transparent_material_->opacity, 0.0f, 1.0f);
-
-    ImGui::Text("Blending");
-    ImGui::SetNextItemWidth(235);
-    static auto curr_blend_mode = "Normal";
-    if (ImGui::BeginCombo("##Blending", curr_blend_mode)) {
+    static auto curr_blend_mode = "normal";
+    if (ImGui::BeginCombo("mode", curr_blend_mode)) {
         for (auto i = 0; i < blending_modes_.size(); i++) {
             auto is_selected = (curr_blend_mode == blending_modes_[i]);
             if (ImGui::Selectable(blending_modes_[i], is_selected)) {
@@ -65,4 +59,6 @@ auto ExampleBlending::ContextMenu() -> void {
         }
         ImGui::EndCombo();
     }
+
+    ImGui::SliderFloat("opacity", &transparent_material_->opacity, 0.0f, 1.0f);
 }

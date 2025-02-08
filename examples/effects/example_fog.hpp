@@ -17,6 +17,6 @@ public:
 
 private:
     std::array<const char*, 2> fog_function_ {
-        "Linear", "Exponential"
+        "linear", "exponential"
     };
 };
