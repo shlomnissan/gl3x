@@ -7,12 +7,11 @@
 #include "engine/core/timer.hpp"
 
 #include <filesystem>
+#include <format>
 #include <iostream>
 #include <mutex>
 #include <source_location>
 #include <string>
-
-#include <fmt/format.h>
 
 namespace engine {
 
@@ -39,8 +38,14 @@ public:
 
             auto stream = level == LogLevel::Error ? &std::cerr : &std::cout;
             const auto& path = fs::path{loc.file_name()};
-            const auto message = fmt::format(fmt::runtime(format_str), args...);
-            *stream << fmt::format(
+            // std::format needs a compile-time string; std::vformat allows
+            // runtime strings using format args.
+            const auto message = std::vformat(
+                format_str,
+                std::make_format_args(std::forward<Args>(args)...)
+            );
+
+            *stream << std::format(
                 "[{}]{}: {} -> {}:{}\n",
                 Timer::GetTimestamp(),
                 Logger::ToString(level),
@@ -62,17 +67,16 @@ private:
 
 }
 
-namespace fmt {
+namespace std {
 
 template <typename T>
-struct formatter<T, std::enable_if_t<std::is_base_of_v<engine::Identity, T>, char>> {
+struct std::formatter<T, std::enable_if_t<std::is_base_of_v<engine::Identity, T>, char>> {
     constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
-
     template <typename FormatContext>
-    auto format(const T& obj, FormatContext& ctx) {
+    auto format(const T& obj, FormatContext& ctx) const {
         return obj.Name().empty() ?
-            fmt::format_to(ctx.out(), "[UUID: {}]", obj.UUID()) :
-            fmt::format_to(ctx.out(), "[Name: {}]", obj.Name());
+            std::format_to(ctx.out(), "[UUID: {}]", obj.UUID()) :
+            std::format_to(ctx.out(), "[Name: {}]", obj.Name());
     }
 };
 

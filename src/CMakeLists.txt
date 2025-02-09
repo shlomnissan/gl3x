@@ -137,7 +137,6 @@ add_library(
 )
 
 find_package(OpenGL REQUIRED)
-find_package(fmt REQUIRED)
 find_package(glad REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(imgui REQUIRED)
@@ -157,7 +156,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME}
 PRIVATE
     OpenGL::GL
-    fmt::fmt
     glad::glad
     glfw
     imgui::imgui

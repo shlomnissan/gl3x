@@ -13,8 +13,8 @@
 #include "utilities/logger.hpp"
 
 #include <array>
-
-#include <fmt/format.h>
+#include <format>
+#include <string>
 
 namespace engine {
 
@@ -77,10 +77,13 @@ auto ProgramAttributes::ProgramPermutationHash() const -> std::string {
         two_sided ? 1 : 0,
     };
 
-    return fmt::format(
+    auto attrs_str = std::string {};
+    for (auto attr : attrs) attrs_str += std::to_string(attr);
+
+    return std::format(
         "{}_material|p{}",
         Material::TypeToString(type),
-        fmt::join(attrs, "")
+        attrs_str
     );
 }
 

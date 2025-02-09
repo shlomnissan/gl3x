@@ -1,10 +1,6 @@
 {
     "dependencies": [
         {
-            "name": "fmt",
-            "version>=": "8.1.1"
-        },
-        {
             "name": "glad",
             "version>=": "0.1.36",
             "features": ["gl-api-41"]

@@ -5,7 +5,7 @@
 
 #include "utilities/logger.hpp"
 
-#include <fmt/format.h>
+#include <format>
 
 namespace engine {
 
@@ -61,7 +61,7 @@ auto Timer::GetTimestamp() -> std::string {
         localtime_r(&in_time_t, &time_info);
     #endif
 
-    return fmt::format("{:04}-{:02}-{:02} {:02}:{:02}:{:02}",
+    return std::format("{:04}-{:02}-{:02} {:02}:{:02}:{:02}",
                        time_info.tm_year + 1900,
                        time_info.tm_mon + 1,
                        time_info.tm_mday,
