@@ -17,6 +17,7 @@
 #include "core/program_attributes.hpp"
 #include "utilities/logger.hpp"
 
+#include <cmath>
 #include <format>
 
 #include <glad/glad.h>
