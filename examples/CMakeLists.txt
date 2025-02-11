@@ -2,6 +2,7 @@
 # Author: Shlomi Nissan (shlomi@betamark.com)
 
 set(SOURCE_CODE
+    "helpers.hpp"
     "example_scene.hpp"
     "effects/example_blending.cpp"
     "effects/example_blending.hpp"

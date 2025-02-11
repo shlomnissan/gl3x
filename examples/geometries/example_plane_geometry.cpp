@@ -3,13 +3,11 @@
 
 #include "example_plane_geometry.hpp"
 
+#include "helpers.hpp"
+
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
-
-#include <format>
-
-#include <imgui.h>
 
 using namespace engine;
 
@@ -42,41 +40,15 @@ ExamplePlaneGeometry::ExamplePlaneGeometry(std::shared_ptr<engine::Camera> camer
 }
 
 auto ExamplePlaneGeometry::ContextMenu() -> void {
-    static bool update_geometry = false;
+    static bool dirty = false;
 
-    static const auto SliderFloat = [](
-        std::string_view label,
-        float& value,
-        float min,
-        float max)
-    {
-        ImGui::SetNextItemWidth(120);
-        if (ImGui::SliderFloat(std::format("{}", label).c_str(), &value, min, max)) {
-            update_geometry = true;
-        }
-    };
+    UISliderFloat("width", params_.width, 1.0f, 5.0f, dirty);
+    UISliderFloat("height", params_.height, 1.0f, 5.0f, dirty);
+    UISliderUnsigned("width_segments", params_.width_segments, 1, 20, dirty);
+    UISliderUnsigned("height_segments", params_.height_segments, 1, 20, dirty);
 
-    static const auto SliderUnsigned = [](
-        std::string_view label,
-        unsigned& value,
-        unsigned min,
-        unsigned max)
-    {
-        auto v = static_cast<int>(value);
-        ImGui::SetNextItemWidth(120);
-        if (ImGui::SliderInt(std::format("{}", label).c_str(), &v, min, max)) {
-            value = static_cast<unsigned>(v);
-            update_geometry = true;
-        }
-    };
-
-    SliderFloat("width", params_.width, 1.0f, 5.0f);
-    SliderFloat("height", params_.height, 1.0f, 5.0f);
-    SliderUnsigned("width_segments", params_.width_segments, 1, 20);
-    SliderUnsigned("height_segments", params_.height_segments, 1, 20);
-
-    if (update_geometry) {
-        update_geometry = false;
+    if (dirty) {
+        dirty = false;
         auto geometry = PlaneGeometry::Create(params_);
         mesh_->SetGeometry(geometry);
         wireframes_->SetGeometry(geometry);

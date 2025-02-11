@@ -3,13 +3,11 @@
 
 #include "example_sphere_geometry.hpp"
 
+#include "helpers.hpp"
+
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
-
-#include <format>
-
-#include <imgui.h>
 
 using namespace engine;
 
@@ -40,44 +38,18 @@ ExampleSphereGeometry::ExampleSphereGeometry(std::shared_ptr<engine::Camera> cam
 }
 
 auto ExampleSphereGeometry::ContextMenu() -> void {
-    static bool update_geometry = false;
+    static bool dirty = false;
 
-    static const auto SliderFloat = [](
-        std::string_view label,
-        float& value,
-        float min,
-        float max)
-    {
-        ImGui::SetNextItemWidth(120);
-        if (ImGui::SliderFloat(std::format("{}", label).c_str(), &value, min, max)) {
-            update_geometry = true;
-        }
-    };
+    UISliderFloat("radius", params_.radius, 0.5f, 2.0f, dirty);
+    UISliderUnsigned("width_segments", params_.width_segments, 3, 64, dirty);
+    UISliderUnsigned("height_segments", params_.height_segments, 2, 64, dirty);
+    UISliderFloat("phi_start", params_.phi_start, 0.0f, math::two_pi, dirty);
+    UISliderFloat("phi_length", params_.phi_length, 0.0f, math::two_pi, dirty);
+    UISliderFloat("theta_start", params_.theta_start, 0.0f, math::two_pi, dirty);
+    UISliderFloat("theta_length", params_.theta_length, 0.0f, math::two_pi, dirty);
 
-    static const auto SliderUnsigned = [](
-        std::string_view label,
-        unsigned& value,
-        unsigned min,
-        unsigned max)
-    {
-        auto v = static_cast<int>(value);
-        ImGui::SetNextItemWidth(120);
-        if (ImGui::SliderInt(std::format("{}", label).c_str(), &v, min, max)) {
-            value = static_cast<unsigned>(v);
-            update_geometry = true;
-        }
-    };
-
-    SliderFloat("radius", params_.radius, 0.5f, 2.0f);
-    SliderUnsigned("width_segments", params_.width_segments, 3, 64);
-    SliderUnsigned("height_segments", params_.height_segments, 2, 64);
-    SliderFloat("phi_start", params_.phi_start, 0.0f, math::two_pi);
-    SliderFloat("phi_length", params_.phi_length, 0.0f, math::two_pi);
-    SliderFloat("theta_start", params_.theta_start, 0.0f, math::two_pi);
-    SliderFloat("theta_length", params_.theta_length, 0.0f, math::two_pi);
-
-    if (update_geometry) {
-        update_geometry = false;
+    if (dirty) {
+        dirty = false;
         auto geometry = SphereGeometry::Create(params_);
         mesh_->SetGeometry(geometry);
         wireframes_->SetGeometry(geometry);
