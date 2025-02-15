@@ -35,6 +35,7 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
         );
         children_.erase(it);
         node->parent_ = nullptr;
+        node->transform.touched = true;
         UpdateLevel(node);
     } else {
         Logger::Log(
