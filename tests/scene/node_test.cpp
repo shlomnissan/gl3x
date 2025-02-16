@@ -42,28 +42,6 @@ TEST(Node, RemoveAllChildren) {
     EXPECT_TRUE(parent->Children().empty());
 }
 
-TEST(Node, UpdateLevel) {
-    auto parent = engine::Node::Create();
-    auto child = engine::Node::Create();
-
-    parent->Add(child);
-
-    EXPECT_EQ(parent->level, 0);
-    EXPECT_EQ(child->level, 1);
-
-    auto root = engine::Node::Create();
-    root->Add(parent);
-
-    EXPECT_EQ(root->level, 0);
-    EXPECT_EQ(parent->level, 1);
-    EXPECT_EQ(child->level, 2);
-
-    root->Remove(parent);
-
-    EXPECT_EQ(parent->level, 0);
-    EXPECT_EQ(child->level, 1);
-}
-
 #pragma endregion
 
 #pragma region Update Transforms

@@ -18,7 +18,6 @@ auto Node::Add(const std::shared_ptr<Node>& node) -> void {
     }
     node->parent_ = this;
     children_.emplace_back(node);
-    UpdateLevel(node);
 
     EventDispatcher::Get().Dispatch(
         "added_to_scene",
@@ -36,7 +35,6 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
         children_.erase(it);
         node->parent_ = nullptr;
         node->transform.touched = true;
-        UpdateLevel(node);
     } else {
         Logger::Log(
             LogLevel::Warning,
@@ -53,16 +51,8 @@ auto Node::RemoveAllChildren() -> void {
             std::make_unique<SceneEvent>(SceneEvent::Type::RemovedFromScene, node)
         );
         node->parent_ = nullptr;
-        UpdateLevel(node);
     }
     children_.clear();
-}
-
-auto Node::UpdateLevel(const std::shared_ptr<Node>& node) -> void {
-    node->level = node->parent_ == nullptr ? 0 : node->parent_->level + 1;
-    for (const auto& child : node->children_) {
-        UpdateLevel(child);
-    }
 }
 
 auto Node::Children() -> std::vector<std::shared_ptr<Node>>& {

@@ -28,9 +28,6 @@ public:
     /// @brief The up vector of the node.
     Vector3 up {Vector3::Up()};
 
-    /// @brief The current level in the scene graph.
-    int level {0};
-
     /// @brief Flag indicating whether the transform should be automatically updated.
     bool transformAutoUpdate {true};
 
@@ -260,13 +257,6 @@ private:
 
     /// @brief Flag indicating whether the world transform was modified.
     bool world_transform_touched_ {false};
-
-    /**
-     * @brief Updates the level of the specified child node.
-     *
-     * @param node A shared pointer to the child node whose level is to be updated.
-     */
-    auto UpdateLevel(const std::shared_ptr<Node>& node) -> void;
 };
 
 }
