@@ -103,6 +103,28 @@ TEST(Node, DisableTransformAutoUpdate) {
     });
 }
 
+TEST(Node, MarkTransformedNodeAsUntouched) {
+    auto parent = engine::Node::Create();
+    auto child = engine::Node::Create();
+
+    parent->Add(child);
+    parent->UpdateTransformHierarchy();
+
+    EXPECT_FALSE(child->ShouldUpdateWorldTransform());
+}
+
+TEST(Node, MarkDetachedNodesAsTouched) {
+    auto parent = engine::Node::Create();
+    auto child = engine::Node::Create();
+
+    parent->Add(child);
+    parent->UpdateTransformHierarchy();
+
+    parent->Remove(child);
+
+    EXPECT_TRUE(child->ShouldUpdateWorldTransform());
+}
+
 #pragma endregion
 
 #pragma region ShouldUpdate Checks
