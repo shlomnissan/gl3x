@@ -4,15 +4,15 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <engine/math/transform_3d.hpp>
+#include <engine/math/transform3.hpp>
 #include <engine/math/utilities.hpp>
 
 #include <cmath>
 
 #pragma region Transformations
 
-TEST(Transform3D, SetPosition) {
-    auto t = engine::Transform3D {};
+TEST(Transform3, SetPosition) {
+    auto t = engine::Transform3 {};
     t.SetPosition({2.0f, 1.0f, 3.0f});
 
     EXPECT_VEC3_EQ(t.GetPosition(), {2.0f, 1.0f, 3.0f});
@@ -24,8 +24,8 @@ TEST(Transform3D, SetPosition) {
     });
 }
 
-TEST(Transform3D, SetScale) {
-    auto t = engine::Transform3D {};
+TEST(Transform3, SetScale) {
+    auto t = engine::Transform3 {};
     t.SetScale({2.0f, 1.0f, 3.0f});
 
     EXPECT_VEC3_EQ(t.GetScale(), {2.0f, 1.0f, 3.0f});
@@ -37,8 +37,8 @@ TEST(Transform3D, SetScale) {
     });
 }
 
-TEST(Transform3D, SetRotation) {
-    auto t = engine::Transform3D {};
+TEST(Transform3, SetRotation) {
+    auto t = engine::Transform3 {};
     auto p = engine::math::half_pi;
     t.SetRotation(engine::Euler {{
         .pitch = p + 0.1f,
@@ -66,8 +66,8 @@ TEST(Transform3D, SetRotation) {
     });
 }
 
-TEST(Transform3D, MultipleTransformations) {
-    auto t = engine::Transform3D {};
+TEST(Transform3, MultipleTransformations) {
+    auto t = engine::Transform3 {};
     t.SetPosition({2.0f, 1.0f, 3.0f});
     t.SetScale({2.0f, 1.0f, 3.0f});
     t.SetRotation(engine::Euler {{
@@ -110,8 +110,8 @@ TEST(Transform3D, MultipleTransformations) {
 
 #pragma region Cumulative Transformations
 
-TEST(Transform3D, Translate) {
-    auto t = engine::Transform3D {};
+TEST(Transform3, Translate) {
+    auto t = engine::Transform3 {};
     t.Translate({2.0f, 1.0f, 3.0f});
     t.Translate({1.0f, 1.0f, 0.0f});
 
@@ -124,8 +124,8 @@ TEST(Transform3D, Translate) {
     });
 }
 
-TEST(Transform3D, Scale) {
-    auto t = engine::Transform3D {};
+TEST(Transform3, Scale) {
+    auto t = engine::Transform3 {};
     t.Scale({2.0f, 2.0f, 2.0f});
     t.Scale({3.0f, 3.0f, 2.0f});
 
@@ -138,8 +138,8 @@ TEST(Transform3D, Scale) {
     });
 }
 
-TEST(Transform3D, RotateX) {
-    auto t = engine::Transform3D {};
+TEST(Transform3, RotateX) {
+    auto t = engine::Transform3 {};
     t.Rotate(engine::Vector3::Right(), engine::math::half_pi);
     t.Rotate(engine::Vector3::Right(), 0.1f);
 
@@ -154,8 +154,8 @@ TEST(Transform3D, RotateX) {
     });
 }
 
-TEST(Transform3D, RotateY) {
-    auto t = engine::Transform3D {};
+TEST(Transform3, RotateY) {
+    auto t = engine::Transform3 {};
     t.Rotate(engine::Vector3::Up(), engine::math::half_pi);
     t.Rotate(engine::Vector3::Up(), 0.1f);
 
@@ -170,8 +170,8 @@ TEST(Transform3D, RotateY) {
     });
 }
 
-TEST(Transform3D, RotateZ) {
-    auto t = engine::Transform3D {};
+TEST(Transform3, RotateZ) {
+    auto t = engine::Transform3 {};
     t.Rotate(engine::Vector3::Forward(), engine::math::half_pi);
     t.Rotate(engine::Vector3::Forward(), 0.1f);
 

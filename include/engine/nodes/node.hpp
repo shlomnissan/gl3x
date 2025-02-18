@@ -6,7 +6,7 @@
 #include "engine_export.h"
 #include "engine/core/identity.hpp"
 #include "engine/math/matrix4.hpp"
-#include "engine/math/transform_3d.hpp"
+#include "engine/math/transform3.hpp"
 #include "engine/math/vector3.hpp"
 
 #include <memory>
@@ -23,7 +23,7 @@ struct MouseEvent; ///< Forward declaration
 class ENGINE_EXPORT Node : public Identity {
 public:
     /// @brief Node's local transformation.
-    Transform3D transform;
+    Transform3 transform;
 
     /// @brief The up vector of the node.
     Vector3 up {Vector3::Up()};

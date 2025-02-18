@@ -1,56 +1,56 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/math/transform_2d.hpp"
+#include "engine/math/transform2.hpp"
 
 #include <cmath>
 
 namespace engine {
 
-auto Transform2D::Translate(const Vector2& value) -> void {
+auto Transform2::Translate(const Vector2& value) -> void {
     position_ += value;
     touched_ = true;
 }
 
-auto Transform2D::Scale(const Vector2& value) -> void {
+auto Transform2::Scale(const Vector2& value) -> void {
     scale_ *= value;
     touched_ = true;
 }
 
-auto Transform2D::Rotate(float angle) -> void {
+auto Transform2::Rotate(float angle) -> void {
     rotation_ += angle;
     touched_ = true;
 }
 
-auto Transform2D::SetPosition(const Vector2& position) -> void {
+auto Transform2::SetPosition(const Vector2& position) -> void {
     if (position_ != position) {
         position_ = position;
         touched_ = true;
     }
 }
 
-auto Transform2D::SetScale(const Vector2& scale) -> void {
+auto Transform2::SetScale(const Vector2& scale) -> void {
     if (scale_ != scale) {
         scale_ = scale;
         touched_ = true;
     }
 }
 
-auto Transform2D::SetRotation(float rotation) -> void {
+auto Transform2::SetRotation(float rotation) -> void {
     if (rotation_ != rotation) {
         rotation_ = rotation;
         touched_ = true;
     }
 }
 
-auto Transform2D::SetCenter(const Vector2& center) -> void {
+auto Transform2::SetCenter(const Vector2& center) -> void {
     if (center_ != center) {
         center_ = center;
         touched_ = true;
     }
 }
 
-auto Transform2D::Get() -> Matrix3 {
+auto Transform2::Get() -> Matrix3 {
     if (touched_) {
         touched_ = false;
         // This transform is currently used for UV transformations.

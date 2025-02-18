@@ -4,15 +4,15 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <engine/math/transform_2d.hpp>
+#include <engine/math/transform2.hpp>
 #include <engine/math/utilities.hpp>
 
 #include <cmath>
 
 #pragma region Transformations
 
-TEST(Transform2D, Translate) {
-    auto t = engine::Transform2D {};
+TEST(Transform2, Translate) {
+    auto t = engine::Transform2 {};
     t.Translate({2.0f, 1.0f});
 
     EXPECT_VEC2_EQ(t.GetPosition(), {2.0f, 1.0f});
@@ -23,8 +23,8 @@ TEST(Transform2D, Translate) {
     });
 }
 
-TEST(Transform2D, Scale) {
-    auto t = engine::Transform2D {};
+TEST(Transform2, Scale) {
+    auto t = engine::Transform2 {};
     t.Scale({2.0f, 1.0f});
 
     EXPECT_VEC2_EQ(t.GetScale(), {2.0f, 1.0f});
@@ -35,8 +35,8 @@ TEST(Transform2D, Scale) {
     });
 }
 
-TEST(Transform2D, Rotate) {
-    auto t = engine::Transform2D {};
+TEST(Transform2, Rotate) {
+    auto t = engine::Transform2 {};
     t.Rotate(engine::math::half_pi);
 
     auto c = std::cos(t.GetRotation());
@@ -49,8 +49,8 @@ TEST(Transform2D, Rotate) {
     });
 }
 
-TEST(Transform2D, TransformationsWithOffset) {
-    auto t = engine::Transform2D {};
+TEST(Transform2, TransformationsWithOffset) {
+    auto t = engine::Transform2 {};
     t.SetCenter({0.5, 0.5f});
     t.Translate({2.0f, 3.0f});
     t.Scale({2.0f, 2.0f});

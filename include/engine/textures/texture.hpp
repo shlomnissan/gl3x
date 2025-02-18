@@ -6,7 +6,7 @@
 #include "engine_export.h"
 #include "engine/core/disposable.hpp"
 #include "engine/core/identity.hpp"
-#include "engine/math/transform_2d.hpp"
+#include "engine/math/transform2.hpp"
 
 namespace engine {
 
@@ -23,7 +23,7 @@ enum class TextureType {
 class ENGINE_EXPORT Texture : public Disposable, public Identity {
 public:
     /// @brief The UV transformation matrix.
-    Transform2D transform;
+    Transform2 transform;
 
     /**
      * @brief Retrieves the type of the texture.

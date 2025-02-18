@@ -13,7 +13,7 @@ namespace engine {
 /**
  * @brief Represents a 3D transformation.
  */
-class ENGINE_EXPORT Transform3D {
+class ENGINE_EXPORT Transform3 {
 public:
     /// @brief Flag indicating if the transformation matrix was modified.
     bool touched {true};

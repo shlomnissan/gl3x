@@ -12,7 +12,7 @@ namespace engine {
 /**
  * @brief Represents a 2D transformation.
  */
-class ENGINE_EXPORT Transform2D {
+class ENGINE_EXPORT Transform2 {
 public:
     /**
      * @brief Update the position of the transformation.
