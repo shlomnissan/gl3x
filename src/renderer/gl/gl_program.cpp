@@ -86,7 +86,7 @@ auto GLProgram::BindVertexAttributeLocations() const -> void {
     }
 }
 
-auto GLProgram::GetUniformLoc(const std::string& name) const -> int {
+auto GLProgram::GetUniformLoc(std::string_view name) const -> int {
     return glGetUniformLocation(program_, name.data());
 }
 

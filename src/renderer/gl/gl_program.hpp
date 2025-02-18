@@ -6,6 +6,7 @@
 #include "renderer/gl/gl_uniform.hpp"
 
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
 
@@ -51,7 +52,7 @@ private:
 
     auto BindVertexAttributeLocations() const -> void;
 
-    auto GetUniformLoc(const std::string& name) const -> int;
+    auto GetUniformLoc(std::string_view name) const -> int;
 
     auto ProcessUniforms() -> void;
 
