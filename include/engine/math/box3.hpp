@@ -17,7 +17,7 @@ public:
      * @brief Default constructor that initializes the box to
      * std::numeric_limits<float>::max() and std::numeric_limits<float>::lowest().
      */
-    constexpr Box3();
+    Box3();
 
     /**
      * @brief Constructs a box with the specified minimum and maximum points.
@@ -25,7 +25,7 @@ public:
      * @param v_min The minimum point of the box.
      * @param v_max The maximum point of the box.
      */
-    constexpr Box3(const Vector3& v_min, const Vector3& v_max);
+    Box3(const Vector3& v_min, const Vector3& v_max);
 
     /**
      * @brief Retrieves the minimum point of the box.
