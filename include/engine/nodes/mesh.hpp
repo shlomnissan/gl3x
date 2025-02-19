@@ -5,10 +5,12 @@
 
 #include "engine_export.h"
 #include "engine/core/geometry.hpp"
-#include "engine/nodes/node.hpp"
 #include "engine/materials/material.hpp"
+#include "engine/math/box3.hpp"
+#include "engine/nodes/node.hpp"
 
 #include <memory>
+#include <optional>
 
 namespace engine {
 
@@ -17,6 +19,9 @@ namespace engine {
  */
 class ENGINE_EXPORT Mesh : public Node {
 public:
+    /// @brief The bounding box of the mesh.
+    std::optional<Box3> bounding_box;
+
     /**
      * @brief Constructs a Mesh object with the given geometry.
      *
@@ -76,6 +81,11 @@ private:
     std::shared_ptr<Geometry> geometry_;
     /// @brief The material associated with the mesh.
     std::shared_ptr<Material> material_;
+
+    /**
+     * @brief Creates a bounding box for the mesh.
+     */
+    auto CreateBoundingBox() -> void;
 };
 
 }

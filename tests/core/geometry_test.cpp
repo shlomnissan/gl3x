@@ -69,6 +69,26 @@ TEST(Geometry, AddMultipleAttributes) {
     EXPECT_EQ(attribs.back().type, UV);
 }
 
+TEST(Geometry, ReturnsTrueIfAttributeExists) {
+    auto geometry = engine::Geometry::Create({
+        0.0f, 1.0f, 2.0f
+    });
+
+    geometry->SetAttribute({.type = Position, .item_size = 3});
+
+    EXPECT_TRUE(geometry->HasAttribute(Position));
+}
+
+TEST(Geometry, ReturnsFalseIfAttributeDoesNotExist) {
+    auto geometry = engine::Geometry::Create({
+        0.0f, 1.0f, 2.0f
+    });
+
+    geometry->SetAttribute({.type = Position, .item_size = 3});
+
+    EXPECT_FALSE(geometry->HasAttribute(UV));
+}
+
 #pragma endregion
 
 #pragma region Vertex Count

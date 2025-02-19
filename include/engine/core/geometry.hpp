@@ -122,6 +122,14 @@ public:
     auto SetAttribute(const GeometryAttribute& attribute) -> void;
 
     /**
+     * @brief Checks if the geometry has a specific attribute.
+     *
+     * @param type The attribute type to check for.
+     * @return bool True if the geometry has the attribute, false otherwise.
+     */
+    [[nodiscard]] auto HasAttribute(GeometryAttributeType type) const -> bool;
+
+    /**
      * @brief Creates a shared pointer to a default-constructed Geometry object.
      *
      * @return std::shared_ptr<Geometry> A shared pointer to the newly created Geometry object.
