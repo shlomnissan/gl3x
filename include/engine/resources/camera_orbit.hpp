@@ -7,7 +7,6 @@
 #include "engine/core/events.hpp"
 #include "engine/math/vector2.hpp"
 #include "engine/math/vector3.hpp"
-
 #include "engine/nodes/node.hpp"
 #include "engine/nodes/camera_perspective.hpp"
 
