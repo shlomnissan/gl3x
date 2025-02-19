@@ -48,21 +48,16 @@ public:
         );
         if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) DrawExamplesList();
         if (auto example = dynamic_cast<ExampleScene*>(scene.get())) {
-            ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.5f, 0.2f, 0.7f, 1.0f));
-            ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.6f, 0.3f, 0.8f, 1.0f));
-            ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.4f, 0.1f, 0.6f, 1.0f));
-            ImGui::Separator();
             if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
                 example->ContextMenu();
             }
-            ImGui::PopStyleColor(3);
         }
         ImGui::End();
         return true;
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 220})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 240})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.empty()) {
@@ -80,6 +75,9 @@ private:
     int current_scene_ = 0;
 
     auto LoadScene(const std::string_view scene_name) -> void {
+        if (scene_name == "Sandbox") {
+            scene = std::make_shared<ExampleSandbox>(camera);
+        }
         if (scene_name == "Flat Material") {
             scene = std::make_shared<ExampleFlatMaterial>(camera);
         }
