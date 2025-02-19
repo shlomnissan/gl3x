@@ -62,6 +62,11 @@ public:
     auto SetMaterial(std::shared_ptr<Material> material) { material_ = material; }
 
     /**
+     * @brief Creates a bounding box for the mesh.
+     */
+    auto CreateBoundingBox() -> void;
+
+    /**
      * @brief Creates a shared pointer to a Mesh object with the specified geometry.
      *
      * @param geometry A shared pointer to the Geometry object to be associated with the mesh.
@@ -81,11 +86,6 @@ private:
     std::shared_ptr<Geometry> geometry_;
     /// @brief The material associated with the mesh.
     std::shared_ptr<Material> material_;
-
-    /**
-     * @brief Creates a bounding box for the mesh.
-     */
-    auto CreateBoundingBox() -> void;
 };
 
 }
