@@ -9,8 +9,8 @@
 
 namespace engine {
 
-BoundingBox::BoundingBox(const Box3& box) {
-    auto mesh = Mesh::Create(CreateGeometry(box), FlatMaterial::Create());
+BoundingBox::BoundingBox(const Box3& box, const Color& color) {
+    auto mesh = Mesh::Create(CreateGeometry(box), FlatMaterial::Create(color));
     Add(mesh);
 }
 

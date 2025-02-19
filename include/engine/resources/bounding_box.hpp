@@ -6,6 +6,7 @@
 #include "engine_export.h"
 #include "engine/core/geometry.hpp"
 #include "engine/math/box3.hpp"
+#include "engine/math/color.hpp"
 #include "engine/nodes/mesh.hpp"
 #include "engine/nodes/node.hpp"
 
@@ -22,17 +23,19 @@ public:
      * @brief Constructs a BoundingBox object.
      *
      * @param box The box to draw.
+     * @param color The color of the bounding box.
      */
-    explicit BoundingBox(const Box3& box);
+    explicit BoundingBox(const Box3& box, const Color& color);
 
     /**
      * @brief Creates a new instance of the BoundingBox class.
      *
      * @param box The box to draw.
+     * @param color The color of the bounding box.
      * @return A `std::shared_ptr<BoundingBox>` pointing to the newly created instance.
      */
-    [[nodiscard]] static auto Create(const Box3& box) {
-        return std::make_shared<BoundingBox>(box);
+    [[nodiscard]] static auto Create(const Box3& box, const Color& color) {
+        return std::make_shared<BoundingBox>(box, color);
     }
 
 private:

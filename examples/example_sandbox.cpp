@@ -10,10 +10,10 @@
 using namespace engine;
 
 ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
+    const auto camera_controls = CameraOrbit::Create(camera, 5.0f);
     Add(camera_controls);
 
-    const auto bounding_box = BoundingBox::Create({-1.0f, 1.0f});
+    const auto bounding_box = BoundingBox::Create({-1.0f, 1.0f}, 0xFF00C1);
     Add(bounding_box);
 }
 
