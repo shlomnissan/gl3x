@@ -197,6 +197,25 @@ private:
             m(3, 0) * v.x + m(3, 1) * v.y + m(3, 2) * v.z + m(3, 3) * v.w
         };
     }
+
+    /**
+     * @brief Multiplies a 4x4 matrix by a 3D vector.
+     * @related Matrix4
+     *
+     * Performs matrix-vector multiplication between the input matrix and vector.
+     * The 3D vector is treated as a point (4D vector with a w component of 1.0).
+     *
+     * @param m The 4x4 matrix to multiply.
+     * @param v The 3D vector to multiply.
+     * @return Vector3 The resulting 3D vector after multiplication.
+     */
+    [[nodiscard]] friend auto operator*(const Matrix4& m, const Vector3& v) {
+        return Vector3 {
+            m(0, 0) * v.x + m(0, 1) * v.y + m(0, 2) * v.z + m(0, 3) * 1.0f,
+            m(1, 0) * v.x + m(1, 1) * v.y + m(1, 2) * v.z + m(1, 3) * 1.0f,
+            m(2, 0) * v.x + m(2, 1) * v.y + m(2, 2) * v.z + m(2, 3) * 1.0f
+        };
+    }
 };
 
 /**

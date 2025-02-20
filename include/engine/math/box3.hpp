@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
+#include "engine/math/matrix4.hpp"
 #include "engine/math/vector3.hpp"
 
 #include <span>
@@ -34,21 +35,36 @@ public:
      *
      * @return The minimum point of the box as a Vector3.
      */
-    auto Min() const { return min_; }
+    [[nodiscard]] auto Min() const { return min_; }
 
     /**
      * @brief Retrieves the maximum point of the box.
      *
      * @return The maximum point of the box as a Vector3.
      */
-    auto Max() const { return max_; }
+    [[nodiscard]] auto Max() const { return max_; }
 
     /**
      * @brief Retrieves the center of the box.
      *
      * @return The center of the box as a Vector3.
      */
-    auto Center() const { return (min_ + max_) * 0.5f; }
+    [[nodiscard]] auto Center() const { return (min_ + max_) * 0.5f; }
+
+    /**
+     * @brief Resets the box to std::numeric_limits<float>::max()
+     * and std::numeric_limits<float>::lowest().
+     */
+    auto Reset() -> void;
+
+    /**
+     * @brief Checks if the box is empty.
+     *
+     * @return True if the box is empty, false otherwise.
+     */
+    [[nodiscard]] auto IsEmpty() const {
+        return min_.x > max_.x || min_.y > max_.y || min_.z > max_.z;
+    }
 
     /**
      * @brief Expands the box to include the specified point.
@@ -63,6 +79,13 @@ public:
      * @param points The points to include in the box.
      */
     auto ExpandWithPoints(std::span<const Vector3> points) -> void;
+
+    /**
+     * @brief Transforms the box by the specified matrix.
+     *
+     * @param transform The matrix to apply to the box.
+     */
+    auto ApplyTransform(const Matrix4& transform) -> void;
 
 private:
     /// @brief The minimum point of the box.

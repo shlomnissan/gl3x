@@ -92,7 +92,7 @@ TEST(Matrix4, MultiplicationMatrix) {
 
 #pragma region Matrix-Vector Multiplication
 
-TEST(Matrix4, MultiplicationVector) {
+TEST(Matrix4, MultiplicationWithVector4) {
     const auto m = engine::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
@@ -102,6 +102,18 @@ TEST(Matrix4, MultiplicationVector) {
     const auto v = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
 
     EXPECT_VEC4_EQ((m * v), {30.0f, 70.0f, 20.0f, 60.0f});
+}
+
+TEST(Matrix4, MultiplicationWithVector3) {
+    const auto m = engine::Matrix4 {
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        4.0f, 3.0f, 2.0f, 1.0f,
+        8.0f, 7.0f, 6.0f, 5.0f,
+    };
+    const auto v = engine::Vector3 {1.0f, 2.0f, 3.0f};
+
+    EXPECT_VEC3_EQ((m * v), {18.0f, 46.0f, 17.0f});
 }
 
 #pragma endregion
