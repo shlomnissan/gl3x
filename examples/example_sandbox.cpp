@@ -18,16 +18,24 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     material->color = 0x049EF4;
 
     auto mesh = Mesh::Create(geometry, material);
-    mesh->CreateBoundingBox();
     mesh->SetScale({1.0f, 2.0f, 1.0f});
     mesh->RotateZ(0.5f);
     Add(mesh);
 
-    if (mesh->bounding_box.has_value()) {
-        auto box = mesh->bounding_box.value();
-        box.ApplyTransform(mesh->GetWorldTransform());
-        Add(BoundingBox::Create(box, 0xFF00C1));
+    auto box = Box3 {};
+    auto geoemetry = mesh->GetGeometry();
+    const auto& vertex_data = geoemetry->VertexData();
+    const auto stride = geoemetry->Stride();
+    for (auto i = 0; i < vertex_data.size(); i += stride) {
+        box.ExpandWithPoint({
+            vertex_data[i],
+            vertex_data[i + 1],
+            vertex_data[i + 2]
+        });
     }
+
+    box.ApplyTransform(mesh->GetWorldTransform());
+    Add(BoundingBox::Create(box, 0xFF00C1));
 }
 
 auto ExampleSandbox::ContextMenu() -> void {

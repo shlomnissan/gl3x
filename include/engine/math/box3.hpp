@@ -90,6 +90,7 @@ public:
 private:
     /// @brief The minimum point of the box.
     Vector3 min_;
+
     /// @brief The maximum point of the box.
     Vector3 max_;
 };
