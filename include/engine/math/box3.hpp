@@ -6,6 +6,8 @@
 #include "engine_export.h"
 #include "engine/math/vector3.hpp"
 
+#include <span>
+
 namespace engine {
 
 /**
@@ -47,6 +49,20 @@ public:
      * @return The center of the box as a Vector3.
      */
     auto Center() const { return (min_ + max_) * 0.5f; }
+
+    /**
+     * @brief Expands the box to include the specified point.
+     *
+     * @param p The point to include in the box.
+     */
+    auto ExpandWithPoint(const Vector3& p) -> void;
+
+    /**
+     * @brief Expands the box to include the specified points.
+     *
+     * @param points The points to include in the box.
+     */
+    auto ExpandWithPoints(std::span<const Vector3> points) -> void;
 
 private:
     /// @brief The minimum point of the box.

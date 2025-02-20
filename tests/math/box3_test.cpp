@@ -60,3 +60,111 @@ TEST(Box3, CenterWithZeroValues) {
 }
 
 #pragma endregion
+
+#pragma region ExpandWithPoint
+
+TEST(Box3, ExpandWithPoint) {
+    auto box = engine::Box3 {
+        {0.0f, 0.0f, 0.0f},
+        {1.0f, 1.0f, 1.0f}
+    };
+
+    box.ExpandWithPoint({1.0f, 2.0f, -2.0f});
+
+    EXPECT_VEC3_EQ(box.Min(), {0.0f, 0.0f, -2.0f});
+    EXPECT_VEC3_EQ(box.Max(), {1.0f, 2.0f, 1.0f});
+}
+
+TEST(Box3, ExpandWithPointInsideBox) {
+    auto box = engine::Box3 {
+        {0.0f, 0.0f, 0.0f},
+        {1.0f, 1.0f, 1.0f}
+    };
+
+    box.ExpandWithPoint({0.5f, 0.5f, 0.5f});
+
+    EXPECT_VEC3_EQ(box.Min(), {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(box.Max(), {1.0f, 1.0f, 1.0f});
+}
+
+TEST(Box3, ExpandWithPointOnMinMax) {
+    auto box = engine::Box3 {
+        {0.0f, 0.0f, 0.0f},
+        {1.0f, 1.0f, 1.0f}
+    };
+
+    box.ExpandWithPoint({0.0f, 0.0f, 0.0f});
+    box.ExpandWithPoint({1.0f, 1.0f, 1.0f});
+
+    EXPECT_VEC3_EQ(box.Min(), {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(box.Max(), {1.0f, 1.0f, 1.0f});
+}
+
+TEST(Box3, ExpandWithMultiplePoints) {
+    auto box = engine::Box3 {
+        {0.0f, 0.0f, 0.0f},
+        {1.0f, 1.0f, 1.0f}
+    };
+
+    box.ExpandWithPoint({2.0f, 2.0f, 2.0f});
+    box.ExpandWithPoint({-1.0f, -1.0f, -1.0f});
+
+    EXPECT_VEC3_EQ(box.Min(), {-1.0f, -1.0f, -1.0f});
+    EXPECT_VEC3_EQ(box.Max(), {2.0f, 2.0f, 2.0f});
+}
+
+#pragma endregion
+
+#pragma region ExpandWithPoints
+
+TEST(Box3, ExpandWithPoints) {
+    auto box = engine::Box3 {
+        {0.0f, 0.0f, 0.0f},
+        {1.0f, 1.0f, 1.0f}
+    };
+
+    std::vector<engine::Vector3> points = {
+        {2.0f, 2.0f, 2.0f},
+        {-1.0f, -1.0f, -1.0f},
+        {0.5f, 0.5f, 0.5f}
+    };
+
+    box.ExpandWithPoints(points);
+
+    EXPECT_VEC3_EQ(box.Min(), {-1.0f, -1.0f, -1.0f});
+    EXPECT_VEC3_EQ(box.Max(), {2.0f, 2.0f, 2.0f});
+}
+
+TEST(Box3, ExpandWithPointsAllInsideBox) {
+    auto box = engine::Box3 {
+        {0.0f, 0.0f, 0.0f},
+        {3.0f, 3.0f, 3.0f}
+    };
+
+    std::vector<engine::Vector3> points = {
+        {1.0f, 1.0f, 1.0f},
+        {2.0f, 2.0f, 2.0f},
+        {0.5f, 0.5f, 0.5f}
+    };
+
+    box.ExpandWithPoints(points);
+
+    EXPECT_VEC3_EQ(box.Min(), {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(box.Max(), {3.0f, 3.0f, 3.0f});
+}
+
+TEST(Box3, ExpandWithEmptyPoints) {
+    auto box = engine::Box3 {
+        {0.0f, 0.0f, 0.0f},
+        {1.0f, 1.0f, 1.0f}
+    };
+
+    std::vector<engine::Vector3> points = {};
+
+    box.ExpandWithPoints(points);
+
+    EXPECT_VEC3_EQ(box.Min(), {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(box.Max(), {1.0f, 1.0f, 1.0f});
+}
+
+#pragma endregion
