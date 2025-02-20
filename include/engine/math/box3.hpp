@@ -41,6 +41,13 @@ public:
      */
     auto Max() const { return max_; }
 
+    /**
+     * @brief Retrieves the center of the box.
+     *
+     * @return The center of the box as a Vector3.
+     */
+    auto Center() const { return (min_ + max_) * 0.5f; }
+
 private:
     /// @brief The minimum point of the box.
     Vector3 min_;
