@@ -103,8 +103,12 @@ auto Node::GetWorldPosition() -> Vector3 {
     return Vector3(world_transform_[3]);
 }
 
-auto Node::LookAt(const Vector3& target) -> void {
+auto Node::GetWorldTransform() -> Matrix4 {
     UpdateWorldTransform();
+    return world_transform_;
+}
+
+auto Node::LookAt(const Vector3& target) -> void {
     const auto position = GetWorldPosition();
     if (this->Is<Camera>()) {
         transform.LookAt(position, target, up);

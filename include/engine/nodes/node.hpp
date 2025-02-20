@@ -104,9 +104,7 @@ public:
      *
      * @return The world transformation matrix of the node.
      */
-    [[nodiscard]] auto GetWorldTransform() const -> Matrix4 {
-        return world_transform_;
-    }
+    [[nodiscard]] auto GetWorldTransform() -> Matrix4;
 
     /**
      * @brief Rotates the object to face a point in world space.
