@@ -18,6 +18,7 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     material->color = 0x049EF4;
 
     auto mesh = Mesh::Create(geometry, material);
+    mesh->TranslateX(1.0f);
     mesh->SetScale({1.0f, 2.0f, 1.0f});
     mesh->RotateZ(0.5f);
     Add(mesh);
@@ -36,6 +37,9 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
 
     box.ApplyTransform(mesh->GetWorldTransform());
     Add(BoundingBox::Create(box, 0xFF00C1));
+
+    auto sphere = Sphere {0.0f, 1.0f};
+    Add(BoundingSphere::Create(sphere, 0xEEC584));
 }
 
 auto ExampleSandbox::ContextMenu() -> void {

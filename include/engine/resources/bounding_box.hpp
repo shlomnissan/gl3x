@@ -15,17 +15,17 @@
 namespace engine {
 
 /**
- * @brief Generates line geometry from an axis-aligned bounding box.
+ * @brief Generates geometry to visualize an engine::Box3 object.
  */
 class ENGINE_EXPORT BoundingBox : public Node {
 public:
     /**
-     * @brief Constructs a BoundingBox object.
+     * @brief Constructs a BoundingBox object with a box and color.
      *
      * @param box The box to draw.
      * @param color The color of the bounding box.
      */
-    explicit BoundingBox(const Box3& box, const Color& color);
+    BoundingBox(const Box3& box, const Color& color);
 
     /**
      * @brief Creates a new instance of the BoundingBox class.
@@ -39,9 +39,6 @@ public:
     }
 
 private:
-    /// @brief The mesh that represents the bounding box.
-    std::shared_ptr<Mesh> mesh_;
-
     /**
      * @brief Creates the geometry for the bounding box.
      *

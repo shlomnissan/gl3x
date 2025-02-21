@@ -10,8 +10,7 @@
 namespace engine {
 
 BoundingBox::BoundingBox(const Box3& box, const Color& color) {
-    auto mesh = Mesh::Create(CreateGeometry(box), FlatMaterial::Create(color));
-    Add(mesh);
+    Add(Mesh::Create(CreateGeometry(box), FlatMaterial::Create(color)));
 }
 
 auto BoundingBox::CreateGeometry(const Box3& box) const -> std::shared_ptr<Geometry> {
