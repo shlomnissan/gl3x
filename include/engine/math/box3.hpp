@@ -7,6 +7,7 @@
 #include "engine/math/matrix4.hpp"
 #include "engine/math/vector3.hpp"
 
+#include <limits>
 #include <span>
 
 namespace engine {
@@ -17,18 +18,15 @@ namespace engine {
 class ENGINE_EXPORT Box3 {
 public:
     /**
-     * @brief Default constructor that initializes the box to
-     * std::numeric_limits<float>::max() and std::numeric_limits<float>::lowest().
-     */
-    Box3();
-
-    /**
      * @brief Constructs a box with the specified minimum and maximum points.
      *
      * @param v_min The minimum point of the box.
      * @param v_max The maximum point of the box.
      */
-    Box3(const Vector3& v_min, const Vector3& v_max);
+    Box3(
+        const Vector3& v_min = std::numeric_limits<float>::max(),
+        const Vector3& v_max = std::numeric_limits<float>::lowest()
+    ) : min_(v_min), max_(v_max) {}
 
     /**
      * @brief Retrieves the minimum point of the box.
