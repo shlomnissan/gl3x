@@ -3,8 +3,6 @@
 
 #include "engine/math/box3.hpp"
 
-#include "engine/math/matrix3.hpp"
-
 #include <algorithm>
 #include <array>
 #include <limits>

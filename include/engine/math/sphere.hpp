@@ -4,7 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
-
+#include "engine/math/matrix4.hpp"
 #include "engine/math/vector3.hpp"
 
 namespace engine {
@@ -59,6 +59,13 @@ public:
      * @param p The point to include in the sphere.
      */
     auto ExpandWithPoint(const Vector3& p) -> void;
+
+    /**
+     * @brief Transforms the sphere by the specified matrix.
+     *
+     * @param transform The matrix to apply to the sphere.
+     */
+    auto ApplyTransform(const Matrix4& transform) -> void;
 
 private:
     /// @brief The center of the sphere.

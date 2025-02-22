@@ -3,6 +3,7 @@
 
 #include "engine/math/sphere.hpp"
 
+#include <algorithm>
 #include <cmath>
 
 namespace engine {
@@ -31,6 +32,15 @@ auto Sphere::ExpandWithPoint(const Vector3 &p) -> void {
         center_ += delta * (half_way / length);
         radius_ += half_way;
     }
+}
+
+auto Sphere::ApplyTransform(const Matrix4 &transform) -> void {
+    center_ = transform * center_;
+    radius_ *= std::sqrt(std::max({
+        Vector3 {transform[0]}.LengthSquared(),
+        Vector3 {transform[1]}.LengthSquared(),
+        Vector3 {transform[2]}.LengthSquared()
+    }));
 }
 
 }
