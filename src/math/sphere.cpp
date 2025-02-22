@@ -9,13 +9,13 @@ namespace engine {
 
 auto Sphere::Reset() -> void {
     center_ = Vector3::Zero();
-    radius_ = 0.0f;
+    radius_ = -1.0f;
 }
 
 auto Sphere::ExpandWithPoint(const Vector3 &p) -> void {
     // Handle the case where the sphere is empty (invalid).
     // In this case, the sphere is centered at the point and has a radius of 0.
-    if (radius_ < 0.0f) {
+    if (IsEmpty()) {
         center_ = p;
         radius_ = 0.0f;
         return;

@@ -41,7 +41,7 @@ TEST(Sphere, Reset) {
 }
 
 TEST(Sphere, IsEmptyTrue) {
-    const auto sphere = engine::Sphere {1.0f, -1.0f};
+    const auto sphere = engine::Sphere {};
 
     EXPECT_TRUE(sphere.IsEmpty());
 }
@@ -56,6 +56,43 @@ TEST(Sphere, IsEmptyFalse) {
 
 #pragma region Expand with Point
 
-// TODO: add tests
+TEST(Sphere, ExpandWithPointEmptySphere) {
+    auto sphere = engine::Sphere {};
+
+    sphere.ExpandWithPoint({1.0f, 1.0f, 1.0f});
+
+    EXPECT_VEC3_EQ(sphere.Center(), {1.0f, 1.0f, 1.0f});
+    EXPECT_FLOAT_EQ(sphere.Radius(), 0.0f);
+}
+
+TEST(Sphere, ExpandWithPointInsideSphere) {
+    auto sphere = engine::Sphere {engine::Vector3::Zero(), 5.0f};
+    const auto point = engine::Vector3 {1.0f, 1.0f, 1.0f};
+
+    sphere.ExpandWithPoint(point);
+
+    EXPECT_VEC3_EQ(sphere.Center(), engine::Vector3::Zero());
+    EXPECT_FLOAT_EQ(sphere.Radius(), 5.0f);
+}
+
+TEST(Sphere, ExpandWithPointOnSphereSurface) {
+    auto sphere = engine::Sphere {engine::Vector3::Zero(), 1.0f};
+    const auto point = engine::Vector3 {1.0f, 0.0f, 0.0f};
+
+    sphere.ExpandWithPoint(point);
+
+    EXPECT_VEC3_EQ(sphere.Center(), engine::Vector3::Zero());
+    EXPECT_FLOAT_EQ(sphere.Radius(), 1.0f);
+}
+
+TEST(Sphere, ExpandWithPointOutsideSphere) {
+    auto sphere = engine::Sphere {engine::Vector3::Zero(), 1.0f};
+    const auto point = engine::Vector3 {2.0f, 0.0f, 0.0f};
+
+    sphere.ExpandWithPoint(point);
+
+    EXPECT_VEC3_EQ(sphere.Center(), {0.5f, 0.0f, 0.0f});
+    EXPECT_FLOAT_EQ(sphere.Radius(), 1.5f);
+}
 
 #pragma endregion
