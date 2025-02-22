@@ -37,8 +37,17 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     box.ApplyTransform(mesh->GetWorldTransform());
     Add(BoundingBox::Create(box, 0xFF00C1));
 
-    auto sphere = Sphere {box.Center(), 1.0f};
-    Add(BoundingSphere::Create(sphere, 0xEEC584));
+    auto point_geometry = SphereGeometry::Create({0.05f});
+    auto point_material = FlatMaterial::Create({0x000000});
+    auto point = Mesh::Create(point_geometry, point_material);
+    point->TranslateX(2.0f);
+    point->TranslateY(2.0f);
+    Add(point);
+
+    auto sphere = Sphere {0.0f, 0.0f};
+    sphere.ExpandWithPoint({2.0f, 0.0f, 0.0f});
+    auto bounding_sphere = BoundingSphere::Create(sphere, 0xEEC584);
+    Add(bounding_sphere);
 }
 
 auto ExampleSandbox::ContextMenu() -> void {

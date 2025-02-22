@@ -53,3 +53,9 @@ TEST(Sphere, IsEmptyFalse) {
 }
 
 #pragma endregion
+
+#pragma region Expand with Point
+
+// TODO: add tests
+
+#pragma endregion

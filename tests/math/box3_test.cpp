@@ -97,7 +97,7 @@ TEST(Box3, CenterWithZeroValues) {
 
 #pragma endregion
 
-#pragma region ExpandWithPoint
+#pragma region Expand with Point
 
 TEST(Box3, ExpandWithPoint) {
     auto box = engine::Box3 {
@@ -151,7 +151,7 @@ TEST(Box3, ExpandWithMultiplePoints) {
 
 #pragma endregion
 
-#pragma region ApplyTransform
+#pragma region Apply Transform
 
 TEST(Box3, TransformWithIdentityMatrix) {
     auto box = engine::Box3 {
@@ -220,9 +220,6 @@ TEST(Box3, TransformWithRotation) {
     };
 
     box.ApplyTransform(transform);
-
-    auto m1 = box.Min();
-    auto m2 = box.Max();
 
     EXPECT_VEC3_EQ(box.Min(), {-1.0f, 0.0f, 0.0f});
     EXPECT_VEC3_EQ(box.Max(), {0.0f, 1.0f, 1.0f});

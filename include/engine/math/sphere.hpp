@@ -53,6 +53,13 @@ public:
         return radius_ < 0.0f;
     }
 
+    /**
+     * @brief Expands the sphere to include the specified point.
+     *
+     * @param p The point to include in the sphere.
+     */
+    auto ExpandWithPoint(const Vector3& p) -> void;
+
 private:
     /// @brief The center of the sphere.
     Vector3 center_;
