@@ -31,7 +31,7 @@ TEST(Vector3, ConstructorParameterized) {
 
 #pragma endregion
 
-#pragma region Reset
+#pragma region Empty State
 
 TEST(Box3, Reset) {
     auto box = engine::Box3 {
@@ -41,13 +41,10 @@ TEST(Box3, Reset) {
 
     box.Reset();
 
+    EXPECT_TRUE(box.IsEmpty());
     EXPECT_VEC3_EQ(box.Min(), std::numeric_limits<float>::max());
     EXPECT_VEC3_EQ(box.Max(), std::numeric_limits<float>::lowest());
 }
-
-#pragma endregion
-
-#pragma region IsEmpty
 
 TEST(Box3, IsEmptyTrue) {
     const auto box = engine::Box3 {

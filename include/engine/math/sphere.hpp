@@ -39,6 +39,20 @@ public:
      */
     [[nodiscard]] auto Radius() const -> float { return radius_; }
 
+    /**
+     * @brief Resets the sphere to its empty state.
+     */
+    auto Reset() -> void;
+
+    /**
+     * @brief Checks if the sphere is empty.
+     *
+     * @return True if the sphere is empty, false otherwise.
+     */
+    [[nodiscard]] auto IsEmpty() const {
+        return radius_ < 0.0f;
+    }
+
 private:
     /// @brief The center of the sphere.
     Vector3 center_;

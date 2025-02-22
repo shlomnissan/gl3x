@@ -49,8 +49,7 @@ public:
     [[nodiscard]] auto Center() const { return (min_ + max_) * 0.5f; }
 
     /**
-     * @brief Resets the box to std::numeric_limits<float>::max()
-     * and std::numeric_limits<float>::lowest().
+     * @brief Resets the box to its empty state.
      */
     auto Reset() -> void;
 

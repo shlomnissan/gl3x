@@ -27,3 +27,29 @@ TEST(Sphere, ConstructorParameterized) {
 }
 
 #pragma endregion
+
+#pragma region Empty State
+
+TEST(Sphere, Reset) {
+    auto sphere = engine::Sphere {1.0f, 2.0f};
+
+    sphere.Reset();
+
+    EXPECT_TRUE(sphere.IsEmpty());
+    EXPECT_VEC3_EQ(sphere.Center(), engine::Vector3::Zero());
+    EXPECT_FLOAT_EQ(sphere.Radius(), -1.0f);
+}
+
+TEST(Sphere, IsEmptyTrue) {
+    const auto sphere = engine::Sphere {1.0f, -1.0f};
+
+    EXPECT_TRUE(sphere.IsEmpty());
+}
+
+TEST(Sphere, IsEmptyFalse) {
+    const auto sphere = engine::Sphere {1.0f, 1.0f};
+
+    EXPECT_FALSE(sphere.IsEmpty());
+}
+
+#pragma endregion

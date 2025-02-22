@@ -5,6 +5,9 @@
 
 namespace engine {
 
-// Impl.
+auto Sphere::Reset() -> void {
+    center_ = Vector3::Zero();
+    radius_ = -1.0f;
+}
 
 }
