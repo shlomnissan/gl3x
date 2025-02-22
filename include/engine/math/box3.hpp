@@ -8,7 +8,6 @@
 #include "engine/math/vector3.hpp"
 
 #include <limits>
-#include <span>
 
 namespace engine {
 
@@ -70,13 +69,6 @@ public:
      * @param p The point to include in the box.
      */
     auto ExpandWithPoint(const Vector3& p) -> void;
-
-    /**
-     * @brief Expands the box to include the specified points.
-     *
-     * @param points The points to include in the box.
-     */
-    auto ExpandWithPoints(std::span<const Vector3> points) -> void;
 
     /**
      * @brief Transforms the box by the specified matrix.

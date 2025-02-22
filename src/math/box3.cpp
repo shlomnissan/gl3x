@@ -25,10 +25,6 @@ auto Box3::ExpandWithPoint(const Vector3& p) -> void {
     if (p.z > max_.z) max_.z = p.z;
 }
 
-auto Box3::ExpandWithPoints(std::span<const Vector3> points) -> void {
-    for (const auto& p : points) ExpandWithPoint(p);
-}
-
 auto Box3::ApplyTransform(const Matrix4& transform) -> void {
     static std::array<Vector3, 8> points_ {};
 
@@ -43,7 +39,7 @@ auto Box3::ApplyTransform(const Matrix4& transform) -> void {
 
     Reset();
 
-    ExpandWithPoints(points_);
+    for (const auto& point : points_) ExpandWithPoint(point);
 }
 
 }
