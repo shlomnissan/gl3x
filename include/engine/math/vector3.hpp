@@ -87,6 +87,13 @@ public:
     [[nodiscard]] auto Length() const -> float;
 
     /**
+     * @brief Calculates the squared length of the vector.
+     *
+     * @return float The squared length of the vector.
+     */
+    [[nodiscard]] auto LengthSquared() const -> float;
+
+    /**
      * @brief Accesses the component at the specified index.
      *
      * @param i The index of the component to access (0, 1, or 2).

@@ -21,4 +21,8 @@ auto Vector3::Length() const -> float {
     return std::sqrt(Dot(*this, *this));
 }
 
+auto Vector3::LengthSquared() const -> float {
+    return Dot(*this, *this);
+}
+
 }

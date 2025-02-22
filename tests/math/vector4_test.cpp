@@ -125,6 +125,30 @@ TEST(Vector4, LengthUnitVector) {
     EXPECT_FLOAT_EQ(v.Length(), 1.0f);
 }
 
+TEST(Vector4, LengthSquaredPositiveValues) {
+    const auto v = engine::Vector4 {3.0f, 4.0f, 0.0f, 0.0f};
+
+    EXPECT_FLOAT_EQ(v.LengthSquared(), 25.0f);
+}
+
+TEST(Vector4, LengthSquaredNegativeValues) {
+    const auto v = engine::Vector4 {-3.0f, -4.0f, 0.0f, 0.0f};
+
+    EXPECT_FLOAT_EQ(v.LengthSquared(), 25.0f);
+}
+
+TEST(Vector4, LengthSquaredZeroVector) {
+    const auto v = engine::Vector4 {0.0f, 0.0f, 0.0f, 0.0f};
+
+    EXPECT_FLOAT_EQ(v.LengthSquared(), 0.0f);
+}
+
+TEST(Vector4, LengthSquaredUnitVector) {
+    const auto v = engine::Vector4 {1.0f, 0.0f, 0.0f, 0.0f};
+
+    EXPECT_FLOAT_EQ(v.LengthSquared(), 1.0f);
+}
+
 #pragma endregion
 
 #pragma region Addition
