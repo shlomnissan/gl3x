@@ -6,9 +6,12 @@
 #include "engine_export.h"
 #include "engine/core/disposable.hpp"
 #include "engine/core/identity.hpp"
+#include "engine/math/box3.hpp"
+#include "engine/math/sphere.hpp"
 #include "engine/math/utilities.hpp"
 
 #include <memory>
+#include <optional>
 #include <vector>
 
 namespace engine {
@@ -138,6 +141,9 @@ public:
         return std::make_shared<Geometry>();
     }
 
+    // TOOD: Add "CreateBoundingBox" -- initially public, then private
+    // TODO: Add "CreateBoundingSphere" -- public
+
     /**
      * @brief Destructor calls the Dispose() method to clean up resources.
      */
@@ -151,6 +157,12 @@ protected:
 
     /// @brief The index data of the geometry.
     std::vector<unsigned int> index_data_;
+
+    /// @brief The bounding box of the geometry.
+    std::optional<Box3> bounding_box_;
+
+    /// @brief The bounding sphere of the geometry.
+    std::optional<Sphere> bounding_sphere_;
 
     /// @brief The attributes of the geometry.
     std::vector<GeometryAttribute> attributes_;
