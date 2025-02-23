@@ -45,7 +45,7 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     Add(point);
 
     auto sphere = Sphere {0.0f, 0.0f};
-    sphere.ExpandWithPoint({2.0f, 0.0f, 0.0f});
+    sphere.ExpandWithPoint({2.0f, 2.0f, 0.0f});
     auto bounding_sphere = BoundingSphere::Create(sphere, 0xEEC584);
     Add(bounding_sphere);
 }

@@ -106,12 +106,12 @@ TEST(Sphere, TransformWithIdentityMatrix) {
 
     sphere.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(sphere.Center(), engine::Vector3 {1.0f, 2.0f, 3.0f});
+    EXPECT_VEC3_EQ(sphere.Center(), {1.0f, 2.0f, 3.0f});
     EXPECT_FLOAT_EQ(sphere.Radius(), 4.0f);
 }
 
 TEST(Sphere, TransformWithTranslation) {
-    auto sphere = engine::Sphere {engine::Vector3 {1.0f, 2.0f, 3.0f}, 4.0f};
+    auto sphere = engine::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
     const auto transform = engine::Matrix4 {
         1.0f, 0.0f, 0.0f, 2.0f,
         0.0f, 1.0f, 0.0f, 3.0f,
@@ -121,7 +121,39 @@ TEST(Sphere, TransformWithTranslation) {
 
     sphere.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(sphere.Center(), engine::Vector3 {3.0f, 5.0f, 7.0f});
+    EXPECT_VEC3_EQ(sphere.Center(), {3.0f, 5.0f, 7.0f});
+    EXPECT_FLOAT_EQ(sphere.Radius(), 4.0f);
+}
+
+TEST(Sphere, TransformWithScale) {
+    auto sphere = engine::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+    const auto transform = engine::Matrix4 {
+        2.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 2.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 2.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    };
+
+    sphere.ApplyTransform(transform);
+
+    EXPECT_VEC3_EQ(sphere.Center(), {2.0f, 4.0f, 6.0f});
+    EXPECT_FLOAT_EQ(sphere.Radius(), 8.0f);
+}
+
+TEST(Sphere, TransformWithRotation) {
+    auto sphere = engine::Sphere {{1.0f, 0.0f, 0.0f}, 4.0f};
+
+    // Rotate 90 degrees around the z-axis
+    const auto transform = engine::Matrix4 {
+        0.0f, -1.0f, 0.0f, 0.0f,
+        1.0f,  0.0f, 0.0f, 0.0f,
+        0.0f,  0.0f, 1.0f, 0.0f,
+        0.0f,  0.0f, 0.0f, 1.0f
+    };
+
+    sphere.ApplyTransform(transform);
+
+    EXPECT_VEC3_EQ(sphere.Center(), {0.0f, 1.0f, 0.0f});
     EXPECT_FLOAT_EQ(sphere.Radius(), 4.0f);
 }
 
