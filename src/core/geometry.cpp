@@ -2,10 +2,12 @@
 // All rights reserved.
 
 #include "engine/core/geometry.hpp"
+
 #include "utilities/logger.hpp"
 
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 #include <numeric>
 
 namespace engine {
@@ -56,13 +58,11 @@ auto Geometry::CreateBoundingBox() -> void {
     bounding_box_ = Box3 {};
     auto stride = Stride();
     for (auto i = 0; i < vertex_data_.size(); i += stride) {
-        auto point = Vector3 {
+        bounding_box_->ExpandWithPoint({
             vertex_data_[i],
             vertex_data_[i + 1],
             vertex_data_[i + 2]
-        };
-
-        bounding_box_->ExpandWithPoint(point);
+        });
     }
 }
 
@@ -73,11 +73,23 @@ auto Geometry::CreateBoundingSphere() -> void {
         return;
     }
 
-    if (!bounding_box_.has_value()) {
-        CreateBoundingBox();
+    auto center = BoundingBox().Center();
+    auto stride = Stride();
+    auto max_distance_squared = 0.0f;
+    for (auto i = 0; i < vertex_data_.size(); i += stride) {
+        auto point = Vector3 {
+            vertex_data_[i],
+            vertex_data_[i + 1],
+            vertex_data_[i + 2]
+        };
+
+        max_distance_squared = std::max(
+            max_distance_squared,
+            (center - point).LengthSquared()
+        );
     }
 
-    // TODO: implement
+    bounding_sphere_ = Sphere {center, std::sqrt(max_distance_squared)};
 }
 
 }
