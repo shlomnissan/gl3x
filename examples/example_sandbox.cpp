@@ -22,18 +22,7 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     mesh->RotateZ(0.5f);
     Add(mesh);
 
-    auto box = Box3 {};
-    auto geoemetry = mesh->GetGeometry();
-    const auto& vertex_data = geoemetry->VertexData();
-    const auto stride = geoemetry->Stride();
-    for (auto i = 0; i < vertex_data.size(); i += stride) {
-        box.ExpandWithPoint({
-            vertex_data[i],
-            vertex_data[i + 1],
-            vertex_data[i + 2]
-        });
-    }
-
+    auto box = geometry->BoundingBox();
     box.ApplyTransform(mesh->GetWorldTransform());
     Add(BoundingBox::Create(box, 0xFF00C1));
 

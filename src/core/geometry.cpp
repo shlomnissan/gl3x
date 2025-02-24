@@ -2,6 +2,7 @@
 // All rights reserved.
 
 #include "engine/core/geometry.hpp"
+#include "utilities/logger.hpp"
 
 #include <algorithm>
 #include <cassert>
@@ -33,6 +34,50 @@ auto Geometry::Stride() const -> size_t {
             return sum + attr.item_size;
         }
     );
+}
+
+auto Geometry::BoundingBox() -> Box3 {
+    if (!bounding_box_.has_value()) CreateBoundingBox();
+    return bounding_box_.value();
+}
+
+auto Geometry::BoundingSphere() -> Sphere {
+    if (!bounding_sphere_.has_value()) CreateBoundingSphere();
+    return bounding_sphere_.value();
+}
+
+auto Geometry::CreateBoundingBox() -> void {
+    using enum GeometryAttributeType;
+    if (VertexCount() == 0 || !HasAttribute(Position)) {
+        Logger::Log(LogLevel::Error, "Failed to create a bounding box");
+        return;
+    }
+
+    bounding_box_ = Box3 {};
+    auto stride = Stride();
+    for (auto i = 0; i < vertex_data_.size(); i += stride) {
+        auto point = Vector3 {
+            vertex_data_[i],
+            vertex_data_[i + 1],
+            vertex_data_[i + 2]
+        };
+
+        bounding_box_->ExpandWithPoint(point);
+    }
+}
+
+auto Geometry::CreateBoundingSphere() -> void {
+    using enum GeometryAttributeType;
+    if (VertexCount() == 0 || !HasAttribute(Position)) {
+        Logger::Log(LogLevel::Error, "Failed to create a bounding sphere");
+        return;
+    }
+
+    if (!bounding_box_.has_value()) {
+        CreateBoundingBox();
+    }
+
+    // TODO: implement
 }
 
 }

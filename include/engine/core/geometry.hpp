@@ -141,8 +141,19 @@ public:
         return std::make_shared<Geometry>();
     }
 
-    // TOOD: Add "CreateBoundingBox" -- initially public, then private
-    // TODO: Add "CreateBoundingSphere" -- public
+    /**
+     * @brief Gets the bounding box of the geometry.
+     *
+     * @return Box3 The bounding box of the geometry.
+     */
+    [[nodiscard]] auto BoundingBox() -> Box3;
+
+    /**
+     * @brief Gets the bounding sphere of the geometry.
+     *
+     * @return Sphere The bounding sphere of the geometry.
+     */
+    [[nodiscard]] auto BoundingSphere() -> Sphere;
 
     /**
      * @brief Destructor calls the Dispose() method to clean up resources.
@@ -166,6 +177,16 @@ protected:
 
     /// @brief The attributes of the geometry.
     std::vector<GeometryAttribute> attributes_;
+
+    /**
+     * @brief Create and cache a Bounding Box object.
+     */
+    auto CreateBoundingBox() -> void;
+
+    /**
+     * @brief Create and cache a Bounding Sphere object.
+     */
+    auto CreateBoundingSphere() -> void;
 };
 
 }
