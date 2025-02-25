@@ -4,6 +4,7 @@
 #include "example_sandbox.hpp"
 
 #include <engine/geometries.hpp>
+#include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
@@ -14,21 +15,28 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     Add(camera_controls);
 
     const auto geometry = BoxGeometry::Create();
-    const auto material = FlatMaterial::Create();
+    const auto material = PhongMaterial::Create();
     material->color = 0x049EF4;
 
-    auto mesh = Mesh::Create(geometry, material);
-    mesh->SetScale({1.0f, 2.0f, 1.0f});
-    mesh->RotateZ(0.5f);
-    Add(mesh);
-
-    auto box = geometry->BoundingBox();
-    box.ApplyTransform(mesh->GetWorldTransform());
-    Add(BoundingBox::Create(box, 0xFF00C1));
+    mesh_ = Mesh::Create(geometry, material);
+    mesh_->SetScale({1.0f, 2.0f, 1.0f});
+    Add(mesh_);
 
     auto sphere = geometry->BoundingSphere();
-    sphere.ApplyTransform(mesh->GetWorldTransform());
+    sphere.ApplyTransform(mesh_->GetWorldTransform());
     Add(BoundingSphere::Create(sphere, 0xEEC584));
+
+    auto ambient_light = AmbientLight::Create(0xFFFFFF, 0.3f);
+    Add(ambient_light);
+
+    auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
+    point_light->transform.Translate({2.0f, 2.0f, 2.0f});
+    Add(point_light);
+}
+
+auto ExampleSandbox::Update(float delta) -> void {
+    mesh_->RotateX(1.0f * delta);
+    mesh_->RotateY(1.0f * delta);
 }
 
 auto ExampleSandbox::ContextMenu() -> void {
