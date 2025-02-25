@@ -3,7 +3,8 @@
 
 #include "example_box_geometry.hpp"
 
-#include <engine/geometries.hpp>
+#include "helpers.hpp"
+
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
@@ -13,7 +14,7 @@
 using namespace engine;
 
 ExampleBoxGeometry::ExampleBoxGeometry(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
+    const auto camera_controls = CameraOrbit::Create(camera, 3.0f, 0.25f, 1.0f);
     Add(camera_controls);
 
     auto ambient = AmbientLight::Create(0xFFFFFF, 0.3f);
@@ -23,7 +24,7 @@ ExampleBoxGeometry::ExampleBoxGeometry(std::shared_ptr<engine::Camera> camera) {
     directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
     Add(directional_light);
 
-    auto geometry = BoxGeometry::Create();
+    auto geometry = BoxGeometry::Create(params_);
 
     auto base_material = PhongMaterial::Create();
     base_material->color = 0x049EF4;
@@ -38,11 +39,21 @@ ExampleBoxGeometry::ExampleBoxGeometry(std::shared_ptr<engine::Camera> camera) {
     mesh_->Add(wireframes_);
 }
 
-auto ExampleBoxGeometry::Update(float delta) -> void {
-    mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
-    mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
-}
-
 auto ExampleBoxGeometry::ContextMenu() -> void {
-    ImGui::Text("Box Geometry");
+    static bool dirty = false;
+
+    UISliderFloat("width", params_.width, 1.0f, 5.0f, dirty);
+    UISliderFloat("height", params_.height, 1.0f, 5.0f, dirty);
+    UISliderFloat("depth", params_.depth, 1.0f, 5.0f, dirty);
+
+    UISliderUnsigned("width_segments", params_.width_segments, 1, 20, dirty);
+    UISliderUnsigned("height_segments", params_.height_segments, 1, 20, dirty);
+    UISliderUnsigned("depth_segments", params_.depth_segments, 1, 20, dirty);
+
+    if (dirty) {
+        dirty = false;
+        auto geometry = BoxGeometry::Create(params_);
+        mesh_->SetGeometry(geometry);
+        wireframes_->SetGeometry(geometry);
+    }
 }

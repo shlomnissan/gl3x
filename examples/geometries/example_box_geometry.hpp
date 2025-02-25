@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <engine/geometries.hpp>
 #include <engine/nodes.hpp>
 
 #include <memory>
@@ -13,11 +14,11 @@ class ExampleBoxGeometry : public ExampleScene {
 public:
     explicit ExampleBoxGeometry(std::shared_ptr<engine::Camera>);
 
-    auto Update(float delta) -> void override;
-
     auto ContextMenu() -> void override;
 
 private:
+    engine::BoxGeometry::Parameters params_;
+
     std::shared_ptr<engine::Mesh> mesh_;
     std::shared_ptr<engine::Mesh> wireframes_;
 };
