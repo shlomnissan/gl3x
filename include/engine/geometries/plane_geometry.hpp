@@ -11,7 +11,7 @@
 namespace engine {
 
 /**
- * @brief Class representing a plane geometry.
+ * @brief A class for generating plane geometries.
  */
 class ENGINE_EXPORT PlaneGeometry : public Geometry {
 public:

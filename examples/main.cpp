@@ -57,7 +57,7 @@ public:
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 240})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 260})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.empty()) {
@@ -98,6 +98,9 @@ private:
         }
         if (scene_name == "Box Geometry") {
             scene = std::make_shared<ExampleBoxGeometry>(camera);
+        }
+        if (scene_name == "Cone Geometry") {
+            scene = std::make_shared<ExampleConeGeometry>(camera);
         }
         if (scene_name == "Cylinder Geometry") {
             scene = std::make_shared<ExampleCylinderGeometry>(camera);

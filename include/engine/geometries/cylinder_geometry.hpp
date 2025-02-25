@@ -11,7 +11,7 @@
 namespace engine {
 
 /**
- * @brief Class representing a cylinder geometry.
+ * @brief A class for generating cylinder geometries.
  */
 class ENGINE_EXPORT CylinderGeometry : public Geometry {
 public:

@@ -12,7 +12,7 @@
 namespace engine {
 
 /**
- * @brief Class representing a box geometry.
+ * @brief A class for generating box geometries.
  */
 class ENGINE_EXPORT BoxGeometry : public Geometry {
 public:

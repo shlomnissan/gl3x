@@ -11,6 +11,9 @@
 
 namespace engine {
 
+/**
+ * @brief A class for generating sphere geometries.
+ */
 class ENGINE_EXPORT SphereGeometry : public Geometry {
 public:
     /**

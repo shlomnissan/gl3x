@@ -12,6 +12,8 @@ set(SOURCE_CODE
     "effects/example_fog.hpp"
     "geometries/example_box_geometry.cpp"
     "geometries/example_box_geometry.hpp"
+    "geometries/example_cone_geometry.cpp"
+    "geometries/example_cone_geometry.hpp"
     "geometries/example_cylinder_geometry.cpp"
     "geometries/example_cylinder_geometry.hpp"
     "geometries/example_plane_geometry.cpp"

@@ -11,6 +11,7 @@
 #include "effects/example_blending.hpp"
 #include "effects/example_fog.hpp"
 #include "geometries/example_box_geometry.hpp"
+#include "geometries/example_cone_geometry.hpp"
 #include "geometries/example_cylinder_geometry.hpp"
 #include "geometries/example_plane_geometry.hpp"
 #include "geometries/example_sphere_geometry.hpp"
@@ -33,6 +34,7 @@ static const auto examples = std::vector {
     "Spot Light",
     "",
     "Box Geometry",
+    "Cone Geometry",
     "Cylinder Geometry",
     "Plane Geometry",
     "Sphere Geometry",
