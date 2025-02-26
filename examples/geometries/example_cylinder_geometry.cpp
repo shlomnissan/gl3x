@@ -3,7 +3,8 @@
 
 #include "example_cylinder_geometry.hpp"
 
-#include <engine/geometries.hpp>
+#include "helpers.hpp"
+
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
@@ -13,7 +14,7 @@
 using namespace engine;
 
 ExampleCylinderGeometry::ExampleCylinderGeometry(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
+    const auto camera_controls = CameraOrbit::Create(camera, 3.0f, 0.25f, 1.0f);
     Add(camera_controls);
 
     auto ambient = AmbientLight::Create(0xFFFFFF, 0.3f);
@@ -23,10 +24,10 @@ ExampleCylinderGeometry::ExampleCylinderGeometry(std::shared_ptr<engine::Camera>
     directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
     Add(directional_light);
 
-    auto geometry = CylinderGeometry::Create({
-        .radius_top = 0.4f,
-        .radius_bottom = 0.4f,
-    });
+    params_.radius_top = 0.4f;
+    params_.radius_bottom = 0.4f;
+
+    auto geometry = CylinderGeometry::Create(params_);
 
     auto base_material = PhongMaterial::Create();
     base_material->color = 0x049EF4;
@@ -41,11 +42,20 @@ ExampleCylinderGeometry::ExampleCylinderGeometry(std::shared_ptr<engine::Camera>
     mesh_->Add(wireframes_);
 }
 
-auto ExampleCylinderGeometry::Update(float delta) -> void {
-    mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
-    mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
-}
-
 auto ExampleCylinderGeometry::ContextMenu() -> void {
-    ImGui::Text("Cylinder Geometry");
+    static bool dirty = false;
+
+    UISliderFloat("radius_top", params_.radius_top, 0.0f, 1.0f, dirty);
+    UISliderFloat("radius_bottom", params_.radius_bottom, 0.0f, 1.0f, dirty);
+    UISliderFloat("height", params_.height, 1.0f, 5.0f, dirty);
+
+    UISliderUnsigned("radial_segments", params_.radial_segments, 3, 64, dirty);
+    UISliderUnsigned("height_segments", params_.height_segments, 1, 20, dirty);
+
+    if (dirty) {
+        dirty = false;
+        auto geometry = CylinderGeometry::Create(params_);
+        mesh_->SetGeometry(geometry);
+        wireframes_->SetGeometry(geometry);
+    }
 }
