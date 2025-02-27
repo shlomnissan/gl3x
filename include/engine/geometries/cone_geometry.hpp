@@ -5,6 +5,7 @@
 
 #include "engine_export.h"
 #include "engine/core/geometry.hpp"
+#include "engine/geometries/cylinder_geometry.hpp"
 
 #include <memory>
 
@@ -13,7 +14,7 @@ namespace engine {
 /**
  * @brief A class for generating cone geometries.
  */
-class ENGINE_EXPORT ConeGeometry : public Geometry {
+class ENGINE_EXPORT ConeGeometry : public CylinderGeometry {
 public:
     /**
      * @brief Structure containing parameters for the cone geometry.
