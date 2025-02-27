@@ -20,8 +20,8 @@ CylinderGeometry::CylinderGeometry(const Parameters& params) {
 
     GenerateTorso(params);
     if (!params.open_ended) {
-        if (params.radius_top > 0) GenerateCap(params, true);
-        if (params.radius_bottom > 0) GenerateCap(params, false);
+        if (params.radius_top > 0.0f) GenerateCap(params, true);
+        if (params.radius_bottom > 0.0f) GenerateCap(params, false);
     }
 
     SetAttributes();
