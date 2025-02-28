@@ -64,7 +64,7 @@ auto Node::Parent() const -> const Node* {
 }
 
 auto Node::UpdateTransformHierarchy() -> void {
-    if (transformAutoUpdate && ShouldUpdateWorldTransform()) {
+    if (transform_auto_update && ShouldUpdateWorldTransform()) {
         world_transform_ = parent_ == nullptr
             ? transform.Get()
             : parent_->world_transform_ * transform.Get();
@@ -104,7 +104,9 @@ auto Node::GetWorldPosition() -> Vector3 {
 }
 
 auto Node::GetWorldTransform() -> Matrix4 {
-    UpdateWorldTransform();
+    if (transform_auto_update) {
+        UpdateTransformHierarchy();
+    }
     return world_transform_;
 }
 

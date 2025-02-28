@@ -80,13 +80,11 @@ TEST(Node, UpdateTransformsWithParent) {
 TEST(Node, DisableTransformAutoUpdate) {
     auto parent = engine::Node::Create();
     auto child = engine::Node::Create();
-    child->transformAutoUpdate = false;
+    child->transform_auto_update = false;
 
     parent->SetScale(2.0f);
     parent->Add(child);
     parent->UpdateTransformHierarchy();
-
-    const auto x = child->GetWorldTransform();
 
     EXPECT_MAT4_EQ(parent->GetWorldTransform(), {
         2.0f, 0.0f, 0.0f, 0.0f,

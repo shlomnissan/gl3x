@@ -58,7 +58,7 @@ auto DirectionalLight::CreateDebugMesh() -> void {
     debug_mesh_line_->GetGeometry()->SetName("directional light line");
     debug_mesh_line_->GetGeometry()->SetAttribute({Position, 3});
     debug_mesh_line_->GetGeometry()->primitive = Lines;
-    debug_mesh_line_->transformAutoUpdate = false;
+    debug_mesh_line_->transform_auto_update = false;
     Add(debug_mesh_line_);
 
     debug_mesh_plane_ = Mesh::Create(Geometry::Create({
@@ -70,7 +70,7 @@ auto DirectionalLight::CreateDebugMesh() -> void {
     debug_mesh_plane_->GetGeometry()->SetName("directional light plane");
     debug_mesh_plane_->GetGeometry()->SetAttribute({Position, 3});
     debug_mesh_plane_->GetGeometry()->primitive = LineLoop;
-    debug_mesh_plane_->transformAutoUpdate = false;
+    debug_mesh_plane_->transform_auto_update = false;
     Add(debug_mesh_plane_);
 }
 

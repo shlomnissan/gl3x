@@ -29,10 +29,10 @@ public:
     Vector3 up {Vector3::Up()};
 
     /// @brief Flag indicating whether the transform should be automatically updated.
-    bool transformAutoUpdate {true};
+    bool transform_auto_update {true};
 
     /// @brief Flag indicating whether the node is culled by the view frustum.
-    bool frustumCulled {true};
+    bool frustum_culled {true};
 
     /**
      * @brief Adds a child node to this node.
