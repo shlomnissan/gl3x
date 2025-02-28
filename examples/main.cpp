@@ -9,7 +9,7 @@
 #include <engine/resources.hpp>
 #include <engine/math.hpp>
 
-#include <imgui.h>
+#include "ui_helpers.hpp"
 
 #include "example_scene.hpp"
 #include "examples.hpp"
@@ -36,6 +36,7 @@ public:
         camera->transform.Translate({0.0f, 0.0f, 3.0f});
 
         LoadScene(examples[current_scene_]);
+        Theme();
     }
 
     auto Update(float delta) -> bool override {
