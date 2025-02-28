@@ -42,7 +42,7 @@ public:
             // runtime strings using format args.
             const auto message = std::vformat(
                 format_str,
-                std::make_format_args(std::forward<Args>(args)...)
+                std::make_format_args(static_cast<const Args&>(args)...)
             );
 
             *stream << std::format(
