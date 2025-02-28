@@ -31,6 +31,7 @@ ExampleCylinderGeometry::ExampleCylinderGeometry(std::shared_ptr<engine::Camera>
 
     auto base_material = PhongMaterial::Create();
     base_material->color = 0x049EF4;
+    base_material->two_sided = true;
     base_material->polygon_offset = {1.0f, 1.0f};
 
     mesh_ = Mesh::Create(geometry, base_material);
@@ -39,6 +40,7 @@ ExampleCylinderGeometry::ExampleCylinderGeometry(std::shared_ptr<engine::Camera>
     auto wireframe_material = FlatMaterial::Create();
     wireframe_material->wireframe = true;
     wireframe_material->fog = false;
+    wireframe_material->two_sided = true;
     wireframes_ = Mesh::Create(geometry, wireframe_material);
     mesh_->Add(wireframes_);
 }
@@ -49,9 +51,9 @@ auto ExampleCylinderGeometry::ContextMenu() -> void {
     UISliderFloat("radius_top", params_.radius_top, 0.0f, 1.0f, dirty);
     UISliderFloat("radius_bottom", params_.radius_bottom, 0.0f, 1.0f, dirty);
     UISliderFloat("height", params_.height, 1.0f, 5.0f, dirty);
-
     UISliderUnsigned("radial_segments", params_.radial_segments, 3, 64, dirty);
     UISliderUnsigned("height_segments", params_.height_segments, 1, 20, dirty);
+    UICheckbox("open_ended", params_.open_ended, dirty);
 
     if (dirty) {
         dirty = false;

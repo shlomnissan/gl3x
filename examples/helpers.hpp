@@ -37,3 +37,15 @@ static auto UISliderUnsigned(
         dirty = true;
     }
 }
+
+static auto UICheckbox(
+    std::string_view label,
+    bool& value,
+    bool& dirty,
+    float offset = 100.0f)
+{
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offset);
+    if (ImGui::Checkbox(std::format("{}", label).c_str(), &value)) {
+        dirty = true;
+    }
+}

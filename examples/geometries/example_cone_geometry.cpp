@@ -27,6 +27,7 @@ ExampleConeGeometry::ExampleConeGeometry(std::shared_ptr<engine::Camera> camera)
 
     auto base_material = PhongMaterial::Create();
     base_material->color = 0x049EF4;
+    base_material->two_sided = true;
     base_material->polygon_offset = {1.0f, 1.0f};
 
     mesh_ = Mesh::Create(geometry, base_material);
@@ -47,6 +48,7 @@ auto ExampleConeGeometry::ContextMenu() -> void {
     UISliderFloat("height", params_.height, 0.1f, 5.0f, dirty);
     UISliderUnsigned("radial_segments", params_.radial_segments, 3, 64, dirty);
     UISliderUnsigned("height_segments", params_.height_segments, 1, 20, dirty);
+    UICheckbox("open_ended", params_.open_ended, dirty);
 
     if (dirty) {
         dirty = false;
