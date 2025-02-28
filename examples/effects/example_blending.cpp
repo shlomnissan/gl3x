@@ -3,6 +3,8 @@
 
 #include "example_blending.hpp"
 
+#include "ui_helpers.hpp"
+
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
 #include <engine/resources.hpp>
@@ -41,6 +43,8 @@ ExampleBlending::ExampleBlending(std::shared_ptr<engine::Camera> camera) {
 }
 
 auto ExampleBlending::ContextMenu() -> void {
+    auto _ = true;
+
     static auto curr_blend_mode = "normal";
     if (ImGui::BeginCombo("mode", curr_blend_mode)) {
         for (auto i = 0; i < blending_modes_.size(); i++) {
@@ -60,5 +64,5 @@ auto ExampleBlending::ContextMenu() -> void {
         ImGui::EndCombo();
     }
 
-    ImGui::SliderFloat("opacity", &transparent_material_->opacity, 0.0f, 1.0f);
+    UISliderFloat("opacity", transparent_material_->opacity, 0.0f, 1.0f, _, 160.0f);
 }

@@ -3,7 +3,7 @@
 
 #include "example_cone_geometry.hpp"
 
-#include "helpers.hpp"
+#include "ui_helpers.hpp"
 
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>

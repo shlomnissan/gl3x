@@ -49,3 +49,13 @@ static auto UICheckbox(
         dirty = true;
     }
 }
+
+static auto UIColor(
+    std::string_view label,
+    float* color,
+    bool& dirty)
+{
+    if (ImGui::ColorEdit3(std::format("{}", label).c_str(), color)) {
+        dirty = true;
+    }
+}

@@ -3,6 +3,8 @@
 
 #include "example_fog.hpp"
 
+#include "ui_helpers.hpp"
+
 #include <engine/core.hpp>
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
@@ -43,7 +45,9 @@ ExampleFog::ExampleFog(std::shared_ptr<engine::Camera> camera) {
 }
 
 auto ExampleFog::ContextMenu() -> void {
-    ImGui::ColorEdit3("color", &(fog->color[0]));
+    auto _ = true;
+
+    UIColor("color", &fog->color[0], _);
 
     static auto curr_fog_function = "linear";
     if (ImGui::BeginCombo("function", curr_fog_function)) {
@@ -63,11 +67,11 @@ auto ExampleFog::ContextMenu() -> void {
     }
 
     if (auto linear_fog = dynamic_cast<LinearFog*>(fog.get())) {
-        ImGui::SliderFloat("near", &(linear_fog->near), 0.0f, 20.0f);
-        ImGui::SliderFloat("far", &(linear_fog->far), 0.0f, 20.0f);
+        UISliderFloat("near", linear_fog->near, 0.0f, 20.0f, _, 160.0f);
+        UISliderFloat("far", linear_fog->far, 0.0f, 20.0f, _, 160.0f);
     }
 
     if (auto exponential_fog = dynamic_cast<ExponentialFog*>(fog.get())) {
-        ImGui::SliderFloat("density", &(exponential_fog->density), 0.0f, 1.0f);
+        UISliderFloat("density", exponential_fog->density, 0.0f, 1.0f, _, 160.0f);
     }
 }
