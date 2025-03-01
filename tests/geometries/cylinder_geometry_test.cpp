@@ -28,7 +28,7 @@ TEST_F(CylinderGeometryTest, ConstructorInitializesVertexData) {
 
     // 14 vertices for the torso
     // 26 vertices for top and bottom cap
-    // 8 attributes, 40 vertices
+    // 8 values per vertex, 40 vertices
     EXPECT_EQ(verts_size, 8 * 40);
 }
 

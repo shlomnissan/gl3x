@@ -75,6 +75,7 @@ auto CylinderGeometry::GenerateCap(const Parameters& params, bool top) -> void {
     const auto sign = top ? 1.0f : -1.0f;
     const auto center_index_start = vertex_data_.size() / 8;
 
+    // Generate the center of the cap (multiple vertices at the same position)
     for (auto x = 0; x < params.radial_segments; ++x) {
         vertex_data_.emplace_back(0.0f);                // pos x
         vertex_data_.emplace_back(half_height * sign);  // pos y
@@ -89,6 +90,7 @@ auto CylinderGeometry::GenerateCap(const Parameters& params, bool top) -> void {
     const auto radius = top ? params.radius_top : params.radius_bottom;
     const auto center_index_end = vertex_data_.size() / 8;
 
+    // Generate the vertices around the center
     for (auto x = 0; x <= params.radial_segments; ++x) {
         const auto u = static_cast<float>(x) / static_cast<float>(params.radial_segments);
         const auto theta = u * math::two_pi;

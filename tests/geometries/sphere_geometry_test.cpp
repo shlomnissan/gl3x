@@ -22,7 +22,7 @@ protected:
 TEST_F(SphereGeometryTest, ConstructorInitializesVertexData) {
     const auto& verts = sphere_.VertexData();
 
-    // 8 attributes, 12 vertices
+    // 8 values per vertex, 12 vertices
     EXPECT_EQ(verts.size(), 8 * 12);
 }
 

@@ -24,7 +24,7 @@ protected:
 TEST_F(PlaneGeometryTest, ConstructorInitializesVertexData) {
     const auto& verts = plane_.VertexData();
 
-    // 8 attributes, 9 vertices
+    // 8 values per vertex, 9 vertices
     EXPECT_EQ(verts.size(), 8 * 9);
 }
 

@@ -26,8 +26,8 @@ protected:
 TEST_F(BoxGeometryTest, ConstructorInitializesVertexData) {
     const auto& verts = box_.VertexData();
 
-    // 9 attributes, 8 vertices, 6 planes
-    EXPECT_EQ(verts.size(), 9 * 8 * 6);
+    // 8 values per vertex, 9 vertices, 6 faces
+    EXPECT_EQ(verts.size(), 8 * 9 * 6);
 }
 
 TEST_F(BoxGeometryTest, ConstructorInitializesIndexData) {
