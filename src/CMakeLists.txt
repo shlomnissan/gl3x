@@ -95,6 +95,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/math/euler.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/matrix4.hpp"
+    "${PUBLIC_HEADERS_DIR}/math/plane.hpp"
     "${PUBLIC_HEADERS_DIR}/math/sphere.hpp"
     "${PUBLIC_HEADERS_DIR}/math/transform2.hpp"
     "${PUBLIC_HEADERS_DIR}/math/transform3.hpp"

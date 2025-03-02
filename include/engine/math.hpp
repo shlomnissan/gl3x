@@ -8,6 +8,7 @@
 #include "engine/math/euler.hpp"
 #include "engine/math/matrix3.hpp"
 #include "engine/math/matrix4.hpp"
+#include "engine/math/plane.hpp"
 #include "engine/math/sphere.hpp"
 #include "engine/math/transform2.hpp"
 #include "engine/math/transform3.hpp"
