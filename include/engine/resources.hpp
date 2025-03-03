@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "engine/resources/arrow.hpp"
 #include "engine/resources/bounding_box.hpp"
 #include "engine/resources/bounding_plane.hpp"
 #include "engine/resources/bounding_sphere.hpp"
