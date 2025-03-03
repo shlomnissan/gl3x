@@ -3,9 +3,9 @@
 
 #include "engine/resources/bounding_sphere.hpp"
 
-#include "engine/math/utilities.hpp"
 #include "engine/materials/flat_material.hpp"
-#include "engine/geometries/sphere_geometry.hpp"
+#include "engine/math/utilities.hpp"
+#include "engine/nodes/mesh.hpp"
 
 #include <cmath>
 

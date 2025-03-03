@@ -4,6 +4,7 @@
 #include "engine/resources/bounding_box.hpp"
 
 #include "engine/materials/flat_material.hpp"
+#include "engine/nodes/mesh.hpp"
 
 #include <vector>
 

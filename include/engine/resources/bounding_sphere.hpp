@@ -7,7 +7,6 @@
 #include "engine/core/geometry.hpp"
 #include "engine/math/color.hpp"
 #include "engine/math/sphere.hpp"
-#include "engine/nodes/mesh.hpp"
 #include "engine/nodes/node.hpp"
 
 #include <memory>
