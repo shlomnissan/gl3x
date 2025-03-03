@@ -27,7 +27,7 @@ auto BoundingSphere::CreateGeometry(const Sphere& sphere) const -> std::shared_p
     enum class Axis { XY, XZ, YZ };
 
     for (auto axis = 0; axis < 3; ++axis) {
-        auto offset = vertices.size() / 3;
+        auto offset = static_cast<unsigned int>(vertices.size() / 3);
         for (auto i = 0; i <= static_cast<unsigned>(segments); ++i) {
             auto p = center;
             auto theta = (static_cast<float>(i) / segments) * math::two_pi;
