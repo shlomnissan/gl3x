@@ -9,7 +9,17 @@
 #pragma region Constructors
 
 TEST(Plane, DefaultConstructor) {
-    EXPECT_TRUE(true);
+    auto plane = engine::Plane {};
+
+    EXPECT_EQ(plane.Normal(), engine::Vector3::Up());
+    EXPECT_EQ(plane.Distance(), 0.0f);
+}
+
+TEST(Plane, ConstructorParameterized) {
+    auto plane = engine::Plane {engine::Vector3::Right(), 1.0f};
+
+    EXPECT_EQ(plane.Normal(), engine::Vector3::Right());
+    EXPECT_EQ(plane.Distance(), 1.0f);
 }
 
 #pragma endregion

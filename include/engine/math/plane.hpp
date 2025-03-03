@@ -44,7 +44,7 @@ public:
 
 private:
     /// @brief The normal of the plane.
-    Vector3 normal_ {0.0f, 1.0f, 0.0f};
+    Vector3 normal_ {Vector3::Up()};
 
     /// @brief The signed distance of the plane from the origin.
     float distance_ {0.0f};

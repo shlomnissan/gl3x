@@ -15,15 +15,18 @@ namespace engine {
 class ENGINE_EXPORT Sphere {
 public:
     /**
+     * @brief Constructs a new Sphere object.
+     */
+    Sphere() = default;
+
+    /**
      * @brief Constructs a sphere with the specified center and radius.
      *
      * @param center The center of the sphere.
      * @param radius The radius of the sphere.
      */
-    Sphere(
-        const Vector3 center = Vector3::Zero(),
-        float radius = -1.0f
-    ) : center_(center), radius_(radius) {}
+    Sphere(const Vector3 center, float radius)
+      : center_(center), radius_(radius) {}
 
     /**
      * @brief Retrieves the center of the sphere.
@@ -69,10 +72,10 @@ public:
 
 private:
     /// @brief The center of the sphere.
-    Vector3 center_;
+    Vector3 center_ {Vector3::Zero()};
 
     /// @brief The radius of the sphere.
-    float radius_;
+    float radius_ {-1.0f};
 };
 
 }

@@ -17,15 +17,18 @@ namespace engine {
 class ENGINE_EXPORT Box3 {
 public:
     /**
+     * @brief Constructs a new Box3 object.
+     */
+    Box3() = default;
+
+    /**
      * @brief Constructs a box with the specified minimum and maximum points.
      *
      * @param v_min The minimum point of the box.
      * @param v_max The maximum point of the box.
      */
-    Box3(
-        const Vector3& v_min = std::numeric_limits<float>::max(),
-        const Vector3& v_max = std::numeric_limits<float>::lowest()
-    ) : min_(v_min), max_(v_max) {}
+    Box3(const Vector3& v_min, const Vector3& v_max)
+      : min_(v_min), max_(v_max) {}
 
     /**
      * @brief Retrieves the minimum point of the box.
@@ -78,10 +81,10 @@ public:
 
 private:
     /// @brief The minimum point of the box.
-    Vector3 min_;
+    Vector3 min_ {std::numeric_limits<float>::max()};
 
     /// @brief The maximum point of the box.
-    Vector3 max_;
+    Vector3 max_ {std::numeric_limits<float>::lowest()};
 };
 
 }
