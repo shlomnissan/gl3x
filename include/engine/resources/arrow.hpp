@@ -20,20 +20,27 @@ public:
      *
      * @param direction The direction of the arrow (normalized).
      * @param origin The origin of the arrow.
+     * @param color The color of the arrow.
      * @param length The length of the arrow.
      */
-    Arrow(const Vector3& direction, const Vector3& origin, float length);
+    Arrow(const Vector3& direction, const Vector3& origin, const Color& color, float length);
 
     /**
      * @brief Creates a new instance of the Arrow class.
      *
      * @param direction The direction of the arrow (normalized).
      * @param origin The origin of the arrow.
+     * @param color The color of the arrow.
      * @param length The length of the arrow.
      * @return A `std::shared_ptr<Arrow>` pointing to the newly created instance.
      */
-    [[nodiscard]] static auto Create(const Vector3& direction, const Vector3& origin, float length) -> std::shared_ptr<Arrow> {
-        return std::make_shared<Arrow>(direction, origin, length);
+    [[nodiscard]] static auto Create(
+        const Vector3& direction,
+        const Vector3& origin,
+        const Color& color,
+        float length
+    ) -> std::shared_ptr<Arrow> {
+        return std::make_shared<Arrow>(direction, origin, color, length);
     }
 };
 

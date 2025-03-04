@@ -23,10 +23,9 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
         .color = 0x333333
     }));
 
-    auto sphere = Sphere {1.0f, 0.15f};
-    Add(BoundingSphere::Create(sphere, 0xFF0000));
-
-    Add(Arrow::Create(1.0f, 0.0f, 1.0f));
+    auto sphere = Sphere {1.0f, 0.1f};
+    Add(BoundingSphere::Create(sphere, 0x00FF00));
+    Add(Arrow::Create(1.0f, 0.0f, 0x00FF00, 1.2f));
 }
 
 auto ExampleSandbox::Update(float delta) -> void {

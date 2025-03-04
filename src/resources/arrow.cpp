@@ -4,25 +4,34 @@
 #include "engine/resources/arrow.hpp"
 
 #include "engine/core/geometry.hpp"
+#include "engine/geometries/cone_geometry.hpp"
 #include "engine/materials/flat_material.hpp"
 #include "engine/nodes/mesh.hpp"
 
 namespace engine {
 
-Arrow::Arrow(const Vector3& direction, const Vector3& origin, float length) {
-    using enum GeometryAttributeType;
-    using enum GeometryPrimitiveType;
+Arrow::Arrow(const Vector3& direction, const Vector3& origin, const Color& color, float length) {
+    const auto material = FlatMaterial::Create(color);
+    const auto cone_height = 0.1f;
 
-    auto material = FlatMaterial::Create(0xFF0000);
-    auto line = Mesh::Create(Geometry::Create({
-        0, 0, 0,
-        0, 0, 1
+    auto cone = Mesh::Create(ConeGeometry::Create({
+        .radius = 0.03f,
+        .height = cone_height
     }), material);
-    line->GetGeometry()->SetName("directional light line");
-    line->GetGeometry()->SetAttribute({Position, 3});
-    line->GetGeometry()->primitive = Lines;
-    line->LookAt(1.0f);
+    cone->TranslateZ(length - cone_height);
+    cone->RotateX(math::DegToRad(90.0f));
+    Add(cone);
+
+    auto line = Mesh::Create(Geometry::Create({
+        0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, length - cone_height
+    }), material);
+    line->GetGeometry()->SetAttribute({GeometryAttributeType::Position, 3});
+    line->GetGeometry()->primitive = GeometryPrimitiveType::Lines;
     Add(line);
+
+    transform.SetPosition(origin);
+    LookAt(Normalize(direction));
 }
 
 }
