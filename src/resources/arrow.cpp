@@ -22,16 +22,26 @@ Arrow::Arrow(const Vector3& direction, const Vector3& origin, const Color& color
     cone->RotateX(math::DegToRad(90.0f));
     Add(cone);
 
-    auto line = Mesh::Create(Geometry::Create({
+    auto geometry = Geometry::Create({
         0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, length - cone_height
-    }), material);
-    line->GetGeometry()->SetAttribute({GeometryAttributeType::Position, 3});
-    line->GetGeometry()->primitive = GeometryPrimitiveType::Lines;
+    });
+    geometry->SetAttribute({GeometryAttributeType::Position, 3});
+    geometry->primitive = GeometryPrimitiveType::Lines;
+    auto line = Mesh::Create(geometry, material);
     Add(line);
 
-    transform.SetPosition(origin);
+    SetOrigin(origin);
+    SetDirection(direction);
+}
+
+auto Arrow::SetDirection(const Vector3& direction) -> void {
+    if (direction.LengthSquared() == 0.0f) return;
     LookAt(Normalize(direction));
+}
+
+auto Arrow::SetOrigin(const Vector3& origin) -> void {
+    transform.SetPosition(origin);
 }
 
 }

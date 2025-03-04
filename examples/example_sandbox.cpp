@@ -8,6 +8,8 @@
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
+#include <cmath>
+
 using namespace engine;
 
 ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
@@ -23,13 +25,22 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
         .color = 0x333333
     }));
 
-    auto sphere = Sphere {1.0f, 0.1f};
-    Add(BoundingSphere::Create(sphere, 0x00FF00));
-    Add(Arrow::Create(1.0f, 0.0f, 0x00FF00, 1.2f));
+    const auto color = Color {0xFF0000};
+
+    sphere_ = BoundingSphere::Create({0.0f, 0.05f}, color);
+    Add(sphere_);
+
+    arrow_ = Arrow::Create(1.0f, 0.0f, color, 1.2f);
+    Add(arrow_);
 }
 
 auto ExampleSandbox::Update(float delta) -> void {
-    // Empty
+    auto time = static_cast<float>(timer_.GetElapsedSeconds());
+    auto x_pos = std::sin(time) * 1.5f;
+    auto y_pos = std::cos(time) * 1.5f;
+    sphere_->transform.SetPosition({x_pos, 1.0f, y_pos});
+
+    arrow_->SetDirection({x_pos, 1.0f, y_pos});
 }
 
 auto ExampleSandbox::ContextMenu() -> void {

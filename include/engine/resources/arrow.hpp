@@ -42,6 +42,20 @@ public:
     ) -> std::shared_ptr<Arrow> {
         return std::make_shared<Arrow>(direction, origin, color, length);
     }
+
+    /**
+     * @brief Sets the direction of the arrow.
+     *
+     * @param direction The direction of the arrow (normalized).
+     */
+    auto SetDirection(const Vector3& direction) -> void;
+
+    /**
+     * @brief Sets the origin of the arrow.
+     *
+     * @param origin The origin of the arrow.
+     */
+    auto SetOrigin(const Vector3& origin) -> void;
 };
 
 }
