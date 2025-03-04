@@ -8,6 +8,8 @@
 #include "engine/math/vector3.hpp"
 #include "engine/nodes/node.hpp"
 
+#include <memory>
+
 namespace engine {
 
 /**

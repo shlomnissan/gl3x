@@ -9,6 +9,8 @@
 #include "engine/math/plane.hpp"
 #include "engine/nodes/node.hpp"
 
+#include <memory>
+
 namespace engine {
 
 /**
@@ -39,13 +41,28 @@ public:
 
 private:
     /**
-     * @brief Creates the geometry for the bounding plane.
+     * @brief Creates the wireframe geometry for the bounding plane.
      *
      * @param plane The plane to draw.
      * @param size The size of the plane.
      * @return A shared pointer to the created geometry.
      */
-    auto CreateGeometry(const Plane& plane, float size) const -> std::shared_ptr<Geometry>;
+    auto CreateWireframeGeometry(
+        const Plane& plane,
+        float size
+    ) const -> std::shared_ptr<Geometry>;
+
+    /**
+     * @brief Creates a solid geometry for the bounding plane.
+     *
+     * @param plane The plane to draw.
+     * @param size The size of the plane.
+     * @return std::shared_ptr<Geometry>
+     */
+    auto CreateSolidGeometry(
+        const Plane& plane,
+        float size
+    ) const -> std::shared_ptr<Geometry>;
 };
 
 }

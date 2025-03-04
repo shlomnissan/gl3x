@@ -6,6 +6,7 @@
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
+#include <engine/math.hpp>
 #include <engine/resources.hpp>
 
 #include <cmath>
@@ -25,13 +26,17 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
         .color = 0x333333
     }));
 
-    const auto color = Color {0xFF0000};
+    const auto color_red = Color {0xFF0000};
 
-    sphere_ = BoundingSphere::Create({0.0f, 0.05f}, color);
+    sphere_ = BoundingSphere::Create({0.0f, 0.05f}, color_red);
     Add(sphere_);
 
-    arrow_ = Arrow::Create(1.0f, 0.0f, color, 1.2f);
+    arrow_ = Arrow::Create(1.0f, 0.0f, color_red, 1.2f);
     Add(arrow_);
+
+    const auto plane = Plane({0.0f, 0.0f, 1.0f}, 1.0f);
+    const auto bounding_plane = BoundingPlane::Create(plane, 1.0f, color_red);
+    Add(bounding_plane);
 }
 
 auto ExampleSandbox::Update(float delta) -> void {

@@ -11,15 +11,56 @@
 namespace engine {
 
 BoundingPlane::BoundingPlane(const Plane& plane, float size, const Color& color) {
-    Add(Mesh::Create(CreateGeometry(plane, size), FlatMaterial::Create(color)));
+    auto wireframe_material = FlatMaterial::Create(color);
+    wireframe_material->wireframe = true;
+    wireframe_material->two_sided = true;
+    Add(Mesh::Create(
+        CreateWireframeGeometry(plane, size),
+        wireframe_material
+    ));
+
+    auto solid_material = FlatMaterial::Create(color);
+    solid_material->opacity = 0.2f;
+    solid_material->transparent = true;
+    Add(Mesh::Create(
+        CreateSolidGeometry(plane, size),
+        solid_material
+    ));
 }
 
-auto BoundingPlane::CreateGeometry(
+auto BoundingPlane::CreateWireframeGeometry(
     const Plane& plane,
     float size
 ) const -> std::shared_ptr<Geometry> {
-    // TODO: generate geometry
-    return std::make_shared<Geometry>();
+    auto geometry = Geometry::Create({
+         1.0f, -1.0f, 0.0f,
+        -1.0f,  1.0f, 0.0f,
+        -1.0f, -1.0f, 0.0f,
+         1.0f,  1.0f, 0.0f,
+        -1.0f,  1.0f, 0.0f,
+        -1.0f, -1.0f, 0.0f,
+         1.0f, -1.0f, 0.0f,
+         1.0f,  1.0f, 0.0f,
+         0.0f,  0.0f, 0.0f
+    });
+    geometry->SetAttribute({GeometryAttributeType::Position, 3});
+    return geometry;
+}
+
+auto BoundingPlane::CreateSolidGeometry(
+    const Plane& plane,
+    float size
+) const -> std::shared_ptr<Geometry> {
+    auto geometry = Geometry::Create({
+         1.0f,  1.0f, 0.0f,
+        -1.0f,  1.0f, 0.0f,
+        -1.0f, -1.0f, 0.0f,
+         1.0f,  1.0f, 0.0f,
+        -1.0f, -1.0f, 0.0f,
+         1.0f, -1.0f, 0.0f
+   });
+   geometry->SetAttribute({GeometryAttributeType::Position, 3});
+   return geometry;
 }
 
 }
