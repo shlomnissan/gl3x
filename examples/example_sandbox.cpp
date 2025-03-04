@@ -11,32 +11,26 @@
 using namespace engine;
 
 ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(camera, 5.0f);
+    const auto camera_controls = CameraOrbit::Create(
+        camera, 5.0f,
+        math::DegToRad(25.0f)
+    );
     Add(camera_controls);
 
-    const auto geometry = BoxGeometry::Create();
-    const auto material = PhongMaterial::Create();
-    material->color = 0x049EF4;
+    Add(Grid::Create({
+        .dimensions = 16,
+        .scale = 0.25,
+        .color = 0x333333
+    }));
 
-    mesh_ = Mesh::Create(geometry, material);
-    mesh_->SetScale({1.0f, 2.0f, 1.0f});
-    Add(mesh_);
+    auto sphere = Sphere {1.0f, 0.15f};
+    Add(BoundingSphere::Create(sphere, 0xFF0000));
 
-    auto sphere = geometry->BoundingSphere();
-    sphere.ApplyTransform(mesh_->GetWorldTransform());
-    Add(BoundingSphere::Create(sphere, 0xEEC584));
-
-    auto ambient_light = AmbientLight::Create(0xFFFFFF, 0.3f);
-    Add(ambient_light);
-
-    auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
-    point_light->transform.Translate({2.0f, 2.0f, 2.0f});
-    Add(point_light);
+    Add(Arrow::Create(1.0f, 0.0f, 1.0f));
 }
 
 auto ExampleSandbox::Update(float delta) -> void {
-    mesh_->RotateX(1.0f * delta);
-    mesh_->RotateY(1.0f * delta);
+    // Empty
 }
 
 auto ExampleSandbox::ContextMenu() -> void {
