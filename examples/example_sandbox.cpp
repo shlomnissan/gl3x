@@ -8,6 +8,7 @@
 #include <engine/materials.hpp>
 #include <engine/math.hpp>
 #include <engine/resources.hpp>
+#include <engine/resources/grid.hpp>
 
 #include <cmath>
 
@@ -21,8 +22,8 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     Add(camera_controls);
 
     Add(Grid::Create({
-        .dimensions = 16,
-        .scale = 0.25,
+        .size = 10.0f,
+        .divisions = 16,
         .color = 0x333333
     }));
 

@@ -3,54 +3,48 @@
 
 #include "engine/resources/grid.hpp"
 
-#include "engine/core/geometry.hpp"
 #include "engine/materials/flat_material.hpp"
+#include "engine/nodes/mesh.hpp"
 
 #include <vector>
 
 namespace engine {
-    Grid::Grid(const Parameters& params) {
-        mesh_ = Mesh::Create(CreateGeometry(params), FlatMaterial::Create(params.color));
-        mesh_->GetGeometry()->SetName("grid");
-        Add(mesh_);
+
+Grid::Grid(const Parameters& params) {
+    const auto center = params.divisions / 2;
+    const auto step = params.size / params.divisions;
+    const auto half_size = params.size / 2;
+
+    auto vertices = std::vector<float> {};
+
+    auto k = -half_size;
+    for (auto i = 0, j = 0; i <= params.divisions; i++) {
+        vertices.emplace_back(-half_size);
+        vertices.emplace_back(0.0f);
+        vertices.emplace_back(k);
+        vertices.emplace_back(half_size);
+        vertices.emplace_back(0.0f);
+        vertices.emplace_back(k);
+
+        vertices.emplace_back(k);
+        vertices.emplace_back(0.0f);
+        vertices.emplace_back(-half_size);
+        vertices.emplace_back(k);
+        vertices.emplace_back(0.0f);
+        vertices.emplace_back(half_size);
+
+        k += step;
     }
 
-    auto Grid::CreateGeometry(const Parameters& params) const -> std::shared_ptr<Geometry> {
-        auto vertices = std::vector<float> {};
-        auto half_dimensions = static_cast<float>(params.dimensions / 2) * params.scale;
-        if (params.dimensions & 1) {
-            half_dimensions += params.scale / 2;
-        }
+    auto geometry = Geometry::Create(vertices);
+    geometry->SetAttribute({
+        .type = GeometryAttributeType::Position,
+        .item_size = 3
+    });
+    geometry->primitive = GeometryPrimitiveType::Lines;
+    geometry->SetName("grid");
 
-        auto x_offset = -half_dimensions;
-        for (auto i = 0; i <= params.dimensions; ++i) {
-            vertices.emplace_back(x_offset);
-            vertices.emplace_back(0.0f);
-            vertices.emplace_back(-half_dimensions);
-            vertices.emplace_back(x_offset);
-            vertices.emplace_back(0.0f);
-            vertices.emplace_back(half_dimensions);
-            x_offset += params.scale;
-        }
+    Add(Mesh::Create(geometry, FlatMaterial::Create(params.color)));
+}
 
-        auto z_offset = -half_dimensions;
-        for (auto i = 0; i <= params.dimensions; ++i) {
-            vertices.emplace_back(-half_dimensions);
-            vertices.emplace_back(0.0f);
-            vertices.emplace_back(z_offset);
-            vertices.emplace_back(half_dimensions);
-            vertices.emplace_back(0.0f);
-            vertices.emplace_back(z_offset);
-            z_offset += params.scale;
-        }
-
-        auto geometry = Geometry::Create(vertices);
-        geometry->primitive = GeometryPrimitiveType::Lines;
-        geometry->SetAttribute({
-            .type = GeometryAttributeType::Position,
-            .item_size = 3
-        });
-
-        return geometry;
-    }
 }

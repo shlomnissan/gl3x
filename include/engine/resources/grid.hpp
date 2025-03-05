@@ -5,7 +5,6 @@
 
 #include "engine_export.h"
 #include "engine/math/color.hpp"
-#include "engine/nodes/mesh.hpp"
 #include "engine/nodes/node.hpp"
 
 #include <memory>
@@ -13,47 +12,36 @@
 namespace engine {
 
 /**
- * @brief A finite grid that is rendered in the scene.
+ * @brief An object that defines a finite grid.
  */
 class ENGINE_EXPORT Grid : public Node {
 public:
     /**
-     * @brief Parameters used to create a grid.
+     * @brief The parameters for the grid.
      */
     struct Parameters {
-        int dimensions; ///< The number of grid lines.
-        float scale;    ///< The distance between each grid line.
-        Color color;    ///< The color of the grid lines.
+        float size;         ///< The size of the grid.
+        unsigned divisions; ///< The number of divisions per side.
+        Color color;        ///< The color of the grid.
     };
 
     /**
-     * @brief Constructs a Grid object with the given parameters.
+     * @brief Creates a new GridHelper of size 'size' and divided into
+     * 'divisions' segments per side. Colors are optional.
      *
-     * @param params The parameters used to create the grid.
+     * @param params The parameters for the grid.
      */
     explicit Grid(const Parameters& params);
 
     /**
-     * @brief Creates a Grid object with the given parameters.
+     * @brief Creates a new instance of the Grid class.
      *
-     * @param params The parameters used to create the grid.
-     * @return A shared pointer to the created Grid object.
+     * @param params The parameters for the grid.
+     * @return A shared pointer to the instance of the grid.
      */
-    static auto Create(const Parameters& params) {
+    [[nodiscard]] static auto Create(const Parameters& params) {
         return std::make_shared<Grid>(params);
     }
-
-private:
-    /// @brief The mesh that represents the grid.
-    std::shared_ptr<Mesh> mesh_;
-
-    /**
-     * @brief Creates the geometry for the grid.
-     *
-     * @param dimensions The number of grid lines.
-     * @return A shared pointer to the created geometry.
-     */
-    auto CreateGeometry(const Parameters& params) const -> std::shared_ptr<Geometry>;
 };
 
 }

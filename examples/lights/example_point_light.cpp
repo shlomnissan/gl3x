@@ -22,8 +22,8 @@ ExamplePointLight::ExamplePointLight(std::shared_ptr<engine::Camera> camera) {
     Add(camera_controls);
 
     const auto grid = Grid::Create({
-        .dimensions = 16,
-        .scale = 0.25f,
+        .size = 4,
+        .divisions = 16,
         .color = 0x333333
     });
     Add(grid);
