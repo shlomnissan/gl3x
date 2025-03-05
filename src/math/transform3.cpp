@@ -8,7 +8,7 @@
 namespace engine {
 
 auto Transform3::Translate(const Vector3& value) -> void {
-    position_ += value;
+    position_ += rotation_.IsEmpty() ? value : rotation_.GetMatrix() * value;
     touched = true;
 }
 

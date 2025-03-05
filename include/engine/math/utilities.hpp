@@ -14,6 +14,7 @@ constexpr float half_pi = 1.5707963267948966192313216916398f;
 constexpr float two_pi = 6.2831853071795864769252867665590f;
 constexpr float deg2rad = pi / 180.0f;
 constexpr float rad2deg = 180.0f / pi;
+constexpr float epsilon = 1e-6f;
 
 [[nodiscard]] constexpr auto DegToRad(const float degrees) {
     return degrees * deg2rad;

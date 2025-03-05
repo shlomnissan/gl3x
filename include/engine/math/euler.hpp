@@ -59,6 +59,15 @@ public:
      */
     [[nodiscard]] auto GetMatrix() const -> Matrix4;
 
+    /**
+     * @brief Checks if the Euler object is empty.
+     *
+     * @return bool `true` if the Euler object is empty, `false` otherwise.
+     */
+    [[nodiscard]] auto IsEmpty() const -> bool {
+        return pitch == 0.0f && yaw == 0.0f && roll == 0.0f;
+    }
+
 private:
    /**
      * @brief Checks if two Euler objects are equal, component-wise.

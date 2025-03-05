@@ -94,6 +94,22 @@ TEST(Euler, InequalityOperator) {
 
 #pragma endregion
 
+#pragma region Empty
+
+TEST(Euler, IsEmptyReturnsTrue) {
+    const auto e = engine::Euler {};
+
+    EXPECT_TRUE(e.IsEmpty());
+}
+
+TEST(Euler, IsEmptyReturnsFalse) {
+    const auto e = engine::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.0f}};
+
+    EXPECT_FALSE(e.IsEmpty());
+}
+
+#pragma endregion
+
 #pragma region Helpers
 
 auto Rotate(float angle, const engine::Vector3& v) -> engine::Matrix4 {

@@ -187,3 +187,35 @@ TEST(Transform3, RotateZ) {
 }
 
 #pragma endregion
+
+#pragma Local-Space Translation
+
+TEST(Transform3, TranslateBeforeRotation) {
+    auto t = engine::Transform3 {};
+    t.Translate({0.0f, 0.0f, 1.0f});
+    t.Rotate(engine::Vector3::Up(), engine::math::half_pi);
+
+    EXPECT_VEC3_EQ(t.GetPosition(), {0.0f, 0.0f, 1.0f});
+    EXPECT_MAT4_NEAR(t.Get(), {
+         0.0f, 0.0f, 1.0f, 0.0f,
+         0.0f, 1.0f, 0.0f, 0.0f,
+        -1.0f, 0.0f, 0.0f, 1.0f,
+         0.0f, 0.0f, 0.0f, 1.0f
+    }, 0.0001f);
+}
+
+TEST(Transform3, TranslateAfterRotation) {
+    auto t = engine::Transform3 {};
+    t.Rotate(engine::Vector3::Up(), engine::math::half_pi);
+    t.Translate({0.0f, 0.0f, 1.0f});
+
+    EXPECT_VEC3_NEAR(t.GetPosition(), {1.0f, 0.0f, 0.0f}, 0.0001f);
+    EXPECT_MAT4_NEAR(t.Get(), {
+         0.0f, 0.0f, 1.0f, 1.0f,
+         0.0f, 1.0f, 0.0f, 0.0f,
+        -1.0f, 0.0f, 0.0f, 0.0f,
+         0.0f, 0.0f, 0.0f, 1.0f
+    }, 0.0001f);
+}
+
+#pragma endregion
