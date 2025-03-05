@@ -43,26 +43,16 @@ private:
     /**
      * @brief Creates the wireframe geometry for the bounding plane.
      *
-     * @param plane The plane to draw.
-     * @param size The size of the plane.
-     * @return A shared pointer to the created geometry.
+     * @param color The color of the bounding plane.
      */
-    auto CreateWireframeGeometry(
-        const Plane& plane,
-        float size
-    ) const -> std::shared_ptr<Geometry>;
+    auto CreateWireframeMesh(const Color& color) -> void;
 
     /**
-     * @brief Creates a solid geometry for the bounding plane.
+     * @brief Creates a solid mesh for the bounding plane.
      *
-     * @param plane The plane to draw.
-     * @param size The size of the plane.
-     * @return std::shared_ptr<Geometry>
+     * @param color The color of the bounding plane.
      */
-    auto CreateSolidGeometry(
-        const Plane& plane,
-        float size
-    ) const -> std::shared_ptr<Geometry>;
+    auto CreateSolidMesh(const Color& color) -> void;
 };
 
 }

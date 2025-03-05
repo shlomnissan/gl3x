@@ -22,7 +22,7 @@ public:
         params.width = 1536;
         params.height = 1152;
         params.antialiasing = 0;
-        params.vsync = false;
+        params.vsync = true;
         params.debug = true;
     }
 

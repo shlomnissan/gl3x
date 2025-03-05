@@ -11,27 +11,14 @@
 namespace engine {
 
 BoundingPlane::BoundingPlane(const Plane& plane, float size, const Color& color) {
-    auto wireframe_material = FlatMaterial::Create(color);
-    wireframe_material->wireframe = true;
-    wireframe_material->two_sided = true;
-    Add(Mesh::Create(
-        CreateWireframeGeometry(plane, size),
-        wireframe_material
-    ));
-
-    auto solid_material = FlatMaterial::Create(color);
-    solid_material->opacity = 0.2f;
-    solid_material->transparent = true;
-    Add(Mesh::Create(
-        CreateSolidGeometry(plane, size),
-        solid_material
-    ));
+    CreateWireframeMesh(color);
+    CreateSolidMesh(color);
+    SetScale({size * 0.5f, size * 0.5f, size});
+    LookAt(plane.Normal());
+    transform.SetPosition(plane.Normal() * plane.Distance());
 }
 
-auto BoundingPlane::CreateWireframeGeometry(
-    const Plane& plane,
-    float size
-) const -> std::shared_ptr<Geometry> {
+auto BoundingPlane::CreateWireframeMesh(const Color& color) -> void {
     auto geometry = Geometry::Create({
          1.0f, -1.0f, 0.0f,
         -1.0f,  1.0f, 0.0f,
@@ -44,13 +31,15 @@ auto BoundingPlane::CreateWireframeGeometry(
          0.0f,  0.0f, 0.0f
     });
     geometry->SetAttribute({GeometryAttributeType::Position, 3});
-    return geometry;
+
+    auto wireframe_material = FlatMaterial::Create(color);
+    wireframe_material->wireframe = true;
+    wireframe_material->two_sided = true;
+
+    Add(Mesh::Create(geometry, wireframe_material));
 }
 
-auto BoundingPlane::CreateSolidGeometry(
-    const Plane& plane,
-    float size
-) const -> std::shared_ptr<Geometry> {
+auto BoundingPlane::CreateSolidMesh(const Color& color) -> void {
     auto geometry = Geometry::Create({
          1.0f,  1.0f, 0.0f,
         -1.0f,  1.0f, 0.0f,
@@ -58,9 +47,15 @@ auto BoundingPlane::CreateSolidGeometry(
          1.0f,  1.0f, 0.0f,
         -1.0f, -1.0f, 0.0f,
          1.0f, -1.0f, 0.0f
-   });
-   geometry->SetAttribute({GeometryAttributeType::Position, 3});
-   return geometry;
+    });
+
+    geometry->SetAttribute({GeometryAttributeType::Position, 3});
+
+    auto solid_material = FlatMaterial::Create(color);
+    solid_material->opacity = 0.2f;
+    solid_material->transparent = true;
+
+    Add(Mesh::Create(geometry, solid_material));
 }
 
 }

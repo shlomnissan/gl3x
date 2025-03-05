@@ -34,7 +34,7 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     arrow_ = Arrow::Create(1.0f, 0.0f, color_red, 1.2f);
     Add(arrow_);
 
-    const auto plane = Plane({0.0f, 0.0f, 1.0f}, 1.0f);
+    const auto plane = Plane(Vector3::Up(), 1.0f);
     const auto bounding_plane = BoundingPlane::Create(plane, 1.0f, color_red);
     Add(bounding_plane);
 }
