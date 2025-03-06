@@ -6,6 +6,7 @@
 #include "engine/math/box3.hpp"
 #include "engine/math/color.hpp"
 #include "engine/math/euler.hpp"
+#include "engine/math/frustum.hpp"
 #include "engine/math/matrix3.hpp"
 #include "engine/math/matrix4.hpp"
 #include "engine/math/plane.hpp"
