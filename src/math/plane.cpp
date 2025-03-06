@@ -5,4 +5,8 @@
 
 namespace engine {
 
+auto Plane::DistanceToPoint(const Vector3& point) const -> float {
+    return Dot(Normalize(normal_), point) - distance_;
+}
+
 }

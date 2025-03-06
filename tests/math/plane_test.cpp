@@ -6,20 +6,75 @@
 
 #include <engine/math/plane.hpp>
 
+#include <cmath>
+
 #pragma region Constructors
 
 TEST(Plane, DefaultConstructor) {
-    auto plane = engine::Plane {};
+    const auto plane = engine::Plane {};
 
     EXPECT_EQ(plane.Normal(), engine::Vector3::Up());
     EXPECT_EQ(plane.Distance(), 0.0f);
 }
 
 TEST(Plane, ConstructorParameterized) {
-    auto plane = engine::Plane {engine::Vector3::Right(), 1.0f};
+    const auto plane = engine::Plane {engine::Vector3::Right(), 1.0f};
 
     EXPECT_EQ(plane.Normal(), engine::Vector3::Right());
     EXPECT_EQ(plane.Distance(), 1.0f);
 }
 
 #pragma endregion
+
+#pragma region Distance to Point
+
+TEST(Plane, DistanceToPointOnPlane) {
+    const auto plane = engine::Plane {engine::Vector3::Up(), 0.0f};
+    const auto point = engine::Vector3 {0.0f, 0.0f, 0.0f};
+
+    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 0.0f);
+}
+
+TEST(Plane, DistanceToPointAbovePlane) {
+    const auto plane = engine::Plane {engine::Vector3::Up(), 0.0f};
+    const auto point = engine::Vector3 {0.0f, 1.0f, 0.0f};
+
+    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 1.0f);
+}
+
+TEST(Plane, DistanceToPointBelowPlane) {
+    const auto plane = engine::Plane {engine::Vector3::Up(), 0.0f};
+    const auto point = engine::Vector3 {0.0f, -1.0f, 0.0f};
+
+    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), -1.0f);
+}
+
+TEST(Plane, DistanceToPointWithOffset) {
+    auto plane = engine::Plane {engine::Vector3::Up(), 1.0f};
+    auto point = engine::Vector3 {0.0f, 2.0f, 0.0f};
+
+    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 1.0f);
+}
+
+TEST(Plane, DistanceToPointWithNegativeOffset) {
+    auto plane = engine::Plane {engine::Vector3::Up(), -1.0f};
+    auto point = engine::Vector3 {0.0f, 2.0f, 0.0f};
+
+    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 3.0f);
+}
+
+TEST(Plane, DistanceToPointWithArbitraryNormal) {
+    auto plane = engine::Plane {Normalize(engine::Vector3 {1.0f, 1.0f, 1.0f}), 0.0f};
+    auto point = engine::Vector3 {1.0f, 1.0f, 1.0f};
+
+    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), std::sqrt(3.0f));
+}
+
+TEST(Plane, DistanceToPointWithArbitraryNormalAndOffset) {
+    auto plane = engine::Plane {Normalize(engine::Vector3 {1.0f, 1.0f, 1.0f}), 1.0f};
+    auto point = engine::Vector3 {1.0f, 1.0f, 1.0f};
+
+    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), std::sqrt(3.0f) - 1.0f);
+}
+
+#pragma endregions

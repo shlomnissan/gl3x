@@ -45,9 +45,10 @@ public:
     /**
      * @brief Returns the distance from the plane to a point.
      *
+     * @param point The point to calculate the distance to.
      * @return The distance from the plane to a point.
      */
-    [[nodiscard]] auto DistanceToPoint() -> float;
+    [[nodiscard]] auto DistanceToPoint(const Vector3& point) const -> float;
 
 private:
     /// @brief The normal of the plane.
