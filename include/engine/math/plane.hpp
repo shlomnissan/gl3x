@@ -5,6 +5,7 @@
 
 #include "engine_export.h"
 
+#include "engine/math/sphere.hpp"
 #include "engine/math/vector3.hpp"
 
 namespace engine {
@@ -49,6 +50,14 @@ public:
      * @return The distance from the plane to a point.
      */
     [[nodiscard]] auto DistanceToPoint(const Vector3& point) const -> float;
+
+    /**
+     * @brief Returns the distance from the plane to a sphere.
+     *
+     * @param sphere The sphere to calculate the distance to.
+     * @return The distance from the plane to the sphere.
+     */
+    [[nodiscard]] auto DistanceToSphere(const Sphere& sphere) const -> float;
 
 private:
     /// @brief The normal of the plane.

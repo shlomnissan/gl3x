@@ -77,4 +77,22 @@ TEST(Plane, DistanceToPointWithArbitraryNormalAndOffset) {
     EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), std::sqrt(3.0f) - 1.0f);
 }
 
-#pragma endregions
+#pragma endregion
+
+#pragma region Distance to Sphere
+
+TEST(Plane, DistanceToSphereWithCenterOnPlane) {
+    auto plane = engine::Plane {engine::Vector3::Up(), 0.0f};
+    auto sphere = engine::Sphere {engine::Vector3::Zero(), 1.0f};
+
+    EXPECT_FLOAT_EQ(plane.DistanceToSphere(sphere), -1.0f);
+}
+
+TEST(Plane, DistanceToSphereAbovePlane) {
+    auto plane = engine::Plane {engine::Vector3::Up(), 1.0f};
+    auto sphere = engine::Sphere {engine::Vector3 {0.0f, 3.0f, 0.0f}, 1.0f};
+
+    EXPECT_FLOAT_EQ(plane.DistanceToSphere(sphere), 1.0f);
+}
+
+#pragma endregion
