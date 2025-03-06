@@ -29,18 +29,25 @@ public:
       : normal_(normal), distance_(distance) {}
 
     /**
-     * @brief Retrieves the normal of the plane.
+     * @brief Returns the normal of the plane.
      *
      * @return The normal of the plane as a Vector3.
      */
     [[nodiscard]] auto Normal() const { return normal_; }
 
     /**
-     * @brief Retrieves the signed distance of the plane from the origin.
+     * @brief Returns the signed distance of the plane from the origin.
      *
      * @return The signed distance of the plane.
      */
     [[nodiscard]] auto Distance() const { return distance_; }
+
+    /**
+     * @brief Returns the distance from the plane to a point.
+     *
+     * @return The distance from the plane to a point.
+     */
+    [[nodiscard]] auto DistanceToPoint() -> float;
 
 private:
     /// @brief The normal of the plane.
