@@ -33,27 +33,27 @@ public:
      *
      * @param camera A shared pointer to the camera to orbit around.
      * @param radius The initial radius of the camera's orbit around the target.
-     * @param polar The initial polar angle in radians.
-     * @param azimuth The initial azimuthal angle in radians.
+     * @param pitch The initial pitch angle in radians.
+     * @param yaw The initial yawal angle in radians.
      */
-    CameraOrbit(const std::shared_ptr<Camera>& camera, float radius, float polar, float azimuth);
+    CameraOrbit(const std::shared_ptr<Camera>& camera, float radius, float pitch, float yaw);
 
     /**
      * @brief Creates a new instance of the CameraOrbit class.
      *
      * @param camera A shared pointer to the camera to orbit around.
      * @param radius The initial radius of the camera's orbit around the target.
-     * @param polar The initial polar angle in radians.
-     * @param azimuth The initial azimuthal angle in radians.
+     * @param pitch The initial pitch angle in radians.
+     * @param yaw The initial yawal angle in radians.
      * @return A `std::shared_ptr<CameraOrbit>` pointing to the newly created instance.
      */
     [[nodiscard]] static auto Create(
         const std::shared_ptr<Camera>& camera,
         float radius,
-        float polar = 0.0f,
-        float azimuth = 0.0f
+        float pitch = 0.0f,
+        float yaw = 0.0f
     ) {
-        return std::make_shared<CameraOrbit>(camera, radius, polar, azimuth);
+        return std::make_shared<CameraOrbit>(camera, radius, pitch, yaw);
     }
 
     /**
@@ -86,11 +86,11 @@ private:
     /// @brief The radius of the camera's orbit around the target.
     float radius_;
 
-    /// @brief The polar angle in radians, measured from the vertical axis.
-    float polar_;
+    /// @brief The pitch angle in radians, measured from the vertical axis.
+    float pitch_;
 
-    /// @brief The azimuthal angle in radians, measured from the horizontal axis.
-    float azimuth_;
+    /// @brief The yawal angle in radians, measured from the horizontal axis.
+    float yaw_;
 
     /// @brief The current vertical scroll offset.
     float curr_scroll_offset_ {0.0f};
