@@ -3,11 +3,11 @@
 
 #pragma once
 
-#include <engine/nodes.hpp>
+#include "example_scene.hpp"
 
 #include <memory>
 
-#include "example_scene.hpp"
+#include <engine/lights.hpp>
 
 class ExampleSpotLight : public ExampleScene {
 public:
@@ -16,5 +16,5 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<engine::Mesh> mesh_;
+    std::shared_ptr<engine::SpotLight> spot_light_;
 };

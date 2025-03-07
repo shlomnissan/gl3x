@@ -3,15 +3,18 @@
 
 #pragma once
 
-#include <engine/nodes.hpp>
+#include "example_scene.hpp"
 
 #include <memory>
 
-#include "example_scene.hpp"
+#include <engine/lights.hpp>
 
 class ExampleDirectionalLight : public ExampleScene {
 public:
     explicit ExampleDirectionalLight(std::shared_ptr<engine::Camera>);
 
     auto ContextMenu() -> void override;
+
+private:
+    std::shared_ptr<engine::DirectionalLight> directional_light_;
 };

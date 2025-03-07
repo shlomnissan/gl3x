@@ -3,53 +3,53 @@
 
 #include "example_directional_light.hpp"
 
-#include <engine/materials.hpp>
+#include "ui_helpers.hpp"
+
 #include <engine/geometries.hpp>
-#include <engine/lights.hpp>
+#include <engine/materials.hpp>
 #include <engine/resources.hpp>
-#include <engine/math.hpp>
 
 #include <imgui.h>
 
 using namespace engine;
 
 ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(
+    Add(CameraOrbit::Create(
         camera, 5.0f,
         math::DegToRad(25.0f),
         math::DegToRad(45.0f)
-    );
-    Add(camera_controls);
+    ));
 
-    const auto grid = Grid::Create({
+    Add(Grid::Create({
         .size = 4,
         .divisions = 16,
         .color = 0x333333
-    });
-    Add(grid);
+    }));
 
-    const auto ambient_light = AmbientLight::Create(0xFFFFFF, 0.3f);
-    Add(ambient_light);
+    const auto mesh = Mesh::Create(
+        SphereGeometry::Create({
+            .radius = 0.5f,
+            .width_segments = 32,
+            .height_segments = 32
+        }),
+        PhongMaterial::Create(0xCCCCCC)
+    );
 
-    const auto directional_light = DirectionalLight::Create(0xFFFFFF, 1.0f);
-    directional_light->transform.Translate({2.0f, 4.0f, -2.0f});
-    directional_light->SetDebugMode(true);
-    Add(directional_light);
+    mesh->transform.Translate({0.0f, 0.5f, 0.0f});
+    Add(mesh);
 
-    auto geometry = SphereGeometry::Create({
-        .radius = 0.5f,
-        .width_segments = 32,
-        .height_segments = 32
-    });
-
-    auto material = PhongMaterial::Create();
-    material->color = 0x049EF4;
-
-    const auto mesh_ = Mesh::Create(geometry, material);
-    mesh_->transform.Translate({0.0f, 0.5f, 0.0f});
-    Add(mesh_);
+    Add(AmbientLight::Create(0xFFFFFF, 0.15f));
+    directional_light_ = DirectionalLight::Create(0xFFFFFF, 1.0f);
+    directional_light_->transform.Translate({2.0f, 2.0f, -2.0f});
+    directional_light_->target = mesh;
+    directional_light_->SetDebugMode(true);
+    Add(directional_light_);
 }
 
 auto ExampleDirectionalLight::ContextMenu() -> void {
-    ImGui::Text("Directional Light");
+    auto _ = true;
+
+    UIColor("color", &directional_light_->color[0], _);
+    UISliderFloat("intensity", directional_light_->intensity, 0.0f, 1.0f, _, 160.0f);
+
 }

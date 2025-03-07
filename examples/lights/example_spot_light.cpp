@@ -3,50 +3,50 @@
 
 #include "example_spot_light.hpp"
 
-#include <engine/lights.hpp>
-#include <engine/resources.hpp>
+#include "ui_helpers.hpp"
+
 #include <engine/geometries.hpp>
 #include <engine/materials.hpp>
-#include <engine/math.hpp>
+#include <engine/resources.hpp>
 
 #include <imgui.h>
 
 using namespace engine;
 
 ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(
+    Add(CameraOrbit::Create(
         camera, 5.0f,
         math::DegToRad(25.0f),
         math::DegToRad(45.0f)
-    );
-    Add(camera_controls);
+    ));
 
-    const auto grid = Grid::Create({
+    Add(Grid::Create({
         .size = 4,
         .divisions = 16,
         .color = 0x333333
-    });
-    Add(grid);
+    }));
 
-    const auto ambient_light = AmbientLight::Create(0xFFFFFF, 0.3f);
-    Add(ambient_light);
+    auto mesh = Mesh::Create(
+        PlaneGeometry::Create({.width = 3, .height = 3}),
+        PhongMaterial::Create(0xCCCCCC)
+    );
 
-    const auto spot_light = SpotLight::Create(0xFFFFFF, 1.0f);
-    spot_light->transform.Translate({2.0f, 2.0f, -1.0f});
-    spot_light->angle = math::DegToRad(10.0f);
-    spot_light->distance = 4.0f;
-    spot_light->SetDebugMode(true);
-    Add(spot_light);
+    mesh->GetMaterial()->polygon_offset = {-0.5f, 0.5f};
+    mesh->transform.Rotate(Vector3::Right(), math::DegToRad(-90.0f));
+    Add(mesh);
 
-    auto geometry = PlaneGeometry::Create({3, 3});
-    auto material = PhongMaterial::Create();
-    material->color = 0x049EF4;
-    material->polygon_offset = {-0.5f, 0.5f};
-    mesh_ = Mesh::Create(geometry, material);
-    mesh_->transform.Rotate(Vector3::Right(), math::DegToRad(-90.0f));
-    Add(mesh_);
+    Add(AmbientLight::Create(0xFFFFFF, 0.15f));
+    spot_light_ = SpotLight::Create(0xFFFFFF, 1.0f);
+    spot_light_->transform.Translate({2.0f, 2.0f, -1.0f});
+    spot_light_->angle = math::DegToRad(10.0f);
+    spot_light_->distance = 4.0f;
+    spot_light_->SetDebugMode(true);
+    Add(spot_light_);
 }
 
 auto ExampleSpotLight::ContextMenu() -> void {
-    ImGui::Text("Spot Light");
+    auto _ = true;
+
+    UIColor("color", &spot_light_->color[0], _);
+    UISliderFloat("intensity", spot_light_->intensity, 0.0f, 1.0f, _, 160.0f);
 }

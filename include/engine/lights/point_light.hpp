@@ -24,7 +24,7 @@ public:
     float decay {2.0f};
 
     /// @brief The size of the debug mesh used to visualize the position of the light.
-    float debug_mesh_size {0.25f};
+    float debug_mesh_size {0.2f};
 
     /**
      * @brief Constructs a new PointLight instance.

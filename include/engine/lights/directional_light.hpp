@@ -22,7 +22,7 @@ public:
     std::shared_ptr<Node> target {nullptr};
 
     /// @brief The size of the debug mesh used to visualize the position of the light.
-    float debug_mesh_size {1.0f};
+    float debug_mesh_size {0.5f};
 
     /**
      * @brief Constructs a new DirectionalLight instance.
