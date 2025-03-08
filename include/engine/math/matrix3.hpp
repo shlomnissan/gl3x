@@ -167,6 +167,24 @@ private:
             a(2, 0) * b(0, 2) + a(2, 1) * b(1, 2) + a(2, 2) * b(2, 2),
         };
     }
+
+    /**
+     * @brief Multiplies a 3x3 matrix by a 3D vector.
+     * @related Matrix3
+     *
+     * Performs matrix-vector multiplication between the input matrix and vector.
+     *
+     * @param m The 3x3 matrix to multiply.
+     * @param v The 3D vector to multiply.
+     * @return Vector3 The resulting 3D vector after multiplication.
+     */
+    [[nodiscard]] friend auto operator*(const Matrix3& m, const Vector3& v) {
+        return Vector3 {
+            m(0, 0) * v.x + m(0, 1) * v.y + m(0, 2) * v.z,
+            m(1, 0) * v.x + m(1, 1) * v.y + m(1, 2) * v.z,
+            m(2, 0) * v.x + m(2, 1) * v.y + m(2, 2) * v.z
+        };
+    }
 };
 
 /**

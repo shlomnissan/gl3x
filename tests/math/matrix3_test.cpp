@@ -97,6 +97,23 @@ TEST(Matrix3, MultiplicationMatrix) {
     });
 }
 
+#pragma endregion
+
+#pragma region Matrix-Vector Multiplication
+
+TEST(Matrix3, MultiplicationWithVector3) {
+    const auto m = engine::Matrix3 {
+        1.0f, 2.0f, 3.0f,
+        5.0f, 6.0f, 7.0f,
+        4.0f, 3.0f, 2.0f
+    };
+    const auto v = engine::Vector3 {1.0f, 2.0f, 3.0f};
+
+    EXPECT_VEC3_EQ((m * v), {14.0f, 38.0f, 16.0f});
+}
+
+#pragma endregion
+
 #pragma region Equality Operator
 
 TEST(Matrix3, EqualityOperator) {

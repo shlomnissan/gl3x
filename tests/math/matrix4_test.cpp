@@ -64,7 +64,7 @@ TEST(Matrix4, ConstructorVector) {
 
 #pragma endregion
 
-#pragma region Matrix-Matrix Multiplication
+#pragma region Matrix Multiplication
 
 TEST(Matrix4, MultiplicationMatrix) {
     const auto m1 = engine::Matrix4 {
