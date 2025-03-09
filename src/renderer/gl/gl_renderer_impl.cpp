@@ -27,7 +27,7 @@ namespace engine {
 Renderer::Impl::Impl(const Renderer::Parameters& params)
   : params_(params),
     render_lists_(std::make_unique<RenderLists>()) {
-    glViewport(0, 0, params.width, params.height);
+    state_.SetViewport(0, 0, params.width, params.height);
 }
 
 auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {

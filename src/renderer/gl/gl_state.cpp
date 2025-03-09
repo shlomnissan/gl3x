@@ -29,6 +29,10 @@ auto GLState::Disable(int token) -> void {
     }
 }
 
+auto GLState::SetViewport(int x, int y, int width, int height) const -> void {
+    glViewport(x, y, width, height);
+}
+
 auto GLState::SetBackfaceCulling(bool enabled) -> void {
     enabled ? Enable(GL_CULL_FACE) : Disable(GL_CULL_FACE);
 }

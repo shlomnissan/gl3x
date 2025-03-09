@@ -16,6 +16,8 @@ public:
 
     auto SetClearColor(const Color& color) -> void;
 
+    auto SetViewport(int x, int y, int width, int height) const -> void;
+
     auto Reset() -> void;
 
 private:
