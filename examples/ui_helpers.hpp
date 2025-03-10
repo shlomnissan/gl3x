@@ -8,6 +8,14 @@
 
 #include <imgui.h>
 
+static auto UISeparator() {
+    ImGui::Separator();
+}
+
+static auto UIText(std::string_view text) {
+    ImGui::Text(std::format("{}", text).c_str());
+}
+
 static auto UISliderFloat(
     std::string_view label,
     float& value,
@@ -53,9 +61,14 @@ static auto UICheckbox(
 static auto UIColor(
     std::string_view label,
     float* color,
-    bool& dirty)
+    bool& dirty,
+    std::string_view id = "")
 {
-    if (ImGui::ColorEdit3(std::format("{}", label).c_str(), color)) {
+    const auto str = id.empty() ?
+        std::format("{}", label) :
+        std::format("{}##{}", label, id);
+
+    if (ImGui::ColorEdit3(str.c_str(), color)) {
         dirty = true;
     }
 }

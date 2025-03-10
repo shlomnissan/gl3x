@@ -8,6 +8,7 @@
 #include <memory>
 
 #include <engine/lights.hpp>
+#include <engine/materials.hpp>
 
 class ExampleDirectionalLight : public ExampleScene {
 public:
@@ -17,4 +18,5 @@ public:
 
 private:
     std::shared_ptr<engine::DirectionalLight> directional_light_;
+    std::shared_ptr<engine::PhongMaterial> phong_material_;
 };

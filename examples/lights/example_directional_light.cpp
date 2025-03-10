@@ -26,13 +26,14 @@ ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<engine::Camera>
         .color = 0x333333
     }));
 
+    phong_material_ = PhongMaterial::Create(0xCCCCCC);
     const auto mesh = Mesh::Create(
         SphereGeometry::Create({
             .radius = 0.5f,
             .width_segments = 32,
             .height_segments = 32
         }),
-        PhongMaterial::Create(0xCCCCCC)
+        phong_material_
     );
 
     mesh->transform.Translate({0.0f, 0.5f, 0.0f});
@@ -49,7 +50,14 @@ ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<engine::Camera>
 auto ExampleDirectionalLight::ContextMenu() -> void {
     auto _ = true;
 
-    UIColor("color", &directional_light_->color[0], _);
-    UISliderFloat("intensity", directional_light_->intensity, 0.0f, 1.0f, _, 160.0f);
+    UIText("Material");
+    UIColor("color", &phong_material_->color[0], _, "mat-color");
+    UIColor("specular", &phong_material_->specular[0], _);
+    UISliderFloat("shininess", phong_material_->shininess, 0.0f, 128.0f, _, 160.0f);
 
+    UISeparator();
+
+    UIText("Light");
+    UIColor("color", &directional_light_->color[0], _, "light-color");
+    UISliderFloat("intensity", directional_light_->intensity, 0.0f, 1.0f, _, 160.0f);
 }
