@@ -100,6 +100,11 @@ private:
      * @brief Creates a debug mesh to visualize the the light.
      */
     auto CreateDebugMesh() -> void;
+
+    /**
+     * @brief Updates the debug mesh to match the light's properties.
+     */
+    auto UpdateDebugMesh() -> void;
 };
 
 }
