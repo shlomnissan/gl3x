@@ -51,7 +51,7 @@ auto ExampleDirectionalLight::ContextMenu() -> void {
     auto _ = true;
 
     UIText("Material");
-    UIColor("color", &phong_material_->color[0], _, "mat-color");
+    UIColor("color", &phong_material_->color[0], _, "material-color");
     UIColor("specular", &phong_material_->specular[0], _);
     UISliderFloat("shininess", phong_material_->shininess, 0.0f, 128.0f, _, 160.0f);
 

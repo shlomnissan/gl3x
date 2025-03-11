@@ -6,7 +6,6 @@
 #include "ui_helpers.hpp"
 
 #include <engine/geometries.hpp>
-#include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
 #include <imgui.h>
@@ -26,9 +25,10 @@ ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
         .color = 0x333333
     }));
 
+    phong_material_ = PhongMaterial::Create(0xCCCCCC);
     auto mesh = Mesh::Create(
         PlaneGeometry::Create({.width = 3, .height = 3}),
-        PhongMaterial::Create(0xCCCCCC)
+        phong_material_
     );
 
     mesh->GetMaterial()->polygon_offset = {-0.5f, 0.5f};
@@ -47,6 +47,14 @@ ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
 auto ExampleSpotLight::ContextMenu() -> void {
     auto _ = true;
 
-    UIColor("color", &spot_light_->color[0], _);
+    UIText("Material");
+    UIColor("color", &phong_material_->color[0], _, "material-color");
+    UIColor("specular", &phong_material_->specular[0], _);
+    UISliderFloat("shininess", phong_material_->shininess, 0.0f, 128.0f, _, 160.0f);
+
+    UISeparator();
+
+    UIText("Light");
+    UIColor("color", &spot_light_->color[0], _, "light-color");
     UISliderFloat("intensity", spot_light_->intensity, 0.0f, 1.0f, _, 160.0f);
 }
