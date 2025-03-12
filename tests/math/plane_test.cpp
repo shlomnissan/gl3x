@@ -96,3 +96,23 @@ TEST(Plane, DistanceToSphereAbovePlane) {
 }
 
 #pragma endregion
+
+#pragma region Normalize Plane
+
+TEST(Plane, NormalizePlanWithNonUnitNormal) {
+    auto plane = engine::Plane {{2.0f, 0.0f, 0.0f}, 4.0f};
+    plane.Normalize();
+
+    EXPECT_VEC3_EQ(plane.Normal(), engine::Vector3::Right());
+    EXPECT_FLOAT_EQ(plane.Distance(), 2.0f);
+}
+
+TEST(Plane, NormalizePlaneWithUnitNormal) {
+    auto plane = engine::Plane {engine::Vector3::Up(), 1.0f};
+    plane.Normalize();
+
+    EXPECT_VEC3_EQ(plane.Normal(), engine::Vector3::Up());
+    EXPECT_FLOAT_EQ(plane.Distance(), 1.0f);
+}
+
+#pragma endregion

@@ -59,6 +59,11 @@ public:
      */
     [[nodiscard]] auto DistanceToSphere(const Sphere& sphere) const -> float;
 
+    /**
+     * @brief Normalizes the plane normal and adjusts the distance accordingly.
+     */
+    auto Normalize() -> void;
+
 private:
     /// @brief The normal of the plane.
     Vector3 normal_ {Vector3::Up()};
