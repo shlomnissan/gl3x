@@ -6,7 +6,7 @@
 namespace engine {
 
 auto Plane::DistanceToPoint(const Vector3& point) const -> float {
-    return Dot(engine::Normalize(normal_), point) - distance_;
+    return Dot(normal_, point) - distance_;
 }
 
 auto Plane::DistanceToSphere(const Sphere& sphere) const -> float {

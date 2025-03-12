@@ -64,17 +64,24 @@ TEST(Plane, DistanceToPointWithNegativeOffset) {
 }
 
 TEST(Plane, DistanceToPointWithArbitraryNormal) {
-    auto plane = engine::Plane {Normalize(engine::Vector3 {1.0f, 1.0f, 1.0f}), 0.0f};
     auto point = engine::Vector3 {1.0f, 1.0f, 1.0f};
+    auto plane = engine::Plane {{0.577350259f}, 0.0f};
 
-    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), std::sqrt(3.0f));
+    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 1.7320508f);
 }
 
 TEST(Plane, DistanceToPointWithArbitraryNormalAndOffset) {
-    auto plane = engine::Plane {Normalize(engine::Vector3 {1.0f, 1.0f, 1.0f}), 1.0f};
     auto point = engine::Vector3 {1.0f, 1.0f, 1.0f};
+    auto plane = engine::Plane {{0.577350259f}, 0.577350259f};
 
-    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), std::sqrt(3.0f) - 1.0f);
+    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 1.1547005f);
+}
+
+TEST(Plane, DistanceToPointWithNonUnitNormalAndOffset) {
+    auto point = engine::Vector3 {1.0f, 1.0f, 1.0f};
+    auto plane = engine::Plane {{1.0f, 1.0f, 1.0f}, 1.0f};
+
+    EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 2.0f);
 }
 
 #pragma endregion
