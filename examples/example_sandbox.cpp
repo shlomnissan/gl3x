@@ -29,24 +29,17 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
 
     const auto color_red = Color {0xFF0000};
 
-    sphere_ = BoundingSphere::Create({0.0f, 0.05f}, color_red);
-    Add(sphere_);
+    const auto test_cam = CameraOrthographic::Create({.far = 1.0f});
+    test_cam->UpdateViewTransform();
 
-    arrow_ = Arrow::Create(1.0f, 0.0f, color_red, 1.2f);
-    Add(arrow_);
+    const auto mat = test_cam->projection_transform * test_cam->view_transform;
+    const auto frustum = Frustum {mat};
 
-    const auto plane = Plane(Vector3::Up(), 1.0f);
-    const auto bounding_plane = BoundingPlane::Create(plane, 1.0f, color_red);
-    Add(bounding_plane);
-}
+    const auto left = BoundingPlane::Create(frustum.planes[0], 2, 0xFF0000);
+    Add(left);
 
-auto ExampleSandbox::Update(float delta) -> void {
-    auto time = static_cast<float>(timer_.GetElapsedSeconds());
-    auto x_pos = std::sin(time) * 1.5f;
-    auto y_pos = std::cos(time) * 1.5f;
-    sphere_->transform.SetPosition({x_pos, 1.0f, y_pos});
-
-    arrow_->SetDirection({x_pos, 1.0f, y_pos});
+    const auto right = BoundingPlane::Create(frustum.planes[1], 2, 0x00FF00);
+    Add(right);
 }
 
 auto ExampleSandbox::ContextMenu() -> void {

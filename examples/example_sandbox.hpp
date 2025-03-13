@@ -13,8 +13,6 @@ class ExampleSandbox : public ExampleScene {
 public:
     explicit ExampleSandbox(std::shared_ptr<engine::Camera>);
 
-    auto Update(float delta) -> void override;
-
     auto ContextMenu() -> void override;
 
 private:

@@ -19,6 +19,9 @@ namespace engine {
  */
 class ENGINE_EXPORT Frustum {
 public:
+    /// @brief The six planes that make up the frustum.
+    std::array<Plane, 6> planes;
+
     /**
      * @brief Constructs a new Frustum object using a projection matrix.
      */
@@ -47,10 +50,6 @@ public:
      * @return True if the frustum intersects with the sphere, false otherwise.
      */
     [[nodiscard]] auto IntersectsWithSphere(const Sphere& sphere) const -> bool;
-
-private:
-    /// @brief The six planes that make up the frustum.
-    std::array<Plane, 6> planes_;
 };
 
 }
