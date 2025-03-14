@@ -15,7 +15,7 @@ BoundingPlane::BoundingPlane(const Plane& plane, float size, const Color& color)
     CreateSolidMesh(color);
     SetScale({size * 0.5f, size * 0.5f, size});
     LookAt(plane.Normal());
-    TranslateZ(plane.Distance());
+    TranslateZ(-plane.Distance());
 }
 
 auto BoundingPlane::CreateWireframeMesh(const Color& color) -> void {
