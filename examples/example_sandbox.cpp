@@ -40,6 +40,18 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     const auto right = BoundingPlane::Create(frustum_.planes[1], 2, 0x00FF00);
     Add(right);
 
+    const auto bottom = BoundingPlane::Create(frustum_.planes[2], 2, 0x0000FF);
+    Add(bottom);
+
+    const auto top = BoundingPlane::Create(frustum_.planes[3], 2, 0xFFFF00);
+    Add(top);
+
+    const auto near = BoundingPlane::Create(frustum_.planes[4], 2, 0xFF00FF);
+    Add(near);
+
+    const auto far = BoundingPlane::Create(frustum_.planes[5], 2, 0x00FFFF);
+    Add(far);
+
     sphere_ = BoundingSphere::Create({Vector3::Zero(), 0.3f}, 0xFCA001);
     Add(sphere_);
 }

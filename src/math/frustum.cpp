@@ -24,6 +24,34 @@ auto Frustum::SetWithProjection(const Matrix4& projection) -> void {
         projection(3, 2) - projection(0, 2)
     }, projection(3, 3) - projection(0, 3)};
 
+    // bottom plane
+    planes[2] = Plane {{
+        projection(3, 0) + projection(1, 0),
+        projection(3, 1) + projection(1, 1),
+        projection(3, 2) + projection(1, 2)
+    }, projection(3, 3) + projection(1, 3)};
+
+    // top plane
+    planes[3] = Plane {{
+        projection(3, 0) - projection(1, 0),
+        projection(3, 1) - projection(1, 1),
+        projection(3, 2) - projection(1, 2)
+    }, projection(3, 3) - projection(1, 3)};
+
+    // near plane
+    planes[4] = Plane {{
+        projection(3, 0) + projection(2, 0),
+        projection(3, 1) + projection(2, 1),
+        projection(3, 2) + projection(2, 2)
+    }, projection(3, 3) + projection(2, 3)};
+
+    // far plane
+    planes[5] = Plane {{
+        projection(3, 0) - projection(2, 0),
+        projection(3, 1) - projection(2, 1),
+        projection(3, 2) - projection(2, 2)
+    }, projection(3, 3) - projection(2, 3)};
+
     for (auto& p : planes) p.Normalize();
 }
 
