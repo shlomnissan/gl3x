@@ -6,6 +6,10 @@
 namespace engine {
 
 Frustum::Frustum(const Matrix4& projection) {
+    SetWithProjection(projection);
+}
+
+auto Frustum::SetWithProjection(const Matrix4& projection) -> void {
     // left plane
     planes[0] = Plane {{
         projection(3, 0) + projection(0, 0),

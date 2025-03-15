@@ -20,12 +20,22 @@ namespace engine {
 class ENGINE_EXPORT Frustum {
 public:
     /// @brief The six planes that make up the frustum.
-    std::array<Plane, 6> planes;
+    std::array<Plane, 6> planes = {};
 
     /**
-     * @brief Constructs a new Frustum object using a projection matrix.
+     * @brief Default constructor for the Frustum class.
+     */
+    Frustum() = default;
+
+    /**
+     * @brief Constructs a new Frustum object using a view and projection matrix.
      */
     explicit Frustum(const Matrix4& projection);
+
+    /**
+     * @brief Reset the Frustum object planes using a view and projection matrix.
+     */
+    auto SetWithProjection(const Matrix4& projection) -> void;
 
     /**
      * @brief Determines if the frustum contains a point.

@@ -6,9 +6,7 @@
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
-#include <engine/math.hpp>
 #include <engine/resources.hpp>
-#include <engine/resources/grid.hpp>
 
 #include <cmath>
 
@@ -31,15 +29,39 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
 
     const auto test_cam = CameraOrthographic::Create({.far = 1.0f});
     test_cam->UpdateViewTransform();
+    frustum_.SetWithProjection(
+        test_cam->projection_transform *
+        test_cam->view_transform
+    );
 
-    const auto mat = test_cam->projection_transform * test_cam->view_transform;
-    const auto frustum = Frustum {mat};
-
-    const auto left = BoundingPlane::Create(frustum.planes[0], 2, 0xFF0000);
+    const auto left = BoundingPlane::Create(frustum_.planes[0], 2, 0xFF0000);
     Add(left);
 
-    const auto right = BoundingPlane::Create(frustum.planes[1], 2, 0x00FF00);
+    const auto right = BoundingPlane::Create(frustum_.planes[1], 2, 0x00FF00);
     Add(right);
+
+    sphere_ = BoundingSphere::Create({Vector3::Zero(), 0.3f}, 0xFCA001);
+    Add(sphere_);
+}
+
+auto ExampleSandbox::Update(float delta) -> void {
+    if (moving_left_) sphere_->TranslateX(-1.0f * delta);
+    if (moving_right_) sphere_->TranslateX(1.0f * delta);
+}
+
+auto ExampleSandbox::OnKeyboardEvent(engine::KeyboardEvent* event) -> void {
+    using enum engine::KeyboardEvent::Type;
+    using enum engine::Key;
+
+    if (event->type == Pressed) {
+        if (event->key == Left) moving_left_ = true;
+        if (event->key == Right) moving_right_ = true;
+    }
+
+    if (event->type == Released) {
+        if (event->key == Left) moving_left_ = false;
+        if (event->key == Right) moving_right_ = false;
+    }
 }
 
 auto ExampleSandbox::ContextMenu() -> void {
