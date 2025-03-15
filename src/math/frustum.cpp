@@ -66,8 +66,13 @@ auto Frustum::IntersectsWithBox3(const Box3& box) const -> bool {
 }
 
 auto Frustum::IntersectsWithSphere(const Sphere& sphere) const -> bool {
-    // TODO: implement
-    return false;
+    for (const auto& plane : planes) {
+        const auto distance = plane.DistanceToPoint(sphere.Center());
+        if (distance < -sphere.Radius()) {
+            return false;
+        }
+    }
+    return true;
 }
 
 }
