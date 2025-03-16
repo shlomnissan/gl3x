@@ -13,8 +13,8 @@
 TEST(Sphere, DefaultConstructor) {
     const auto sphere = engine::Sphere {};
 
-    EXPECT_VEC3_EQ(sphere.Center(), engine::Vector3::Zero());
-    EXPECT_FLOAT_EQ(sphere.Radius(), -1.0f);
+    EXPECT_VEC3_EQ(sphere.center, engine::Vector3::Zero());
+    EXPECT_FLOAT_EQ(sphere.radius, -1.0f);
 }
 
 TEST(Sphere, ConstructorParameterized) {
@@ -23,8 +23,8 @@ TEST(Sphere, ConstructorParameterized) {
         2.0f
     };
 
-    EXPECT_VEC3_EQ(sphere.Center(), {1.0f, 1.0f, 1.0f});
-    EXPECT_FLOAT_EQ(sphere.Radius(), 2.0f);
+    EXPECT_VEC3_EQ(sphere.center, {1.0f, 1.0f, 1.0f});
+    EXPECT_FLOAT_EQ(sphere.radius, 2.0f);
 }
 
 #pragma endregion
@@ -37,8 +37,8 @@ TEST(Sphere, Reset) {
     sphere.Reset();
 
     EXPECT_TRUE(sphere.IsEmpty());
-    EXPECT_VEC3_EQ(sphere.Center(), engine::Vector3::Zero());
-    EXPECT_FLOAT_EQ(sphere.Radius(), -1.0f);
+    EXPECT_VEC3_EQ(sphere.center, engine::Vector3::Zero());
+    EXPECT_FLOAT_EQ(sphere.radius, -1.0f);
 }
 
 TEST(Sphere, IsEmptyTrue) {
@@ -62,8 +62,8 @@ TEST(Sphere, ExpandWithPointEmptySphere) {
 
     sphere.ExpandWithPoint({1.0f, 1.0f, 1.0f});
 
-    EXPECT_VEC3_EQ(sphere.Center(), {1.0f, 1.0f, 1.0f});
-    EXPECT_FLOAT_EQ(sphere.Radius(), 0.0f);
+    EXPECT_VEC3_EQ(sphere.center, {1.0f, 1.0f, 1.0f});
+    EXPECT_FLOAT_EQ(sphere.radius, 0.0f);
 }
 
 TEST(Sphere, ExpandWithPointInsideSphere) {
@@ -72,8 +72,8 @@ TEST(Sphere, ExpandWithPointInsideSphere) {
 
     sphere.ExpandWithPoint(point);
 
-    EXPECT_VEC3_EQ(sphere.Center(), engine::Vector3::Zero());
-    EXPECT_FLOAT_EQ(sphere.Radius(), 5.0f);
+    EXPECT_VEC3_EQ(sphere.center, engine::Vector3::Zero());
+    EXPECT_FLOAT_EQ(sphere.radius, 5.0f);
 }
 
 TEST(Sphere, ExpandWithPointOnSphereSurface) {
@@ -82,8 +82,8 @@ TEST(Sphere, ExpandWithPointOnSphereSurface) {
 
     sphere.ExpandWithPoint(point);
 
-    EXPECT_VEC3_EQ(sphere.Center(), engine::Vector3::Zero());
-    EXPECT_FLOAT_EQ(sphere.Radius(), 1.0f);
+    EXPECT_VEC3_EQ(sphere.center, engine::Vector3::Zero());
+    EXPECT_FLOAT_EQ(sphere.radius, 1.0f);
 }
 
 TEST(Sphere, ExpandWithPointOutsideSphere) {
@@ -92,8 +92,8 @@ TEST(Sphere, ExpandWithPointOutsideSphere) {
 
     sphere.ExpandWithPoint(point);
 
-    EXPECT_VEC3_EQ(sphere.Center(), {0.5f, 0.0f, 0.0f});
-    EXPECT_FLOAT_EQ(sphere.Radius(), 1.5f);
+    EXPECT_VEC3_EQ(sphere.center, {0.5f, 0.0f, 0.0f});
+    EXPECT_FLOAT_EQ(sphere.radius, 1.5f);
 }
 
 #pragma endregion
@@ -106,8 +106,8 @@ TEST(Sphere, TransformWithIdentityMatrix) {
 
     sphere.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(sphere.Center(), {1.0f, 2.0f, 3.0f});
-    EXPECT_FLOAT_EQ(sphere.Radius(), 4.0f);
+    EXPECT_VEC3_EQ(sphere.center, {1.0f, 2.0f, 3.0f});
+    EXPECT_FLOAT_EQ(sphere.radius, 4.0f);
 }
 
 TEST(Sphere, TransformWithTranslation) {
@@ -121,8 +121,8 @@ TEST(Sphere, TransformWithTranslation) {
 
     sphere.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(sphere.Center(), {3.0f, 5.0f, 7.0f});
-    EXPECT_FLOAT_EQ(sphere.Radius(), 4.0f);
+    EXPECT_VEC3_EQ(sphere.center, {3.0f, 5.0f, 7.0f});
+    EXPECT_FLOAT_EQ(sphere.radius, 4.0f);
 }
 
 TEST(Sphere, TransformWithScale) {
@@ -136,8 +136,8 @@ TEST(Sphere, TransformWithScale) {
 
     sphere.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(sphere.Center(), {2.0f, 4.0f, 6.0f});
-    EXPECT_FLOAT_EQ(sphere.Radius(), 8.0f);
+    EXPECT_VEC3_EQ(sphere.center, {2.0f, 4.0f, 6.0f});
+    EXPECT_FLOAT_EQ(sphere.radius, 8.0f);
 }
 
 TEST(Sphere, TransformWithRotation) {
@@ -153,8 +153,8 @@ TEST(Sphere, TransformWithRotation) {
 
     sphere.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(sphere.Center(), {0.0f, 1.0f, 0.0f});
-    EXPECT_FLOAT_EQ(sphere.Radius(), 4.0f);
+    EXPECT_VEC3_EQ(sphere.center, {0.0f, 1.0f, 0.0f});
+    EXPECT_FLOAT_EQ(sphere.radius, 4.0f);
 }
 
 #pragma endregion

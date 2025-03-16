@@ -6,17 +6,17 @@
 namespace engine {
 
 auto Plane::DistanceToPoint(const Vector3& point) const -> float {
-    return Dot(normal_, point) + distance_;
+    return Dot(normal, point) + distance;
 }
 
 auto Plane::DistanceToSphere(const Sphere& sphere) const -> float {
-    return DistanceToPoint(sphere.Center()) - sphere.Radius();
+    return DistanceToPoint(sphere.center) - sphere.radius;
 }
 
 auto Plane::Normalize() -> void {
-    const auto inverse_length = 1.0 / normal_.Length();
-    normal_ *= inverse_length;
-    distance_ *= inverse_length;
+    const auto inverse_length = 1.0 / normal.Length();
+    normal *= inverse_length;
+    distance *= inverse_length;
 }
 
 }

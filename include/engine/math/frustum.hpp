@@ -17,8 +17,7 @@ namespace engine {
 /**
  * @brief Represents a frustum in 3D space.
  */
-class ENGINE_EXPORT Frustum {
-public:
+struct ENGINE_EXPORT Frustum {
     /// @brief The six planes that make up the frustum.
     std::array<Plane, 6> planes = {};
 

@@ -15,8 +15,8 @@
 TEST(Box3, DefaultConstructor) {
     const auto box = engine::Box3 {};
 
-    EXPECT_VEC3_EQ(box.Min(), std::numeric_limits<float>::max());
-    EXPECT_VEC3_EQ(box.Max(), std::numeric_limits<float>::lowest());
+    EXPECT_VEC3_EQ(box.min, std::numeric_limits<float>::max());
+    EXPECT_VEC3_EQ(box.max, std::numeric_limits<float>::lowest());
 }
 
 TEST(Vector3, ConstructorParameterized) {
@@ -25,8 +25,8 @@ TEST(Vector3, ConstructorParameterized) {
         {1.0f, 1.0f, 1.0f}
     };
 
-    EXPECT_VEC3_EQ(box.Min(), {-1.0f, -1.0f, -1.0f});
-    EXPECT_VEC3_EQ(box.Max(), {1.0f, 1.0f, 1.0f});
+    EXPECT_VEC3_EQ(box.min, {-1.0f, -1.0f, -1.0f});
+    EXPECT_VEC3_EQ(box.max, {1.0f, 1.0f, 1.0f});
 }
 
 #pragma endregion
@@ -42,8 +42,8 @@ TEST(Box3, Reset) {
     box.Reset();
 
     EXPECT_TRUE(box.IsEmpty());
-    EXPECT_VEC3_EQ(box.Min(), std::numeric_limits<float>::max());
-    EXPECT_VEC3_EQ(box.Max(), std::numeric_limits<float>::lowest());
+    EXPECT_VEC3_EQ(box.min, std::numeric_limits<float>::max());
+    EXPECT_VEC3_EQ(box.max, std::numeric_limits<float>::lowest());
 }
 
 TEST(Box3, IsEmptyTrue) {
@@ -107,8 +107,8 @@ TEST(Box3, ExpandWithPoint) {
 
     box.ExpandWithPoint({1.0f, 2.0f, -2.0f});
 
-    EXPECT_VEC3_EQ(box.Min(), {0.0f, 0.0f, -2.0f});
-    EXPECT_VEC3_EQ(box.Max(), {1.0f, 2.0f, 1.0f});
+    EXPECT_VEC3_EQ(box.min, {0.0f, 0.0f, -2.0f});
+    EXPECT_VEC3_EQ(box.max, {1.0f, 2.0f, 1.0f});
 }
 
 TEST(Box3, ExpandWithPointInsideBox) {
@@ -119,8 +119,8 @@ TEST(Box3, ExpandWithPointInsideBox) {
 
     box.ExpandWithPoint({0.5f, 0.5f, 0.5f});
 
-    EXPECT_VEC3_EQ(box.Min(), {0.0f, 0.0f, 0.0f});
-    EXPECT_VEC3_EQ(box.Max(), {1.0f, 1.0f, 1.0f});
+    EXPECT_VEC3_EQ(box.min, {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(box.max, {1.0f, 1.0f, 1.0f});
 }
 
 TEST(Box3, ExpandWithPointOnMinMax) {
@@ -132,8 +132,8 @@ TEST(Box3, ExpandWithPointOnMinMax) {
     box.ExpandWithPoint({0.0f, 0.0f, 0.0f});
     box.ExpandWithPoint({1.0f, 1.0f, 1.0f});
 
-    EXPECT_VEC3_EQ(box.Min(), {0.0f, 0.0f, 0.0f});
-    EXPECT_VEC3_EQ(box.Max(), {1.0f, 1.0f, 1.0f});
+    EXPECT_VEC3_EQ(box.min, {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(box.max, {1.0f, 1.0f, 1.0f});
 }
 
 TEST(Box3, ExpandWithMultiplePoints) {
@@ -145,8 +145,8 @@ TEST(Box3, ExpandWithMultiplePoints) {
     box.ExpandWithPoint({2.0f, 2.0f, 2.0f});
     box.ExpandWithPoint({-1.0f, -1.0f, -1.0f});
 
-    EXPECT_VEC3_EQ(box.Min(), {-1.0f, -1.0f, -1.0f});
-    EXPECT_VEC3_EQ(box.Max(), {2.0f, 2.0f, 2.0f});
+    EXPECT_VEC3_EQ(box.min, {-1.0f, -1.0f, -1.0f});
+    EXPECT_VEC3_EQ(box.max, {2.0f, 2.0f, 2.0f});
 }
 
 #pragma endregion
@@ -163,8 +163,8 @@ TEST(Box3, TransformWithIdentityMatrix) {
 
     box.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(box.Min(), {0.0f, 0.0f, 0.0f});
-    EXPECT_VEC3_EQ(box.Max(), {1.0f, 1.0f, 1.0f});
+    EXPECT_VEC3_EQ(box.min, {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(box.max, {1.0f, 1.0f, 1.0f});
 }
 
 TEST(Box3, TransformWithTranslation) {
@@ -182,8 +182,8 @@ TEST(Box3, TransformWithTranslation) {
 
     box.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(box.Min(), {2.0f, 3.0f, 4.0f});
-    EXPECT_VEC3_EQ(box.Max(), {3.0f, 4.0f, 5.0f});
+    EXPECT_VEC3_EQ(box.min, {2.0f, 3.0f, 4.0f});
+    EXPECT_VEC3_EQ(box.max, {3.0f, 4.0f, 5.0f});
 }
 
 TEST(Box3, TransformWithScale) {
@@ -201,8 +201,8 @@ TEST(Box3, TransformWithScale) {
 
     box.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(box.Min(), {0.0f, 0.0f, 0.0f});
-    EXPECT_VEC3_EQ(box.Max(), {2.0f, 1.0f, 3.0f});
+    EXPECT_VEC3_EQ(box.min, {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(box.max, {2.0f, 1.0f, 3.0f});
 }
 
 TEST(Box3, TransformWithRotation) {
@@ -221,8 +221,8 @@ TEST(Box3, TransformWithRotation) {
 
     box.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(box.Min(), {-1.0f, 0.0f, 0.0f});
-    EXPECT_VEC3_EQ(box.Max(), {0.0f, 1.0f, 1.0f});
+    EXPECT_VEC3_EQ(box.min, {-1.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(box.max, {0.0f, 1.0f, 1.0f});
 }
 
 #pragma endregion

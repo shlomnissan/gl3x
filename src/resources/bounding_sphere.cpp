@@ -21,8 +21,8 @@ auto BoundingSphere::CreateGeometry(const Sphere& sphere) const -> std::shared_p
     std::vector<float> vertices;
     std::vector<unsigned> indices;
 
-    const auto center = sphere.Center();
-    const auto radius = sphere.Radius();
+    const auto center = sphere.center;
+    const auto radius = sphere.radius;
 
     enum class Axis { XY, XZ, YZ };
 

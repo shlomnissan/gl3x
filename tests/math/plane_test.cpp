@@ -13,15 +13,15 @@
 TEST(Plane, DefaultConstructor) {
     const auto plane = engine::Plane {};
 
-    EXPECT_EQ(plane.Normal(), engine::Vector3::Up());
-    EXPECT_EQ(plane.Distance(), 0.0f);
+    EXPECT_EQ(plane.normal, engine::Vector3::Up());
+    EXPECT_EQ(plane.distance, 0.0f);
 }
 
 TEST(Plane, ConstructorParameterized) {
     const auto plane = engine::Plane {engine::Vector3::Right(), 1.0f};
 
-    EXPECT_EQ(plane.Normal(), engine::Vector3::Right());
-    EXPECT_EQ(plane.Distance(), 1.0f);
+    EXPECT_EQ(plane.normal, engine::Vector3::Right());
+    EXPECT_EQ(plane.distance, 1.0f);
 }
 
 #pragma endregion
@@ -110,16 +110,16 @@ TEST(Plane, NormalizePlanWithNonUnitNormal) {
     auto plane = engine::Plane {{2.0f, 0.0f, 0.0f}, 4.0f};
     plane.Normalize();
 
-    EXPECT_VEC3_EQ(plane.Normal(), engine::Vector3::Right());
-    EXPECT_FLOAT_EQ(plane.Distance(), 2.0f);
+    EXPECT_VEC3_EQ(plane.normal, engine::Vector3::Right());
+    EXPECT_FLOAT_EQ(plane.distance, 2.0f);
 }
 
 TEST(Plane, NormalizePlaneWithUnitNormal) {
     auto plane = engine::Plane {engine::Vector3::Up(), 1.0f};
     plane.Normalize();
 
-    EXPECT_VEC3_EQ(plane.Normal(), engine::Vector3::Up());
-    EXPECT_FLOAT_EQ(plane.Distance(), 1.0f);
+    EXPECT_VEC3_EQ(plane.normal, engine::Vector3::Up());
+    EXPECT_FLOAT_EQ(plane.distance, 1.0f);
 }
 
 #pragma endregion

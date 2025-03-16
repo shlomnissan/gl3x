@@ -10,42 +10,36 @@ Frustum::Frustum(const Matrix4& projection) {
 }
 
 auto Frustum::SetWithProjection(const Matrix4& projection) -> void {
-    // left plane
     planes[0] = Plane {{
         projection(3, 0) + projection(0, 0),
         projection(3, 1) + projection(0, 1),
         projection(3, 2) + projection(0, 2)
     }, projection(3, 3) + projection(0, 3)};
 
-    // right plane
     planes[1] = Plane {{
         projection(3, 0) - projection(0, 0),
         projection(3, 1) - projection(0, 1),
         projection(3, 2) - projection(0, 2)
     }, projection(3, 3) - projection(0, 3)};
 
-    // bottom plane
     planes[2] = Plane {{
         projection(3, 0) + projection(1, 0),
         projection(3, 1) + projection(1, 1),
         projection(3, 2) + projection(1, 2)
     }, projection(3, 3) + projection(1, 3)};
 
-    // top plane
     planes[3] = Plane {{
         projection(3, 0) - projection(1, 0),
         projection(3, 1) - projection(1, 1),
         projection(3, 2) - projection(1, 2)
     }, projection(3, 3) - projection(1, 3)};
 
-    // near plane
     planes[4] = Plane {{
         projection(3, 0) + projection(2, 0),
         projection(3, 1) + projection(2, 1),
         projection(3, 2) + projection(2, 2)
     }, projection(3, 3) + projection(2, 3)};
 
-    // far plane
     planes[5] = Plane {{
         projection(3, 0) - projection(2, 0),
         projection(3, 1) - projection(2, 1),
@@ -67,10 +61,8 @@ auto Frustum::IntersectsWithBox3(const Box3& box) const -> bool {
 
 auto Frustum::IntersectsWithSphere(const Sphere& sphere) const -> bool {
     for (const auto& plane : planes) {
-        const auto distance = plane.DistanceToPoint(sphere.Center());
-        if (distance < -sphere.Radius()) {
-            return false;
-        }
+        const auto distance = plane.DistanceToPoint(sphere.center);
+        if (distance < -sphere.radius) return false;
     }
     return true;
 }

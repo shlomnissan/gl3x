@@ -16,14 +16,14 @@ BoundingBox::BoundingBox(const Box3& box, const Color& color) {
 
 auto BoundingBox::CreateGeometry(const Box3& box) const -> std::shared_ptr<Geometry> {
     auto vertices = std::vector<float> {
-        box.Max().x, box.Max().y, box.Max().z,
-        box.Min().x, box.Max().y, box.Max().z,
-        box.Min().x, box.Min().y, box.Max().z,
-        box.Max().x, box.Min().y, box.Max().z,
-        box.Max().x, box.Max().y, box.Min().z,
-        box.Min().x, box.Max().y, box.Min().z,
-        box.Min().x, box.Min().y, box.Min().z,
-        box.Max().x, box.Min().y, box.Min().z
+        box.max.x, box.max.y, box.max.z,
+        box.min.x, box.max.y, box.max.z,
+        box.min.x, box.min.y, box.max.z,
+        box.max.x, box.min.y, box.max.z,
+        box.max.x, box.max.y, box.min.z,
+        box.min.x, box.max.y, box.min.z,
+        box.min.x, box.min.y, box.min.z,
+        box.max.x, box.min.y, box.min.z
     };
 
     auto indices = std::vector<unsigned> {

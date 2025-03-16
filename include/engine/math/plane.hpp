@@ -13,8 +13,13 @@ namespace engine {
 /**
  * @brief Represents a plane in 3D space.
  */
-class ENGINE_EXPORT Plane {
-public:
+struct ENGINE_EXPORT Plane {
+    /// @brief The normal of the plane.
+    Vector3 normal {Vector3::Up()};
+
+    /// @brief The signed distance of the plane from the origin.
+    float distance {0.0f};
+
     /**
      * @brief Construct a new Plane object.
      */
@@ -27,21 +32,7 @@ public:
      * @param distance The signed distance from the origin.
      */
     Plane(const Vector3& normal, float distance)
-      : normal_(normal), distance_(distance) {}
-
-    /**
-     * @brief Returns the normal of the plane.
-     *
-     * @return The normal of the plane as a Vector3.
-     */
-    [[nodiscard]] auto Normal() const { return normal_; }
-
-    /**
-     * @brief Returns the signed distance of the plane from the origin.
-     *
-     * @return The signed distance of the plane.
-     */
-    [[nodiscard]] auto Distance() const { return distance_; }
+      : normal(normal), distance(distance) {}
 
     /**
      * @brief Returns the distance from the plane to a point.
@@ -63,13 +54,6 @@ public:
      * @brief Normalizes the plane normal and adjusts the distance accordingly.
      */
     auto Normalize() -> void;
-
-private:
-    /// @brief The normal of the plane.
-    Vector3 normal_ {Vector3::Up()};
-
-    /// @brief The signed distance of the plane from the origin.
-    float distance_ {0.0f};
 };
 
 }

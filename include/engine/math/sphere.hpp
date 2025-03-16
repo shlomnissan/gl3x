@@ -12,8 +12,13 @@ namespace engine {
 /**
  * @brief Represents a sphere in 3D space.
  */
-class ENGINE_EXPORT Sphere {
-public:
+struct ENGINE_EXPORT Sphere {
+    /// @brief The center of the sphere.
+    Vector3 center {Vector3::Zero()};
+
+    /// @brief The radius of the sphere.
+    float radius {-1.0f};
+
     /**
      * @brief Constructs a new Sphere object.
      */
@@ -26,21 +31,14 @@ public:
      * @param radius The radius of the sphere.
      */
     Sphere(const Vector3 center, float radius)
-      : center_(center), radius_(radius) {}
-
-    /**
-     * @brief Retrieves the center of the sphere.
-     *
-     * @return The center of the sphere as a Vector3.
-     */
-    [[nodiscard]] auto Center() const -> Vector3 { return center_; }
+      : center(center), radius(radius) {}
 
     /**
      * @brief Retrieves the radius of the sphere.
      *
      * @return The radius of the sphere.
      */
-    [[nodiscard]] auto Radius() const -> float { return radius_; }
+    [[nodiscard]] auto Radius() const -> float { return radius; }
 
     /**
      * @brief Resets the sphere to its empty state.
@@ -53,7 +51,7 @@ public:
      * @return True if the sphere is empty, false otherwise.
      */
     [[nodiscard]] auto IsEmpty() const {
-        return radius_ < 0.0f;
+        return radius < 0.0f;
     }
 
     /**
@@ -69,13 +67,6 @@ public:
      * @param transform The matrix to apply to the sphere.
      */
     auto ApplyTransform(const Matrix4& transform) -> void;
-
-private:
-    /// @brief The center of the sphere.
-    Vector3 center_ {Vector3::Zero()};
-
-    /// @brief The radius of the sphere.
-    float radius_ {-1.0f};
 };
 
 }

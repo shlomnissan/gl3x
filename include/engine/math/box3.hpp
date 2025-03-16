@@ -14,8 +14,13 @@ namespace engine {
 /**
  * @brief Represents an axis-aligned bounding box (AABB) in 3D space.
  */
-class ENGINE_EXPORT Box3 {
-public:
+struct ENGINE_EXPORT Box3 {
+    /// @brief The minimum point of the box.
+    Vector3 min {std::numeric_limits<float>::max()};
+
+    /// @brief The maximum point of the box.
+    Vector3 max {std::numeric_limits<float>::lowest()};
+
     /**
      * @brief Constructs a new Box3 object.
      */
@@ -28,28 +33,14 @@ public:
      * @param v_max The maximum point of the box.
      */
     Box3(const Vector3& v_min, const Vector3& v_max)
-      : min_(v_min), max_(v_max) {}
-
-    /**
-     * @brief Retrieves the minimum point of the box.
-     *
-     * @return The minimum point of the box as a Vector3.
-     */
-    [[nodiscard]] auto Min() const { return min_; }
-
-    /**
-     * @brief Retrieves the maximum point of the box.
-     *
-     * @return The maximum point of the box as a Vector3.
-     */
-    [[nodiscard]] auto Max() const { return max_; }
+      : min(v_min), max(v_max) {}
 
     /**
      * @brief Retrieves the center of the box.
      *
      * @return The center of the box as a Vector3.
      */
-    [[nodiscard]] auto Center() const { return (min_ + max_) * 0.5f; }
+    [[nodiscard]] auto Center() const { return (min + max) * 0.5f; }
 
     /**
      * @brief Resets the box to its empty state.
@@ -62,7 +53,7 @@ public:
      * @return True if the box is empty, false otherwise.
      */
     [[nodiscard]] auto IsEmpty() const {
-        return min_.x > max_.x || min_.y > max_.y || min_.z > max_.z;
+        return min.x > max.x || min.y > max.y || min.z > max.z;
     }
 
     /**
@@ -78,13 +69,6 @@ public:
      * @param transform The matrix to apply to the box.
      */
     auto ApplyTransform(const Matrix4& transform) -> void;
-
-private:
-    /// @brief The minimum point of the box.
-    Vector3 min_ {std::numeric_limits<float>::max()};
-
-    /// @brief The maximum point of the box.
-    Vector3 max_ {std::numeric_limits<float>::lowest()};
 };
 
 }
