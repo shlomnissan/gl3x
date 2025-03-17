@@ -50,8 +50,12 @@ auto Frustum::SetWithProjection(const Matrix4& projection) -> void {
 }
 
 auto Frustum::ContainsPoint(const Vector3& point) const -> bool {
-    // TODO: implement
-    return false;
+    for (const auto& plane : planes) {
+        if (plane.DistanceToPoint(point) < 0) {
+            return false;
+        }
+    }
+    return true;
 }
 
 auto Frustum::IntersectsWithBox3(const Box3& box) const -> bool {
@@ -62,7 +66,9 @@ auto Frustum::IntersectsWithBox3(const Box3& box) const -> bool {
 auto Frustum::IntersectsWithSphere(const Sphere& sphere) const -> bool {
     for (const auto& plane : planes) {
         const auto distance = plane.DistanceToPoint(sphere.center);
-        if (distance < -sphere.radius) return false;
+        if (distance < -sphere.radius) {
+            return false;
+        }
     }
     return true;
 }
