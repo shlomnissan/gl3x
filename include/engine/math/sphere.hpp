@@ -67,6 +67,13 @@ struct ENGINE_EXPORT Sphere {
      * @param transform The matrix to apply to the sphere.
      */
     auto ApplyTransform(const Matrix4& transform) -> void;
+
+    /**
+     * @brief Translates the sphere by the specified offset.
+     *
+     * @param offset The offset to translate the sphere by.
+     */
+    auto Translate(const Vector3& offset) -> void;
 };
 
 }

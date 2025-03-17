@@ -43,4 +43,8 @@ auto Sphere::ApplyTransform(const Matrix4 &transform) -> void {
     }));
 }
 
+auto Sphere::Translate(const Vector3 &translation) -> void {
+    center += translation;
+}
+
 }

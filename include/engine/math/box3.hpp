@@ -69,6 +69,13 @@ struct ENGINE_EXPORT Box3 {
      * @param transform The matrix to apply to the box.
      */
     auto ApplyTransform(const Matrix4& transform) -> void;
+
+    /**
+     * @brief Translates the box by the specified offset.
+     *
+     * @param offset The offset to translate the box by.
+     */
+    auto Translate(const Vector3& offset) -> void;
 };
 
 }

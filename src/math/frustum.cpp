@@ -3,6 +3,8 @@
 
 #include "engine/math/frustum.hpp"
 
+#include <algorithm>
+
 namespace engine {
 
 Frustum::Frustum(const Matrix4& projection) {
@@ -50,36 +52,26 @@ auto Frustum::SetWithViewProjection(const Matrix4& projection) -> void {
 }
 
 auto Frustum::ContainsPoint(const Vector3& point) const -> bool {
-    for (const auto& plane : planes) {
-        if (plane.DistanceToPoint(point) < 0) {
-            return false;
-        }
-    }
-    return true;
+    return std::ranges::all_of(planes, [&](const auto& plane) {
+        return plane.DistanceToPoint(point) >= 0;
+    });
 }
 
 auto Frustum::IntersectsWithBox3(const Box3& box) const -> bool {
     auto v = Vector3::Zero();
-    for (const auto& plane : planes) {
+    return std::ranges::all_of(planes, [&](const auto& plane) {
         v.x = plane.normal.x > 0 ? box.max.x : box.min.x;
         v.y = plane.normal.y > 0 ? box.max.y : box.min.y;
         v.z = plane.normal.z > 0 ? box.max.z : box.min.z;
-
-        if (plane.DistanceToPoint(v) < 0) {
-            return false;
-        }
-    }
-    return true;
+        return plane.DistanceToPoint(v) >= 0;
+    });
 }
 
 auto Frustum::IntersectsWithSphere(const Sphere& sphere) const -> bool {
-    for (const auto& plane : planes) {
+    return std::ranges::all_of(planes, [&](const auto& plane) {
         const auto distance = plane.DistanceToPoint(sphere.center);
-        if (distance < -sphere.radius) {
-            return false;
-        }
-    }
-    return true;
+        return distance >= -sphere.radius;
+    });
 }
 
 }

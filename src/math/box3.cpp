@@ -40,4 +40,9 @@ auto Box3::ApplyTransform(const Matrix4& transform) -> void {
     for (const auto& point : points_) ExpandWithPoint(point);
 }
 
+auto Box3::Translate(const Vector3& translation) -> void {
+    min += translation;
+    max += translation;
+}
+
 }

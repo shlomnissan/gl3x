@@ -226,3 +226,19 @@ TEST(Box3, TransformWithRotation) {
 }
 
 #pragma endregion
+
+#pragma region Translate
+
+TEST(Box3, Translate) {
+    auto box = engine::Box3 {
+        {0.0f, 0.0f, 0.0f},
+        {1.0f, 1.0f, 1.0f}
+    };
+
+    box.Translate({1.0f, 2.0f, 3.0f});
+
+    EXPECT_VEC3_EQ(box.min, {1.0f, 2.0f, 3.0f});
+    EXPECT_VEC3_EQ(box.max, {2.0f, 3.0f, 4.0f});
+}
+
+#pragma endregion

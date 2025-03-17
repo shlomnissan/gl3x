@@ -158,3 +158,15 @@ TEST(Sphere, TransformWithRotation) {
 }
 
 #pragma endregion
+
+#pragma region Translate
+
+TEST(Sphere, Translate) {
+    auto sphere = engine::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+    sphere.Translate({1.0f, 2.0f, 3.0f});
+
+    EXPECT_VEC3_EQ(sphere.center, {2.0f, 4.0f, 6.0f});
+    EXPECT_FLOAT_EQ(sphere.radius, 4.0f);
+}
+
+#pragma endregion
