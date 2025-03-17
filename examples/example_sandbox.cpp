@@ -29,7 +29,7 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
 
     const auto test_cam = CameraOrthographic::Create({.far = 1.0f});
     test_cam->UpdateViewTransform();
-    frustum_.SetWithProjection(
+    frustum_.SetWithViewProjection(
         test_cam->projection_transform *
         test_cam->view_transform
     );

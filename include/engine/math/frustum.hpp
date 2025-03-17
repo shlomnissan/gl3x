@@ -34,7 +34,7 @@ struct ENGINE_EXPORT Frustum {
     /**
      * @brief Reset the Frustum object planes using a view and projection matrix.
      */
-    auto SetWithProjection(const Matrix4& projection) -> void;
+    auto SetWithViewProjection(const Matrix4& projection) -> void;
 
     /**
      * @brief Determines if the frustum contains a point.

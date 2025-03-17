@@ -6,10 +6,10 @@
 namespace engine {
 
 Frustum::Frustum(const Matrix4& projection) {
-    SetWithProjection(projection);
+    SetWithViewProjection(projection);
 }
 
-auto Frustum::SetWithProjection(const Matrix4& projection) -> void {
+auto Frustum::SetWithViewProjection(const Matrix4& projection) -> void {
     planes[0] = Plane {{
         projection(3, 0) + projection(0, 0),
         projection(3, 1) + projection(0, 1),
@@ -59,8 +59,17 @@ auto Frustum::ContainsPoint(const Vector3& point) const -> bool {
 }
 
 auto Frustum::IntersectsWithBox3(const Box3& box) const -> bool {
-    // TODO: implement
-    return false;
+    auto v = Vector3::Zero();
+    for (const auto& plane : planes) {
+        v.x = plane.normal.x > 0 ? box.max.x : box.min.x;
+        v.y = plane.normal.y > 0 ? box.max.y : box.min.y;
+        v.z = plane.normal.z > 0 ? box.max.z : box.min.z;
+
+        if (plane.DistanceToPoint(v) < 0) {
+            return false;
+        }
+    }
+    return true;
 }
 
 auto Frustum::IntersectsWithSphere(const Sphere& sphere) const -> bool {
