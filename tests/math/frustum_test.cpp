@@ -75,13 +75,24 @@ TEST_F(FrustumTest, ContainsPointWithPerspectiveCamera) {
 
 #pragma region Intersections
 
-TEST(Frustum, IntersectsWithSphere) {
-    EXPECT_TRUE(true);
+TEST_F(FrustumTest, IntersectsWithSphere) {
+    const auto frustum = engine::Frustum(perspective_camera_->projection_transform);
+
+    auto sphere = engine::Sphere {engine::Vector3::Zero(), 0.5f};
+    EXPECT_FALSE(frustum.IntersectsWithSphere(sphere));
+
+    sphere.Translate(-0.5f);
+    EXPECT_TRUE(frustum.IntersectsWithSphere(sphere));
 }
 
-TEST(Frustum, IntersectsWithBox3) {
-    // TODO: implement
-    EXPECT_TRUE(true);
+TEST_F(FrustumTest, IntersectsWithBox3) {
+    const auto frustum = engine::Frustum(perspective_camera_->projection_transform);
+
+    auto box = engine::Box3 {engine::Vector3::Zero(), 1.0f};
+    EXPECT_FALSE(frustum.IntersectsWithBox3(box));
+
+    box.Translate(-1.0f);
+    EXPECT_TRUE(frustum.IntersectsWithBox3(box));
 }
 
 #pragma endregion
