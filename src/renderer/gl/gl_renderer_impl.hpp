@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine/core/renderer.hpp"
+#include "engine/math/frustum.hpp"
 #include "engine/nodes/mesh.hpp"
 
 #include "renderer/gl/gl_buffers.hpp"
@@ -42,6 +43,8 @@ private:
 
     std::unique_ptr<RenderLists> render_lists_;
 
+    Frustum frustum_;
+
     auto RenderObjects(Scene* scene, Camera* camera) -> void;
 
     auto RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> void;
@@ -57,6 +60,8 @@ private:
     auto UpdateLights(const Scene* scene, GLProgram* program, const Camera* camera) const -> void;
 
     [[nodiscard]] auto IsValidMesh(Mesh* mesh) const -> bool;
+
+    [[nodiscard]] auto IsVisible(Mesh* mesh) const -> bool;
 };
 
 }

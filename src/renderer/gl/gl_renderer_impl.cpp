@@ -31,6 +31,8 @@ Renderer::Impl::Impl(const Renderer::Parameters& params)
 }
 
 auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
+    frustum_.SetWithViewProjection(camera->projection_transform * camera->view_transform);
+
     for (auto weak_mesh : render_lists_->Opaque()) {
         if (auto mesh = weak_mesh.lock()) {
             RenderMesh(mesh.get(), scene, camera);
@@ -49,6 +51,7 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
     auto material = mesh->GetMaterial();
 
     if (!IsValidMesh(mesh)) return;
+    if (!IsVisible(mesh)) return;
 
     auto attrs = ProgramAttributes {material, render_lists_.get(), scene};
     auto program = programs_.GetProgram(attrs);
@@ -218,6 +221,24 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
     program->SetUniform("u_AmbientLight", ambient_light);
 }
 
+auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    scene->UpdateTransformHierarchy();
+    camera->UpdateViewTransform();
+
+    if (scene->touched_) {
+        render_lists_->ProcessScene(scene);
+        scene->touched_ = false;
+    }
+
+    RenderObjects(scene, camera);
+}
+
+auto Renderer::Impl::SetClearColor(const Color& color) -> void {
+    state_.SetClearColor(color);
+}
+
 auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
     auto geometry = mesh->GetGeometry();
 
@@ -245,22 +266,10 @@ auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
     return true;
 }
 
-auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    scene->UpdateTransformHierarchy();
-    camera->UpdateViewTransform();
-
-    if (scene->touched_) {
-        render_lists_->ProcessScene(scene);
-        scene->touched_ = false;
-    }
-
-    RenderObjects(scene, camera);
-}
-
-auto Renderer::Impl::SetClearColor(const Color& color) -> void {
-    state_.SetClearColor(color);
+auto Renderer::Impl::IsVisible(Mesh* mesh) const -> bool {
+    auto bounding_sphere = mesh->GetGeometry()->BoundingSphere();
+    bounding_sphere.ApplyTransform(mesh->GetWorldTransform());
+    return frustum_.IntersectsWithSphere(bounding_sphere);
 }
 
 Renderer::Impl::~Impl() = default;
