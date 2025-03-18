@@ -8,10 +8,12 @@
 #include <engine/nodes/camera_orthographic.hpp>
 #include <engine/nodes/camera_perspective.hpp>
 
-#pragma region Contains Point
+#pragma region Fixtures
 
-TEST(Frustum, ContainsPointWithOrthographicCamera) {
-    const auto camera = engine::CameraOrthographic::Create({
+class FrustumTest : public ::testing::Test {
+protected:
+    std::shared_ptr<engine::CameraOrthographic> orthographic_camera =
+    engine::CameraOrthographic::Create({
         .left = -1.0f,
         .right = 1.0f,
         .top = 1.0f,
@@ -19,7 +21,22 @@ TEST(Frustum, ContainsPointWithOrthographicCamera) {
         .near = 1.0f,
         .far = 100.0f
     });
-    const auto frustum = engine::Frustum(camera->projection_transform);
+
+    std::shared_ptr<engine::CameraPerspective> perspective_camera_ =
+    engine::CameraPerspective::Create({
+        .fov = 90.0f,
+        .aspect = 1.0f,
+        .near = 1.0f,
+        .far = 100.0f
+    });
+};
+
+#pragma endregion
+
+#pragma region Contains Point
+
+TEST_F(FrustumTest, ContainsPointWithOrthographicCamera) {
+    const auto frustum = engine::Frustum(orthographic_camera->projection_transform);
 
     EXPECT_FALSE(frustum.ContainsPoint({-1.1f, -1.1f, -1.001f}));
     EXPECT_FALSE(frustum.ContainsPoint({-1.1f, -1.1f, -100.1f}));
@@ -36,14 +53,8 @@ TEST(Frustum, ContainsPointWithOrthographicCamera) {
     EXPECT_TRUE(frustum.ContainsPoint({1.0f, 1.0f, -100.0f}));
 }
 
-TEST(Frustum, ContainsPointWithPerspectiveCamera) {
-    const auto camera = engine::CameraPerspective::Create({
-        .fov = 90.0f,
-        .aspect = 1.0f,
-        .near = 1.0f,
-        .far = 100.0f
-    });
-    const auto frustum = engine::Frustum(camera->projection_transform);
+TEST_F(FrustumTest, ContainsPointWithPerspectiveCamera) {
+    const auto frustum = engine::Frustum(perspective_camera_->projection_transform);
 
     EXPECT_FALSE(frustum.ContainsPoint({-1.1f, -1.1f, -1.001f}));
     EXPECT_FALSE(frustum.ContainsPoint({-100.1f, -100.1f, -100.1f}));
@@ -65,7 +76,6 @@ TEST(Frustum, ContainsPointWithPerspectiveCamera) {
 #pragma region Intersections
 
 TEST(Frustum, IntersectsWithSphere) {
-    // TODO: implement
     EXPECT_TRUE(true);
 }
 
