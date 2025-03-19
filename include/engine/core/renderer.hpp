@@ -48,6 +48,13 @@ public:
     auto SetClearColor(const Color& color) -> void;
 
     /**
+     * @brief Gets the number of objects rendered per frame.
+     *
+     * @return size_t The number of objects rendered per frame.
+     */
+    [[nodiscard]] auto RenderedObjectsPerFrame() const -> size_t;
+
+    /**
      * @brief Destructor for the Renderer class.
      */
     ~Renderer();

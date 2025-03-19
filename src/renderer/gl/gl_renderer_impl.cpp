@@ -44,6 +44,9 @@ auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
             RenderMesh(mesh.get(), scene, camera);
         }
     }
+
+    rendered_objects_per_frame_ = rendered_objects_counter_;
+    rendered_objects_counter_ = 0;
 }
 
 auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> void {
@@ -90,6 +93,8 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
             nullptr
         );
     }
+
+    rendered_objects_counter_++;
 }
 
 auto Renderer::Impl::SetUniforms(

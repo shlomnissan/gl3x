@@ -31,6 +31,10 @@ public:
 
     auto SetClearColor(const Color& color) -> void;
 
+    [[nodiscard]] auto RenderedObjectsPerFrame() const {
+        return rendered_objects_per_frame_;
+    }
+
     ~Impl();
 
 private:
@@ -41,9 +45,12 @@ private:
 
     Renderer::Parameters params_;
 
+    Frustum frustum_;
+
     std::unique_ptr<RenderLists> render_lists_;
 
-    Frustum frustum_;
+    size_t rendered_objects_counter_ {0};
+    size_t rendered_objects_per_frame_ {0};
 
     auto RenderObjects(Scene* scene, Camera* camera) -> void;
 
