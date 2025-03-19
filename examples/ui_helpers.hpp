@@ -4,7 +4,7 @@
 #pragma once
 
 #include <format>
-#include <string_view>
+#include <string>
 
 #include <imgui.h>
 
@@ -12,12 +12,12 @@ static auto UISeparator() {
     ImGui::Separator();
 }
 
-static auto UIText(std::string_view text) {
-    ImGui::Text(std::format("{}", text).c_str());
+static auto UIText(const std::string& text) {
+    ImGui::Text("%s", text.c_str());
 }
 
 static auto UISliderFloat(
-    std::string_view label,
+    const std::string& label,
     float& value,
     float min,
     float max,
@@ -25,13 +25,13 @@ static auto UISliderFloat(
     float width = 120.0f)
 {
     ImGui::SetNextItemWidth(width);
-    if (ImGui::SliderFloat(std::format("{}", label).c_str(), &value, min, max)) {
+    if (ImGui::SliderFloat(label.c_str(), &value, min, max)) {
         dirty = true;
     }
 }
 
 static auto UISliderUnsigned(
-    std::string_view label,
+    const std::string& label,
     unsigned& value,
     unsigned min,
     unsigned max,
@@ -40,29 +40,29 @@ static auto UISliderUnsigned(
 {
     auto v = static_cast<int>(value);
     ImGui::SetNextItemWidth(width);
-    if (ImGui::SliderInt(std::format("{}", label).c_str(), &v, min, max)) {
+    if (ImGui::SliderInt(label.c_str(), &v, min, max)) {
         value = static_cast<unsigned>(v);
         dirty = true;
     }
 }
 
 static auto UICheckbox(
-    std::string_view label,
+    const std::string& label,
     bool& value,
     bool& dirty,
     float offset = 100.0f)
 {
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offset);
-    if (ImGui::Checkbox(std::format("{}", label).c_str(), &value)) {
+    if (ImGui::Checkbox(label.c_str(), &value)) {
         dirty = true;
     }
 }
 
 static auto UIColor(
-    std::string_view label,
+    const std::string& label,
     float* color,
     bool& dirty,
-    std::string_view id = "")
+    const std::string& id = "")
 {
     const auto str = id.empty() ?
         std::format("{}", label) :
