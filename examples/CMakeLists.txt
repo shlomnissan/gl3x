@@ -5,6 +5,7 @@ set(SOURCE_CODE
     "example_sandbox.cpp"
     "example_sandbox.hpp"
     "example_scene.hpp"
+    "ui_helpers.cpp"
     "ui_helpers.hpp"
     "effects/example_blending.cpp"
     "effects/example_blending.hpp"

@@ -14,6 +14,8 @@
 #include "example_scene.hpp"
 #include "examples.hpp"
 
+#include <imgui.h>
+
 using namespace engine;
 
 class Application : public ApplicationContext {
