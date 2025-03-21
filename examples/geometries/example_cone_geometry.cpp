@@ -10,23 +10,20 @@
 #include <engine/resources.hpp>
 
 using namespace engine;
+using namespace engine::math;
 
 ExampleConeGeometry::ExampleConeGeometry(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
-    Add(camera_controls);
+    Add(CameraOrbit::Create(camera, 2.5f, 0.0f, DegToRad(45.0f)));
+    Add(AmbientLight::Create(0xFFFFFF, 0.3f));
 
-    auto ambient = AmbientLight::Create(0xFFFFFF, 0.3f);
-    Add(ambient);
+    auto point_light = PointLight::Create(0xFFFFFF, 0.75f);
+    point_light->transform.Translate({2.0f, 8.0f, 2.0f});
+    Add(point_light);
 
-    auto directional_light = DirectionalLight::Create(0xFFFFFF, 1.0f);
-    directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
-    Add(directional_light);
-
-    params_.radius = 0.5f;
+    params_.radius = 0.5;
     auto geometry = ConeGeometry::Create(params_);
 
-    auto base_material = PhongMaterial::Create();
-    base_material->color = 0x049EF4;
+    auto base_material = PhongMaterial::Create(0xCCCCCC);
     base_material->two_sided = true;
     base_material->polygon_offset = {1.0f, 1.0f};
 

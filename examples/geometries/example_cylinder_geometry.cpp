@@ -12,25 +12,22 @@
 #include <imgui.h>
 
 using namespace engine;
+using namespace engine::math;
 
 ExampleCylinderGeometry::ExampleCylinderGeometry(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(camera, 3.0f, 0.25f, 1.0f);
-    Add(camera_controls);
+    Add(CameraOrbit::Create(camera, 2.5f, DegToRad(15.0f), DegToRad(45.0f)));
+    Add(AmbientLight::Create(0xFFFFFF, 0.2f));
 
-    auto ambient = AmbientLight::Create(0xFFFFFF, 0.3f);
-    Add(ambient);
-
-    auto directional_light = DirectionalLight::Create(0xFFFFFF, 1.0f);
-    directional_light->transform.Translate({2.0f, 2.0f, 2.0f});
-    Add(directional_light);
+    auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
+    point_light->transform.Translate({2.0f, 2.0f, 2.0f});
+    Add(point_light);
 
     params_.radius_top = 0.4f;
     params_.radius_bottom = 0.4f;
 
     auto geometry = CylinderGeometry::Create(params_);
 
-    auto base_material = PhongMaterial::Create();
-    base_material->color = 0x049EF4;
+    auto base_material = PhongMaterial::Create(0xCCCCCC);
     base_material->two_sided = true;
     base_material->polygon_offset = {1.0f, 1.0f};
 
