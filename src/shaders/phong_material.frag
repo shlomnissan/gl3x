@@ -11,7 +11,6 @@ precision highp float;
 
 #include "snippets/common_frag_params.glsl"
 #include "snippets/fog.glsl"
-#include "snippets/normal.glsl"
 
 struct PhongMaterial {
     vec3 DiffuseColor;
@@ -61,7 +60,12 @@ float distanceAttenuation(const in float light_distance, const in float cutoff_d
 	return 1.0;
 }
 
-vec3 phongShading(const in vec3 light_dir, const in vec3 light_color, const in PhongMaterial material) {
+vec3 phongShading(
+    const in vec3 normal,
+    const in vec3 light_dir,
+    const in vec3 light_color,
+    const in PhongMaterial material
+) {
     float diffuse_factor = max(dot(light_dir, normal), 0.0);
     vec3 diffuse = light_color * material.DiffuseColor * diffuse_factor;
 
@@ -78,6 +82,8 @@ vec3 phongShading(const in vec3 light_dir, const in vec3 light_color, const in P
 }
 
 void main() {
+    #include "snippets/normal.glsl"
+
     PhongMaterial material = PhongMaterial(
         u_Color.rgb,
         u_Specular.rgb,
@@ -93,7 +99,7 @@ void main() {
     #if NUM_DIR_LIGHTS > 0
         for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
             DirectionalLight light = u_DirectionalLights[i];
-            v_FragColor += vec4(phongShading(light.Direction, light.Color.rgb, material), 1.0);
+            v_FragColor += vec4(phongShading(normal, light.Direction, light.Color.rgb, material), 1.0);
         }
     #endif
 
@@ -104,7 +110,7 @@ void main() {
             vec3 direction = normalize(v);
             float light_distance = length(v);
             light.Color *= distanceAttenuation(light_distance, light.Distance, light.Decay);
-            v_FragColor += vec4(phongShading(direction, light.Color.rgb, material), 1.0);
+            v_FragColor += vec4(phongShading(normal, direction, light.Color.rgb, material), 1.0);
         }
     #endif
 
@@ -118,7 +124,7 @@ void main() {
             if (angle_cos > light.ConeCos) {
                 light.Color *= smoothstep(light.ConeCos, light.PenumbraCos, angle_cos);
                 light.Color *= distanceAttenuation(light_distance, light.Distance, light.Decay);
-                v_FragColor += vec4(phongShading(direction, light.Color.rgb, material), 1.0);
+                v_FragColor += vec4(phongShading(normal, direction, light.Color.rgb, material), 1.0);
             } else {
                 light.Color = vec3(0.0);
             }
