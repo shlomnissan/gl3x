@@ -11,6 +11,7 @@ precision highp float;
 
 #include "snippets/common_frag_params.glsl"
 #include "snippets/fog.glsl"
+#include "snippets/normal.glsl"
 
 struct PhongMaterial {
     vec3 DiffuseColor;
@@ -61,11 +62,6 @@ float distanceAttenuation(const in float light_distance, const in float cutoff_d
 }
 
 vec3 phongShading(const in vec3 light_dir, const in vec3 light_color, const in PhongMaterial material) {
-    vec3 normal = v_Normal;
-    #ifdef USE_TWO_SIDED
-        normal *= gl_FrontFacing ? 1.0 : -1.0;
-    #endif
-
     float diffuse_factor = max(dot(light_dir, normal), 0.0);
     vec3 diffuse = light_color * material.DiffuseColor * diffuse_factor;
 

@@ -24,6 +24,7 @@ ExampleConeGeometry::ExampleConeGeometry(std::shared_ptr<engine::Camera> camera)
     auto geometry = ConeGeometry::Create(params_);
 
     auto base_material = PhongMaterial::Create(0xCCCCCC);
+    base_material->flat_shaded = true;
     base_material->two_sided = true;
     base_material->polygon_offset = {1.0f, 1.0f};
 

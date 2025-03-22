@@ -28,6 +28,7 @@ ExampleCylinderGeometry::ExampleCylinderGeometry(std::shared_ptr<engine::Camera>
     auto geometry = CylinderGeometry::Create(params_);
 
     auto base_material = PhongMaterial::Create(0xCCCCCC);
+    base_material->flat_shaded = true;
     base_material->two_sided = true;
     base_material->polygon_offset = {1.0f, 1.0f};
 

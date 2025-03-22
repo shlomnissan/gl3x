@@ -17,6 +17,7 @@
 #include "shaders/snippets/headers/common_vert_params_glsl.h"
 #include "shaders/snippets/headers/common_vert_varyings_glsl.h"
 #include "shaders/snippets/headers/fog_glsl.h"
+#include "shaders/snippets/headers/normal_glsl.h"
 
 #include <format>
 #include <unordered_map>
@@ -110,6 +111,7 @@ auto ShaderLibrary::ResolveIncludes(std::string& source) const -> void {
         {"snippets/common_vert_varyings.glsl", _SNIPPET_common_vert_varyings},
         {"snippets/common_frag_params.glsl", _SNIPPET_common_frag_params},
         {"snippets/fog.glsl", _SNIPPET_fog},
+        {"snippets/normal.glsl", _SNIPPET_normal}
     };
 
     for (const auto& [include, content] : include_map) {

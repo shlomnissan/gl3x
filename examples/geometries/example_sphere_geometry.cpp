@@ -22,8 +22,8 @@ ExampleSphereGeometry::ExampleSphereGeometry(std::shared_ptr<engine::Camera> cam
     auto geometry = SphereGeometry::Create(params_);
 
     auto base_material = PhongMaterial::Create(0xCCCCCC);
-    base_material->polygon_offset = {1.0f, 1.0f};
     base_material->flat_shaded = true;
+    base_material->polygon_offset = {1.0f, 1.0f};
 
     mesh_ = Mesh::Create(geometry, base_material);
     Add(mesh_);
@@ -31,6 +31,7 @@ ExampleSphereGeometry::ExampleSphereGeometry(std::shared_ptr<engine::Camera> cam
     auto wireframe_material = FlatMaterial::Create();
     wireframe_material->wireframe = true;
     wireframe_material->fog = false;
+    wireframe_material->two_sided = true;
     wireframes_ = Mesh::Create(geometry, wireframe_material);
     mesh_->Add(wireframes_);
 }

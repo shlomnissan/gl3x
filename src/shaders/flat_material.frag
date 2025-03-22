@@ -11,6 +11,7 @@ precision mediump float;
 
 #include "snippets/common_frag_params.glsl"
 #include "snippets/fog.glsl"
+#include "snippets/normal.glsl"
 
 void main() {
     v_FragColor = vec4(u_Color, 1.0);
