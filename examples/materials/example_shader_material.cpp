@@ -39,8 +39,8 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> cam
 
         precision mediump float;
 
-        #include "snippets/common_frag_params.glsl"
-        #include "snippets/fog.glsl"
+        #include "snippets/frag_global_params.glsl"
+        #include "snippets/frag_global_fog.glsl"
 
         uniform float u_Time;
         uniform vec2 u_Resolution;

@@ -13,11 +13,11 @@
 #include "shaders/headers/flat_material_frag.h"
 #include "shaders/headers/phong_material_vert.h"
 #include "shaders/headers/phong_material_frag.h"
-#include "shaders/snippets/headers/common_frag_params_glsl.h"
 #include "shaders/snippets/headers/common_vert_params_glsl.h"
 #include "shaders/snippets/headers/common_vert_varyings_glsl.h"
-#include "shaders/snippets/headers/fog_glsl.h"
-#include "shaders/snippets/headers/normal_glsl.h"
+#include "shaders/snippets/headers/frag_global_fog_glsl.h"
+#include "shaders/snippets/headers/frag_global_params_glsl.h"
+#include "shaders/snippets/headers/frag_main_normal_glsl.h"
 
 #include <format>
 #include <unordered_map>
@@ -109,9 +109,9 @@ auto ShaderLibrary::ResolveIncludes(std::string& source) const -> void {
     static const std::unordered_map<std::string, std::string> include_map = {
         {"snippets/common_vert_params.glsl", _SNIPPET_common_vert_params},
         {"snippets/common_vert_varyings.glsl", _SNIPPET_common_vert_varyings},
-        {"snippets/common_frag_params.glsl", _SNIPPET_common_frag_params},
-        {"snippets/fog.glsl", _SNIPPET_fog},
-        {"snippets/normal.glsl", _SNIPPET_normal}
+        {"snippets/frag_global_params.glsl", _SNIPPET_frag_global_params},
+        {"snippets/frag_global_fog.glsl", _SNIPPET_frag_global_fog},
+        {"snippets/frag_main_normal.glsl", _SNIPPET_frag_main_normal}
     };
 
     for (const auto& [include, content] : include_map) {

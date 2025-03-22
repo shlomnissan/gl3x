@@ -9,8 +9,8 @@
 
 precision highp float;
 
-#include "snippets/common_frag_params.glsl"
-#include "snippets/fog.glsl"
+#include "snippets/frag_global_params.glsl"
+#include "snippets/frag_global_fog.glsl"
 
 struct PhongMaterial {
     vec3 DiffuseColor;
@@ -82,7 +82,7 @@ vec3 phongShading(
 }
 
 void main() {
-    #include "snippets/normal.glsl"
+    #include "snippets/frag_main_normal.glsl"
 
     PhongMaterial material = PhongMaterial(
         u_Color.rgb,
