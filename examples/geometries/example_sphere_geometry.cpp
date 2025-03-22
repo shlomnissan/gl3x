@@ -23,6 +23,7 @@ ExampleSphereGeometry::ExampleSphereGeometry(std::shared_ptr<engine::Camera> cam
 
     auto base_material = PhongMaterial::Create(0xCCCCCC);
     base_material->polygon_offset = {1.0f, 1.0f};
+    base_material->flat_shaded = true;
 
     mesh_ = Mesh::Create(geometry, base_material);
     Add(mesh_);

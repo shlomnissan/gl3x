@@ -69,6 +69,9 @@ public:
     /// @brief Flag indicating whether the material is transparent.
     bool transparent {false};
 
+    /// @brief Flag indicating whether to use flat shading instead of smooth shading.
+    bool flat_shaded {false};
+
     /// @brief The blending mode to apply to the material.
     Blending blending {Blending::Normal};
 

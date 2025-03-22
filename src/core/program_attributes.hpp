@@ -29,6 +29,7 @@ struct ProgramAttributes {
     bool lights {false};
     bool texture_map {false};
     bool two_sided {false};
+    bool flat_shaded {false};
 
     ProgramAttributes(const Material* material, const RenderLists* render_lists, const Scene* scene);
 

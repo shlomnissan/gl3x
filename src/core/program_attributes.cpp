@@ -41,6 +41,7 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
     }
 
     two_sided = material->two_sided;
+    flat_shaded = material->flat_shaded;
 
     if (material->fog && scene->fog != nullptr) {
         if (scene->fog->Type() == FogType::LinearFog) {
@@ -66,10 +67,11 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
 }
 
 auto ProgramAttributes::ProgramPermutationHash() const -> std::string {
-    auto attrs = std::array<int, 8> {
+    auto attrs = std::array<int, 9> {
         color ? 1 : 0,
         directional_lights,
         exponential_fog ? 1 : 0,
+        flat_shaded ? 1 : 0,
         linear_fog ? 1 : 0,
         point_lights,
         spot_lights,
