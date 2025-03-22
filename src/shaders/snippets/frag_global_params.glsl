@@ -3,7 +3,7 @@
 This fragment shader snippet defines global parameters, including the main
 output color, varyings, and uniforms accessible within the fragment shader.
 
-@varying vec4 v_FragColor - Output color of the fragment
+@out vec4 v_FragColor - Output color of the fragment
 @varying vec2 v_TexCoord - Texture coordinates
 @varying vec3 v_Normal - Normal vector (see frag_main_normal.glsl)
 @varying vec3 v_ViewDir - View direction vector

@@ -23,10 +23,10 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> cam
         R"(#version 410 core
         #pragma inject_attributes
 
-        #include "snippets/common_vert_params.glsl"
+        #include "snippets/vert_global_params.glsl"
 
         void main() {
-            #include "snippets/common_vert_varyings.glsl"
+            #include "snippets/vert_main_varyings.glsl"
 
             gl_Position = u_Projection * v_Position;
         })",

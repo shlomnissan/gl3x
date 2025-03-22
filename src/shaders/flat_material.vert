@@ -7,10 +7,10 @@
 #pragma debug(on)
 #pragma optimize(off)
 
-#include "snippets/common_vert_params.glsl"
+#include "snippets/vert_global_params.glsl"
 
 void main() {
-    #include "snippets/common_vert_varyings.glsl"
+    #include "snippets/vert_main_varyings.glsl"
 
     gl_Position = u_Projection * v_Position;
 }
