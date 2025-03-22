@@ -151,7 +151,10 @@ auto Renderer::Impl::SetUniforms(
         if (attrs->directional_lights || attrs->point_lights || attrs->spot_lights) {
             program->SetUniform("u_Specular", m->specular);
             program->SetUniform("u_Shininess", m->shininess);
-            program->SetUniform("u_NormalMatrix", Transpose(Inverse(Matrix3(model_view))));
+            if (!attrs->flat_shaded) {
+                // The normal matrix is optimized away in flat shaded mode.
+                program->SetUniformIfExists("u_NormalMatrix", Transpose(Inverse(Matrix3(model_view))));
+            }
         }
 
         if (attrs->texture_map) {
