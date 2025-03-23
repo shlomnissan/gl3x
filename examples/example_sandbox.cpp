@@ -38,8 +38,8 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
 
 auto ExampleSandbox::Update(float delta) -> void {
     for (const auto& b : boxes_) {
-        b->RotateX(0.01f);
-        b->RotateY(0.01f);
+        b->RotateX(1.0f * delta);
+        b->RotateY(1.0f * delta);
     }
 }
 
