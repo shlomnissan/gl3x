@@ -63,8 +63,8 @@ auto DirectionalLight::CreateDebugMesh() -> void {
     debug_mesh_plane_->GetGeometry()->primitive = LineLoop;
     debug_mesh_plane_->transform_auto_update = false;
 
-    UpdateDebugMesh();
     Add(debug_mesh_plane_);
+    UpdateDebugMesh();
 }
 
 auto DirectionalLight::UpdateDebugMesh() -> void {

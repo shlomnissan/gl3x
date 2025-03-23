@@ -69,8 +69,8 @@ auto SpotLight::CreateDebugMesh() -> void {
     debug_mesh_cone_->GetGeometry()->primitive = Lines;
     debug_mesh_cone_->transform_auto_update = false;
 
-    UpdateDebugMesh();
     Add(debug_mesh_cone_);
+    UpdateDebugMesh();
 }
 
 auto SpotLight::UpdateDebugMesh() -> void {
