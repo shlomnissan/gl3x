@@ -47,13 +47,6 @@ ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
 auto ExampleSpotLight::ContextMenu() -> void {
     auto _ = true;
 
-    UIText("Material");
-    UIColor("color", &phong_material_->color[0], _, "material-color");
-    UIColor("specular", &phong_material_->specular[0], _);
-    UISliderFloat("shininess", phong_material_->shininess, 0.0f, 128.0f, _, 160.0f);
-
-    UISeparator();
-    UIText("Light");
     UIColor("color", &spot_light_->color[0], _, "light-color");
     UISliderFloat("intensity", spot_light_->intensity, 0.0f, 1.0f, _, 160.0f);
     UISliderFloat("angle", spot_light_->angle, 0.1f, math::half_pi, _, 160.0f);
@@ -62,4 +55,11 @@ auto ExampleSpotLight::ContextMenu() -> void {
     UISliderFloat("base", spot_light_->attenuation.base, 0.0f, 2.0f, _, 160.0f);
     UISliderFloat("linear", spot_light_->attenuation.linear, 0.0f, 1.0f, _, 160.0f);
     UISliderFloat("quadratic", spot_light_->attenuation.quadratic, 0.0f, 2.0f, _, 160.0f);
+
+    UISeparator();
+
+    UIText("Material");
+    UIColor("color", &phong_material_->color[0], _, "material-color");
+    UIColor("specular", &phong_material_->specular[0], _);
+    UISliderFloat("shininess", phong_material_->shininess, 0.0f, 128.0f, _, 160.0f);
 }

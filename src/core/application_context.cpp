@@ -106,7 +106,8 @@ auto ApplicationContext::InitializeRenderer() -> bool {
 
 auto ApplicationContext::RenderStats() const -> void {
     static const auto window_width = 250.0f;
-    ImGui::SetNextWindowSize({window_width, 195.0f});
+    static const auto window_height = 195.0f;
+    ImGui::SetNextWindowSize({window_width, window_height});
     ImGui::SetNextWindowPos({params.width - window_width - 10.0f, 10});
     ImGui::Begin("##Stats", nullptr,
         ImGuiWindowFlags_NoResize |

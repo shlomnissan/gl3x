@@ -48,18 +48,17 @@ ExamplePointLight::ExamplePointLight(std::shared_ptr<engine::Camera> camera) {
 auto ExamplePointLight::ContextMenu() -> void {
     auto _ = true;
 
-    UIText("Material");
-    UIColor("color", &phong_material_->color[0], _, "material-color");
-    UIColor("specular", &phong_material_->specular[0], _);
-    UISliderFloat("shininess", phong_material_->shininess, 0.0f, 128.0f, _, 160.0f);
-
-    UISeparator();
-
-    UIText("Light");
     UIColor("color", &point_light_->color[0], _, "light-color");
     UISliderFloat("intensity", point_light_->intensity, 0.0f, 1.0f, _, 160.0f);
     UIText("Attenuation");
     UISliderFloat("base", point_light_->attenuation.base, 0.0f, 2.0f, _, 160.0f);
     UISliderFloat("linear", point_light_->attenuation.linear, 0.0f, 1.0f, _, 160.0f);
     UISliderFloat("quadratic", point_light_->attenuation.quadratic, 0.0f, 2.0f, _, 160.0f);
+
+    UISeparator();
+
+    UIText("Material");
+    UIColor("color", &phong_material_->color[0], _, "material-color");
+    UIColor("specular", &phong_material_->specular[0], _);
+    UISliderFloat("shininess", phong_material_->shininess, 0.0f, 128.0f, _, 160.0f);
 }
