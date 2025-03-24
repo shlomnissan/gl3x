@@ -34,8 +34,6 @@ uniform float u_Shininess;
     struct PointLight {
         vec4 Position;
         vec3 Color;
-        float Distance;
-        float Decay;
     };
     uniform PointLight u_PointLights[NUM_POINT_LIGHTS];
 #endif
@@ -45,20 +43,11 @@ uniform float u_Shininess;
         vec4 Position;
         vec3 Color;
         vec3 Direction;
-        float Distance;
-        float Decay;
         float ConeCos;
         float PenumbraCos;
     };
     uniform SpotLight u_SpotLights[NUM_SPOT_LIGHTS];
 #endif
-
-float distanceAttenuation(const in float light_distance, const in float cutoff_distance, const in float decay_exponent) {
-	if( cutoff_distance > 0.0 && decay_exponent > 0.0 ) {
-		return pow(clamp(-light_distance / cutoff_distance + 1.0, 0.0, 1.0), decay_exponent);
-	}
-	return 1.0;
-}
 
 vec3 phongShading(
     const in vec3 normal,
@@ -109,7 +98,6 @@ void main() {
             vec3 v = light.Position.xyz - v_Position.xyz;
             vec3 direction = normalize(v);
             float light_distance = length(v);
-            light.Color *= distanceAttenuation(light_distance, light.Distance, light.Decay);
             v_FragColor += vec4(phongShading(normal, direction, light.Color.rgb, material), 1.0);
         }
     #endif
@@ -123,7 +111,6 @@ void main() {
             float angle_cos = dot(direction, light.Direction);
             if (angle_cos > light.ConeCos) {
                 light.Color *= smoothstep(light.ConeCos, light.PenumbraCos, angle_cos);
-                light.Color *= distanceAttenuation(light_distance, light.Distance, light.Decay);
                 v_FragColor += vec4(phongShading(normal, direction, light.Color.rgb, material), 1.0);
             } else {
                 light.Color = vec3(0.0);

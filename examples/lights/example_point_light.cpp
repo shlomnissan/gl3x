@@ -58,4 +58,8 @@ auto ExamplePointLight::ContextMenu() -> void {
     UIText("Light");
     UIColor("color", &point_light_->color[0], _, "light-color");
     UISliderFloat("intensity", point_light_->intensity, 0.0f, 1.0f, _, 160.0f);
+    UIText("Attenuation");
+    UISliderFloat("base", point_light_->attenuation.base, 0.0f, 2.0f, _, 160.0f);
+    UISliderFloat("linear", point_light_->attenuation.linear, 0.0f, 1.0f, _, 160.0f);
+    UISliderFloat("quadratic", point_light_->attenuation.quadratic, 0.0f, 2.0f, _, 160.0f);
 }

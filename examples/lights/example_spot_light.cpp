@@ -39,7 +39,7 @@ ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
     spot_light_ = SpotLight::Create(0xFFFFFF, 1.0f);
     spot_light_->transform.Translate({2.0f, 2.0f, -1.0f});
     spot_light_->angle = math::DegToRad(10.0f);
-    spot_light_->distance = 4.0f;
+    spot_light_->penumbra = 0.3f;
     spot_light_->SetDebugMode(true);
     Add(spot_light_);
 }
@@ -53,8 +53,13 @@ auto ExampleSpotLight::ContextMenu() -> void {
     UISliderFloat("shininess", phong_material_->shininess, 0.0f, 128.0f, _, 160.0f);
 
     UISeparator();
-
     UIText("Light");
     UIColor("color", &spot_light_->color[0], _, "light-color");
     UISliderFloat("intensity", spot_light_->intensity, 0.0f, 1.0f, _, 160.0f);
+    UISliderFloat("angle", spot_light_->angle, 0.1f, math::half_pi, _, 160.0f);
+    UISliderFloat("penumbra", spot_light_->penumbra, 0.0f, 1.0f, _, 160.0f);
+    UIText("Attenuation");
+    UISliderFloat("base", spot_light_->attenuation.base, 0.0f, 2.0f, _, 160.0f);
+    UISliderFloat("linear", spot_light_->attenuation.linear, 0.0f, 1.0f, _, 160.0f);
+    UISliderFloat("quadratic", spot_light_->attenuation.quadratic, 0.0f, 2.0f, _, 160.0f);
 }

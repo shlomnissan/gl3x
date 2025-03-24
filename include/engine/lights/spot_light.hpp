@@ -30,17 +30,16 @@ public:
     /// @brief The angle of the light cone.
     float angle {math::DegToRad(20.0f)};
 
-    // TODO: replace with attenuation
-    float decay {1.0f};
-    float distance {0.0f};
-
     /**
      * @brief Construct a new SpotLight instance.
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
+     * @param attenuation The attenuation properties of the light.
      */
-    SpotLight(Color color, float intensity) : Light(color, intensity) {
+    SpotLight(Color color, float intensity, Attenuation attenuation)
+        : Light(color, intensity), attenuation(attenuation)
+    {
         SetName("spot light");
     }
 
@@ -49,10 +48,15 @@ public:
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
+     * @param attenuation The attenuation properties of the light.
      * @return A shared pointer to the created SpotLight.
      */
-    [[nodiscard]] static auto Create(Color color = {0xffffff}, float intensity = 1.0f) {
-        return std::make_shared<SpotLight>(color, intensity);
+    [[nodiscard]] static auto Create(
+        Color color = {0xffffff},
+        float intensity = 1.0f,
+        Attenuation attenuation = {}
+    ) {
+        return std::make_shared<SpotLight>(color, intensity, attenuation);
     }
 
     /**
