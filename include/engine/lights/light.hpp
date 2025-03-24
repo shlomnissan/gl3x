@@ -26,6 +26,18 @@ enum class LightType {
  */
 class ENGINE_EXPORT Light : public Node {
 public:
+    /**
+     * @brief Defines how the light intensity diminishes over distance.
+     */
+    struct Attenuation {
+        /// @brief Minimum light intensity, unaffected by distance.
+        float base {1.0f};
+        /// @brief Controls a gradual, proportional fade as distance increases.
+        float linear {0.0f};
+        /// @brief Simulates real-world light falloff using an inverse-square law.
+        float quadratic {0.0f};
+    };
+
     /// @brief The color of the light.
     Color color {0xffffff};
 

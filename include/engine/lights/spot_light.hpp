@@ -18,6 +18,9 @@ namespace engine {
  */
 class ENGINE_EXPORT SpotLight : public Light {
 public:
+    /// @brief The attenuation properties of the light.
+    Attenuation attenuation;
+
     /// @brief The target node that the light is pointing towards.
     std::shared_ptr<Node> target {nullptr};
 
@@ -27,10 +30,8 @@ public:
     /// @brief The angle of the light cone.
     float angle {math::DegToRad(20.0f)};
 
-    /// @brief The amount the light dims along the distance of the light.
+    // TODO: replace with attenuation
     float decay {1.0f};
-
-    /// @brief Maximum range of the light.
     float distance {0.0f};
 
     /**

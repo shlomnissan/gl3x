@@ -17,10 +17,11 @@ namespace engine {
  */
 class ENGINE_EXPORT PointLight : public Light {
 public:
-    /// @brief The maximum range of the light.
-    float distance {0.0f};
+    /// @brief The attenuation properties of the light.
+    Attenuation attenuation;
 
-    /// @brief The amount the light dims along the distance of the light.
+    // TODO: replace with attenuation
+    float distance {0.0f};
     float decay {2.0f};
 
     /// @brief The size of the debug mesh used to visualize the position of the light.
