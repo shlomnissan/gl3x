@@ -24,20 +24,22 @@ public:
     /// @brief The target node that the light is pointing towards.
     std::shared_ptr<Node> target {nullptr};
 
-    /// @brief The penumbra angle of the light cone.
-    float penumbra {0.0f};
-
     /// @brief The angle of the light cone.
-    float angle {math::DegToRad(20.0f)};
+    float angle;
+
+    /// @brief The softness of the spotlight edge.
+    float penumbra;
 
     /**
      * @brief Construct a new SpotLight instance.
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
+     * @param angle The angle of the light cone.
+     * @param penumbra The penumbra angle of the light cone.
      * @param attenuation The attenuation properties of the light.
      */
-    SpotLight(Color color, float intensity, Attenuation attenuation)
+    SpotLight(Color color, float intensity, float angle, float penumbra, Attenuation attenuation)
         : Light(color, intensity), attenuation(attenuation)
     {
         SetName("spot light");
@@ -48,15 +50,19 @@ public:
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
+     * @param angle The angle of the light cone.
+     * @param penumbra The penumbra angle of the light cone.
      * @param attenuation The attenuation properties of the light.
      * @return A shared pointer to the created SpotLight.
      */
     [[nodiscard]] static auto Create(
         Color color = {0xffffff},
         float intensity = 1.0f,
+        float angle = math::DegToRad(20.0f),
+        float penumbra = 0.0f,
         Attenuation attenuation = {}
     ) {
-        return std::make_shared<SpotLight>(color, intensity, attenuation);
+        return std::make_shared<SpotLight>(color, intensity, angle, penumbra, attenuation);
     }
 
     /**

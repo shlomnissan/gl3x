@@ -5,6 +5,8 @@
 
 namespace engine {
 
+static constexpr auto debug_mesh_size = 0.5f;
+
 auto DirectionalLight::Direction() -> Vector3 {
     if (target != nullptr) {
         return Normalize(GetWorldPosition() - target->GetWorldPosition());

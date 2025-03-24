@@ -7,6 +7,8 @@
 
 namespace engine {
 
+static constexpr auto debug_mesh_size = 0.2f;
+
 auto PointLight::SetDebugMode(bool is_debug_mode) -> void {
     if (debug_mode_enabled != is_debug_mode) {
         if (is_debug_mode) {

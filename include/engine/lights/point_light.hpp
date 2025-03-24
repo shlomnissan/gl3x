@@ -20,9 +20,6 @@ public:
     /// @brief The attenuation properties of the light.
     Attenuation attenuation;
 
-    /// @brief The size of the debug mesh used to visualize the position of the light.
-    float debug_mesh_size {0.2f};
-
     /**
      * @brief Constructs a new PointLight instance.
      *
