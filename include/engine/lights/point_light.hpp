@@ -28,9 +28,10 @@ public:
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
+     * @param attenuation The attenuation properties of the light.
      */
-    PointLight(Color color, float intensity)
-      : Light(color, intensity)
+    PointLight(Color color, float intensity, Attenuation attenuation)
+        : Light(color, intensity), attenuation(attenuation)
     {
         SetName("point light");
     }
@@ -40,13 +41,15 @@ public:
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
+     * @param attenuation The attenuation properties of the light.
      * @return A shared pointer to the created PointLight.
      */
     [[nodiscard]] static auto Create(
         Color color = {0xffffff},
-        float intensity = 1.0f
+        float intensity = 1.0f,
+        Attenuation attenuation = {}
     ) {
-        return std::make_shared<PointLight>(color, intensity);
+        return std::make_shared<PointLight>(color, intensity, attenuation);
     }
 
     /**
