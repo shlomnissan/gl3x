@@ -203,8 +203,6 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
                 const auto u_pos = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
                 const auto u_color = point->color * point->intensity;
                 program->SetUniform(u_name + ".Color", u_color);
-                program->SetUniform(u_name + ".Decay", point->decay);
-                program->SetUniform(u_name + ".Distance", point->distance);
                 program->SetUniform(u_name + ".Position", u_pos);
                 point_idx++;
             }
@@ -215,9 +213,7 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
                 const auto u_pos = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
                 const auto u_color = spot->color * spot->intensity;
                 program->SetUniform(u_name + ".Color", u_color);
-                program->SetUniform(u_name + ".Decay", spot->decay);
                 program->SetUniform(u_name + ".Direction", Vector3(u_dir));
-                program->SetUniform(u_name + ".Distance", spot->distance);
                 program->SetUniform(u_name + ".Position", u_pos);
                 program->SetUniform(u_name + ".ConeCos", std::cos(spot->angle));
                 program->SetUniform(u_name + ".PenumbraCos", std::cos(spot->angle * (1 - spot->penumbra)));

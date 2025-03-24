@@ -74,11 +74,10 @@ auto SpotLight::CreateDebugMesh() -> void {
 }
 
 auto SpotLight::UpdateDebugMesh() -> void {
-    const auto cone_length = distance > 0 ? distance : 100.0f;
+    const auto target_world_pos = target != nullptr ? target->GetWorldPosition() : Vector3::Zero();
+    const auto cone_length = (target_world_pos - this->GetWorldPosition()).Length() + 1.0f;
     const auto cone_width = std::tan(angle) * cone_length;
-    const auto target_world_pos = target != nullptr
-        ? target->GetWorldPosition()
-        : Vector3::Zero();
+
     debug_mesh_cone_->LookAt(target_world_pos);
     debug_mesh_cone_->SetScale({cone_width, cone_width, cone_length});
     debug_mesh_material_->color = color;

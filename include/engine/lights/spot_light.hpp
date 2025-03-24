@@ -30,10 +30,6 @@ public:
     /// @brief The angle of the light cone.
     float angle {math::DegToRad(20.0f)};
 
-    // TODO: replace with attenuation
-    float decay {1.0f};
-    float distance {0.0f};
-
     /**
      * @brief Construct a new SpotLight instance.
      *

@@ -20,10 +20,6 @@ public:
     /// @brief The attenuation properties of the light.
     Attenuation attenuation;
 
-    // TODO: replace with attenuation
-    float distance {0.0f};
-    float decay {2.0f};
-
     /// @brief The size of the debug mesh used to visualize the position of the light.
     float debug_mesh_size {0.2f};
 
@@ -32,13 +28,9 @@ public:
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
-     * @param distance The maximum range of the light.
-     * @param decay The amount the light dims along the distance of the light.
      */
-    PointLight(Color color, float intensity, float distance, float decay)
-      : Light(color, intensity),
-        distance(distance),
-        decay(decay)
+    PointLight(Color color, float intensity)
+      : Light(color, intensity)
     {
         SetName("point light");
     }
@@ -48,17 +40,13 @@ public:
      *
      * @param color The color of the light.
      * @param intensity The intensity of the light.
-     * @param distance The maximum range of the light.
-     * @param decay The amount the light dims along the distance of the light.
      * @return A shared pointer to the created PointLight.
      */
     [[nodiscard]] static auto Create(
         Color color = {0xffffff},
-        float intensity = 1.0f,
-        float distance = 0.0f,
-        float decay = 2.0f
+        float intensity = 1.0f
     ) {
-        return std::make_shared<PointLight>(color, intensity, distance, decay);
+        return std::make_shared<PointLight>(color, intensity);
     }
 
     /**
