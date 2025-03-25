@@ -17,7 +17,9 @@ struct PhongMaterial {
     vec3 SpecularColor;
     float Shininess;
 };
+
 uniform PhongMaterial u_Material;
+uniform vec3 u_AmbientLight;
 
 vec3 phongShading(
     const in vec3 light_dir,
@@ -61,19 +63,19 @@ void processLights(inout vec3 color, const in vec3 normal) {
 
         if (light.Type == 1 /* directional light */) {
             color += phongShading(light.Direction, light.Color, normal);
-        } else {
+        }
+
+        if (light.Type == 2 /* point light */) {
             vec3 light_dir = normalize(light.Position - v_Position.xyz);
+            color += phongShading(light_dir, light.Color, normal);
+        }
 
-            if (light.Type == 2 /* point light */) {
+        if (light.Type == 3 /* spot light */) {
+            vec3 light_dir = normalize(light.Position - v_Position.xyz);
+            float angle_cos = dot(light_dir, light.Direction);
+            if (angle_cos > light.ConeCos) {
+                light.Color *= smoothstep(light.ConeCos, light.PenumbraCos, angle_cos);
                 color += phongShading(light_dir, light.Color, normal);
-            }
-
-            if (light.Type == 3 /* spot light */) {
-                float angle_cos = dot(light_dir, light.Direction);
-                if (angle_cos > light.ConeCos) {
-                    light.Color *= smoothstep(light.ConeCos, light.PenumbraCos, angle_cos);
-                    color += phongShading(light_dir, light.Color, normal);
-                }
             }
         }
     }
@@ -81,27 +83,27 @@ void processLights(inout vec3 color, const in vec3 normal) {
 
 #endif
 
-uniform vec3 u_AmbientLight;
-
 void main() {
     #include "snippets/frag_main_normal.glsl"
 
+    vec3 output_color = u_AmbientLight;
+    float opacity = u_Opacity;
+
     #ifdef USE_TEXTURE_MAP
         u_Material.DiffuseColor *= texture(u_TextureMap, v_TexCoord).rgb;
+        opacity *= texture(u_TextureMap, v_TexCoord).a;
     #endif
 
-    vec3 output_color = u_AmbientLight * u_Material.DiffuseColor;
+    output_color *= u_Material.DiffuseColor;
 
     #if NUM_LIGHTS > 0
         processLights(output_color, normal);
     #endif
 
-    v_FragColor = vec4(output_color, 1.0);
-
     #ifdef USE_FOG
-        applyFog(v_FragColor, v_FogDepth);
+        applyFog(output_color, v_FogDepth);
     #endif
 
-    v_FragColor.a = u_Opacity;
+    v_FragColor = vec4(output_color, opacity);
     v_FragColor = clamp(v_FragColor, 0.0, 1.0);
 }

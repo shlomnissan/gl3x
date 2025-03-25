@@ -13,16 +13,18 @@ precision mediump float;
 #include "snippets/frag_global_fog.glsl"
 
 void main() {
-    v_FragColor = vec4(u_Color, 1.0);
+    vec3 output_color = u_Color;
+    float opacity = u_Opacity;
 
     #ifdef USE_TEXTURE_MAP
-        v_FragColor *= texture(u_TextureMap, v_TexCoord);
+        output_color *= texture(u_TextureMap, v_TexCoord).rgb;
+        opacity *= texture(u_TextureMap, v_TexCoord).a;
     #endif
 
     #ifdef USE_FOG
-        applyFog(v_FragColor, v_FogDepth);
+        applyFog(output_color, v_FogDepth);
     #endif
 
-    v_FragColor.a *= u_Opacity;
+    v_FragColor = vec4(output_color, opacity);
     v_FragColor = clamp(v_FragColor, 0.0, 1.0);
 }
