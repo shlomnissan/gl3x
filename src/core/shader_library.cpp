@@ -87,12 +87,11 @@ auto ShaderLibrary::InjectAttributes(
     if (attrs.two_sided) features += "#define USE_TWO_SIDED\n";
     if (attrs.flat_shaded) features += "#define USE_FLAT_SHADED\n";
 
-    features += std::format("#define NUM_DIR_LIGHTS {}\n", attrs.directional_lights);
-    features += std::format("#define NUM_POINT_LIGHTS {}\n", attrs.point_lights);
-    features += std::format("#define NUM_SPOT_LIGHTS {}\n", attrs.spot_lights);
+    const auto lights = attrs.directional_lights + attrs.point_lights + attrs.spot_lights;
+    features += std::format("#define NUM_LIGHTS {}\n", lights);
 
-    auto token = std::string_view {"#pragma inject_attributes"};
-    auto pos = source.find(token);
+    const auto token = std::string_view {"#pragma inject_attributes"};
+    const auto pos = source.find(token);
     if (pos == std::string::npos) {
         Logger::Log(
             LogLevel::Error,

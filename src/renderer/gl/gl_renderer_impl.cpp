@@ -147,10 +147,10 @@ auto Renderer::Impl::SetUniforms(
 
     if (attrs->type == MaterialType::PhongMaterial) {
         auto m = material->As<PhongMaterial>();
-        program->SetUniform("u_Color", m->color);
         if (attrs->directional_lights || attrs->point_lights || attrs->spot_lights) {
-            program->SetUniform("u_Specular", m->specular);
-            program->SetUniform("u_Shininess", m->shininess);
+            program->SetUniform("u_Material.DiffuseColor", m->color);
+            program->SetUniform("u_Material.SpecularColor", m->specular);
+            program->SetUniform("u_Material.Shininess", m->shininess);
             if (!attrs->flat_shaded) {
                 // The normal matrix is optimized away in flat shaded mode.
                 program->SetUniformIfExists("u_NormalMatrix", Transpose(Inverse(Matrix3(model_view))));
@@ -174,9 +174,7 @@ auto Renderer::Impl::SetUniforms(
 
 auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const Camera* camera) const -> void {
     auto ambient_light = Color {0.0f, 0.0f, 0.0f};
-    auto directional_idx = 0;
-    auto point_idx = 0;
-    auto spot_idx = 0;
+    auto idx = 0;
 
     for (auto weak_light : render_lists_->Lights()) {
         if (auto light = weak_light.lock()) {
@@ -184,40 +182,40 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
             const auto intensity = light->intensity;
 
             if (auto ambient = light->As<AmbientLight>()) {
-                ambient_light.r += color.r * intensity;
-                ambient_light.g += color.g * intensity;
-                ambient_light.b += color.b * intensity;
+                ambient_light = color * intensity;
             }
 
+            const auto uniform = std::format("u_Lights[{}]", idx);
+
             if (auto directional = light->As<DirectionalLight>()) {
-                const auto u_name = std::format("u_DirectionalLights[{}]", directional_idx);
-                const auto u_dir = camera->view_transform * Vector4(directional->Direction(), 0.0f);
-                const auto u_color = directional->color * directional->intensity;
-                program->SetUniform(u_name + ".Color", u_color);
-                program->SetUniform(u_name + ".Direction", Vector3(u_dir));
-                directional_idx++;
+                const auto direction = camera->view_transform * Vector4(directional->Direction(), 0.0f);
+                const auto color = directional->color * directional->intensity;
+                program->SetUniform(uniform + ".Type", static_cast<int>(LightType::DirectionalLight));
+                program->SetUniform(uniform + ".Color", color);
+                program->SetUniform(uniform + ".Direction", Vector3(direction));
+                ++idx;
             }
 
             if (auto point = light->As<PointLight>()) {
-                const auto u_name = std::format("u_PointLights[{}]", point_idx);
-                const auto u_pos = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
-                const auto u_color = point->color * point->intensity;
-                program->SetUniform(u_name + ".Color", u_color);
-                program->SetUniform(u_name + ".Position", u_pos);
-                point_idx++;
+                const auto color = point->color * point->intensity;
+                const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
+                program->SetUniform(uniform + ".Type", static_cast<int>(LightType::PointLight));
+                program->SetUniform(uniform + ".Color", color);
+                program->SetUniform(uniform + ".Position", Vector3(position));
+                ++idx;
             }
 
             if (auto spot = light->As<SpotLight>()) {
-                const auto u_name = std::format("u_SpotLights[{}]", spot_idx);
-                const auto u_dir = camera->view_transform * Vector4(spot->Direction(), 0.0f);
-                const auto u_pos = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
-                const auto u_color = spot->color * spot->intensity;
-                program->SetUniform(u_name + ".Color", u_color);
-                program->SetUniform(u_name + ".Direction", Vector3(u_dir));
-                program->SetUniform(u_name + ".Position", u_pos);
-                program->SetUniform(u_name + ".ConeCos", std::cos(spot->angle));
-                program->SetUniform(u_name + ".PenumbraCos", std::cos(spot->angle * (1 - spot->penumbra)));
-                spot_idx++;
+                const auto direction = camera->view_transform * Vector4(spot->Direction(), 0.0f);
+                const auto color = spot->color * spot->intensity;
+                const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
+                program->SetUniform(uniform + ".Type", static_cast<int>(LightType::SpotLight));
+                program->SetUniform(uniform + ".Color", color);
+                program->SetUniform(uniform + ".Direction", Vector3(direction));
+                program->SetUniform(uniform + ".Position", Vector3(position));
+                program->SetUniform(uniform + ".ConeCos", std::cos(spot->angle));
+                program->SetUniform(uniform + ".PenumbraCos", std::cos(spot->angle * (1 - spot->penumbra)));
+                ++idx;
             }
         }
     }

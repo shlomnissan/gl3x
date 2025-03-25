@@ -17,106 +17,86 @@ struct PhongMaterial {
     vec3 SpecularColor;
     float Shininess;
 };
-
-uniform vec3 u_AmbientLight;
-uniform vec3 u_Specular;
-uniform float u_Shininess;
-
-#if NUM_DIR_LIGHTS > 0
-    struct DirectionalLight {
-        vec3 Direction;
-        vec3 Color;
-    };
-    uniform DirectionalLight u_DirectionalLights[NUM_DIR_LIGHTS];
-#endif
-
-#if NUM_POINT_LIGHTS > 0
-    struct PointLight {
-        vec4 Position;
-        vec3 Color;
-    };
-    uniform PointLight u_PointLights[NUM_POINT_LIGHTS];
-#endif
-
-#if NUM_SPOT_LIGHTS > 0
-    struct SpotLight {
-        vec4 Position;
-        vec3 Color;
-        vec3 Direction;
-        float ConeCos;
-        float PenumbraCos;
-    };
-    uniform SpotLight u_SpotLights[NUM_SPOT_LIGHTS];
-#endif
+uniform PhongMaterial u_Material;
 
 vec3 phongShading(
-    const in vec3 normal,
     const in vec3 light_dir,
     const in vec3 light_color,
-    const in PhongMaterial material
+    const in vec3 normal
 ) {
     float diffuse_factor = max(dot(light_dir, normal), 0.0);
-    vec3 diffuse = light_color * material.DiffuseColor * diffuse_factor;
+    vec3 diffuse = light_color * u_Material.DiffuseColor * diffuse_factor;
 
     // If the diffuse factor is zero, the light is facing away from the surface
     // and no light contribution should be calculated, so we skip specular calculation.
     vec3 specular = vec3(0.0);
     if (diffuse_factor > 0.0) {
         vec3 halfway = normalize(light_dir + v_ViewDir);
-        specular = light_color * material.SpecularColor *
-            pow(max(dot(halfway, normal), 0.0), material.Shininess);
+        specular = light_color * u_Material.SpecularColor *
+            pow(max(dot(halfway, normal), 0.0), u_Material.Shininess);
     }
 
     return diffuse + specular;
 }
 
+#if NUM_LIGHTS > 0
+
+struct Light {
+    int Type;
+    vec3 Color;
+    vec3 Position;
+    vec3 Direction;
+    float ConeCos;
+    float PenumbraCos;
+    float Base;
+    float Linear;
+    float Quadratic;
+};
+
+uniform Light u_Lights[NUM_LIGHTS];
+
+void processLights(inout vec3 color, const in vec3 normal) {
+    for (int i = 0; i < NUM_LIGHTS; i++) {
+        Light light = u_Lights[i];
+
+        if (light.Type == 1 /* directional light */) {
+            color += phongShading(light.Direction, light.Color, normal);
+        } else {
+            vec3 light_dir = normalize(light.Position - v_Position.xyz);
+
+            if (light.Type == 2 /* point light */) {
+                color += phongShading(light_dir, light.Color, normal);
+            }
+
+            if (light.Type == 3 /* spot light */) {
+                float angle_cos = dot(light_dir, light.Direction);
+                if (angle_cos > light.ConeCos) {
+                    light.Color *= smoothstep(light.ConeCos, light.PenumbraCos, angle_cos);
+                    color += phongShading(light_dir, light.Color, normal);
+                }
+            }
+        }
+    }
+}
+
+#endif
+
+uniform vec3 u_AmbientLight;
+
 void main() {
     #include "snippets/frag_main_normal.glsl"
 
-    PhongMaterial material = PhongMaterial(
-        u_Color.rgb,
-        u_Specular.rgb,
-        u_Shininess
-    );
-
     #ifdef USE_TEXTURE_MAP
-        material.DiffuseColor *= texture(u_TextureMap, v_TexCoord).rgb;
+        u_Material.DiffuseColor *= texture(u_TextureMap, v_TexCoord).rgb;
     #endif
 
-    v_FragColor = vec4(u_AmbientLight * material.DiffuseColor, 1.0f);
+    vec3 output_color = u_AmbientLight * u_Material.DiffuseColor;
 
-    #if NUM_DIR_LIGHTS > 0
-        for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
-            DirectionalLight light = u_DirectionalLights[i];
-            v_FragColor += vec4(phongShading(normal, light.Direction, light.Color.rgb, material), 1.0);
-        }
+    #if NUM_LIGHTS > 0
+        processLights(output_color, normal);
     #endif
 
-    #if NUM_POINT_LIGHTS > 0
-        for (int i = 0; i < NUM_POINT_LIGHTS; i++) {
-            PointLight light = u_PointLights[i];
-            vec3 v = light.Position.xyz - v_Position.xyz;
-            vec3 direction = normalize(v);
-            float light_distance = length(v);
-            v_FragColor += vec4(phongShading(normal, direction, light.Color.rgb, material), 1.0);
-        }
-    #endif
-
-    #if NUM_SPOT_LIGHTS > 0
-        for (int i = 0; i < NUM_SPOT_LIGHTS; i++) {
-            SpotLight light = u_SpotLights[i];
-            vec3 v = light.Position.xyz - v_Position.xyz;
-            vec3 direction = normalize(v);
-            float light_distance = length(v);
-            float angle_cos = dot(direction, light.Direction);
-            if (angle_cos > light.ConeCos) {
-                light.Color *= smoothstep(light.ConeCos, light.PenumbraCos, angle_cos);
-                v_FragColor += vec4(phongShading(normal, direction, light.Color.rgb, material), 1.0);
-            } else {
-                light.Color = vec3(0.0);
-            }
-        }
-    #endif
+    v_FragColor = vec4(output_color, 1.0);
 
     #ifdef USE_FOG
         applyFog(v_FragColor, v_FogDepth);
