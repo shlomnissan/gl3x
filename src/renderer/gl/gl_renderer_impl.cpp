@@ -202,6 +202,9 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
                 program->SetUniform(uniform + ".Type", static_cast<int>(point->Type()));
                 program->SetUniform(uniform + ".Color", color);
                 program->SetUniform(uniform + ".Position", Vector3(position));
+                program->SetUniform(uniform + ".Base", point->attenuation.base);
+                program->SetUniform(uniform + ".Linear", point->attenuation.linear);
+                program->SetUniform(uniform + ".Quadratic", point->attenuation.quadratic);
                 ++idx;
             }
 
@@ -215,6 +218,9 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
                 program->SetUniform(uniform + ".Position", Vector3(position));
                 program->SetUniform(uniform + ".ConeCos", std::cos(spot->angle));
                 program->SetUniform(uniform + ".PenumbraCos", std::cos(spot->angle * (1 - spot->penumbra)));
+                program->SetUniform(uniform + ".Base", spot->attenuation.base);
+                program->SetUniform(uniform + ".Linear", spot->attenuation.linear);
+                program->SetUniform(uniform + ".Quadratic", spot->attenuation.quadratic);
                 ++idx;
             }
         }

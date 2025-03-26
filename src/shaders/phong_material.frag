@@ -35,7 +35,7 @@ vec3 phongShading(
     if (diffuse_factor > 0.0) {
         vec3 halfway = normalize(light_dir + v_ViewDir);
         specular = light_color * u_Material.SpecularColor *
-            pow(max(dot(halfway, normal), 0.0), u_Material.Shininess);
+            pow(max(dot(halfway, normal), 0.0), max(u_Material.Shininess, 1.0));
     }
 
     return diffuse + specular;
@@ -57,6 +57,13 @@ struct Light {
 
 uniform Light u_Lights[NUM_LIGHTS];
 
+float attenuation(in float dist, in Light light) {
+    float denominator = light.Base +
+                        light.Linear * dist +
+                        light.Quadratic * (dist * dist);
+    return clamp(1.0 / max(denominator, 0.01), 0.02, 1.0);
+}
+
 void processLights(inout vec3 color, const in vec3 normal) {
     for (int i = 0; i < NUM_LIGHTS; i++) {
         Light light = u_Lights[i];
@@ -67,15 +74,17 @@ void processLights(inout vec3 color, const in vec3 normal) {
 
         if (light.Type == 2 /* point light */) {
             vec3 light_dir = normalize(light.Position - v_Position.xyz);
-            color += phongShading(light_dir, light.Color, normal);
+            float dist = length(light.Position - v_Position.xyz);
+            color += attenuation(dist, light) * phongShading(light_dir, light.Color, normal);
         }
 
         if (light.Type == 3 /* spot light */) {
             vec3 light_dir = normalize(light.Position - v_Position.xyz);
+            float dist = length(light.Position - v_Position.xyz);
             float angle_cos = dot(light_dir, light.Direction);
             if (angle_cos > light.ConeCos) {
-                light.Color *= smoothstep(light.ConeCos, light.PenumbraCos, angle_cos);
-                color += phongShading(light_dir, light.Color, normal);
+                vec3 spot_color = light.Color * smoothstep(light.ConeCos, light.PenumbraCos, angle_cos);
+                color += attenuation(dist, light) * phongShading(light_dir, spot_color, normal);
             }
         }
     }
@@ -85,8 +94,6 @@ void processLights(inout vec3 color, const in vec3 normal) {
 
 void main() {
     #include "snippets/frag_main_normal.glsl"
-
-    vec3 output_color = u_AmbientLight;
     float opacity = u_Opacity;
 
     #ifdef USE_TEXTURE_MAP
@@ -94,7 +101,7 @@ void main() {
         opacity *= texture(u_TextureMap, v_TexCoord).a;
     #endif
 
-    output_color *= u_Material.DiffuseColor;
+    vec3 output_color = u_AmbientLight * u_Material.DiffuseColor;
 
     #if NUM_LIGHTS > 0
         processLights(output_color, normal);
@@ -105,5 +112,4 @@ void main() {
     #endif
 
     v_FragColor = vec4(output_color, opacity);
-    v_FragColor = clamp(v_FragColor, 0.0, 1.0);
 }

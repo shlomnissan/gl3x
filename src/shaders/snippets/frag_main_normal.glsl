@@ -14,7 +14,7 @@ Instead, use the generated normal variable for lighting calculations.
 	vec3 fdy = dFdy(v_Position.xyz);
 	vec3 normal = normalize(cross(fdx, fdy));
 #else
-    vec3 normal = v_Normal;
+    vec3 normal = normalize(v_Normal);
     #ifdef USE_TWO_SIDED
         normal *= gl_FrontFacing ? 1.0 : -1.0;
     #endif
