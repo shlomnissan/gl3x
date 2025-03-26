@@ -16,7 +16,7 @@ output color, varyings, and uniforms accessible within the fragment shader.
 
 layout (location = 0) out vec4 v_FragColor;
 
-in float v_FogDepth;
+in float v_ViewDepth;
 in vec2 v_TexCoord;
 in vec3 v_Normal;
 in vec3 v_ViewDir;

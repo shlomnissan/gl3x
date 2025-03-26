@@ -40,17 +40,9 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
         fragment_shader = m->fragment_shader_;
     }
 
-    two_sided = material->two_sided;
     flat_shaded = material->flat_shaded;
-
-    if (material->fog && scene->fog != nullptr) {
-        if (scene->fog->Type() == FogType::LinearFog) {
-            linear_fog = true;
-        }
-        if (scene->fog->Type() == FogType::ExponentialFog) {
-            exponential_fog = true;
-        }
-    }
+    fog = material->fog && scene->fog != nullptr;
+    two_sided = material->two_sided;
 
     for (auto weak_light : render_lists->Lights()) {
         if (auto light = weak_light.lock()) {
@@ -70,9 +62,8 @@ auto ProgramAttributes::ProgramPermutationHash() const -> std::string {
     auto attrs = std::array<int, 9> {
         color ? 1 : 0,
         directional_lights,
-        exponential_fog ? 1 : 0,
         flat_shaded ? 1 : 0,
-        linear_fog ? 1 : 0,
+        fog ? 1 : 0,
         point_lights,
         spot_lights,
         texture_map ? 1 : 0,

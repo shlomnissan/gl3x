@@ -50,7 +50,7 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> cam
             vec3 col = 0.5 + 0.5 * cos(u_Time + uv.xyx + vec3(0,2,4));
             v_FragColor = vec4(col, 1.0);
             #ifdef USE_FOG
-                applyFog(v_FragColor, v_FogDepth);
+                applyFog(v_FragColor, v_ViewDepth);
             #endif
         })",
 

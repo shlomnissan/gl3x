@@ -22,7 +22,7 @@ void main() {
     #endif
 
     #ifdef USE_FOG
-        applyFog(output_color, v_FogDepth);
+        applyFog(output_color, v_ViewDepth);
     #endif
 
     v_FragColor = vec4(output_color, opacity);

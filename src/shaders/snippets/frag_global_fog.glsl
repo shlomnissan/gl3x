@@ -13,33 +13,27 @@ applyFog function with the color and depth as arguments.
 
 */
 
-#ifdef USE_LINEAR_FOG
+#ifdef USE_FOG
 
 struct Fog {
+    int Type; // 0 = linear, 1 = exponential
     vec3 Color;
     float Near;
     float Far;
-};
-uniform Fog u_LinearFog;
-
-void applyFog(inout vec3 color, const in float depth) {
-    float fog_factor = smoothstep(u_LinearFog.Near, u_LinearFog.Far, depth);
-    color = mix(color, u_LinearFog.Color, fog_factor);
-}
-
-#endif
-
-#ifdef USE_EXPONENTIAL_FOG
-
-struct Fog {
-    vec3 Color;
     float Density;
 };
-uniform Fog u_ExponentialFog;
+
+uniform Fog u_Fog;
 
 void applyFog(inout vec3 color, const in float depth) {
-    float fog_factor = 1.0 - exp(-u_ExponentialFog.Density * u_ExponentialFog.Density * depth * depth);
-    color = mix(color, u_ExponentialFog.Color, fog_factor);
+    float fog_factor = 0.0;
+    if (u_Fog.Type == 0) {
+        fog_factor = smoothstep(u_Fog.Near, u_Fog.Far, depth);
+    }
+    if (u_Fog.Type == 1) {
+        fog_factor = 1.0 - exp(-u_Fog.Density * u_Fog.Density * depth * depth);
+    }
+    color = mix(color, u_Fog.Color, fog_factor);
 }
 
 #endif

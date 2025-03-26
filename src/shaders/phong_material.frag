@@ -44,7 +44,7 @@ vec3 phongShading(
 #if NUM_LIGHTS > 0
 
 struct Light {
-    int Type;
+    int Type; // 1 = directional, 2 = point, 3 = spot
     vec3 Color;
     vec3 Position;
     vec3 Direction;
@@ -101,7 +101,7 @@ void main() {
     #endif
 
     #ifdef USE_FOG
-        applyFog(output_color, v_FogDepth);
+        applyFog(output_color, v_ViewDepth);
     #endif
 
     v_FragColor = vec4(output_color, opacity);

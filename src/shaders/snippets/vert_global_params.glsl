@@ -10,7 +10,7 @@ used in both the vertex and fragment shaders.
 @uniform mat3 u_TextureTransform - Applies texture coordinate transformations
 @uniform mat4 u_ModelView - Model-view transformation matrix
 @uniform mat4 u_Projection - Projection transformation matrix
-@out float v_FogDepth - Depth value for fog calculations
+@out float v_ViewDepth - Depth of the vertex in view space
 @out vec2 v_TexCoord - Transformed texture coordinates for the fragment shader
 @out vec3 v_Normal - Transformed normal vector in view space
 @out vec3 v_ViewDir - View direction vector for lighting calculations
@@ -27,7 +27,7 @@ uniform mat3 u_TextureTransform;
 uniform mat4 u_ModelView;
 uniform mat4 u_Projection;
 
-out float v_FogDepth;
+out float v_ViewDepth;
 out vec2 v_TexCoord;
 out vec3 v_Normal;
 out vec3 v_ViewDir;
