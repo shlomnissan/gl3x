@@ -4,7 +4,10 @@
 #pragma once
 
 #include <format>
+#include <functional>
+#include <span>
 #include <string>
+#include <string_view>
 
 using Label = const std::string&;
 
@@ -19,5 +22,12 @@ auto UISliderUnsigned(Label label, unsigned& value, unsigned min, unsigned max, 
 auto UICheckbox(Label label, bool& value, bool& dirty, float offset = 100.0f) -> void;
 
 auto UIColor(Label label, float* color, bool& dirty, Label id = "") -> void;
+
+auto UIDropDown(
+    const std::string& label,
+    const std::span<const char*> items,
+    const std::string_view selected_value,
+    const std::function<void(std::string_view)>& callback
+) -> void;
 
 auto Theme() -> void;

@@ -9,8 +9,6 @@
 #include <engine/lights.hpp>
 #include <engine/resources.hpp>
 
-#include <imgui.h>
-
 using namespace engine;
 
 ExampleBlending::ExampleBlending(std::shared_ptr<engine::Camera> camera) {
@@ -45,24 +43,17 @@ ExampleBlending::ExampleBlending(std::shared_ptr<engine::Camera> camera) {
 auto ExampleBlending::ContextMenu() -> void {
     auto _ = true;
 
-    static auto curr_blend_mode = "normal";
-    if (ImGui::BeginCombo("mode", curr_blend_mode)) {
-        for (auto i = 0; i < blending_modes_.size(); i++) {
-            auto is_selected = (curr_blend_mode == blending_modes_[i]);
-            if (ImGui::Selectable(blending_modes_[i], is_selected)) {
-                curr_blend_mode = blending_modes_[i];
-                switch (i) {
-                    case 0: transparent_material_->blending = Blending::None; break;
-                    case 1: transparent_material_->blending = Blending::Normal; break;
-                    case 2: transparent_material_->blending = Blending::Additive; break;
-                    case 3: transparent_material_->blending = Blending::Subtractive; break;
-                    case 4: transparent_material_->blending = Blending::Multiply; break;
-                    default: break;
-                }
-            }
-        }
-        ImGui::EndCombo();
-    }
+    static auto curr_blend_mode = std::string {"normal"};
+    UIDropDown("mode", blending_modes_, curr_blend_mode,
+      [this](std::string_view str) {
+        using enum Blending;
+        curr_blend_mode = str;
+        if (str == "none") transparent_material_->blending = None;
+        if (str == "normal") transparent_material_->blending = Normal;
+        if (str == "additive") transparent_material_->blending = Additive;
+        if (str == "subtractive") transparent_material_->blending = Subtractive;
+        if (str == "multiply") transparent_material_->blending = Multiply;
+    });
 
     UISliderFloat("opacity", transparent_material_->opacity, 0.0f, 1.0f, _, 160.0f);
 }

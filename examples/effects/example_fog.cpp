@@ -11,9 +11,6 @@
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
-#include <cstring>
-#include <imgui.h>
-
 using namespace engine;
 
 ExampleFog::ExampleFog(std::shared_ptr<engine::Camera> camera) {
@@ -49,22 +46,13 @@ auto ExampleFog::ContextMenu() -> void {
 
     UIColor("color", &fog->color[0], _);
 
-    static auto curr_fog_function = "linear";
-    if (ImGui::BeginCombo("function", curr_fog_function)) {
-        for (const auto& fog_function : fog_function_) {
-            auto is_selected = (curr_fog_function == fog_function);
-            if (ImGui::Selectable(fog_function, is_selected)) {
-                curr_fog_function = fog_function;
-                if (std::strcmp(curr_fog_function, "linear") == 0) {
-                    fog = LinearFog::Create(fog->color, 2.0f, 6.0f);
-                }
-                if (std::strcmp(curr_fog_function, "exponential") == 0) {
-                    fog = ExponentialFog::Create(fog->color, 0.2f);
-                }
-            }
-        }
-        ImGui::EndCombo();
-    }
+    static auto curr_fog_function = std::string {"linear"};
+    UIDropDown("function", fog_function_, curr_fog_function,
+      [this](std::string_view str) {
+        curr_fog_function = str;
+        if (str == "linear") fog = LinearFog::Create(fog->color, 2.0f, 6.0f);
+        if (str == "exponential") fog = ExponentialFog::Create(fog->color, 0.2f);
+    });
 
     if (auto linear_fog = dynamic_cast<LinearFog*>(fog.get())) {
         UISliderFloat("near", linear_fog->near, 0.0f, 20.0f, _, 160.0f);

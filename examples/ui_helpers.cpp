@@ -70,6 +70,22 @@ auto UIColor(
     }
 }
 
+auto UIDropDown(
+    const std::string& label,
+    const std::span<const char*> items,
+    std::string_view selected_value,
+    const std::function<void(std::string_view)>& callback
+) -> void {
+    if (ImGui::BeginCombo(label.c_str(), selected_value.data())) {
+        for (const auto& item : items) {
+            if (ImGui::Selectable(item, selected_value == item)) {
+                callback(item);
+            }
+        }
+        ImGui::EndCombo();
+    }
+}
+
 auto Theme() -> void {
     ImGuiStyle& style = ImGui::GetStyle();
     ImVec4* colors = style.Colors;
