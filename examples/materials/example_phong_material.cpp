@@ -3,12 +3,12 @@
 
 #include "example_phong_material.hpp"
 
+#include "ui_helpers.hpp"
+
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
-
-#include <imgui.h>
 
 using namespace engine;
 
@@ -37,5 +37,5 @@ auto ExamplePhongMaterial::Update(float delta) -> void {
 }
 
 auto ExamplePhongMaterial::ContextMenu() -> void {
-    ImGui::Text("Phong Material");
+    UIText("Phong Material");
 }

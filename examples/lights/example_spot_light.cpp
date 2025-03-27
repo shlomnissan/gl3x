@@ -8,8 +8,6 @@
 #include <engine/geometries.hpp>
 #include <engine/resources.hpp>
 
-#include <imgui.h>
-
 using namespace engine;
 
 ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {

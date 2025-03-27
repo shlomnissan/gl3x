@@ -9,8 +9,6 @@
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
-#include <imgui.h>
-
 using namespace engine;
 using namespace engine::math;
 

@@ -3,10 +3,10 @@
 
 #include "example_shader_material.hpp"
 
+#include "ui_helpers.hpp"
+
 #include <engine/geometries.hpp>
 #include <engine/resources.hpp>
-
-#include <imgui.h>
 
 using namespace engine;
 
@@ -71,5 +71,5 @@ auto ExampleShaderMaterial::Update(float delta) -> void {
 }
 
 auto ExampleShaderMaterial::ContextMenu() -> void {
-    ImGui::Text("Shader Material");
+    UIText("Shader Material");
 }

@@ -9,8 +9,6 @@
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
-#include <imgui.h>
-
 using namespace engine;
 
 ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<engine::Camera> camera) {

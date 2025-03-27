@@ -3,11 +3,11 @@
 
 #include "example_flat_material.hpp"
 
+#include "ui_helpers.hpp"
+
 #include <engine/geometries.hpp>
 #include <engine/materials.hpp>
 #include <engine/resources.hpp>
-
-#include <imgui.h>
 
 using namespace engine;
 
@@ -28,5 +28,5 @@ auto ExampleFlatMaterial::Update(float delta) -> void {
 }
 
 auto ExampleFlatMaterial::ContextMenu() -> void {
-    ImGui::Text("Flat Material");
+    UIText("Flat Material");
 }
