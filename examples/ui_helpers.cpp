@@ -43,13 +43,7 @@ auto UISliderUnsigned(
     }
 }
 
-auto UICheckbox(
-    Label label,
-    bool& value,
-    bool& dirty,
-    float offset) -> void
-{
-    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offset);
+auto UICheckbox(Label label, bool& value, bool& dirty) -> void {
     if (ImGui::Checkbox(label.c_str(), &value)) {
         dirty = true;
     }

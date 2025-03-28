@@ -17,9 +17,7 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> cam
     auto geometry = BoxGeometry::Create();
 
     material_ = ShaderMaterial::Create(
-        // ----------------
         // Vertex shader
-        // ----------------
         R"(#version 410 core
         #pragma inject_attributes
 
@@ -31,9 +29,7 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> cam
             gl_Position = u_Projection * v_Position;
         })",
 
-        // ----------------
         // Fragment shader
-        // ----------------
         R"(#version 410 core
         #pragma inject_attributes
 
@@ -48,15 +44,13 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> cam
         void main() {
             vec2 uv = gl_FragCoord.xy / u_Resolution.xy;
             vec3 col = 0.5 + 0.5 * cos(u_Time + uv.xyx + vec3(0,2,4));
-            v_FragColor = vec4(col, 1.0);
+            v_FragColor = vec4(col, u_Opacity);
             #ifdef USE_FOG
                 applyFog(v_FragColor, v_ViewDepth);
             #endif
         })",
 
-        // ----------------
-        // Custom uniforms
-        // ----------------
+        // Uniforms
         {{"u_Time", 0.0f}}
     );
 
@@ -71,5 +65,9 @@ auto ExampleShaderMaterial::Update(float delta) -> void {
 }
 
 auto ExampleShaderMaterial::ContextMenu() -> void {
-    UIText("Shader Material");
+    static bool _ = false;
+
+    UICheckbox("two_sided", material_->two_sided, _);
+    UICheckbox("transparent", material_->transparent, _);
+    UISliderFloat("opacity", material_->opacity, 0.0f, 1.0f, _);
 }

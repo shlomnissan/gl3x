@@ -19,7 +19,7 @@ auto UISliderFloat(Label label, float& value, float min, float max, bool& dirty,
 
 auto UISliderUnsigned(Label label, unsigned& value, unsigned min, unsigned max, bool& dirty, float width = 120.0f) -> void;
 
-auto UICheckbox(Label label, bool& value, bool& dirty, float offset = 100.0f) -> void;
+auto UICheckbox(Label label, bool& value, bool& dirty) -> void;
 
 auto UIColor(Label label, float* color, bool& dirty, Label id = "") -> void;
 

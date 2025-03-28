@@ -6,7 +6,6 @@
 #include "ui_helpers.hpp"
 
 #include <engine/geometries.hpp>
-#include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
 using namespace engine;
@@ -16,9 +15,9 @@ ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera)
     Add(camera_controls);
 
     auto geometry = BoxGeometry::Create();
-    auto material = FlatMaterial::Create();
-    material->color = 0x049EF4;
-    mesh_ = Mesh::Create(geometry, material);
+    material_ = FlatMaterial::Create();
+    material_->color = 0x049EF4;
+    mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);
 }
 
@@ -28,5 +27,9 @@ auto ExampleFlatMaterial::Update(float delta) -> void {
 }
 
 auto ExampleFlatMaterial::ContextMenu() -> void {
-    UIText("Flat Material");
+    static bool _ = false;
+
+    UICheckbox("two_sided", material_->two_sided, _);
+    UICheckbox("transparent", material_->transparent, _);
+    UISliderFloat("opacity", material_->opacity, 0.0f, 1.0f, _);
 }

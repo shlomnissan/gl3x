@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <engine/materials.hpp>
 #include <engine/nodes.hpp>
 
 #include <memory>
@@ -18,5 +19,6 @@ public:
     auto ContextMenu() -> void override;
 
 private:
+    std::shared_ptr<engine::FlatMaterial> material_;
     std::shared_ptr<engine::Mesh> mesh_;
 };

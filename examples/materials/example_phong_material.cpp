@@ -7,7 +7,6 @@
 
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
-#include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
 using namespace engine;
@@ -17,10 +16,9 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camer
     Add(camera_controls);
 
     auto geometry = BoxGeometry::Create();
-    auto material = PhongMaterial::Create();
-    material->color = 0x049EF4;
-    material->two_sided = true;
-    mesh_ = Mesh::Create(geometry, material);
+    material_ = PhongMaterial::Create();
+    material_->color = 0x049EF4;
+    mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);
 
     auto ambient_light = AmbientLight::Create(0xFFFFFF, 0.3f);
@@ -37,5 +35,9 @@ auto ExamplePhongMaterial::Update(float delta) -> void {
 }
 
 auto ExamplePhongMaterial::ContextMenu() -> void {
-    UIText("Phong Material");
+    static bool _ = false;
+
+    UICheckbox("two_sided", material_->two_sided, _);
+    UICheckbox("transparent", material_->transparent, _);
+    UISliderFloat("opacity", material_->opacity, 0.0f, 1.0f, _);
 }
