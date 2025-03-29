@@ -21,7 +21,10 @@ public:
     auto Update(float delta) -> void override;
 
 private:
-    engine::Frustum frustum_;
+    std::shared_ptr<engine::Mesh> active_point_;
 
-    std::array<std::shared_ptr<engine::Mesh>, 2500> boxes_;
+    engine::Vector3 start_ {-1.5f, 0.0f, 0.0f};
+    engine::Vector3 end_ {1.5f, 0.0f, 0.0f};
+
+    float elapsed_time_ {0.0f};
 };

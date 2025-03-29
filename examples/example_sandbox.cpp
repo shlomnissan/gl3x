@@ -23,24 +23,38 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     point_light->SetDebugMode(true);
     Add(point_light);
 
-    for (auto i = 0; i < 50; ++i) {
-        for (auto j = 0; j < 50; ++j) {
-            auto box = Mesh::Create(
-                BoxGeometry::Create({1.0f, 1.0f, 1.0f}),
-                PhongMaterial::Create(0x049EF4)
-            );
-            box->transform.Translate({i * 2.0f - 49.0f, j * 2.0f - 49.0f, 0.0f});
-            boxes_[i * 50 + j] = box;
-            Add(box);
-        }
-    }
+    auto sphere = SphereGeometry::Create({
+        .radius = 0.3f,
+        .width_segments = 32,
+        .height_segments = 32
+    });
+
+    auto background_material = PhongMaterial::Create(0x777777);
+    background_material->depth_test = false;
+
+    auto start_point = Mesh::Create(sphere, background_material);
+    start_point->transform.Translate(start_);
+    Add(start_point);
+
+    auto end_point = Mesh::Create(sphere, background_material);
+    end_point->transform.Translate(end_);
+    Add(end_point);
+
+    active_point_ = Mesh::Create(sphere, PhongMaterial::Create(0xFF0000));
+    active_point_->transform.Translate(end_);
+    Add(active_point_);
 }
 
 auto ExampleSandbox::Update(float delta) -> void {
-    for (const auto& b : boxes_) {
-        b->RotateX(1.0f * delta);
-        b->RotateY(1.0f * delta);
+    elapsed_time_ += delta;
+    auto t = elapsed_time_ / 2.0f;
+    if (t >= 1.0f) {
+        t = 0.0f;
+        elapsed_time_ = 0.0f;
+        std::swap(start_, end_);
     }
+    auto p = Lerp(start_, end_, t);
+    active_point_->transform.SetPosition(p);
 }
 
 auto ExampleSandbox::ContextMenu() -> void {
