@@ -420,3 +420,28 @@ TEST(Vector3, InequalityOperator) {
 }
 
 #pragma endregion
+
+#pragma region Lerp
+
+TEST(Vector3, Lerp) {
+    const auto v1 = engine::Vector3 {0.0f, 0.0f, 0.0f};
+    const auto v2 = engine::Vector3 {1.0f, 1.0f, 1.0f};
+
+    EXPECT_VEC3_EQ(engine::Lerp(v1, v2, 0.5f), {0.5f, 0.5f, 0.5f});
+}
+
+TEST(Vector3, LerpZeroFactor) {
+    const auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    const auto v2 = engine::Vector3 {4.0f, 5.0f, 6.0f};
+
+    EXPECT_VEC3_EQ(engine::Lerp(v1, v2, 0.0f), {1.0f, 2.0f, 3.0f});
+}
+
+TEST(Vector3, LerpOneFactor) {
+    const auto v1 = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    const auto v2 = engine::Vector3 {4.0f, 5.0f, 6.0f};
+
+    EXPECT_VEC3_EQ(engine::Lerp(v1, v2, 1.0f), {4.0f, 5.0f, 6.0f});
+}
+
+#pragma endregion

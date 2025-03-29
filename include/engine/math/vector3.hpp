@@ -307,4 +307,17 @@ private:
     return v * (1.0f / len);
 }
 
+/**
+ * @brief Performs linear interpolation between two vectors.
+ * @related Vector3
+ *
+ * @param v1 The starting vector.
+ * @param v2 The ending vector.
+ * @param f The interpolation factor (0.0 to 1.0).
+ * @return Vector3 A new vector that is the result of the linear interpolation.
+ */
+[[nodiscard]] inline auto Lerp(const Vector3& v1, const Vector3& v2, float f) {
+    return v1 + (v2 - v1) * f;
+}
+
 }

@@ -360,3 +360,28 @@ TEST(Vector4, InequalityOperator) {
 }
 
 #pragma endregion
+
+#pragma region Lerp
+
+TEST(Vector4, Lerp) {
+    const auto v1 = engine::Vector4 {0.0f, 0.0f, 0.0f, 0.0f};
+    const auto v2 = engine::Vector4 {1.0f, 1.0f, 1.0f, 1.0f};
+
+    EXPECT_VEC4_EQ(engine::Lerp(v1, v2, 0.5f), {0.5f, 0.5f, 0.5f, 0.5f});
+}
+
+TEST(Vector4, LerpZeroFactor) {
+    const auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    const auto v2 = engine::Vector4 {5.0f, 6.0f, 7.0f, 8.0f};
+
+    EXPECT_VEC4_EQ(engine::Lerp(v1, v2, 0.0f), {1.0f, 2.0f, 3.0f, 4.0f});
+}
+
+TEST(Vector4, LerpOneFactor) {
+    const auto v1 = engine::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    const auto v2 = engine::Vector4 {5.0f, 6.0f, 7.0f, 8.0f};
+
+    EXPECT_VEC4_EQ(engine::Lerp(v1, v2, 1.0f), {5.0f, 6.0f, 7.0f, 8.0f});
+}
+
+#pragma endregion
