@@ -14,9 +14,13 @@ ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera)
     const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
     Add(camera_controls);
 
+    texture_ = Texture2D::Create("assets/checker.png");
+    fog = ExponentialFog::Create(0x444444, 0.3f);
+
     auto geometry = BoxGeometry::Create();
     material_ = FlatMaterial::Create();
     material_->color = 0x049EF4;
+    material_->fog = false;
     mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);
 }
@@ -27,9 +31,30 @@ auto ExampleFlatMaterial::Update(float delta) -> void {
 }
 
 auto ExampleFlatMaterial::ContextMenu() -> void {
-    static bool _ = false;
+    auto _ = false;
+    static auto curr_texture = std::string {"none"};
+    static auto textures = std::array<const char*, 2> {
+        "none", "checkerboard"
+    };
 
-    UICheckbox("two_sided", material_->two_sided, _);
+    UIColor("color", &material_->color[0], _);
+    UIDropDown("texture", textures, curr_texture,
+      [this](std::string_view str) {
+        curr_texture = str;
+        if (str == "none") material_->texture_map = nullptr;
+        if (str == "checkerboard") material_->texture_map = texture_;
+    });
+
+    UISeparator();
+
     UICheckbox("transparent", material_->transparent, _);
-    UISliderFloat("opacity", material_->opacity, 0.0f, 1.0f, _);
+    UISliderFloat("opacity", material_->opacity, 0.0f, 1.0f, _, 160.0f);
+
+    UISeparator();
+
+    UICheckbox("depth_test", material_->depth_test, _);
+    UICheckbox("flat_shaded", material_->flat_shaded, _);
+    UICheckbox("fog", material_->fog, _);
+    UICheckbox("two_sided", material_->two_sided, _);
+    UICheckbox("wireframe", material_->wireframe, _);
 }

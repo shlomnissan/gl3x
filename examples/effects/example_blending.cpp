@@ -42,9 +42,12 @@ ExampleBlending::ExampleBlending(std::shared_ptr<engine::Camera> camera) {
 
 auto ExampleBlending::ContextMenu() -> void {
     auto _ = true;
-
     static auto curr_blend_mode = std::string {"normal"};
-    UIDropDown("mode", blending_modes_, curr_blend_mode,
+    static auto blending_modes = std::array<const char*, 5> {
+        "none", "normal", "additive", "subtractive", "multiply"
+    };
+
+    UIDropDown("mode", blending_modes, curr_blend_mode,
       [this](std::string_view str) {
         using enum Blending;
         curr_blend_mode = str;

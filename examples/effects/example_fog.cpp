@@ -43,11 +43,13 @@ ExampleFog::ExampleFog(std::shared_ptr<engine::Camera> camera) {
 
 auto ExampleFog::ContextMenu() -> void {
     auto _ = true;
+    static auto curr_fog_function = std::string {"linear"};
+    static auto fog_function = std::array<const char*, 2> {
+        "linear", "exponential"
+    };
 
     UIColor("color", &fog->color[0], _);
-
-    static auto curr_fog_function = std::string {"linear"};
-    UIDropDown("function", fog_function_, curr_fog_function,
+    UIDropDown("function", fog_function, curr_fog_function,
       [this](std::string_view str) {
         curr_fog_function = str;
         if (str == "linear") fog = LinearFog::Create(fog->color, 2.0f, 6.0f);

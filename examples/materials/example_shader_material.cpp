@@ -65,7 +65,7 @@ auto ExampleShaderMaterial::Update(float delta) -> void {
 }
 
 auto ExampleShaderMaterial::ContextMenu() -> void {
-    static bool _ = false;
+    auto _ = false;
 
     UICheckbox("two_sided", material_->two_sided, _);
     UICheckbox("transparent", material_->transparent, _);
