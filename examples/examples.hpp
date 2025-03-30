@@ -7,7 +7,7 @@
 
 #include <engine/nodes.hpp>
 
-#include "example_sandbox.hpp"
+#include "debug/frustum_culling_debug.hpp"
 #include "effects/example_blending.hpp"
 #include "effects/example_fog.hpp"
 #include "geometries/example_box_geometry.hpp"
@@ -23,8 +23,6 @@
 #include "materials/example_shader_material.hpp"
 
 static const auto examples = std::vector {
-    "Sandbox",
-    "",
     "Flat Material",
     "Phong Material",
     "Shader Material",
@@ -41,4 +39,6 @@ static const auto examples = std::vector {
     "",
     "Blending Effect",
     "Fog Effect",
+    "",
+    "Frustum Culling Debug",
 };

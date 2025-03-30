@@ -7,5 +7,7 @@
 
 class ExampleScene : public engine::Scene {
 public:
+    bool show_context_menu_ {true};
+
     virtual auto ContextMenu() -> void = 0;
 };

@@ -6,15 +6,14 @@
 #include <engine/core.hpp>
 #include <engine/math.hpp>
 #include <engine/nodes.hpp>
-#include <engine/resources.hpp>
 
 #include "example_scene.hpp"
 
 #include <array>
 
-class ExampleSandbox : public ExampleScene {
+class FrustumCullingDebug : public ExampleScene {
 public:
-    explicit ExampleSandbox(std::shared_ptr<engine::Camera>);
+    explicit FrustumCullingDebug(std::shared_ptr<engine::Camera>);
 
     auto ContextMenu() -> void override;
 

@@ -50,11 +50,15 @@ public:
             ImGuiWindowFlags_NoMove
         );
         if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) DrawExamplesList();
+
         if (auto example = dynamic_cast<ExampleScene*>(scene.get())) {
-            if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
-                example->ContextMenu();
+            if (example->show_context_menu_) {
+                if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
+                    example->ContextMenu();
+                }
             }
         }
+
         ImGui::End();
         return true;
     }
@@ -78,9 +82,6 @@ private:
     int current_scene_ = 0;
 
     auto LoadScene(const std::string_view scene_name) -> void {
-        if (scene_name == "Sandbox") {
-            scene = std::make_shared<ExampleSandbox>(camera);
-        }
         if (scene_name == "Flat Material") {
             scene = std::make_shared<ExampleFlatMaterial>(camera);
         }
@@ -119,6 +120,9 @@ private:
         }
         if (scene_name == "Fog Effect") {
             scene = std::make_shared<ExampleFog>(camera);
+        }
+        if (scene_name == "Frustum Culling Debug") {
+            scene = std::make_shared<FrustumCullingDebug>(camera);
         }
     }
 };

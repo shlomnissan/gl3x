@@ -2,11 +2,11 @@
 # Author: Shlomi Nissan (shlomi@betamark.com)
 
 set(SOURCE_CODE
-    "example_sandbox.cpp"
-    "example_sandbox.hpp"
     "example_scene.hpp"
     "ui_helpers.cpp"
     "ui_helpers.hpp"
+    "debug/frustum_culling_debug.cpp"
+    "debug/frustum_culling_debug.hpp"
     "effects/example_blending.cpp"
     "effects/example_blending.hpp"
     "effects/example_fog.cpp"

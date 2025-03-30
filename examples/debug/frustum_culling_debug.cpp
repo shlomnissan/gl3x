@@ -1,19 +1,19 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "example_sandbox.hpp"
+#include "frustum_culling_debug.hpp"
 
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
 #include <engine/materials.hpp>
-
-#include <cmath>
+#include <engine/resources.hpp>
 
 using namespace engine;
 
-ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
-    Add(camera_controls);
+FrustumCullingDebug::FrustumCullingDebug(std::shared_ptr<engine::Camera> camera) {
+    show_context_menu_ = false;
+
+    Add(CameraOrbit::Create(camera, 3.0f));
 
     auto ambient = AmbientLight::Create(0xFFFFFF, 0.3f);
     Add(ambient);
@@ -36,13 +36,13 @@ ExampleSandbox::ExampleSandbox(std::shared_ptr<engine::Camera> camera) {
     }
 }
 
-auto ExampleSandbox::Update(float delta) -> void {
+auto FrustumCullingDebug::Update(float delta) -> void {
     for (const auto& b : boxes_) {
         b->RotateX(1.0f * delta);
         b->RotateY(1.0f * delta);
     }
 }
 
-auto ExampleSandbox::ContextMenu() -> void {
+auto FrustumCullingDebug::ContextMenu() -> void {
     // Empty
 }
