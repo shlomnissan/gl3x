@@ -11,8 +11,9 @@
 using namespace engine;
 
 ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
-    Add(camera_controls);
+    Add(CameraOrbit::Create(camera, 3.0f));
+
+    fog = ExponentialFog::Create(0x444444, 0.3f);
 
     auto geometry = BoxGeometry::Create();
 
@@ -43,16 +44,22 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> cam
 
         void main() {
             vec2 uv = gl_FragCoord.xy / u_Resolution.xy;
-            vec3 col = 0.5 + 0.5 * cos(u_Time + uv.xyx + vec3(0,2,4));
-            v_FragColor = vec4(col, u_Opacity);
+            vec3 output_color = 0.5 + 0.5 * cos(u_Time + uv.xyx + vec3(0,2,4));
+
+            float opacity = u_Opacity;
+
             #ifdef USE_FOG
-                applyFog(v_FragColor, v_ViewDepth);
+                applyFog(output_color, v_ViewDepth);
             #endif
+
+            v_FragColor = vec4(output_color, u_Opacity);
         })",
 
         // Uniforms
         {{"u_Time", 0.0f}}
     );
+
+    material_->fog = false;
 
     mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);
@@ -67,7 +74,14 @@ auto ExampleShaderMaterial::Update(float delta) -> void {
 auto ExampleShaderMaterial::ContextMenu() -> void {
     auto _ = false;
 
-    UICheckbox("two_sided", material_->two_sided, _);
     UICheckbox("transparent", material_->transparent, _);
-    UISliderFloat("opacity", material_->opacity, 0.0f, 1.0f, _);
+    UISliderFloat("opacity", material_->opacity, 0.0f, 1.0f, _, 160.0f);
+
+    UISeparator();
+
+    UICheckbox("depth_test", material_->depth_test, _);
+    UICheckbox("flat_shaded", material_->flat_shaded, _);
+    UICheckbox("fog", material_->fog, _);
+    UICheckbox("two_sided", material_->two_sided, _);
+    UICheckbox("wireframe", material_->wireframe, _);
 }
