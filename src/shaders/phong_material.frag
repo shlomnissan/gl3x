@@ -94,14 +94,14 @@ void processLights(inout vec3 color, const in vec3 normal) {
 
 void main() {
     #include "snippets/frag_main_normal.glsl"
+
+    vec3 output_color = u_AmbientLight * u_Material.DiffuseColor;
     float opacity = u_Opacity;
 
     #ifdef USE_TEXTURE_MAP
-        u_Material.DiffuseColor *= texture(u_TextureMap, v_TexCoord).rgb;
+        output_color *= texture(u_TextureMap, v_TexCoord).rgb;
         opacity *= texture(u_TextureMap, v_TexCoord).a;
     #endif
-
-    vec3 output_color = u_AmbientLight * u_Material.DiffuseColor;
 
     #if NUM_LIGHTS > 0
         processLights(output_color, normal);

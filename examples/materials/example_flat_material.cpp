@@ -11,8 +11,7 @@
 using namespace engine;
 
 ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(camera, 3.0f);
-    Add(camera_controls);
+    Add(CameraOrbit::Create(camera, 3.0f));
 
     texture_ = Texture2D::Create("assets/checker.png");
     fog = ExponentialFog::Create(0x444444, 0.3f);
