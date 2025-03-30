@@ -45,6 +45,8 @@ auto ExamplePhongMaterial::ContextMenu() -> void {
     };
 
     UIColor("color", &material_->color[0], _);
+    UIColor("specular", &material_->specular[0], _);
+    UISliderFloat("shininess", material_->shininess, 0.0f, 128.0f, _, 160.0f);
     UIDropDown("texture", textures, curr_texture,
       [this](std::string_view str) {
         curr_texture = str;
@@ -64,10 +66,4 @@ auto ExamplePhongMaterial::ContextMenu() -> void {
     UICheckbox("fog", material_->fog, _);
     UICheckbox("two_sided", material_->two_sided, _);
     UICheckbox("wireframe", material_->wireframe, _);
-
-    // auto _ = false;
-
-    // UICheckbox("two_sided", material_->two_sided, _);
-    // UICheckbox("transparent", material_->transparent, _);
-    // UISliderFloat("opacity", material_->opacity, 0.0f, 1.0f, _);
 }

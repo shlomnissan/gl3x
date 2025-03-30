@@ -64,18 +64,19 @@ float attenuation(in float dist, in Light light) {
     return clamp(1.0 / max(denominator, 0.01), 0.02, 1.0);
 }
 
-void processLights(inout vec3 color, const in vec3 normal) {
+vec3 processLights(const in vec3 normal) {
+    vec3 output = vec3(0.0);
     for (int i = 0; i < NUM_LIGHTS; i++) {
         Light light = u_Lights[i];
 
         if (light.Type == 1 /* directional light */) {
-            color += phongShading(light.Direction, light.Color, normal);
+            output += phongShading(light.Direction, light.Color, normal);
         }
 
         if (light.Type == 2 /* point light */) {
             vec3 light_dir = normalize(light.Position - v_Position.xyz);
             float dist = length(light.Position - v_Position.xyz);
-            color += attenuation(dist, light) * phongShading(light_dir, light.Color, normal);
+            output += attenuation(dist, light) * phongShading(light_dir, light.Color, normal);
         }
 
         if (light.Type == 3 /* spot light */) {
@@ -84,10 +85,11 @@ void processLights(inout vec3 color, const in vec3 normal) {
             float angle_cos = dot(light_dir, light.Direction);
             if (angle_cos > light.ConeCos) {
                 vec3 spot_color = light.Color * smoothstep(light.ConeCos, light.PenumbraCos, angle_cos);
-                color += attenuation(dist, light) * phongShading(light_dir, spot_color, normal);
+                output += attenuation(dist, light) * phongShading(light_dir, spot_color, normal);
             }
         }
     }
+    return output;
 }
 
 #endif
@@ -95,18 +97,20 @@ void processLights(inout vec3 color, const in vec3 normal) {
 void main() {
     #include "snippets/frag_main_normal.glsl"
 
-    vec3 output_color = u_AmbientLight * u_Material.DiffuseColor;
+    vec3 base_color = u_Material.DiffuseColor;
     float opacity = u_Opacity;
-
     #ifdef USE_TEXTURE_MAP
-        output_color *= texture(u_TextureMap, v_TexCoord).rgb;
-        opacity *= texture(u_TextureMap, v_TexCoord).a;
+        vec4 texture_sample = texture(u_TextureMap, v_TexCoord);
+        base_color *= texture_sample.rgb;
+        opacity *= texture_sample.a;
     #endif
 
+    vec3 light_intensity = u_AmbientLight;
     #if NUM_LIGHTS > 0
-        processLights(output_color, normal);
+        light_intensity += processLights(normal);
     #endif
 
+    vec3 output_color = base_color * light_intensity;
     #ifdef USE_FOG
         applyFog(output_color, v_ViewDepth);
     #endif
