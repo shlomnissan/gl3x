@@ -5,7 +5,6 @@
 
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
-#include <engine/materials.hpp>
 #include <engine/resources.hpp>
 
 #include <cmath>
@@ -35,15 +34,17 @@ LerpAnimationDebug::LerpAnimationDebug(std::shared_ptr<engine::Camera> camera) {
     background_material->depth_test = false;
 
     auto start_point = Mesh::Create(sphere, background_material);
-    start_point->transform.Translate(start_);
+    start_point->transform.Translate(start_pos_);
     Add(start_point);
 
     auto end_point = Mesh::Create(sphere, background_material);
-    end_point->transform.Translate(end_);
+    end_point->transform.Translate(end_pos_);
+    end_point->SetScale(0.5f);
     Add(end_point);
 
-    active_point_ = Mesh::Create(sphere, PhongMaterial::Create(0xFF0000));
-    active_point_->transform.Translate(end_);
+    active_material_ = PhongMaterial::Create(start_color_);
+    active_point_ = Mesh::Create(sphere, active_material_);
+    active_point_->transform.Translate(end_pos_);
     Add(active_point_);
 }
 
@@ -53,10 +54,14 @@ auto LerpAnimationDebug::Update(float delta) -> void {
     if (t >= 1.0f) {
         t = 0.0f;
         elapsed_time_ = 0.0f;
-        std::swap(start_, end_);
+        std::swap(start_pos_, end_pos_);
+        std::swap(start_color_, end_color_);
+        std::swap(start_scale_, end_scale_);
     }
-    auto p = Lerp(start_, end_, t);
-    active_point_->transform.SetPosition(p);
+
+    active_point_->transform.SetPosition(Lerp(start_pos_, end_pos_, t));
+    active_point_->SetScale(Lerp(start_scale_, end_scale_, t));
+    active_material_->color = Lerp(start_color_, end_color_, t);
 }
 
 auto LerpAnimationDebug::ContextMenu() -> void {

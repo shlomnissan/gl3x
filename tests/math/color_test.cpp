@@ -96,7 +96,7 @@ TEST(Color, ScalarMultiplication) {
 
     EXPECT_FLOAT_EQ(c.r, 0.4f);
     EXPECT_FLOAT_EQ(c.g, 0.8f);
-    EXPECT_FLOAT_EQ(c.b, 1.0f); // Clamped to 1.0f
+    EXPECT_FLOAT_EQ(c.b, 1.2f);
 }
 
 
@@ -106,7 +106,7 @@ TEST(Color, ScalarMultiplicationInPlace) {
 
     EXPECT_FLOAT_EQ(c.r, 0.4f);
     EXPECT_FLOAT_EQ(c.g, 0.8f);
-    EXPECT_FLOAT_EQ(c.b, 1.0f); // Clamped to 1.0f
+    EXPECT_FLOAT_EQ(c.b, 1.2f);
 }
 
 #pragma endregion

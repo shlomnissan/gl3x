@@ -89,9 +89,9 @@ public:
      * @return Color& A reference to the updated color.
      */
     auto operator*=(float n) -> Color& {
-        r = std::clamp(r * n, 0.0f, 1.0f);
-        g = std::clamp(g * n, 0.0f, 1.0f);
-        b = std::clamp(b * n, 0.0f, 1.0f);
+        r = r * n;
+        g = g * n;
+        b = b * n;
         return *this;
     }
 
@@ -106,6 +106,30 @@ private:
     [[nodiscard]] friend auto operator==(const Color& a, const Color& b) -> bool = default;
 
     /**
+     * @brief Adds two colors component-wise.
+     * @related Color
+     *
+     * @param a The first color.
+     * @param b The second color.
+     * @return Color A new color that is the component-wise sum of the two colors.
+     */
+    [[nodiscard]] friend auto operator+(const Color& a, const Color& b) {
+        return Color {a.r + b.r, a.g + b.g, a.b + b.b};
+    }
+
+    /**
+     * @brief Subtracts the second Color from the first Color component-wise.
+     * @related Color
+     *
+     * @param a The color to subtract from.
+     * @param b The color to subtract.
+     * @return Color A new color that is the component-wise difference of the two colors.
+     */
+    [[nodiscard]] friend auto operator-(const Color& a, const Color& b) {
+        return Color {a.r - b.r, a.g - b.g, a.b - b.b};
+    }
+
+    /**
      * @brief Multiplies the color by a scalar value.
      * @related Color
      *
@@ -114,11 +138,7 @@ private:
      * @return Color A new color that is the result of scaling the original color.
      */
     [[nodiscard]] friend auto operator*(const Color& v, float n) {
-        return Color {
-            std::clamp(v.r * n, 0.0f, 1.0f),
-            std::clamp(v.g * n, 0.0f, 1.0f),
-            std::clamp(v.b * n, 0.0f, 1.0f)
-        };
+        return Color {v.r * n, v.g * n, v.b * n};
     }
 
     /**
@@ -133,5 +153,18 @@ private:
         return v * n;
     }
 };
+
+/**
+ * @brief Performs linear interpolation between two colors.
+ * @related Color
+ *
+ * @param a The first color.
+ * @param b The second color.
+ * @param f The interpolation factor (0.0 to 1.0).
+ * @return Color A new color that is the result of the linear interpolation.
+ */
+[[nodiscard]] inline auto Lerp(const Color& a, const Color& b, float f) {
+    return a + (b - a) * f;
+}
 
 }
