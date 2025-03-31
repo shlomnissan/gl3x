@@ -65,18 +65,18 @@ float attenuation(in float dist, in Light light) {
 }
 
 vec3 processLights(const in vec3 normal) {
-    vec3 output = vec3(0.0);
+    vec3 output_color = vec3(0.0);
     for (int i = 0; i < NUM_LIGHTS; i++) {
         Light light = u_Lights[i];
 
         if (light.Type == 1 /* directional light */) {
-            output += phongShading(light.Direction, light.Color, normal);
+            output_color += phongShading(light.Direction, light.Color, normal);
         }
 
         if (light.Type == 2 /* point light */) {
             vec3 light_dir = normalize(light.Position - v_Position.xyz);
             float dist = length(light.Position - v_Position.xyz);
-            output += attenuation(dist, light) * phongShading(light_dir, light.Color, normal);
+            output_color += attenuation(dist, light) * phongShading(light_dir, light.Color, normal);
         }
 
         if (light.Type == 3 /* spot light */) {
@@ -85,11 +85,11 @@ vec3 processLights(const in vec3 normal) {
             float angle_cos = dot(light_dir, light.Direction);
             if (angle_cos > light.ConeCos) {
                 vec3 spot_color = light.Color * smoothstep(light.ConeCos, light.PenumbraCos, angle_cos);
-                output += attenuation(dist, light) * phongShading(light_dir, spot_color, normal);
+                output_color += attenuation(dist, light) * phongShading(light_dir, spot_color, normal);
             }
         }
     }
-    return output;
+    return output_color;
 }
 
 #endif
