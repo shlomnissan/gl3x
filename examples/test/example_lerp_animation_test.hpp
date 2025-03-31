@@ -12,9 +12,9 @@
 
 #include <array>
 
-class LerpAnimationDebug : public ExampleScene {
+class ExampleLerpAnimationTest : public ExampleScene {
 public:
-    explicit LerpAnimationDebug(std::shared_ptr<engine::Camera>);
+    explicit ExampleLerpAnimationTest(std::shared_ptr<engine::Camera>);
 
     auto ContextMenu() -> void override;
 

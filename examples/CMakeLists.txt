@@ -5,10 +5,6 @@ set(SOURCE_CODE
     "example_scene.hpp"
     "ui_helpers.cpp"
     "ui_helpers.hpp"
-    "debug/frustum_culling_debug.cpp"
-    "debug/frustum_culling_debug.hpp"
-    "debug/lerp_animation_debug.cpp"
-    "debug/lerp_animation_debug.hpp"
     "effects/example_blending.cpp"
     "effects/example_blending.hpp"
     "effects/example_fog.cpp"
@@ -35,6 +31,10 @@ set(SOURCE_CODE
     "materials/example_phong_material.hpp"
     "materials/example_shader_material.cpp"
     "materials/example_shader_material.hpp"
+    "test/example_frustum_culling_test.cpp"
+    "test/example_frustum_culling_test.hpp"
+    "test/example_lerp_animation_test.cpp"
+    "test/example_lerp_animation_test.hpp"
 )
 
 find_package(imgui REQUIRED)

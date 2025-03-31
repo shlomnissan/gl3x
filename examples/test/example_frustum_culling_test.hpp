@@ -11,9 +11,9 @@
 
 #include <array>
 
-class FrustumCullingDebug : public ExampleScene {
+class ExampleFrustumCullingTest : public ExampleScene {
 public:
-    explicit FrustumCullingDebug(std::shared_ptr<engine::Camera>);
+    explicit ExampleFrustumCullingTest(std::shared_ptr<engine::Camera>);
 
     auto ContextMenu() -> void override;
 

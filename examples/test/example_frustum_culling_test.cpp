@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "frustum_culling_debug.hpp"
+#include "example_frustum_culling_test.hpp"
 
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
@@ -10,7 +10,7 @@
 
 using namespace engine;
 
-FrustumCullingDebug::FrustumCullingDebug(std::shared_ptr<engine::Camera> camera) {
+ExampleFrustumCullingTest::ExampleFrustumCullingTest(std::shared_ptr<engine::Camera> camera) {
     show_context_menu_ = false;
 
     Add(CameraOrbit::Create(camera, 3.0f));
@@ -36,13 +36,13 @@ FrustumCullingDebug::FrustumCullingDebug(std::shared_ptr<engine::Camera> camera)
     }
 }
 
-auto FrustumCullingDebug::Update(float delta) -> void {
+auto ExampleFrustumCullingTest::Update(float delta) -> void {
     for (const auto& b : boxes_) {
         b->RotateX(1.0f * delta);
         b->RotateY(1.0f * delta);
     }
 }
 
-auto FrustumCullingDebug::ContextMenu() -> void {
+auto ExampleFrustumCullingTest::ContextMenu() -> void {
     // Empty
 }

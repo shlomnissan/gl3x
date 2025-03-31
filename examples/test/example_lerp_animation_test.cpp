@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "lerp_animation_debug.hpp"
+#include "example_lerp_animation_test.hpp"
 
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
@@ -11,7 +11,7 @@
 
 using namespace engine;
 
-LerpAnimationDebug::LerpAnimationDebug(std::shared_ptr<engine::Camera> camera) {
+ExampleLerpAnimationTest::ExampleLerpAnimationTest(std::shared_ptr<engine::Camera> camera) {
     show_context_menu_ = false;
 
     Add(CameraOrbit::Create(camera, 3.0f));
@@ -48,7 +48,7 @@ LerpAnimationDebug::LerpAnimationDebug(std::shared_ptr<engine::Camera> camera) {
     Add(active_point_);
 }
 
-auto LerpAnimationDebug::Update(float delta) -> void {
+auto ExampleLerpAnimationTest::Update(float delta) -> void {
     elapsed_time_ += delta;
     auto t = elapsed_time_ / 2.0f;
     if (t >= 1.0f) {
@@ -64,6 +64,6 @@ auto LerpAnimationDebug::Update(float delta) -> void {
     active_material_->color = Lerp(start_color_, end_color_, t);
 }
 
-auto LerpAnimationDebug::ContextMenu() -> void {
+auto ExampleLerpAnimationTest::ContextMenu() -> void {
     // Empty
 }

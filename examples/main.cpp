@@ -121,11 +121,11 @@ private:
         if (scene_name == "Fog Effect") {
             scene = std::make_shared<ExampleFog>(camera);
         }
-        if (scene_name == "Frustum Culling Debug") {
-            scene = std::make_shared<FrustumCullingDebug>(camera);
+        if (scene_name == "Frustum Culling Test") {
+            scene = std::make_shared<ExampleFrustumCullingTest>(camera);
         }
-        if (scene_name == "Lerp Animation Debug") {
-            scene = std::make_shared<LerpAnimationDebug>(camera);
+        if (scene_name == "Lerp Animation Test") {
+            scene = std::make_shared<ExampleLerpAnimationTest>(camera);
         }
     }
 };

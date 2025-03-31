@@ -7,8 +7,6 @@
 
 #include <engine/nodes.hpp>
 
-#include "debug/frustum_culling_debug.hpp"
-#include "debug/lerp_animation_debug.hpp"
 #include "effects/example_blending.hpp"
 #include "effects/example_fog.hpp"
 #include "geometries/example_box_geometry.hpp"
@@ -22,6 +20,8 @@
 #include "materials/example_flat_material.hpp"
 #include "materials/example_phong_material.hpp"
 #include "materials/example_shader_material.hpp"
+#include "test/example_frustum_culling_test.hpp"
+#include "test/example_lerp_animation_test.hpp"
 
 static const auto examples = std::vector {
     "Flat Material",
@@ -41,6 +41,6 @@ static const auto examples = std::vector {
     "Blending Effect",
     "Fog Effect",
     "",
-    "Frustum Culling Debug",
-    "Lerp Animation Debug"
+    "Frustum Culling Test",
+    "Lerp Animation Test"
 };
