@@ -8,6 +8,7 @@
 #include <engine/nodes.hpp>
 
 #include "debug/frustum_culling_debug.hpp"
+#include "debug/lerp_animation_debug.hpp"
 #include "effects/example_blending.hpp"
 #include "effects/example_fog.hpp"
 #include "geometries/example_box_geometry.hpp"
@@ -41,4 +42,5 @@ static const auto examples = std::vector {
     "Fog Effect",
     "",
     "Frustum Culling Debug",
+    "Lerp Animation Debug"
 };

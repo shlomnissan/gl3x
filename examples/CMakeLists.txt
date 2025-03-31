@@ -7,6 +7,8 @@ set(SOURCE_CODE
     "ui_helpers.hpp"
     "debug/frustum_culling_debug.cpp"
     "debug/frustum_culling_debug.hpp"
+    "debug/lerp_animation_debug.cpp"
+    "debug/lerp_animation_debug.hpp"
     "effects/example_blending.cpp"
     "effects/example_blending.hpp"
     "effects/example_fog.cpp"

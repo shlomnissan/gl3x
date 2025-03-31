@@ -64,7 +64,7 @@ public:
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 260})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 275})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.empty()) {
@@ -123,6 +123,9 @@ private:
         }
         if (scene_name == "Frustum Culling Debug") {
             scene = std::make_shared<FrustumCullingDebug>(camera);
+        }
+        if (scene_name == "Lerp Animation Debug") {
+            scene = std::make_shared<LerpAnimationDebug>(camera);
         }
     }
 };
