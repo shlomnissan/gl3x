@@ -30,6 +30,26 @@ TEST(MathUtilities, RadToDeg) {
 
 #pragma endregion
 
+#pragma region Lerp
+
+TEST(MathUtilities, LerpBasic) {
+    EXPECT_FLOAT_EQ(math::Lerp(0.0f, 1.0f, 0.5f), 0.5f);
+    EXPECT_FLOAT_EQ(math::Lerp(0.0f, 1.0f, 0.0f), 0.0f);
+    EXPECT_FLOAT_EQ(math::Lerp(0.0f, 1.0f, 1.0f), 1.0f);
+}
+
+TEST(MathUtilities, LerpNegativeValues) {
+    EXPECT_FLOAT_EQ(math::Lerp(-1.0f, 1.0f, 0.5f), 0.0f);
+    EXPECT_FLOAT_EQ(math::Lerp(-1.0f, -2.0f, 0.5f), -1.5f);
+}
+
+TEST(MathUtilities, LerpOutOfRangeFactor) {
+    EXPECT_FLOAT_EQ(math::Lerp(0.0f, 1.0f, -0.5f), -0.5f);
+    EXPECT_FLOAT_EQ(math::Lerp(0.0f, 1.0f, 1.5f), 1.5f);
+}
+
+#pragma endregion
+
 #pragma region UUID
 
 TEST(MathUtilities, UUIDFormat) {

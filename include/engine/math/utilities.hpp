@@ -24,6 +24,10 @@ constexpr float epsilon = 1e-6f;
     return radians * rad2deg;
 }
 
+[[nodiscard]] constexpr auto Lerp(const float a, const float b, const float f) {
+    return a + (b - a) * f;
+}
+
 [[nodiscard]] ENGINE_EXPORT auto GenerateUUID() -> std::string;
 
 }
