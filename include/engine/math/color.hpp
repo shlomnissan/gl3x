@@ -126,7 +126,11 @@ private:
      * @return Color A new color that is the component-wise difference of the two colors.
      */
     [[nodiscard]] friend auto operator-(const Color& a, const Color& b) {
-        return Color {a.r - b.r, a.g - b.g, a.b - b.b};
+        return Color {
+            std::max(0.0f, a.r - b.r),
+            std::max(0.0f, a.g - b.g),
+            std::max(0.0f, a.b - b.b)
+        };
     }
 
     /**
@@ -164,7 +168,11 @@ private:
  * @return Color A new color that is the result of the linear interpolation.
  */
 [[nodiscard]] inline auto Lerp(const Color& a, const Color& b, float f) {
-    return a + (b - a) * f;
+    return Color {
+        a.r + (b.r - a.r) * f,
+        a.g + (b.g - a.g) * f,
+        a.b + (b.b - a.b) * f
+    };
 }
 
 }

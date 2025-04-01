@@ -2,6 +2,7 @@
 // All rights reserved.
 
 #include <gtest/gtest.h>
+#include <test_helpers.hpp>
 
 #include <engine/math/color.hpp>
 
@@ -10,25 +11,19 @@
 TEST(Color, ConstructorDefault) {
     auto color = engine::Color {};
 
-    EXPECT_FLOAT_EQ(color.r, 1.0f);
-    EXPECT_FLOAT_EQ(color.g, 1.0f);
-    EXPECT_FLOAT_EQ(color.b, 1.0f);
+    EXPECT_COLOR_EQ(color, 0xFFFFFF);
 }
 
 TEST(Color, ConstructorRGB) {
     auto color = engine::Color {0.5f, 0.25f, 0.75f};
 
-    EXPECT_FLOAT_EQ(color.r, 0.5f);
-    EXPECT_FLOAT_EQ(color.g, 0.25f);
-    EXPECT_FLOAT_EQ(color.b, 0.75f);
+    EXPECT_COLOR_EQ(color, {0.5f, 0.25f, 0.75f});
 }
 
 TEST(Color, ConstructorHex) {
     auto color = engine::Color {0xFF7F50};
 
-    EXPECT_NEAR(color.r, 1.0f, 0.1f);
-    EXPECT_NEAR(color.g, 0.4f, 0.1f);
-    EXPECT_NEAR(color.b, 0.3f, 0.1f);
+    EXPECT_COLOR_NEAR(color, {1.0f, 0.4f, 0.3f}, 0.1f);
 }
 
 #pragma endregion
@@ -57,12 +52,10 @@ TEST(Color, ComponentAccessRandomAccessOperator) {
 #pragma region Assignment Operator
 
 TEST(Color, AssignmentOperatorHex) {
-    auto color = engine::Color {};
+    auto color = engine::Color {0.1f, 0.1f, 0.1f};
     color = 0xFF4500;
 
-    EXPECT_NEAR(color.r, 1.0f, 0.1f);
-    EXPECT_NEAR(color.g, 0.2f, 0.1f);
-    EXPECT_NEAR(color.b, 0.0f, 0.1f);
+    EXPECT_COLOR_NEAR(color, {1.0f, 0.27f, 0.0f}, 0.1f);
 }
 
 #pragma endregion
@@ -89,14 +82,62 @@ TEST(Color, InequalityOperator) {
 
 #pragma endregion
 
-#pragma region Scalar Multiplication
+#pragma region Addition
+
+TEST(Color, AdditionBasic) {
+    const auto c1 = engine::Color {0.2f, 0.4f, 0.6f};
+    const auto c2 = engine::Color {0.1f, 0.2f, 0.3f};
+
+    EXPECT_COLOR_EQ(c1 + c2, {0.3f, 0.6f, 0.9f});
+}
+
+TEST(Color, AdditionBlackColor) {
+    const auto c = engine::Color {0.2f, 0.4f, 0.6f};
+    const auto black = engine::Color {0x000000};
+
+    EXPECT_COLOR_EQ(c + black, {0.2f, 0.4f, 0.6f});
+}
+
+#pragma endregion
+
+#pragma region Subtraction
+
+TEST(Color, SubtractionBasic) {
+    const auto c1 = engine::Color {0.5f, 0.7f, 0.9f};
+    const auto c2 = engine::Color {0.2f, 0.3f, 0.4f};
+
+    EXPECT_COLOR_EQ(c1 - c2, {0.3f, 0.4f, 0.5f});
+}
+
+TEST(Color, SubtractionWithBlackColor) {
+    const auto c = engine::Color {0.5f, 0.7f, 0.9f};
+    const auto black = engine::Color {0x000000};
+
+    EXPECT_COLOR_EQ(c - black, {0.5f, 0.7f, 0.9f});
+}
+
+TEST(Color, SubtractionFromSelf) {
+    const auto c = engine::Color {0.5f, 0.7f, 0.9f};
+
+    EXPECT_COLOR_EQ(c - c, 0x000000);
+}
+
+TEST(Color, SubtractionResultingInClamping) {
+    const auto c1 = engine::Color {0.1f, 0.2f, 0.3f};
+    const auto c2 = engine::Color {0.2f, 0.3f, 0.4f};
+    const auto result = c1 - c2;
+
+    EXPECT_COLOR_EQ(result, {0.0f, 0.0f, 0.0f});
+}
+
+#pragma endregion
+
+#pragma region Multiplication
 
 TEST(Color, ScalarMultiplication) {
     const auto c = engine::Color {0.2f, 0.4f, 0.6f} * 2.0f;
 
-    EXPECT_FLOAT_EQ(c.r, 0.4f);
-    EXPECT_FLOAT_EQ(c.g, 0.8f);
-    EXPECT_FLOAT_EQ(c.b, 1.2f);
+    EXPECT_COLOR_EQ(c, {0.4f, 0.8f, 1.2f});
 }
 
 
@@ -104,9 +145,32 @@ TEST(Color, ScalarMultiplicationInPlace) {
     auto c = engine::Color {0.2f, 0.4f, 0.6f};
     c *= 2.0f;
 
-    EXPECT_FLOAT_EQ(c.r, 0.4f);
-    EXPECT_FLOAT_EQ(c.g, 0.8f);
-    EXPECT_FLOAT_EQ(c.b, 1.2f);
+    EXPECT_COLOR_EQ(c, {0.4f, 0.8f, 1.2f});
+}
+
+#pragma endregion
+
+#pragma region Lerp
+
+TEST(Color, Lerp) {
+    const auto c1 = engine::Color {0.0f, 0.0f, 0.0f};
+    const auto c2 = engine::Color {1.0f, 1.0f, 1.0f};
+
+    EXPECT_COLOR_EQ(engine::Lerp(c1, c2, 0.5f), {0.5f, 0.5f, 0.5f});
+}
+
+TEST(Color, LerpZeroFactor) {
+    const auto c1 = engine::Color {0.5f, 0.5f, 0.5f};
+    const auto c2 = engine::Color {1.0f, 1.0f, 1.0f};
+
+    EXPECT_COLOR_EQ(engine::Lerp(c1, c2, 0.0f), c1);
+}
+
+TEST(Color, LerpOneFactor) {
+    const auto c1 = engine::Color {0.5f, 0.5f, 0.5f};
+    const auto c2 = engine::Color {1.0f, 1.0f, 1.0f};
+
+    EXPECT_COLOR_EQ(engine::Lerp(c1, c2, 1.0f), c2);
 }
 
 #pragma endregion

@@ -5,6 +5,7 @@
 
 #include <gtest/gtest.h>
 
+#include <engine/math/color.hpp>
 #include <engine/math/matrix3.hpp>
 #include <engine/math/matrix4.hpp>
 #include <engine/math/vector2.hpp>
@@ -83,6 +84,18 @@ auto EXPECT_MAT4_NEAR(const engine::Matrix4& a, const engine::Matrix4& b, float 
     EXPECT_NEAR(a(3, 3), b(3, 3), v);
 }
 
+auto EXPECT_COLOR_EQ(const engine::Color& a, const engine::Color& b) -> void {
+    EXPECT_FLOAT_EQ(a.r, b.r);
+    EXPECT_FLOAT_EQ(a.g, b.g);
+    EXPECT_FLOAT_EQ(a.b, b.b);
+}
+
+auto EXPECT_COLOR_NEAR(const engine::Color& a, const engine::Color& b, float v) -> void {
+    EXPECT_NEAR(a.r, b.r, v);
+    EXPECT_NEAR(a.g, b.g, v);
+    EXPECT_NEAR(a.b, b.b, v);
+}
+
 auto EXPECT_VEC2_EQ(const engine::Vector2& a, const engine::Vector2& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);
@@ -94,17 +107,17 @@ auto EXPECT_VEC3_EQ(const engine::Vector3& a, const engine::Vector3& b) -> void 
     EXPECT_EQ(a.z, b.z);
 }
 
+auto EXPECT_VEC3_NEAR(const engine::Vector3& a, const engine::Vector3& b, float v) -> void {
+    EXPECT_NEAR(a.x, b.x, v);
+    EXPECT_NEAR(a.y, b.y, v);
+    EXPECT_NEAR(a.z, b.z, v);
+}
+
 auto EXPECT_VEC4_EQ(const engine::Vector4& a, const engine::Vector4& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);
     EXPECT_EQ(a.z, b.z);
     EXPECT_EQ(a.w, b.w);
-}
-
-auto EXPECT_VEC3_NEAR(const engine::Vector3& a, const engine::Vector3& b, float v) -> void {
-    EXPECT_NEAR(a.x, b.x, v);
-    EXPECT_NEAR(a.y, b.y, v);
-    EXPECT_NEAR(a.z, b.z, v);
 }
 
 auto EXPECT_VEC4_NEAR(const engine::Vector4& a, const engine::Vector4& b, float v) -> void {
