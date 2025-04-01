@@ -3,13 +3,13 @@
 
 #include "engine/textures/texture_2d.hpp"
 
-#include "loaders/image_loader.hpp"
+#include "loaders/image_loader_xyz.hpp"
 #include "utilities/logger.hpp"
 
 namespace engine {
 
 Texture2D::Texture2D(std::string_view image_path) {
-    auto image = ImageLoader::Load(image_path);
+    auto image = ImageLoaderXYZ::Load(image_path);
     if (image.has_value()) {
         image_ = std::move(image.value());
         loaded_ = true;

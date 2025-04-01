@@ -13,7 +13,7 @@ namespace engine {
 
 namespace fs = std::filesystem;
 
-class ENGINE_EXPORT ImageLoader {
+class ENGINE_EXPORT ImageLoaderXYZ {
 public:
     [[nodiscard]]
     static auto Load(const fs::path& path, bool flip_y = true) -> std::optional<Image>;

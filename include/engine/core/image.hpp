@@ -55,6 +55,8 @@ public:
      */
     auto operator=(Image&& other) noexcept -> Image&;
 
+    [[nodiscard]] auto Filename() const { return filename_; }
+
     /**
      * @brief Gets the image data.
      *

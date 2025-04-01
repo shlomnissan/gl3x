@@ -5,8 +5,6 @@
 
 #include "engine_export.h"
 
-#include "utilities/logger.hpp"
-
 #include <filesystem>
 #include <functional>
 #include <memory>
