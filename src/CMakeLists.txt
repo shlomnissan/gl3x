@@ -26,6 +26,8 @@ set(SOURCE_CODE
     "lights/spot_light.cpp"
     "loaders/image_loader.cpp"
     "loaders/image_loader.hpp"
+    "loaders/loader.cpp"
+    "loaders/loader.hpp"
     "math/box3.cpp"
     "math/euler.cpp"
     "math/frustum.cpp"
