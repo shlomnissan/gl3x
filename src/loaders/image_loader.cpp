@@ -8,19 +8,18 @@
 
 namespace engine {
 
-ImageLoader::ImageLoader(const fs::path& path) : Loader(path) {}
-
-auto ImageLoader::Load(const ImageCallback& callback) const -> void {
-    if (!FileExists(path_)) {
-        Logger::Log(LogLevel::Error, "Image file was not found '{}'", path_.string());
+auto ImageLoader::Load(const fs::path& path, const ImageCallback& callback) const -> void {
+    if (!FileExists(path)) {
+        Logger::Log(LogLevel::Error, "Image file was not found '{}'", path.string());
         return;
     }
-    Loader::Load<Image>(callback);
+    Loader::Load<Image>(path, callback);
 }
 
-auto ImageLoader::LoadImpl() const -> std::shared_ptr<void> {
-    auto image = ImageLoaderXYZ::Load(path_);
-    if (image) return std::make_shared<Image>(std::move(*image));
+auto ImageLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void> {
+    if (auto image = ImageLoaderXYZ::Load(path)) {
+        return std::make_shared<Image>(std::move(*image));
+    }
     return nullptr;
 }
 

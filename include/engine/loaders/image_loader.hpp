@@ -15,14 +15,12 @@ using ImageCallback = std::function<void(std::shared_ptr<Image>)>;
 
 class ENGINE_EXPORT ImageLoader : public Loader {
 public:
-    explicit ImageLoader(const fs::path& path);
+    auto Load(const fs::path& path, const ImageCallback& callback) const -> void;
 
     ~ImageLoader() override = default;
 
-    auto Load(const ImageCallback& callback) const -> void;
-
 private:
-    [[nodiscard]] auto LoadImpl() const -> std::shared_ptr<void> override;
+    [[nodiscard]] auto LoadImpl(const fs::path& path) const -> std::shared_ptr<void> override;
 };
 
 }

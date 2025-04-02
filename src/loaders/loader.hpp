@@ -13,22 +13,21 @@ namespace engine {
 
 namespace fs = std::filesystem;
 
+template <typename T>
+using LoaderCallback = std::function<void(std::shared_ptr<T>)>;
+
 class ENGINE_EXPORT Loader {
 public:
-    explicit Loader(const fs::path& path);
-
-    virtual ~Loader() = default;
-
     template<typename T>
-    auto Load(std::function<void(std::shared_ptr<T>)> callback) const -> void {
-        auto resource = std::static_pointer_cast<T>(LoadImpl());
+    auto Load(const fs::path& path, LoaderCallback<T> callback) const -> void {
+        auto resource = std::static_pointer_cast<T>(LoadImpl(path));
         callback(resource);
     }
 
-protected:
-    fs::path path_;
+    virtual ~Loader() = default;
 
-    [[nodiscard]] virtual auto LoadImpl() const -> std::shared_ptr<void> = 0;
+protected:
+    [[nodiscard]] virtual auto LoadImpl(const fs::path& path) const -> std::shared_ptr<void> = 0;
 
     [[nodiscard]] auto FileExists(const fs::path& path) const -> bool;
 };

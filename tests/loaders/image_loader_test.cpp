@@ -5,12 +5,12 @@
 
 #include <engine/loaders/image_loader.hpp>
 
-#pragma region Load
+const auto image_loader = engine::ImageLoader {};
 
-TEST(ImageLoader, LoadBasic) {
-    auto image_loader = engine::ImageLoader {"assets/texture.png"};
+#pragma region Load Image
 
-    image_loader.Load([](std::shared_ptr<engine::Image> image) {
+TEST(ImageLoader, LoadImage) {
+    image_loader.Load("assets/texture.png", [](std::shared_ptr<engine::Image> image) {
         EXPECT_EQ(image->Width(), 5);
         EXPECT_EQ(image->Height(), 5);
         EXPECT_EQ(image->Depth(), 4);
