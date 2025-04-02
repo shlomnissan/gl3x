@@ -59,7 +59,8 @@ public:
 
 private:
     /// @brief The image associated with the texture.
-    engine::Image image_;
+    std::shared_ptr<engine::Image> image_;
+
     /// @brief Flag indicating whether the texture has been loaded.
     bool loaded_ {false};
 };

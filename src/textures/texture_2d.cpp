@@ -3,19 +3,22 @@
 
 #include "engine/textures/texture_2d.hpp"
 
-#include "loaders/image_loader_xyz.hpp"
+#include "engine/loaders/image_loader.hpp"
+
 #include "utilities/logger.hpp"
 
 namespace engine {
 
 Texture2D::Texture2D(std::string_view image_path) {
-    auto image = ImageLoaderXYZ::Load(image_path);
-    if (image.has_value()) {
-        image_ = std::move(image.value());
+    auto image_loader = ImageLoader {};
+    image_loader.Load(image_path, [this](std::shared_ptr<engine::Image> image) {
+        if (image == nullptr) {
+            Logger::Log(LogLevel::Error, "Failed to initialize 2D texture UUID({})", UUID());
+            return;
+        }
+        image_ = image;
         loaded_ = true;
-    } else {
-        Logger::Log(LogLevel::Error, "Failed to initialize 2D texture UUID({})", UUID());
-    }
+    });
 }
 
 }
