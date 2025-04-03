@@ -13,11 +13,9 @@ namespace engine {
 
 using ImageCallback = std::function<void(std::shared_ptr<Image>)>;
 
-class ENGINE_EXPORT ImageLoader : public Loader {
+class ENGINE_EXPORT ImageLoader : public Loader<Image> {
 public:
     bool flip_y {true};
-
-    auto Load(const fs::path& path, const ImageCallback& callback) const -> void;
 
     ~ImageLoader() override = default;
 

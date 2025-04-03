@@ -11,14 +11,6 @@
 
 namespace engine {
 
-auto ImageLoader::Load(const fs::path& path, const ImageCallback& callback) const -> void {
-    if (!FileExists(path)) {
-        Logger::Log(LogLevel::Error, "Image file was not found '{}'", path.string());
-        return;
-    }
-    Loader::Load<Image>(path, callback);
-}
-
 auto ImageLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void> {
     stbi_set_flip_vertically_on_load(flip_y);
 

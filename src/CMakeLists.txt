@@ -25,7 +25,6 @@ set(SOURCE_CODE
     "lights/point_light.cpp"
     "lights/spot_light.cpp"
     "loaders/image_loader.cpp"
-    "loaders/loader.cpp"
     "loaders/loader.hpp"
     "math/box3.cpp"
     "math/euler.cpp"
