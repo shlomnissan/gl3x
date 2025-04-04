@@ -37,8 +37,8 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
         // We currently use stb_image to load images and set the desired number
         // of channels to four, so the data is always in RGBA format.
         GL_RGBA8,
-        texture_2d->Image()->Width(),
-        texture_2d->Image()->Height(),
+        texture_2d->Image()->width,
+        texture_2d->Image()->height,
         0,
         GL_RGBA,
         GL_UNSIGNED_BYTE,
@@ -47,9 +47,7 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-    if (glGetError() == GL_NO_ERROR) {
-        texture_2d->Image()->Dispose();
-    } else {
+    if (glGetError() != GL_NO_ERROR) {
         Logger::Log(LogLevel::Error, "OpenGL error failed to generate texture");
     }
 }

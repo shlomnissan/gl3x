@@ -5,21 +5,22 @@
 
 #include "engine/core/disposable.hpp"
 
+#include <functional>
 #include <string>
 #include <memory>
 
 namespace engine {
 
-using ImageDataPtr = std::unique_ptr<unsigned char[], void(*)(void*)>;
+using ImageData = std::unique_ptr<unsigned char[], std::function<void(void*)>>;
 
 /**
 * @brief Metadata for an image.
 */
 struct ImageMetadata {
-    std::string filename;
-    unsigned int width;
-    unsigned int height;
-    unsigned int depth;
+    std::string filename; ///< The filename of the image.
+    unsigned int width; ///< The width of the image.
+    unsigned int height; ///< The height of the image.
+    unsigned int depth; ///< The depth of the image (number of channels).
 };
 
 /**
@@ -27,10 +28,17 @@ struct ImageMetadata {
  */
 class Image : public Disposable {
 public:
-    /**
-     * @brief Default constructor.
-     */
-    Image() = default;
+    /// @brief The filename of the image.
+    std::string filename {};
+
+    /// @brief The width of the image.
+    unsigned int width {0};
+
+    /// @brief The height of the image.
+    unsigned int height {0};
+
+    /// @brief The depth of the image.
+    unsigned int depth {0};
 
     /**
      * @brief Constructs an Image object with the given metadata and image data.
@@ -38,7 +46,7 @@ public:
      * @param params The metadata for the image.
      * @param data The image data.
      */
-    Image(const ImageMetadata& params, ImageDataPtr data);
+    Image(const ImageMetadata& params, ImageData data);
 
     /**
      * @brief Move constructor.
@@ -63,27 +71,6 @@ public:
     [[nodiscard]] auto Data() const { return data_.get(); }
 
     /**
-     * @brief Gets the width of the image.
-     *
-     * @return unsigned int The width of the image in pixels.
-     */
-    [[nodiscard]] auto Width() const { return width_; }
-
-    /**
-     * @brief Gets the height of the image.
-     *
-     * @return unsigned int The height of the image in pixels.
-     */
-    [[nodiscard]] auto Height() const { return height_; }
-
-    /**
-     * @brief Gets the depth of the image.
-     *
-     * @return unsigned int The depth of the image (e.g., number of color channels).
-     */
-    [[nodiscard]] auto Depth() const { return depth_; }
-
-    /**
      * @brief Disposes of the image data.
      */
     auto Dispose() -> void override;
@@ -97,19 +84,7 @@ public:
 
 private:
     /// @brief The image data.
-    ImageDataPtr data_ {nullptr, [](void*){}};
-
-    /// @brief The filename of the image.
-    std::string filename_ {};
-
-    /// @brief The width of the image.
-    unsigned int width_ {0};
-
-    /// @brief The height of the image.
-    unsigned int height_ {0};
-
-    /// @brief The depth of the image.
-    unsigned int depth_ {0};
+    ImageData data_ {nullptr, [](void*){}};
 
     /**
      * @brief Resets the state of the other Image object.

@@ -29,7 +29,7 @@ auto ImageLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void> 
         .width = static_cast<unsigned int>(width),
         .height = static_cast<unsigned int>(height),
         .depth = static_cast<unsigned int>(depth)
-    }, ImageDataPtr(data, &stbi_image_free)});
+    }, ImageData(data, &stbi_image_free)});
 }
 
 }

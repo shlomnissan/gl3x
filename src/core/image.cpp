@@ -7,31 +7,33 @@
 
 namespace engine {
 
-Image::Image(const ImageMetadata& params, ImageDataPtr data) :
-  data_(std::move(data)),
-  filename_(params.filename),
-  width_(params.width),
-  height_(params.height),
-  depth_(params.depth) {
-    Logger::Log(LogLevel::Info, "Image loaded '{}'", filename_);
+Image::Image(const ImageMetadata& params, ImageData data) :
+    filename(params.filename),
+    width(params.width),
+    height(params.height),
+    depth(params.depth),
+    data_(std::move(data))
+{
+    Logger::Log(LogLevel::Info, "Image loaded '{}'", filename);
 }
 
 Image::Image(Image&& other) noexcept :
-  data_(std::move(other.data_)),
-  filename_(std::move(other.filename_)),
-  width_(other.width_),
-  height_(other.height_),
-  depth_(other.depth_) {
+    filename(std::move(other.filename)),
+    width(other.width),
+    height(other.height),
+    depth(other.depth),
+    data_(std::move(other.data_))
+{
     Reset(other);
 }
 
 auto Image::operator=(Image&& other) noexcept -> Image& {
     if (this != &other) {
         data_ = std::move(other.data_);
-        filename_ = std::move(other.filename_);
-        width_ = other.width_;
-        height_ = other.height_;
-        depth_ = other.depth_;
+        filename = std::move(other.filename);
+        width = other.width;
+        height = other.height;
+        depth = other.depth;
         Reset(other);
     }
     return *this;
@@ -40,7 +42,7 @@ auto Image::operator=(Image&& other) noexcept -> Image& {
 auto Image::Dispose() -> void {
     if (data_ != nullptr) {
         data_.reset();
-        Logger::Log(LogLevel::Info, "Image memory cleared '{}'", filename_);
+        Logger::Log(LogLevel::Info, "Image memory cleared '{}'", filename);
         Disposable::Dispose();
     }
     Reset(*this);
@@ -48,10 +50,10 @@ auto Image::Dispose() -> void {
 
 auto Image::Reset(Image& instance) const -> void {
     instance.data_ = nullptr;
-    instance.filename_.clear();
-    instance.width_ = 0;
-    instance.height_ = 0;
-    instance.depth_ = 0;
+    instance.filename.clear();
+    instance.width = 0;
+    instance.height = 0;
+    instance.depth = 0;
 }
 
 }

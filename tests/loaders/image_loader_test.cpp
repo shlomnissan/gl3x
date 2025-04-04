@@ -17,9 +17,10 @@ TEST(ImageLoader, LoadImageSynchronous) {
         EXPECT_NE(image, nullptr);
         EXPECT_NE(image->Data(), nullptr);
 
-        EXPECT_EQ(image->Width(), 5);
-        EXPECT_EQ(image->Height(), 5);
-        EXPECT_EQ(image->Depth(), 4);
+        EXPECT_EQ(image->width, 5);
+        EXPECT_EQ(image->height, 5);
+        EXPECT_EQ(image->depth, 4);
+        EXPECT_EQ(image->filename, "texture.png");
     });
 }
 
@@ -47,9 +48,10 @@ TEST(ImageLoader, LoadImageAsynchronous) {
         EXPECT_NE(image->Data(), nullptr);
         EXPECT_NE(main_thread_id, std::this_thread::get_id());
 
-        EXPECT_EQ(image->Width(), 5);
-        EXPECT_EQ(image->Height(), 5);
-        EXPECT_EQ(image->Depth(), 4);
+        EXPECT_EQ(image->width, 5);
+        EXPECT_EQ(image->height, 5);
+        EXPECT_EQ(image->depth, 4);
+        EXPECT_EQ(image->filename, "texture.png");
 
         promise.set_value();
     });
