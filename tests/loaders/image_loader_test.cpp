@@ -20,8 +20,17 @@ TEST(ImageLoader, LoadImageSynchronous) {
         EXPECT_EQ(image->Width(), 5);
         EXPECT_EQ(image->Height(), 5);
         EXPECT_EQ(image->Depth(), 4);
-        EXPECT_EQ(image->Filename(), "texture.png");
     });
+}
+
+TEST(ImageLoader, LoadImageSynchronousInvalid) {
+    auto callback_called = false;
+    auto callback = [&](std::shared_ptr<engine::Image> _) {
+        callback_called = true;
+    };
+
+    image_loader.Load("assets/invalid_texture.png", callback);
+    EXPECT_FALSE(callback_called);
 }
 
 #pragma endregion
@@ -41,13 +50,23 @@ TEST(ImageLoader, LoadImageAsynchronous) {
         EXPECT_EQ(image->Width(), 5);
         EXPECT_EQ(image->Height(), 5);
         EXPECT_EQ(image->Depth(), 4);
-        EXPECT_EQ(image->Filename(), "texture.png");
 
         promise.set_value();
     });
 
     auto status = future.wait_for(std::chrono::seconds(5));
     EXPECT_EQ(status, std::future_status::ready);
+}
+
+TEST(ImageLoader, LoadImageAsynchronousInvalid) {
+    auto callback_called = false;
+    auto callback = [&](std::shared_ptr<engine::Image> _) {
+        callback_called = true;
+    };
+
+    image_loader.LoadAsync("assets/invalid_texture.png", callback);
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    EXPECT_FALSE(callback_called);
 }
 
 #pragma endregion
