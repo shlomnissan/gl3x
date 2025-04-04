@@ -3,9 +3,9 @@
 
 #pragma once
 
+#include <engine/core.hpp>
 #include <engine/materials.hpp>
 #include <engine/nodes.hpp>
-#include <engine/textures.hpp>
 
 #include <memory>
 
@@ -22,5 +22,5 @@ public:
 private:
     std::shared_ptr<engine::FlatMaterial> material_;
     std::shared_ptr<engine::Mesh> mesh_;
-    std::shared_ptr<engine::Texture2D> texture_;
+    std::shared_ptr<engine::Image> image_;
 };

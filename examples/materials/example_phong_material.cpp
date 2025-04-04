@@ -8,13 +8,19 @@
 #include <engine/geometries.hpp>
 #include <engine/lights.hpp>
 #include <engine/resources.hpp>
+#include <engine/loaders.hpp>
+#include <engine/textures.hpp>
 
 using namespace engine;
 
 ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camera) {
     Add(CameraOrbit::Create(camera, 3.0f));
 
-    texture_ = Texture2D::Create("assets/checker.png");
+    auto image_loader = engine::ImageLoader {};
+    image_loader.LoadAsync("assets/checker.png", [this](auto image) {
+        image_ = image;
+    });
+
     fog = ExponentialFog::Create(0x444444, 0.3f);
 
     auto geometry = BoxGeometry::Create();
@@ -51,7 +57,7 @@ auto ExamplePhongMaterial::ContextMenu() -> void {
       [this](std::string_view str) {
         curr_texture = str;
         if (str == "none") material_->texture_map = nullptr;
-        if (str == "checkerboard") material_->texture_map = texture_;
+        if (str == "checkerboard") material_->texture_map = engine::Texture2D::Create(image_);
     });
 
     UISeparator();

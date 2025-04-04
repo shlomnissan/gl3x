@@ -65,7 +65,6 @@ set(SOURCE_CODE
     "resources/bounding_sphere.cpp"
     "resources/camera_orbit.cpp"
     "resources/grid.cpp"
-    "textures/texture_2d.cpp"
     "utilities/data_series.hpp"
     "utilities/logger.cpp"
     "utilities/logger.hpp"

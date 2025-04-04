@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
+
 #include "engine/core/image.hpp"
 #include "engine/textures/texture.hpp"
 
@@ -20,32 +21,25 @@ public:
     /**
      * @brief Constructs a Texture2D object.
      *
-     * @param image_path The path to the image file used to create the texture.
+     * @param image A shared pointer to the image object used to create the texture.
      */
-    explicit Texture2D(std::string_view image_path);
-
-    /**
-     * @brief Checks if the texture has been loaded successfully.
-     *
-     * @return True if the texture is loaded, false otherwise.
-     */
-    [[nodiscard]] auto Loaded() const { return loaded_; }
+    explicit Texture2D(std::shared_ptr<Image> image) : image_(image) {}
 
     /**
      * @brief Retrieves the image associated with the texture.
      *
-     * @return A const reference to the Image object.
+     * @return A pointer to the image object.
      */
-    [[nodiscard]] auto& Image() { return image_; }
+    [[nodiscard]] auto Image() { return image_.get(); }
 
     /**
      * @brief Creates a shared pointer to a Texture2D object.
      *
-     * @param image_path The path to the image file used to create the texture.
+     * @param image A shared pointer to the image object used to create the texture.
      * @return A shared pointer to the created Texture2D object.
      */
-    [[nodiscard]] static auto Create(std::string_view image_path) {
-        return std::make_shared<Texture2D>(image_path);
+    [[nodiscard]] static auto Create(std::shared_ptr<engine::Image> image) {
+        return std::make_shared<Texture2D>(image);
     }
 
     /**
@@ -60,9 +54,6 @@ public:
 private:
     /// @brief The image associated with the texture.
     std::shared_ptr<engine::Image> image_;
-
-    /// @brief Flag indicating whether the texture has been loaded.
-    bool loaded_ {false};
 };
 
 }
