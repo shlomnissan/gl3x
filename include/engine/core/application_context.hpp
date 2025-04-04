@@ -26,11 +26,11 @@ public:
      * @brief Parameters for configuring the application context.
      */
     struct Parameters {
-        int width {1024};      ///< Width of the window in pixels.
-        int height {768};      ///< Height of the window in pixels.
-        int antialiasing {4};  ///< Number of samples for multisampling.
-        bool vsync {true};     ///< Enable vertical synchronization.
-        bool debug {false};    ///< Render application debug window.
+        int width {1024};     ///< Width of the window in pixels.
+        int height {768};     ///< Height of the window in pixels.
+        int antialiasing {4}; ///< Number of samples for multisampling.
+        bool vsync {true};    ///< Enable vertical synchronization.
+        bool debug {false};   ///< Render the performance graph.
     };
 
     /**
@@ -100,17 +100,6 @@ public:
 private:
     /// @brief Performance graph used to display performance metrics.
     std::unique_ptr<PerformanceGraph> performance_graph_ {nullptr};
-
-    /// @brief The time structure used to measure the frame rate.
-    struct Time {
-        double last_frame_time = 0.0;
-        double last_frame_rate_update = 0.0;
-        double frame_time = 0.0;
-        unsigned int frame_count = 0;
-    };
-
-    /// @brief The time structure used to measure the frame rate.
-    Time time_;
 
     /// @brief Indicates whether the application context has been initialized.
     bool initialized_ {false};

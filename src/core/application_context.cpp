@@ -49,28 +49,35 @@ auto ApplicationContext::Start() -> void {
 
     timer.Start();
 
-    window->Start([&]() {
+    window->Start([this]() {
+        static auto last_frame_time = 0.0;
+        static auto last_frame_rate_update = 0.0;
+        static auto frame_time_ms = 0.0;
+        static unsigned int frame_count = 0;
+
         const auto now = timer.GetElapsedSeconds();
-        const auto delta = static_cast<float>(now - time_.last_frame_time);
-        time_.last_frame_time = now;
-        time_.frame_count++;
+        const auto delta = static_cast<float>(now - last_frame_time);
 
-        using enum PerformanceMetric;
+        last_frame_time = now;
+        frame_count++;
 
-        if (now - time_.last_frame_rate_update >= 1.0) {
-            performance_graph_->AddData(FramesPerSecond, time_.frame_count);
-            performance_graph_->AddData(FrameTime, time_.frame_time);
+        // update the performance graph every second
+        if (now - last_frame_rate_update >= 1.0) {
+            using enum PerformanceMetric;
+            performance_graph_->AddData(FramesPerSecond, frame_count);
+            performance_graph_->AddData(FrameTime, frame_time_ms);
             performance_graph_->AddData(RenderedObjects, renderer->RenderedObjectsPerFrame());
-
-            time_.frame_count = 0;
-            time_.last_frame_rate_update = now;
+            frame_count = 0;
+            last_frame_rate_update = now;
         }
 
         if (Update(delta)) {
-            time_.frame_time = timer.GetElapsedMilliseconds();
+            const auto start_time = timer.GetElapsedMilliseconds();
             scene->ProcessUpdates(delta);
             renderer->Render(scene.get(), camera.get());
-            time_.frame_time = timer.GetElapsedMilliseconds() - time_.frame_time;
+            const auto end_time = timer.GetElapsedMilliseconds();
+
+            frame_time_ms = end_time - start_time;
 
             if (params.debug) {
                 performance_graph_->RenderGraph(static_cast<float>(params.width));
