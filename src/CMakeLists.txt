@@ -68,6 +68,8 @@ set(SOURCE_CODE
     "utilities/data_series.hpp"
     "utilities/logger.cpp"
     "utilities/logger.hpp"
+    "utilities/performance_graph.cpp"
+    "utilities/performance_graph.hpp"
 )
 
 set(PUBLIC_HEADERS

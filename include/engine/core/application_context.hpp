@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine_export.h"
+
 #include "engine/core/renderer.hpp"
 #include "engine/core/timer.hpp"
 #include "engine/core/window.hpp"
@@ -14,6 +15,8 @@
 
 namespace engine {
 
+class PerformanceGraph;
+
 /**
  * @brief Base class responsible for setting up a common context for applications.
  */
@@ -23,23 +26,17 @@ public:
      * @brief Parameters for configuring the application context.
      */
     struct Parameters {
-        int width;          ///< Width of the window in pixels.
-        int height;         ///< Height of the window in pixels.
-        int antialiasing;   ///< Number of samples for multisampling.
-        bool vsync;         ///< Enable vertical synchronization.
-        bool debug;         ///< Render application debug window.
+        int width {1024};      ///< Width of the window in pixels.
+        int height {768};      ///< Height of the window in pixels.
+        int antialiasing {4};  ///< Number of samples for multisampling.
+        bool vsync {true};     ///< Enable vertical synchronization.
+        bool debug {false};    ///< Render application debug window.
     };
 
     /**
      * @brief Default parameters for the application context.
      */
-    Parameters params {
-        .width = 1024,
-        .height = 768,
-        .antialiasing = 4,
-        .vsync = true,
-        .debug = false
-    };
+    Parameters params;
 
     /// @brief The window managed by the application context.
     std::unique_ptr<Window> window {nullptr};
@@ -57,6 +54,11 @@ public:
     Timer timer {false};
 
     /**
+     * @brief Default constructor.
+     */
+    ApplicationContext();
+
+    /**
      * @brief Sets up the application context.
      *
      * This method can be overridden by the client to provide custom setup logic.
@@ -66,11 +68,8 @@ public:
 
     /**
      * @brief Configures the application context.
-     *
-     * This method is a no-op by default and should be overridden by the client
-     * to provide custom configuration by modifying the default values of the `params` variable.
      */
-    virtual auto Configure() -> void {}
+    virtual auto Configure() -> void = 0;
 
     /**
      * @brief Updates the application context.
@@ -96,9 +95,12 @@ public:
     /**
      * @brief Destructor for the application context.
      */
-    virtual ~ApplicationContext() = default;
+    virtual ~ApplicationContext();
 
 private:
+    /// @brief Performance graph used to display performance metrics.
+    std::unique_ptr<PerformanceGraph> performance_graph_ {nullptr};
+
     /// @brief The time structure used to measure the frame rate.
     struct Time {
         double last_frame_time = 0.0;
@@ -122,11 +124,6 @@ private:
      * @brief Initializes the renderer.
      */
     auto InitializeRenderer() -> bool;
-
-    /**
-     * @brief Renders the application statistics (currently, the frames per second).
-     */
-    auto RenderStats() const -> void;
 };
 
 }

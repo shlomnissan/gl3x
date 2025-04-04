@@ -17,10 +17,10 @@ using ImageData = std::unique_ptr<unsigned char[], std::function<void(void*)>>;
 * @brief Metadata for an image.
 */
 struct ImageMetadata {
-    std::string filename; ///< The filename of the image.
-    unsigned int width; ///< The width of the image.
-    unsigned int height; ///< The height of the image.
-    unsigned int depth; ///< The depth of the image (number of channels).
+    std::string filename;   ///< The filename of the image.
+    unsigned int width;     ///< The width of the image.
+    unsigned int height;    ///< The height of the image.
+    unsigned int depth;     ///< The depth of the image (number of channels).
 };
 
 /**
