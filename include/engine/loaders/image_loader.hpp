@@ -9,7 +9,14 @@
 
 #include "loaders/loader.hpp"
 
+#include <filesystem>
+#include <memory>
+#include <string>
+#include <vector>
+
 namespace engine {
+
+namespace fs = std::filesystem;
 
 using ImageCallback = std::function<void(std::shared_ptr<Image>)>;
 
@@ -20,6 +27,8 @@ public:
     ~ImageLoader() override = default;
 
 private:
+    [[nodiscard]] auto ValidFileExtensions() const -> std::vector<std::string> override;
+
     [[nodiscard]] auto LoadImpl(const fs::path& path) const -> std::shared_ptr<void> override;
 };
 

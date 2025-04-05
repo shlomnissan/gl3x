@@ -10,7 +10,10 @@
 #include <filesystem>
 #include <functional>
 #include <memory>
+#include <ranges>
+#include <string>
 #include <thread>
+#include <vector>
 
 namespace engine {
 
@@ -23,7 +26,7 @@ template<typename Resource>
 class ENGINE_EXPORT Loader {
 public:
     auto Load(const fs::path& path, LoaderCallback<Resource> callback) const -> void {
-        if (!FileExists(path)) return;
+        if (!FileSupported(path) || !FileExists(path)) return;
 
         auto resource = std::static_pointer_cast<Resource>(LoadImpl(path));
         if (resource) {
@@ -34,7 +37,7 @@ public:
     }
 
     auto LoadAsync(const fs::path& path, LoaderCallback<Resource> callback) const -> void {
-        if (!FileExists(path)) return;
+        if (!FileSupported(path) || !FileExists(path)) return;
 
         // TODO: Use a thread pool instead of creating a thread and detaching it.
         std::thread([this, path, callback]() {
@@ -50,10 +53,22 @@ public:
     virtual ~Loader() = default;
 
 protected:
+    [[nodiscard]] virtual auto ValidFileExtensions() const -> std::vector<std::string> = 0;
+
     [[nodiscard]] virtual auto LoadImpl(const fs::path& path) const -> std::shared_ptr<void> = 0;
 
 private:
-    auto FileExists(const fs::path& path) const -> bool {
+    auto FileSupported(const fs::path& path) const {
+        const auto ext = path.extension().string();
+
+        if (std::ranges::any_of(ValidFileExtensions(), [&ext](const auto& valid_ext)
+            { return ext == valid_ext; })) { return true; }
+
+        Logger::Log(LogLevel::Error, "Unsupported file type '{}'", ext);
+        return false;
+    }
+
+    auto FileExists(const fs::path& path) const {
         if (!fs::exists(path)) {
             Logger::Log(LogLevel::Error, "File not found '{}'", path.string());
             return false;

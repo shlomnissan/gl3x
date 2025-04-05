@@ -11,6 +11,10 @@
 
 namespace engine {
 
+auto ImageLoader::ValidFileExtensions() const -> std::vector<std::string> {
+    return {".png", ".jpg", ".jpeg"};
+}
+
 auto ImageLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void> {
     stbi_set_flip_vertically_on_load(flip_y);
 
