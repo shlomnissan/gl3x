@@ -3,10 +3,10 @@
 
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <cassert>
 #include <concepts>
-#include <ranges>
 
 template <typename T, size_t N>
 requires std::is_arithmetic_v<T>

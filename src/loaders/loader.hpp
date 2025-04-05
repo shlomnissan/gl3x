@@ -7,10 +7,10 @@
 
 #include "utilities/logger.hpp"
 
+#include <algorithm>
 #include <filesystem>
 #include <functional>
 #include <memory>
-#include <ranges>
 #include <string>
 #include <thread>
 #include <vector>
