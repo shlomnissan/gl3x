@@ -23,7 +23,7 @@ public:
      *
      * @param image A shared pointer to the image object used to create the texture.
      */
-    explicit Texture2D(std::shared_ptr<Image> image) : image_(image) {}
+    explicit Texture2D(std::shared_ptr<engine::Image> image) : image_(image) {}
 
     /**
      * @brief Retrieves the image associated with the texture.
