@@ -17,7 +17,7 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camer
     Add(CameraOrbit::Create(camera, 3.0f));
 
     auto image_loader = engine::ImageLoader {};
-    image_loader.LoadAsync("assets/checker.png", [this](auto result) {
+    image_loader.Load("assets/checker.png", [this](auto result) {
         if (result) image_ = result.value();
     });
 

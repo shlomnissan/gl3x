@@ -33,14 +33,14 @@ auto ApplicationContext::Start() -> void {
         return;
     }
 
-    if (!scene) {
+    if (!scene_) {
         Logger::Log(LogLevel::Error,
             "You must override the Setup method and assign a Scene object."
         );
         return;
     }
 
-    if (!camera) {
+    if (!camera_) {
         Logger::Log(LogLevel::Error,
             "You must override the Setup method and assign a Camera object."
         );
@@ -73,8 +73,8 @@ auto ApplicationContext::Start() -> void {
 
         if (Update(delta)) {
             const auto start_time = timer.GetElapsedMilliseconds();
-            scene->ProcessUpdates(delta);
-            renderer->Render(scene.get(), camera.get());
+            scene_->ProcessUpdates(delta);
+            renderer->Render(scene_.get(), camera_.get());
             const auto end_time = timer.GetElapsedMilliseconds();
 
             frame_time_ms = end_time - start_time;
@@ -106,6 +106,14 @@ auto ApplicationContext::InitializeRenderer() -> bool {
     };
     renderer = std::make_unique<Renderer>(renderer_params);
     return true;
+}
+
+auto ApplicationContext::SetScene(std::shared_ptr<Scene> scene) -> void {
+    scene_ = scene;
+}
+
+auto ApplicationContext::SetCamera(std::shared_ptr<Camera> camera) -> void {
+    camera_ = camera;
 }
 
 ApplicationContext::~ApplicationContext() = default;

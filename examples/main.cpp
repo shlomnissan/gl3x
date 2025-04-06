@@ -34,8 +34,9 @@ public:
         window->SetTitle("Build Engine");
         renderer->SetClearColor(0x444444);
 
-        camera = CameraPerspective::Create({.aspect = window->AspectRatio()});
-        camera->transform.Translate({0.0f, 0.0f, 3.0f});
+        camera_ = CameraPerspective::Create({.aspect = window->AspectRatio()});
+        camera_->transform.Translate({0.0f, 0.0f, 3.0f});
+        SetCamera(camera_);
 
         LoadScene(examples[current_scene_]);
         Theme();
@@ -51,11 +52,9 @@ public:
         );
         if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) DrawExamplesList();
 
-        if (auto example = dynamic_cast<ExampleScene*>(scene.get())) {
-            if (example->show_context_menu_) {
-                if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
-                    example->ContextMenu();
-                }
+        if (scene_->show_context_menu_) {
+            if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
+                scene_->ContextMenu();
             }
         }
 
@@ -79,54 +78,58 @@ public:
     }
 
 private:
+    std::shared_ptr<CameraPerspective> camera_;
+    std::shared_ptr<ExampleScene> scene_;
+
     int current_scene_ = 0;
 
     auto LoadScene(const std::string_view scene_name) -> void {
         if (scene_name == "Flat Material") {
-            scene = std::make_shared<ExampleFlatMaterial>(camera);
+            scene_ = std::make_shared<ExampleFlatMaterial>(camera_);
         }
         if (scene_name == "Phong Material") {
-            scene = std::make_shared<ExamplePhongMaterial>(camera);
+            scene_ = std::make_shared<ExamplePhongMaterial>(camera_);
         }
         if (scene_name == "Shader Material") {
-            scene = std::make_shared<ExampleShaderMaterial>(camera);
+            scene_ = std::make_shared<ExampleShaderMaterial>(camera_);
         }
         if (scene_name == "Directional Light") {
-            scene = std::make_shared<ExampleDirectionalLight>(camera);
+            scene_ = std::make_shared<ExampleDirectionalLight>(camera_);
         }
         if (scene_name == "Point Light") {
-            scene = std::make_shared<ExamplePointLight>(camera);
+            scene_ = std::make_shared<ExamplePointLight>(camera_);
         }
         if (scene_name == "Spot Light") {
-            scene = std::make_shared<ExampleSpotLight>(camera);
+            scene_ = std::make_shared<ExampleSpotLight>(camera_);
         }
         if (scene_name == "Box Geometry") {
-            scene = std::make_shared<ExampleBoxGeometry>(camera);
+            scene_ = std::make_shared<ExampleBoxGeometry>(camera_);
         }
         if (scene_name == "Cone Geometry") {
-            scene = std::make_shared<ExampleConeGeometry>(camera);
+            scene_ = std::make_shared<ExampleConeGeometry>(camera_);
         }
         if (scene_name == "Cylinder Geometry") {
-            scene = std::make_shared<ExampleCylinderGeometry>(camera);
+            scene_ = std::make_shared<ExampleCylinderGeometry>(camera_);
         }
         if (scene_name == "Plane Geometry") {
-            scene = std::make_shared<ExamplePlaneGeometry>(camera);
+            scene_ = std::make_shared<ExamplePlaneGeometry>(camera_);
         }
         if (scene_name == "Sphere Geometry") {
-            scene = std::make_shared<ExampleSphereGeometry>(camera);
+            scene_ = std::make_shared<ExampleSphereGeometry>(camera_);
         }
         if (scene_name == "Blending Effect") {
-            scene = std::make_shared<ExampleBlending>(camera);
+            scene_ = std::make_shared<ExampleBlending>(camera_);
         }
         if (scene_name == "Fog Effect") {
-            scene = std::make_shared<ExampleFog>(camera);
+            scene_ = std::make_shared<ExampleFog>(camera_);
         }
         if (scene_name == "Frustum Culling Test") {
-            scene = std::make_shared<ExampleFrustumCullingTest>(camera);
+            scene_ = std::make_shared<ExampleFrustumCullingTest>(camera_);
         }
         if (scene_name == "Lerp Animation Test") {
-            scene = std::make_shared<ExampleLerpAnimationTest>(camera);
+            scene_ = std::make_shared<ExampleLerpAnimationTest>(camera_);
         }
+        SetScene(scene_);
     }
 };
 

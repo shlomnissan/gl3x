@@ -44,12 +44,6 @@ public:
     /// @brief The renderer managed by the application context.
     std::unique_ptr<Renderer> renderer {nullptr};
 
-    /// @brief The scene managed by the application context.
-    std::shared_ptr<Scene> scene {nullptr};
-
-    /// @brief The camera managed by the application context.
-    std::shared_ptr<Camera> camera {nullptr};
-
     /// @brief The timer used to measure elapsed time.
     Timer timer {false};
 
@@ -74,16 +68,10 @@ public:
     /**
      * @brief Updates the application context.
      *
-     * This method is a no-op by default and should be overridden by the client
-     * to provide custom update logic.
-     *
      * @param delta The time in seconds since the last update.
      * @return A boolean indicating whether the application should break the game loop.
      */
-    virtual auto Update(float delta) -> bool {
-        // No-op. The client should override this function.
-        return true;
-    }
+    virtual auto Update(float delta) -> bool = 0;
 
     /**
      * @brief Starts the application context.
@@ -93,6 +81,20 @@ public:
     auto Start() -> void;
 
     /**
+     * @brief Sets the scene for the application context.
+     *
+     * @param scene A shared pointer to the scene to be set.
+     */
+    auto SetScene(std::shared_ptr<Scene> scene) -> void;
+
+    /**
+     * @brief Sets the camera for the application context.
+     *
+     * @param camera A shared pointer to the camera to be set.
+     */
+    auto SetCamera(std::shared_ptr<Camera> camera) -> void;
+
+    /**
      * @brief Destructor for the application context.
      */
     virtual ~ApplicationContext();
@@ -100,6 +102,12 @@ public:
 private:
     /// @brief Performance graph used to display performance metrics.
     std::unique_ptr<PerformanceGraph> performance_graph_ {nullptr};
+
+    /// @brief The scene managed by the application context.
+    std::shared_ptr<Scene> scene_ {nullptr};
+
+    /// @brief The camera managed by the application context.
+    std::shared_ptr<Camera> camera_ {nullptr};
 
     /// @brief Indicates whether the application context has been initialized.
     bool initialized_ {false};
