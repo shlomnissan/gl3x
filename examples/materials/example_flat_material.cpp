@@ -16,8 +16,8 @@ ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera)
     Add(CameraOrbit::Create(camera, 3.0f));
 
     auto image_loader = engine::ImageLoader {};
-    image_loader.LoadAsync("assets/checker.png", [this](auto image) {
-        image_ = std::move(image);
+    image_loader.LoadAsync("assets/checker.png", [this](auto result) {
+        if (result) image_ = result.value();
     });
 
     fog = ExponentialFog::Create(0x444444, 0.3f);

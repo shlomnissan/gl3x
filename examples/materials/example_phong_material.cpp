@@ -17,8 +17,8 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camer
     Add(CameraOrbit::Create(camera, 3.0f));
 
     auto image_loader = engine::ImageLoader {};
-    image_loader.LoadAsync("assets/checker.png", [this](auto image) {
-        image_ = image;
+    image_loader.LoadAsync("assets/checker.png", [this](auto result) {
+        if (result) image_ = result.value();
     });
 
     fog = ExponentialFog::Create(0x444444, 0.3f);
