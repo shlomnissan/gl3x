@@ -61,7 +61,12 @@ private:
     /// @brief Event listener for handling scene events.
     std::shared_ptr<EventListener> scene_event_listener_;
 
-    /// @brief Indicates whether a node was added or removed from the scene.
+    /**
+     * @brief Tracks whether a node was added to or removed from the scene.
+     * This flag informs the renderer to update its internal render lists for
+     * managing render order. The renderer accesses this flag directly via
+     * the friend class declaration.
+     */
     bool touched_ = false;
 
     /**
