@@ -31,10 +31,10 @@ public:
     auto Setup() -> void override {
         ApplicationContext::Setup();
 
-        window->SetTitle("Build Engine");
-        renderer->SetClearColor(0x444444);
+        SetTitle("Build Engine");
+        SetClearColor(0x444444);
 
-        camera_ = CameraPerspective::Create({.aspect = window->AspectRatio()});
+        camera_ = CameraPerspective::Create({.aspect = AspectRatio()});
         camera_->transform.Translate({0.0f, 0.0f, 3.0f});
         SetCamera(camera_);
 

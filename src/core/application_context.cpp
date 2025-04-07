@@ -49,7 +49,7 @@ auto ApplicationContext::Start() -> void {
 
     timer.Start();
 
-    window->Start([this]() {
+    window_->Start([this]() {
         static auto last_frame_time = 0.0;
         static auto last_frame_rate_update = 0.0;
         static auto frame_time_ms = 0.0;
@@ -66,7 +66,7 @@ auto ApplicationContext::Start() -> void {
             using enum PerformanceMetric;
             performance_graph_->AddData(FramesPerSecond, frame_count);
             performance_graph_->AddData(FrameTime, frame_time_ms);
-            performance_graph_->AddData(RenderedObjects, renderer->RenderedObjectsPerFrame());
+            performance_graph_->AddData(RenderedObjects, renderer_->RenderedObjectsPerFrame());
             frame_count = 0;
             last_frame_rate_update = now;
         }
@@ -74,7 +74,7 @@ auto ApplicationContext::Start() -> void {
         if (Update(delta)) {
             const auto start_time = timer.GetElapsedMilliseconds();
             scene_->ProcessUpdates(delta);
-            renderer->Render(scene_.get(), camera_.get());
+            renderer_->Render(scene_.get(), camera_.get());
             const auto end_time = timer.GetElapsedMilliseconds();
 
             frame_time_ms = end_time - start_time;
@@ -83,7 +83,7 @@ auto ApplicationContext::Start() -> void {
                 performance_graph_->RenderGraph(static_cast<float>(params.width));
             }
         } else {
-            window->Break();
+            window_->Break();
         }
     });
 }
@@ -95,16 +95,16 @@ auto ApplicationContext::InitializeWindow() -> bool {
         .antialiasing = params.antialiasing,
         .vsync = params.vsync
     };
-    window = std::make_unique<Window>(window_params);
-    return window->HasErrors() ? false : true;
+    window_ = std::make_unique<Window>(window_params);
+    return window_->HasErrors() ? false : true;
 }
 
 auto ApplicationContext::InitializeRenderer() -> bool {
     const auto renderer_params = Renderer::Parameters {
-        .width = window->Width(),
-        .height = window->Height()
+        .width = window_->Width(),
+        .height = window_->Height()
     };
-    renderer = std::make_unique<Renderer>(renderer_params);
+    renderer_ = std::make_unique<Renderer>(renderer_params);
     return true;
 }
 
@@ -114,6 +114,14 @@ auto ApplicationContext::SetScene(std::shared_ptr<Scene> scene) -> void {
 
 auto ApplicationContext::SetCamera(std::shared_ptr<Camera> camera) -> void {
     camera_ = camera;
+}
+
+auto ApplicationContext::SetTitle(std::string_view title) -> void {
+    window_->SetTitle(title);
+}
+
+auto ApplicationContext::SetClearColor(const Color& color) -> void {
+    renderer_->SetClearColor(color);
 }
 
 ApplicationContext::~ApplicationContext() = default;

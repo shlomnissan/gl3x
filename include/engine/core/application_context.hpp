@@ -38,12 +38,6 @@ public:
      */
     Parameters params;
 
-    /// @brief The window managed by the application context.
-    std::unique_ptr<Window> window {nullptr};
-
-    /// @brief The renderer managed by the application context.
-    std::unique_ptr<Renderer> renderer {nullptr};
-
     /// @brief The timer used to measure elapsed time.
     Timer timer {false};
 
@@ -95,6 +89,29 @@ public:
     auto SetCamera(std::shared_ptr<Camera> camera) -> void;
 
     /**
+     * @brief Sets the title of the application window.
+     *
+     * @param title The title to be set for the window.
+     */
+    auto SetTitle(std::string_view title) -> void;
+
+    /**
+     * @brief Sets the clear color for the renderer.
+     *
+     * @param color The color to be set as the clear color.
+     */
+    auto SetClearColor(const Color& color) -> void;
+
+    /**
+     * @brief Gets the aspect ratio of the application window.
+     *
+     * @return The aspect ratio of the application window.
+     */
+    [[nodiscard]] auto AspectRatio() const {
+        return window_->AspectRatio();
+    }
+
+    /**
      * @brief Destructor for the application context.
      */
     virtual ~ApplicationContext();
@@ -108,6 +125,12 @@ private:
 
     /// @brief The camera managed by the application context.
     std::shared_ptr<Camera> camera_ {nullptr};
+
+    /// @brief The window managed by the application context.
+    std::unique_ptr<Window> window_ {nullptr};
+
+    /// @brief The renderer managed by the application context.
+    std::unique_ptr<Renderer> renderer_ {nullptr};
 
     /// @brief Indicates whether the application context has been initialized.
     bool initialized_ {false};
