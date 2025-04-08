@@ -62,6 +62,14 @@ public:
     [[nodiscard]] auto Children() -> std::vector<std::shared_ptr<Node>>&;
 
     /**
+     * @brief Checks if the specified node is a child of this node.
+     *
+     * @param node A pointer to the node to check.
+     * @return True if the node is a child of this node, otherwise false.
+     */
+    [[nodiscard]] auto IsChild(const Node* node) const -> bool;
+
+    /**
      * @brief Retrieves the parent node of this node.
      *
      * @return A pointer to the parent node. If this node has no parent, the return value will be a null pointer.

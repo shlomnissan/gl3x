@@ -8,6 +8,7 @@
 #include "core/event_dispatcher.hpp"
 #include "utilities/logger.hpp"
 
+#include <queue>
 #include <ranges>
 
 namespace engine {
@@ -57,6 +58,26 @@ auto Node::RemoveAllChildren() -> void {
 
 auto Node::Children() -> std::vector<std::shared_ptr<Node>>& {
     return children_;
+}
+
+auto Node::IsChild(const Node* node) const -> bool {
+    auto to_process = std::queue<const Node*>();
+    for (const auto child : children_) {
+        if (child != nullptr) to_process.push(child.get());
+    }
+
+    while (!to_process.empty()) {
+        for (auto i = 0; i < to_process.size(); ++i) {
+            const auto current = to_process.front();
+            to_process.pop();
+            if (current == node) return true;
+            for (const auto child : current->children_) {
+                if (child != nullptr) to_process.push(child.get());
+            }
+        }
+    }
+
+    return false;
 }
 
 auto Node::Parent() const -> const Node* {

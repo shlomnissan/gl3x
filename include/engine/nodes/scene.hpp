@@ -96,7 +96,7 @@ private:
      *
      * @param event The scene event to handle.
      */
-    auto HandleSceneEvents(const SceneEvent*) -> void;
+    auto HandleSceneEvents(const SceneEvent* event) -> void;
 };
 
 }

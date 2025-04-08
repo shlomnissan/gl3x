@@ -44,6 +44,46 @@ TEST(Node, RemoveAllChildren) {
 
 #pragma endregion
 
+#pragma region Hierarchy Queries
+
+TEST(Node, IsChild) {
+    auto node_1 = engine::Node::Create();
+    auto node_2 = engine::Node::Create();
+    auto node_3 = engine::Node::Create();
+
+    node_1->Add(node_2);
+    node_2->Add(node_3);
+
+    EXPECT_TRUE(node_1->IsChild(node_2.get()));
+    EXPECT_TRUE(node_1->IsChild(node_3.get()));
+    EXPECT_TRUE(node_2->IsChild(node_3.get()));
+    EXPECT_FALSE(node_2->IsChild(node_1.get()));
+    EXPECT_FALSE(node_3->IsChild(node_1.get()));
+}
+
+TEST(Node, IsChildAfterRemoval) {
+    auto parent = engine::Node::Create();
+    auto child = engine::Node::Create();
+
+    parent->Add(child);
+    EXPECT_TRUE(parent->IsChild(child.get()));
+
+    parent->Remove(child);
+    EXPECT_FALSE(parent->IsChild(child.get()));
+}
+
+TEST(Node, IsChildSelf) {
+    auto node = engine::Node::Create();
+    EXPECT_FALSE(node->IsChild(node.get()));
+}
+
+TEST(Node, IsChildWithNullptr) {
+    auto node = engine::Node::Create();
+    EXPECT_FALSE(node->IsChild(nullptr));
+}
+
+#pragma endregion
+
 #pragma region Update Transforms
 
 TEST(Node, UpdateTransformsWithoutParent) {
