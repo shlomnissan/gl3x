@@ -12,6 +12,10 @@
 
 namespace engine {
 
+// Forward declarations
+enum class Key;
+enum class MouseButton;
+
 struct ENGINE_EXPORT Event {
     bool handled {false};
 
@@ -45,8 +49,6 @@ struct ENGINE_EXPORT SceneEvent : public Event {
     SceneEvent(Type type, std::shared_ptr<Node> node) : type(type), node(node) {}
 };
 
-enum class Key; ///< forward declaration
-
 struct ENGINE_EXPORT KeyboardEvent : public Event {
     enum class Type {
         Pressed,
@@ -56,8 +58,6 @@ struct ENGINE_EXPORT KeyboardEvent : public Event {
     KeyboardEvent::Type type;
     Key key;
 };
-
-enum class MouseButton; ///< forward declaration
 
 struct ENGINE_EXPORT MouseEvent : public Event {
     enum class Type {

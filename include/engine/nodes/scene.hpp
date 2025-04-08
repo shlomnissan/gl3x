@@ -15,7 +15,8 @@
 
 namespace engine {
 
-class Renderer; ///< Forward declaration
+// Forward declarations
+class Renderer;
 
 using EventListener = std::function<void(Event*)>;
 

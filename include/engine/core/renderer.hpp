@@ -60,9 +60,7 @@ public:
     ~Renderer();
 
 private:
-    /**
-     * @brief Forward declaration of the implementation details.
-     */
+    // Forward declarations
     class Impl;
 
     /// @brief Unique pointer to the Renderer implementation.

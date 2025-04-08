@@ -14,8 +14,9 @@
 
 namespace engine {
 
-struct KeyboardEvent; ///< Forward declaration
-struct MouseEvent; ///< Forward declaration
+// Forward declarations
+struct KeyboardEvent;
+struct MouseEvent;
 
 /**
  * @brief Represents a node in a scene graph.

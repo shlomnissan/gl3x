@@ -14,13 +14,9 @@
 
 namespace engine {
 
-#pragma region Forward Declarations
-
+// Forward declarations
 enum class ShaderType;
-
 struct ShaderInfo;
-
-#pragma endregion
 
 class GLProgram {
 public:

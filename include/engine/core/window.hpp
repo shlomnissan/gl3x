@@ -95,7 +95,7 @@ public:
      */
     auto HasErrors() const -> bool;
 
-    /// @brief Forward declaration of the implementation class.
+    /// Forward declarations
     class Impl;
 
 private:
