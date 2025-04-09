@@ -39,8 +39,8 @@ struct ENGINE_EXPORT Event {
 
 struct ENGINE_EXPORT SceneEvent : public Event {
     enum class Type {
-        AddedToScene,
-        RemovedFromScene
+        NodeAdded,
+        NodeRemoved
     };
 
     std::shared_ptr<Node> node;

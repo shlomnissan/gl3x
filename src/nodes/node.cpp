@@ -21,8 +21,8 @@ auto Node::Add(const std::shared_ptr<Node>& node) -> void {
     children_.emplace_back(node);
 
     EventDispatcher::Get().Dispatch(
-        "added_to_scene",
-        std::make_unique<SceneEvent>(SceneEvent::Type::AddedToScene, node)
+        "node_added",
+        std::make_unique<SceneEvent>(SceneEvent::Type::NodeAdded, node)
     );
 }
 
@@ -30,8 +30,8 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
     auto it = std::ranges::find(children_, node);
     if (it != children_.end()) {
         EventDispatcher::Get().Dispatch(
-            "removed_from_scene",
-            std::make_unique<SceneEvent>(SceneEvent::Type::RemovedFromScene, node)
+            "node_removed",
+            std::make_unique<SceneEvent>(SceneEvent::Type::NodeRemoved, node)
         );
         children_.erase(it);
         node->parent_ = nullptr;
@@ -48,8 +48,8 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
 auto Node::RemoveAllChildren() -> void {
     for (const auto& node : children_) {
         EventDispatcher::Get().Dispatch(
-            "removed_from_scene",
-            std::make_unique<SceneEvent>(SceneEvent::Type::RemovedFromScene, node)
+            "node_removed",
+            std::make_unique<SceneEvent>(SceneEvent::Type::NodeRemoved, node)
         );
         node->parent_ = nullptr;
     }

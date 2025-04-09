@@ -30,8 +30,8 @@ auto Scene::AddEventListeners() -> void {
         if (auto e = event->As<MouseEvent>()) OnMouseEvent(e);
     });
 
-    EventDispatcher::Get().AddEventListener("added_to_scene", scene_event_listener_);
-    EventDispatcher::Get().AddEventListener("removed_from_scene", scene_event_listener_);
+    EventDispatcher::Get().AddEventListener("node_added", scene_event_listener_);
+    EventDispatcher::Get().AddEventListener("node_removed", scene_event_listener_);
     EventDispatcher::Get().AddEventListener("keyboard_event", input_event_listener_);
     EventDispatcher::Get().AddEventListener("mouse_event", input_event_listener_);
 }
@@ -74,8 +74,8 @@ auto Scene::HandleSceneEvents(const SceneEvent* event) -> void {
 }
 
 Scene::~Scene() {
-    EventDispatcher::Get().RemoveEventListener("added_to_scene", scene_event_listener_);
-    EventDispatcher::Get().RemoveEventListener("removed_from_scene", scene_event_listener_);
+    EventDispatcher::Get().RemoveEventListener("node_added", scene_event_listener_);
+    EventDispatcher::Get().RemoveEventListener("node_removed", scene_event_listener_);
     EventDispatcher::Get().RemoveEventListener("keyboard_event", input_event_listener_);
     EventDispatcher::Get().RemoveEventListener("mouse_event", input_event_listener_);
 }
