@@ -6,13 +6,14 @@
 #include <engine/materials/material.hpp>
 #include <engine/math/color.hpp>
 
+#include <memory>
 #include <unordered_map>
 
 namespace engine {
 
 class GLState {
 public:
-    auto ProcessMaterial(const Material* material) -> void;
+    auto ProcessMaterial(const std::shared_ptr<Material>& material) -> void;
 
     auto SetClearColor(const Color& color) -> void;
 

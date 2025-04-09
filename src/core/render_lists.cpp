@@ -32,7 +32,7 @@ auto RenderLists::ProcessScene(Scene* scene) -> void {
 
 auto RenderLists::ProcessNode(const std::shared_ptr<Node>& node) -> void {
     if (auto mesh = std::dynamic_pointer_cast<Mesh>(node)) {
-        mesh->GetMaterial()->transparent ?
+        mesh->material->transparent ?
             transparent_.emplace_back(mesh) :
             opaque_.emplace_back(mesh);
     }

@@ -49,7 +49,7 @@ auto ExampleBoxGeometry::ContextMenu() -> void {
     if (dirty) {
         dirty = false;
         auto geometry = BoxGeometry::Create(params_);
-        mesh_->SetGeometry(geometry);
-        wireframes_->SetGeometry(geometry);
+        mesh_->geometry = geometry;
+        wireframes_->geometry = geometry;
     }
 }

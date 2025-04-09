@@ -12,6 +12,6 @@ namespace engine {
 Mesh::Mesh(
     std::shared_ptr<Geometry> geometry,
     std::shared_ptr<Material> material
-) : geometry_(geometry), material_(material) {}
+) : geometry(geometry), material(material) {}
 
 }

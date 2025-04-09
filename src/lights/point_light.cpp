@@ -38,7 +38,7 @@ auto PointLight::CreateDebugMesh() -> void {
         .width_segments = 4,
         .height_segments = 2
     }), debug_mesh_material_);
-    debug_mesh_sphere_->GetGeometry()->SetName("point light sphere");
+    debug_mesh_sphere_->geometry->SetName("point light sphere");
 
     Add(debug_mesh_sphere_);
     UpdateDebugMesh();

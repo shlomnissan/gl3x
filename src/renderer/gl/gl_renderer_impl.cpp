@@ -50,13 +50,13 @@ auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
 }
 
 auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> void {
-    auto geometry = mesh->GetGeometry();
-    auto material = mesh->GetMaterial();
-
     if (!IsValidMesh(mesh)) return;
     if (!IsVisible(mesh)) return;
 
-    auto attrs = ProgramAttributes {material, render_lists_.get(), scene};
+    auto geometry = mesh->geometry;
+    auto material = mesh->material;
+
+    auto attrs = ProgramAttributes {material.get(), render_lists_.get(), scene};
     auto program = programs_.GetProgram(attrs);
     if (!program->IsValid()) {
         return;
@@ -104,7 +104,7 @@ auto Renderer::Impl::SetUniforms(
     Camera* camera,
     Scene* scene
 ) -> void {
-    auto material = mesh->GetMaterial();
+    auto material = mesh->material;
     auto model_view = camera->view_transform * mesh->GetWorldTransform();
 
     // Shared uniforms
@@ -125,7 +125,7 @@ auto Renderer::Impl::SetUniforms(
     }
 
     if (auto fog = scene->fog->As<ExponentialFog>()) {
-        program->SetUniformIfExists("u_Fog.Type", static_cast<int>(fog->Type()));
+        program->SetUniformIfExists("u_Fog.Type", std::to_underlying(fog->Type()));
         program->SetUniformIfExists("u_Fog.Color", fog->color);
         program->SetUniformIfExists("u_Fog.Density", fog->density);
     }
@@ -141,7 +141,7 @@ auto Renderer::Impl::SetUniforms(
         if (attrs->texture_map) {
             program->SetUniform("u_TextureMap", 0);
             program->SetUniform("u_TextureTransform", m->texture_map->transform.Get());
-            textures_.Bind(m->texture_map.get());
+            textures_.Bind(m->texture_map);
         }
     }
 
@@ -160,7 +160,7 @@ auto Renderer::Impl::SetUniforms(
         if (attrs->texture_map) {
             program->SetUniform("u_TextureMap", 0);
             program->SetUniform("u_TextureTransform", m->texture_map->transform.Get());
-            textures_.Bind(m->texture_map.get());
+            textures_.Bind(m->texture_map);
         }
     }
 
@@ -248,7 +248,7 @@ auto Renderer::Impl::SetClearColor(const Color& color) -> void {
 }
 
 auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
-    auto geometry = mesh->GetGeometry();
+    auto geometry = mesh->geometry;
 
     if (geometry->Disposed()) {
         Logger::Log(LogLevel::Warning,
@@ -275,7 +275,7 @@ auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
 }
 
 auto Renderer::Impl::IsVisible(Mesh* mesh) const -> bool {
-    auto bounding_sphere = mesh->GetGeometry()->BoundingSphere();
+    auto bounding_sphere = mesh->geometry->BoundingSphere();
     bounding_sphere.ApplyTransform(mesh->GetWorldTransform());
     return frustum_.IntersectsWithSphere(bounding_sphere);
 }

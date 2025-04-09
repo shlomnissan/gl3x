@@ -9,14 +9,15 @@
 
 namespace engine {
 
-auto GLTextures::Bind(Texture* texture) -> void {
+auto GLTextures::Bind(const std::shared_ptr<Texture>& texture) -> void {
     GLTextureState state;
     if (bindings_.contains(texture->UUID())) {
         state = bindings_[texture->UUID()];
         if (state.texture_id == current_texture_id_) { return; }
     } else {
-        GenerateTexture(texture, state);
-        TextureCallbacks(texture);
+        textures_.emplace_back(texture);
+        GenerateTexture(texture.get(), state);
+        TextureCallbacks(texture.get());
         bindings_.try_emplace(texture->UUID(), state);
     }
     glBindTexture(GL_TEXTURE_2D, state.texture_id);
@@ -59,6 +60,12 @@ auto GLTextures::TextureCallbacks(Texture* texture) -> void {
         glDeleteTextures(1, &state.texture_id);
         this->bindings_.erase(uuid);
     });
+}
+
+GLTextures::~GLTextures() {
+    for (const auto& texture : textures_) {
+        if (auto t = texture.lock()) t->Dispose();
+    }
 }
 
 }

@@ -18,6 +18,12 @@ namespace engine {
  */
 class ENGINE_EXPORT Mesh : public Node {
 public:
+    /// @brief The geometry associated with the mesh.
+    std::shared_ptr<Geometry> geometry;
+
+    /// @brief The material associated with the mesh.
+    std::shared_ptr<Material> material;
+
     /**
      * @brief Constructs a Mesh object with the given geometry.
      *
@@ -28,34 +34,6 @@ public:
         std::shared_ptr<Geometry> geometry,
         std::shared_ptr<Material> material
     );
-
-    /**
-     * @brief Accessor method that returns a pointer to the underlying `Geometry` object.
-     *
-     * @return A pointer to the `Geometry` object as a `const` pointer.
-     */
-    auto GetGeometry() -> Geometry* { return geometry_.get(); }
-
-    /**
-     * @brief Accessor method that returns a pointer to the associated `Material` object.
-     *
-     * @return A raw pointer to the `Material` object, or nullptr if no material is set.
-     */
-    auto GetMaterial() -> Material* { return material_.get(); }
-
-    /**
-     * @brief Sets the geometry associated with the mesh.
-     *
-     * @param geometry A shared pointer to the Geometry object to be associated with the mesh.
-     */
-    auto SetGeometry(std::shared_ptr<Geometry> geometry) { geometry_ = geometry; }
-
-    /**
-     * @brief Sets the material associated with the mesh.
-     *
-     * @param material A shared pointer to the Material object to be associated with the mesh.
-     */
-    auto SetMaterial(std::shared_ptr<Material> material) { material_ = material; }
 
     /**
      * @brief Creates a shared pointer to a Mesh object with the specified geometry.
@@ -71,13 +49,6 @@ public:
     ) {
         return std::make_shared<Mesh>(geometry, material);
     }
-
-private:
-    /// @brief The geometry associated with the mesh.
-    std::shared_ptr<Geometry> geometry_;
-
-    /// @brief The material associated with the mesh.
-    std::shared_ptr<Material> material_;
 };
 
 }

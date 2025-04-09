@@ -64,9 +64,9 @@ auto SpotLight::CreateDebugMesh() -> void {
     }
 
     debug_mesh_cone_ = Mesh::Create(Geometry::Create(points), debug_mesh_material_);
-    debug_mesh_cone_->GetGeometry()->SetName("directional light line");
-    debug_mesh_cone_->GetGeometry()->SetAttribute({Position, 3});
-    debug_mesh_cone_->GetGeometry()->primitive = Lines;
+    debug_mesh_cone_->geometry->SetName("directional light line");
+    debug_mesh_cone_->geometry->SetAttribute({Position, 3});
+    debug_mesh_cone_->geometry->primitive = Lines;
     debug_mesh_cone_->transform_auto_update = false;
 
     Add(debug_mesh_cone_);

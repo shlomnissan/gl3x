@@ -7,6 +7,7 @@
 
 #include <string_view>
 #include <unordered_map>
+#include <vector>
 
 #include <glad/glad.h>
 
@@ -25,10 +26,14 @@ public:
     GLTextures& operator=(const GLTextures&) = delete;
     GLTextures& operator=(GLTextures&&) = delete;
 
-    auto Bind(Texture* texture) -> void;
+    auto Bind(const std::shared_ptr<Texture>& texture) -> void;
+
+    ~GLTextures();
 
 private:
     std::unordered_map<std::string_view, GLTextureState> bindings_;
+
+    std::vector<std::weak_ptr<Texture>> textures_;
 
     GLuint current_texture_id_ {0};
 

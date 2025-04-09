@@ -9,14 +9,15 @@ namespace engine {
 
 #define BUFFER_OFFSET(offset) ((void*)(offset * sizeof(GLfloat)))
 
-auto GLBuffers::Bind(Geometry* geometry) -> void {
+auto GLBuffers::Bind(const std::shared_ptr<Geometry>& geometry) -> void {
     GLBufferState state;
     if (bindings_.contains(geometry->UUID())) {
         state = bindings_[geometry->UUID()];
         if (state.vao == current_vao_) { return; }
     } else {
-        GenerateBuffers(geometry, state);
-        GeometryCallbacks(geometry);
+        geometries_.emplace_back(geometry);
+        GenerateBuffers(geometry.get(), state);
+        GeometryCallbacks(geometry.get());
         bindings_.try_emplace(geometry->UUID(), state);
     }
     glBindVertexArray(state.vao);
@@ -44,7 +45,7 @@ auto GLBuffers::GenerateBuffers(const Geometry* geometry, GLBufferState& state) 
     }
 
     for (const auto& attr : geometry->Attributes()) {
-        auto idx = static_cast<int>(attr.type);
+        auto idx = std::to_underlying(attr.type);
         glVertexAttribPointer(
             idx,
             attr.item_size,
@@ -79,6 +80,12 @@ auto GLBuffers::GeometryCallbacks(Geometry* geometry) -> void {
         glDeleteBuffers(state.buffers.size(), state.buffers.data());
         this->bindings_.erase(uuid);
     });
+}
+
+GLBuffers::~GLBuffers() {
+    for (const auto& geometry : geometries_) {
+        if (auto g = geometry.lock()) g->Dispose();
+    }
 }
 
 }

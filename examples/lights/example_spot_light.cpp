@@ -29,7 +29,7 @@ ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
         phong_material_
     );
 
-    mesh->GetMaterial()->polygon_offset = {-0.5f, 0.5f};
+    mesh->material->polygon_offset = {-0.5f, 0.5f};
     mesh->transform.Rotate(Vector3::Right(), math::DegToRad(-90.0f));
     Add(mesh);
 
