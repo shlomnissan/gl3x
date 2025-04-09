@@ -8,6 +8,8 @@
 #include "core/shader_library.hpp"
 #include "utilities/logger.hpp"
 
+#include <utility>
+
 namespace engine {
 
 static const auto VertexAttributesMap = std::unordered_map<std::string, GeometryAttributeType> {
@@ -80,7 +82,7 @@ auto GLProgram::BindVertexAttributeLocations() const -> void {
     for (auto& [attr_name, attr_type] : VertexAttributesMap) {
         glBindAttribLocation(
             program_,
-            static_cast<int>(attr_type),
+            std::to_underlying(attr_type),
             attr_name.data()
         );
     }

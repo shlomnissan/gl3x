@@ -5,6 +5,8 @@
 
 #include "utilities/logger.hpp"
 
+#include <utility>
+
 namespace engine {
 
 #define BUFFER_OFFSET(offset) ((void*)(offset * sizeof(GLfloat)))

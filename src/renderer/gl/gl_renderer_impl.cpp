@@ -19,6 +19,7 @@
 
 #include <cmath>
 #include <format>
+#include <utility>
 
 #include <glad/glad.h>
 
@@ -118,7 +119,7 @@ auto Renderer::Impl::SetUniforms(
     program->SetUniformIfExists("u_Resolution", Vector2(params_.width, params_.height));
 
     if (auto fog = scene->fog->As<LinearFog>()) {
-        program->SetUniformIfExists("u_Fog.Type", static_cast<int>(fog->Type()));
+        program->SetUniformIfExists("u_Fog.Type", std::to_underlying(fog->Type()));
         program->SetUniformIfExists("u_Fog.Color", fog->color);
         program->SetUniformIfExists("u_Fog.Near", fog->near);
         program->SetUniformIfExists("u_Fog.Far", fog->far);
@@ -190,7 +191,7 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
             if (auto directional = light->As<DirectionalLight>()) {
                 const auto direction = camera->view_transform * Vector4(directional->Direction(), 0.0f);
                 const auto color = directional->color * directional->intensity;
-                program->SetUniform(uniform + ".Type", static_cast<int>(directional->Type()));
+                program->SetUniform(uniform + ".Type", std::to_underlying(directional->Type()));
                 program->SetUniform(uniform + ".Color", color);
                 program->SetUniform(uniform + ".Direction", Vector3(direction));
                 ++idx;
@@ -199,7 +200,7 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
             if (auto point = light->As<PointLight>()) {
                 const auto color = point->color * point->intensity;
                 const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
-                program->SetUniform(uniform + ".Type", static_cast<int>(point->Type()));
+                program->SetUniform(uniform + ".Type", std::to_underlying(point->Type()));
                 program->SetUniform(uniform + ".Color", color);
                 program->SetUniform(uniform + ".Position", Vector3(position));
                 program->SetUniform(uniform + ".Base", point->attenuation.base);
@@ -212,7 +213,7 @@ auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const 
                 const auto direction = camera->view_transform * Vector4(spot->Direction(), 0.0f);
                 const auto color = spot->color * spot->intensity;
                 const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
-                program->SetUniform(uniform + ".Type", static_cast<int>(spot->Type()));
+                program->SetUniform(uniform + ".Type", std::to_underlying(spot->Type()));
                 program->SetUniform(uniform + ".Color", color);
                 program->SetUniform(uniform + ".Direction", Vector3(direction));
                 program->SetUniform(uniform + ".Position", Vector3(position));
