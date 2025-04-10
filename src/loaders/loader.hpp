@@ -28,7 +28,7 @@ template <typename T>
 using LoaderCallback = std::function<void(LoaderResult<T>)>;
 
 template <typename Resource>
-class ENGINE_EXPORT Loader {
+class ENGINE_EXPORT Loader : public std::enable_shared_from_this<Loader<Resource>> {
 public:
     auto Load(const fs::path& path, LoaderCallback<Resource> callback) const {
         if (!ValidateFile(path, callback)) return;
@@ -45,9 +45,10 @@ public:
 
     // TODO: Use a thread pool instead of creating a thread and detaching it.
     auto LoadAsync(const fs::path& path, LoaderCallback<Resource> callback) const {
-        std::thread([this, path, callback]() {
-            if (!ValidateFile(path, callback)) return;
-            auto resource = std::static_pointer_cast<Resource>(LoadImpl(path));
+        auto self = this->shared_from_this();
+        std::thread([self, path, callback]() {
+            if (!self->ValidateFile(path, callback)) return;
+            auto resource = std::static_pointer_cast<Resource>(self->LoadImpl(path));
             if (resource) {
                 callback(resource);
             } else {
