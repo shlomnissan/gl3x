@@ -5,6 +5,7 @@
 
 #include "engine/textures/texture.hpp"
 
+#include <memory>
 #include <string_view>
 #include <unordered_map>
 #include <vector>
