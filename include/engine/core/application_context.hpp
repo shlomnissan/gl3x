@@ -118,7 +118,7 @@ public:
 
 private:
     /// @brief Performance graph used to display performance metrics.
-    std::unique_ptr<PerformanceGraph> performance_graph_ {nullptr};
+    std::unique_ptr<PerformanceGraph> performance_graph_;
 
     /// @brief The scene managed by the application context.
     std::shared_ptr<Scene> scene_ {nullptr};

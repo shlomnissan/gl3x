@@ -64,7 +64,7 @@ private:
     class Impl;
 
     /// @brief Unique pointer to the Renderer implementation.
-    std::unique_ptr<Impl> impl_ {nullptr};
+    std::unique_ptr<Impl> impl_;
 };
 
 }

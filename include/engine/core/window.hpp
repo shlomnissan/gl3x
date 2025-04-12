@@ -100,7 +100,7 @@ public:
 
 private:
     /// @brief Pointer to the implementation class.
-    std::unique_ptr<Impl> impl_ {nullptr};
+    std::unique_ptr<Impl> impl_;
 };
 
 }
