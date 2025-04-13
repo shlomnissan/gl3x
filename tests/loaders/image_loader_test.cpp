@@ -36,10 +36,9 @@ auto VerifyImage(
 ) {
     EXPECT_NE(image, nullptr);
     EXPECT_NE(image->Data(), nullptr);
-
-    EXPECT_EQ(image->width, 5);
-    EXPECT_EQ(image->height, 5);
-    EXPECT_EQ(image->depth, 4);
+    EXPECT_EQ(image->width, width);
+    EXPECT_EQ(image->height, height);
+    EXPECT_EQ(image->depth, depth);
     EXPECT_EQ(image->filename, filename);
 }
 

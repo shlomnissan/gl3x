@@ -17,14 +17,20 @@ ApplicationContext::ApplicationContext() {
 auto ApplicationContext::Setup() -> void {
     InitializeWindow();
     InitializeRenderer();
-    initialized_ = true;
+
+    shared_context_ = std::make_unique<SharedContext>(SharedContext::SharedParameters{
+        .ratio = window_->AspectRatio(),
+        .width = window_->Width(),
+        .height = window_->Height(),
+        .debug = params.debug
+    });
 }
 
 auto ApplicationContext::Start() -> void {
     Configure();
     Setup();
 
-    if (!initialized_) {
+    if (shared_context_ == nullptr) {
         Logger::Log(LogLevel::Error,
             "The application context was not initialized properly. "
             "Please ensure that ApplicationContext::Setup has been called, "
@@ -122,6 +128,18 @@ auto ApplicationContext::SetTitle(std::string_view title) -> void {
 
 auto ApplicationContext::SetClearColor(const Color& color) -> void {
     renderer_->SetClearColor(color);
+}
+
+auto ApplicationContext::Context() const -> const SharedContext* {
+    if (shared_context_ == nullptr) {
+        Logger::Log(LogLevel::Error,
+            "The shared context is not initialized. Ensure that "
+            "ApplicationContext::Setup has been called before attempting "
+            "to access the shared context."
+        );
+        return nullptr;
+    }
+    return shared_context_.get();
 }
 
 ApplicationContext::~ApplicationContext() = default;

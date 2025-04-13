@@ -34,7 +34,7 @@ public:
         SetTitle("Build Engine");
         SetClearColor(0x444444);
 
-        camera_ = CameraPerspective::Create({.aspect = AspectRatio()});
+        camera_ = CameraPerspective::Create({.aspect = Context()->Parameters().ratio});
         camera_->transform.Translate({0.0f, 0.0f, 3.0f});
         SetCamera(camera_);
 

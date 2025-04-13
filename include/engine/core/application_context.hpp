@@ -6,6 +6,7 @@
 #include "engine_export.h"
 
 #include "engine/core/renderer.hpp"
+#include "engine/core/shared_context.hpp"
 #include "engine/core/timer.hpp"
 #include "engine/core/window.hpp"
 #include "engine/nodes/camera.hpp"
@@ -103,13 +104,11 @@ public:
     auto SetClearColor(const Color& color) -> void;
 
     /**
-     * @brief Gets the aspect ratio of the application window.
+     * @brief Retrieves the shared context of the application.
      *
-     * @return The aspect ratio of the application window.
+     * @return A raw pointer to the shared context.
      */
-    [[nodiscard]] auto AspectRatio() const {
-        return window_->AspectRatio();
-    }
+    [[nodiscard]] auto Context() const -> const SharedContext*;
 
     /**
      * @brief Destructor for the application context.
@@ -132,8 +131,8 @@ private:
     /// @brief The renderer managed by the application context.
     std::unique_ptr<Renderer> renderer_ {nullptr};
 
-    /// @brief Indicates whether the application context has been initialized.
-    bool initialized_ {false};
+    /// @brief The shared context propgated through the scene graph.
+    std::unique_ptr<SharedContext> shared_context_ {nullptr};
 
     /**
      * @brief Initializes the window.
