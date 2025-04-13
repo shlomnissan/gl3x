@@ -8,7 +8,7 @@
 #include <future>
 #include <thread>
 
-const auto image_loader = engine::ImageLoader {};
+const auto image_loader = std::make_shared<engine::ImageLoader>();
 
 #pragma region Helpers
 
@@ -18,7 +18,7 @@ auto RunAsyncTest(const std::string& file_path, Callback callback) {
     auto promise = std::promise<void> {};
     auto future = promise.get_future();
 
-    image_loader.LoadAsync(file_path, [&](const auto& result) {
+    image_loader->LoadAsync(file_path, [&](const auto& result) {
         callback(result, main_thread_id);
         promise.set_value();
     });
@@ -48,20 +48,20 @@ auto VerifyImage(
 #pragma region Load Image Synchronously
 
 TEST(ImageLoader, LoadImageSynchronous) {
-    image_loader.Load("assets/texture.png", [](const auto& result) {
+    image_loader->Load("assets/texture.png", [](const auto& result) {
         VerifyImage(result.value(), "texture.png", 5, 5, 4);
     });
 }
 
 TEST(ImageLoader, LoadImageSynchronousInvalidFileType) {
-    image_loader.Load("assets/invalid_texture.bmp", [](const auto& result) {
+    image_loader->Load("assets/invalid_texture.bmp", [](const auto& result) {
         EXPECT_FALSE(result);
         EXPECT_EQ(result.error(), "Unsupported file type '.bmp'");
     });
 }
 
 TEST(ImageLoader, LoadImageSynchronousInvalidFile) {
-    image_loader.Load("assets/invalid_texture.png", [](const auto& result) {
+    image_loader->Load("assets/invalid_texture.png", [](const auto& result) {
         EXPECT_FALSE(result);
         EXPECT_EQ(result.error(), "File not found 'assets/invalid_texture.png'");
     });
