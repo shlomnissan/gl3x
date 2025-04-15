@@ -6,8 +6,6 @@
 #include "utilities/logger.hpp"
 #include "utilities/performance_graph.hpp"
 
-#include <vector>
-
 namespace engine {
 
 ApplicationContext::ApplicationContext() {
