@@ -16,7 +16,7 @@ auto ApplicationContext::Setup() -> void {
     InitializeWindow();
     InitializeRenderer();
 
-    shared_context_ = std::make_unique<SharedContext>(SharedContext::SharedParameters{
+    shared_context_ = std::make_unique<SharedContext>(SharedContext::SharedParameters {
         .ratio = window_->AspectRatio(),
         .width = window_->Width(),
         .height = window_->Height(),
@@ -114,6 +114,7 @@ auto ApplicationContext::InitializeRenderer() -> bool {
 
 auto ApplicationContext::SetScene(std::shared_ptr<Scene> scene) -> void {
     scene_ = scene;
+    scene_->SetContext(shared_context_.get());
 }
 
 auto ApplicationContext::SetCamera(std::shared_ptr<Camera> camera) -> void {

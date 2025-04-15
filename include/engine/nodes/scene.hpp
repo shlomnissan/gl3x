@@ -6,6 +6,7 @@
 #include "engine_export.h"
 #include "engine/core/events.hpp"
 #include "engine/core/fog.hpp"
+#include "engine/core/shared_context.hpp"
 #include "engine/math/color.hpp"
 #include "engine/nodes/node.hpp"
 
@@ -48,6 +49,15 @@ public:
     }
 
     /**
+     * @brief Set the Context object.
+     *
+     * @param context A raw pointer to the SharedContext object.
+     */
+    auto SetContext(SharedContext* context) -> void {
+        context_ = context;
+    }
+
+    /**
      * @brief Destructor for the Scene class.
      */
     ~Scene() override;
@@ -61,6 +71,9 @@ private:
 
     /// @brief Event listener for handling scene events.
     std::shared_ptr<EventListener> scene_event_listener_;
+
+    /// @brief The shared context for the scene.
+    SharedContext* context_ {nullptr};
 
     /**
      * @brief Tracks whether a node was added to or removed from the scene.
