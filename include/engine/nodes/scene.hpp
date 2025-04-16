@@ -53,8 +53,11 @@ public:
     ~Scene() override;
 
 private:
-    /// @brief The renderer needs access to the touched_ flag.
+    /// @brief The renderer accesses the 'touched_' flag.
     friend class Renderer;
+
+    /// @brief The application context invokes the scene's 'SetContext' method.
+    friend class ApplicationContext;
 
     /// @brief Event listener for handling input events.
     std::shared_ptr<EventListener> input_event_listener_;
@@ -97,6 +100,17 @@ private:
      * @param event The scene event to handle.
      */
     auto HandleSceneEvents(const SceneEvent* event) -> void;
+
+    /**
+     * @brief Sets the shared context for the scene and its nodes.
+     *
+     * This method initializes the shared context for the scene and propagates it
+     * to all nodes within the scene. The shared context provides access to shared
+     * resources and parameters required by the scene and its nodes.
+     *
+     * @param context A pointer to the shared context to be set for the scene.
+     */
+    auto SetContext(SharedContext* context) -> void;
 };
 
 }

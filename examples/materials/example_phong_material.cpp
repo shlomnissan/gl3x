@@ -16,11 +16,6 @@ using namespace engine;
 ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camera) {
     Add(CameraOrbit::Create(camera, 3.0f));
 
-    auto image_loader = std::make_shared<engine::ImageLoader>();
-    image_loader->LoadAsync("assets/checker.png", [this](auto result) {
-        if (result) image_ = result.value();
-    });
-
     fog = ExponentialFog::Create(0x444444, 0.3f);
 
     auto geometry = BoxGeometry::Create();
@@ -36,6 +31,15 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camer
     auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
     point_light->transform.Translate({2.0f, 2.0f, 2.0f});
     Add(point_light);
+}
+
+auto ExamplePhongMaterial::OnAttached() -> void {
+    this->Context()->Loaders().Image->LoadAsync(
+        "assets/checker.png",
+        [this](auto result) {
+            if (result) image_ = result.value();
+        }
+    );
 }
 
 auto ExamplePhongMaterial::Update(float delta) -> void {

@@ -5,6 +5,7 @@
 
 #include "engine_export.h"
 #include "engine/core/identity.hpp"
+#include "engine/core/shared_context.hpp"
 #include "engine/math/matrix4.hpp"
 #include "engine/math/transform3.hpp"
 #include "engine/math/vector3.hpp"
@@ -114,6 +115,22 @@ public:
      * @return The world transformation matrix of the node.
      */
     [[nodiscard]] auto GetWorldTransform() -> Matrix4;
+
+    /**
+     * @brief Retrieves the shared context of the node. If the context is not
+     * set, an error log is generated and a null pointer is returned.
+     *
+     * @return A pointer to the shared context.
+     */
+    [[nodiscard]] auto Context() const -> SharedContext*;
+
+    /**
+     * @brief Returns whether the node is attached to an active scene.
+     * An active scene is one that has been attached to the application context.
+     */
+    [[nodiscard]] auto IsAttached() const {
+        return context_ != nullptr;
+    }
 
     /**
      * @brief Rotates the object to face a point in world space.
@@ -237,6 +254,17 @@ public:
     virtual auto Update(float delta) -> void { /* No-op by default */ }
 
     /**
+     * @brief Called when the node is attached to an active scene.
+     *
+     * This method is invoked when the node becomes part of a scene that is
+     * attached to the application context. At this point, the shared context
+     * is guaranteed to be initialized and accessible. Override this method
+     * to perform any setup or initialization that depends on the shared context
+     * such as loading resources or setting up event listeners.
+     */
+    virtual auto OnAttached() -> void { /* No-op by default */ }
+
+    /**
      * @brief Invoked when a keyboard event is received.
      *
      * @param event A pointer to the keyboard event.
@@ -253,8 +281,14 @@ public:
     #pragma endregion
 
 private:
+    /// @brief The scene sets the node's shared context.
+    friend class Scene;
+
     /// @brief List of child nodes.
     std::vector<std::shared_ptr<Node>> children_;
+
+    /// @brief The shared context for the scene.
+    SharedContext* context_ {nullptr};
 
     /// @brief Pointer to the parent node.
     Node* parent_ {nullptr};
@@ -264,6 +298,25 @@ private:
 
     /// @brief Flag indicating whether the world transform was modified.
     bool world_transform_touched_ {false};
+
+    /**
+     * @brief Recursively attaches the node and its children to the shared context.
+     *
+     * This method is called when the node is added to a scene. It ensures that the
+     * shared context is propagated to the node and all of its child nodes.
+     *
+     * @param context A pointer to the shared context to attach to the node and its children.
+     */
+    auto AttachRecursive(SharedContext* context) -> void;
+
+    /**
+     * @brief Recursively detaches the node and its children from the shared context.
+     *
+     * This method is called when the node is removed from a scene. It ensures that the
+     * shared context is cleared for the node and all of its child nodes, effectively
+     * disconnecting them from the scene's shared resources.
+     */
+    auto DetachRecursive() -> void;
 };
 
 }

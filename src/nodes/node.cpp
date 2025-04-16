@@ -131,12 +131,47 @@ auto Node::GetWorldTransform() -> Matrix4 {
     return world_transform_;
 }
 
+auto Node::Context() const -> SharedContext* {
+    if (context_ == nullptr) {
+        Logger::Log(
+            LogLevel::Error,
+            "Shared context is not set. Ensure the node is part of an active "
+            "scene and that the context is accessed after the node is initialized. "
+            "The context is guaranteed to be initialized after the node is attached "
+            "to an active scene which invokes the OnAttached() method."
+        );
+        return nullptr;
+    }
+    return context_;
+}
+
 auto Node::LookAt(const Vector3& target) -> void {
     const auto position = GetWorldPosition();
     if (this->Is<Camera>()) {
         transform.LookAt(position, target, up);
     } else {
         transform.LookAt(target, position, up);
+    }
+}
+
+auto Node::AttachRecursive(SharedContext* context) -> void {
+    context_ = context;
+    OnAttached();
+    Logger::Log(LogLevel::Info, "Node {} attached to context", *this);
+    for (const auto& child : children_) {
+        if (child != nullptr) {
+            child->AttachRecursive(context);
+        }
+    }
+}
+
+auto Node::DetachRecursive() -> void {
+    context_ = nullptr;
+    Logger::Log(LogLevel::Info, "Node {} detached from context", *this);
+    for (const auto& child : children_) {
+        if (child != nullptr) {
+            child->DetachRecursive();
+        }
     }
 }
 

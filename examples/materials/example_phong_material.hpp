@@ -15,6 +15,8 @@ class ExamplePhongMaterial : public ExampleScene {
 public:
     explicit ExamplePhongMaterial(std::shared_ptr<engine::Camera> camera);
 
+    auto OnAttached() -> void override;
+
     auto Update(float delta) -> void override;
 
     auto ContextMenu() -> void override;

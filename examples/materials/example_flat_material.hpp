@@ -15,6 +15,8 @@ class ExampleFlatMaterial : public ExampleScene {
 public:
     explicit ExampleFlatMaterial(std::shared_ptr<engine::Camera>);
 
+    auto OnAttached() -> void override;
+
     auto Update(float delta) -> void override;
 
     auto ContextMenu() -> void override;

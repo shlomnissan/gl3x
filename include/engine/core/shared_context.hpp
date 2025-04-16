@@ -50,7 +50,7 @@ public:
      *
      * @return A constant reference to the shared loaders.
      */
-    [[nodiscard]] const SharedLoaders& GetLoaders() const {
+    [[nodiscard]] const SharedLoaders& Loaders() const {
         return loaders_;
     }
 

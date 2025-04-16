@@ -68,9 +68,16 @@ auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
 }
 
 auto Scene::HandleSceneEvents(const SceneEvent* event) -> void {
+    using enum SceneEvent::Type;
     if (IsChild(event->node.get())) {
         touched_ = true;
+        if (event->type == NodeAdded) event->node->AttachRecursive(context_);
+        if (event->type == NodeRemoved) event->node->DetachRecursive();
     }
+}
+
+auto Scene::SetContext(SharedContext* context) -> void {
+    this->AttachRecursive(context);
 }
 
 Scene::~Scene() {

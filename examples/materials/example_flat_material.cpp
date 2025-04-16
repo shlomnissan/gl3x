@@ -15,11 +15,6 @@ using namespace engine;
 ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera) {
     Add(CameraOrbit::Create(camera, 3.0f));
 
-    auto image_loader = std::make_shared<engine::ImageLoader>();
-    image_loader->LoadAsync("assets/checker.png", [this](auto result) {
-        if (result) image_ = result.value();
-    });
-
     fog = ExponentialFog::Create(0x444444, 0.3f);
 
     auto geometry = BoxGeometry::Create();
@@ -28,6 +23,15 @@ ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera)
     material_->fog = false;
     mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);
+}
+
+auto ExampleFlatMaterial::OnAttached() -> void {
+    this->Context()->Loaders().Image->LoadAsync(
+        "assets/checker.png",
+        [this](auto result) {
+            if (result) image_ = result.value();
+        }
+    );
 }
 
 auto ExampleFlatMaterial::Update(float delta) -> void {
