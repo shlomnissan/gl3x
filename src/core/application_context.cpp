@@ -114,7 +114,6 @@ auto ApplicationContext::InitializeRenderer() -> bool {
 
 auto ApplicationContext::SetScene(std::shared_ptr<Scene> scene) -> void {
     scene_ = scene;
-    scene_->SetContext(shared_context_.get());
 }
 
 auto ApplicationContext::SetCamera(std::shared_ptr<Camera> camera) -> void {
