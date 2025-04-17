@@ -188,7 +188,7 @@ TEST(Transform3, RotateZ) {
 
 #pragma endregion
 
-#pragma Local-Space Translation
+#pragma region Local-Space Translation
 
 TEST(Transform3, TranslateBeforeRotation) {
     auto t = engine::Transform3 {};
