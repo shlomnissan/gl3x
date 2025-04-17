@@ -48,7 +48,7 @@ ExampleLerpAnimationTest::ExampleLerpAnimationTest(std::shared_ptr<engine::Camer
     Add(active_point_);
 }
 
-auto ExampleLerpAnimationTest::Update(float delta) -> void {
+auto ExampleLerpAnimationTest::OnUpdate(float delta) -> void {
     elapsed_time_ += delta;
     auto t = elapsed_time_ / 2.0f;
     if (t >= 1.0f) {

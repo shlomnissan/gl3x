@@ -37,7 +37,7 @@ auto Scene::AddEventListeners() -> void {
 }
 
 auto Scene::ProcessUpdates(float delta) -> void {
-    Update(delta);
+    OnUpdate(delta);
      for (const auto& child : Children()) {
         HandleNodeUpdates(child, delta);
     }
@@ -45,7 +45,7 @@ auto Scene::ProcessUpdates(float delta) -> void {
 
 auto Scene::HandleNodeUpdates(std::weak_ptr<Node> node, float delta) -> void {
     if (const auto n = node.lock()) {
-        n->Update(delta);
+        n->OnUpdate(delta);
         for (const auto& child : n->Children()) {
             HandleNodeUpdates(child, delta);
         }

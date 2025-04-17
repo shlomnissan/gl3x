@@ -17,7 +17,7 @@ public:
 
     auto ContextMenu() -> void override;
 
-    auto Update(float delta) -> void override;
+    auto OnUpdate(float delta) -> void override;
 
 private:
     engine::Frustum frustum_;

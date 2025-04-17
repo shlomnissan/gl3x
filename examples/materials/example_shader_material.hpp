@@ -15,7 +15,7 @@ class ExampleShaderMaterial : public ExampleScene {
 public:
     explicit ExampleShaderMaterial(std::shared_ptr<engine::Camera>);
 
-    auto Update(float delta) -> void override;
+    auto OnUpdate(float delta) -> void override;
 
     auto ContextMenu() -> void override;
 

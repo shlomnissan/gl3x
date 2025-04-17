@@ -17,7 +17,7 @@ public:
 
     auto OnAttached() -> void override;
 
-    auto Update(float delta) -> void override;
+    auto OnUpdate(float delta) -> void override;
 
     auto ContextMenu() -> void override;
 

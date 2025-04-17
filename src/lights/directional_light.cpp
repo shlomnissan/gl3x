@@ -28,7 +28,7 @@ auto DirectionalLight::SetDebugMode(bool is_debug_mode) -> void {
     }
 }
 
-auto DirectionalLight::Update(float delta) -> void {
+auto DirectionalLight::OnUpdate(float delta) -> void {
     if (debug_mode_enabled) {
         UpdateDebugMesh();
     }

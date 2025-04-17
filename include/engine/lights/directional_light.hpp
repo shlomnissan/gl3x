@@ -70,7 +70,7 @@ public:
      *
      * @param delta The time in seconds since the last update.
      */
-    auto Update(float delta) -> void override;
+    auto OnUpdate(float delta) -> void override;
 
     /**
      * @brief Default destructor.

@@ -34,7 +34,7 @@ auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {
     }
 }
 
-auto CameraOrbit::Update(float delta) -> void {
+auto CameraOrbit::OnUpdate(float delta) -> void {
     if (!first_update_) {
         first_update_ = true;
         prev_mouse_pos_ = curr_mouse_pos_;

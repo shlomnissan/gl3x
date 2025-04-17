@@ -65,7 +65,7 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<engine::Camera> cam
     Add(mesh_);
 }
 
-auto ExampleShaderMaterial::Update(float delta) -> void {
+auto ExampleShaderMaterial::OnUpdate(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
     mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
     material_->uniforms["u_Time"] = static_cast<float>(timer_.GetElapsedSeconds());

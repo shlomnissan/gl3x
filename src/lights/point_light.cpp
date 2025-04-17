@@ -21,7 +21,7 @@ auto PointLight::SetDebugMode(bool is_debug_mode) -> void {
     }
 }
 
-auto PointLight::Update(float delta) -> void {
+auto PointLight::OnUpdate(float delta) -> void {
     if (debug_mode_enabled) {
         UpdateDebugMesh();
     }

@@ -42,7 +42,7 @@ auto ExamplePhongMaterial::OnAttached() -> void {
     );
 }
 
-auto ExamplePhongMaterial::Update(float delta) -> void {
+auto ExamplePhongMaterial::OnUpdate(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
     mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
 }

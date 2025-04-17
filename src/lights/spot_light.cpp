@@ -27,7 +27,7 @@ auto SpotLight::SetDebugMode(bool is_debug_mode) -> void {
     }
 }
 
-auto SpotLight::Update(float delta) -> void {
+auto SpotLight::OnUpdate(float delta) -> void {
     if (debug_mode_enabled) {
         UpdateDebugMesh();
     }

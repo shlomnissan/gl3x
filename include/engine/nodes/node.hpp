@@ -251,7 +251,7 @@ public:
     /**
      * @brief Invoked before rendering the node.
      */
-    virtual auto Update(float delta) -> void { /* No-op by default */ }
+    virtual auto OnUpdate(float delta) -> void { /* No-op by default */ }
 
     /**
      * @brief Called when the node is attached to an active scene.

@@ -36,7 +36,7 @@ ExampleFrustumCullingTest::ExampleFrustumCullingTest(std::shared_ptr<engine::Cam
     }
 }
 
-auto ExampleFrustumCullingTest::Update(float delta) -> void {
+auto ExampleFrustumCullingTest::OnUpdate(float delta) -> void {
     for (const auto& b : boxes_) {
         b->RotateX(1.0f * delta);
         b->RotateY(1.0f * delta);
