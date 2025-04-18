@@ -15,6 +15,8 @@ set(SOURCE_CODE
     "geometries/example_cone_geometry.hpp"
     "geometries/example_cylinder_geometry.cpp"
     "geometries/example_cylinder_geometry.hpp"
+    "geometries/example_model_geometry.cpp"
+    "geometries/example_model_geometry.hpp"
     "geometries/example_plane_geometry.cpp"
     "geometries/example_plane_geometry.hpp"
     "geometries/example_sphere_geometry.cpp"
