@@ -20,5 +20,4 @@ public:
 
 private:
     std::shared_ptr<engine::Mesh> mesh_;
-    std::shared_ptr<engine::Mesh> wireframes_;
 };

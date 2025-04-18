@@ -3,7 +3,6 @@
 
 #include "loaders/importers/obj_importer.hpp"
 
-#include "engine/geometries/box_geometry.hpp"
 #include "engine/materials/phong_material.hpp"
 #include "engine/math/vector2.hpp"
 #include "engine/math/vector3.hpp"
@@ -24,6 +23,12 @@ struct VertexKey {
     int normal;
 
     auto operator<=>(const VertexKey&) const = default;
+};
+
+const auto VertexKeyHash = [](const VertexKey& key) {
+    return std::hash<int>{}(key.position) ^
+           std::hash<int>{}(key.uv) ^
+           std::hash<int>{}(key.normal);
 };
 
 auto ParsePosition(std::istringstream& sstream, const fs::path& path) {
@@ -89,11 +94,20 @@ auto ParseFace(std::istringstream& sstream, const fs::path& path) {
         output.push_back(key);
     }
 
-    if (output.size() < 3) {
+    // Only triangles are supported for now
+    if (output.size() != 3) {
         Logger::Log(LogLevel::Warning, "Malformed face in '{}'", path.string());
         return std::vector<VertexKey> {};
     }
 
+    return output;
+}
+
+auto Stride(bool has_positions, bool has_normals, bool has_uvs) {
+    auto output = 0;
+    if (has_positions) output += 3;
+    if (has_normals) output += 3;
+    if (has_uvs) output += 2;
     return output;
 }
 
@@ -112,10 +126,22 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
         return Geometry::Create();
     }
 
+    auto has_positions = false;
+    auto has_normals = false;
+    auto has_uvs = false;
+
     auto vertices = std::vector<Vector3> {};
     auto normals = std::vector<Vector3> {};
     auto uvs = std::vector<Vector2> {};
     auto line = std::string {};
+
+    auto vertex_data = std::vector<float> {};
+    auto index_data = std::vector<unsigned int> {};
+    auto seen_vertices = std::unordered_map<
+        VertexKey,
+        unsigned int,
+        decltype(VertexKeyHash)
+    > {0, VertexKeyHash};
 
     while (std::getline(handle, line)) {
         auto sstream = std::istringstream {line};
@@ -126,13 +152,56 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
             continue; // skip comments
         } else if (directive == "v") {
             vertices.emplace_back(ParsePosition(sstream, path));
+            has_positions = true;
         } else if (directive == "vn") {
             normals.emplace_back(ParseNormal(sstream, path));
+            has_normals = true;
         } else if (directive == "vt") {
             uvs.emplace_back(ParseUVCoordinates(sstream, path));
+            has_uvs = true;
         } else if (directive == "f") {
+            if (!has_positions) {
+                Logger::Log(
+                    LogLevel::Error,
+                    "Face directive without position data in '{}'",
+                    path.string()
+                );
+                return Geometry::Create();
+            }
             auto face = ParseFace(sstream, path);
+            if (face.empty()) continue; // skip malformed faces
 
+            for (const auto& key : face) {
+                if (seen_vertices.contains(key)) {
+                    index_data.emplace_back(seen_vertices[key]);
+                } else {
+                    const auto stride = Stride(has_positions, has_normals, has_uvs);
+                    seen_vertices[key] = static_cast<unsigned int>(vertex_data.size() / stride);
+
+                    vertex_data.insert(vertex_data.end(), {
+                        vertices[key.position].x,
+                        vertices[key.position].y,
+                        vertices[key.position].z
+                    });
+
+                    if (has_normals) {
+                        vertex_data.insert(vertex_data.end(), {
+                            normals[key.normal].x,
+                            normals[key.normal].y,
+                            normals[key.normal].z
+                        });
+                    }
+
+                    if (has_uvs) {
+                        vertex_data.insert(vertex_data.end(), {
+                            uvs[key.uv].x,
+                            uvs[key.uv].y
+                        });
+                    }
+
+                    index_data.emplace_back(seen_vertices[key]);
+                }
+            }
         } else {
             Logger::Log(
                 LogLevel::Warning,
@@ -142,7 +211,14 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
         }
     }
 
-    return BoxGeometry::Create();
+    using enum GeometryAttributeType;
+    auto geometry = Geometry::Create(vertex_data, index_data);
+    geometry->SetAttribute({.type = Position, .item_size = 3});
+
+    if (has_normals) geometry->SetAttribute({.type = Normal, .item_size = 3});
+    if (has_uvs) geometry->SetAttribute({.type = UV, .item_size = 2});
+
+    return geometry;
 }
 
 auto ObjImporter::ParseMaterial(const fs::path& path) -> std::shared_ptr<PhongMaterial> {
