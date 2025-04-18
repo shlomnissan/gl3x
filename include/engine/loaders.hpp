@@ -4,3 +4,4 @@
 #pragma once
 
 #include "engine/loaders/image_loader.hpp"
+#include "engine/loaders/mesh_loader.hpp"

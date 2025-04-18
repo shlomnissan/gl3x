@@ -3,6 +3,8 @@
 
 #include "engine/loaders/mesh_loader.hpp"
 
+#include "engine/nodes/mesh.hpp"
+
 #include "engine/geometries/box_geometry.hpp"
 #include "engine/materials/flat_material.hpp"
 

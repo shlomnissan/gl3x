@@ -5,8 +5,6 @@
 
 #include "engine_export.h"
 
-#include "engine/nodes/mesh.hpp"
-
 #include "loaders/loader.hpp"
 
 #include <filesystem>
@@ -15,6 +13,10 @@
 #include <vector>
 
 namespace engine {
+
+class Mesh;
+
+namespace fs = std::filesystem;
 
 using MeshCallback = std::function<void(std::shared_ptr<Mesh>)>;
 

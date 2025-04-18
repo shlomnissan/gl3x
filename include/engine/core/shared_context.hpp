@@ -5,7 +5,7 @@
 
 #include "engine_export.h"
 
-#include "engine/loaders/image_loader.hpp"
+#include "engine/loaders.hpp"
 
 #include <memory>
 
@@ -29,6 +29,9 @@ public:
     struct SharedLoaders {
         /// @brief Loader for image resources.
         std::shared_ptr<ImageLoader> Image = std::make_shared<ImageLoader>();
+
+        /// @brief Loader for mesh resources.
+        std::shared_ptr<MeshLoader> Mesh = std::make_shared<MeshLoader>();
     };
 
     /**
