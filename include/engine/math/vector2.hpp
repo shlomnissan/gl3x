@@ -38,6 +38,13 @@ public:
     Vector2(float x, float y);
 
     /**
+     * @brief Returns a zero vector.
+     *
+     * @return Vector2 A `Vector2` instance representing the zero vector.
+     */
+    [[nodiscard]] static auto Zero() { return Vector2 {0.0f}; }
+
+    /**
      * @brief Adds a vector to the current vector.
      *
      * @param v The vector to add.
