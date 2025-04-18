@@ -24,7 +24,15 @@ ExampleModelGeometry::ExampleModelGeometry(std::shared_ptr<engine::Camera> camer
 }
 
 auto ExampleModelGeometry::OnAttached() -> void {
-    // TODO: Implement
+    this->Context()->Loaders().Mesh->LoadAsync(
+        "assets/monkey.obj",
+        [this](auto result) {
+            if (result) {
+                mesh_ = result.value();
+                Add(mesh_);
+            }
+        }
+    );
 }
 
 auto ExampleModelGeometry::ContextMenu() -> void {

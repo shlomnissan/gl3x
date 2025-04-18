@@ -25,6 +25,8 @@ set(SOURCE_CODE
     "lights/point_light.cpp"
     "lights/spot_light.cpp"
     "loaders/image_loader.cpp"
+    "loaders/importers/obj_importer.cpp"
+    "loaders/importers/obj_importer.hpp"
     "loaders/loader.hpp"
     "loaders/mesh_loader.cpp"
     "math/box3.cpp"

@@ -18,8 +18,7 @@ ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera)
     fog = ExponentialFog::Create(0x444444, 0.3f);
 
     auto geometry = BoxGeometry::Create();
-    material_ = FlatMaterial::Create();
-    material_->color = 0x049EF4;
+    material_ = FlatMaterial::Create(0x049EF4);
     material_->fog = false;
     mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);

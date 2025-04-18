@@ -5,8 +5,7 @@
 
 #include "engine/nodes/mesh.hpp"
 
-#include "engine/geometries/box_geometry.hpp"
-#include "engine/materials/flat_material.hpp"
+#include "loaders/importers/obj_importer.hpp"
 
 namespace engine {
 
@@ -15,9 +14,11 @@ auto MeshLoader::ValidFileExtensions() const -> std::vector<std::string> {
 }
 
 auto MeshLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void> {
-    const auto geometry = BoxGeometry::Create();
-    const auto material = FlatMaterial::Create();
-    return Mesh::Create(geometry, material);
+    if (path.extension() == ".obj") {
+        return ObjImporter::Import(path);
+    } else {
+        return nullptr;
+    }
 }
 
 }
