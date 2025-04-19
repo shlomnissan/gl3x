@@ -3,19 +3,24 @@
 
 #include "loaders/importers/obj_importer.hpp"
 
+#include "engine/core/geometry.hpp"
 #include "engine/materials/phong_material.hpp"
 #include "engine/math/vector2.hpp"
 #include "engine/math/vector3.hpp"
+#include "engine/nodes/mesh.hpp"
 
 #include "utilities/logger.hpp"
 
 #include <fstream>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace engine {
 
 namespace {
+
+namespace fs = std::filesystem;
 
 struct VertexKey {
     int position;
@@ -37,7 +42,7 @@ const auto VertexKeyHash = [](const VertexKey& key) {
            std::hash<int>{}(key.normal);
 };
 
-auto ParsePosition(std::istringstream& sstream, const fs::path& path) {
+auto read_position(std::istringstream& sstream, const fs::path& path) {
     auto x = 0.0f;
     auto y = 0.0f;
     auto z = 0.0f;
@@ -48,7 +53,7 @@ auto ParsePosition(std::istringstream& sstream, const fs::path& path) {
     return Vector3 {x, y, z};
 }
 
-auto ParseNormal(std::istringstream& sstream, const fs::path& path) {
+auto read_normal(std::istringstream& sstream, const fs::path& path) {
     auto x = 0.0f;
     auto y = 0.0f;
     auto z = 0.0f;
@@ -59,7 +64,7 @@ auto ParseNormal(std::istringstream& sstream, const fs::path& path) {
     return Normalize(Vector3 {x, y, z});
 }
 
-auto ParseUVCoordinates(std::istringstream& sstream, const fs::path& path) {
+auto read_uv_coordinates(std::istringstream& sstream, const fs::path& path) {
     auto u = 0.0f;
     auto v = 0.0f;
     if (!(sstream >> u >> v)) {
@@ -69,7 +74,7 @@ auto ParseUVCoordinates(std::istringstream& sstream, const fs::path& path) {
     return Vector2 {u, v};
 }
 
-auto ParseFace(std::istringstream& sstream, const fs::path& path) {
+auto parse_face(std::istringstream& sstream, const fs::path& path) {
     auto output = std::vector<VertexKey> {};
     auto token = std::string {};
 
@@ -109,33 +114,19 @@ auto ParseFace(std::istringstream& sstream, const fs::path& path) {
     return output;
 }
 
-auto Stride(int attributes) {
+auto compute_stride(int attributes) {
     auto output = 3; // position
     if (attributes & VertexAttribute::Normal) output += 3;
     if (attributes & VertexAttribute::UV) output += 2;
     return output;
 }
 
-} // end unnamed namespace
-
-auto ObjImporter::Import(const fs::path& path) -> std::shared_ptr<Mesh> {
-    auto geometry = ObjImporter::ParseGeometry(path);
-    auto material = ObjImporter::ParseMaterial(path);
-    return Mesh::Create(geometry, material);
-}
-
-auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometry> {
+auto parse_geometry(const fs::path& path) -> std::shared_ptr<Geometry> {
     auto handle = std::ifstream(path);
     if (!handle.is_open()) {
         Logger::Log(LogLevel::Error, "Failed to open file '{}'", path.string());
         return Geometry::Create();
     }
-
-    auto attributes = static_cast<int>(VertexAttribute::None);
-    auto vertices = std::vector<Vector3> {};
-    auto normals = std::vector<Vector3> {};
-    auto uvs = std::vector<Vector2> {};
-    auto line = std::string {};
 
     auto vertex_data = std::vector<float> {};
     auto index_data = std::vector<unsigned int> {};
@@ -145,6 +136,12 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
         decltype(VertexKeyHash)
     > {0, VertexKeyHash};
 
+    auto attributes = static_cast<int>(VertexAttribute::None);
+    auto vertices = std::vector<Vector3> {};
+    auto normals = std::vector<Vector3> {};
+    auto uvs = std::vector<Vector2> {};
+    auto line = std::string {};
+
     while (std::getline(handle, line)) {
         auto sstream = std::istringstream {line};
         auto directive = std::string {};
@@ -153,13 +150,13 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
         if (directive == "#") {
             continue; // skip comments
         } else if (directive == "v") {
-            vertices.emplace_back(ParsePosition(sstream, path));
+            vertices.emplace_back(read_position(sstream, path));
             attributes |= VertexAttribute::Position;
         } else if (directive == "vn") {
-            normals.emplace_back(ParseNormal(sstream, path));
+            normals.emplace_back(read_normal(sstream, path));
             attributes |= VertexAttribute::Normal;
         } else if (directive == "vt") {
-            uvs.emplace_back(ParseUVCoordinates(sstream, path));
+            uvs.emplace_back(read_uv_coordinates(sstream, path));
             attributes |= VertexAttribute::UV;
         } else if (directive == "f") {
             if (!(attributes & VertexAttribute::Position)) {
@@ -170,14 +167,14 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
                 );
                 return Geometry::Create();
             }
-            auto face = ParseFace(sstream, path);
+            auto face = parse_face(sstream, path);
             if (face.empty()) continue; // skip malformed faces
 
             for (const auto& key : face) {
                 if (seen_vertices.contains(key)) {
                     index_data.emplace_back(seen_vertices[key]);
                 } else {
-                    const auto stride = Stride(attributes);
+                    const auto stride = compute_stride(attributes);
                     seen_vertices[key] = static_cast<unsigned int>(vertex_data.size() / stride);
 
                     vertex_data.insert(vertex_data.end(), {
@@ -215,12 +212,12 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
 
     using enum GeometryAttributeType;
     auto geometry = Geometry::Create(vertex_data, index_data);
-    geometry->SetAttribute({.type = Position, .item_size = 3});
-
+    if (attributes & VertexAttribute::Position) {
+        geometry->SetAttribute({.type = Position, .item_size = 3});
+    }
     if (attributes & VertexAttribute::Normal) {
         geometry->SetAttribute({.type = Normal, .item_size = 3});
     }
-
     if (attributes & VertexAttribute::UV) {
         geometry->SetAttribute({.type = UV, .item_size = 2});
     }
@@ -228,8 +225,20 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
     return geometry;
 }
 
-auto ObjImporter::ParseMaterial(const fs::path& path) -> std::shared_ptr<PhongMaterial> {
+auto parse_material(const fs::path& path) -> std::shared_ptr<PhongMaterial> {
     return PhongMaterial::Create(0x049EF4);
 }
 
+} // unnamed namespace
+
+namespace obj {
+
+auto import(const fs::path& path) -> std::shared_ptr<Mesh> {
+    auto geometry = parse_geometry(path);
+    auto material = parse_material(path);
+    return Mesh::Create(geometry, material);
 }
+
+} // namespace obj
+
+} // namespace engine
