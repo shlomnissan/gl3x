@@ -21,8 +21,14 @@ struct VertexKey {
     int position;
     int uv;
     int normal;
-
     auto operator<=>(const VertexKey&) const = default;
+};
+
+enum VertexAttribute {
+    None = 0,
+    Position = 1 << 0,
+    Normal = 1 << 1,
+    UV = 1 << 2
 };
 
 const auto VertexKeyHash = [](const VertexKey& key) {
@@ -103,11 +109,10 @@ auto ParseFace(std::istringstream& sstream, const fs::path& path) {
     return output;
 }
 
-auto Stride(bool has_positions, bool has_normals, bool has_uvs) {
-    auto output = 0;
-    if (has_positions) output += 3;
-    if (has_normals) output += 3;
-    if (has_uvs) output += 2;
+auto Stride(int attributes) {
+    auto output = 3; // position
+    if (attributes & VertexAttribute::Normal) output += 3;
+    if (attributes & VertexAttribute::UV) output += 2;
     return output;
 }
 
@@ -126,10 +131,7 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
         return Geometry::Create();
     }
 
-    auto has_positions = false;
-    auto has_normals = false;
-    auto has_uvs = false;
-
+    auto attributes = static_cast<int>(VertexAttribute::None);
     auto vertices = std::vector<Vector3> {};
     auto normals = std::vector<Vector3> {};
     auto uvs = std::vector<Vector2> {};
@@ -152,15 +154,15 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
             continue; // skip comments
         } else if (directive == "v") {
             vertices.emplace_back(ParsePosition(sstream, path));
-            has_positions = true;
+            attributes |= VertexAttribute::Position;
         } else if (directive == "vn") {
             normals.emplace_back(ParseNormal(sstream, path));
-            has_normals = true;
+            attributes |= VertexAttribute::Normal;
         } else if (directive == "vt") {
             uvs.emplace_back(ParseUVCoordinates(sstream, path));
-            has_uvs = true;
+            attributes |= VertexAttribute::UV;
         } else if (directive == "f") {
-            if (!has_positions) {
+            if (!(attributes & VertexAttribute::Position)) {
                 Logger::Log(
                     LogLevel::Error,
                     "Face directive without position data in '{}'",
@@ -175,7 +177,7 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
                 if (seen_vertices.contains(key)) {
                     index_data.emplace_back(seen_vertices[key]);
                 } else {
-                    const auto stride = Stride(has_positions, has_normals, has_uvs);
+                    const auto stride = Stride(attributes);
                     seen_vertices[key] = static_cast<unsigned int>(vertex_data.size() / stride);
 
                     vertex_data.insert(vertex_data.end(), {
@@ -184,7 +186,7 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
                         vertices[key.position].z
                     });
 
-                    if (has_normals) {
+                    if (attributes & VertexAttribute::Normal) {
                         vertex_data.insert(vertex_data.end(), {
                             normals[key.normal].x,
                             normals[key.normal].y,
@@ -192,7 +194,7 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
                         });
                     }
 
-                    if (has_uvs) {
+                    if (attributes & VertexAttribute::UV) {
                         vertex_data.insert(vertex_data.end(), {
                             uvs[key.uv].x,
                             uvs[key.uv].y
@@ -215,8 +217,13 @@ auto ObjImporter::ParseGeometry(const fs::path& path) -> std::shared_ptr<Geometr
     auto geometry = Geometry::Create(vertex_data, index_data);
     geometry->SetAttribute({.type = Position, .item_size = 3});
 
-    if (has_normals) geometry->SetAttribute({.type = Normal, .item_size = 3});
-    if (has_uvs) geometry->SetAttribute({.type = UV, .item_size = 2});
+    if (attributes & VertexAttribute::Normal) {
+        geometry->SetAttribute({.type = Normal, .item_size = 3});
+    }
+
+    if (attributes & VertexAttribute::UV) {
+        geometry->SetAttribute({.type = UV, .item_size = 2});
+    }
 
     return geometry;
 }
