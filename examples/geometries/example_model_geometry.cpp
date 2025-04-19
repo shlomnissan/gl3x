@@ -25,7 +25,7 @@ ExampleModelGeometry::ExampleModelGeometry(std::shared_ptr<engine::Camera> camer
 
 auto ExampleModelGeometry::OnAttached() -> void {
     this->Context()->Loaders().Mesh->LoadAsync(
-        "assets/monkey.obj",
+        "assets/bunny.obj",
         [this](auto result) {
             if (result) {
                 mesh_ = result.value();
