@@ -6,7 +6,6 @@
 #include "engine_export.h"
 
 #include <cassert>
-#include <compare>
 
 namespace engine {
 
@@ -183,13 +182,13 @@ public:
 
 private:
     /**
-     * @brief Compares two vectors using the spaceship operator.
+     * @brief Checks if two vectors are equal, component-wise.
      *
      * @param a The first vector to compare.
      * @param b The second vector to compare.
-     * @return std::strong_ordering The result of the comparison.
+     * @return bool `true` if the vectors are equal, `false` otherwise.
      */
-    [[nodiscard]] friend auto operator<=>(const Vector3& a, const Vector3& b) -> std::strong_ordering = default;
+    [[nodiscard]] friend auto operator==(const Vector3& a, const Vector3& b) -> bool = default;
 
     /**
      * @brief Adds two vectors component-wise.
