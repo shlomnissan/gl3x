@@ -24,9 +24,15 @@ class ENGINE_EXPORT ImageLoader : public Loader<Image> {
 public:
     bool flip_y {true};
 
+    [[nodiscard]] static auto Create() -> std::shared_ptr<ImageLoader> {
+        return std::shared_ptr<ImageLoader>(new ImageLoader());
+    }
+
     ~ImageLoader() override = default;
 
 private:
+    ImageLoader() = default;
+
     [[nodiscard]] auto ValidFileExtensions() const -> std::vector<std::string> override;
 
     [[nodiscard]] auto LoadImpl(const fs::path& path) const -> std::shared_ptr<void> override;

@@ -28,10 +28,10 @@ public:
      */
     struct SharedLoaders {
         /// @brief Loader for image resources.
-        std::shared_ptr<ImageLoader> Image = std::make_shared<ImageLoader>();
+        std::shared_ptr<ImageLoader> Image = ImageLoader::Create();
 
         /// @brief Loader for mesh resources.
-        std::shared_ptr<MeshLoader> Mesh = std::make_shared<MeshLoader>();
+        std::shared_ptr<MeshLoader> Mesh = MeshLoader::Create();
     };
 
     /**

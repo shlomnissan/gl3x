@@ -8,7 +8,7 @@
 #include <future>
 #include <thread>
 
-const auto image_loader = std::make_shared<engine::ImageLoader>();
+const auto image_loader = engine::ImageLoader::Create();
 
 #pragma region Helpers
 
