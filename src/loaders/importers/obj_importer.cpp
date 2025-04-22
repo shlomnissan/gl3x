@@ -42,6 +42,8 @@ const auto VertexKeyHash = [](const VertexKey& key) {
            std::hash<int>{}(key.normal);
 };
 
+using VertexMap = std::unordered_map<VertexKey, unsigned, decltype(VertexKeyHash)>;
+
 auto read_position(std::istringstream& sstream, const fs::path& path) {
     auto x = 0.0f;
     auto y = 0.0f;
@@ -105,8 +107,7 @@ auto parse_face(std::istringstream& sstream, const fs::path& path) {
         output.push_back(key);
     }
 
-    // Only triangles are supported for now
-    if (output.size() != 3) {
+    if (output.size() < 3) {
         Logger::Log(LogLevel::Warning, "Malformed face in '{}'", path.string());
         return std::vector<VertexKey> {};
     }
@@ -130,11 +131,7 @@ auto parse_geometry(const fs::path& path) -> std::shared_ptr<Geometry> {
 
     auto vertex_data = std::vector<float> {};
     auto index_data = std::vector<unsigned int> {};
-    auto seen_vertices = std::unordered_map<
-        VertexKey,
-        unsigned int,
-        decltype(VertexKeyHash)
-    > {0, VertexKeyHash};
+    auto seen_vertices = VertexMap {0, VertexKeyHash};
 
     auto attributes = static_cast<int>(VertexAttribute::None);
     auto vertices = std::vector<Vector3> {};
@@ -147,8 +144,8 @@ auto parse_geometry(const fs::path& path) -> std::shared_ptr<Geometry> {
         auto directive = std::string {};
         sstream >> directive;
 
-        if (directive == "#") {
-            continue; // skip comments
+        if (directive == "#" || directive.empty()) {
+            continue; // skip comments and empty lines
         } else if (directive == "v") {
             vertices.emplace_back(read_position(sstream, path));
             attributes |= VertexAttribute::Position;
@@ -168,37 +165,41 @@ auto parse_geometry(const fs::path& path) -> std::shared_ptr<Geometry> {
                 return Geometry::Create();
             }
             auto face = parse_face(sstream, path);
-            if (face.empty()) continue; // skip malformed faces
+            if (face.empty()) continue;
 
-            for (const auto& key : face) {
-                if (seen_vertices.contains(key)) {
-                    index_data.emplace_back(seen_vertices[key]);
-                } else {
-                    const auto stride = compute_stride(attributes);
-                    seen_vertices[key] = static_cast<unsigned int>(vertex_data.size() / stride);
+            const auto stride = compute_stride(attributes);
 
-                    vertex_data.insert(vertex_data.end(), {
-                        vertices[key.position].x,
-                        vertices[key.position].y,
-                        vertices[key.position].z
-                    });
+            // triangulate the face using a simple fan method
+            for (auto i = 1; i + 1 < face.size(); ++i) {
+                for (const auto& key : {face[0], face[i], face[i + 1]}) {
+                    if (seen_vertices.contains(key)) {
+                        index_data.emplace_back(seen_vertices[key]);
+                    } else {
+                        seen_vertices[key] = static_cast<unsigned int>(vertex_data.size() / stride);
 
-                    if (attributes & VertexAttribute::Normal) {
                         vertex_data.insert(vertex_data.end(), {
-                            normals[key.normal].x,
-                            normals[key.normal].y,
-                            normals[key.normal].z
+                            vertices[key.position].x,
+                            vertices[key.position].y,
+                            vertices[key.position].z
                         });
-                    }
 
-                    if (attributes & VertexAttribute::UV) {
-                        vertex_data.insert(vertex_data.end(), {
-                            uvs[key.uv].x,
-                            uvs[key.uv].y
-                        });
-                    }
+                        if (attributes & VertexAttribute::Normal) {
+                            vertex_data.insert(vertex_data.end(), {
+                                normals[key.normal].x,
+                                normals[key.normal].y,
+                                normals[key.normal].z
+                            });
+                        }
 
-                    index_data.emplace_back(seen_vertices[key]);
+                        if (attributes & VertexAttribute::UV) {
+                            vertex_data.insert(vertex_data.end(), {
+                                uvs[key.uv].x,
+                                uvs[key.uv].y
+                            });
+                        }
+
+                        index_data.emplace_back(seen_vertices[key]);
+                    }
                 }
             }
         } else {
