@@ -73,6 +73,7 @@ TEST(ImageLoader, LoadImageSynchronousInvalidFile) {
 TEST(ImageLoader, LoadImageAsynchronous) {
     RunAsyncTest("assets/texture.png", [](const auto& result, const auto& main_thread_id) {
         VerifyImage(result.value(), "texture.png", 5, 5, 4);
+        EXPECT_NE(main_thread_id, std::this_thread::get_id());
     });
 }
 
