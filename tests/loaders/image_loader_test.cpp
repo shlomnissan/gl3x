@@ -27,18 +27,12 @@ auto RunAsyncTest(const std::string& file_path, Callback callback) {
     EXPECT_EQ(status, std::future_status::ready);
 }
 
-auto VerifyImage(
-    const auto& image,
-    const auto& filename,
-    const auto width,
-    const auto height,
-    const auto depth
-) {
+auto VerifyImage(const auto& image, const std::string& filename) {
     EXPECT_NE(image, nullptr);
     EXPECT_NE(image->Data(), nullptr);
-    EXPECT_EQ(image->width, width);
-    EXPECT_EQ(image->height, height);
-    EXPECT_EQ(image->depth, depth);
+    EXPECT_EQ(image->width, 5);
+    EXPECT_EQ(image->height, 5);
+    EXPECT_EQ(image->depth, 4);
     EXPECT_EQ(image->filename, filename);
 }
 
@@ -48,7 +42,7 @@ auto VerifyImage(
 
 TEST(ImageLoader, LoadImageSynchronous) {
     image_loader->Load("assets/texture.png", [](const auto& result) {
-        VerifyImage(result.value(), "texture.png", 5, 5, 4);
+        VerifyImage(result.value(), "texture.png");
     });
 }
 
@@ -72,7 +66,7 @@ TEST(ImageLoader, LoadImageSynchronousInvalidFile) {
 
 TEST(ImageLoader, LoadImageAsynchronous) {
     RunAsyncTest("assets/texture.png", [](const auto& result, const auto& main_thread_id) {
-        VerifyImage(result.value(), "texture.png", 5, 5, 4);
+        VerifyImage(result.value(), "texture.png");
         EXPECT_NE(main_thread_id, std::this_thread::get_id());
     });
 }

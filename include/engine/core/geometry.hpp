@@ -97,6 +97,13 @@ public:
     [[nodiscard]] auto VertexCount() const -> size_t;
 
     /**
+     * @brief Gets the number of indices in the geometry.
+     *
+     * @return The size of the index data vector.
+     */
+    [[nodiscard]] auto IndexCount() const -> size_t { return index_data_.size(); }
+
+    /**
      * @brief Gets the index data of the geometry.
      *
      * @return const std::vector<unsigned int>& A reference to the vector containing the index data.

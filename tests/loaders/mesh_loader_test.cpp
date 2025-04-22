@@ -3,7 +3,9 @@
 
 #include <gtest/gtest.h>
 
+#include <engine/core/geometry.hpp>
 #include <engine/loaders/mesh_loader.hpp>
+#include <engine/nodes/mesh.hpp>
 
 #include <future>
 #include <thread>
@@ -27,9 +29,12 @@ auto RunAsyncTest(const std::string& file_path, Callback callback) {
     EXPECT_EQ(status, std::future_status::ready);
 }
 
-auto VerifyMesh(const auto& mesh) {
+auto VerifyMesh(std::shared_ptr<engine::Mesh> mesh) {
     EXPECT_NE(mesh, nullptr);
-    // TODO: Add more mesh verification logic here
+    EXPECT_NE(mesh->geometry, nullptr);
+    EXPECT_NE(mesh->material, nullptr);
+    EXPECT_EQ(mesh->geometry->VertexCount(), 4);
+    EXPECT_EQ(mesh->geometry->IndexCount(), 6);
 }
 
 #pragma endregion
