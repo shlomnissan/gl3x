@@ -5,7 +5,7 @@
 
 #include "engine/nodes/mesh.hpp"
 
-#include "loaders/importers/obj_importer.hpp"
+#include "importers/obj_importer.hpp"
 
 namespace engine {
 

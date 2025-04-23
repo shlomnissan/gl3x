@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "loaders/importers/obj_importer.hpp"
+#include "importers/obj_importer.hpp"
 
 #include "engine/core/geometry.hpp"
 #include "engine/materials/phong_material.hpp"
