@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "example_model_geometry.hpp"
+#include "example_arbitrary_mesh.hpp"
 
 #include "ui_helpers.hpp"
 
@@ -11,7 +11,7 @@
 using namespace engine;
 using namespace engine::math;
 
-ExampleModelGeometry::ExampleModelGeometry(std::shared_ptr<engine::Camera> camera) {
+ExampleArbitraryMesh::ExampleArbitraryMesh(std::shared_ptr<engine::Camera> camera) {
     show_context_menu_ = false;
 
     Add(CameraOrbit::Create(camera, 4.0f, DegToRad(5.0f), DegToRad(15.0f)));
@@ -23,7 +23,7 @@ ExampleModelGeometry::ExampleModelGeometry(std::shared_ptr<engine::Camera> camer
     Add(point_light);
 }
 
-auto ExampleModelGeometry::OnAttached() -> void {
+auto ExampleArbitraryMesh::OnAttached() -> void {
     this->Context()->Loaders().Mesh->LoadAsync(
         "assets/bunny.obj",
         [this](auto result) {
@@ -35,6 +35,6 @@ auto ExampleModelGeometry::OnAttached() -> void {
     );
 }
 
-auto ExampleModelGeometry::ContextMenu() -> void {
+auto ExampleArbitraryMesh::ContextMenu() -> void {
     // Empty
 }

@@ -1,0 +1,133 @@
+// Copyright © 2024 - Present, Shlomi Nissan.
+// All rights reserved.
+
+#include "example_primitive_mesh.hpp"
+
+#include "ui_helpers.hpp"
+
+#include <engine/materials.hpp>
+#include <engine/lights.hpp>
+#include <engine/resources.hpp>
+
+using namespace engine;
+using namespace engine::math;
+
+ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<engine::Camera> camera) {
+    InitializeParams();
+
+    Add(CameraOrbit::Create(camera, 4.0f, DegToRad(15.0f), DegToRad(45.0f)));
+    Add(AmbientLight::Create(0xFFFFFF, 0.3f));
+
+    auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
+    point_light->transform.Translate({2.0f, 2.0f, 4.0f});
+    Add(point_light);
+
+    auto geometry = BoxGeometry::Create(box_params_);
+    auto base_material = PhongMaterial::Create(0x049EF4);
+    base_material->polygon_offset = {1.0f, 1.0f};
+
+    mesh_ = Mesh::Create(geometry, base_material);
+    Add(mesh_);
+
+    auto wireframe_material = FlatMaterial::Create();
+    wireframe_material->wireframe = true;
+    wireframe_material->fog = false;
+    wireframes_ = Mesh::Create(geometry, wireframe_material);
+    mesh_->Add(wireframes_);
+}
+
+auto ExamplePrimitiveMesh::ContextMenu() -> void {
+    static bool dirty = false;
+
+    static auto primitives = std::array<const char*, 5> {
+        "box", "cone", "cylinder", "plane", "sphere"
+    };
+
+    UIDropDown("primitive", primitives, curr_primitive_,
+        [this](std::string_view str) {
+            curr_primitive_ = str;
+            dirty = true;
+    });
+
+    if (curr_primitive_ == "box") {
+        BoxContextMenu(dirty);
+    } else if (curr_primitive_ == "cone") {
+        ConeContextMenu(dirty);
+    } else if (curr_primitive_ == "cylinder") {
+        CylinderContextMenu(dirty);
+    } else if (curr_primitive_ == "plane") {
+        PlaneContextMenu(dirty);
+    } else if (curr_primitive_ == "sphere") {
+        SphereContextMenu(dirty);
+    }
+
+    if (dirty) {
+        dirty = false;
+        std::shared_ptr<Geometry> geometry;
+
+        if (curr_primitive_ == "box") {
+            geometry = BoxGeometry::Create(box_params_);
+        } else if (curr_primitive_ == "cone") {
+            geometry = ConeGeometry::Create(cone_params_);
+        } else if (curr_primitive_ == "cylinder") {
+            geometry = CylinderGeometry::Create(cylinder_params_);
+        } else if (curr_primitive_ == "plane") {
+            geometry = PlaneGeometry::Create(plane_params_);
+        } else if (curr_primitive_ == "sphere") {
+            geometry = SphereGeometry::Create(sphere_params_);
+        }
+
+        mesh_->geometry = geometry;
+        wireframes_->geometry = geometry;
+    }
+}
+
+auto ExamplePrimitiveMesh::InitializeParams() -> void {
+    cone_params_.radius = 0.5f;
+    cylinder_params_.radius_top = 0.4f;
+    cylinder_params_.radius_bottom = 0.4f;
+    sphere_params_.radius = 0.8f;
+}
+
+auto ExamplePrimitiveMesh::BoxContextMenu(bool& dirty) -> void {
+    UISliderFloat("width", box_params_.width, 1.0f, 5.0f, dirty);
+    UISliderFloat("height", box_params_.height, 1.0f, 5.0f, dirty);
+    UISliderFloat("depth", box_params_.depth, 1.0f, 5.0f, dirty);
+    UISliderUnsigned("width_segments", box_params_.width_segments, 1, 20, dirty);
+    UISliderUnsigned("height_segments", box_params_.height_segments, 1, 20, dirty);
+    UISliderUnsigned("depth_segments", box_params_.depth_segments, 1, 20, dirty);
+}
+
+auto ExamplePrimitiveMesh::ConeContextMenu(bool& dirty) -> void {
+    UISliderFloat("radius", cone_params_.radius, 0.0f, 1.0f, dirty);
+    UISliderFloat("height", cone_params_.height, 0.1f, 5.0f, dirty);
+    UISliderUnsigned("radial_segments", cone_params_.radial_segments, 3, 64, dirty);
+    UISliderUnsigned("height_segments", cone_params_.height_segments, 1, 20, dirty);
+    UICheckbox("open_ended", cone_params_.open_ended, dirty);
+}
+
+auto ExamplePrimitiveMesh::CylinderContextMenu(bool& dirty) -> void {
+    UISliderFloat("radius_top", cylinder_params_.radius_top, 0.0f, 1.0f, dirty);
+    UISliderFloat("radius_bottom", cylinder_params_.radius_bottom, 0.0f, 1.0f, dirty);
+    UISliderFloat("height", cylinder_params_.height, 1.0f, 5.0f, dirty);
+    UISliderUnsigned("radial_segments", cylinder_params_.radial_segments, 3, 64, dirty);
+    UISliderUnsigned("height_segments", cylinder_params_.height_segments, 1, 20, dirty);
+    UICheckbox("open_ended", cylinder_params_.open_ended, dirty);
+}
+
+auto ExamplePrimitiveMesh::PlaneContextMenu(bool& dirty) -> void {
+    UISliderFloat("width", plane_params_.width, 1.0f, 5.0f, dirty);
+    UISliderFloat("height", plane_params_.height, 1.0f, 5.0f, dirty);
+    UISliderUnsigned("width_segments", plane_params_.width_segments, 1, 20, dirty);
+    UISliderUnsigned("height_segments", plane_params_.height_segments, 1, 20, dirty);
+}
+
+auto ExamplePrimitiveMesh::SphereContextMenu(bool& dirty) -> void {
+    UISliderFloat("radius", sphere_params_.radius, 0.5f, 2.0f, dirty);
+    UISliderUnsigned("width_segments", sphere_params_.width_segments, 3, 64, dirty);
+    UISliderUnsigned("height_segments", sphere_params_.height_segments, 2, 64, dirty);
+    UISliderFloat("phi_start", sphere_params_.phi_start, 0.0f, math::two_pi, dirty);
+    UISliderFloat("phi_length", sphere_params_.phi_length, 0.0f, math::two_pi, dirty);
+    UISliderFloat("theta_start", sphere_params_.theta_start, 0.0f, math::two_pi, dirty);
+    UISliderFloat("theta_length", sphere_params_.theta_length, 0.0f, math::two_pi, dirty);
+}

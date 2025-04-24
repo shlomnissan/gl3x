@@ -9,18 +9,14 @@
 
 #include "effects/example_blending.hpp"
 #include "effects/example_fog.hpp"
-#include "geometries/example_box_geometry.hpp"
-#include "geometries/example_cone_geometry.hpp"
-#include "geometries/example_cylinder_geometry.hpp"
-#include "geometries/example_model_geometry.hpp"
-#include "geometries/example_plane_geometry.hpp"
-#include "geometries/example_sphere_geometry.hpp"
 #include "lights/example_directional_light.hpp"
 #include "lights/example_point_light.hpp"
 #include "lights/example_spot_light.hpp"
 #include "materials/example_flat_material.hpp"
 #include "materials/example_phong_material.hpp"
 #include "materials/example_shader_material.hpp"
+#include "meshes/example_arbitrary_mesh.hpp"
+#include "meshes/example_primitive_mesh.hpp"
 #include "test/example_frustum_culling_test.hpp"
 #include "test/example_lerp_animation_test.hpp"
 
@@ -33,12 +29,8 @@ static const auto examples = std::vector {
     "Point Light",
     "Spot Light",
     "",
-    "Box Geometry",
-    "Cone Geometry",
-    "Cylinder Geometry",
-    "Plane Geometry",
-    "Sphere Geometry",
-    "Model Geometry",
+    "Arbitrary Mesh",
+    "Primitive Mesh",
     "",
     "Blending Effect",
     "Fog Effect",

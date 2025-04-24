@@ -10,15 +10,14 @@
 
 #include "example_scene.hpp"
 
-class ExampleCylinderGeometry : public ExampleScene {
+class ExampleArbitraryMesh : public ExampleScene {
 public:
-    explicit ExampleCylinderGeometry(std::shared_ptr<engine::Camera>);
+    explicit ExampleArbitraryMesh(std::shared_ptr<engine::Camera>);
+
+    auto OnAttached() -> void override;
 
     auto ContextMenu() -> void override;
 
 private:
-    engine::CylinderGeometry::Parameters params_;
-
     std::shared_ptr<engine::Mesh> mesh_;
-    std::shared_ptr<engine::Mesh> wireframes_;
 };

@@ -63,7 +63,7 @@ public:
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 290})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 225})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.empty()) {
@@ -102,23 +102,11 @@ private:
         if (scene_name == "Spot Light") {
             scene_ = std::make_shared<ExampleSpotLight>(camera_);
         }
-        if (scene_name == "Box Geometry") {
-            scene_ = std::make_shared<ExampleBoxGeometry>(camera_);
+        if (scene_name == "Arbitrary Mesh") {
+            scene_ = std::make_shared<ExampleArbitraryMesh>(camera_);
         }
-        if (scene_name == "Cone Geometry") {
-            scene_ = std::make_shared<ExampleConeGeometry>(camera_);
-        }
-        if (scene_name == "Cylinder Geometry") {
-            scene_ = std::make_shared<ExampleCylinderGeometry>(camera_);
-        }
-        if (scene_name == "Plane Geometry") {
-            scene_ = std::make_shared<ExamplePlaneGeometry>(camera_);
-        }
-        if (scene_name == "Sphere Geometry") {
-            scene_ = std::make_shared<ExampleSphereGeometry>(camera_);
-        }
-        if (scene_name == "Model Geometry") {
-            scene_ = std::make_shared<ExampleModelGeometry>(camera_);
+        if (scene_name == "Primitive Mesh") {
+            scene_ = std::make_shared<ExamplePrimitiveMesh>(camera_);
         }
         if (scene_name == "Blending Effect") {
             scene_ = std::make_shared<ExampleBlending>(camera_);
