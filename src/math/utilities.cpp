@@ -39,7 +39,7 @@ auto GenerateUUID() -> std::string {
 
     static std::random_device rd;
     static std::mt19937 e2(rd());
-    static std::uniform_real_distribution<double> dist(0.0, 1.0);
+    static std::uniform_real_distribution dist(0.0, 1.0);
 
     const auto d0 = static_cast<size_t>(dist(e2) * 0xffffffff) | 0;
     const auto d1 = static_cast<size_t>(dist(e2) * 0xffffffff) | 0;
