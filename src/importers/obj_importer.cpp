@@ -234,7 +234,7 @@ auto parse_material(const fs::path& path) -> std::shared_ptr<PhongMaterial> {
 
 namespace obj {
 
-auto import(const fs::path& path) -> std::shared_ptr<Mesh> {
+auto import_mesh(const fs::path& path) -> std::shared_ptr<Mesh> {
     auto geometry = parse_geometry(path);
     auto material = parse_material(path);
     return Mesh::Create(geometry, material);

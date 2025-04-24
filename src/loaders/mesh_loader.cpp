@@ -15,7 +15,7 @@ auto MeshLoader::ValidFileExtensions() const -> std::vector<std::string> {
 
 auto MeshLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void> {
     if (path.extension() == ".obj") {
-        return obj::import(path);
+        return obj::import_mesh(path);
     } else {
         return nullptr;
     }

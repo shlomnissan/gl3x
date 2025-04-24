@@ -9,6 +9,6 @@
 
 namespace engine::obj {
 
-auto import(const std::filesystem::path& path) -> std::shared_ptr<Mesh>;
+auto import_mesh(const std::filesystem::path& path) -> std::shared_ptr<Mesh>;
 
 }
