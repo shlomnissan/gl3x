@@ -5,6 +5,7 @@
 
 #include "engine_export.h"
 
+#include <cmath>
 #include <string>
 
 namespace engine::math {
@@ -25,7 +26,7 @@ constexpr float epsilon = 1e-6f;
 }
 
 [[nodiscard]] constexpr auto Lerp(const float a, const float b, const float f) {
-    return a + (b - a) * f;
+    return std::lerp(a, b, f);
 }
 
 [[nodiscard]] ENGINE_EXPORT auto GenerateUUID() -> std::string;
