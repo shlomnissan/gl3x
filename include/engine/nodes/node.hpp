@@ -212,21 +212,21 @@ public:
     /**
      * @brief Rotates the node around the X-axis.
      *
-     * @param value The angle to rotate the node.
+     * @param value The angle to rotate by in radians.
      */
     auto RotateX(float angle) { transform.Rotate(Vector3::Right(), angle); }
 
     /**
      * @brief Rotates the node around the Y-axis.
      *
-     * @param value The angle to rotate the node.
+     * @param value The angle to rotate by in radians.
      */
     auto RotateY(float angle) { transform.Rotate(Vector3::Up(), angle); }
 
     /**
      * @brief Rotates the node around the Z-axis.
      *
-     * @param value The angle to rotate the node.
+     * @param value The angle to rotate by in radians.
      */
     auto RotateZ(float angle) { transform.Rotate(Vector3::Forward(), angle); }
 

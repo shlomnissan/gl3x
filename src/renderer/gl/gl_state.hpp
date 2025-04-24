@@ -29,7 +29,7 @@ private:
     Color curr_clear_color_ {0.0f, 0.0f, 0.0f};
 
     bool curr_backface_culling_ {false};
-    bool curr_depth_test_ {false};
+    bool curr_depth_mask_ {false};
     bool curr_wireframe_mode_ {false};
 
     auto Enable(int token) -> void;
@@ -39,6 +39,8 @@ private:
     auto SetBackfaceCulling(bool enabled) -> void;
 
     auto SetDepthTest(bool enabled) -> void;
+
+    auto SetDepthMask(bool enabled) -> void;
 
     auto SetPolygonOffset(const std::optional<PolygonOffset>& polygon_offset) -> void;
 

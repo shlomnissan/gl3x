@@ -12,6 +12,7 @@ auto GLState::ProcessMaterial(const std::shared_ptr<Material>& material) -> void
     SetDepthTest(material->depth_test);
     SetPolygonOffset(material->polygon_offset);
     SetWireframeMode(material->wireframe);
+    SetDepthMask(!material->transparent);
     SetBlending(!material->transparent ? Blending::None : material->blending);
 }
 
@@ -39,6 +40,13 @@ auto GLState::SetBackfaceCulling(bool enabled) -> void {
 
 auto GLState::SetDepthTest(bool enabled) -> void {
     enabled ? Enable(GL_DEPTH_TEST) : Disable(GL_DEPTH_TEST);
+}
+
+auto GLState::SetDepthMask(bool enabled) -> void {
+    if (curr_depth_mask_ != enabled) {
+        glDepthMask(enabled ? GL_TRUE : GL_FALSE);
+        curr_depth_mask_ = enabled;
+    }
 }
 
 auto GLState::SetPolygonOffset(const std::optional<PolygonOffset>& polygon_offset) -> void {
@@ -101,8 +109,9 @@ auto GLState::Reset() -> void {
 
     features_.clear();
 
-    curr_wireframe_mode_ = false;
     curr_blending_ = Blending::None;
+    curr_depth_mask_ = false;
+    curr_wireframe_mode_ = false;
 }
 
 }
