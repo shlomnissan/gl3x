@@ -13,6 +13,12 @@ using namespace engine;
 #pragma region Degrees and Radians
 
 TEST(MathUtilities, DegToRad) {
+    static_assert(math::DegToRad(0.0f) == 0.0f);
+    static_assert(math::DegToRad(90.0f) == math::pi / 2.0f);
+    static_assert(math::DegToRad(180.0f) == math::pi);
+    static_assert(math::DegToRad(360.0f) == math::two_pi);
+    static_assert(math::DegToRad(45.0f) == math::pi / 4.0f);
+
     EXPECT_FLOAT_EQ(math::DegToRad(0.0f), 0.0f);
     EXPECT_FLOAT_EQ(math::DegToRad(90.0f), math::pi / 2.0f);
     EXPECT_FLOAT_EQ(math::DegToRad(180.0f), math::pi);
@@ -21,6 +27,12 @@ TEST(MathUtilities, DegToRad) {
 }
 
 TEST(MathUtilities, RadToDeg) {
+    static_assert(math::RadToDeg(0.0f) == 0.0f);
+    static_assert(math::RadToDeg(math::pi / 2.0f) == 90.0f);
+    static_assert(math::RadToDeg(math::pi) == 180.0f);
+    static_assert(math::RadToDeg(math::two_pi) == 360.0f);
+    static_assert(math::RadToDeg(math::pi / 4.0f) == 45.0f);
+
     EXPECT_FLOAT_EQ(math::RadToDeg(0.0f), 0.0f);
     EXPECT_FLOAT_EQ(math::RadToDeg(math::pi / 2.0f), 90.0f);
     EXPECT_FLOAT_EQ(math::RadToDeg(math::pi), 180.0f);
@@ -33,17 +45,27 @@ TEST(MathUtilities, RadToDeg) {
 #pragma region Lerp
 
 TEST(MathUtilities, LerpBasic) {
+    static_assert(math::Lerp(0.0f, 1.0f, 0.5f) == 0.5f);
+    static_assert(math::Lerp(0.0f, 1.0f, 0.0f) == 0.0f);
+    static_assert(math::Lerp(0.0f, 1.0f, 1.0f) == 1.0f);
+
     EXPECT_FLOAT_EQ(math::Lerp(0.0f, 1.0f, 0.5f), 0.5f);
     EXPECT_FLOAT_EQ(math::Lerp(0.0f, 1.0f, 0.0f), 0.0f);
     EXPECT_FLOAT_EQ(math::Lerp(0.0f, 1.0f, 1.0f), 1.0f);
 }
 
 TEST(MathUtilities, LerpNegativeValues) {
+    static_assert(math::Lerp(-1.0f, 1.0f, 0.5f) == 0.0f);
+    static_assert(math::Lerp(-1.0f, -2.0f, 0.5f) == -1.5f);
+
     EXPECT_FLOAT_EQ(math::Lerp(-1.0f, 1.0f, 0.5f), 0.0f);
     EXPECT_FLOAT_EQ(math::Lerp(-1.0f, -2.0f, 0.5f), -1.5f);
 }
 
 TEST(MathUtilities, LerpOutOfRangeFactor) {
+    static_assert(math::Lerp(0.0f, 1.0f, -0.5f) == -0.5f);
+    static_assert(math::Lerp(0.0f, 1.0f, 1.5f) == 1.5f);
+
     EXPECT_FLOAT_EQ(math::Lerp(0.0f, 1.0f, -0.5f), -0.5f);
     EXPECT_FLOAT_EQ(math::Lerp(0.0f, 1.0f, 1.5f), 1.5f);
 }
