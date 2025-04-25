@@ -40,11 +40,13 @@ auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
         }
     }
 
+    if (!render_lists_->Transparent().empty()) state_.SetDepthMask(false);
     for (auto weak_mesh : render_lists_->Transparent()) {
         if (auto mesh = weak_mesh.lock()) {
             RenderMesh(mesh.get(), scene, camera);
         }
     }
+    state_.SetDepthMask(true);
 
     rendered_objects_per_frame_ = rendered_objects_counter_;
     rendered_objects_counter_ = 0;

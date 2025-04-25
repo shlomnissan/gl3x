@@ -17,6 +17,8 @@ public:
 
     auto SetClearColor(const Color& color) -> void;
 
+    auto SetDepthMask(bool enabled) -> void;
+
     auto SetViewport(int x, int y, int width, int height) const -> void;
 
     auto Reset() -> void;
@@ -39,8 +41,6 @@ private:
     auto SetBackfaceCulling(bool enabled) -> void;
 
     auto SetDepthTest(bool enabled) -> void;
-
-    auto SetDepthMask(bool enabled) -> void;
 
     auto SetPolygonOffset(const std::optional<PolygonOffset>& polygon_offset) -> void;
 

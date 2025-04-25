@@ -12,7 +12,6 @@ auto GLState::ProcessMaterial(const std::shared_ptr<Material>& material) -> void
     SetDepthTest(material->depth_test);
     SetPolygonOffset(material->polygon_offset);
     SetWireframeMode(material->wireframe);
-    SetDepthMask(!material->transparent);
     SetBlending(!material->transparent ? Blending::None : material->blending);
 }
 
