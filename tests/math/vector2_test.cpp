@@ -4,26 +4,34 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
+#include <cassert>
+
 #include <engine/math/vector2.hpp>
 
 #pragma region Constructors
 
 TEST(Vector2, ConstructorDefault) {
-    const auto v = engine::Vector2 {};
+    constexpr auto v = engine::Vector2 {};
 
     EXPECT_VEC2_EQ(v, {0.0f, 0.0f});
+
+    static_assert(v == engine::Vector2 {0.0f, 0.0f});
 }
 
 TEST(Vector2, ConstructorSingleParameter) {
-    const auto v = engine::Vector2 {1.0f};
+    constexpr auto v = engine::Vector2 {1.0f};
 
     EXPECT_VEC2_EQ(v, {1.0f, 1.0f});
+
+    static_assert(v == engine::Vector2 {1.0f, 1.0f});
 }
 
 TEST(Vector2, ConstructorParameterized) {
-    const auto v = engine::Vector2 {1.0f, 2.0f};
+    constexpr auto v = engine::Vector2 {1.0f, 2.0f};
 
     EXPECT_VEC2_EQ(v, {1.0f, 2.0f});
+
+    static_assert(v == engine::Vector2 {1.0f, 2.0f});
 }
 
 #pragma endregion
@@ -31,24 +39,30 @@ TEST(Vector2, ConstructorParameterized) {
 #pragma region Addition
 
 TEST(Vector2, AdditionBasic) {
-    const auto v1 = engine::Vector2 {1.0f, 2.0f};
-    const auto v2 = engine::Vector2 {3.0f, 4.0f};
+    constexpr auto v1 = engine::Vector2 {1.0f, 2.0f};
+    constexpr auto v2 = engine::Vector2 {3.0f, 4.0f};
 
     EXPECT_VEC2_EQ(v1 + v2, {4.0f, 6.0f});
+
+    static_assert(v1 + v2 == engine::Vector2 {4.0f, 6.0f});
 }
 
 TEST(Vector2, AdditionZeroVector) {
-    const auto v1 = engine::Vector2 {1.0f, 2.0f};
-    const auto zero = engine::Vector2 {0.0f, 0.0f};
+    constexpr auto v1 = engine::Vector2 {1.0f, 2.0f};
+    constexpr auto zero = engine::Vector2::Zero();
 
     EXPECT_VEC2_EQ(v1 + zero, {1.0f, 2.0f});
+
+    static_assert(v1 + zero == engine::Vector2 {1.0f, 2.0f});
 }
 
 TEST(Vector2, AdditionNegativeValues) {
-    const auto v1 = engine::Vector2 {1.0f, 2.0f};
-    const auto v2 = engine::Vector2 {-3.0f, -4.0f};
+    constexpr auto v1 = engine::Vector2 {1.0f, 2.0f};
+    constexpr auto v2 = engine::Vector2 {-3.0f, -4.0f};
 
     EXPECT_VEC2_EQ(v1 + v2, {-2.0f, -2.0f});
+
+    static_assert(v1 + v2 == engine::Vector2 {-2.0f, -2.0f});
 }
 
 TEST(Vector2, AdditionAssignment) {
@@ -56,6 +70,15 @@ TEST(Vector2, AdditionAssignment) {
     v1 += engine::Vector2 {3.0f, 4.0f};
 
     EXPECT_VEC2_EQ(v1, {4.0f, 6.0f});
+
+    // Compile-time check
+    constexpr auto v2 = []() {
+        auto v = engine::Vector2 {1.0f, 2.0f};
+        v += engine::Vector2 {3.0f, 4.0f};
+        return v;
+    }();
+
+    static_assert(v2 == engine::Vector2 {4.0f, 6.0f});
 }
 
 #pragma endregion
