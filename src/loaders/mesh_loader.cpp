@@ -3,7 +3,7 @@
 
 #include "engine/loaders/mesh_loader.hpp"
 
-#include "engine/nodes/mesh.hpp"
+#include "engine/nodes/node.hpp"
 
 #include "importers/obj_importer.hpp"
 

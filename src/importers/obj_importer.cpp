@@ -234,10 +234,14 @@ auto parse_material(const fs::path& path) -> std::shared_ptr<PhongMaterial> {
 
 namespace obj {
 
-auto import_mesh(const fs::path& path) -> std::shared_ptr<Mesh> {
+auto import_mesh(const fs::path& path) -> std::shared_ptr<Node> {
+    auto root = Node::Create();
+
     auto geometry = parse_geometry(path);
     auto material = parse_material(path);
-    return Mesh::Create(geometry, material);
+    root->Add(Mesh::Create(geometry, material));
+
+    return root;
 }
 
 } // namespace obj

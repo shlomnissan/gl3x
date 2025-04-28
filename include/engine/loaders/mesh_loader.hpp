@@ -14,13 +14,13 @@
 
 namespace engine {
 
-class Mesh;
+class Node;
 
 namespace fs = std::filesystem;
 
-using MeshCallback = std::function<void(std::shared_ptr<Mesh>)>;
+using MeshCallback = std::function<void(std::shared_ptr<Node>)>;
 
-class ENGINE_EXPORT MeshLoader : public Loader<Mesh> {
+class ENGINE_EXPORT MeshLoader : public Loader<Node> {
 public:
     [[nodiscard]] static auto Create() -> std::shared_ptr<MeshLoader> {
         return std::shared_ptr<MeshLoader>(new MeshLoader());

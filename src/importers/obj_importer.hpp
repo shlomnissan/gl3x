@@ -5,10 +5,10 @@
 
 #include <filesystem>
 
-#include "engine/nodes/mesh.hpp"
+#include "engine/nodes/node.hpp"
 
 namespace engine::obj {
 
-auto import_mesh(const std::filesystem::path& path) -> std::shared_ptr<Mesh>;
+auto import_mesh(const std::filesystem::path& path) -> std::shared_ptr<Node>;
 
 }

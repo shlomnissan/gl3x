@@ -19,5 +19,5 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<engine::Mesh> mesh_;
+    std::shared_ptr<engine::Node> mesh_;
 };

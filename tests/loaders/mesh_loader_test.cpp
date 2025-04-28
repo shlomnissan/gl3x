@@ -29,8 +29,11 @@ auto RunAsyncTest(const std::string& file_path, Callback callback) {
     EXPECT_EQ(status, std::future_status::ready);
 }
 
-auto VerifyMesh(std::shared_ptr<engine::Mesh> mesh) {
-    EXPECT_NE(mesh, nullptr);
+auto VerifyMesh(std::shared_ptr<engine::Node> root) {
+    EXPECT_NE(root, nullptr);
+    EXPECT_EQ(root->Children().size(), 1);
+
+    auto mesh = root->Children()[0]->As<engine::Mesh>();
     EXPECT_NE(mesh->geometry, nullptr);
     EXPECT_NE(mesh->material, nullptr);
     EXPECT_EQ(mesh->geometry->VertexCount(), 4);
