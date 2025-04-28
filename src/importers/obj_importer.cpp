@@ -116,10 +116,17 @@ auto parse_face(std::istringstream& sstream, const fs::path& path) {
 }
 
 auto compute_stride(int attributes) {
-    auto output = 3; // position
-    if (attributes & VertexAttribute::Normal) output += 3;
+    auto output = 6; // position + normal
     if (attributes & VertexAttribute::UV) output += 2;
     return output;
+}
+
+auto post_processing(std::vector<float>& vertex_data, int attributes) {
+    // TODO: Implement post-processing for normals and tangents
+    Logger::Log(
+        LogLevel::Warning,
+        "Post-processing for normals is not implemented yet."
+    );
 }
 
 auto parse_geometry(const fs::path& path) -> std::shared_ptr<Geometry> {
@@ -189,6 +196,10 @@ auto parse_geometry(const fs::path& path) -> std::shared_ptr<Geometry> {
                                 normals[key.normal].y,
                                 normals[key.normal].z
                             });
+                        } else {
+                            // if no normals are provided, insert a placeholder.
+                            // these temporary values will be replaced in post-processing.
+                            vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f});
                         }
 
                         if (attributes & VertexAttribute::UV) {
@@ -211,14 +222,16 @@ auto parse_geometry(const fs::path& path) -> std::shared_ptr<Geometry> {
         }
     }
 
+    post_processing(vertex_data, attributes);
+
     using enum GeometryAttributeType;
+
     auto geometry = Geometry::Create(vertex_data, index_data);
-    if (attributes & VertexAttribute::Position) {
-        geometry->SetAttribute({.type = Position, .item_size = 3});
-    }
-    if (attributes & VertexAttribute::Normal) {
-        geometry->SetAttribute({.type = Normal, .item_size = 3});
-    }
+
+    // positions and normals are guaranteed to be present
+    geometry->SetAttribute({.type = Position, .item_size = 3});
+    geometry->SetAttribute({.type = Normal, .item_size = 3});
+
     if (attributes & VertexAttribute::UV) {
         geometry->SetAttribute({.type = UV, .item_size = 2});
     }
