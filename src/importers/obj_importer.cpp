@@ -121,12 +121,72 @@ auto compute_stride(int attributes) {
     return output;
 }
 
-auto post_processing(std::vector<float>& vertex_data, int attributes) {
-    // TODO: Implement post-processing for normals and tangents
-    Logger::Log(
-        LogLevel::Warning,
-        "Post-processing for normals is not implemented yet."
-    );
+auto generate_normals(
+    std::vector<float>& vertex_data,
+    const std::vector<unsigned int>& index_data,
+    const int stride
+) {
+    constexpr static auto normal_offset = 3;
+
+    for (auto i = 0; i < index_data.size(); i += 3) {
+        const auto i0 = index_data[i + 0];
+        const auto i1 = index_data[i + 1];
+        const auto i2 = index_data[i + 2];
+
+        const auto v0 = Vector3 {
+            vertex_data[i0 * stride + 0],
+            vertex_data[i0 * stride + 1],
+            vertex_data[i0 * stride + 2]
+        };
+
+        const auto v1 = Vector3 {
+            vertex_data[i1 * stride + 0],
+            vertex_data[i1 * stride + 1],
+            vertex_data[i1 * stride + 2]
+        };
+
+        const auto v2 = Vector3 {
+            vertex_data[i2 * stride + 0],
+            vertex_data[i2 * stride + 1],
+            vertex_data[i2 * stride + 2]
+        };
+
+        const auto e1 = v1 - v0;
+        const auto e2 = v2 - v0;
+        const auto normal = Normalize(Cross(e1, e2));
+
+        for (auto idx : {i0, i1, i2}) {
+            vertex_data[idx * stride + normal_offset + 0] += normal.x;
+            vertex_data[idx * stride + normal_offset + 1] += normal.y;
+            vertex_data[idx * stride + normal_offset + 2] += normal.z;
+        }
+    }
+
+    for (auto i = 0; i < vertex_data.size(); i += stride) {
+        auto v = Vector3(
+            vertex_data[i + normal_offset + 0],
+            vertex_data[i + normal_offset + 1],
+            vertex_data[i + normal_offset + 2]
+        );
+
+        v.Normalize();
+        vertex_data[i + normal_offset + 0] = v.x;
+        vertex_data[i + normal_offset + 1] = v.y;
+        vertex_data[i + normal_offset + 2] = v.z;
+    }
+}
+
+auto post_processing(
+    std::vector<float>& vertex_data,
+    const std::vector<unsigned int>& index_data,
+    int attributes
+) {
+    if (!(attributes & VertexAttribute::Normal)) {
+        generate_normals(vertex_data, index_data, compute_stride(attributes));
+    }
+
+    // TODO: generate bounding boxes
+    // TODO: generate tangents
 }
 
 auto parse_geometry(const fs::path& path) -> std::shared_ptr<Geometry> {
@@ -222,7 +282,7 @@ auto parse_geometry(const fs::path& path) -> std::shared_ptr<Geometry> {
         }
     }
 
-    post_processing(vertex_data, attributes);
+    post_processing(vertex_data, index_data, attributes);
 
     using enum GeometryAttributeType;
 
