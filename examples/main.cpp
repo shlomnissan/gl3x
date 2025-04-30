@@ -63,7 +63,7 @@ public:
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 225})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 245})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.empty()) {
@@ -113,6 +113,9 @@ private:
         }
         if (scene_name == "Fog Effect") {
             scene_ = std::make_shared<ExampleFog>(camera_);
+        }
+        if (scene_name == "Arrow Resource") {
+            scene_ = std::make_shared<ExampleArrowResource>(camera_);
         }
         if (scene_name == "Frustum Culling Test") {
             scene_ = std::make_shared<ExampleFrustumCullingTest>(camera_);

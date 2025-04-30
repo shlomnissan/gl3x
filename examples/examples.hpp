@@ -17,6 +17,7 @@
 #include "materials/example_shader_material.hpp"
 #include "meshes/example_arbitrary_mesh.hpp"
 #include "meshes/example_primitive_mesh.hpp"
+#include "resources/example_arrow_resource.hpp"
 #include "test/example_frustum_culling_test.hpp"
 #include "test/example_lerp_animation_test.hpp"
 
@@ -34,6 +35,8 @@ static const auto examples = std::vector {
     "",
     "Blending Effect",
     "Fog Effect",
+    "",
+    "Arrow Resource",
     "",
     "Frustum Culling Test",
     "Lerp Animation Test"

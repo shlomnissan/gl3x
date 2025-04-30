@@ -25,6 +25,8 @@ set(SOURCE_CODE
     "meshes/example_arbitrary_mesh.hpp"
     "meshes/example_primitive_mesh.cpp"
     "meshes/example_primitive_mesh.hpp"
+    "resources/example_arrow_resource.cpp"
+    "resources/example_arrow_resource.hpp"
     "test/example_frustum_culling_test.cpp"
     "test/example_frustum_culling_test.hpp"
     "test/example_lerp_animation_test.cpp"
