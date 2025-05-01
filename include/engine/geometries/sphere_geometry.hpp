@@ -13,6 +13,7 @@ namespace engine {
 
 /**
  * @brief A class for generating sphere geometries.
+ * @ingroup GeometryGroup
  */
 class ENGINE_EXPORT SphereGeometry : public Geometry {
 public:

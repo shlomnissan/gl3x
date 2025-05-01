@@ -13,6 +13,7 @@ namespace engine {
 
 /**
  * @brief A class for generating cone geometries.
+ * @ingroup GeometryGroup
  */
 class ENGINE_EXPORT ConeGeometry : public CylinderGeometry {
 public:

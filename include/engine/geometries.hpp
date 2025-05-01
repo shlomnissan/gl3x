@@ -3,6 +3,11 @@
 
 #pragma once
 
+/**
+ * @defgroup GeometryGroup Geometry Classes
+ * @brief Classes for generative basic geometric primitives.
+ */
+
 #include "engine/geometries/box_geometry.hpp"
 #include "engine/geometries/cone_geometry.hpp"
 #include "engine/geometries/cylinder_geometry.hpp"

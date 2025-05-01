@@ -18,3 +18,12 @@ release/*
 CMakeUserPresets.json
 
 imgui.ini
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes

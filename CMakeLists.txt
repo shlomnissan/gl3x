@@ -10,7 +10,7 @@ set(CMAKE_VISIBILITY_INLINE_HIDDEN ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-option(BUILD_DOCS "build documentation" OFF)
+option(BUILD_DOCS "build documentation" ON)
 option(BUILD_EXAMPLES "build examples" ON)
 option(BUILD_TESTS "build tests" ON)
 

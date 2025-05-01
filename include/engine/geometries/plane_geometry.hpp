@@ -12,6 +12,7 @@ namespace engine {
 
 /**
  * @brief A class for generating plane geometries.
+ * @ingroup GeometryGroup
  */
 class ENGINE_EXPORT PlaneGeometry : public Geometry {
 public:
