@@ -124,9 +124,11 @@ auto GLProgram::ProcessUniforms() -> void {
 auto GLProgram::CheckShaderCompileStatus(GLuint shader_id) const -> bool {
     auto success = 0;
     glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        auto buffer = std::string {"", 512};
-        glGetShaderInfoLog(shader_id, static_cast<int>(buffer.size()), nullptr, buffer.data());
+    if (success == GL_FALSE) {
+        auto length = 0;
+        glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &length);
+        auto buffer = std::string {"", static_cast<size_t>(length)};
+        glGetShaderInfoLog(shader_id, length, nullptr, buffer.data());
         Logger::Log(LogLevel::Error, "Shader compilation error {}", buffer);
     }
     return success;
@@ -135,9 +137,11 @@ auto GLProgram::CheckShaderCompileStatus(GLuint shader_id) const -> bool {
 auto GLProgram::CheckProgramLinkStatus() const -> bool {
     auto success = 0;
     glGetProgramiv(program_, GL_LINK_STATUS, &success);
-    if (!success) {
-        auto buffer = std::string {"", 512};
-        glGetProgramInfoLog(program_, static_cast<int>(buffer.size()), nullptr, buffer.data());
+    if (success == GL_FALSE) {
+        auto length = 0;
+        glGetProgramiv(program_, GL_INFO_LOG_LENGTH, &length);
+        auto buffer = std::string {"", static_cast<size_t>(length)};
+        glGetProgramInfoLog(program_, length, nullptr, buffer.data());
         Logger::Log(LogLevel::Error, "Shader program link error {}", buffer);
     }
     return success;

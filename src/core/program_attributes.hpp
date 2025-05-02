@@ -16,6 +16,7 @@ namespace engine {
 struct ProgramAttributes {
     MaterialType type;
 
+    // Used to store shader source code for shader materials
     std::string_view vertex_shader;
     std::string_view fragment_shader;
 
