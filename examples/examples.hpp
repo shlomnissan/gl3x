@@ -18,6 +18,7 @@
 #include "meshes/example_arbitrary_mesh.hpp"
 #include "meshes/example_primitive_mesh.hpp"
 #include "resources/example_arrow_resource.hpp"
+#include "resources/example_grid_resource.hpp"
 #include "test/example_frustum_culling_test.hpp"
 #include "test/example_lerp_animation_test.hpp"
 
@@ -37,6 +38,7 @@ static const auto examples = std::vector {
     "Fog Effect",
     "",
     "Arrow Resource",
+    "Grid Resource",
     "",
     "Frustum Culling Test",
     "Lerp Animation Test"

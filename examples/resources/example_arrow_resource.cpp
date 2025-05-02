@@ -13,7 +13,6 @@ ExampleArrowResource::ExampleArrowResource(std::shared_ptr<engine::Camera> camer
     show_context_menu_ = false;
 
     Add(CameraOrbit::Create(camera, 5.0f, math::DegToRad(25.0f), math::DegToRad(45.0f)));
-    Add(Grid::Create({.size = 4, .divisions = 16, .color = 0x333333}));
 
     const auto arrows = Node::Create();
     Add(arrows);
@@ -22,21 +21,21 @@ ExampleArrowResource::ExampleArrowResource(std::shared_ptr<engine::Camera> camer
         Vector3(0.5f, 0.0f, 0.0f),
         Vector3(0.0f, 0.0f, 0.0f),
         Color(0xFF0000),
-        0.7f
+        1.2f
     ));
 
     arrows->Add(Arrow::Create(
         Vector3(0.0f, 0.5f, 0.0f),
         Vector3(0.0f, 0.0f, 0.0f),
         Color(0x00FF00),
-        0.7f
+        1.2f
     ));
 
     arrows->Add(Arrow::Create(
         Cross(Vector3(0.5f, 0.0f, 0.0f), Vector3(0.0f, 0.5f, 0.0f)),
         Vector3(0.0f, 0.0f, 0.0f),
         Color(0x0000FF),
-        0.7f
+        1.2f
     ));
 
     arrows->TranslateY(0.1f);
