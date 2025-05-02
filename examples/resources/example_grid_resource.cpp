@@ -5,17 +5,35 @@
 
 #include "ui_helpers.hpp"
 
-#include <engine/resources.hpp>
-
 using namespace engine;
 
 ExampleGridResource::ExampleGridResource(std::shared_ptr<engine::Camera> camera) {
-    show_context_menu_ = false;
-
     Add(CameraOrbit::Create(camera, 5.0f, math::DegToRad(25.0f), math::DegToRad(45.0f)));
-    Add(Grid::Create({.size = 4, .divisions = 16, .color = 0x333333}));
+
+    grid_params_ = {
+        .size = 4.0f,
+        .divisions = 16,
+        .color = Color(0x333333)
+    };
+
+    grid_ = Grid::Create(grid_params_);
+
+    Add(grid_);
 }
 
 auto ExampleGridResource::ContextMenu() -> void {
-    // Empty
+    static bool dirty = false;
+
+    UIColor("color", &grid_params_.color[0], dirty, "color");
+    UISliderFloat("size", grid_params_.size, 1.0, 10.0f, dirty);
+    UISliderUnsigned("divisions", grid_params_.divisions, 1, 64, dirty);
+
+    if (dirty) {
+        dirty = false;
+        auto grid = Grid::Create(grid_params_);
+        auto grid_mesh = grid->Children().front();
+
+        grid_->RemoveAllChildren();
+        grid_->Add(grid_mesh);
+    }
 }
