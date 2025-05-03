@@ -1,0 +1,11 @@
+<map id="engine::BoundingBox" name="engine::BoundingBox">
+<area shape="rect" id="Node000001" title="Generates geometry to visualize an engine::Box3 object." alt="" coords="147,168,307,193"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1Node.html" title="Represents a node in a scene graph." alt="" coords="173,93,281,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,133,230,168,225,168,225,133"/>
+<area shape="rect" id="Node000003" href="$classengine_1_1Identity.html" title="A class that provides a unique identifier and a name to nodes." alt="" coords="5,5,129,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="102,35,207,91,204,95,100,40"/>
+<area shape="rect" id="Node000004" href="$classengine_1_1Transform3.html" title="Represents a 3D transformation." alt="" coords="154,5,301,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="230,45,230,93,225,93,225,45"/>
+<area shape="rect" id="Node000005" href="$classengine_1_1Vector3.html" title="A 3D vector class for mathematical operations." alt="" coords="325,5,447,31"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="357,41,303,72,254,96,252,91,301,67,355,36"/>
+</map>

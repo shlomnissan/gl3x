@@ -1,0 +1,66 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classengine_1_1Disposable.html" title="Base class for objects that require manual disposal." alt="" coords="5,104,152,129"/>
+<area shape="rect" id="Node000001" href="$classengine_1_1Geometry.html" title="Class representing a 3D geometry with vertex and index data." alt="" coords="200,153,339,179"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="142,130,220,151,218,156,141,135"/>
+<area shape="rect" id="Node000031" href="$classengine_1_1Image.html" title="A class representing an image, which can be loaded and disposed of." alt="" coords="212,55,327,80"/>
+<area shape="poly" id="edge7_Node000000_Node000031" title=" " alt="" coords="141,98,218,78,220,83,142,103"/>
+<area shape="rect" id="Node000029" href="$classengine_1_1Texture.html" title="Abstract base class for textures." alt="" coords="208,104,331,129"/>
+<area shape="poly" id="edge8_Node000000_Node000029" title=" " alt="" coords="166,114,208,114,208,119,166,119"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1BoxGeometry.html" title="A class for generating box geometries." alt="" coords="401,55,565,80"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="325,145,337,138,351,126,360,114,370,101,385,89,411,78,413,83,388,94,373,105,364,117,355,130,340,143,328,150"/>
+<area shape="rect" id="Node000003" href="$classengine_1_1CylinderGeometry.html" title="A class for generating cylinder geometries." alt="" coords="387,104,580,129"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="338,148,427,127,428,132,339,153"/>
+<area shape="rect" id="Node000005" href="$classengine_1_1PlaneGeometry.html" title="A class for generating plane geometries." alt="" coords="396,153,571,179"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="352,163,396,163,396,169,352,169"/>
+<area shape="rect" id="Node000006" href="$classengine_1_1SphereGeometry.html" title="A class for generating sphere geometries." alt="" coords="391,203,575,228"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="339,179,428,200,427,205,338,184"/>
+<area shape="rect" id="Node000004" href="$classengine_1_1ConeGeometry.html" title="A class for generating cone geometries." alt="" coords="647,104,819,129"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="593,114,646,114,646,119,593,119"/>
+<area shape="rect" id="Node000030" href="$classengine_1_1Texture2D.html" title="Represents a 2D texture." alt="" coords="413,5,553,31"/>
+<area shape="poly" id="edge9_Node000029_Node000030" title=" " alt="" coords="325,96,337,89,351,77,360,65,370,52,385,40,412,28,414,33,388,44,373,56,364,68,355,81,340,94,328,101"/>
+<area shape="rect" id="Node000007" href="$classengine_1_1Identity.html" title="A class that provides a unique identifier and a name to nodes." alt="" coords="17,301,141,327"/>
+<area shape="poly" id="edge10_Node000007_Node000001" title=" " alt="" coords="106,290,250,177,253,181,109,295"/>
+<area shape="poly" id="edge32_Node000007_Node000029" title=" " alt="" coords="89,288,130,214,161,174,198,139,218,127,221,132,202,143,165,177,135,217,93,290"/>
+<area shape="rect" id="Node000008" href="$classengine_1_1Material.html" title="Abstract base class for materials." alt="" coords="205,769,333,795"/>
+<area shape="poly" id="edge11_Node000007_Node000008" title=" " alt="" coords="93,339,265,768,260,770,88,341"/>
+<area shape="rect" id="Node000012" href="$classengine_1_1Node.html" title="Represents a node in a scene graph." alt="" coords="215,449,323,475"/>
+<area shape="poly" id="edge15_Node000007_Node000012" title=" " alt="" coords="109,333,253,447,250,451,106,338"/>
+<area shape="rect" id="Node000009" href="$classengine_1_1FlatMaterial.html" title="A material for drawing geometries without the influence of lighting." alt="" coords="407,795,560,820"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="348,789,407,796,406,801,347,794"/>
+<area shape="rect" id="Node000010" href="$classengine_1_1PhongMaterial.html" title="A material for drawing geometries using the Blinn&#45;Phong shading model." alt="" coords="399,844,567,869"/>
+<area shape="poly" id="edge13_Node000008_Node000010" title=" " alt="" coords="310,798,388,830,426,841,424,847,386,835,308,803"/>
+<area shape="rect" id="Node000011" href="$classengine_1_1ShaderMaterial.html" title="A material rendered with custom shaders." alt="" coords="397,745,570,771"/>
+<area shape="poly" id="edge14_Node000008_Node000011" title=" " alt="" coords="347,771,396,765,397,770,348,776"/>
+<area shape="rect" id="Node000013" href="$classengine_1_1Arrow.html" title="Generates geometry to visualize an arrow in 3D space." alt="" coords="427,301,539,327"/>
+<area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="285,436,326,385,354,358,385,336,426,320,428,325,388,340,357,362,330,389,289,440"/>
+<area shape="rect" id="Node000014" href="$classengine_1_1BoundingBox.html" title="Generates geometry to visualize an engine::Box3 object." alt="" coords="403,351,563,376"/>
+<area shape="poly" id="edge17_Node000012_Node000014" title=" " alt="" coords="296,439,337,411,386,385,418,374,420,379,388,390,340,416,299,443"/>
+<area shape="rect" id="Node000015" href="$classengine_1_1BoundingPlane.html" title="Generates geometry to visualize an engine::Plane object." alt="" coords="398,400,569,425"/>
+<area shape="poly" id="edge18_Node000012_Node000015" title=" " alt="" coords="336,444,427,423,428,428,337,449"/>
+<area shape="rect" id="Node000016" href="$classengine_1_1BoundingSphere.html" title="Generates geometry to visualize an engine::Sphere object." alt="" coords="393,449,573,475"/>
+<area shape="poly" id="edge19_Node000012_Node000016" title=" " alt="" coords="337,459,393,459,393,465,337,465"/>
+<area shape="rect" id="Node000017" href="$classengine_1_1Camera.html" title="An abstract base class for cameras." alt="" coords="421,499,546,524"/>
+<area shape="poly" id="edge20_Node000012_Node000017" title=" " alt="" coords="337,475,428,496,427,501,336,480"/>
+<area shape="rect" id="Node000020" href="$classengine_1_1CameraOrbit.html" title="A camera orbit node that allows the user to orbit around a target point." alt="" coords="405,548,562,573"/>
+<area shape="poly" id="edge23_Node000012_Node000020" title=" " alt="" coords="300,481,340,508,388,533,423,545,422,550,386,538,338,512,297,485"/>
+<area shape="rect" id="Node000021" href="$classengine_1_1Grid.html" title="An object that defines a finite grid." alt="" coords="433,597,534,623"/>
+<area shape="poly" id="edge24_Node000012_Node000021" title=" " alt="" coords="289,484,330,535,358,560,388,582,410,593,433,600,432,605,408,598,385,587,354,565,326,538,285,488"/>
+<area shape="rect" id="Node000022" href="$classengine_1_1Light.html" title="Abstract base class for light sources." alt="" coords="430,647,537,672"/>
+<area shape="poly" id="edge25_Node000012_Node000022" title=" " alt="" coords="283,486,299,520,322,559,352,599,388,632,408,643,430,650,429,655,406,648,385,636,348,602,318,562,294,522,278,489"/>
+<area shape="rect" id="Node000027" href="$classengine_1_1Mesh.html" title="Class representing a mesh, which is a node in the scene with associated geometry and material." alt="" coords="429,696,538,721"/>
+<area shape="poly" id="edge30_Node000012_Node000027" title=" " alt="" coords="279,487,293,530,315,583,346,636,366,660,388,681,408,693,429,700,428,705,405,698,385,685,362,664,342,639,310,585,288,532,274,489"/>
+<area shape="rect" id="Node000028" href="$classengine_1_1Scene.html" title="Represents the scene&#39;s root node." alt="" coords="427,252,540,277"/>
+<area shape="poly" id="edge31_Node000012_Node000028" title=" " alt="" coords="278,436,294,402,317,361,348,321,385,286,405,276,426,269,427,274,407,281,388,291,352,324,322,364,299,404,283,438"/>
+<area shape="rect" id="Node000018" href="$classengine_1_1CameraOrthographic.html" title="An orthographic camera class." alt="" coords="628,499,837,524"/>
+<area shape="poly" id="edge21_Node000017_Node000018" title=" " alt="" coords="560,509,628,509,628,514,560,514"/>
+<area shape="rect" id="Node000019" href="$classengine_1_1CameraPerspective.html" title="A perspective camera class." alt="" coords="632,449,833,475"/>
+<area shape="poly" id="edge22_Node000017_Node000019" title=" " alt="" coords="559,494,667,472,668,477,560,499"/>
+<area shape="rect" id="Node000023" href="$classengine_1_1AmbientLight.html" title="A light that gets emitted in all directions." alt="" coords="652,720,813,745"/>
+<area shape="poly" id="edge26_Node000022_Node000023" title=" " alt="" coords="551,671,581,681,629,705,670,717,669,722,627,710,579,686,549,676"/>
+<area shape="rect" id="Node000024" href="$classengine_1_1DirectionalLight.html" title="A light that gets emitted in a specific direction." alt="" coords="644,572,821,597"/>
+<area shape="poly" id="edge27_Node000022_Node000024" title=" " alt="" coords="549,642,579,632,603,619,627,606,664,595,666,600,629,611,605,624,581,636,551,647"/>
+<area shape="rect" id="Node000025" href="$classengine_1_1PointLight.html" title="A light that gets emitted from a single point in all directions." alt="" coords="663,621,802,647"/>
+<area shape="poly" id="edge28_Node000022_Node000025" title=" " alt="" coords="550,650,663,638,663,644,551,655"/>
+<area shape="rect" id="Node000026" href="$classengine_1_1SpotLight.html" title="This light gets emittedin one direction along a cone." alt="" coords="665,671,800,696"/>
+<area shape="poly" id="edge29_Node000022_Node000026" title=" " alt="" coords="551,663,665,674,665,680,550,668"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="engine::Texture" name="engine::Texture">
+<area shape="rect" id="Node000001" title="Abstract base class for textures." alt="" coords="97,79,220,104"/>
+<area shape="rect" id="Node000004" href="$classengine_1_1Texture2D.html" title="Represents a 2D texture." alt="" coords="89,152,229,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="161,118,161,152,156,152,156,118"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1Disposable.html" title="Base class for objects that require manual disposal." alt="" coords="5,5,152,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,38,147,76,144,80,100,42"/>
+<area shape="rect" id="Node000003" href="$classengine_1_1Identity.html" title="A class that provides a unique identifier and a name to nodes." alt="" coords="177,5,301,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,42,174,80,170,76,214,38"/>
+</map>

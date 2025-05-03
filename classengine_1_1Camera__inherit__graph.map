@@ -1,0 +1,11 @@
+<map id="engine::Camera" name="engine::Camera">
+<area shape="rect" id="Node000001" title="An abstract base class for cameras." alt="" coords="162,152,287,177"/>
+<area shape="rect" id="Node000004" href="$classengine_1_1CameraOrthographic.html" title="An orthographic camera class." alt="" coords="5,225,215,251"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="196,187,130,227,127,223,193,182"/>
+<area shape="rect" id="Node000005" href="$classengine_1_1CameraPerspective.html" title="A perspective camera class." alt="" coords="239,225,440,251"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="256,182,322,223,319,227,253,187"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1Node.html" title="Represents a node in a scene graph." alt="" coords="171,79,279,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,118,227,152,222,152,222,118"/>
+<area shape="rect" id="Node000003" href="$classengine_1_1Identity.html" title="A class that provides a unique identifier and a name to nodes." alt="" coords="163,5,287,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="227,44,227,79,222,79,222,44"/>
+</map>

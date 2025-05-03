@@ -1,0 +1,7 @@
+<map id="engine::CameraOrbit" name="engine::CameraOrbit">
+<area shape="rect" id="Node000001" title="A camera orbit node that allows the user to orbit around a target point." alt="" coords="5,152,163,177"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1Node.html" title="Represents a node in a scene graph." alt="" coords="30,79,138,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,118,87,152,81,152,81,118"/>
+<area shape="rect" id="Node000003" href="$classengine_1_1Identity.html" title="A class that provides a unique identifier and a name to nodes." alt="" coords="22,5,146,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,44,87,79,81,79,81,44"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="engine::Image" name="engine::Image">
+<area shape="rect" id="Node000001" title="A class representing an image, which can be loaded and disposed of." alt="" coords="21,79,136,104"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1Disposable.html" title="Base class for objects that require manual disposal." alt="" coords="5,5,152,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,44,81,79,76,79,76,44"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="engine::Plane" name="engine::Plane">
+<area shape="rect" id="Node000001" title="Represents a plane in 3D space." alt="" coords="11,93,122,119"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1Vector3.html" title="A 3D vector class for mathematical operations." alt="" coords="5,5,128,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,45,69,93,64,93,64,45"/>
+</map>

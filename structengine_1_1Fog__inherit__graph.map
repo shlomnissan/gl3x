@@ -1,0 +1,7 @@
+<map id="engine::Fog" name="engine::Fog">
+<area shape="rect" id="Node000001" title=" " alt="" coords="133,5,231,31"/>
+<area shape="rect" id="Node000002" href="$structengine_1_1ExponentialFog.html" title=" " alt="" coords="5,79,180,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,41,109,81,106,76,155,37"/>
+<area shape="rect" id="Node000003" href="$structengine_1_1LinearFog.html" title=" " alt="" coords="204,79,341,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="209,37,259,76,256,81,206,41"/>
+</map>

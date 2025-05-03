@@ -1,0 +1,11 @@
+<map id="engine::Material" name="engine::Material">
+<area shape="rect" id="Node000001" title="Abstract base class for materials." alt="" coords="203,79,331,104"/>
+<area shape="rect" id="Node000003" href="$classengine_1_1FlatMaterial.html" title="A material for drawing geometries without the influence of lighting." alt="" coords="5,152,159,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="226,111,113,154,111,149,224,106"/>
+<area shape="rect" id="Node000004" href="$classengine_1_1PhongMaterial.html" title="A material for drawing geometries using the Blinn&#45;Phong shading model." alt="" coords="183,152,351,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="270,118,270,152,265,152,265,118"/>
+<area shape="rect" id="Node000005" href="$classengine_1_1ShaderMaterial.html" title="A material rendered with custom shaders." alt="" coords="375,152,549,177"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="312,106,431,149,429,154,310,111"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1Identity.html" title="A class that provides a unique identifier and a name to nodes." alt="" coords="205,5,329,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="270,44,270,79,265,79,265,44"/>
+</map>

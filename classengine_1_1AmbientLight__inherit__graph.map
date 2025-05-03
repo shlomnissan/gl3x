@@ -1,0 +1,9 @@
+<map id="engine::AmbientLight" name="engine::AmbientLight">
+<area shape="rect" id="Node000001" title="A light that gets emitted in all directions." alt="" coords="5,225,167,251"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1Light.html" title="Abstract base class for light sources." alt="" coords="33,152,139,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,191,89,225,83,225,83,191"/>
+<area shape="rect" id="Node000003" href="$classengine_1_1Node.html" title="Represents a node in a scene graph." alt="" coords="32,79,140,104"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="89,118,89,152,83,152,83,118"/>
+<area shape="rect" id="Node000004" href="$classengine_1_1Identity.html" title="A class that provides a unique identifier and a name to nodes." alt="" coords="24,5,148,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="89,44,89,79,83,79,83,44"/>
+</map>

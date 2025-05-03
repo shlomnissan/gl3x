@@ -1,0 +1,5 @@
+<map id="engine::Fog" name="engine::Fog">
+<area shape="rect" id="Node000001" title=" " alt="" coords="11,93,108,119"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1Color.html" title="A color class representing RGB color values." alt="" coords="5,5,113,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="62,45,62,93,57,93,57,45"/>
+</map>

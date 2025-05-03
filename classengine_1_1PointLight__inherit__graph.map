@@ -1,0 +1,9 @@
+<map id="engine::PointLight" name="engine::PointLight">
+<area shape="rect" id="Node000001" title="A light that gets emitted from a single point in all directions." alt="" coords="5,225,144,251"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1Light.html" title="Abstract base class for light sources." alt="" coords="21,152,128,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,191,77,225,72,225,72,191"/>
+<area shape="rect" id="Node000003" href="$classengine_1_1Node.html" title="Represents a node in a scene graph." alt="" coords="21,79,129,104"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="77,118,77,152,72,152,72,118"/>
+<area shape="rect" id="Node000004" href="$classengine_1_1Identity.html" title="A class that provides a unique identifier and a name to nodes." alt="" coords="13,5,137,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="77,44,77,79,72,79,72,44"/>
+</map>

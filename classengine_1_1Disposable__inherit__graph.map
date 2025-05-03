@@ -1,0 +1,21 @@
+<map id="engine::Disposable" name="engine::Disposable">
+<area shape="rect" id="Node000001" title="Base class for objects that require manual disposal." alt="" coords="5,153,152,179"/>
+<area shape="rect" id="Node000002" href="$classengine_1_1Geometry.html" title="Class representing a 3D geometry with vertex and index data." alt="" coords="200,104,339,129"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,147,218,127,220,132,142,152"/>
+<area shape="rect" id="Node000008" href="$classengine_1_1Image.html" title="A class representing an image, which can be loaded and disposed of." alt="" coords="212,153,327,179"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="166,163,212,163,212,169,166,169"/>
+<area shape="rect" id="Node000009" href="$classengine_1_1Texture.html" title="Abstract base class for textures." alt="" coords="208,203,331,228"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="142,180,220,200,218,205,141,185"/>
+<area shape="rect" id="Node000003" href="$classengine_1_1BoxGeometry.html" title="A class for generating box geometries." alt="" coords="401,5,565,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="296,94,337,66,386,40,418,28,420,33,388,44,340,70,299,98"/>
+<area shape="rect" id="Node000004" href="$classengine_1_1CylinderGeometry.html" title="A class for generating cylinder geometries." alt="" coords="387,55,580,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="338,98,427,77,428,83,339,103"/>
+<area shape="rect" id="Node000006" href="$classengine_1_1PlaneGeometry.html" title="A class for generating plane geometries." alt="" coords="396,104,571,129"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="352,114,396,114,396,119,352,119"/>
+<area shape="rect" id="Node000007" href="$classengine_1_1SphereGeometry.html" title="A class for generating sphere geometries." alt="" coords="391,153,575,179"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="339,130,428,151,427,156,338,135"/>
+<area shape="rect" id="Node000005" href="$classengine_1_1ConeGeometry.html" title="A class for generating cone geometries." alt="" coords="628,55,800,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="594,65,628,65,628,70,594,70"/>
+<area shape="rect" id="Node000010" href="$classengine_1_1Texture2D.html" title="Represents a 2D texture." alt="" coords="413,203,553,228"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="345,213,413,213,413,218,345,218"/>
+</map>
