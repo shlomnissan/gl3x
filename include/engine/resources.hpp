@@ -3,6 +3,11 @@
 
 #pragma once
 
+/**
+ * @defgroup ResourcesGroup Resources
+ * @brief Reusable resources for UI, debugging, and control utilities.
+ */
+
 #include "engine/resources/arrow.hpp"
 #include "engine/resources/bounding_box.hpp"
 #include "engine/resources/bounding_plane.hpp"

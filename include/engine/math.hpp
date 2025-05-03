@@ -3,6 +3,11 @@
 
 #pragma once
 
+/**
+ * @defgroup MathGroup Math
+ * @brief Mathematical types and utilities used across the engine.
+ */
+
 #include "engine/math/box3.hpp"
 #include "engine/math/color.hpp"
 #include "engine/math/euler.hpp"

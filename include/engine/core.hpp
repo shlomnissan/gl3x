@@ -3,6 +3,11 @@
 
 #pragma once
 
+/**
+ * @defgroup CoreGroup Core
+ * @brief Core components used throughout the application.
+ */
+
 #include "engine/core/application_context.hpp"
 #include "engine/core/fog.hpp"
 #include "engine/core/geometry.hpp"
