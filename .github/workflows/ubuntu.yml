@@ -28,7 +28,7 @@ jobs:
         shell: bash
         run: ${{github.workspace}}/scripts/gendocs.sh
       - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main'  # Deploy only on main branch
+        if: github.ref_name == 'main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
