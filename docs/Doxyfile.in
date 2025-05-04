@@ -2,7 +2,7 @@
 
 PROJECT_NAME           = @PROJECT_NAME@
 PROJECT_NUMBER         = @PROJECT_VERSION@
-OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@
+OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@/docs
 INPUT                  = @CMAKE_SOURCE_DIR@/include \
                          @CMAKE_SOURCE_DIR@/docs/overview.md
 HTML_EXTRA_STYLESHEET  = @AWESOME_CSS_DIR@/doxygen-awesome.css

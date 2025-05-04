@@ -3,7 +3,7 @@
 set -e  # Exit on error
 
 BUILD_DIR=${1:-build}
-DOCS_DIR="$BUILD_DIR/html"
+DOCS_DIR="$BUILD_DIR/docs/html"
 
 echo "Generating Doxygen documentation"
 
