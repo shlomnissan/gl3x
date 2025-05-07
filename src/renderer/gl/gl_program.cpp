@@ -94,17 +94,20 @@ auto GLProgram::GetUniformLoc(std::string_view name) const -> int {
 
 auto GLProgram::ProcessUniforms() -> void {
     auto n_active_uniforms = GLint {0};
-    auto buffer = std::string {"", 256};
+    glGetProgramiv(program_, GL_ACTIVE_UNIFORMS, &n_active_uniforms);
+
+    auto max_name_length = GLsizei {0};
+    glGetProgramiv(program_, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_name_length);
+
+    auto buffer = std::string {"", static_cast<size_t>(max_name_length)};
     auto length = GLsizei {};
     auto size = GLint {};
     auto type = GLenum {};
 
-    glGetProgramiv(program_, GL_ACTIVE_UNIFORMS, &n_active_uniforms);
-
     for (auto i = 0; i < n_active_uniforms; ++i) {
         glGetActiveUniform(
             program_, i,
-            buffer.size(),
+            max_name_length,
             &length,
             &size,
             &type,
@@ -112,12 +115,7 @@ auto GLProgram::ProcessUniforms() -> void {
         );
 
         auto name = std::string(buffer.data(), length);
-        uniforms_.try_emplace(name, GLUniform {
-            name,
-            GetUniformLoc(name),
-            size,
-            type
-        });
+        uniforms_.try_emplace(name, name, GetUniformLoc(name), size, type);
     }
 }
 

@@ -64,7 +64,7 @@ private:
         Scene* scene
     ) -> void;
 
-    auto UpdateLights(const Scene* scene, GLProgram* program, const Camera* camera) const -> void;
+    auto UpdateLights(GLProgram* program, const Camera* camera) const -> void;
 
     [[nodiscard]] auto IsValidMesh(Mesh* mesh) const -> bool;
 

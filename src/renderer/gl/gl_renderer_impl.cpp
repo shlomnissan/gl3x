@@ -68,7 +68,7 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
     state_.ProcessMaterial(material);
 
     if (attrs.lights && !render_lists_->Lights().empty()) {
-        UpdateLights(scene, program, camera);
+        UpdateLights(program, camera);
     }
 
     buffers_.Bind(geometry);
@@ -175,17 +175,17 @@ auto Renderer::Impl::SetUniforms(
     }
 }
 
-auto Renderer::Impl::UpdateLights(const Scene* scene, GLProgram* program, const Camera* camera) const -> void {
+auto Renderer::Impl::UpdateLights(GLProgram* program, const Camera* camera) const -> void {
     auto ambient_light = Color {0.0f, 0.0f, 0.0f};
     auto idx = 0;
 
     for (auto weak_light : render_lists_->Lights()) {
         if (auto light = weak_light.lock()) {
-            const auto color = light->color;
+            const auto light_color = light->color;
             const auto intensity = light->intensity;
 
             if (auto ambient = light->As<AmbientLight>()) {
-                ambient_light = color * intensity;
+                ambient_light = light_color * intensity;
             }
 
             const auto uniform = std::format("u_Lights[{}]", idx);

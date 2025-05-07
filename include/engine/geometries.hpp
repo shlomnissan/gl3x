@@ -4,8 +4,13 @@
 #pragma once
 
 /**
+<<<<<<< Updated upstream
  * @defgroup GeometryGroup Geometry
  * @brief Classes for generating basic geometric primitives.
+=======
+ * @defgroup GeometryGroup Geometry Classes
+ * @brief Geometry generators for basic primitives.
+>>>>>>> Stashed changes
  */
 
 #include "engine/geometries/box_geometry.hpp"
