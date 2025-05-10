@@ -157,7 +157,6 @@ auto Node::LookAt(const Vector3& target) -> void {
 auto Node::AttachRecursive(SharedContext* context) -> void {
     context_ = context;
     OnAttached();
-    Logger::Log(LogLevel::Info, "Node {} attached to context", *this);
     for (const auto& child : children_) {
         if (child != nullptr) {
             child->AttachRecursive(context);
@@ -167,7 +166,6 @@ auto Node::AttachRecursive(SharedContext* context) -> void {
 
 auto Node::DetachRecursive() -> void {
     context_ = nullptr;
-    Logger::Log(LogLevel::Info, "Node {} detached from context", *this);
     for (const auto& child : children_) {
         if (child != nullptr) {
             child->DetachRecursive();
