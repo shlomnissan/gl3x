@@ -4,8 +4,8 @@
 #pragma once
 
 /**
- * @defgroup GeometryGroup Geometry Classes
- * @brief Geometry generators for basic primitives.
+ * @defgroup GeometryGroup Geometries
+ * @brief Geometry objects that represent basic primitives.
  */
 
 #include "engine/geometries/box_geometry.hpp"
