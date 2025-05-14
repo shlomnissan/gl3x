@@ -17,32 +17,28 @@ namespace engine {
  */
 class ENGINE_EXPORT Arrow : public Node {
 public:
+    struct Parameters {
+        Vector3 direction;  ///< The direction of the arrow (normalized).
+        Vector3 origin;     ///< The origin of the arrow.
+        Color color;        ///< The color of the arrow.
+        float length;       ///< The length of the arrow.
+    };
+
     /**
      * @brief Constructs an Arrow object with a direction, origin and length.
      *
-     * @param direction The direction of the arrow (normalized).
-     * @param origin The origin of the arrow.
-     * @param color The color of the arrow.
-     * @param length The length of the arrow.
+     * @param params Parameters for the arrow, including direction, origin, color, and length.
      */
-    Arrow(const Vector3& direction, const Vector3& origin, const Color& color, float length);
+    explicit Arrow(const Parameters& params);
 
     /**
      * @brief Creates a new instance of the Arrow class.
      *
-     * @param direction The direction of the arrow (normalized).
-     * @param origin The origin of the arrow.
-     * @param color The color of the arrow.
-     * @param length The length of the arrow.
-     * @return A `std::shared_ptr<Arrow>` pointing to the newly created instance.
+     * @param params Parameters for the arrow, including direction, origin, color, and length.
+     * @return std::shared_ptr<Arrow> pointing to the newly created instance.
      */
-    [[nodiscard]] static auto Create(
-        const Vector3& direction,
-        const Vector3& origin,
-        const Color& color,
-        float length
-    ) -> std::shared_ptr<Arrow> {
-        return std::make_shared<Arrow>(direction, origin, color, length);
+    [[nodiscard]] static auto Create(const Parameters& params) -> std::shared_ptr<Arrow> {
+        return std::make_shared<Arrow>(params);
     }
 
     /**

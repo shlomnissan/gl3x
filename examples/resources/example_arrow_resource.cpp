@@ -17,26 +17,26 @@ ExampleArrowResource::ExampleArrowResource(std::shared_ptr<engine::Camera> camer
     const auto arrows = Node::Create();
     Add(arrows);
 
-    arrows->Add(Arrow::Create(
-        Vector3(0.5f, 0.0f, 0.0f),
-        Vector3(0.0f, 0.0f, 0.0f),
-        Color(0xFF0000),
-        1.2f
-    ));
+    arrows->Add(Arrow::Create({
+        .direction = {0.5f, 0.0f, 0.0f},
+        .origin = {0.0f, 0.0f, 0.0f},
+        .color = 0xFF0000,
+        .length = 1.2f
+    }));
 
-    arrows->Add(Arrow::Create(
-        Vector3(0.0f, 0.5f, 0.0f),
-        Vector3(0.0f, 0.0f, 0.0f),
-        Color(0x00FF00),
-        1.2f
-    ));
+    arrows->Add(Arrow::Create({
+        .direction = {0.0f, 0.5f, 0.0f},
+        .origin = {0.0f, 0.0f, 0.0f},
+        .color = 0x00FF00,
+        .length = 1.2f
+    }));
 
-    arrows->Add(Arrow::Create(
-        Cross(Vector3(0.5f, 0.0f, 0.0f), Vector3(0.0f, 0.5f, 0.0f)),
-        Vector3(0.0f, 0.0f, 0.0f),
-        Color(0x0000FF),
-        1.2f
-    ));
+    arrows->Add(Arrow::Create({
+        .direction = Cross(Vector3(0.5f, 0.0f, 0.0f), Vector3(0.0f, 0.5f, 0.0f)),
+        .origin = {0.0f, 0.0f, 0.0f},
+        .color = 0x0000FF,
+        .length = 1.2f
+    }));
 
     arrows->TranslateY(0.1f);
 }
