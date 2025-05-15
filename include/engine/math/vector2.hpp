@@ -13,14 +13,14 @@ namespace engine {
 class ENGINE_EXPORT Vector2 {
 public:
     /// @brief The x component of the vector.
-    float x;
+    float x {0.0f};
     /// @brief The y component of the vector.
-    float y;
+    float y {0.0f};
 
     /**
      * @brief Default constructor that initializes the vector to (0, 0).
      */
-    constexpr Vector2() : x(0.0f), y(0.0f) {};
+    constexpr Vector2() = default;
 
     /**
      * @brief Constructs a vector with all components initialized to the given value.

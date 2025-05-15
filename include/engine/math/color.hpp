@@ -25,7 +25,7 @@ public:
     /**
      * @brief Default constructor that initializes the color to white with full opacity.
      */
-    Color() = default;
+    constexpr Color() = default;
 
     /**
      * @brief Constructs a color with the specified red, green, and blue components.
@@ -34,7 +34,7 @@ public:
      * @param g The green component of the color.
      * @param b The blue component of the color.
      */
-    Color(float r, float g, float b)
+    constexpr Color(float r, float g, float b)
         : r(r), g(g), b(b) {}
 
     /**
@@ -42,7 +42,7 @@ public:
      *
      * @param hex An unsigned integer representing the color in hexadecimal format (0xRRGGBB).
      */
-    Color(unsigned int hex) :
+    constexpr Color(unsigned int hex) :
         r(static_cast<float>(hex >> 16 & 255) / 255.f),
         g(static_cast<float>(hex >> 8 & 255) / 255.f),
         b(static_cast<float>(hex & 255) / 255.f) {}
@@ -53,8 +53,7 @@ public:
      * @param i The index of the component to access (0 for red, 1 for green, 2 for blue).
      * @return A reference to the color component.
      */
-    [[nodiscard]] auto& operator[](int i) {
-        assert(i >= 0 && i < 3);
+    [[nodiscard]] constexpr auto& operator[](int i) {
         return (reinterpret_cast<float*>(this))[i];
     }
 
@@ -64,8 +63,7 @@ public:
      * @param i The index of the component to access (0 for red, 1 for green, 2 for blue).
      * @return A const reference to the color component.
      */
-    [[nodiscard]] const auto& operator[](int i) const {
-        assert(i >= 0 && i < 3);
+    [[nodiscard]] constexpr auto& operator[](int i) const {
         return (reinterpret_cast<const float*>(this))[i];
     }
 
@@ -75,7 +73,7 @@ public:
      * @param hex An unsigned integer representing the color in hexadecimal format (0xRRGGBB).
      * @return A reference to this Color object.
      */
-    auto operator=(unsigned int hex) -> Color& {
+    constexpr auto operator=(unsigned int hex) -> Color& {
         r = static_cast<float>(hex >> 16 & 255) / 255.f;
         g = static_cast<float>(hex >> 8 & 255) / 255.f;
         b = static_cast<float>(hex & 255) / 255.f;
@@ -88,7 +86,7 @@ public:
      * @param n The scalar value to multiply with.
      * @return Color& A reference to the updated color.
      */
-    auto operator*=(float n) -> Color& {
+    constexpr auto operator*=(float n) -> Color& {
         r = r * n;
         g = g * n;
         b = b * n;
@@ -103,7 +101,7 @@ private:
      * @param b The second color to compare.
      * @return bool `true` if the color are equal, `false` otherwise.
      */
-    [[nodiscard]] friend auto operator==(const Color& a, const Color& b) -> bool = default;
+    [[nodiscard]] friend constexpr auto operator==(const Color& a, const Color& b) -> bool = default;
 
     /**
      * @brief Adds two colors component-wise.
@@ -113,7 +111,7 @@ private:
      * @param b The second color.
      * @return Color A new color that is the component-wise sum of the two colors.
      */
-    [[nodiscard]] friend auto operator+(const Color& a, const Color& b) {
+    [[nodiscard]] friend constexpr auto operator+(const Color& a, const Color& b) {
         return Color {a.r + b.r, a.g + b.g, a.b + b.b};
     }
 
@@ -125,7 +123,7 @@ private:
      * @param b The color to subtract.
      * @return Color A new color that is the component-wise difference of the two colors.
      */
-    [[nodiscard]] friend auto operator-(const Color& a, const Color& b) {
+    [[nodiscard]] friend constexpr auto operator-(const Color& a, const Color& b) {
         return Color {
             std::max(0.0f, a.r - b.r),
             std::max(0.0f, a.g - b.g),
@@ -141,7 +139,7 @@ private:
      * @param n The scalar value to multiply with.
      * @return Color A new color that is the result of scaling the original color.
      */
-    [[nodiscard]] friend auto operator*(const Color& v, float n) {
+    [[nodiscard]] friend constexpr auto operator*(const Color& v, float n) {
         return Color {v.r * n, v.g * n, v.b * n};
     }
 
@@ -153,7 +151,7 @@ private:
      * @param v The color to be scaled.
      * @return Color A new color that is the result of scaling the original color.
      */
-    [[nodiscard]] friend auto operator*(float n, const Color& v) {
+    [[nodiscard]] friend constexpr auto operator*(float n, const Color& v) {
         return v * n;
     }
 };
@@ -167,7 +165,7 @@ private:
  * @param f The interpolation factor (0.0 to 1.0).
  * @return Color A new color that is the result of the linear interpolation.
  */
-[[nodiscard]] inline auto Lerp(const Color& a, const Color& b, float f) {
+[[nodiscard]] constexpr auto Lerp(const Color& a, const Color& b, float f) {
     return Color {
         a.r + (b.r - a.r) * f,
         a.g + (b.g - a.g) * f,
