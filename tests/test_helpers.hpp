@@ -12,6 +12,10 @@
 #include <engine/math/vector3.hpp>
 #include <engine/math/vector4.hpp>
 
+constexpr bool approx_equal(float a, float b, float eps) {
+    return (a - b < eps) && (b - a < eps);
+}
+
 auto EXPECT_MAT3_EQ(const engine::Matrix3& a, const engine::Matrix3& b) -> void {
     EXPECT_FLOAT_EQ(a(0, 0), b(0, 0));
     EXPECT_FLOAT_EQ(a(0, 1), b(0, 1));
