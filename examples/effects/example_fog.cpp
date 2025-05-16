@@ -14,7 +14,7 @@
 using namespace engine;
 
 ExampleFog::ExampleFog(std::shared_ptr<engine::Camera> camera) {
-    Add(CameraOrbit::Create(camera, {
+    Add(OrbitControls::Create(camera, {
         .radius = 3.0f,
         .pitch = math::DegToRad(25.0f),
         .yaw = math::DegToRad(-25.0f)

@@ -17,7 +17,7 @@ namespace engine {
 /**
  * @brief Camera orbit node that allows the user to orbit, zoom and pan around a target point.
  */
-class ENGINE_EXPORT CameraOrbit : public Node {
+class ENGINE_EXPORT OrbitControls : public Node {
 public:
     /// @brief The speed at which the camera orbits around the target point.
     float orbit_speed {3.5f};
@@ -29,7 +29,7 @@ public:
     float pan_speed {1.5f};
 
     /**
-     * @brief @brief Parameters for configuring the camera orbit.
+     * @brief Parameters for configuring the camera orbit.
      */
     struct Parameters {
         float radius {1.0f}; ///< Distance of the camera from the target point.
@@ -43,7 +43,7 @@ public:
      * @param camera Shared pointer to the camera to orbit around.
      * @param params Parameters struct of the camera orbit.
      */
-    CameraOrbit(const std::shared_ptr<Camera>& camera, const Parameters& params)
+    OrbitControls(const std::shared_ptr<Camera>& camera, const Parameters& params)
         : camera_(camera), radius_(params.radius), pitch_(params.pitch), yaw_(params.yaw) {};
 
     /**
@@ -57,7 +57,7 @@ public:
         const std::shared_ptr<Camera>& camera,
         const Parameters& params
     ) {
-        return std::make_shared<CameraOrbit>(camera, params);
+        return std::make_shared<OrbitControls>(camera, params);
     }
 
     /**

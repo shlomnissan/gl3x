@@ -14,7 +14,7 @@ using namespace engine::math;
 ExampleArbitraryMesh::ExampleArbitraryMesh(std::shared_ptr<engine::Camera> camera) {
     show_context_menu_ = false;
 
-    Add(CameraOrbit::Create(camera, {
+    Add(OrbitControls::Create(camera, {
         .radius = 4.0f,
         .pitch = DegToRad(5.0f),
         .yaw = DegToRad(15.0f)

@@ -12,7 +12,7 @@
 using namespace engine;
 
 ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<engine::Camera> camera) {
-    Add(CameraOrbit::Create(camera, {
+    Add(OrbitControls::Create(camera, {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),
         .yaw = math::DegToRad(45.0f)

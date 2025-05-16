@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/resources/camera_orbit.hpp"
+#include "engine/resources/orbit_controls.hpp"
 
 #include "engine/math/utilities.hpp"
 
@@ -10,9 +10,11 @@
 
 namespace engine {
 
-static MouseButton curr_mouse_button {MouseButton::None};
+namespace {
+    MouseButton curr_mouse_button {MouseButton::None};
+}
 
-auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {
+auto OrbitControls::OnMouseEvent(MouseEvent* event) -> void {
     using enum MouseButton;
     using enum MouseEvent::Type;
 
@@ -31,7 +33,7 @@ auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {
     }
 }
 
-auto CameraOrbit::OnUpdate(float delta) -> void {
+auto OrbitControls::OnUpdate(float delta) -> void {
     if (!first_update_) {
         first_update_ = true;
         prev_mouse_pos_ = curr_mouse_pos_;
@@ -66,7 +68,7 @@ auto CameraOrbit::OnUpdate(float delta) -> void {
     camera_->LookAt(target);
 }
 
-auto CameraOrbit::Orbit(const Vector2& offset, float delta) -> void {
+auto OrbitControls::Orbit(const Vector2& offset, float delta) -> void {
     yaw_ -= offset.x * orbit_speed * delta;
     pitch_ += offset.y * orbit_speed * delta;
 
@@ -74,12 +76,12 @@ auto CameraOrbit::Orbit(const Vector2& offset, float delta) -> void {
     pitch_ = std::clamp(pitch_, -vertical_limit, vertical_limit);
 }
 
-auto CameraOrbit::Zoom(float scroll_offset, float delta) -> void {
+auto OrbitControls::Zoom(float scroll_offset, float delta) -> void {
     radius_ -= scroll_offset * zoom_speed * delta;
     radius_ = std::max(0.1f, radius_);
 }
 
-auto CameraOrbit::Pan(const Vector2& offset, float delta) -> void {
+auto OrbitControls::Pan(const Vector2& offset, float delta) -> void {
     const auto forward = Normalize(camera_->transform.GetPosition() - target);
     const auto right = Normalize(Cross(forward, Vector3::Up()));
     const auto up = Cross(right, forward);

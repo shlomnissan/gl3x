@@ -14,7 +14,7 @@ using namespace engine;
 ExampleLerpAnimationTest::ExampleLerpAnimationTest(std::shared_ptr<engine::Camera> camera) {
     show_context_menu_ = false;
 
-    Add(CameraOrbit::Create(camera, {.radius = 3.0f}));
+    Add(OrbitControls::Create(camera, {.radius = 3.0f}));
 
     auto ambient = AmbientLight::Create(0xFFFFFF, 0.3f);
     Add(ambient);

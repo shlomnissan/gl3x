@@ -15,7 +15,7 @@ using namespace engine::math;
 ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<engine::Camera> camera) {
     InitializeParams();
 
-    Add(CameraOrbit::Create(camera, {
+    Add(OrbitControls::Create(camera, {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),
         .yaw = math::DegToRad(45.0f)
