@@ -15,7 +15,12 @@ using namespace engine::math;
 ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<engine::Camera> camera) {
     InitializeParams();
 
-    Add(CameraOrbit::Create(camera, 4.0f, DegToRad(15.0f), DegToRad(45.0f)));
+    Add(CameraOrbit::Create(camera, {
+        .radius = 5.0f,
+        .pitch = math::DegToRad(25.0f),
+        .yaw = math::DegToRad(45.0f)
+    }));
+
     Add(AmbientLight::Create(0xFFFFFF, 0.3f));
 
     auto point_light = PointLight::Create(0xFFFFFF, 1.0f);

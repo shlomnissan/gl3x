@@ -15,7 +15,7 @@
 namespace engine {
 
 /**
- * @brief A camera orbit node that allows the user to orbit around a target point.
+ * @brief Camera orbit node that allows the user to orbit, zoom and pan around a target point.
  */
 class ENGINE_EXPORT CameraOrbit : public Node {
 public:
@@ -29,31 +29,35 @@ public:
     float pan_speed {1.5f};
 
     /**
+     * @brief @brief Parameters for configuring the camera orbit.
+     */
+    struct Parameters {
+        float radius {1.0f}; ///< Distance of the camera from the target point.
+        float pitch {0.0f};  ///< Pitch angle in radians, measured from the vertical axis.
+        float yaw {0.0f};    ///< Yaw angle in radians, measured from the horizontal axis.
+    };
+
+    /**
      * @brief Constructs a CameraOrbit object.
      *
-     * @param camera A shared pointer to the camera to orbit around.
-     * @param radius The initial radius of the camera's orbit around the target.
-     * @param pitch The initial pitch angle in radians.
-     * @param yaw The initial yawal angle in radians.
+     * @param camera Shared pointer to the camera to orbit around.
+     * @param params Parameters struct of the camera orbit.
      */
-    CameraOrbit(const std::shared_ptr<Camera>& camera, float radius, float pitch, float yaw);
+    CameraOrbit(const std::shared_ptr<Camera>& camera, const Parameters& params)
+        : camera_(camera), radius_(params.radius), pitch_(params.pitch), yaw_(params.yaw) {};
 
     /**
      * @brief Creates a new instance of the CameraOrbit class.
      *
-     * @param camera A shared pointer to the camera to orbit around.
-     * @param radius The initial radius of the camera's orbit around the target.
-     * @param pitch The initial pitch angle in radians.
-     * @param yaw The initial yawal angle in radians.
-     * @return A `std::shared_ptr<CameraOrbit>` pointing to the newly created instance.
+     * @param camera Shared pointer to the camera to orbit around.
+     * @param params Parameters struct of the camera orbit.
+     * @return Shared pointer to the newly created instance.
      */
     [[nodiscard]] static auto Create(
         const std::shared_ptr<Camera>& camera,
-        float radius,
-        float pitch = 0.0f,
-        float yaw = 0.0f
+        const Parameters& params
     ) {
-        return std::make_shared<CameraOrbit>(camera, radius, pitch, yaw);
+        return std::make_shared<CameraOrbit>(camera, params);
     }
 
     /**

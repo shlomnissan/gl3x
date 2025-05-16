@@ -12,9 +12,6 @@ namespace engine {
 
 static MouseButton curr_mouse_button {MouseButton::None};
 
-CameraOrbit::CameraOrbit(const std::shared_ptr<Camera>& camera, float radius, float pitch, float yaw)
-  : camera_(camera), radius_(radius), pitch_(pitch), yaw_(yaw) {};
-
 auto CameraOrbit::OnMouseEvent(MouseEvent* event) -> void {
     using enum MouseButton;
     using enum MouseEvent::Type;

@@ -13,7 +13,7 @@
 using namespace engine;
 
 ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera) {
-    Add(CameraOrbit::Create(camera, 3.0f));
+    Add(CameraOrbit::Create(camera, {.radius = 3.0f}));
 
     fog = ExponentialFog::Create(0x444444, 0.3f);
 

@@ -14,7 +14,12 @@ using namespace engine::math;
 ExampleArbitraryMesh::ExampleArbitraryMesh(std::shared_ptr<engine::Camera> camera) {
     show_context_menu_ = false;
 
-    Add(CameraOrbit::Create(camera, 4.0f, DegToRad(5.0f), DegToRad(15.0f)));
+    Add(CameraOrbit::Create(camera, {
+        .radius = 4.0f,
+        .pitch = DegToRad(5.0f),
+        .yaw = DegToRad(15.0f)
+    }));
+
     Add(AmbientLight::Create(0xFFFFFF, 0.3f));
 
     auto point_light = PointLight::Create(0xFFFFFF, 1.0f);

@@ -14,12 +14,11 @@
 using namespace engine;
 
 ExampleFog::ExampleFog(std::shared_ptr<engine::Camera> camera) {
-    const auto camera_controls = CameraOrbit::Create(
-        camera, 3.0f,
-        math::DegToRad(25.0f),
-        math::DegToRad(-25.0f)
-    );
-    Add(camera_controls);
+    Add(CameraOrbit::Create(camera, {
+        .radius = 3.0f,
+        .pitch = math::DegToRad(25.0f),
+        .yaw = math::DegToRad(-25.0f)
+    }));
 
     auto geometry = BoxGeometry::Create();
     auto material = PhongMaterial::Create();
