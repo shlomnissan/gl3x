@@ -54,7 +54,13 @@ public:
      * @return A reference to the color component.
      */
     [[nodiscard]] constexpr auto& operator[](int i) {
-        return (reinterpret_cast<float*>(this))[i];
+        assert(i >= 0 && i < 3);
+        switch (i) {
+            case 0: return r;
+            case 1: return g;
+            case 2: return b;
+            default: return r;
+        }
     }
 
     /**
@@ -64,7 +70,13 @@ public:
      * @return A const reference to the color component.
      */
     [[nodiscard]] constexpr auto& operator[](int i) const {
-        return (reinterpret_cast<const float*>(this))[i];
+        assert(i >= 0 && i < 3);
+        switch (i) {
+            case 0: return r;
+            case 1: return g;
+            case 2: return b;
+            default: return r;
+        }
     }
 
     /**
