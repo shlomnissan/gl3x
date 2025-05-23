@@ -11,10 +11,10 @@
 
 # conan/cmake
 
+**/build/
+**/release/
 src/shaders/headers/*.h
 src/shaders/snippets/headers/*.h
-build/*
-release/*
 CMakeUserPresets.json
 
 imgui.ini

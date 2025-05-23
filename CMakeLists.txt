@@ -10,9 +10,10 @@ set(CMAKE_VISIBILITY_INLINE_HIDDEN ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-option(BUILD_DOCS "build documentation" ON)
-option(BUILD_EXAMPLES "build examples" ON)
 option(BUILD_TESTS "build tests" ON)
+option(BUILD_EXAMPLES "build examples" ON)
+option(BUILD_TOOLS "build tools" ON)
+option(BUILD_DOCS "build documentation" ON)
 
 add_subdirectory(src)
 
@@ -23,6 +24,10 @@ endif()
 
 if (BUILD_EXAMPLES)
     add_subdirectory(examples)
+endif()
+
+if (BUILD_TOOLS)
+    add_subdirectory(tools/asset_compiler)
 endif()
 
 if (BUILD_DOCS)
