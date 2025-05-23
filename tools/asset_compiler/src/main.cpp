@@ -79,5 +79,11 @@ auto main(int argc, char** argv) -> int {
         return 1;
     }
 
+    std::cout << "Successfully converted asset: "
+              << input.string()
+              << " to "
+              << output.string()
+              << '\n';
+
     return 0;
 }
