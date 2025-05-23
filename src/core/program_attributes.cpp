@@ -24,14 +24,14 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
     if (type == MaterialType::FlatMaterial) {
         auto m = material->As<FlatMaterial>();
         color = true;
-        texture_map = m->texture_map != nullptr && m->texture_map->Image() != nullptr;
+        texture_map = m->texture_map != nullptr;
     }
 
     if (type == MaterialType::PhongMaterial) {
         auto m = material->As<PhongMaterial>();
         color = true;
         lights = !render_lists->Lights().empty();
-        texture_map = m->texture_map != nullptr && m->texture_map->Image() != nullptr;
+        texture_map = m->texture_map != nullptr;
     }
 
     if (type == MaterialType::ShaderMaterial) {

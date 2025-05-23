@@ -6,6 +6,7 @@
 #include "engine_export.h"
 
 #include "engine/core/image.hpp"
+#include "engine/math/transform2.hpp"
 #include "engine/textures/texture.hpp"
 
 #include <memory>
@@ -18,19 +19,22 @@ namespace engine {
  */
 class ENGINE_EXPORT Texture2D : public Texture {
 public:
+    /// @brief The UV transformation matrix.
+    Transform2 transform;
+
     /**
      * @brief Constructs a Texture2D object.
      *
      * @param image A shared pointer to the image object used to create the texture.
      */
-    explicit Texture2D(std::shared_ptr<engine::Image> image) : image_(image) {}
+    explicit Texture2D(engine::Image image) : image_(std::move(image)) {}
 
     /**
      * @brief Retrieves the image associated with the texture.
      *
      * @return A pointer to the image object.
      */
-    [[nodiscard]] auto Image() { return image_.get(); }
+    [[nodiscard]] auto& Image() { return image_; }
 
     /**
      * @brief Creates a shared pointer to a Texture2D object.
@@ -38,7 +42,7 @@ public:
      * @param image A shared pointer to the image object used to create the texture.
      * @return A shared pointer to the created Texture2D object.
      */
-    [[nodiscard]] static auto Create(std::shared_ptr<engine::Image> image) {
+    [[nodiscard]] static auto Create(engine::Image image) {
         return std::make_shared<Texture2D>(image);
     }
 
@@ -51,9 +55,29 @@ public:
         return TextureType::Texture2D;
     }
 
+    /**
+     * @brief Set the offset of the texture on the X-axis.
+     */
+    auto OffsetX(float value) { transform.Translate({value, 0.0f}); }
+
+    /**
+     * @brief Set the offset of the texture on the Y-axis.
+     */
+    auto OffsetY(float value) { transform.Translate({0.0f, value}); }
+
+    /**
+     * @brief Set the uniform scale of the texture.
+     */
+    auto Scale(float value) { transform.Scale({value, value}); }
+
+    /**
+     * @brief Set the rotation angle of the texture.
+     */
+    auto Rotate(float angle) { transform.Rotate(angle); }
+
 private:
     /// @brief The image associated with the texture.
-    std::shared_ptr<engine::Image> image_;
+    engine::Image image_;
 };
 
 }

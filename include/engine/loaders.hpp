@@ -8,5 +8,5 @@
  * @brief Classes for loading and importing external resources.
  */
 
-#include "engine/loaders/image_loader.hpp"
+#include "engine/loaders/texture_loader.hpp"
 #include "engine/loaders/mesh_loader.hpp"

@@ -6,7 +6,6 @@
 #include "engine_export.h"
 #include "engine/core/disposable.hpp"
 #include "engine/core/identity.hpp"
-#include "engine/math/transform2.hpp"
 
 namespace engine {
 
@@ -22,35 +21,12 @@ enum class TextureType {
  */
 class ENGINE_EXPORT Texture : public Disposable, public Identity {
 public:
-    /// @brief The UV transformation matrix.
-    Transform2 transform;
-
     /**
      * @brief Retrieves the type of the texture.
      *
      * @return TextureType The type of the texture.
      */
     [[nodiscard]] virtual auto Type() const -> TextureType = 0;
-
-    /**
-     * @brief Set the offset of the texture on the X-axis.
-     */
-    auto OffsetX(float value) { transform.Translate({value, 0.0f}); }
-
-    /**
-     * @brief Set the offset of the texture on the Y-axis.
-     */
-    auto OffsetY(float value) { transform.Translate({0.0f, value}); }
-
-    /**
-     * @brief Set the uniform scale of the texture.
-     */
-    auto Scale(float value) { transform.Scale({value, value}); }
-
-    /**
-     * @brief Set the rotation angle of the texture.
-     */
-    auto Rotate(float angle) { transform.Rotate(angle); }
 };
 
 }

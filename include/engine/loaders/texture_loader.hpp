@@ -5,7 +5,7 @@
 
 #include "engine_export.h"
 
-#include "engine/core/image.hpp"
+#include "engine/textures/texture_2d.hpp"
 
 #include "loaders/loader.hpp"
 
@@ -18,20 +18,18 @@ namespace engine {
 
 namespace fs = std::filesystem;
 
-using ImageCallback = std::function<void(std::shared_ptr<Image>)>;
+using TextureCallback = std::function<void(std::shared_ptr<Texture2D>)>;
 
-class ENGINE_EXPORT ImageLoader : public Loader<Image> {
+class ENGINE_EXPORT TextureLoader : public Loader<Texture2D> {
 public:
-    bool flip_y {true};
-
-    [[nodiscard]] static auto Create() -> std::shared_ptr<ImageLoader> {
-        return std::shared_ptr<ImageLoader>(new ImageLoader());
+    [[nodiscard]] static auto Create() -> std::shared_ptr<TextureLoader> {
+        return std::shared_ptr<TextureLoader>(new TextureLoader());
     }
 
-    ~ImageLoader() override = default;
+    ~TextureLoader() override = default;
 
 private:
-    ImageLoader() = default;
+    TextureLoader() = default;
 
     [[nodiscard]] auto ValidFileExtensions() const -> std::vector<std::string> override;
 

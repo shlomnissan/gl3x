@@ -28,7 +28,7 @@ public:
      */
     struct SharedLoaders {
         /// @brief Loader for image resources.
-        std::shared_ptr<ImageLoader> Image = ImageLoader::Create();
+        std::shared_ptr<TextureLoader> Texture = TextureLoader::Create();
 
         /// @brief Loader for mesh resources.
         std::shared_ptr<MeshLoader> Mesh = MeshLoader::Create();

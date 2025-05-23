@@ -33,10 +33,10 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camer
 }
 
 auto ExamplePhongMaterial::OnAttached() -> void {
-    this->Context()->Loaders().Image->LoadAsync(
+    this->Context()->Loaders().Texture->LoadAsync(
         "assets/checker.tex",
         [this](auto result) {
-            if (result) image_ = result.value();
+            if (result) texture_ = result.value();
         }
     );
 }
@@ -60,7 +60,7 @@ auto ExamplePhongMaterial::ContextMenu() -> void {
       [this](std::string_view str) {
         curr_texture = str;
         if (str == "none") material_->texture_map = nullptr;
-        if (str == "checkerboard") material_->texture_map = engine::Texture2D::Create(image_);
+        if (str == "checkerboard") material_->texture_map = texture_;
     });
 
     UISeparator();

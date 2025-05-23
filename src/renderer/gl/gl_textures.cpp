@@ -38,12 +38,12 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
         // We currently use stb_image to load images and set the desired number
         // of channels to four, so the data is always in RGBA format.
         GL_RGBA8,
-        texture_2d->Image()->width,
-        texture_2d->Image()->height,
+        texture_2d->Image().width,
+        texture_2d->Image().height,
         0,
         GL_RGBA,
         GL_UNSIGNED_BYTE,
-        texture_2d->Image()->data.data()
+        texture_2d->Image().data.data()
     );
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -58,6 +58,7 @@ auto GLTextures::TextureCallbacks(Texture* texture) -> void {
         const auto& uuid = static_cast<Texture*>(target)->UUID();
         const auto& state = this->bindings_[uuid];
         glDeleteTextures(1, &state.texture_id);
+        Logger::Log(LogLevel::Info, "Texture buffer cleared {}", *static_cast<Texture*>(target));
         this->bindings_.erase(uuid);
     });
 }

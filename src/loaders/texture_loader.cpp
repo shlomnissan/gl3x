@@ -1,7 +1,9 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/loaders/image_loader.hpp"
+#include "engine/loaders/texture_loader.hpp"
+
+#include "engine/core/image.hpp"
 
 #include "utilities/logger.hpp"
 
@@ -21,11 +23,11 @@ struct TextureHeader {
 
 namespace engine {
 
-auto ImageLoader::ValidFileExtensions() const -> std::vector<std::string> {
+auto TextureLoader::ValidFileExtensions() const -> std::vector<std::string> {
     return {".tex"};
 }
 
-auto ImageLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void> {
+auto TextureLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void> {
     auto file = std::ifstream {path, std::ios::binary};
     if (!file) {
         Logger::Log(LogLevel::Error, "Unabled to open file '{}'", path.string());
@@ -42,7 +44,7 @@ auto ImageLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void> 
     auto data = std::vector<uint8_t>(header.pixel_data_size);
     file.read(reinterpret_cast<char*>(data.data()), header.pixel_data_size);
 
-    return std::make_shared<Image>(Image {
+    return std::make_shared<Texture2D>(Image {
         .filename = path.filename().string(),
         .width = header.width,
         .height = header.height,

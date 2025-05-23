@@ -76,10 +76,10 @@ auto GLBuffers::GenerateBuffers(const Geometry* geometry, GLBufferState& state) 
 
 auto GLBuffers::GeometryCallbacks(Geometry* geometry) -> void {
     geometry->OnDispose([this](Disposable* target){
-        Logger::Log(LogLevel::Info, "Geometry buffer cleared {}", *static_cast<Geometry*>(target));
         auto& uuid = static_cast<Geometry*>(target)->UUID();
         auto& state = this->bindings_[uuid];
         glDeleteBuffers(state.buffers.size(), state.buffers.data());
+        Logger::Log(LogLevel::Info, "Geometry buffer cleared {}", *static_cast<Geometry*>(target));
         this->bindings_.erase(uuid);
     });
 }
