@@ -43,7 +43,7 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
         0,
         GL_RGBA,
         GL_UNSIGNED_BYTE,
-        texture_2d->Image()->Data()
+        texture_2d->Image()->data.data()
     );
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

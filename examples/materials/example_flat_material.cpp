@@ -26,7 +26,7 @@ ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<engine::Camera> camera)
 
 auto ExampleFlatMaterial::OnAttached() -> void {
     this->Context()->Loaders().Image->LoadAsync(
-        "assets/checker.png",
+        "assets/checker.tex",
         [this](auto result) {
             if (result) image_ = result.value();
         }

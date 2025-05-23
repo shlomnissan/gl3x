@@ -34,7 +34,7 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camer
 
 auto ExamplePhongMaterial::OnAttached() -> void {
     this->Context()->Loaders().Image->LoadAsync(
-        "assets/checker.png",
+        "assets/checker.tex",
         [this](auto result) {
             if (result) image_ = result.value();
         }

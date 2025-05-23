@@ -4,7 +4,6 @@ set(SOURCE_CODE
     "core/application_context.cpp"
     "core/event_dispatcher.hpp"
     "core/geometry.cpp"
-    "core/image.cpp"
     "core/program_attributes.cpp"
     "core/program_attributes.hpp"
     "core/render_lists.cpp"
@@ -165,17 +164,12 @@ find_package(OpenGL REQUIRED)
 find_package(glad REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(imgui REQUIRED)
-find_package(Stb REQUIRED)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/external>
-)
-
-target_include_directories(${PROJECT_NAME} PRIVATE
-    ${Stb_INCLUDE_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}
