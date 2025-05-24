@@ -12,6 +12,7 @@
 struct TextureHeader {
     char magic[4];
     uint32_t version;
+    uint32_t header_size;
     uint32_t width;
     uint32_t height;
     uint32_t format;
@@ -37,6 +38,11 @@ auto TextureLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void
     file.read(reinterpret_cast<char*>(&header), sizeof(header));
     if (std::memcmp(header.magic, "TEX0", 4) != 0) {
         Logger::Log(LogLevel::Error, "Invalid texture file '{}'", path.string());
+        return nullptr;
+    }
+
+    if (header.version != 1 || header.header_size != sizeof(TextureHeader)) {
+        Logger::Log(LogLevel::Error, "Unsupported texture version in file '{}'", path.string());
         return nullptr;
     }
 

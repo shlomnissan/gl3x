@@ -20,6 +20,7 @@ enum class TextureFormat : uint32_t {
 struct TextureHeader {
     char magic[4];
     uint32_t version;
+    uint32_t header_size;
     uint32_t width;
     uint32_t height;
     uint32_t format;
@@ -45,6 +46,7 @@ auto convert_texture(
     auto header = TextureHeader {};
     std::memcpy(header.magic, "TEX0", 4);
     header.version = 1;
+    header.header_size = sizeof(TextureHeader);
     header.width = static_cast<uint32_t>(width);
     header.height = static_cast<uint32_t>(height);
     header.format = static_cast<uint32_t>(TextureFormat::RGBA8_UNORM);

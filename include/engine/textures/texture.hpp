@@ -21,6 +21,7 @@ enum class TextureType {
  * @brief Base class for texture objects. It provides a common interface for
  * all texture types, which currently includes Texture2D. Not intended to be
  * instantiated directly.
+ *
  * @ingroup TexturesGroup
  */
 class ENGINE_EXPORT Texture : public Disposable, public Identity {

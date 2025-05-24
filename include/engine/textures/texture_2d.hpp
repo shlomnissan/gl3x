@@ -14,7 +14,18 @@
 namespace engine {
 
 /**
- * @brief Represents a 2D texture that can be attached to materials.
+ * @brief Represents a 2D texture that can be attached to materials. While you
+ * can instantiate a Texture2D object directly, it is recommended to use the texture
+ * loader object to create texture instances:
+ * @code
+ * auto MyNode::OnAttached() -> void override {
+ *   this->Context()->Loaders().Texture->LoadAsync(
+ *     "assets/my_texture.tex",
+ *     [this](auto result) { texture_ = result.value(); }
+ *   );
+ * }
+ * @endcode
+ *
  * @ingroup TexturesGroup
  */
 class ENGINE_EXPORT Texture2D : public Texture {
