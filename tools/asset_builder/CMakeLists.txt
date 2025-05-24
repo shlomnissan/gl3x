@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(asset_compiler VERSION 0.0.1)
+project(asset_builder VERSION 0.0.1)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -12,14 +12,14 @@ set(SOURCE_CODE
     "src/texture_converter.hpp"
 )
 
-add_executable(asset_compiler ${SOURCE_CODE})
+add_executable(asset_builder ${SOURCE_CODE})
 
-target_include_directories(asset_compiler PRIVATE
+target_include_directories(asset_builder PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/external
 )
 
 include(GNUInstallDirs)
 
-install(TARGETS asset_compiler
+install(TARGETS asset_builder
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )

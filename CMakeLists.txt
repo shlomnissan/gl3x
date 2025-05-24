@@ -27,7 +27,7 @@ if (BUILD_EXAMPLES)
 endif()
 
 if (BUILD_TOOLS)
-    add_subdirectory(tools/asset_compiler)
+    add_subdirectory(tools/asset_builder)
 endif()
 
 if (BUILD_DOCS)

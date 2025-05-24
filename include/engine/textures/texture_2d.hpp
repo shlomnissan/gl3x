@@ -67,7 +67,7 @@ public:
     /**
      * @brief Returns the transformation matrix for UV mapping.
      *
-     * @return Matrix3
+     * @return engine::Matrix3
      */
     [[nodiscard]] auto GetTransform() {
         return transform_.Get();
