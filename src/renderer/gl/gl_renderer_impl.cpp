@@ -143,7 +143,7 @@ auto Renderer::Impl::SetUniforms(
         program->SetUniform("u_Color", m->color);
         if (attrs->texture_map) {
             program->SetUniform("u_TextureMap", 0);
-            program->SetUniform("u_TextureTransform", m->texture_map->transform.Get());
+            program->SetUniform("u_TextureTransform", m->texture_map->GetTransform());
             textures_.Bind(m->texture_map);
         }
     }
@@ -162,7 +162,7 @@ auto Renderer::Impl::SetUniforms(
 
         if (attrs->texture_map) {
             program->SetUniform("u_TextureMap", 0);
-            program->SetUniform("u_TextureTransform", m->texture_map->transform.Get());
+            program->SetUniform("u_TextureTransform", m->texture_map->GetTransform());
             textures_.Bind(m->texture_map);
         }
     }

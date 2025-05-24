@@ -10,26 +10,28 @@
 namespace engine {
 
 /**
- * @brief The type of texture.
+ * @brief Represents available texture types.
+ * @ingroup TexturesGroup
  */
 enum class TextureType {
     Texture2D
 };
 
 /**
- * @brief Abstract base class for textures.
+ * @brief Base class for texture objects. It provides a common interface for
+ * all texture types, which currently includes Texture2D. Not intended to be
+ * instantiated directly.
+ * @ingroup TexturesGroup
  */
 class ENGINE_EXPORT Texture : public Disposable, public Identity {
 public:
     /**
-     * @brief Retrieves the type of the texture.
-     *
-     * @return TextureType The type of the texture.
+     * @brief Returns texture type.
      */
-    [[nodiscard]] virtual auto Type() const -> TextureType = 0;
+    [[nodiscard]] virtual auto GetType() const -> TextureType = 0;
 
     /**
-     * @brief Destructor calls the Dispose() method to clean up resources.
+     * @brief Calls Dispose() to clean up resources.
      */
     ~Texture() {
         Dispose();

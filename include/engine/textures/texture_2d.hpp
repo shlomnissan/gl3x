@@ -14,33 +14,31 @@
 namespace engine {
 
 /**
- * @brief Represents a 2D texture.
+ * @brief Represents a 2D texture that can be attached to materials.
+ * @ingroup TexturesGroup
  */
 class ENGINE_EXPORT Texture2D : public Texture {
 public:
-    /// @brief Width of the texture in pixels.
+    /// @brief Width in pixels.
     unsigned width;
 
-    /// @brief Height of the texture in pixels.
+    /// @brief Height in pixels.
     unsigned height;
 
     /// @brief Underlying texture data.
     std::vector<uint8_t> data {};
 
-    /// @brief The UV transformation matrix.
-    Transform2 transform;
-
-    /// @brief Parameters for configuring the texture.
+    /// @brief Parameters for constructing a texture2D object.
     struct Parameters {
-        unsigned width; ///< Width of the texture in pixels.
-        unsigned height; ///< Height of the texture in pixels.
+        unsigned width; ///< Width in pixels.
+        unsigned height; ///< Height in pixels.
         std::vector<uint8_t> data; ///< Underlying texture data.
     };
 
     /**
      * @brief Constructs a Texture2D object.
      *
-     * @param params Parameters struct of the texture.
+     * @param params Parameters struct.
      */
     explicit Texture2D(const Parameters& params) :
         width(params.width),
@@ -50,41 +48,54 @@ public:
     /**
      * @brief Creates a shared pointer to a Texture2D object.
      *
-     * @param params Parameters struct of the texture.
-     * @return A shared pointer to the created Texture2D object.
+     * @param params Parameters struct.
+     * @return std::shared_ptr<Texture2D>
      */
     [[nodiscard]] static auto Create(const Parameters& params) {
         return std::make_shared<Texture2D>(params);
     }
 
     /**
-     * @brief Retrieves the type of the texture.
+     * @brief Returns texture type.
      *
      * @return TextureType::Texture2D.
      */
-    [[nodiscard]] auto Type() const -> TextureType override {
+    [[nodiscard]] auto GetType() const -> TextureType override {
         return TextureType::Texture2D;
     }
 
     /**
-     * @brief Set the offset of the texture on the X-axis.
+     * @brief Returns the transformation matrix for UV mapping.
+     *
+     * @return Matrix3
      */
-    auto OffsetX(float value) { transform.Translate({value, 0.0f}); }
+    [[nodiscard]] auto GetTransform() {
+        return transform_.Get();
+    }
 
     /**
-     * @brief Set the offset of the texture on the Y-axis.
+     * @brief Sets texture offset on the X-axis.
      */
-    auto OffsetY(float value) { transform.Translate({0.0f, value}); }
+    auto OffsetX(float value) { transform_.Translate({value, 0.0f}); }
 
     /**
-     * @brief Set the uniform scale of the texture.
+     * @brief Sets texture offset on the Y-axis.
      */
-    auto Scale(float value) { transform.Scale({value, value}); }
+    auto OffsetY(float value) { transform_.Translate({0.0f, value}); }
 
     /**
-     * @brief Set the rotation angle of the texture.
+     * @brief Sets uniform scale.
      */
-    auto Rotate(float angle) { transform.Rotate(angle); }
+    auto Scale(float value) { transform_.Scale({value, value}); }
+
+    /**
+     * @brief Sets rotation angle.
+     */
+    auto Rotate(float angle) { transform_.Rotate(angle); }
+
+private:
+    /// @brief UV transformation matrix.
+    Transform2 transform_;
 };
 
 }

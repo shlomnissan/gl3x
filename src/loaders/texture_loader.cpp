@@ -5,6 +5,7 @@
 
 #include "utilities/logger.hpp"
 
+#include <cstring>
 #include <fstream>
 
 #pragma pack(push, 1)
