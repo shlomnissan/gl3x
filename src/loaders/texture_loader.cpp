@@ -23,27 +23,20 @@ struct TextureHeader {
 
 namespace engine {
 
-auto TextureLoader::ValidFileExtensions() const -> std::vector<std::string> {
-    return {".tex"};
-}
-
-auto TextureLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void> {
+auto TextureLoader::LoadImpl(const fs::path& path) const -> std::expected<std::shared_ptr<void>, std::string> {
     auto file = std::ifstream {path, std::ios::binary};
     if (!file) {
-        Logger::Log(LogLevel::Error, "Unabled to open file '{}'", path.string());
-        return nullptr;
+        return std::unexpected(std::format("Unable to open file '{}'", path.string()));
     }
 
     TextureHeader header;
     file.read(reinterpret_cast<char*>(&header), sizeof(header));
     if (std::memcmp(header.magic, "TEX0", 4) != 0) {
-        Logger::Log(LogLevel::Error, "Invalid texture file '{}'", path.string());
-        return nullptr;
+        return std::unexpected(std::format("Invalid texture file '{}'", path.string()));
     }
 
     if (header.version != 1 || header.header_size != sizeof(TextureHeader)) {
-        Logger::Log(LogLevel::Error, "Unsupported texture version in file '{}'", path.string());
-        return nullptr;
+        return std::unexpected(std::format("Unsupported texture version in file '{}'", path.string()));
     }
 
     auto data = std::vector<uint8_t>(header.pixel_data_size);

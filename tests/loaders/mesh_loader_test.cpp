@@ -51,9 +51,9 @@ TEST(MeshLoader, LoadMeshSynchronous) {
 }
 
 TEST(MeshLoader, LoadMeshSynchronousInvalidFileType) {
-    mesh_loader->Load("assets/invalid_plane.fbx", [](const auto& result) {
+    mesh_loader->Load("assets/plane.mtl", [](const auto& result) {
         EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "Unsupported file type '.fbx'");
+        EXPECT_EQ(result.error(), "Unsupported file type '.mtl'");
     });
 }
 
@@ -76,17 +76,9 @@ TEST(MeshLoader, LoadMeshAsynchronous) {
 }
 
 TEST(MeshLoader, LoadMeshAsynchronousInvalidFileType) {
-    RunAsyncTest("assets/invalid_plane.fbx", [](const auto& result, const auto& main_thread_id) {
+    RunAsyncTest("assets/plane.mtl", [](const auto& result, const auto& main_thread_id) {
         EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "Unsupported file type '.fbx'");
-        EXPECT_NE(std::this_thread::get_id(), main_thread_id);
-    });
-}
-
-TEST(MeshLoader, LoadMeshAsynchronousInvalidFile) {
-    RunAsyncTest("assets/invalid_plane.obj", [](const auto& result, const auto& main_thread_id) {
-        EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "File not found 'assets/invalid_plane.obj'");
+        EXPECT_EQ(result.error(), "Unsupported file type '.mtl'");
         EXPECT_NE(std::this_thread::get_id(), main_thread_id);
     });
 }

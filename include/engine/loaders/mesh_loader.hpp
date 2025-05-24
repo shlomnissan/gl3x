@@ -7,6 +7,7 @@
 
 #include "loaders/loader.hpp"
 
+#include <expected>
 #include <filesystem>
 #include <memory>
 #include <string>
@@ -31,9 +32,7 @@ public:
 private:
     MeshLoader() = default;
 
-    [[nodiscard]] auto ValidFileExtensions() const -> std::vector<std::string> override;
-
-    [[nodiscard]] auto LoadImpl(const fs::path& path) const -> std::shared_ptr<void> override;
+    [[nodiscard]] auto LoadImpl(const fs::path& path) const -> std::expected<std::shared_ptr<void>, std::string> override;
 };
 
 }

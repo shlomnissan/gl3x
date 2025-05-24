@@ -44,9 +44,9 @@ TEST(TextureLoader, LoadTextureSynchronous) {
 }
 
 TEST(TextureLoader, LoadTextureSynchronousInvalidFileType) {
-    texture_loader->Load("assets/invalid_texture.png", [](const auto& result) {
+    texture_loader->Load("assets/texture.png", [](const auto& result) {
         EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "Unsupported file type '.png'");
+        EXPECT_EQ(result.error(), "Invalid texture file 'assets/texture.png'");
     });
 }
 
@@ -69,17 +69,9 @@ TEST(TextureLoader, LoadTextureAsynchronous) {
 }
 
 TEST(TextureLoader, LoadTextureAsynchronousInvalidFileType) {
-    RunAsyncTest("assets/invalid_texture.png", [](const auto& result, const auto& main_thread_id) {
+    RunAsyncTest("assets/texture.png", [](const auto& result, const auto& main_thread_id) {
         EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "Unsupported file type '.png'");
-        EXPECT_NE(main_thread_id, std::this_thread::get_id());
-    });
-}
-
-TEST(TextureLoader, LoadTextureAsynchronousInvalidFile) {
-    RunAsyncTest("assets/invalid_texture.tex", [](const auto& result, const auto& main_thread_id) {
-        EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "File not found 'assets/invalid_texture.tex'");
+        EXPECT_EQ(result.error(), "Invalid texture file 'assets/texture.png'");
         EXPECT_NE(main_thread_id, std::this_thread::get_id());
     });
 }

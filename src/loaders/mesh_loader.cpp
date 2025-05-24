@@ -9,16 +9,12 @@
 
 namespace engine {
 
-auto MeshLoader::ValidFileExtensions() const -> std::vector<std::string> {
-    return {".obj"};
-}
-
-auto MeshLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void> {
-    if (path.extension() == ".obj") {
-        return obj::import_mesh(path);
-    } else {
-        return nullptr;
+auto MeshLoader::LoadImpl(const fs::path& path) const -> std::expected<std::shared_ptr<void>, std::string> {
+    if (path.extension() != ".obj") {
+        return std::unexpected(std::format("Unsupported file type '{}'", path.extension().string()));
     }
+
+    return obj::import_mesh(path);
 }
 
 }
