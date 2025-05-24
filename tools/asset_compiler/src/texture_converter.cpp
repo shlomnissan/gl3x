@@ -6,6 +6,7 @@
 #include "texture_converter.hpp"
 
 #include <cstdint>
+#include <cstring>
 #include <fstream>
 #include <iostream>
 
