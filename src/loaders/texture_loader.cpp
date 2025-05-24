@@ -3,8 +3,6 @@
 
 #include "engine/loaders/texture_loader.hpp"
 
-#include "engine/core/image.hpp"
-
 #include "utilities/logger.hpp"
 
 #include <fstream>
@@ -44,13 +42,15 @@ auto TextureLoader::LoadImpl(const fs::path& path) const -> std::shared_ptr<void
     auto data = std::vector<uint8_t>(header.pixel_data_size);
     file.read(reinterpret_cast<char*>(data.data()), header.pixel_data_size);
 
-    return std::make_shared<Texture2D>(Image {
-        .filename = path.filename().string(),
+    auto texture = std::make_shared<Texture2D>(Texture2D::Parameters {
         .width = header.width,
         .height = header.height,
-        .channels = 4,
         .data = std::move(data)
     });
+
+    texture->SetName(path.filename().string());
+
+    return texture;
 }
 
 }

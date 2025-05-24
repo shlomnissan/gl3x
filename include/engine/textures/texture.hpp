@@ -27,6 +27,13 @@ public:
      * @return TextureType The type of the texture.
      */
     [[nodiscard]] virtual auto Type() const -> TextureType = 0;
+
+    /**
+     * @brief Destructor calls the Dispose() method to clean up resources.
+     */
+    ~Texture() {
+        Dispose();
+    }
 };
 
 }

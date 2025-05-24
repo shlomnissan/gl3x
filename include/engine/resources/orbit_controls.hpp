@@ -33,8 +33,8 @@ public:
      */
     struct Parameters {
         float radius {1.0f}; ///< Distance of the camera from the target point.
-        float pitch {0.0f};  ///< Pitch angle in radians, measured from the vertical axis.
-        float yaw {0.0f};    ///< Yaw angle in radians, measured from the horizontal axis.
+        float pitch {0.0f}; ///< Pitch angle in radians, measured from the vertical axis.
+        float yaw {0.0f}; ///< Yaw angle in radians, measured from the horizontal axis.
     };
 
     /**

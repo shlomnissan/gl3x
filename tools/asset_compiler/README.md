@@ -1,10 +1,10 @@
 # Asset Compiler
 
-**asset_compiler** is a command-line tool for converting raw asset files into engine-optimized formats like `.texture` and `.mesh`. It’s designed for integration into asset pipelines, supporting both manual and automated workflows.
+**asset_compiler** is a command-line tool for converting raw asset files into engine-optimized formats like `.tex` and `.mesh`. It’s designed for integration into asset pipelines, supporting both manual and automated workflows.
 
 ## Features
 
-- ✅ Converts `.png` and `.jpg` images into `.texture` files
+- ✅ Converts `.png` and `.jpg` images into `.tex` files
 - 🔜 Extendable to support additional asset types and conversion options
 - 🔒 Consistent output format for fast, runtime-friendly loading
 
@@ -18,7 +18,7 @@ asset_compiler <input_file> <output_file>
 
 | Input Extension | Output Extension | Asset Type | Description                      |
 |-----------------|------------------|------------|----------------------------------|
-| `.png`, `.jpg`          | `.texture`       | Texture    | Converts 2D images into GPU-ready texture format |
+| `.png`, `.jpg`          | `.tex`       | Texture    | Converts 2D images into GPU-ready texture format |
 
 ## Building
 

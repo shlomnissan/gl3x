@@ -5,7 +5,6 @@
 
 #include "engine_export.h"
 
-#include "engine/core/image.hpp"
 #include "engine/math/transform2.hpp"
 #include "engine/textures/texture.hpp"
 
@@ -19,31 +18,43 @@ namespace engine {
  */
 class ENGINE_EXPORT Texture2D : public Texture {
 public:
+    /// @brief Width of the texture in pixels.
+    unsigned width;
+
+    /// @brief Height of the texture in pixels.
+    unsigned height;
+
+    /// @brief Underlying texture data.
+    std::vector<uint8_t> data {};
+
     /// @brief The UV transformation matrix.
     Transform2 transform;
+
+    /// @brief Parameters for configuring the texture.
+    struct Parameters {
+        unsigned width; ///< Width of the texture in pixels.
+        unsigned height; ///< Height of the texture in pixels.
+        std::vector<uint8_t> data; ///< Underlying texture data.
+    };
 
     /**
      * @brief Constructs a Texture2D object.
      *
-     * @param image A shared pointer to the image object used to create the texture.
+     * @param params Parameters struct of the texture.
      */
-    explicit Texture2D(engine::Image image) : image_(std::move(image)) {}
-
-    /**
-     * @brief Retrieves the image associated with the texture.
-     *
-     * @return A pointer to the image object.
-     */
-    [[nodiscard]] auto& Image() { return image_; }
+    explicit Texture2D(const Parameters& params) :
+        width(params.width),
+        height(params.height),
+        data(std::move(params.data)) {}
 
     /**
      * @brief Creates a shared pointer to a Texture2D object.
      *
-     * @param image A shared pointer to the image object used to create the texture.
+     * @param params Parameters struct of the texture.
      * @return A shared pointer to the created Texture2D object.
      */
-    [[nodiscard]] static auto Create(engine::Image image) {
-        return std::make_shared<Texture2D>(image);
+    [[nodiscard]] static auto Create(const Parameters& params) {
+        return std::make_shared<Texture2D>(params);
     }
 
     /**
@@ -74,10 +85,6 @@ public:
      * @brief Set the rotation angle of the texture.
      */
     auto Rotate(float angle) { transform.Rotate(angle); }
-
-private:
-    /// @brief The image associated with the texture.
-    engine::Image image_;
 };
 
 }

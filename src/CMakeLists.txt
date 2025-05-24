@@ -79,7 +79,6 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/events.hpp"
     "${PUBLIC_HEADERS_DIR}/core/geometry.hpp"
     "${PUBLIC_HEADERS_DIR}/core/identity.hpp"
-    "${PUBLIC_HEADERS_DIR}/core/image.hpp"
     "${PUBLIC_HEADERS_DIR}/core/renderer.hpp"
     "${PUBLIC_HEADERS_DIR}/core/shared_context.hpp"
     "${PUBLIC_HEADERS_DIR}/core/timer.hpp"

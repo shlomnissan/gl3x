@@ -27,33 +27,30 @@ auto RunAsyncTest(const std::string& file_path, Callback callback) {
     EXPECT_EQ(status, std::future_status::ready);
 }
 
-auto VerifyImage(const auto& image, const std::string& filename) {
-    EXPECT_NE(image, nullptr);
-    EXPECT_EQ(image.data.size(), 5 * 5 * 4);
-    EXPECT_EQ(image.width, 5);
-    EXPECT_EQ(image.height, 5);
-    EXPECT_EQ(image.channels, 4);
-    EXPECT_EQ(image.filename, filename);
+auto VerifyImage(const auto& texture, const std::string& filename) {
+    EXPECT_EQ(texture->data.size(), 5 * 5 * 4);
+    EXPECT_EQ(texture->width, 5);
+    EXPECT_EQ(texture->height, 5);
 }
 
 #pragma endregion
 
 #pragma region Load Image Synchronously
 
-TEST(TextureLoader, LoadImageSynchronous) {
+TEST(TextureLoader, LoadTextureSynchronous) {
     texture_loader->Load("assets/texture.tex", [](const auto& result) {
-        VerifyImage(result.value()->Image(), "texture.tex");
+        VerifyImage(result.value(), "texture.tex");
     });
 }
 
-TEST(TextureLoader, LoadImageSynchronousInvalidFileType) {
+TEST(TextureLoader, LoadTextureSynchronousInvalidFileType) {
     texture_loader->Load("assets/invalid_texture.png", [](const auto& result) {
         EXPECT_FALSE(result);
         EXPECT_EQ(result.error(), "Unsupported file type '.png'");
     });
 }
 
-TEST(TextureLoader, LoadImageSynchronousInvalidFile) {
+TEST(TextureLoader, LoadTextureSynchronousInvalidFile) {
     texture_loader->Load("assets/invalid_texture.tex", [](const auto& result) {
         EXPECT_FALSE(result);
         EXPECT_EQ(result.error(), "File not found 'assets/invalid_texture.tex'");
@@ -64,14 +61,14 @@ TEST(TextureLoader, LoadImageSynchronousInvalidFile) {
 
 #pragma region Load Image Asynchronously
 
-TEST(TextureLoader, LoadImageAsynchronous) {
+TEST(TextureLoader, LoadTextureAsynchronous) {
     RunAsyncTest("assets/texture.tex", [](const auto& result, const auto& main_thread_id) {
-        VerifyImage(result.value()->Image(), "texture.tex");
+        VerifyImage(result.value(), "texture.tex");
         EXPECT_NE(main_thread_id, std::this_thread::get_id());
     });
 }
 
-TEST(TextureLoader, LoadImageAsynchronousInvalidFileType) {
+TEST(TextureLoader, LoadTextureAsynchronousInvalidFileType) {
     RunAsyncTest("assets/invalid_texture.png", [](const auto& result, const auto& main_thread_id) {
         EXPECT_FALSE(result);
         EXPECT_EQ(result.error(), "Unsupported file type '.png'");
@@ -79,7 +76,7 @@ TEST(TextureLoader, LoadImageAsynchronousInvalidFileType) {
     });
 }
 
-TEST(TextureLoader, LoadImageAsynchronousInvalidFile) {
+TEST(TextureLoader, LoadTextureAsynchronousInvalidFile) {
     RunAsyncTest("assets/invalid_texture.tex", [](const auto& result, const auto& main_thread_id) {
         EXPECT_FALSE(result);
         EXPECT_EQ(result.error(), "File not found 'assets/invalid_texture.tex'");
