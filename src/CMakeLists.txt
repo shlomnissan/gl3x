@@ -169,6 +169,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/external>
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/tools>
 )
 
 target_link_libraries(${PROJECT_NAME}

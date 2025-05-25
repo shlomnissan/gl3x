@@ -8,6 +8,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(SOURCE_CODE
     "src/main.cpp"
+    "src/mesh_converter.cpp"
+    "src/mesh_converter.hpp"
     "src/texture_converter.cpp"
     "src/texture_converter.hpp"
 )
@@ -16,6 +18,7 @@ add_executable(asset_builder ${SOURCE_CODE})
 
 target_include_directories(asset_builder PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/external
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 include(GNUInstallDirs)

@@ -4,22 +4,10 @@
 #include "engine/loaders/texture_loader.hpp"
 
 #include "utilities/logger.hpp"
+#include "asset_builder/include/types.hpp"
 
 #include <cstring>
 #include <fstream>
-
-#pragma pack(push, 1)
-struct TextureHeader {
-    char magic[4];
-    uint32_t version;
-    uint32_t header_size;
-    uint32_t width;
-    uint32_t height;
-    uint32_t format;
-    uint32_t mip_levels;
-    uint64_t pixel_data_size;
-};
-#pragma pack(pop)
 
 namespace engine {
 

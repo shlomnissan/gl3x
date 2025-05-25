@@ -1,19 +1,21 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "cxxopts/cxxopts.hpp"
+#include "cxxopts.hpp"
 
 #include <iostream>
 #include <string>
 #include <filesystem>
 
+#include "mesh_converter.hpp"
 #include "texture_converter.hpp"
 
 namespace fs = std::filesystem;
 
 enum class AssetType {
     Invalid,
-    Texture
+    Texture,
+    Mesh
 };
 
 auto get_asset_type(const fs::path& path) -> AssetType {
@@ -23,6 +25,11 @@ auto get_asset_type(const fs::path& path) -> AssetType {
         path.extension() == ".jpeg"
     ) {
         return AssetType::Texture;
+    }
+    if (
+        path.extension() == ".obj"
+    ) {
+        return AssetType::Mesh;
     }
     return AssetType::Invalid;
 }
@@ -67,7 +74,11 @@ auto main(int argc, char** argv) -> int {
     switch (asset_type) {
         case AssetType::Texture:
             output.replace_extension(".tex");
-            convert_texture(input, output);
+            result = convert_texture(input, output);
+            break;
+        case AssetType::Mesh:
+            output.replace_extension(".msh");
+            result = convert_mesh(input, output);
             break;
         default:
             std::cerr << "Error: unsupported asset type for file: " << input.string() << "\n";

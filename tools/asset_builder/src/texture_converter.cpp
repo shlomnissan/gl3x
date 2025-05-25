@@ -4,30 +4,14 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include "texture_converter.hpp"
+#include "types.hpp"
 
 #include <cstdint>
 #include <cstring>
 #include <fstream>
 #include <iostream>
 
-#include "stb_image/stb_image.hpp"
-
-enum class TextureFormat : uint32_t {
-    RGBA8_UNORM = 0
-};
-
-#pragma pack(push, 1)
-struct TextureHeader {
-    char magic[4];
-    uint32_t version;
-    uint32_t header_size;
-    uint32_t width;
-    uint32_t height;
-    uint32_t format;
-    uint32_t mip_levels;
-    uint64_t pixel_data_size;
-};
-#pragma pack(pop)
+#include "stb_image.hpp"
 
 auto convert_texture(
     const fs::path& input_path,
@@ -49,7 +33,7 @@ auto convert_texture(
     header.header_size = sizeof(TextureHeader);
     header.width = static_cast<uint32_t>(width);
     header.height = static_cast<uint32_t>(height);
-    header.format = static_cast<uint32_t>(TextureFormat::RGBA8_UNORM);
+    header.format = static_cast<uint32_t>(TextureFormat::RGBA8);
     header.mip_levels = 1;
     header.pixel_data_size = static_cast<uint64_t>(width) * height * 4;
 

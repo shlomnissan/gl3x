@@ -5,6 +5,7 @@
 ## Features
 
 - ✅ Converts `.png` and `.jpg` images into `.tex` files
+- ✅ Converts `.obj` meshes into `.msh` and `.mtl` files
 - 🔜 Extendable to support additional asset types and conversion options
 - 🔒 Consistent output format for fast, runtime-friendly loading
 
@@ -18,7 +19,8 @@ asset_builder <input_file> <output_file>
 
 | Input Extension | Output Extension | Asset Type | Description                      |
 |-----------------|------------------|------------|----------------------------------|
-| `.png`, `.jpg`          | `.tex`       | Texture    | Converts 2D images into GPU-ready texture format |
+| `.png`, `.jpg`          | `.tex`       | Texture    | Converts 2D images into a GPU-ready format |
+| `.obj`          | `.msh`, `.mtl`       | Mesh    | Converts static meshes into a GPU-ready format |
 
 ## Building and Installing
 
