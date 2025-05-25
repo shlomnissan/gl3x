@@ -21,10 +21,11 @@ struct VertexKey {
 };
 
 struct VertexKeyHash {
-    std::size_t operator()(const VertexKey& key) const {
-        return std::hash<int>()(key.pos_idx) ^
-               std::hash<int>()(key.norm_idx << 1) ^
-               std::hash<int>()(key.uv_idx << 2);
+    auto operator()(const VertexKey& key) const {
+        auto h1 = std::hash<int>{}(key.pos_idx);
+        auto h2 = std::hash<int>{}(key.norm_idx);
+        auto h3 = std::hash<int>{}(key.uv_idx);
+        return h1 ^ (h2 << 1) ^ (h3 << 2);
     }
 };
 
@@ -91,6 +92,8 @@ auto convert_mesh(
             }
 
             seen_vertices[key] = static_cast<unsigned>(vertex_data.size() / stride(attrib));
+            index_data.push_back(seen_vertices[key]);
+
             vertex_data.insert(vertex_data.end(), {
                 attrib.vertices[3 * idx.vertex_index + 0],
                 attrib.vertices[3 * idx.vertex_index + 1],

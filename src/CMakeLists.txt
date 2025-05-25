@@ -20,8 +20,6 @@ set(SOURCE_CODE
     "geometries/cylinder_geometry.cpp"
     "geometries/plane_geometry.cpp"
     "geometries/sphere_geometry.cpp"
-    "importers/obj_importer.cpp"
-    "importers/obj_importer.hpp"
     "lights/directional_light.cpp"
     "lights/point_light.cpp"
     "lights/spot_light.cpp"

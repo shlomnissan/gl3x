@@ -30,7 +30,7 @@ ExampleArbitraryMesh::ExampleArbitraryMesh(std::shared_ptr<engine::Camera> camer
 
 auto ExampleArbitraryMesh::OnAttached() -> void {
     this->Context()->Loaders().Mesh->LoadAsync(
-        "assets/bunny.obj",
+        "assets/bunny_with_normals.msh",
         [this](auto result) {
             if (result) {
                 mesh_ = result.value();

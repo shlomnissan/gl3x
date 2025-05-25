@@ -3,7 +3,6 @@
 
 #include "engine/loaders/texture_loader.hpp"
 
-#include "utilities/logger.hpp"
 #include "asset_builder/include/types.hpp"
 
 #include <cstring>
@@ -17,7 +16,7 @@ auto TextureLoader::LoadImpl(const fs::path& path) const -> std::expected<std::s
         return std::unexpected(std::format("Unable to open file '{}'", path.string()));
     }
 
-    TextureHeader header;
+    auto header = TextureHeader {};
     file.read(reinterpret_cast<char*>(&header), sizeof(header));
     if (std::memcmp(header.magic, "TEX0", 4) != 0) {
         return std::unexpected(std::format("Invalid texture file '{}'", path.string()));
