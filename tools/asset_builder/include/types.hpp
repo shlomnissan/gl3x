@@ -34,7 +34,6 @@ struct MeshHeader {
     uint32_t version;
     uint32_t header_size;
     uint32_t mesh_count;
-    uint64_t file_size;
 };
 #pragma pack(pop)
 
