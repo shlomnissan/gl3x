@@ -28,6 +28,8 @@ class ENGINE_EXPORT Texture : public Disposable, public Identity {
 public:
     /**
      * @brief Returns texture type.
+     *
+     * @return engine::TextureType
      */
     [[nodiscard]] virtual auto GetType() const -> TextureType = 0;
 

@@ -12,7 +12,8 @@
 namespace engine {
 
 /**
- * @brief The type of light.
+ * @brief Represents available light types.
+ * @ingroup LightsGroup
  */
 enum class LightType {
     AmbientLight,
@@ -22,50 +23,53 @@ enum class LightType {
 };
 
 /**
- * @brief Abstract base class for light sources.
+ * @brief Base class for light objects. It provides a common interface for
+ * all light types. Not intended to be instantiated directly.
+ *
+ * @ingroup LightsGroup
  */
 class ENGINE_EXPORT Light : public Node {
 public:
     /**
-     * @brief Defines how the light intensity diminishes over distance.
+     * @brief Defines how light intensity diminishes over distance.
      */
     struct Attenuation {
         /// @brief Minimum light intensity, unaffected by distance.
         float base {1.0f};
-        /// @brief Controls a gradual, proportional fade as distance increases.
+        /// @brief Gradual, proportional fade as distance increases.
         float linear {0.0f};
-        /// @brief Simulates real-world light falloff using an inverse-square law.
+        /// @brief Real-world light falloff using an inverse-square law.
         float quadratic {0.0f};
     };
 
-    /// @brief The color of the light.
+    /// @brief Light color, represented as RGB values.
     Color color {0xffffff};
 
-    /// @brief The intensity of the light.
+    /// @brief Light intensity.
     float intensity {1.0f};
 
     /// @brief Indicates whether the light is in debug mode.
     bool debug_mode_enabled {false};
 
     /**
-     * @brief Constructs a new Light instance.
+     * @brief Constructs a Light object.
      *
-     * @param color The color of the light.
-     * @param intensity The intensity of the light.
+     * @param color Light color.
+     * @param intensity Light intensity.
      */
     Light(Color color, float intensity) : color(color), intensity(intensity) {}
 
     /**
-     * @brief Retrieves the type of the light.
+     * @brief Returns light type.
      *
-     * @return LightType The type of the light.
+     * @return engine::LightType
      */
     [[nodiscard]] virtual auto Type() const -> LightType = 0;
 
     /**
-     * @brief Enables or disables the debug mode for the light.
+     * @brief Sets debug mode.
      *
-     * @param is_debug_mode Indicates whether the debug mode should be enabled.
+     * @param is_debug_mode True to enable debug mode, false to disable.
      */
     virtual auto SetDebugMode(bool is_debug_mode) -> void {
         debug_mode_enabled = is_debug_mode;

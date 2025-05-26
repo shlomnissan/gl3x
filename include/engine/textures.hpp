@@ -5,7 +5,7 @@
 
 /**
  * @defgroup TexturesGroup Textures
- * @brief Texture types for use in materials and rendering.
+ * @brief Texture types used in materials and rendering processes.
  */
 
 #include "engine/textures/texture_2d.hpp"

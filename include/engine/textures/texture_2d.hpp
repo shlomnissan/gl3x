@@ -60,7 +60,7 @@ public:
      * @brief Creates a shared pointer to a Texture2D object.
      *
      * @param params Parameters struct.
-     * @return std::shared_ptr<Texture2D>
+     * @return std::shared_ptr<engine::Texture2D>
      */
     [[nodiscard]] static auto Create(const Parameters& params) {
         return std::make_shared<Texture2D>(params);
@@ -69,7 +69,7 @@ public:
     /**
      * @brief Returns texture type.
      *
-     * @return TextureType::Texture2D.
+     * @return TextureType::Texture2D
      */
     [[nodiscard]] auto GetType() const -> TextureType override {
         return TextureType::Texture2D;
@@ -86,21 +86,29 @@ public:
 
     /**
      * @brief Sets texture offset on the X-axis.
+     *
+     * @param value Offset value in pixels.
      */
     auto OffsetX(float value) { transform_.Translate({value, 0.0f}); }
 
     /**
      * @brief Sets texture offset on the Y-axis.
+     *
+     * @param value Offset value in pixels.
      */
     auto OffsetY(float value) { transform_.Translate({0.0f, value}); }
 
     /**
      * @brief Sets uniform scale.
+     *
+     * @param value Scale value.
      */
     auto Scale(float value) { transform_.Scale({value, value}); }
 
     /**
      * @brief Sets rotation angle.
+     *
+     * @param angle Rotation angle in radians.
      */
     auto Rotate(float angle) { transform_.Rotate(angle); }
 

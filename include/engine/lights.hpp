@@ -5,7 +5,7 @@
 
 /**
  * @defgroup LightsGroup Lights
- * @brief Classes representing different types of light sources.
+ * @brief Light source types for scene illumination.
  */
 
 #include "engine/lights/ambient_light.hpp"
