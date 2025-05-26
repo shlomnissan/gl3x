@@ -6,6 +6,7 @@
 #include "mesh_converter.hpp"
 #include "types.hpp"
 
+#include <cmath>
 #include <format>
 #include <iostream>
 #include <unordered_map>
@@ -33,6 +34,39 @@ using VertexMap = std::unordered_map<VertexKey, unsigned, VertexKeyHash>;
 
 namespace {
 
+struct __vec3_t {
+    float x;
+    float y;
+    float z;
+
+    [[nodiscard]] friend auto operator-(const __vec3_t a, const __vec3_t b) {
+        return __vec3_t {a.x - b.x, a.y - b.y, a.z - b.z};
+    }
+
+    [[nodiscard]] auto Length() const {
+        return std::sqrt(x * x + y * y + z * z);
+    }
+
+    auto Normalize() {
+        const auto len = Length();
+        if (len != 0.0f) {
+            auto m = (1.0f / len);
+            x *= m;
+            y *= m;
+            z *= m;
+        }
+        return *this;
+    }
+};
+
+[[nodiscard]] auto cross(const __vec3_t a, const __vec3_t b) {
+    return __vec3_t {
+        a.y * b.z - a.z * b.y,
+        a.z * b.x - a.x * b.z,
+        a.x * b.y - a.y * b.x
+    };
+}
+
 auto stride(const tinyobj::attrib_t& attrib) {
     auto stride = 6u; // positions and normals are guaranteed
     if (!attrib.texcoords.empty()) {
@@ -41,7 +75,48 @@ auto stride(const tinyobj::attrib_t& attrib) {
     return stride;
 }
 
+auto generate_normals(
+    std::vector<float>& vertex_data,
+    std::vector<unsigned>& index_data,
+    unsigned int stride
+) {
+    for (auto i = 0; i < index_data.size(); i += 3) {
+        const auto i0 = index_data[i + 0];
+        const auto i1 = index_data[i + 1];
+        const auto i2 = index_data[i + 2];
+
+        auto v0 = __vec3_t {
+            vertex_data[i0 * stride + 0],
+            vertex_data[i0 * stride + 1],
+            vertex_data[i0 * stride + 2]
+        };
+
+        auto v1 = __vec3_t {
+            vertex_data[i1 * stride + 0],
+            vertex_data[i1 * stride + 1],
+            vertex_data[i1 * stride + 2],
+        };
+
+        auto v2 = __vec3_t {
+            vertex_data[i2 * stride + 0],
+            vertex_data[i2 * stride + 1],
+            vertex_data[i2 * stride + 2],
+        };
+
+        auto e0 = v1 - v0;
+        auto e1 = v2 - v0;
+        const auto normal = cross(e0, e1).Normalize();
+
+        constexpr auto normal_offset = 3;
+        for (auto idx : {i0, i1, i2}) {
+            vertex_data[idx * stride + normal_offset + 0] += normal.x;
+            vertex_data[idx * stride + normal_offset + 1] += normal.y;
+            vertex_data[idx * stride + normal_offset + 2] += normal.z;
+        }
+    }
 }
+
+} // unnamed namespace
 
 auto convert_mesh(
     const fs::path& input_path,
@@ -120,7 +195,9 @@ auto convert_mesh(
             }
         }
 
-        // TODO: generate normals if not provided
+        if (attrib.normals.empty()) {
+            generate_normals(vertex_data, index_data, stride(attrib));
+        }
 
         auto mesh_entry_header = MeshEntryHeader {};
         auto name = shape.name.empty() ? "default:Mesh" : shape.name;
