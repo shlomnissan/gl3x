@@ -45,22 +45,22 @@ auto VerifyMesh(std::shared_ptr<engine::Node> root) {
 #pragma region Load Mesh Synchronously
 
 TEST(MeshLoader, LoadMeshSynchronous) {
-    mesh_loader->Load("assets/plane.obj", [](const auto& result) {
+    mesh_loader->Load("assets/plane.msh", [](const auto& result) {
         VerifyMesh(result.value());
     });
 }
 
 TEST(MeshLoader, LoadMeshSynchronousInvalidFileType) {
-    mesh_loader->Load("assets/plane.mtl", [](const auto& result) {
+    mesh_loader->Load("assets/plane.obj", [](const auto& result) {
         EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "Unsupported file type '.mtl'");
+        EXPECT_EQ(result.error(), "Invalid mesh file 'assets/plane.obj'");
     });
 }
 
 TEST(MeshLoader, LoadMeshSynchronousInvalidFile) {
-    mesh_loader->Load("assets/invalid_plane.obj", [](const auto& result) {
+    mesh_loader->Load("assets/invalid_plane.msh", [](const auto& result) {
         EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "File not found 'assets/invalid_plane.obj'");
+        EXPECT_EQ(result.error(), "File not found 'assets/invalid_plane.msh'");
     });
 }
 
@@ -69,16 +69,16 @@ TEST(MeshLoader, LoadMeshSynchronousInvalidFile) {
 #pragma region Load Mesh Asynchronously
 
 TEST(MeshLoader, LoadMeshAsynchronous) {
-    RunAsyncTest("assets/plane.obj", [](const auto& result, const auto& main_thread_id) {
+    RunAsyncTest("assets/plane.msh", [](const auto& result, const auto& main_thread_id) {
         VerifyMesh(result.value());
         EXPECT_NE(std::this_thread::get_id(), main_thread_id);
     });
 }
 
 TEST(MeshLoader, LoadMeshAsynchronousInvalidFileType) {
-    RunAsyncTest("assets/plane.mtl", [](const auto& result, const auto& main_thread_id) {
+    RunAsyncTest("assets/plane.obj", [](const auto& result, const auto& main_thread_id) {
         EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "Unsupported file type '.mtl'");
+        EXPECT_EQ(result.error(), "Invalid mesh file 'assets/plane.obj'");
         EXPECT_NE(std::this_thread::get_id(), main_thread_id);
     });
 }

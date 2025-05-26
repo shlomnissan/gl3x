@@ -10,6 +10,7 @@
 
 #include "asset_builder/include/types.hpp"
 
+#include <cstring>
 #include <fstream>
 
 namespace engine {

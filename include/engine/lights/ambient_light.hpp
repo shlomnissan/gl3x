@@ -11,6 +11,8 @@ namespace engine {
 
 /**
  * @brief A light that gets emitted in all directions.
+ *
+ * @ingroup LightsGroup
  */
 class AmbientLight : public Light {
 public:
