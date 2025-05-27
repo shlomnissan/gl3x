@@ -8,12 +8,16 @@
 #include "types.hpp"
 
 #include <cmath>
+#include <filesystem>
 #include <format>
 #include <iostream>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
 
 #include "tiny_obj_loader.hpp"
+
+namespace fs = std::filesystem;
 
 struct VertexKey {
     int pos_idx;
@@ -76,6 +80,12 @@ auto stride(const tinyobj::attrib_t& attrib) {
     return stride;
 }
 
+template<size_t N>
+auto copy_fixed_size_str(char (&dst)[N], const std::string_view src) {
+    std::memset(dst, 0, N);
+    std::memcpy(dst, src.data(), std::min(src.size(), N - 1));
+}
+
 auto generate_normals(
     std::vector<float>& vertex_data,
     std::vector<unsigned>& index_data,
@@ -121,7 +131,24 @@ auto parse_materials(
     const std::vector<tinyobj::material_t> &materials,
     std::ofstream& out_stream
 ) {
-    // TODO: parse materials
+    for (const auto& material : materials) {
+        auto mat_entry = MaterialEntryHeader {};
+
+        // TODO: handle texture loading
+
+        copy_fixed_size_str(
+            mat_entry.name,
+            material.name.empty() ? "default:Material" : material.name
+        );
+
+        std::memset(mat_entry.texture, 0, sizeof(mat_entry.texture));
+        std::memcpy(mat_entry.ambient, material.ambient, sizeof(material.ambient));
+        std::memcpy(mat_entry.diffuse, material.diffuse, sizeof(material.diffuse));
+        std::memcpy(mat_entry.specular, material.specular, sizeof(material.specular));
+        mat_entry.shininess = material.shininess;
+
+        out_stream.write(reinterpret_cast<const char*>(&mat_entry), sizeof(mat_entry));
+    }
 }
 
 auto parse_shapes(
@@ -177,21 +204,25 @@ auto parse_shapes(
             generate_normals(vertex_data, index_data, stride(attrib));
         }
 
-        auto mesh_entry_header = MeshEntryHeader {};
-        auto name = shape.name.empty() ? "default:Mesh" : shape.name;
-        std::strncpy(mesh_entry_header.name, name.c_str(), sizeof(mesh_entry_header.name) - 1);
-        mesh_entry_header.vertex_count = static_cast<uint32_t>(seen_vertices.size());
-        mesh_entry_header.index_count = static_cast<uint32_t>(index_data.size());
-        mesh_entry_header.vertex_stride = stride(attrib);
-        mesh_entry_header.material_index = 0; // TODO: handle materials
-        mesh_entry_header.vertex_data_size = static_cast<uint64_t>(vertex_data.size() * sizeof(float));
-        mesh_entry_header.index_data_size = static_cast<uint64_t>(index_data.size() * sizeof(unsigned));
-        mesh_entry_header.vertex_flags = VertexAttributeFlags::Positions | VertexAttributeFlags::Normals;
+        auto msh_entry = MeshEntryHeader {};
+
+        copy_fixed_size_str(
+            msh_entry.name,
+            shape.name.empty() ? "default:Mesh" : shape.name
+        );
+
+        msh_entry.vertex_count = static_cast<uint32_t>(seen_vertices.size());
+        msh_entry.index_count = static_cast<uint32_t>(index_data.size());
+        msh_entry.vertex_stride = stride(attrib);
+        msh_entry.material_index = 0; // TODO: handle materials
+        msh_entry.vertex_data_size = static_cast<uint64_t>(vertex_data.size() * sizeof(float));
+        msh_entry.index_data_size = static_cast<uint64_t>(index_data.size() * sizeof(unsigned));
+        msh_entry.vertex_flags = VertexAttributeFlags::Positions | VertexAttributeFlags::Normals;
         if (!attrib.texcoords.empty()) {
-            mesh_entry_header.vertex_flags |= VertexAttributeFlags::UVs;
+            msh_entry.vertex_flags |= VertexAttributeFlags::UVs;
         }
 
-        out_stream.write(reinterpret_cast<const char*>(&mesh_entry_header), sizeof(mesh_entry_header));
+        out_stream.write(reinterpret_cast<const char*>(&msh_entry), sizeof(msh_entry));
         out_stream.write(reinterpret_cast<const char*>(vertex_data.data()), vertex_data.size() * sizeof(float));
         out_stream.write(reinterpret_cast<const char*>(index_data.data()), index_data.size() * sizeof(unsigned));
     }
@@ -224,6 +255,7 @@ auto convert_mesh(
     std::memcpy(header.magic, "MES0", 4);
     header.version = 1;
     header.header_size = sizeof(MeshHeader);
+    header.material_count = static_cast<uint32_t>(materials.size());
     header.mesh_count = static_cast<uint32_t>(shapes.size());
 
     auto out_stream = std::ofstream {output_path, std::ios::binary};

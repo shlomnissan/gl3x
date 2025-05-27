@@ -33,6 +33,7 @@ struct MeshHeader {
     char magic[4] = {};
     uint32_t version;
     uint32_t header_size;
+    uint32_t material_count;
     uint32_t mesh_count;
 };
 #pragma pack(pop)

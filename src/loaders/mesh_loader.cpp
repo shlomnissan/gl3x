@@ -31,6 +31,13 @@ auto MeshLoader::LoadImpl(const fs::path& path) const -> std::expected<std::shar
         return std::unexpected(std::format("Unsupported mesh version in file '{}'", path.string()));
     }
 
+    for (auto i = 0; i < header.material_count; ++i) {
+        auto entry_header = MaterialEntryHeader {};
+        file.read(reinterpret_cast<char*>(&entry_header), sizeof(entry_header));
+
+        // TODO: add material to array
+    }
+
     auto root = Node::Create();
 
     for (auto i = 0; i < header.mesh_count; ++i) {
@@ -55,6 +62,8 @@ auto MeshLoader::LoadImpl(const fs::path& path) const -> std::expected<std::shar
         if (entry_header.vertex_flags & VertexAttributeFlags::UVs) {
             geometry->SetAttribute({.type = GeometryAttributeType::UV, .item_size = 2});
         }
+
+        // TODO: use the mat index to construct the material
 
         root->Add(Mesh::Create(geometry, PhongMaterial::Create(0x049EF4)));
     }
