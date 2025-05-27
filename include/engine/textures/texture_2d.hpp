@@ -17,6 +17,7 @@ namespace engine {
  * @brief Represents a 2D texture that can be attached to materials. While you
  * can instantiate a Texture2D object directly, it is recommended to use the texture
  * loader object to create texture instances:
+ *
  * @code
  * auto MyNode::OnAttached() -> void override {
  *   this->Context()->Loaders().Texture->LoadAsync(
@@ -49,7 +50,7 @@ public:
     /**
      * @brief Constructs a Texture2D object.
      *
-     * @param params Parameters struct.
+     * @param params Texture2D::Parameters
      */
     explicit Texture2D(const Parameters& params) :
         width(params.width),
@@ -59,7 +60,7 @@ public:
     /**
      * @brief Creates a shared pointer to a Texture2D object.
      *
-     * @param params Parameters struct.
+     * @param params Texture2D::Parameters
      * @return std::shared_ptr<engine::Texture2D>
      */
     [[nodiscard]] static auto Create(const Parameters& params) {

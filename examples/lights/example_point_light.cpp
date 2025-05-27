@@ -36,7 +36,11 @@ ExamplePointLight::ExamplePointLight(std::shared_ptr<engine::Camera> camera) {
     mesh->transform.Translate({0.0f, 0.5f, 0.0f});
     Add(mesh);
 
-    Add(AmbientLight::Create(0xFFFFFF, 0.15f));
+    Add(AmbientLight::Create({
+        .color = 0xFFFFFF,
+        .intensity = .15f
+    }));
+
     point_light_ = PointLight::Create(0xFFFFFF, 1.0f);
     point_light_->transform.Translate({1.0f, 2.0f, -2.0f});
     point_light_->SetDebugMode(true);

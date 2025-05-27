@@ -30,8 +30,10 @@ ExampleFog::ExampleFog(std::shared_ptr<engine::Camera> camera) {
         Add(box);
     }
 
-    auto ambient_light = AmbientLight::Create(0xFFFFFF, 0.3f);
-    Add(ambient_light);
+    Add(AmbientLight::Create({
+        .color = 0xFFFFFF,
+        .intensity = 0.3f
+    }));
 
     auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
     point_light->transform.Translate({2.0f, 2.0f, 2.0f});

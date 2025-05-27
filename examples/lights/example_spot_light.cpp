@@ -33,7 +33,11 @@ ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
     mesh->transform.Rotate(Vector3::Right(), math::DegToRad(-90.0f));
     Add(mesh);
 
-    Add(AmbientLight::Create(0xFFFFFF, 0.15f));
+    Add(AmbientLight::Create({
+        .color = 0xFFFFFF,
+        .intensity = 0.15f
+    }));
+
     spot_light_ = SpotLight::Create(0xFFFFFF, 1.0f);
     spot_light_->transform.Translate({2.0f, 2.0f, -1.0f});
     spot_light_->angle = math::DegToRad(10.0f);

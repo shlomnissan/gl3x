@@ -37,7 +37,11 @@ ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<engine::Camera>
     mesh->transform.Translate({0.0f, 0.5f, 0.0f});
     Add(mesh);
 
-    Add(AmbientLight::Create(0xFFFFFF, 0.15f));
+    Add(AmbientLight::Create({
+        .color = 0xFFFFFF,
+        .intensity = 0.15f
+    }));
+
     directional_light_ = DirectionalLight::Create(0xFFFFFF, 1.0f);
     directional_light_->transform.Translate({2.0f, 2.0f, -2.0f});
     directional_light_->target = mesh;

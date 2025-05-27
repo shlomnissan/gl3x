@@ -16,8 +16,10 @@ ExampleLerpAnimationTest::ExampleLerpAnimationTest(std::shared_ptr<engine::Camer
 
     Add(OrbitControls::Create(camera, {.radius = 3.0f}));
 
-    auto ambient = AmbientLight::Create(0xFFFFFF, 0.3f);
-    Add(ambient);
+    Add(AmbientLight::Create({
+        .color = 0xFFFFFF,
+        .intensity = 0.3f
+    }));
 
     auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
     point_light->transform.Translate({0.0f, 0.0f, 30.0f});

@@ -21,7 +21,10 @@ ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<engine::Camera> camer
         .yaw = math::DegToRad(45.0f)
     }));
 
-    Add(AmbientLight::Create(0xFFFFFF, 0.3f));
+    Add(AmbientLight::Create({
+        .color = 0xFFFFFF,
+        .intensity = 0.3f
+    }));
 
     auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
     point_light->transform.Translate({2.0f, 2.0f, 4.0f});

@@ -10,46 +10,53 @@
 namespace engine {
 
 /**
- * @brief A light that gets emitted in all directions.
+ * @brief Represents a light that gets emitted in all directions equally.
+ * This light cannot be used to cast shadows as it does not have a direction.
+ *
+ * @code
+ * Add(AmbientLight::Create({
+ *   .color = 0xFFFFFF,
+ *   .intensity = 0.3f
+ * }));
+ * @endcode
  *
  * @ingroup LightsGroup
  */
 class AmbientLight : public Light {
 public:
+    /// @brief Parameters for constructing an AmbientLight object.
+    struct Parameters {
+        Color color; ///< Light color.
+        float intensity; ///< Light intensity.
+    };
+
     /**
-     * @brief Constructs a new AmbientLight instance.
+     * @brief Constructs an AmbientLight object.
      *
-     * @param color The color of the light.
-     * @param intensity The intensity of the light.
+     * @param params AmbientLight::Parameters
      */
-    AmbientLight(Color color, float intensity) : Light(color, intensity) {
+    AmbientLight(const Parameters& params) : Light(params.color, params.intensity) {
         SetName("ambient light");
     }
 
     /**
-     * @brief Creates a new AmbientLight instance.
+     * @brief Creates a shared pointer to an AmbientLight object.
      *
-     * @param color The color of the light.
-     * @param intensity The intensity of the light.
-     * @return A shared pointer to the created AmbientLight.
+     * @param params AmbientLight::Parameters
+     * @return std::shared_ptr<engine::AmbientLight>
      */
-    [[nodiscard]] static auto Create(Color color = {0xffffff}, float intensity = 1.0f) {
-        return std::make_shared<AmbientLight>(color, intensity);
+    [[nodiscard]] static auto Create(const Parameters& params) {
+        return std::make_shared<AmbientLight>(params);
     }
 
     /**
-     * @brief Retrieves the type of the light.
+     * @brief Returns light type.
      *
-     * @return LightType::Ambient.
+     * @return LightType::Ambient
      */
     [[nodiscard]] auto Type() const -> LightType override {
         return LightType::AmbientLight;
     }
-
-    /**
-     * @brief Default destructor.
-     */
-    ~AmbientLight() override = default;
 };
 
 }
