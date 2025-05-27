@@ -38,6 +38,17 @@ struct MeshHeader {
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+struct MaterialEntryHeader {
+    char name[64] = {};
+    char texture[128] = {};
+    float ambient[3];
+    float diffuse[3];
+    float specular[3];
+    float shininess;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
 struct MeshEntryHeader {
     char name[64] = {};
     uint32_t vertex_count;

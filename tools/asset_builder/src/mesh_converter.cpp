@@ -4,6 +4,7 @@
 #define TINYOBJLOADER_IMPLEMENTATION
 
 #include "mesh_converter.hpp"
+#include "texture_converter.hpp"
 #include "types.hpp"
 
 #include <cmath>
@@ -116,41 +117,18 @@ auto generate_normals(
     }
 }
 
-} // unnamed namespace
+auto parse_materials(
+    const std::vector<tinyobj::material_t> &materials,
+    std::ofstream& out_stream
+) {
+    // TODO: parse materials
+}
 
-auto convert_mesh(
-    const fs::path& input_path,
-    const fs::path& output_path
-) -> std::expected<void, std::string> {
-    auto reader_config = tinyobj::ObjReaderConfig {};
-    auto reader = tinyobj::ObjReader {};
-
-    if (!reader.ParseFromFile(input_path.string(), reader_config)) {
-        return reader.Error().empty() ?
-            std::unexpected(std::format("Error: Failed to load mesh {}\n", input_path.string())) :
-            std::unexpected(std::format("Error: {}\n", reader.Error()));
-    }
-
-    if (!reader.Warning().empty()) {
-        std::cout << std::format("Warning: {}\n", reader.Warning());
-    }
-
-    auto& attrib = reader.GetAttrib();
-    auto& shapes = reader.GetShapes();
-
-    auto header = MeshHeader {};
-    std::memcpy(header.magic, "MES0", 4);
-    header.version = 1;
-    header.header_size = sizeof(MeshHeader);
-    header.mesh_count = static_cast<uint32_t>(shapes.size());
-
-    auto out_stream = std::ofstream {output_path, std::ios::binary};
-    if (!out_stream) {
-        return std::unexpected("Failed to open output file: " + output_path.string());
-    }
-
-    out_stream.write(reinterpret_cast<const char*>(&header), sizeof(header));
-
+auto parse_shapes(
+    const std::vector<tinyobj::shape_t> &shapes,
+    const tinyobj::attrib_t &attrib,
+    std::ofstream& out_stream
+) {
     for (const auto& shape : shapes) {
         auto& mesh = shape.mesh;
         auto seen_vertices = VertexMap {};
@@ -217,6 +195,46 @@ auto convert_mesh(
         out_stream.write(reinterpret_cast<const char*>(vertex_data.data()), vertex_data.size() * sizeof(float));
         out_stream.write(reinterpret_cast<const char*>(index_data.data()), index_data.size() * sizeof(unsigned));
     }
+}
+
+} // unnamed namespace
+
+auto convert_mesh(
+    const fs::path& input_path,
+    const fs::path& output_path
+) -> std::expected<void, std::string> {
+    auto reader_config = tinyobj::ObjReaderConfig {};
+    auto reader = tinyobj::ObjReader {};
+
+    if (!reader.ParseFromFile(input_path.string(), reader_config)) {
+        return reader.Error().empty() ?
+            std::unexpected(std::format("Error: Failed to load mesh {}\n", input_path.string())) :
+            std::unexpected(std::format("Error: {}\n", reader.Error()));
+    }
+
+    if (!reader.Warning().empty()) {
+        std::cout << std::format("Warning: {}\n", reader.Warning());
+    }
+
+    auto& attrib = reader.GetAttrib();
+    auto& shapes = reader.GetShapes();
+    auto& materials = reader.GetMaterials();
+
+    auto header = MeshHeader {};
+    std::memcpy(header.magic, "MES0", 4);
+    header.version = 1;
+    header.header_size = sizeof(MeshHeader);
+    header.mesh_count = static_cast<uint32_t>(shapes.size());
+
+    auto out_stream = std::ofstream {output_path, std::ios::binary};
+    if (!out_stream) {
+        return std::unexpected("Failed to open output file: " + output_path.string());
+    }
+
+    out_stream.write(reinterpret_cast<const char*>(&header), sizeof(header));
+
+    parse_materials(materials, out_stream);
+    parse_shapes(shapes, attrib, out_stream);
 
     return {};
 }
