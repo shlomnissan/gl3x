@@ -131,11 +131,16 @@ auto convert_texture(
     const std::string& texture,
     const fs::path& mesh_input_path
 ) -> std::string {
-    auto dir = mesh_input_path.parent_path().string();
-    auto tex_input = fs::path {dir + "/" + texture};
-    if (!fs::exists(tex_input)) {
-        std::cout << "Failed to load texture " << tex_input << '\n';
-        return "";
+    auto tex_path = fs::path {texture};
+    auto tex_input = tex_path;
+
+    if (!fs::exists(tex_path)) {
+        auto dir = mesh_input_path.parent_path();
+        tex_input = dir.append(texture);
+        if (!fs::exists(tex_input)) {
+            std::cout << "Failed to load texture " << tex_input << '\n';
+            return "";
+        }
     }
 
     auto tex_output = tex_input;
@@ -146,7 +151,7 @@ auto convert_texture(
     }
 
     std::cout << "Generated texture " << tex_output.string() << '\n';
-    return fs::path {texture}.replace_extension(".tex").string();
+    return tex_path.replace_extension(".tex").string();
 }
 
 auto parse_materials(
