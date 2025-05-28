@@ -127,21 +127,48 @@ auto generate_normals(
     }
 }
 
+auto convert_texture(
+    const std::string& texture,
+    const fs::path& mesh_input_path
+) -> std::string {
+    auto dir = mesh_input_path.parent_path().string();
+    auto tex_input = fs::path {dir + "/" + texture};
+    if (!fs::exists(tex_input)) {
+        std::cout << "Failed to load texture " << tex_input << '\n';
+        return "";
+    }
+
+    auto tex_output = tex_input;
+    tex_output.replace_extension(".tex");
+    if (auto result = ::convert_texture(tex_input, tex_output); !result) {
+        std::cout << result.error();
+        return "";
+    }
+
+    std::cout << "Generated texture " << tex_output.string() << '\n';
+    return fs::path {texture}.replace_extension(".tex").string();
+}
+
 auto parse_materials(
     const std::vector<tinyobj::material_t> &materials,
+    const fs::path& mesh_input_path,
     std::ofstream& out_stream
 ) {
     for (const auto& material : materials) {
         auto mat_entry = MaterialEntryHeader {};
 
-        // TODO: handle texture loading
+        if (!material.diffuse_texname.empty()) {
+            copy_fixed_size_str(
+                mat_entry.texture,
+                convert_texture(material.diffuse_texname, mesh_input_path)
+            );
+        }
 
         copy_fixed_size_str(
             mat_entry.name,
             material.name.empty() ? "default:Material" : material.name
         );
 
-        std::memset(mat_entry.texture, 0, sizeof(mat_entry.texture));
         std::memcpy(mat_entry.ambient, material.ambient, sizeof(material.ambient));
         std::memcpy(mat_entry.diffuse, material.diffuse, sizeof(material.diffuse));
         std::memcpy(mat_entry.specular, material.specular, sizeof(material.specular));
@@ -214,7 +241,7 @@ auto parse_shapes(
         msh_entry.vertex_count = static_cast<uint32_t>(seen_vertices.size());
         msh_entry.index_count = static_cast<uint32_t>(index_data.size());
         msh_entry.vertex_stride = stride(attrib);
-        msh_entry.material_index = 0; // TODO: handle materials
+        msh_entry.material_index = mesh.material_ids.front();
         msh_entry.vertex_data_size = static_cast<uint64_t>(vertex_data.size() * sizeof(float));
         msh_entry.index_data_size = static_cast<uint64_t>(index_data.size() * sizeof(unsigned));
         msh_entry.vertex_flags = VertexAttributeFlags::Positions | VertexAttributeFlags::Normals;
@@ -265,7 +292,7 @@ auto convert_mesh(
 
     out_stream.write(reinterpret_cast<const char*>(&header), sizeof(header));
 
-    parse_materials(materials, out_stream);
+    parse_materials(materials, input_path, out_stream);
     parse_shapes(shapes, attrib, out_stream);
 
     return {};

@@ -34,6 +34,10 @@ auto get_asset_type(const fs::path& path) -> AssetType {
     return AssetType::Invalid;
 }
 
+auto asset_type_to_str(AssetType type) {
+    return type == AssetType::Texture ? "texture" : "mesh";
+}
+
 auto main(int argc, char** argv) -> int {
     auto opts = cxxopts::Options {
         "asset_compiler",
@@ -90,11 +94,7 @@ auto main(int argc, char** argv) -> int {
         return 1;
     }
 
-    std::cout << "Successfully converted asset: "
-              << input.string()
-              << " to "
-              << output.string()
-              << '\n';
+    std::cout << "Generated " << asset_type_to_str(asset_type) << " " + output.string() + "\n";
 
     return 0;
 }
