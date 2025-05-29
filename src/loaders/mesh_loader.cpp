@@ -2,70 +2,122 @@
 // All rights reserved.
 
 #include "engine/loaders/mesh_loader.hpp"
+#include "engine/loaders/texture_loader.hpp"
 
 #include "engine/core/geometry.hpp"
 #include "engine/materials/phong_material.hpp"
+#include "engine/math/color.hpp"
 #include "engine/nodes/mesh.hpp"
 #include "engine/nodes/node.hpp"
+#include "engine/textures/texture_2d.hpp"
+
+#include "utilities/file.hpp"
 
 #include "asset_builder/include/types.hpp"
 
 #include <cstring>
 #include <fstream>
+#include <memory>
+#include <span>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace engine {
 
-auto MeshLoader::LoadImpl(const fs::path& path) const -> std::expected<std::shared_ptr<void>, std::string> {
-    auto file = std::ifstream {path, std::ios::binary};
-    if (!file) {
-        return std::unexpected(std::format("Unable to open file '{}'", path.string()));
-    }
+namespace {
 
-    auto header = MeshHeader {};
-    file.read(reinterpret_cast<char*>(&header), sizeof(header));
-    if (std::memcmp(header.magic, "MES0", 4) != 0) {
-        return std::unexpected(std::format("Invalid mesh file '{}'", path.string()));
-    }
+auto load_materials(const fs::path& path, uint32_t material_count, std::ifstream& file) {
+    auto output = std::vector<std::shared_ptr<Material>> {};
+    auto texture_loader = TextureLoader::Create();
+    auto textures = std::unordered_map<std::string, std::shared_ptr<Texture2D>> {};
 
-    if (header.version != 1 || header.header_size != sizeof(MeshHeader)) {
-        return std::unexpected(std::format("Unsupported mesh version in file '{}'", path.string()));
-    }
+    for (auto i = 0; i < material_count; ++i) {
+        auto material_header = MaterialEntryHeader {};
+        read_binary(file, material_header);
 
-    for (auto i = 0; i < header.material_count; ++i) {
-        auto entry_header = MaterialEntryHeader {};
-        file.read(reinterpret_cast<char*>(&entry_header), sizeof(entry_header));
-
-        // TODO: add material to array
-    }
-
-    auto root = Node::Create();
-
-    for (auto i = 0; i < header.mesh_count; ++i) {
-        auto entry_header = MeshEntryHeader {};
-        file.read(reinterpret_cast<char*>(&entry_header), sizeof(entry_header));
-
-        if (entry_header.vertex_count == 0 || entry_header.index_count == 0) {
-            return std::unexpected(std::format("Mesh entry {} has zero vertices or indices in file '{}'", i, path.string()));
+        auto tex = std::string {material_header.texture};
+        if (!tex.empty()) {
+            if (!textures.contains(tex)) {
+                const auto tex_path = path.parent_path().string() + "/" + tex;
+                texture_loader->Load(tex_path, [&tex, &textures](const auto& result){
+                    if (result) textures[tex] = result.value();
+                });
+            }
         }
 
-        auto vertex_data = std::vector<float>(entry_header.vertex_count * entry_header.vertex_stride);
-        file.read(reinterpret_cast<char*>(vertex_data.data()), entry_header.vertex_data_size);
+        auto mat = PhongMaterial::Create();
+        mat->color = Color {material_header.diffuse};
+        mat->specular = Color {material_header.specular};
+        mat->shininess = material_header.shininess;
+        if (textures.contains(tex)) {
+            mat->color = 0xFFFFFF;
+            mat->texture_map = textures[tex];
+        }
 
-        auto index_data = std::vector<unsigned int>(entry_header.index_count);
-        file.read(reinterpret_cast<char*>(index_data.data()), entry_header.index_data_size);
+        output.emplace_back(mat);
+    }
 
-        auto geometry = Geometry::Create(std::move(vertex_data), std::move(index_data));
-        geometry->SetName(entry_header.name);
+    return output;
+}
+
+} // unnamed namespace
+
+auto MeshLoader::LoadImpl(const fs::path& path) const -> std::expected<std::shared_ptr<void>, std::string> {
+    auto file = std::ifstream {path, std::ios::binary};
+    auto path_s = path.string();
+    if (!file) {
+        return std::unexpected(std::format("Unable to open file '{}'", path_s));
+    }
+
+    auto mesh_header = MeshHeader {};
+    read_binary(file, mesh_header);
+    if (std::memcmp(mesh_header.magic, "MES0", 4) != 0) {
+        return std::unexpected(
+            std::format("Invalid mesh file '{}'", path_s)
+        );
+    }
+
+    if (mesh_header.version != 1 || mesh_header.header_size != sizeof(MeshHeader)) {
+        return std::unexpected(
+            std::format("Unsupported mesh version in file '{}'", path_s)
+        );
+    }
+
+    auto materials = load_materials(path, mesh_header.material_count, file);
+    auto root = Node::Create();
+
+    for (auto i = 0; i < mesh_header.mesh_count; ++i) {
+        auto geometry_header = MeshEntryHeader {};
+        read_binary(file, geometry_header);
+
+        if (geometry_header.vertex_count == 0 || geometry_header.index_count == 0) {
+            return std::unexpected(
+                std::format("Mesh entry {} has zero vertices or indices in file '{}'", i, path_s)
+            );
+        }
+
+        auto vertex_data = std::vector<float> {};
+        read_binary(file, vertex_data, geometry_header.vertex_data_size);
+
+        auto index_data = std::vector<unsigned int> {};
+        read_binary(file, index_data, geometry_header.index_data_size);
+
+        auto geometry = Geometry::Create(vertex_data, index_data);
+        geometry->SetName(geometry_header.name);
 
         geometry->SetAttribute({.type = GeometryAttributeType::Position, .item_size = 3});
         geometry->SetAttribute({.type = GeometryAttributeType::Normal, .item_size = 3});
-        if (entry_header.vertex_flags & VertexAttributeFlags::UVs) {
+        if (geometry_header.vertex_flags & VertexAttributeFlags::UVs) {
             geometry->SetAttribute({.type = GeometryAttributeType::UV, .item_size = 2});
         }
 
-        // TODO: use the mat index to construct the material
-
-        root->Add(Mesh::Create(geometry, PhongMaterial::Create(0x049EF4)));
+        auto mat_index = geometry_header.material_index;
+        if (mat_index != -1 && mat_index < materials.size()) {
+            root->Add(Mesh::Create(geometry, materials[mat_index]));
+        } else {
+            root->Add(Mesh::Create(geometry, PhongMaterial::Create()));
+        }
     }
 
     return root;

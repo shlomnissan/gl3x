@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <span>
 
 namespace engine {
 
@@ -46,6 +47,14 @@ public:
         r(static_cast<float>(hex >> 16 & 255) / 255.f),
         g(static_cast<float>(hex >> 8 & 255) / 255.f),
         b(static_cast<float>(hex & 255) / 255.f) {}
+
+    /**
+     * @brief Constructs a color from an array of floats.
+     *
+     * @param color A span to an array of floats.
+     */
+    constexpr Color(std::span<float> color) :
+        r(color[0]), g(color[1]), b(color[2]) {}
 
     /**
      * @brief Provides access to the red, green, or blue component of the color.

@@ -65,6 +65,7 @@ set(SOURCE_CODE
     "resources/grid.cpp"
     "resources/orbit_controls.cpp"
     "utilities/data_series.hpp"
+    "utilities/file.hpp"
     "utilities/logger.cpp"
     "utilities/logger.hpp"
     "utilities/performance_graph.cpp"

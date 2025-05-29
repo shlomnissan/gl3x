@@ -3,6 +3,8 @@
 
 #include "engine/loaders/texture_loader.hpp"
 
+#include "utilities/file.hpp"
+
 #include "asset_builder/include/types.hpp"
 
 #include <cstring>
@@ -12,22 +14,29 @@ namespace engine {
 
 auto TextureLoader::LoadImpl(const fs::path& path) const -> std::expected<std::shared_ptr<void>, std::string> {
     auto file = std::ifstream {path, std::ios::binary};
+    auto path_s = path.string();
     if (!file) {
-        return std::unexpected(std::format("Unable to open file '{}'", path.string()));
+        return std::unexpected(
+            std::format("Unable to open file '{}'", path_s)
+        );
     }
 
     auto header = TextureHeader {};
-    file.read(reinterpret_cast<char*>(&header), sizeof(header));
+    read_binary(file, header);
     if (std::memcmp(header.magic, "TEX0", 4) != 0) {
-        return std::unexpected(std::format("Invalid texture file '{}'", path.string()));
+        return std::unexpected(
+            std::format("Invalid texture file '{}'", path_s)
+        );
     }
 
     if (header.version != 1 || header.header_size != sizeof(TextureHeader)) {
-        return std::unexpected(std::format("Unsupported texture version in file '{}'", path.string()));
+        return std::unexpected(
+            std::format("Unsupported texture version in file '{}'", path_s)
+        );
     }
 
-    auto data = std::vector<uint8_t>(header.pixel_data_size);
-    file.read(reinterpret_cast<char*>(data.data()), header.pixel_data_size);
+    auto data = std::vector<uint8_t> {};
+    read_binary(file, data, header.pixel_data_size);
 
     auto texture = std::make_shared<Texture2D>(Texture2D::Parameters {
         .width = header.width,
