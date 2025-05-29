@@ -29,7 +29,7 @@ public:
     /**
      * @brief Returns texture type.
      *
-     * @return engine::TextureType
+     * @return TextureType
      */
     [[nodiscard]] virtual auto GetType() const -> TextureType = 0;
 

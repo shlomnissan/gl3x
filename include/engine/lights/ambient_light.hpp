@@ -10,7 +10,7 @@
 namespace engine {
 
 /**
- * @brief Represents a light that gets emitted in all directions equally.
+ * @brief  a light that gets emitted in all directions equally.
  * This light cannot be used to cast shadows as it does not have a direction.
  *
  * @code
@@ -35,7 +35,7 @@ public:
      *
      * @param params AmbientLight::Parameters
      */
-    AmbientLight(const Parameters& params) : Light(params.color, params.intensity) {
+    explicit AmbientLight(const Parameters& params) : Light(params.color, params.intensity) {
         SetName("ambient light");
     }
 
@@ -43,7 +43,7 @@ public:
      * @brief Creates a shared pointer to an AmbientLight object.
      *
      * @param params AmbientLight::Parameters
-     * @return std::shared_ptr<engine::AmbientLight>
+     * @return std::shared_ptr<AmbientLight>
      */
     [[nodiscard]] static auto Create(const Parameters& params) {
         return std::make_shared<AmbientLight>(params);

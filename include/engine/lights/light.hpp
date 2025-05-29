@@ -62,7 +62,7 @@ public:
     /**
      * @brief Returns light type.
      *
-     * @return engine::LightType
+     * @return LightType
      */
     [[nodiscard]] virtual auto Type() const -> LightType = 0;
 

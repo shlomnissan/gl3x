@@ -14,86 +14,109 @@
 namespace engine {
 
 /**
- * @brief A light that gets emitted in a specific direction.
+ * @brief Represents a light that gets emitted in a specific direction. This
+ * light will behave as though it is infinitely far away and the rays produced
+ * from it are all parallel. The common use case for this is to simulate
+ * daylight; the sun is far enough away that its position can be considered
+ * to be infinite, and all light rays coming from it are parallel.
+ *
+ * @code
+ * Add(DirectionalLight::Create({
+ *   .color = 0xFFFFFF,
+ *   .intensity = 1.0f,
+ *   .target = nullptr
+ * }));
+ * @endcode
+ *
+ * When the target parameter is set to `nullptr` the default position is (0, 0, 0).
+ *
+ * @ingroup LightsGroup
  */
 class ENGINE_EXPORT DirectionalLight : public Light {
 public:
-    /// @brief The target node that the light is pointing towards.
-    std::shared_ptr<Node> target {nullptr};
+    /// @brief Parameters for constructing a DirectionalLight object.
+    struct Parameters {
+        Color color; ///< Light color.
+        float intensity; ///< Light intensity.
+        std::shared_ptr<Node> target; ///< Light target position.
+    };
 
     /**
-     * @brief Constructs a new DirectionalLight instance.
+     * @brief Constructs an AmbientLight object.
      *
-     * @param color The color of the light.
-     * @param intensity The intensity of the light.
+     * @param params DirectionalLight::Parameters
      */
-    DirectionalLight(Color color, float intensity) : Light(color, intensity) {
+    DirectionalLight(const Parameters& params) :
+      Light(params.color, params.intensity),
+      target_(params.target)
+    {
         SetName("directional light");
     }
 
     /**
-     * @brief Creates a new DirectionalLight instance.
+     * @brief Creates a shared pointer to an DirectionalLight object.
      *
-    * @param color The color of the light.
-     * @param intensity The intensity of the light.
-     * @return A shared pointer to the created DirectionalLight.
+     * @param params DirectionalLight::Parameters
+     * @return std::shared_ptr<DirectionalLight>
      */
-    [[nodiscard]] static auto Create(Color color = {0xffffff}, float intensity = 1.0f) {
-        return std::make_shared<DirectionalLight>(color, intensity);
+    [[nodiscard]] static auto Create(const Parameters& params) {
+        return std::make_shared<DirectionalLight>(params);
     }
 
     /**
-     * @brief Retrieves the type of the light.
+     * @brief Returns light type.
      *
-     * @return LightType::Directional.
+     * @return LightType::DirectionalLight
      */
     auto Type() const -> LightType override {
         return LightType::DirectionalLight;
     }
 
     /**
-     * @brief Retrieves the direction of the light based on the light's target.
+     * @brief Returns the direction vector of the light.
      *
-     * @return The direction of the light.
+     * Calculates and returns the normalized direction in which the directional
+     * light is pointing. The direction is determined based on the light's
+     * position and its target node.
+     *
+     * @return Vector3
      */
     [[nodiscard]] auto Direction() -> Vector3;
 
     /**
-     * @brief Enables or disables the debug mode for the light.
+     * @brief Sets debug mode.
      *
-     * @param is_debug_mode A flag indicating whether debug mode should be enabled.
+     * @param is_debug_mode True to enable debug mode, false to disable.
      */
     auto SetDebugMode(bool is_debug_mode) -> void override;
 
     /**
-     * @brief Invoked when the node is updated.
+     * @brief Updates the light each frame.
      *
-     * @param delta The time in seconds since the last update.
+     * @param delta Time in seconds since the last update.
      */
     auto OnUpdate(float delta) -> void override;
 
-    /**
-     * @brief Default destructor.
-     */
-    ~DirectionalLight() override = default;
-
 private:
-    /// @brief The debug mesh used to visualize the direction of the light.
+    /// @brief The node that the light is directed towards.
+    std::shared_ptr<Node> target_;
+
+    /// @brief Mesh used to visualize the light's direction in debug mode.
     std::shared_ptr<Mesh> debug_mesh_line_;
 
-    /// @brief The debug mesh used to visualize the position of the light.
+    /// @brief Mesh used to visualize the light's area of effect in debug mode.
     std::shared_ptr<Mesh> debug_mesh_plane_;
 
-    /// @brief The material used for the debug mesh.
+    /// @brief Material used for rendering debug meshes.
     std::shared_ptr<FlatMaterial> debug_mesh_material_;
 
     /**
-     * @brief Creates the debug mesh and material for the light.
+     * @brief Creates the debug mesh for visualizing the light's direction and area.
      */
     auto CreateDebugMesh() -> void;
 
     /**
-     * @brief Updates the debug mesh to match the light's position and direction.
+     * @brief Updates the debug mesh to reflect the current light state.
      */
     auto UpdateDebugMesh() -> void;
 };

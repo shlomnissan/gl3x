@@ -61,7 +61,7 @@ public:
      * @brief Creates a shared pointer to a Texture2D object.
      *
      * @param params Texture2D::Parameters
-     * @return std::shared_ptr<engine::Texture2D>
+     * @return std::shared_ptr<Texture2D>
      */
     [[nodiscard]] static auto Create(const Parameters& params) {
         return std::make_shared<Texture2D>(params);
@@ -79,7 +79,7 @@ public:
     /**
      * @brief Returns the transformation matrix for UV mapping.
      *
-     * @return engine::Matrix3
+     * @return Matrix3
      */
     [[nodiscard]] auto GetTransform() {
         return transform_.Get();

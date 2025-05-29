@@ -8,8 +8,8 @@ namespace engine {
 static constexpr auto debug_mesh_size = 0.5f;
 
 auto DirectionalLight::Direction() -> Vector3 {
-    if (target != nullptr) {
-        return Normalize(GetWorldPosition() - target->GetWorldPosition());
+    if (target_ != nullptr) {
+        return Normalize(GetWorldPosition() - target_->GetWorldPosition());
     }
     return Normalize(GetWorldPosition());
 }
@@ -70,8 +70,8 @@ auto DirectionalLight::CreateDebugMesh() -> void {
 }
 
 auto DirectionalLight::UpdateDebugMesh() -> void {
-    const auto target_world_pos = target != nullptr
-        ? target->GetWorldPosition()
+    const auto target_world_pos = target_ != nullptr
+        ? target_->GetWorldPosition()
         : Vector3::Zero();
     debug_mesh_plane_->LookAt(target_world_pos);
     debug_mesh_line_->LookAt(target_world_pos);
