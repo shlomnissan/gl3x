@@ -13,84 +13,95 @@
 namespace engine {
 
 /**
- * @brief A light that gets emitted from a single point in all directions.
+ * @brief Represents a light that gets emitted from a single point in all
+ * directions. A common use case for this is to replicate the light emitted
+ * from a bare lightbulb.
+ *
+ * @code
+ * auto point_light = PointLight::Create({
+ *   .color = 0xFFFFFF,
+ *   .intensity = 1.0f,
+ *   .attenuation = {
+ *     .base = 1.0f,
+ *     .linear = 0.0f,
+ *     .quadratic = 0.0f
+ *   }
+ * });
+ * @endcode
+ *
+ * @ingroup LightsGroup
  */
 class ENGINE_EXPORT PointLight : public Light {
 public:
-    /// @brief The attenuation properties of the light.
+    /// @brief Parameters for constructing a PointLight object.
+    struct Parameters {
+        Color color; ///< Light color.
+        float intensity; ///< Light intensity.
+        Attenuation attenuation; ///< Light attenuation properties.
+    };
+
+    /// @brief Light attenuation properties.
     Attenuation attenuation;
 
     /**
-     * @brief Constructs a new PointLight instance.
+     * @brief Constructs a PointLight object.
      *
-     * @param color The color of the light.
-     * @param intensity The intensity of the light.
-     * @param attenuation The attenuation properties of the light.
+     * @param params PointLight::Parameters
      */
-    PointLight(Color color, float intensity, Attenuation attenuation)
-        : Light(color, intensity), attenuation(attenuation)
+    PointLight(const Parameters& params) :
+        Light(params.color, params.intensity),
+        attenuation(params.attenuation)
     {
         SetName("point light");
     }
 
     /**
-     * @brief Creates a new PointLight instance.
+     * @brief Creates a shared pointer to an PointLight object.
      *
-     * @param color The color of the light.
-     * @param intensity The intensity of the light.
-     * @param attenuation The attenuation properties of the light.
-     * @return A shared pointer to the created PointLight.
+     * @param params PointLight::Parameters
+     * @return std::shared_ptr<PointLight>
      */
-    [[nodiscard]] static auto Create(
-        Color color = {0xffffff},
-        float intensity = 1.0f,
-        Attenuation attenuation = {}
-    ) {
-        return std::make_shared<PointLight>(color, intensity, attenuation);
+    [[nodiscard]] static auto Create(const Parameters& params) {
+        return std::make_shared<PointLight>(params);
     }
 
     /**
-     * @brief Retrieves the type of the light.
+     * @brief Returns light type.
      *
-     * @return LightType::Point.
+     * @return LightType::PointLight
      */
     [[nodiscard]] auto Type() const -> LightType override {
         return LightType::PointLight;
     }
 
     /**
-     * @brief Enables or disables the debug mode for the light.
+     * @brief Sets debug mode.
      *
-     * @param is_debug_mode A flag indicating whether debug mode should be enabled.
+     * @param is_debug_mode True to enable debug mode, false to disable.
      */
     auto SetDebugMode(bool is_debug_mode) -> void override;
 
     /**
-     * @brief Invoked when the node is updated.
+     * @brief Updates the light each frame.
      *
-     * @param delta The time in seconds since the last update.
+     * @param delta Time in seconds since the last update.
      */
     auto OnUpdate(float delta) -> void override;
 
-    /**
-     * @brief Default destructor.
-     */
-    ~PointLight() override = default;
-
 private:
-    /// @brief The debug mesh used to visualize the position of the light.
+    /// @brief Mesh used to visualize the light's position in debug mode.
     std::shared_ptr<Mesh> debug_mesh_sphere_;
 
-    /// @brief The material used for the debug mesh.
+    /// @brief Material used for rendering debug meshes.
     std::shared_ptr<FlatMaterial> debug_mesh_material_;
 
     /**
-     * @brief Creates the debug mesh and material for the light.
+     * @brief Creates the debug mesh for visualizing the light's position.
      */
     auto CreateDebugMesh() -> void;
 
     /**
-     * @brief Updates the debug mesh to match the light's properties.
+     * @brief Updates the debug mesh to reflect the current light state.
      */
     auto UpdateDebugMesh() -> void;
 };

@@ -42,13 +42,13 @@ public:
     };
 
     /**
-     * @brief Constructs an AmbientLight object.
+     * @brief Constructs a DirectionalLight object.
      *
      * @param params DirectionalLight::Parameters
      */
     DirectionalLight(const Parameters& params) :
-      Light(params.color, params.intensity),
-      target_(params.target)
+        Light(params.color, params.intensity),
+        target_(params.target)
     {
         SetName("directional light");
     }

@@ -41,7 +41,15 @@ ExamplePointLight::ExamplePointLight(std::shared_ptr<engine::Camera> camera) {
         .intensity = .15f
     }));
 
-    point_light_ = PointLight::Create(0xFFFFFF, 1.0f);
+    auto point_light = PointLight::Create({
+        .color = 0xFFFFFF,
+        .intensity = 1.0f,
+        .attenuation = {
+            .base = 1.0f,
+            .linear = 0.0f,
+            .quadratic = 0.0f
+        }
+    });
     point_light_->transform.Translate({1.0f, 2.0f, -2.0f});
     point_light_->SetDebugMode(true);
     Add(point_light_);

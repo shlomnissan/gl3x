@@ -20,7 +20,15 @@ ExampleFrustumCullingTest::ExampleFrustumCullingTest(std::shared_ptr<engine::Cam
         .intensity = .3f
     }));
 
-    auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
+    auto point_light = PointLight::Create({
+        .color = 0xFFFFFF,
+        .intensity = 1.0f,
+        .attenuation = {
+            .base = 1.0f,
+            .linear = 0.0f,
+            .quadratic = 0.0f
+        }
+    });
     point_light->transform.Translate({0.0f, 0.0f, 30.0f});
     point_light->SetDebugMode(true);
     Add(point_light);

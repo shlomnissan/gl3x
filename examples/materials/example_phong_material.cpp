@@ -29,7 +29,15 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camer
         .intensity = 0.3f
     }));
 
-    auto point_light = PointLight::Create(0xFFFFFF, 1.0f);
+    auto point_light = PointLight::Create({
+        .color = 0xFFFFFF,
+        .intensity = 1.0f,
+        .attenuation = {
+            .base = 1.0f,
+            .linear = 0.0f,
+            .quadratic = 0.0f
+        }
+    });
     point_light->transform.Translate({2.0f, 2.0f, 2.0f});
     Add(point_light);
 }
