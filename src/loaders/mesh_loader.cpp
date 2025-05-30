@@ -63,7 +63,8 @@ auto load_materials(const fs::path& path, uint32_t material_count, std::ifstream
 
 } // unnamed namespace
 
-auto MeshLoader::LoadImpl(const fs::path& path) const -> std::expected<std::shared_ptr<void>, std::string> {
+auto MeshLoader::LoadImpl(const fs::path& path) const
+  -> std::expected<std::shared_ptr<Node>, std::string> {
     auto file = std::ifstream {path, std::ios::binary};
     auto path_s = path.string();
     if (!file) {
@@ -97,10 +98,10 @@ auto MeshLoader::LoadImpl(const fs::path& path) const -> std::expected<std::shar
             );
         }
 
-        auto vertex_data = std::vector<float> {};
+        auto vertex_data = std::vector<float>(geometry_header.vertex_count * geometry_header.vertex_stride);
         read_binary(file, vertex_data, geometry_header.vertex_data_size);
 
-        auto index_data = std::vector<unsigned int> {};
+        auto index_data = std::vector<unsigned int>(geometry_header.index_count);
         read_binary(file, index_data, geometry_header.index_data_size);
 
         auto geometry = Geometry::Create(vertex_data, index_data);

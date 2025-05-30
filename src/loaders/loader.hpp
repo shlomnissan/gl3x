@@ -34,12 +34,11 @@ public:
         if (!ValidateFile(path, callback)) return;
 
         auto result = LoadImpl(path);
-        if (result) {
-            callback(std::static_pointer_cast<Resource>(result.value()));
-        } else {
+        if (!result) {
             Logger::Log(LogLevel::Error, result.error());
-            callback(std::unexpected(result.error()));
         }
+
+        callback(result);
     }
 
     // TODO: Use a thread pool instead of creating a thread and detaching it.
@@ -49,19 +48,18 @@ public:
         auto self = this->shared_from_this();
         std::thread([self, path, callback]() {
             auto result = self->LoadImpl(path);
-            if (result) {
-                callback(std::static_pointer_cast<Resource>(result.value()));
-            } else {
+            if (!result) {
                 Logger::Log(LogLevel::Error, result.error());
-                callback(std::unexpected(result.error()));
             }
+            callback(result);
         }).detach();
     }
 
     virtual ~Loader() = default;
 
 protected:
-    [[nodiscard]] virtual auto LoadImpl(const fs::path& path) const -> std::expected<std::shared_ptr<void>, std::string> = 0;
+    [[nodiscard]] virtual auto LoadImpl(const fs::path& path) const
+     -> std::expected<std::shared_ptr<Resource>, std::string> = 0;
 
 private:
     auto ValidateFile(const fs::path& path, LoaderCallback<Resource> callback) const {

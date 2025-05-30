@@ -14,7 +14,6 @@ read_binary(std::istream& in, T& value) {
 template <typename T>
 std::enable_if_t<std::is_trivially_copyable_v<T>>
 read_binary(std::istream& in, std::vector<T>& vec, std::size_t count) {
-    vec.resize(count);
     in.read(reinterpret_cast<char*>(vec.data()), count);
 }
 
