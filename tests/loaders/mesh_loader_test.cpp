@@ -45,23 +45,20 @@ auto VerifyMesh(std::shared_ptr<engine::Node> root) {
 #pragma region Load Mesh Synchronously
 
 TEST(MeshLoader, LoadMeshSynchronous) {
-    mesh_loader->Load("assets/plane.msh", [](const auto& result) {
-        VerifyMesh(result.value());
-    });
+    auto result = mesh_loader->Load("assets/plane.msh");
+    VerifyMesh(result.value());
 }
 
 TEST(MeshLoader, LoadMeshSynchronousInvalidFileType) {
-    mesh_loader->Load("assets/plane.obj", [](const auto& result) {
-        EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "Invalid mesh file 'assets/plane.obj'");
-    });
+    auto result = mesh_loader->Load("assets/plane.obj");
+    EXPECT_FALSE(result);
+    EXPECT_EQ(result.error(), "Invalid mesh file 'assets/plane.obj'");
 }
 
 TEST(MeshLoader, LoadMeshSynchronousInvalidFile) {
-    mesh_loader->Load("assets/invalid_plane.msh", [](const auto& result) {
-        EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "File not found 'assets/invalid_plane.msh'");
-    });
+    auto result = mesh_loader->Load("assets/invalid_plane.msh");
+    EXPECT_FALSE(result);
+    EXPECT_EQ(result.error(), "File not found 'assets/invalid_plane.msh'");
 }
 
 #pragma endregion

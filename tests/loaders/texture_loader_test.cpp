@@ -38,23 +38,20 @@ auto VerifyImage(const auto& texture, const std::string& filename) {
 #pragma region Load Image Synchronously
 
 TEST(TextureLoader, LoadTextureSynchronous) {
-    texture_loader->Load("assets/texture.tex", [](const auto& result) {
-        VerifyImage(result.value(), "texture.tex");
-    });
+    auto result = texture_loader->Load("assets/texture.tex");
+    VerifyImage(result.value(), "texture.tex");
 }
 
 TEST(TextureLoader, LoadTextureSynchronousInvalidFileType) {
-    texture_loader->Load("assets/texture.png", [](const auto& result) {
-        EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "Invalid texture file 'assets/texture.png'");
-    });
+    auto result = texture_loader->Load("assets/texture.png");
+    EXPECT_FALSE(result);
+    EXPECT_EQ(result.error(), "Invalid texture file 'assets/texture.png'");
 }
 
 TEST(TextureLoader, LoadTextureSynchronousInvalidFile) {
-    texture_loader->Load("assets/invalid_texture.tex", [](const auto& result) {
-        EXPECT_FALSE(result);
-        EXPECT_EQ(result.error(), "File not found 'assets/invalid_texture.tex'");
-    });
+    auto result = texture_loader->Load("assets/invalid_texture.tex");
+    EXPECT_FALSE(result);
+    EXPECT_EQ(result.error(), "File not found 'assets/invalid_texture.tex'");
 }
 
 #pragma endregion

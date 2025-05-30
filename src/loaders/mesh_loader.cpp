@@ -40,9 +40,8 @@ auto load_materials(const fs::path& path, uint32_t material_count, std::ifstream
         if (!tex.empty()) {
             if (!textures.contains(tex)) {
                 const auto tex_path = path.parent_path().string() + "/" + tex;
-                texture_loader->Load(tex_path, [&tex, &textures](const auto& result){
-                    if (result) textures[tex] = result.value();
-                });
+                const auto result = texture_loader->Load(tex_path);
+                if (result) textures[tex] = result.value();
             }
         }
 
@@ -63,8 +62,7 @@ auto load_materials(const fs::path& path, uint32_t material_count, std::ifstream
 
 } // unnamed namespace
 
-auto MeshLoader::LoadImpl(const fs::path& path) const
-  -> std::expected<std::shared_ptr<Node>, std::string> {
+auto MeshLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Node> {
     auto file = std::ifstream {path, std::ios::binary};
     auto path_s = path.string();
     if (!file) {

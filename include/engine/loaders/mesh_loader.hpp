@@ -32,8 +32,7 @@ public:
 private:
     MeshLoader() = default;
 
-    [[nodiscard]] auto LoadImpl(const fs::path& path) const
-      -> std::expected<std::shared_ptr<Node>, std::string> override;
+    [[nodiscard]] auto LoadImpl(const fs::path& path) const -> LoaderResult<Node> override;
 };
 
 }

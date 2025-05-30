@@ -32,8 +32,7 @@ public:
 private:
     TextureLoader() = default;
 
-    [[nodiscard]] auto LoadImpl(const fs::path& path) const
-      -> std::expected<std::shared_ptr<Texture2D>, std::string> override;
+    [[nodiscard]] auto LoadImpl(const fs::path& path) const -> LoaderResult<Texture2D> override;
 };
 
 }

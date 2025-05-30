@@ -12,8 +12,7 @@
 
 namespace engine {
 
-auto TextureLoader::LoadImpl(const fs::path& path) const
-  -> std::expected<std::shared_ptr<Texture2D>, std::string> {
+auto TextureLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Texture2D> {
     auto file = std::ifstream {path, std::ios::binary};
     auto path_s = path.string();
     if (!file) {
