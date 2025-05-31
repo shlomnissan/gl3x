@@ -74,7 +74,10 @@ auto SpotLight::CreateDebugMesh() -> void {
 }
 
 auto SpotLight::UpdateDebugMesh() -> void {
-    const auto target_world_pos = target != nullptr ? target->GetWorldPosition() : Vector3::Zero();
+    const auto target_world_pos = target != nullptr
+        ? target->GetWorldPosition()
+        : Vector3::Zero();
+
     const auto cone_length = (target_world_pos - this->GetWorldPosition()).Length() + 1.0f;
     const auto cone_width = std::tan(angle) * cone_length;
 

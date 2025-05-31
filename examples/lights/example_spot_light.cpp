@@ -38,10 +38,20 @@ ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
         .intensity = 0.15f
     }));
 
-    spot_light_ = SpotLight::Create(0xFFFFFF, 1.0f);
+    spot_light_ = SpotLight::Create({
+        .color = 0xFFFFFF,
+        .intensity = 1.0f,
+        .angle = math::DegToRad(10.0f),
+        .penumbra = 0.3f,
+        .target = nullptr,
+        .attenuation = {
+            .base = 1.0f,
+            .linear = 0.0f,
+            .quadratic = 0.0f
+        }
+    });
+
     spot_light_->transform.Translate({2.0f, 2.0f, -1.0f});
-    spot_light_->angle = math::DegToRad(10.0f);
-    spot_light_->penumbra = 0.3f;
     spot_light_->SetDebugMode(true);
     Add(spot_light_);
 }

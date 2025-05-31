@@ -28,7 +28,7 @@ namespace engine {
  * }));
  * @endcode
  *
- * When the target parameter is set to `nullptr` the default position is (0, 0, 0).
+ * When the target parameter is set to `nullptr` the light points to (0, 0, 0).
  *
  * @ingroup LightsGroup
  */
@@ -41,14 +41,17 @@ public:
         std::shared_ptr<Node> target; ///< Light target position.
     };
 
+    /// @brief Node that the light is directed towards.
+    std::shared_ptr<Node> target;
+
     /**
      * @brief Constructs a DirectionalLight object.
      *
      * @param params DirectionalLight::Parameters
      */
-    DirectionalLight(const Parameters& params) :
+    explicit DirectionalLight(const Parameters& params) :
         Light(params.color, params.intensity),
-        target_(params.target)
+        target(params.target)
     {
         SetName("directional light");
     }
@@ -98,9 +101,6 @@ public:
     auto OnUpdate(float delta) -> void override;
 
 private:
-    /// @brief The node that the light is directed towards.
-    std::shared_ptr<Node> target_;
-
     /// @brief Mesh used to visualize the light's direction in debug mode.
     std::shared_ptr<Mesh> debug_mesh_line_;
 
