@@ -5,7 +5,7 @@
 
 #include "ui_helpers.hpp"
 
-#include <engine/resources.hpp>
+#include <gleam/resources.hpp>
 
 using namespace engine;
 

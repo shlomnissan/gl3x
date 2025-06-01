@@ -5,12 +5,12 @@
 
 #include <gtest/gtest.h>
 
-#include <engine/math/color.hpp>
-#include <engine/math/matrix3.hpp>
-#include <engine/math/matrix4.hpp>
-#include <engine/math/vector2.hpp>
-#include <engine/math/vector3.hpp>
-#include <engine/math/vector4.hpp>
+#include <gleam/math/color.hpp>
+#include <gleam/math/matrix3.hpp>
+#include <gleam/math/matrix4.hpp>
+#include <gleam/math/vector2.hpp>
+#include <gleam/math/vector3.hpp>
+#include <gleam/math/vector4.hpp>
 
 constexpr bool approx_equal(float a, float b, float eps) {
     return (a - b < eps) && (b - a < eps);

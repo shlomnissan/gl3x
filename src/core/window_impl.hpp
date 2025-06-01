@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "engine/core/window.hpp"
+#include "gleam/core/window.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

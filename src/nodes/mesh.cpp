@@ -1,9 +1,9 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/core/geometry.hpp"
-#include "engine/math/vector3.hpp"
-#include "engine/nodes/mesh.hpp"
+#include "gleam/core/geometry.hpp"
+#include "gleam/math/vector3.hpp"
+#include "gleam/nodes/mesh.hpp"
 
 #include <limits>
 

@@ -4,9 +4,9 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <engine/math/matrix4.hpp>
-#include <engine/math/sphere.hpp>
-#include <engine/math/vector3.hpp>
+#include <gleam/math/matrix4.hpp>
+#include <gleam/math/sphere.hpp>
+#include <gleam/math/vector3.hpp>
 
 #pragma region Constructors
 

@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/core/window.hpp"
+#include "gleam/core/window.hpp"
 
 #include "core/window_impl.hpp"
 

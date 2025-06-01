@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/math/frustum.hpp"
+#include "gleam/math/frustum.hpp"
 
 #include <algorithm>
 

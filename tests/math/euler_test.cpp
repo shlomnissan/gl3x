@@ -4,10 +4,10 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <engine/math/euler.hpp>
-#include <engine/math/matrix4.hpp>
-#include <engine/math/vector3.hpp>
-#include <engine/math/utilities.hpp>
+#include <gleam/math/euler.hpp>
+#include <gleam/math/matrix4.hpp>
+#include <gleam/math/vector3.hpp>
+#include <gleam/math/utilities.hpp>
 
 #include <cmath>
 

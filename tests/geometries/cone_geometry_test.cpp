@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include <engine/geometries/cone_geometry.hpp>
+#include <gleam/geometries/cone_geometry.hpp>
 
 #pragma region Fixtures
 

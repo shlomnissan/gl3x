@@ -1,9 +1,9 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/resources/orbit_controls.hpp"
+#include "gleam/resources/orbit_controls.hpp"
 
-#include "engine/math/utilities.hpp"
+#include "gleam/math/utilities.hpp"
 
 #include <algorithm>
 #include <cmath>

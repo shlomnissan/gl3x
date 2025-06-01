@@ -1,10 +1,10 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/resources/bounding_box.hpp"
+#include "gleam/resources/bounding_box.hpp"
 
-#include "engine/materials/flat_material.hpp"
-#include "engine/nodes/mesh.hpp"
+#include "gleam/materials/flat_material.hpp"
+#include "gleam/nodes/mesh.hpp"
 
 #include <vector>
 

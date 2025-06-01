@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "engine/materials/material.hpp"
-#include "engine/nodes/scene.hpp"
+#include "gleam/materials/material.hpp"
+#include "gleam/nodes/scene.hpp"
 
 #include "core/render_lists.hpp"
 

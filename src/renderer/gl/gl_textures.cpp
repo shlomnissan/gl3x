@@ -3,7 +3,7 @@
 
 #include "renderer/gl/gl_textures.hpp"
 
-#include "engine/textures/texture_2d.hpp"
+#include "gleam/textures/texture_2d.hpp"
 
 #include "utilities/logger.hpp"
 

@@ -1,4 +1,4 @@
-set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/engine)
+set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/gleam)
 
 set(SOURCE_CODE
     "core/application_context.cpp"
@@ -180,8 +180,8 @@ PRIVATE
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    VERSION ${engine_VERSION_MAJOR}.${engine_VERSION_MINOR}.${engine_VERSION_PATCH}
-    SOVERSION ${engine_VERSION_MAJOR}
+    VERSION ${gleam_VERSION_MAJOR}.${gleam_VERSION_MINOR}.${gleam_VERSION_PATCH}
+    SOVERSION ${gleam_VERSION_MAJOR}
 )
 
 include(GenerateExportHeader)
@@ -192,7 +192,7 @@ include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-    VERSION ${engine_VERSION_MAJOR}.${engine_VERSION_MINOR}.${engine_VERSION_PATCH}
+    VERSION ${gleam_VERSION_MAJOR}.${gleam_VERSION_MINOR}.${gleam_VERSION_PATCH}
     COMPATIBILITY SameMajorVersion
 )
 
@@ -220,7 +220,7 @@ install(DIRECTORY "${PUBLIC_HEADERS_DIR}/"
 )
 
 install(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/engine_export.h"
+    "${CMAKE_CURRENT_BINARY_DIR}/gleam_export.h"
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
 )
 

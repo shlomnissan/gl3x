@@ -5,9 +5,9 @@
 
 #include "ui_helpers.hpp"
 
-#include <engine/materials.hpp>
-#include <engine/lights.hpp>
-#include <engine/resources.hpp>
+#include <gleam/materials.hpp>
+#include <gleam/lights.hpp>
+#include <gleam/resources.hpp>
 
 using namespace engine;
 using namespace engine::math;

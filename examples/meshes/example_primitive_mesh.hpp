@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include <engine/geometries.hpp>
-#include <engine/nodes.hpp>
+#include <gleam/geometries.hpp>
+#include <gleam/nodes.hpp>
 
 #include <memory>
 #include <string>

@@ -1,8 +1,8 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/nodes/camera_perspective.hpp"
-#include "engine/math/utilities.hpp"
+#include "gleam/nodes/camera_perspective.hpp"
+#include "gleam/math/utilities.hpp"
 
 #include <cmath>
 

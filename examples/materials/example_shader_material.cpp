@@ -5,8 +5,8 @@
 
 #include "ui_helpers.hpp"
 
-#include <engine/geometries.hpp>
-#include <engine/resources.hpp>
+#include <gleam/geometries.hpp>
+#include <gleam/resources.hpp>
 
 using namespace engine;
 

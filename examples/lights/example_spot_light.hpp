@@ -7,8 +7,8 @@
 
 #include <memory>
 
-#include <engine/lights.hpp>
-#include <engine/materials.hpp>
+#include <gleam/lights.hpp>
+#include <gleam/materials.hpp>
 
 class ExampleSpotLight : public ExampleScene {
 public:

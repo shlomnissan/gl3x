@@ -5,9 +5,9 @@
 #include <memory>
 #include <string_view>
 
-#include <engine/core.hpp>
-#include <engine/resources.hpp>
-#include <engine/math.hpp>
+#include <gleam/core.hpp>
+#include <gleam/resources.hpp>
+#include <gleam/math.hpp>
 
 #include "ui_helpers.hpp"
 
@@ -31,7 +31,7 @@ public:
     auto Setup() -> void override {
         ApplicationContext::Setup();
 
-        SetTitle("Build Engine");
+        SetTitle("Gleam Engine");
         SetClearColor(0x444444);
 
         camera_ = CameraPerspective::Create({.aspect = Context()->Parameters().ratio});
@@ -46,7 +46,7 @@ public:
         const auto height = static_cast<float>(params.height);
         ImGui::SetNextWindowSize({250, height - 20.0f});
         ImGui::SetNextWindowPos({10, 10});
-        ImGui::Begin("Build Engine", nullptr,
+        ImGui::Begin("Gleam Engine", nullptr,
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove
         );

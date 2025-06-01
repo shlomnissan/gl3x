@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/lights/spot_light.hpp"
+#include "gleam/lights/spot_light.hpp"
 
 #include <cmath>
 #include <vector>

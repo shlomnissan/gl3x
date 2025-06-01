@@ -3,7 +3,7 @@
 
 #include "renderer/gl/gl_program.hpp"
 
-#include "engine/core/geometry.hpp"
+#include "gleam/core/geometry.hpp"
 
 #include "core/shader_library.hpp"
 #include "utilities/logger.hpp"

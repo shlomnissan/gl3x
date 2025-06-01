@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <engine/nodes.hpp>
+#include <gleam/nodes.hpp>
 
 class ExampleScene : public engine::Scene {
 public:

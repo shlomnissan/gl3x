@@ -3,9 +3,9 @@
 
 #include "core/shader_library.hpp"
 
-#include "engine/materials/flat_material.hpp"
-#include "engine/materials/phong_material.hpp"
-#include "engine/materials/shader_material.hpp"
+#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/phong_material.hpp"
+#include "gleam/materials/shader_material.hpp"
 
 #include "utilities/logger.hpp"
 

@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/core/renderer.hpp"
+#include "gleam/core/renderer.hpp"
 
 #include "renderer/gl/gl_renderer_impl.hpp"
 

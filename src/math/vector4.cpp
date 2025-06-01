@@ -1,9 +1,9 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/math/vector4.hpp"
+#include "gleam/math/vector4.hpp"
 
-#include "engine/math/vector3.hpp"
+#include "gleam/math/vector3.hpp"
 
 #include <cmath>
 

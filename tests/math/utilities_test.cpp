@@ -6,7 +6,7 @@
 #include <cassert>
 #include <regex>
 
-#include <engine/math/utilities.hpp>
+#include <gleam/math/utilities.hpp>
 
 using namespace engine;
 

@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/nodes/scene.hpp"
+#include "gleam/nodes/scene.hpp"
 
 #include "core/event_dispatcher.hpp"
 #include "utilities/logger.hpp"

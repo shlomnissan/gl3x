@@ -1,15 +1,15 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/loaders/mesh_loader.hpp"
-#include "engine/loaders/texture_loader.hpp"
+#include "gleam/loaders/mesh_loader.hpp"
+#include "gleam/loaders/texture_loader.hpp"
 
-#include "engine/core/geometry.hpp"
-#include "engine/materials/phong_material.hpp"
-#include "engine/math/color.hpp"
-#include "engine/nodes/mesh.hpp"
-#include "engine/nodes/node.hpp"
-#include "engine/textures/texture_2d.hpp"
+#include "gleam/core/geometry.hpp"
+#include "gleam/materials/phong_material.hpp"
+#include "gleam/math/color.hpp"
+#include "gleam/nodes/mesh.hpp"
+#include "gleam/nodes/node.hpp"
+#include "gleam/textures/texture_2d.hpp"
 
 #include "utilities/file.hpp"
 

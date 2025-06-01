@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/geometries/box_geometry.hpp"
+#include "gleam/geometries/box_geometry.hpp"
 
 #include <cassert>
 

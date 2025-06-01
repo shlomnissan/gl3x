@@ -1,8 +1,8 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/math/euler.hpp"
-#include "engine/math/vector3.hpp"
+#include "gleam/math/euler.hpp"
+#include "gleam/math/vector3.hpp"
 
 #include <cmath>
 

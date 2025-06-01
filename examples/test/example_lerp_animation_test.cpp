@@ -3,9 +3,9 @@
 
 #include "example_lerp_animation_test.hpp"
 
-#include <engine/geometries.hpp>
-#include <engine/lights.hpp>
-#include <engine/resources.hpp>
+#include <gleam/geometries.hpp>
+#include <gleam/lights.hpp>
+#include <gleam/resources.hpp>
 
 #include <cmath>
 

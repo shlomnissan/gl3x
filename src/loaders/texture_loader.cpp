@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/loaders/texture_loader.hpp"
+#include "gleam/loaders/texture_loader.hpp"
 
 #include "utilities/file.hpp"
 

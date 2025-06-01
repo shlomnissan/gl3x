@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include <engine/loaders/texture_loader.hpp>
+#include <gleam/loaders/texture_loader.hpp>
 
 #include <future>
 #include <thread>
