@@ -1,11 +1,11 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/resources/bounding_sphere.hpp"
+#include "gleam/resources/bounding_sphere.hpp"
 
-#include "engine/materials/flat_material.hpp"
-#include "engine/math/utilities.hpp"
-#include "engine/nodes/mesh.hpp"
+#include "gleam/materials/flat_material.hpp"
+#include "gleam/math/utilities.hpp"
+#include "gleam/nodes/mesh.hpp"
 
 #include <cmath>
 

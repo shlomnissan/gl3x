@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include <engine/materials/material.hpp>
-#include <engine/math/color.hpp>
+#include <gleam/materials/material.hpp>
+#include <gleam/math/color.hpp>
 
 #include <memory>
 #include <unordered_map>

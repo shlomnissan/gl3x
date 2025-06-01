@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include <engine/core.hpp>
-#include <engine/math.hpp>
-#include <engine/nodes.hpp>
+#include <gleam/core.hpp>
+#include <gleam/math.hpp>
+#include <gleam/nodes.hpp>
 
 #include "example_scene.hpp"
 

@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <engine/math/plane.hpp>
+#include <gleam/math/plane.hpp>
 
 #include <cmath>
 

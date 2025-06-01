@@ -4,8 +4,8 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <engine/math/transform3.hpp>
-#include <engine/math/utilities.hpp>
+#include <gleam/math/transform3.hpp>
+#include <gleam/math/utilities.hpp>
 
 #include <cmath>
 

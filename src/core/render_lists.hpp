@@ -3,10 +3,10 @@
 
 #pragma once
 
-#include <engine/lights/light.hpp>
-#include <engine/nodes/mesh.hpp>
-#include <engine/nodes/node.hpp>
-#include <engine/nodes/scene.hpp>
+#include <gleam/lights/light.hpp>
+#include <gleam/nodes/mesh.hpp>
+#include <gleam/nodes/node.hpp>
+#include <gleam/nodes/scene.hpp>
 
 #include <memory>
 #include <vector>

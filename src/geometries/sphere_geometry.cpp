@@ -1,9 +1,9 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/geometries/sphere_geometry.hpp"
+#include "gleam/geometries/sphere_geometry.hpp"
 
-#include "engine/math/vector3.hpp"
+#include "gleam/math/vector3.hpp"
 
 #include <algorithm>
 #include <cassert>

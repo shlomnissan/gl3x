@@ -1,10 +1,10 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/geometries/cylinder_geometry.hpp"
+#include "gleam/geometries/cylinder_geometry.hpp"
 
-#include "engine/math/utilities.hpp"
-#include "engine/math/vector3.hpp"
+#include "gleam/math/utilities.hpp"
+#include "gleam/math/vector3.hpp"
 
 #include <cassert>
 #include <cmath>

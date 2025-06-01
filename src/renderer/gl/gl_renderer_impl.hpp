@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include "engine/core/renderer.hpp"
-#include "engine/math/frustum.hpp"
-#include "engine/nodes/mesh.hpp"
+#include "gleam/core/renderer.hpp"
+#include "gleam/math/frustum.hpp"
+#include "gleam/nodes/mesh.hpp"
 
 #include "renderer/gl/gl_buffers.hpp"
 #include "renderer/gl/gl_programs.hpp"

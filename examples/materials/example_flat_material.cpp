@@ -5,10 +5,10 @@
 
 #include "ui_helpers.hpp"
 
-#include <engine/geometries.hpp>
-#include <engine/resources.hpp>
-#include <engine/loaders.hpp>
-#include <engine/textures.hpp>
+#include <gleam/geometries.hpp>
+#include <gleam/resources.hpp>
+#include <gleam/loaders.hpp>
+#include <gleam/textures.hpp>
 
 using namespace engine;
 

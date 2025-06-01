@@ -1,3 +1,3 @@
-# Engine
+# Gleam
 
-A 3D game engine written in modern C++
+Gleam - A game engine built with modern C++

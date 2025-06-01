@@ -1,12 +1,12 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/resources/arrow.hpp"
+#include "gleam/resources/arrow.hpp"
 
-#include "engine/core/geometry.hpp"
-#include "engine/geometries/cone_geometry.hpp"
-#include "engine/materials/flat_material.hpp"
-#include "engine/nodes/mesh.hpp"
+#include "gleam/core/geometry.hpp"
+#include "gleam/geometries/cone_geometry.hpp"
+#include "gleam/materials/flat_material.hpp"
+#include "gleam/nodes/mesh.hpp"
 
 namespace engine {
 

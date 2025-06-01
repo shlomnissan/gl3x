@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include <engine/nodes.hpp>
-#include <engine/resources.hpp>
+#include <gleam/nodes.hpp>
+#include <gleam/resources.hpp>
 
 #include <memory>
 

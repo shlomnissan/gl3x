@@ -3,9 +3,9 @@
 
 #include <gtest/gtest.h>
 
-#include <engine/core/geometry.hpp>
-#include <engine/loaders/mesh_loader.hpp>
-#include <engine/nodes/mesh.hpp>
+#include <gleam/core/geometry.hpp>
+#include <gleam/loaders/mesh_loader.hpp>
+#include <gleam/nodes/mesh.hpp>
 
 #include <future>
 #include <thread>

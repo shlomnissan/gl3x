@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include <engine/materials.hpp>
-#include <engine/nodes.hpp>
-#include <engine/textures.hpp>
+#include <gleam/materials.hpp>
+#include <gleam/nodes.hpp>
+#include <gleam/textures.hpp>
 
 #include <memory>
 

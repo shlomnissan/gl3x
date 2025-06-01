@@ -4,9 +4,9 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <engine/math/frustum.hpp>
-#include <engine/nodes/camera_orthographic.hpp>
-#include <engine/nodes/camera_perspective.hpp>
+#include <gleam/math/frustum.hpp>
+#include <gleam/nodes/camera_orthographic.hpp>
+#include <gleam/nodes/camera_perspective.hpp>
 
 #pragma region Fixtures
 

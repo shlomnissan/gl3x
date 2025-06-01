@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/math/box3.hpp"
+#include "gleam/math/box3.hpp"
 
 #include <algorithm>
 #include <array>

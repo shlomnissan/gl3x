@@ -5,8 +5,8 @@
 
 #include "ui_helpers.hpp"
 
-#include <engine/lights.hpp>
-#include <engine/resources.hpp>
+#include <gleam/lights.hpp>
+#include <gleam/resources.hpp>
 
 using namespace engine;
 using namespace engine::math;

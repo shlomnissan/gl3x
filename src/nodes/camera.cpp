@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/nodes/camera.hpp"
+#include "gleam/nodes/camera.hpp"
 
 namespace engine {
 

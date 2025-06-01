@@ -1,10 +1,10 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/resources/grid.hpp"
+#include "gleam/resources/grid.hpp"
 
-#include "engine/materials/flat_material.hpp"
-#include "engine/nodes/mesh.hpp"
+#include "gleam/materials/flat_material.hpp"
+#include "gleam/nodes/mesh.hpp"
 
 #include <vector>
 

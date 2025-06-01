@@ -5,11 +5,11 @@
 
 #include "ui_helpers.hpp"
 
-#include <engine/core.hpp>
-#include <engine/geometries.hpp>
-#include <engine/lights.hpp>
-#include <engine/materials.hpp>
-#include <engine/resources.hpp>
+#include <gleam/core.hpp>
+#include <gleam/geometries.hpp>
+#include <gleam/lights.hpp>
+#include <gleam/materials.hpp>
+#include <gleam/resources.hpp>
 
 using namespace engine;
 

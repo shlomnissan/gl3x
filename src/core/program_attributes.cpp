@@ -3,12 +3,12 @@
 
 #include "core/program_attributes.hpp"
 
-#include "engine/lights/ambient_light.hpp"
-#include "engine/lights/directional_light.hpp"
-#include "engine/lights/point_light.hpp"
-#include "engine/materials/flat_material.hpp"
-#include "engine/materials/phong_material.hpp"
-#include "engine/materials/shader_material.hpp"
+#include "gleam/lights/ambient_light.hpp"
+#include "gleam/lights/directional_light.hpp"
+#include "gleam/lights/point_light.hpp"
+#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/phong_material.hpp"
+#include "gleam/materials/shader_material.hpp"
 
 #include "utilities/logger.hpp"
 

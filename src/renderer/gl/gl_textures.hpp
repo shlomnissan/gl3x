@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "engine/textures/texture.hpp"
+#include "gleam/textures/texture.hpp"
 
 #include <memory>
 #include <string_view>

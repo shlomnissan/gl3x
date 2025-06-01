@@ -37,20 +37,20 @@ set(SOURCE_CODE
 
 find_package(imgui REQUIRED)
 
-add_executable(engine-examples main.cpp ${SOURCE_CODE})
+add_executable(gleam-examples main.cpp ${SOURCE_CODE})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>
 )
 
-target_link_libraries(engine-examples PRIVATE
-    engine
+target_link_libraries(gleam-examples PRIVATE
+    gleam
     imgui::imgui
 )
 
 add_custom_command(
-    TARGET engine-examples POST_BUILD
+    TARGET gleam-examples POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/assets
-    $<TARGET_FILE_DIR:engine-examples>/assets
+    $<TARGET_FILE_DIR:gleam-examples>/assets
 )

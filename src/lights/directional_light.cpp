@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/lights/directional_light.hpp"
+#include "gleam/lights/directional_light.hpp"
 
 namespace engine {
 

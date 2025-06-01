@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "engine_export.h"
+#include "gleam_export.h"
 
 #include "utilities/logger.hpp"
 
@@ -28,7 +28,7 @@ template <typename T>
 using LoaderCallback = std::function<void(LoaderResult<T>)>;
 
 template <typename Resource>
-class ENGINE_EXPORT Loader : public std::enable_shared_from_this<Loader<Resource>> {
+class GLEAM_EXPORT Loader : public std::enable_shared_from_this<Loader<Resource>> {
 public:
     auto Load(const fs::path& path) const -> LoaderResult<Resource> {
         if (!fs::exists(path)) {

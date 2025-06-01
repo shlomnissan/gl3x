@@ -1,9 +1,9 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/lights/point_light.hpp"
+#include "gleam/lights/point_light.hpp"
 
-#include "engine/geometries/sphere_geometry.hpp"
+#include "gleam/geometries/sphere_geometry.hpp"
 
 namespace engine {
 

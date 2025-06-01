@@ -1,7 +1,7 @@
 // Copyright © 2024 - Present, Shlomi Nissan.
 // All rights reserved.
 
-#include "engine/nodes/camera_orthographic.hpp"
+#include "gleam/nodes/camera_orthographic.hpp"
 
 namespace engine {
     CameraOrthographic::CameraOrthographic(const Parameters& params) : params_(params) {
