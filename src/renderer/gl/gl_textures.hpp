@@ -12,7 +12,7 @@
 
 #include <glad/glad.h>
 
-namespace engine {
+namespace gleam {
 
 struct GLTextureState {
     GLuint texture_id {0};

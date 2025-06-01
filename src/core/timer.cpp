@@ -7,7 +7,7 @@
 
 #include <format>
 
-namespace engine {
+namespace gleam {
 
 using Clock = std::chrono::steady_clock;
 

@@ -9,7 +9,7 @@
 
 #include <array>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief A 3x3 matrix class for mathematical operations.

@@ -3,7 +3,7 @@
 
 #include "gleam/nodes/camera.hpp"
 
-namespace engine {
+namespace gleam {
 
 auto Camera::UpdateViewTransform() -> void {
     if (ShouldUpdateWorldTransform()) {

@@ -7,12 +7,12 @@
 
 #include <vector>
 
-using enum engine::GeometryAttributeType;
+using enum gleam::GeometryAttributeType;
 
 #pragma region Constructors
 
 TEST(Geometry, DefaultConstruction) {
-    const auto geometry = engine::Geometry::Create();
+    const auto geometry = gleam::Geometry::Create();
 
     EXPECT_TRUE(geometry->VertexData().empty());
     EXPECT_TRUE(geometry->IndexData().empty());
@@ -22,7 +22,7 @@ TEST(Geometry, DefaultConstruction) {
 TEST(Geometry, InitializeWithVertexAndIndexData) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
     const auto index_data = std::vector<unsigned int>{0, 1, 2};
-    const auto geometry = engine::Geometry::Create(vertex_data, index_data);
+    const auto geometry = gleam::Geometry::Create(vertex_data, index_data);
 
     EXPECT_EQ(geometry->VertexData().size(), 3);
     EXPECT_EQ(geometry->IndexData().size(), 3);
@@ -30,7 +30,7 @@ TEST(Geometry, InitializeWithVertexAndIndexData) {
 
 TEST(Geometry, InitializeWithVertexData) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
-    const auto geometry = engine::Geometry::Create(vertex_data);
+    const auto geometry = gleam::Geometry::Create(vertex_data);
 
     EXPECT_EQ(geometry->VertexData().size(), 3);
     EXPECT_TRUE(geometry->IndexData().empty());
@@ -42,7 +42,7 @@ TEST(Geometry, InitializeWithVertexData) {
 
 TEST(Geometry, AddAttribute) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
-    auto geometry = engine::Geometry::Create(vertex_data);
+    auto geometry = gleam::Geometry::Create(vertex_data);
 
     geometry->SetAttribute({.type = Position, .item_size = 3});
 
@@ -58,7 +58,7 @@ TEST(Geometry, AddMultipleAttributes) {
         0.0f, 1.0f, 2.0f, 0.33f, 0.55f
     };
 
-    auto geometry = engine::Geometry::Create(vertex_data);
+    auto geometry = gleam::Geometry::Create(vertex_data);
     geometry->SetAttribute({.type = Position, .item_size = 3});
     geometry->SetAttribute({.type = UV, .item_size = 2});
 
@@ -70,7 +70,7 @@ TEST(Geometry, AddMultipleAttributes) {
 }
 
 TEST(Geometry, ReturnsTrueIfAttributeExists) {
-    auto geometry = engine::Geometry::Create({
+    auto geometry = gleam::Geometry::Create({
         0.0f, 1.0f, 2.0f
     });
 
@@ -80,7 +80,7 @@ TEST(Geometry, ReturnsTrueIfAttributeExists) {
 }
 
 TEST(Geometry, ReturnsFalseIfAttributeDoesNotExist) {
-    auto geometry = engine::Geometry::Create({
+    auto geometry = gleam::Geometry::Create({
         0.0f, 1.0f, 2.0f
     });
 
@@ -99,7 +99,7 @@ TEST(Geometry, Stride) {
         0.0f, 1.0f, 2.0f, 0.33f, 0.55f
     };
 
-    auto geometry = engine::Geometry::Create(vertex_data);
+    auto geometry = gleam::Geometry::Create(vertex_data);
     geometry->SetAttribute({.type = Position, .item_size = 3});
     geometry->SetAttribute({.type = UV, .item_size = 2});
 
@@ -113,7 +113,7 @@ TEST(Geometry, VertexCount) {
          0.0f,  0.5f, 0.0f
     };
 
-    auto geometry = engine::Geometry::Create(vertex_data);
+    auto geometry = gleam::Geometry::Create(vertex_data);
     geometry->SetAttribute({.type = Position, .item_size = 3});
 
     EXPECT_EQ(geometry->VertexCount(), 3);
@@ -125,7 +125,7 @@ TEST(Geometry, VertexCount) {
 
 TEST(Geometry, AddAttributeWithZeroItemSize) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
-    auto geometry = engine::Geometry::Create(vertex_data);
+    auto geometry = gleam::Geometry::Create(vertex_data);
 
     EXPECT_DEATH({
         geometry->SetAttribute({.type = Position, .item_size = 0});

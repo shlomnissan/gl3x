@@ -5,7 +5,7 @@
 
 #include "renderer/gl/gl_renderer_impl.hpp"
 
-namespace engine {
+namespace gleam {
 
 Renderer::Renderer(const Renderer::Parameters& params)
     : impl_(std::make_unique<Impl>(params)) {}

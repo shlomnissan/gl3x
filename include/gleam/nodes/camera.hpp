@@ -6,7 +6,7 @@
 #include "gleam/math/matrix4.hpp"
 #include "gleam/nodes/node.hpp"
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief An abstract base class for cameras.

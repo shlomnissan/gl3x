@@ -7,7 +7,7 @@
 
 #include <cassert>
 
-namespace engine {
+namespace gleam {
 
 class Vector4;
 

@@ -10,7 +10,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Handles rendering of a scene using a specific camera.

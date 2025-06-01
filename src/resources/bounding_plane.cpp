@@ -8,7 +8,7 @@
 
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 BoundingPlane::BoundingPlane(const Plane& plane, float size, const Color& color) {
     CreateWireframeMesh(color);

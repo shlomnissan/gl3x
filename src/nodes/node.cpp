@@ -11,7 +11,7 @@
 #include <queue>
 #include <ranges>
 
-namespace engine {
+namespace gleam {
 
 auto Node::Add(const std::shared_ptr<Node>& node) -> void {
     if (node->parent_) {

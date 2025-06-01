@@ -13,7 +13,7 @@
 
 #include <glad/glad.h>
 
-namespace engine {
+namespace gleam {
 
 struct GLBufferState {
     std::array<GLuint, 2> buffers {0};

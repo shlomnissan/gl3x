@@ -10,7 +10,7 @@
 #include <cstring>
 #include <fstream>
 
-namespace engine {
+namespace gleam {
 
 auto TextureLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Texture2D> {
     auto file = std::ifstream {path, std::ios::binary};

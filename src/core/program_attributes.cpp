@@ -16,7 +16,7 @@
 #include <format>
 #include <string>
 
-namespace engine {
+namespace gleam {
 
 ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists* render_lists, const Scene* scene) {
     type = material->Type();

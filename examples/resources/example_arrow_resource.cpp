@@ -7,9 +7,9 @@
 
 #include <gleam/resources.hpp>
 
-using namespace engine;
+using namespace gleam;
 
-ExampleArrowResource::ExampleArrowResource(std::shared_ptr<engine::Camera> camera) {
+ExampleArrowResource::ExampleArrowResource(std::shared_ptr<gleam::Camera> camera) {
     show_context_menu_ = false;
 
     Add(OrbitControls::Create(camera, {

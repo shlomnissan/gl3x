@@ -14,22 +14,22 @@
 
 class ExampleLerpAnimationTest : public ExampleScene {
 public:
-    explicit ExampleLerpAnimationTest(std::shared_ptr<engine::Camera>);
+    explicit ExampleLerpAnimationTest(std::shared_ptr<gleam::Camera>);
 
     auto ContextMenu() -> void override;
 
     auto OnUpdate(float delta) -> void override;
 
 private:
-    std::shared_ptr<engine::Mesh> active_point_;
-    std::shared_ptr<engine::PhongMaterial> active_material_;
+    std::shared_ptr<gleam::Mesh> active_point_;
+    std::shared_ptr<gleam::PhongMaterial> active_material_;
 
-    engine::Vector3 start_pos_ {-1.5f, 0.0f, 0.0f};
-    engine::Vector3 end_pos_ {1.5f, 0.0f, 0.0f};
-    engine::Vector3 start_scale_ {1.0f};
-    engine::Vector3 end_scale_ {0.5f};
-    engine::Color start_color_ {0xFE4A49};
-    engine::Color end_color_ {0xFED766};
+    gleam::Vector3 start_pos_ {-1.5f, 0.0f, 0.0f};
+    gleam::Vector3 end_pos_ {1.5f, 0.0f, 0.0f};
+    gleam::Vector3 start_scale_ {1.0f};
+    gleam::Vector3 end_scale_ {0.5f};
+    gleam::Color start_color_ {0xFE4A49};
+    gleam::Color end_color_ {0xFED766};
 
     float elapsed_time_ {0.0f};
 };

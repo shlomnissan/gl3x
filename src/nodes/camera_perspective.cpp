@@ -6,13 +6,13 @@
 
 #include <cmath>
 
-namespace engine {
+namespace gleam {
     CameraPerspective::CameraPerspective(const Parameters& params) : params_(params) {
         CameraPerspective::SetProjection();
     }
 
     auto CameraPerspective::SetProjection() -> void {
-        const auto tan_half_fov = std::tan((engine::math::DegToRad(params_.fov)) / 2);
+        const auto tan_half_fov = std::tan((gleam::math::DegToRad(params_.fov)) / 2);
         projection_transform[0] = {1.0f / (params_.aspect * tan_half_fov), 0.0f, 0.0f, 0.0f};
         projection_transform[1] = {0.0f, 1.0f / tan_half_fov, 0.0f, 0.0f};
         projection_transform[2] = {0.0f, 0.0f, -(params_.far + params_.near) / (params_.far - params_.near), -1.0f};

@@ -8,7 +8,7 @@
 #include <chrono>
 #include <string>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief A timer class to measure elapsed time.

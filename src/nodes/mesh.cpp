@@ -7,7 +7,7 @@
 
 #include <limits>
 
-namespace engine {
+namespace gleam {
 
 Mesh::Mesh(
     std::shared_ptr<Geometry> geometry,

@@ -9,7 +9,7 @@
 
 class PlaneGeometryTest : public ::testing::Test {
 protected:
-    engine::PlaneGeometry plane_ {{
+    gleam::PlaneGeometry plane_ {{
         .width = 1.0f,
         .height = 1.0f,
         .width_segments = 2,
@@ -44,7 +44,7 @@ TEST_F(PlaneGeometryTest, ConstructorInitializesName) {
 #pragma region Attributes
 
 TEST_F(PlaneGeometryTest, AttributesConfiguredCorrectly) {
-    using enum engine::GeometryAttributeType;
+    using enum gleam::GeometryAttributeType;
 
     const auto& attrs = plane_.Attributes();
 
@@ -63,19 +63,19 @@ TEST_F(PlaneGeometryTest, AttributesConfiguredCorrectly) {
 
 TEST(PlaneGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        engine::PlaneGeometry({.width = 0.0f});
+        gleam::PlaneGeometry({.width = 0.0f});
     }, ".*params.width > 0");
 
     EXPECT_DEATH({
-        engine::PlaneGeometry({.height = 0.0f});
+        gleam::PlaneGeometry({.height = 0.0f});
     }, ".*params.height > 0");
 
     EXPECT_DEATH({
-        engine::PlaneGeometry({.width_segments = 0});
+        gleam::PlaneGeometry({.width_segments = 0});
     }, ".*params.width_segments > 0");
 
     EXPECT_DEATH({
-        engine::PlaneGeometry({ .height_segments = 0});
+        gleam::PlaneGeometry({ .height_segments = 0});
     }, ".*params.height_segments > 0");
 }
 

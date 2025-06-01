@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 using EventListener = std::function<void(Event*)>;
 

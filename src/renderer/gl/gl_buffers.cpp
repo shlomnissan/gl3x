@@ -7,7 +7,7 @@
 
 #include <utility>
 
-namespace engine {
+namespace gleam {
 
 #define BUFFER_OFFSET(offset) ((void*)(offset * sizeof(GLfloat)))
 

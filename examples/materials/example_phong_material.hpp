@@ -13,7 +13,7 @@
 
 class ExamplePhongMaterial : public ExampleScene {
 public:
-    explicit ExamplePhongMaterial(std::shared_ptr<engine::Camera> camera);
+    explicit ExamplePhongMaterial(std::shared_ptr<gleam::Camera> camera);
 
     auto OnAttached() -> void override;
 
@@ -22,7 +22,7 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<engine::PhongMaterial> material_;
-    std::shared_ptr<engine::Mesh> mesh_;
-    std::shared_ptr<engine::Texture2D> texture_;
+    std::shared_ptr<gleam::PhongMaterial> material_;
+    std::shared_ptr<gleam::Mesh> mesh_;
+    std::shared_ptr<gleam::Texture2D> texture_;
 };

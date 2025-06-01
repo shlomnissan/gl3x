@@ -5,7 +5,7 @@
 
 #include "gleam/geometries/sphere_geometry.hpp"
 
-namespace engine {
+namespace gleam {
 
 static constexpr auto debug_mesh_size = 0.2f;
 

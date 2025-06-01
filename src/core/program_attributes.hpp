@@ -11,7 +11,7 @@
 #include <string>
 #include <string_view>
 
-namespace engine {
+namespace gleam {
 
 struct ProgramAttributes {
     MaterialType type;

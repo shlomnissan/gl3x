@@ -5,7 +5,7 @@
 
 #include <cassert>
 
-namespace engine {
+namespace gleam {
 
 PlaneGeometry::PlaneGeometry(const Parameters& params) {
     assert(params.width > 0.0f);

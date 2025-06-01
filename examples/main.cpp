@@ -16,7 +16,7 @@
 
 #include <imgui.h>
 
-using namespace engine;
+using namespace gleam;
 
 class Application : public ApplicationContext {
 public:

@@ -25,8 +25,8 @@ asset_builder <input_file> <output_file>
 ## Building and Installing
 
 ```bash
-git clone https://github.com/shlomnissan/engine
-cd engine\tools\asset_builder
+git clone https://github.com/shlomnissan/gleam-engine
+cd gleam-engine\tools\asset_builder
 mkdir release
 cd release
 cmake .. -DCMAKE_BUILD_TYPE=Release

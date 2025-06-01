@@ -9,7 +9,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief The type of fog.

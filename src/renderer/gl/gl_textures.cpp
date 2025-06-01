@@ -7,7 +7,7 @@
 
 #include "utilities/logger.hpp"
 
-namespace engine {
+namespace gleam {
 
 auto GLTextures::Bind(const std::shared_ptr<Texture>& texture) -> void {
     GLTextureState state;

@@ -10,7 +10,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Generates geometry to visualize an arrow in 3D space.

@@ -3,7 +3,7 @@
 
 #include "gleam/math/matrix3.hpp"
 
-namespace engine {
+namespace gleam {
 
 Matrix3::Matrix3() : Matrix3(0.0f) {}
 

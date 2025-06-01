@@ -13,14 +13,14 @@
 #pragma region Constructors
 
 TEST(Box3, DefaultConstructor) {
-    const auto box = engine::Box3 {};
+    const auto box = gleam::Box3 {};
 
     EXPECT_VEC3_EQ(box.min, std::numeric_limits<float>::max());
     EXPECT_VEC3_EQ(box.max, std::numeric_limits<float>::lowest());
 }
 
 TEST(Vector3, ConstructorParameterized) {
-    const auto box = engine::Box3 {
+    const auto box = gleam::Box3 {
         {-1.0f, -1.0f, -1.0f},
         {1.0f, 1.0f, 1.0f}
     };
@@ -34,7 +34,7 @@ TEST(Vector3, ConstructorParameterized) {
 #pragma region Empty State
 
 TEST(Box3, Reset) {
-    auto box = engine::Box3 {
+    auto box = gleam::Box3 {
         {-1.0f, -1.0f, -1.0f},
         {1.0f, 1.0f, 1.0f}
     };
@@ -47,7 +47,7 @@ TEST(Box3, Reset) {
 }
 
 TEST(Box3, IsEmptyTrue) {
-    const auto box = engine::Box3 {
+    const auto box = gleam::Box3 {
         {1.0f, 1.0f, 1.0f},
         {0.0f, 0.0f, 0.0f}
     };
@@ -56,7 +56,7 @@ TEST(Box3, IsEmptyTrue) {
 }
 
 TEST(Box3, IsEmptyFalse) {
-    const auto box = engine::Box3 {
+    const auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
@@ -69,7 +69,7 @@ TEST(Box3, IsEmptyFalse) {
 #pragma region Center
 
 TEST(Box3, CenterWithNegativeAndPositiveValues) {
-    const auto box = engine::Box3 {
+    const auto box = gleam::Box3 {
         {0.0f, 0.0f, -1.0f},
         {1.0f, 1.0f, 2.0f}
     };
@@ -78,7 +78,7 @@ TEST(Box3, CenterWithNegativeAndPositiveValues) {
 }
 
 TEST(Box3, CenterWithSameValues) {
-    const auto box = engine::Box3 {
+    const auto box = gleam::Box3 {
         {1.0f, 1.0f, 1.0f},
         {1.0f, 1.0f, 1.0f}
     };
@@ -87,7 +87,7 @@ TEST(Box3, CenterWithSameValues) {
 }
 
 TEST(Box3, CenterWithZeroValues) {
-    const auto box = engine::Box3 {
+    const auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {0.0f, 0.0f, 0.0f}
     };
@@ -100,7 +100,7 @@ TEST(Box3, CenterWithZeroValues) {
 #pragma region Expand with Point
 
 TEST(Box3, ExpandWithPoint) {
-    auto box = engine::Box3 {
+    auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
@@ -112,7 +112,7 @@ TEST(Box3, ExpandWithPoint) {
 }
 
 TEST(Box3, ExpandWithPointInsideBox) {
-    auto box = engine::Box3 {
+    auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
@@ -124,7 +124,7 @@ TEST(Box3, ExpandWithPointInsideBox) {
 }
 
 TEST(Box3, ExpandWithPointOnMinMax) {
-    auto box = engine::Box3 {
+    auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
@@ -137,7 +137,7 @@ TEST(Box3, ExpandWithPointOnMinMax) {
 }
 
 TEST(Box3, ExpandWithMultiplePoints) {
-    auto box = engine::Box3 {
+    auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
@@ -154,12 +154,12 @@ TEST(Box3, ExpandWithMultiplePoints) {
 #pragma region Apply Transform
 
 TEST(Box3, TransformWithIdentityMatrix) {
-    auto box = engine::Box3 {
+    auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
-    const auto transform = engine::Matrix4::Identity();
+    const auto transform = gleam::Matrix4::Identity();
 
     box.ApplyTransform(transform);
 
@@ -168,12 +168,12 @@ TEST(Box3, TransformWithIdentityMatrix) {
 }
 
 TEST(Box3, TransformWithTranslation) {
-    auto box = engine::Box3 {
+    auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
-    const auto transform = engine::Matrix4 {
+    const auto transform = gleam::Matrix4 {
         1.0f, 0.0f, 0.0f, 2.0f,
         0.0f, 1.0f, 0.0f, 3.0f,
         0.0f, 0.0f, 1.0f, 4.0f,
@@ -187,12 +187,12 @@ TEST(Box3, TransformWithTranslation) {
 }
 
 TEST(Box3, TransformWithScale) {
-    auto box = engine::Box3 {
+    auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
-    const auto transform = engine::Matrix4 {
+    const auto transform = gleam::Matrix4 {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 3.0f, 0.0f,
@@ -206,13 +206,13 @@ TEST(Box3, TransformWithScale) {
 }
 
 TEST(Box3, TransformWithRotation) {
-    auto box = engine::Box3 {
+    auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
     // Rotate 90 degrees around the z-axis
-    const auto transform = engine::Matrix4 {
+    const auto transform = gleam::Matrix4 {
         0.0f, -1.0f, 0.0f, 0.0f,
         1.0f,  0.0f, 0.0f, 0.0f,
         0.0f,  0.0f, 1.0f, 0.0f,
@@ -230,7 +230,7 @@ TEST(Box3, TransformWithRotation) {
 #pragma region Translate
 
 TEST(Box3, Translate) {
-    auto box = engine::Box3 {
+    auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };

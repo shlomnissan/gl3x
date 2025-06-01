@@ -7,7 +7,7 @@
 #include <array>
 #include <limits>
 
-namespace engine {
+namespace gleam {
 
 auto Box3::Reset() -> void {
     min = Vector3(std::numeric_limits<float>::max());

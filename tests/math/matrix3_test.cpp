@@ -10,7 +10,7 @@
 #pragma region Constructors
 
 TEST(Matrix3, ConstructorDefault) {
-    const auto m = engine::Matrix3 {};
+    const auto m = gleam::Matrix3 {};
 
     EXPECT_MAT3_EQ(m, {
         0.0f, 0.0f, 0.0f,
@@ -20,7 +20,7 @@ TEST(Matrix3, ConstructorDefault) {
 }
 
 TEST(Matrix3, ConstructorSingleParameter) {
-    const auto m = engine::Matrix3 {1.0f};
+    const auto m = gleam::Matrix3 {1.0f};
 
     EXPECT_MAT3_EQ(m, {
         1.0f, 0.0f, 0.0f,
@@ -30,7 +30,7 @@ TEST(Matrix3, ConstructorSingleParameter) {
 }
 
 TEST(Matrix3, ConstructorParameterized) {
-    const auto m = engine::Matrix3 {
+    const auto m = gleam::Matrix3 {
         1.0f, 2.0f, 3.0f,
         4.0f, 5.0f, 6.0f,
         7.0f, 8.0f, 9.0f
@@ -44,10 +44,10 @@ TEST(Matrix3, ConstructorParameterized) {
 }
 
 TEST(Matrix3, ConstructorVector) {
-    const auto m = engine::Matrix3 {
-        engine::Vector3 {1.0f, 4.0f, 7.0f},
-        engine::Vector3 {2.0f, 5.0f, 8.0f},
-        engine::Vector3 {3.0f, 6.0f, 9.0f},
+    const auto m = gleam::Matrix3 {
+        gleam::Vector3 {1.0f, 4.0f, 7.0f},
+        gleam::Vector3 {2.0f, 5.0f, 8.0f},
+        gleam::Vector3 {3.0f, 6.0f, 9.0f},
     };
 
     EXPECT_MAT3_EQ(m, {
@@ -58,8 +58,8 @@ TEST(Matrix3, ConstructorVector) {
 }
 
 TEST(Matrix3, ConstructWithMatrix4) {
-    const auto m = engine::Matrix3 {
-        engine::Matrix4 {
+    const auto m = gleam::Matrix3 {
+        gleam::Matrix4 {
             1.0f,  2.0f,  3.0f,  4.0f,
             5.0f,  6.0f,  7.0f,  8.0f,
             9.0f, 10.0f, 11.0f, 12.0f,
@@ -79,12 +79,12 @@ TEST(Matrix3, ConstructWithMatrix4) {
 #pragma region Matrix Multiplication
 
 TEST(Matrix3, MultiplicationMatrix) {
-    const auto m1 = engine::Matrix3 {
+    const auto m1 = gleam::Matrix3 {
         1.0f, 2.0f, 3.0f,
         5.0f, 6.0f, 7.0f,
         4.0f, 3.0f, 2.0f
     };
-    const auto m2 = engine::Matrix3 {
+    const auto m2 = gleam::Matrix3 {
         1.0f, 5.0f, 1.0f,
         2.0f, 1.0f, 3.0f,
         1.0f, 5.0f, 4.0f
@@ -102,12 +102,12 @@ TEST(Matrix3, MultiplicationMatrix) {
 #pragma region Matrix-Vector Multiplication
 
 TEST(Matrix3, MultiplicationWithVector3) {
-    const auto m = engine::Matrix3 {
+    const auto m = gleam::Matrix3 {
         1.0f, 2.0f, 3.0f,
         5.0f, 6.0f, 7.0f,
         4.0f, 3.0f, 2.0f
     };
-    const auto v = engine::Vector3 {1.0f, 2.0f, 3.0f};
+    const auto v = gleam::Vector3 {1.0f, 2.0f, 3.0f};
 
     EXPECT_VEC3_EQ((m * v), {14.0f, 38.0f, 16.0f});
 }
@@ -117,17 +117,17 @@ TEST(Matrix3, MultiplicationWithVector3) {
 #pragma region Equality Operator
 
 TEST(Matrix3, EqualityOperator) {
-    const auto m1 = engine::Matrix3 {
+    const auto m1 = gleam::Matrix3 {
         1.0f, 2.0f, 3.0f,
         5.0f, 6.0f, 7.0f,
         4.0f, 3.0f, 2.0f
     };
-    const auto m2 = engine::Matrix3 {
+    const auto m2 = gleam::Matrix3 {
         1.0f, 2.0f, 3.0f,
         5.0f, 6.0f, 7.0f,
         4.0f, 3.0f, 2.0f
     };
-    const auto m3 = engine::Matrix3 {
+    const auto m3 = gleam::Matrix3 {
         1.0f, 5.0f, 1.0f,
         2.0f, 1.0f, 3.0f,
         1.0f, 5.0f, 4.0f
@@ -138,17 +138,17 @@ TEST(Matrix3, EqualityOperator) {
 }
 
 TEST(Matrix3, InequalityOperator) {
-    const auto m1 = engine::Matrix3 {
+    const auto m1 = gleam::Matrix3 {
         1.0f, 2.0f, 3.0f,
         5.0f, 6.0f, 7.0f,
         4.0f, 3.0f, 2.0f
     };
-    const auto m2 = engine::Matrix3 {
+    const auto m2 = gleam::Matrix3 {
         1.0f, 2.0f, 3.0f,
         5.0f, 6.0f, 7.0f,
         4.0f, 3.0f, 2.0f
     };
-    const auto m3 = engine::Matrix3 {
+    const auto m3 = gleam::Matrix3 {
         1.0f, 5.0f, 1.0f,
         2.0f, 1.0f, 3.0f,
         1.0f, 5.0f, 4.0f
@@ -163,38 +163,38 @@ TEST(Matrix3, InequalityOperator) {
 #pragma region Determinant
 
 TEST(Matrix3, Determinant) {
-    const auto m = engine::Matrix3 {
+    const auto m = gleam::Matrix3 {
         4.0f, 7.0f, 2.0f,
         3.0f, 6.0f, 1.0f,
         2.0f, 5.0f, 3.0f
     };
 
-    EXPECT_FLOAT_EQ(engine::Determinant(m), 9.0f);
+    EXPECT_FLOAT_EQ(gleam::Determinant(m), 9.0f);
     // det(m) = volume of parallelepiped
     EXPECT_FLOAT_EQ(
-        engine::Determinant(m),
-        engine::Dot(engine::Cross(m[0], m[1]), m[2])
+        gleam::Determinant(m),
+        gleam::Dot(gleam::Cross(m[0], m[1]), m[2])
     );
 }
 
 TEST(Matrix3, DeterminantNegative) {
-    const auto m = engine::Matrix3 {
+    const auto m = gleam::Matrix3 {
         1.0f, 2.0f, 1.0f,
         3.0f, 1.0f, 1.0f,
         2.0f, 2.0f, 3.0f
     };
 
-    EXPECT_FLOAT_EQ(engine::Determinant(m), -9.0f);
+    EXPECT_FLOAT_EQ(gleam::Determinant(m), -9.0f);
 }
 
 TEST(Matrix3, DeterminantZero) {
-    const auto m = engine::Matrix3 {
+    const auto m = gleam::Matrix3 {
         1.0f, 2.0f, 3.0f,
         4.0f, 5.0f, 6.0f,
         7.0f, 8.0f, 9.0f
     };
 
-    EXPECT_FLOAT_EQ(engine::Determinant(m), 0.0f);
+    EXPECT_FLOAT_EQ(gleam::Determinant(m), 0.0f);
 }
 
 #pragma endregion
@@ -202,13 +202,13 @@ TEST(Matrix3, DeterminantZero) {
 #pragma region Inverse
 
 TEST(Matrix3, Inverse) {
-    const auto m = engine::Matrix3 {
+    const auto m = gleam::Matrix3 {
         4.0f, 7.0f, 2.0f,
         3.0f, 6.0f, 1.0f,
         2.0f, 5.0f, 3.0f
     };
 
-    EXPECT_MAT3_NEAR(engine::Inverse(m), {
+    EXPECT_MAT3_NEAR(gleam::Inverse(m), {
         1.44f, -1.22f, -0.55f,
        -0.77f,  0.88f,  0.22f,
         0.33f, -0.66f,  0.33f
@@ -216,8 +216,8 @@ TEST(Matrix3, Inverse) {
 
     // M^{-1} * M = I
     EXPECT_MAT3_NEAR(
-        engine::Inverse(m) * m,
-        engine::Matrix3::Identity(),
+        gleam::Inverse(m) * m,
+        gleam::Matrix3::Identity(),
         0.01f
     );
 }
@@ -227,9 +227,9 @@ TEST(Matrix3, Inverse) {
 #pragma region Transpose
 
 TEST(Matrix3, TransposeIdentity) {
-    const auto m = engine::Matrix3::Identity();
+    const auto m = gleam::Matrix3::Identity();
 
-    EXPECT_MAT3_EQ(engine::Transpose(m), {
+    EXPECT_MAT3_EQ(gleam::Transpose(m), {
         1.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f,
         0.0f, 0.0f, 1.0f
@@ -237,13 +237,13 @@ TEST(Matrix3, TransposeIdentity) {
 }
 
 TEST(Matrix3, TransposeNonIdentity) {
-    const auto m = engine::Matrix3 {
+    const auto m = gleam::Matrix3 {
         1.0f, 2.0f, 3.0f,
         4.0f, 5.0f, 6.0f,
         7.0f, 8.0f, 9.0f
     };
 
-    EXPECT_MAT3_EQ(engine::Transpose(m), {
+    EXPECT_MAT3_EQ(gleam::Transpose(m), {
         1.0f, 4.0f, 7.0f,
         2.0f, 5.0f, 8.0f,
         3.0f, 6.0f, 9.0f
@@ -255,7 +255,7 @@ TEST(Matrix3, TransposeNonIdentity) {
 #pragma region Operators
 
 TEST(Matrix3, SubscriptOperatorReturnsColumnVector) {
-    const auto m = engine::Matrix3 {
+    const auto m = gleam::Matrix3 {
         1.0f, 2.0f, 3.0f,
         5.0f, 6.0f, 7.0f,
         4.0f, 3.0f, 2.0f
@@ -267,7 +267,7 @@ TEST(Matrix3, SubscriptOperatorReturnsColumnVector) {
 }
 
 TEST(Matrix3, CallOperatorReturnsElementsRowMajor) {
-    const auto m = engine::Matrix3 {
+    const auto m = gleam::Matrix3 {
         1.0f, 2.0f, 3.0f,
         5.0f, 6.0f, 7.0f,
         4.0f, 3.0f, 2.0f

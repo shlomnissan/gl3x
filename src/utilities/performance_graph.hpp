@@ -5,7 +5,7 @@
 
 #include "utilities/data_series.hpp"
 
-namespace engine {
+namespace gleam {
 
 enum class PerformanceMetric {
     FrameTime,

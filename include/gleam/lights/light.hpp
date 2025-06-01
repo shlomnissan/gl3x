@@ -9,7 +9,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Represents available light types.

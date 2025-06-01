@@ -6,7 +6,7 @@
 
 #include <cmath>
 
-namespace engine {
+namespace gleam {
 
 Euler::Euler(const Parameters& params) : pitch(params.pitch), yaw(params.yaw), roll(params.roll) {}
 

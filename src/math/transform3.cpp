@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-namespace engine {
+namespace gleam {
 
 auto Transform3::Translate(const Vector3& value) -> void {
     position_ += rotation_.IsEmpty() ? value : rotation_.GetMatrix() * value;

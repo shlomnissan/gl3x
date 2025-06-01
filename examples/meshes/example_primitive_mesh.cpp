@@ -9,10 +9,10 @@
 #include <gleam/lights.hpp>
 #include <gleam/resources.hpp>
 
-using namespace engine;
-using namespace engine::math;
+using namespace gleam;
+using namespace gleam::math;
 
-ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<engine::Camera> camera) {
+ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<gleam::Camera> camera) {
     InitializeParams();
 
     Add(OrbitControls::Create(camera, {

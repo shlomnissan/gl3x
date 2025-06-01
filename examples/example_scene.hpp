@@ -5,7 +5,7 @@
 
 #include <gleam/nodes.hpp>
 
-class ExampleScene : public engine::Scene {
+class ExampleScene : public gleam::Scene {
 public:
     bool show_context_menu_ {true};
 

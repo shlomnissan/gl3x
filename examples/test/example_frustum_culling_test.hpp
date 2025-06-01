@@ -13,14 +13,14 @@
 
 class ExampleFrustumCullingTest : public ExampleScene {
 public:
-    explicit ExampleFrustumCullingTest(std::shared_ptr<engine::Camera>);
+    explicit ExampleFrustumCullingTest(std::shared_ptr<gleam::Camera>);
 
     auto ContextMenu() -> void override;
 
     auto OnUpdate(float delta) -> void override;
 
 private:
-    engine::Frustum frustum_;
+    gleam::Frustum frustum_;
 
-    std::array<std::shared_ptr<engine::Mesh>, 2500> boxes_;
+    std::array<std::shared_ptr<gleam::Mesh>, 2500> boxes_;
 };

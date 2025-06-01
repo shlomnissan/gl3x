@@ -8,7 +8,7 @@
 #include "gleam/math/sphere.hpp"
 #include "gleam/math/vector3.hpp"
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Represents a plane in 3D space.

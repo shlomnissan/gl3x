@@ -3,7 +3,7 @@
 
 #include "gleam/lights/directional_light.hpp"
 
-namespace engine {
+namespace gleam {
 
 static constexpr auto debug_mesh_size = 0.5f;
 

@@ -7,7 +7,7 @@
 
 #include <cmath>
 
-namespace engine {
+namespace gleam {
 
 Vector4::Vector4() : Vector4(0.0) {}
 

@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace engine {
+namespace gleam {
 
 auto Sphere::Reset() -> void {
     center = Vector3::Zero();

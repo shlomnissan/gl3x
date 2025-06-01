@@ -22,7 +22,7 @@
 #include <format>
 #include <unordered_map>
 
-namespace engine {
+namespace gleam {
 
 auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std::vector<ShaderInfo> {
     if (attrs.type == MaterialType::FlatMaterial) {

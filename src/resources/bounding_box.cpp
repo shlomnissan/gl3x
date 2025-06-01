@@ -8,7 +8,7 @@
 
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 BoundingBox::BoundingBox(const Box3& box, const Color& color) {
     Add(Mesh::Create(CreateGeometry(box), FlatMaterial::Create(color)));

@@ -11,10 +11,10 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
- * @brief Generates geometry to visualize an engine::Sphere object.
+ * @brief Generates geometry to visualize an gleam::Sphere object.
  *
  */
 class GLEAM_EXPORT BoundingSphere : public Node {

@@ -9,7 +9,7 @@
 
 class ConeGeometryTest : public ::testing::Test {
 protected:
-    engine::ConeGeometry cone_ {{
+    gleam::ConeGeometry cone_ {{
         .radius = 1.0f,
         .height = 1.0f,
         .radial_segments = 6,
@@ -46,7 +46,7 @@ TEST_F(ConeGeometryTest, ConstructorInitializesName) {
 #pragma endregion
 
 TEST_F(ConeGeometryTest, AttributesConfiguredCorrectly) {
-    using enum engine::GeometryAttributeType;
+    using enum gleam::GeometryAttributeType;
 
     const auto& attrs = cone_.Attributes();
 
@@ -65,15 +65,15 @@ TEST_F(ConeGeometryTest, AttributesConfiguredCorrectly) {
 
 TEST(ConeGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        engine::ConeGeometry({.height = 0.0f});
+        gleam::ConeGeometry({.height = 0.0f});
     }, ".*params.height > 0");
 
     EXPECT_DEATH({
-        engine::ConeGeometry({.radial_segments = 0});
+        gleam::ConeGeometry({.radial_segments = 0});
     }, ".*params.radial_segments > 0");
 
     EXPECT_DEATH({
-        engine::ConeGeometry({.height_segments = 0});
+        gleam::ConeGeometry({.height_segments = 0});
     }, ".*params.height_segments > 0");
 }
 

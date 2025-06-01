@@ -7,7 +7,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief  a light that gets emitted in all directions equally.

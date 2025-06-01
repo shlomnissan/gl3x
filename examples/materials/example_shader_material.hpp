@@ -13,15 +13,15 @@
 
 class ExampleShaderMaterial : public ExampleScene {
 public:
-    explicit ExampleShaderMaterial(std::shared_ptr<engine::Camera>);
+    explicit ExampleShaderMaterial(std::shared_ptr<gleam::Camera>);
 
     auto OnUpdate(float delta) -> void override;
 
     auto ContextMenu() -> void override;
 
 private:
-    engine::Timer timer_ {true};
+    gleam::Timer timer_ {true};
 
-    std::shared_ptr<engine::ShaderMaterial> material_;
-    std::shared_ptr<engine::Mesh> mesh_;
+    std::shared_ptr<gleam::ShaderMaterial> material_;
+    std::shared_ptr<gleam::Mesh> mesh_;
 };

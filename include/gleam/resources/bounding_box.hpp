@@ -11,10 +11,10 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
- * @brief Generates geometry to visualize an engine::Box3 object.
+ * @brief Generates geometry to visualize an gleam::Box3 object.
  */
 class GLEAM_EXPORT BoundingBox : public Node {
 public:

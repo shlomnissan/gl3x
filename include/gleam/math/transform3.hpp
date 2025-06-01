@@ -8,7 +8,7 @@
 #include "gleam/math/matrix4.hpp"
 #include "gleam/math/vector3.hpp"
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Represents a 3D transformation.

@@ -6,7 +6,7 @@
 #include <ranges>
 #include <limits>
 
-namespace engine {
+namespace gleam {
 
 // Compare function for sorting meshes based on their z position.
 const auto& compare = [](const auto& element) {

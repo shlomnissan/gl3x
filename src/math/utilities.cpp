@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <sstream>
 
-namespace engine::math {
+namespace gleam::math {
 
 auto GenerateUUID() -> std::string {
     static std::vector<std::string> lut{

@@ -13,20 +13,20 @@
 
 class ExamplePrimitiveMesh : public ExampleScene {
 public:
-    explicit ExamplePrimitiveMesh(std::shared_ptr<engine::Camera>);
+    explicit ExamplePrimitiveMesh(std::shared_ptr<gleam::Camera>);
 
     auto ContextMenu() -> void override;
 
 private:
-    engine::BoxGeometry::Parameters box_params_;
-    engine::ConeGeometry::Parameters cone_params_;
-    engine::CylinderGeometry::Parameters cylinder_params_;
-    engine::PlaneGeometry::Parameters plane_params_;
-    engine::SphereGeometry::Parameters sphere_params_;
+    gleam::BoxGeometry::Parameters box_params_;
+    gleam::ConeGeometry::Parameters cone_params_;
+    gleam::CylinderGeometry::Parameters cylinder_params_;
+    gleam::PlaneGeometry::Parameters plane_params_;
+    gleam::SphereGeometry::Parameters sphere_params_;
 
     std::string curr_primitive_ = "box";
-    std::shared_ptr<engine::Mesh> mesh_;
-    std::shared_ptr<engine::Mesh> wireframes_;
+    std::shared_ptr<gleam::Mesh> mesh_;
+    std::shared_ptr<gleam::Mesh> wireframes_;
 
     auto InitializeParams() -> void;
     auto BoxContextMenu(bool& dirty) -> void;

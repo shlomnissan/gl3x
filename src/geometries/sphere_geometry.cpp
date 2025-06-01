@@ -9,7 +9,7 @@
 #include <cassert>
 #include <cmath>
 
-namespace engine {
+namespace gleam {
 
 SphereGeometry::SphereGeometry(const Parameters& params) {
     assert(params.radius > 0.0f);

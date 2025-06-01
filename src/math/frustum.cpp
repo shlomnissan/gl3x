@@ -5,7 +5,7 @@
 
 #include <algorithm>
 
-namespace engine {
+namespace gleam {
 
 Frustum::Frustum(const Matrix4& projection) {
     SetWithViewProjection(projection);

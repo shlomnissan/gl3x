@@ -6,7 +6,7 @@
 #include "utilities/logger.hpp"
 #include "utilities/performance_graph.hpp"
 
-namespace engine {
+namespace gleam {
 
 ApplicationContext::ApplicationContext() {
     performance_graph_ = std::make_unique<PerformanceGraph>();

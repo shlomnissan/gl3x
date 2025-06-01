@@ -12,11 +12,11 @@
 
 class ExampleSpotLight : public ExampleScene {
 public:
-    explicit ExampleSpotLight(std::shared_ptr<engine::Camera>);
+    explicit ExampleSpotLight(std::shared_ptr<gleam::Camera>);
 
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<engine::PhongMaterial> phong_material_;
-    std::shared_ptr<engine::SpotLight> spot_light_;
+    std::shared_ptr<gleam::PhongMaterial> phong_material_;
+    std::shared_ptr<gleam::SpotLight> spot_light_;
 };

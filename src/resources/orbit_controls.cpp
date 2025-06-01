@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace engine {
+namespace gleam {
 
 namespace {
     MouseButton curr_mouse_button {MouseButton::None};

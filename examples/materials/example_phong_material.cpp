@@ -11,9 +11,9 @@
 #include <gleam/loaders.hpp>
 #include <gleam/textures.hpp>
 
-using namespace engine;
+using namespace gleam;
 
-ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<engine::Camera> camera) {
+ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<gleam::Camera> camera) {
     Add(OrbitControls::Create(camera, {.radius = 3.0f}));
 
     fog = ExponentialFog::Create(0x444444, 0.3f);

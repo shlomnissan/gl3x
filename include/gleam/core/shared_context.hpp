@@ -9,7 +9,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 class GLEAM_EXPORT SharedContext {
 public:

@@ -8,7 +8,7 @@
 #include "gleam/materials/flat_material.hpp"
 #include "gleam/nodes/mesh.hpp"
 
-namespace engine {
+namespace gleam {
 
 Arrow::Arrow(const Parameters& params) {
     const auto material = FlatMaterial::Create(params.color);

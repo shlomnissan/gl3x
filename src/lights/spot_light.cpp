@@ -6,7 +6,7 @@
 #include <cmath>
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 auto SpotLight::Direction() -> Vector3 {
     if (target != nullptr) {

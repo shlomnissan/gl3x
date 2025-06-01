@@ -6,7 +6,7 @@
 #include "gleam_export.h"
 #include "gleam/math/matrix4.hpp"
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Represents Euler angles for 3D rotation.

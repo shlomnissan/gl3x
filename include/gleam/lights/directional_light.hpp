@@ -11,7 +11,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Represents a light that gets emitted in a specific direction. This

@@ -8,7 +8,7 @@
 
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 Grid::Grid(const Parameters& params) {
     const auto center = params.divisions / 2;

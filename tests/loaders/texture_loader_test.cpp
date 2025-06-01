@@ -8,7 +8,7 @@
 #include <future>
 #include <thread>
 
-const auto texture_loader = engine::TextureLoader::Create();
+const auto texture_loader = gleam::TextureLoader::Create();
 
 #pragma region Helpers
 

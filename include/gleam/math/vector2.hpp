@@ -5,7 +5,7 @@
 
 #include "gleam_export.h"
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief A 2D vector class for mathematical operations.

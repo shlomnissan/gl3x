@@ -3,7 +3,7 @@
 
 #include "utilities/logger.hpp"
 
-namespace engine {
+namespace gleam {
 
 namespace fs = std::filesystem;
 

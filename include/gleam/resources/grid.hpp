@@ -9,7 +9,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief An object that defines a finite grid.

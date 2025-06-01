@@ -9,9 +9,9 @@
 #include <gleam/materials.hpp>
 #include <gleam/resources.hpp>
 
-using namespace engine;
+using namespace gleam;
 
-ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<engine::Camera> camera) {
+ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<gleam::Camera> camera) {
     Add(OrbitControls::Create(camera, {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),

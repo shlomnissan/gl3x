@@ -3,7 +3,7 @@
 
 #include "gleam/math/matrix4.hpp"
 
-namespace engine {
+namespace gleam {
 
 Matrix4::Matrix4() : Matrix4(0.0f) {}
 

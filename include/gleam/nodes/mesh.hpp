@@ -11,7 +11,7 @@
 #include <memory>
 #include <optional>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Class representing a mesh, which is a node in the scene with associated geometry and material.

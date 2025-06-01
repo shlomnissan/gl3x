@@ -12,7 +12,7 @@
 
 #include <array>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Represents a frustum in 3D space.

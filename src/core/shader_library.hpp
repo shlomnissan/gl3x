@@ -8,7 +8,7 @@
 #include <string_view>
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 enum class ShaderType {
     kVertexShader,

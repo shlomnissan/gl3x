@@ -8,9 +8,9 @@
 #include <gleam/geometries.hpp>
 #include <gleam/resources.hpp>
 
-using namespace engine;
+using namespace gleam;
 
-ExampleSpotLight::ExampleSpotLight(std::shared_ptr<engine::Camera> camera) {
+ExampleSpotLight::ExampleSpotLight(std::shared_ptr<gleam::Camera> camera) {
     Add(OrbitControls::Create(camera, {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),

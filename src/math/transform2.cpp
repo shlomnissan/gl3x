@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-namespace engine {
+namespace gleam {
 
 auto Transform2::Translate(const Vector2& value) -> void {
     position_ += value;

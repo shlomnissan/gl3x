@@ -18,7 +18,7 @@
 
 #include <glad/glad.h>
 
-namespace engine {
+namespace gleam {
 
 // UniformValue is also defined in include/gleam/materials/shader_material.hpp
 using UniformValue = std::variant<int, float, Color, Matrix3, Matrix4, Vector2, Vector3, Vector4>;

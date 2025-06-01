@@ -13,7 +13,7 @@
 #include <source_location>
 #include <string>
 
-namespace engine {
+namespace gleam {
 
 namespace fs = std::filesystem;
 
@@ -70,7 +70,7 @@ private:
 namespace std {
 
 template <typename T>
-struct formatter<T, enable_if_t<std::is_base_of_v<engine::Identity, T>, char>> {
+struct formatter<T, enable_if_t<std::is_base_of_v<gleam::Identity, T>, char>> {
     constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
     template <typename FormatContext>
     auto format(const T& obj, FormatContext& ctx) const {

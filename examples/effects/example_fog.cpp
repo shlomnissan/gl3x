@@ -11,9 +11,9 @@
 #include <gleam/materials.hpp>
 #include <gleam/resources.hpp>
 
-using namespace engine;
+using namespace gleam;
 
-ExampleFog::ExampleFog(std::shared_ptr<engine::Camera> camera) {
+ExampleFog::ExampleFog(std::shared_ptr<gleam::Camera> camera) {
     Add(OrbitControls::Create(camera, {
         .radius = 3.0f,
         .pitch = math::DegToRad(25.0f),

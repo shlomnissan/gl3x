@@ -10,7 +10,7 @@
 #include <memory>
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 Scene::Scene() {
     AddEventListeners();

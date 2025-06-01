@@ -8,10 +8,10 @@
 #include <gleam/lights.hpp>
 #include <gleam/resources.hpp>
 
-using namespace engine;
-using namespace engine::math;
+using namespace gleam;
+using namespace gleam::math;
 
-ExampleArbitraryMesh::ExampleArbitraryMesh(std::shared_ptr<engine::Camera> camera) {
+ExampleArbitraryMesh::ExampleArbitraryMesh(std::shared_ptr<gleam::Camera> camera) {
     show_context_menu_ = false;
 
     Add(OrbitControls::Create(camera, {

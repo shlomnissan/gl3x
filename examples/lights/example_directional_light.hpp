@@ -12,11 +12,11 @@
 
 class ExampleDirectionalLight : public ExampleScene {
 public:
-    explicit ExampleDirectionalLight(std::shared_ptr<engine::Camera>);
+    explicit ExampleDirectionalLight(std::shared_ptr<gleam::Camera>);
 
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<engine::DirectionalLight> directional_light_;
-    std::shared_ptr<engine::PhongMaterial> phong_material_;
+    std::shared_ptr<gleam::DirectionalLight> directional_light_;
+    std::shared_ptr<gleam::PhongMaterial> phong_material_;
 };

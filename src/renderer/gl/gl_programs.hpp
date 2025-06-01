@@ -11,7 +11,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace engine {
+namespace gleam {
 
 class GLPrograms {
 public:

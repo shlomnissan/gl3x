@@ -10,7 +10,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief A perspective camera class.

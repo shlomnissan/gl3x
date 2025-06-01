@@ -3,7 +3,7 @@
 
 #include "renderer/gl/gl_uniform.hpp"
 
-namespace engine {
+namespace gleam {
 
 GLUniform::GLUniform(const std::string& name, GLint location, GLint size, GLenum type)
   : name_(name),

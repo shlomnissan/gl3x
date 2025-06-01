@@ -9,7 +9,7 @@
 
 #include <limits>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Represents an axis-aligned bounding box (AABB) in 3D space.

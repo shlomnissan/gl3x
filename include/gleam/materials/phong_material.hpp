@@ -10,7 +10,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief A material for drawing geometries using the Blinn-Phong shading model.

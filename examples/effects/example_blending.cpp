@@ -9,9 +9,9 @@
 #include <gleam/lights.hpp>
 #include <gleam/resources.hpp>
 
-using namespace engine;
+using namespace gleam;
 
-ExampleBlending::ExampleBlending(std::shared_ptr<engine::Camera> camera) {
+ExampleBlending::ExampleBlending(std::shared_ptr<gleam::Camera> camera) {
     const auto camera_controls = OrbitControls::Create(camera, {.radius = 3.0f});
     Add(camera_controls);
 

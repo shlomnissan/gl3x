@@ -5,7 +5,7 @@
 
 #include "core/window_impl.hpp"
 
-namespace engine {
+namespace gleam {
 
 Window::Window(const Window::Parameters& params)
   : impl_(std::make_unique<Impl>(params)) {}

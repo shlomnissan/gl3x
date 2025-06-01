@@ -11,10 +11,10 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
- * @brief Generates geometry to visualize an engine::Plane object.
+ * @brief Generates geometry to visualize an gleam::Plane object.
  */
 class GLEAM_EXPORT BoundingPlane : public Node {
 public:

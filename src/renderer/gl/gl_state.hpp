@@ -9,7 +9,7 @@
 #include <memory>
 #include <unordered_map>
 
-namespace engine {
+namespace gleam {
 
 class GLState {
 public:

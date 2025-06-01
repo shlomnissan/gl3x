@@ -12,12 +12,12 @@
 
 class ExampleArbitraryMesh : public ExampleScene {
 public:
-    explicit ExampleArbitraryMesh(std::shared_ptr<engine::Camera>);
+    explicit ExampleArbitraryMesh(std::shared_ptr<gleam::Camera>);
 
     auto OnAttached() -> void override;
 
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<engine::Node> mesh_;
+    std::shared_ptr<gleam::Node> mesh_;
 };

@@ -10,7 +10,7 @@
 
 #include <utility>
 
-namespace engine {
+namespace gleam {
 
 static const auto VertexAttributesMap = std::unordered_map<std::string, GeometryAttributeType> {
     {"a_Position", GeometryAttributeType::Position},

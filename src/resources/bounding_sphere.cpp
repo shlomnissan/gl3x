@@ -9,7 +9,7 @@
 
 #include <cmath>
 
-namespace engine {
+namespace gleam {
 
 BoundingSphere::BoundingSphere(const Sphere& sphere, const Color& color) {
     Add(Mesh::Create(CreateGeometry(sphere), FlatMaterial::Create(color)));

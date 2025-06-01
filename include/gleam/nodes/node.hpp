@@ -13,7 +13,7 @@
 #include <memory>
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 // Forward declarations
 struct KeyboardEvent;

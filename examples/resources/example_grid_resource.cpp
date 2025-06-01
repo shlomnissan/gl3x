@@ -5,9 +5,9 @@
 
 #include "ui_helpers.hpp"
 
-using namespace engine;
+using namespace gleam;
 
-ExampleGridResource::ExampleGridResource(std::shared_ptr<engine::Camera> camera) {
+ExampleGridResource::ExampleGridResource(std::shared_ptr<gleam::Camera> camera) {
     Add(OrbitControls::Create(camera, {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),

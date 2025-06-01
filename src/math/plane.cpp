@@ -3,7 +3,7 @@
 
 #include "gleam/math/plane.hpp"
 
-namespace engine {
+namespace gleam {
 
 auto Plane::DistanceToPoint(const Vector3& point) const -> float {
     return Dot(normal, point) + distance;

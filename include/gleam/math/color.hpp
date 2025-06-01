@@ -9,7 +9,7 @@
 #include <cassert>
 #include <span>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief A color class representing RGB color values.

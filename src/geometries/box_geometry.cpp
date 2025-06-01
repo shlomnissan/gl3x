@@ -5,7 +5,7 @@
 
 #include <cassert>
 
-namespace engine {
+namespace gleam {
 
 BoxGeometry::BoxGeometry(const Parameters& params) {
     assert(params.width > 0.0f);

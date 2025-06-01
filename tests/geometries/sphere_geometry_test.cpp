@@ -9,7 +9,7 @@
 
 class SphereGeometryTest : public ::testing::Test {
 protected:
-    engine::SphereGeometry sphere_ {{
+    gleam::SphereGeometry sphere_ {{
         .width_segments = 3,
         .height_segments = 2,
     }};
@@ -42,7 +42,7 @@ TEST_F(SphereGeometryTest, ConstructorInitializesName) {
 #pragma region Attributes
 
 TEST_F(SphereGeometryTest, AttributesConfiguredCorrectly) {
-    using enum engine::GeometryAttributeType;
+    using enum gleam::GeometryAttributeType;
 
     const auto& attrs = sphere_.Attributes();
 
@@ -61,31 +61,31 @@ TEST_F(SphereGeometryTest, AttributesConfiguredCorrectly) {
 
 TEST(SphereGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        engine::SphereGeometry({.radius = 0.0f});
+        gleam::SphereGeometry({.radius = 0.0f});
     }, ".*params.radius > 0.0f");
 
     EXPECT_DEATH({
-        engine::SphereGeometry({.width_segments = 2});
+        gleam::SphereGeometry({.width_segments = 2});
     }, ".params.width_segments >= 3");
 
     EXPECT_DEATH({
-        engine::SphereGeometry({.height_segments = 1});
+        gleam::SphereGeometry({.height_segments = 1});
     }, ".params.height_segments >= 2");
 
     EXPECT_DEATH({
-        engine::SphereGeometry({.phi_start = -0.1f});
+        gleam::SphereGeometry({.phi_start = -0.1f});
     }, ".*params.phi_start >= 0.0f");
 
     EXPECT_DEATH({
-        engine::SphereGeometry({.phi_length = -0.1f});
+        gleam::SphereGeometry({.phi_length = -0.1f});
     }, ".*params.phi_length >= 0.0f");
 
     EXPECT_DEATH({
-        engine::SphereGeometry({.theta_start = -0.1f});
+        gleam::SphereGeometry({.theta_start = -0.1f});
     }, ".*params.theta_start >= 0.0f");
 
     EXPECT_DEATH({
-        engine::SphereGeometry({.theta_length = -0.1f});
+        gleam::SphereGeometry({.theta_length = -0.1f});
     }, ".*params.theta_length >= 0.0f");
 }
 

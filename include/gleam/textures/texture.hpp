@@ -7,7 +7,7 @@
 #include "gleam/core/disposable.hpp"
 #include "gleam/core/identity.hpp"
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Represents available texture types.

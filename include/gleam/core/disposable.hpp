@@ -6,7 +6,7 @@
 #include <functional>
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Base class for objects that require manual disposal.

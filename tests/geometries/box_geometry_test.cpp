@@ -9,7 +9,7 @@
 
 class BoxGeometryTest : public ::testing::Test {
 protected:
-    engine::BoxGeometry box_ {{
+    gleam::BoxGeometry box_ {{
         .width = 1.0f,
         .height = 1.0f,
         .depth = 1.0f,
@@ -46,7 +46,7 @@ TEST_F(BoxGeometryTest, ConstructorInitializesName) {
 #pragma region Attributes
 
 TEST_F(BoxGeometryTest, AttributesConfiguredCorrectly) {
-    using enum engine::GeometryAttributeType;
+    using enum gleam::GeometryAttributeType;
 
     const auto& attrs = box_.Attributes();
 
@@ -65,27 +65,27 @@ TEST_F(BoxGeometryTest, AttributesConfiguredCorrectly) {
 
 TEST(BoxGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        engine::BoxGeometry({.width = 0.0f});
+        gleam::BoxGeometry({.width = 0.0f});
     }, ".*params.width > 0");
 
     EXPECT_DEATH({
-        engine::BoxGeometry({.height = 0.0f});
+        gleam::BoxGeometry({.height = 0.0f});
     }, ".*params.height > 0");
 
     EXPECT_DEATH({
-        engine::BoxGeometry({.depth = 0.0f});
+        gleam::BoxGeometry({.depth = 0.0f});
     }, ".*params.depth > 0");
 
     EXPECT_DEATH({
-        engine::BoxGeometry({.width_segments = 0});
+        gleam::BoxGeometry({.width_segments = 0});
     }, ".*params.width_segments > 0");
 
     EXPECT_DEATH({
-        engine::BoxGeometry({.height_segments = 0});
+        gleam::BoxGeometry({.height_segments = 0});
     }, ".*params.height_segments > 0");
 
     EXPECT_DEATH({
-        engine::BoxGeometry({.depth_segments = 0});
+        gleam::BoxGeometry({.depth_segments = 0});
     }, ".*params.depth_segments > 0");
 }
 

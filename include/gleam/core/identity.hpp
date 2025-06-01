@@ -8,7 +8,7 @@
 #include <string>
 #include <string_view>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief A class that provides a unique identifier and a name to nodes.

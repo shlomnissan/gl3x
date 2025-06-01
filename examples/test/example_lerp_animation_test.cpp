@@ -9,9 +9,9 @@
 
 #include <cmath>
 
-using namespace engine;
+using namespace gleam;
 
-ExampleLerpAnimationTest::ExampleLerpAnimationTest(std::shared_ptr<engine::Camera> camera) {
+ExampleLerpAnimationTest::ExampleLerpAnimationTest(std::shared_ptr<gleam::Camera> camera) {
     show_context_menu_ = false;
 
     Add(OrbitControls::Create(camera, {.radius = 3.0f}));

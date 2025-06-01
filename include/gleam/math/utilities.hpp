@@ -8,7 +8,7 @@
 #include <cmath>
 #include <string>
 
-namespace engine::math {
+namespace gleam::math {
 
 constexpr float pi = 3.1415926535897932384626433832795f;
 constexpr float half_pi = 1.5707963267948966192313216916398f;

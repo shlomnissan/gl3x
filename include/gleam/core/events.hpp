@@ -10,7 +10,7 @@
 #include <memory>
 #include <type_traits>
 
-namespace engine {
+namespace gleam {
 
 // Forward declarations
 enum class Key;

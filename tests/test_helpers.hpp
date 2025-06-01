@@ -16,7 +16,7 @@ constexpr bool approx_equal(float a, float b, float eps) {
     return (a - b < eps) && (b - a < eps);
 }
 
-auto EXPECT_MAT3_EQ(const engine::Matrix3& a, const engine::Matrix3& b) -> void {
+auto EXPECT_MAT3_EQ(const gleam::Matrix3& a, const gleam::Matrix3& b) -> void {
     EXPECT_FLOAT_EQ(a(0, 0), b(0, 0));
     EXPECT_FLOAT_EQ(a(0, 1), b(0, 1));
     EXPECT_FLOAT_EQ(a(0, 2), b(0, 2));
@@ -30,7 +30,7 @@ auto EXPECT_MAT3_EQ(const engine::Matrix3& a, const engine::Matrix3& b) -> void 
     EXPECT_FLOAT_EQ(a(2, 2), b(2, 2));
 }
 
-auto EXPECT_MAT3_NEAR(const engine::Matrix3& a, const engine::Matrix3& b, float v) -> void {
+auto EXPECT_MAT3_NEAR(const gleam::Matrix3& a, const gleam::Matrix3& b, float v) -> void {
     EXPECT_NEAR(a(0, 0), b(0, 0), v);
     EXPECT_NEAR(a(0, 1), b(0, 1), v);
     EXPECT_NEAR(a(0, 2), b(0, 2), v);
@@ -44,7 +44,7 @@ auto EXPECT_MAT3_NEAR(const engine::Matrix3& a, const engine::Matrix3& b, float 
     EXPECT_NEAR(a(2, 2), b(2, 2), v);
 }
 
-auto EXPECT_MAT4_EQ(const engine::Matrix4& a, const engine::Matrix4& b) -> void {
+auto EXPECT_MAT4_EQ(const gleam::Matrix4& a, const gleam::Matrix4& b) -> void {
     EXPECT_FLOAT_EQ(a(0, 0), b(0, 0));
     EXPECT_FLOAT_EQ(a(0, 1), b(0, 1));
     EXPECT_FLOAT_EQ(a(0, 2), b(0, 2));
@@ -66,7 +66,7 @@ auto EXPECT_MAT4_EQ(const engine::Matrix4& a, const engine::Matrix4& b) -> void 
     EXPECT_FLOAT_EQ(a(3, 3), b(3, 3));
 }
 
-auto EXPECT_MAT4_NEAR(const engine::Matrix4& a, const engine::Matrix4& b, float v) -> void {
+auto EXPECT_MAT4_NEAR(const gleam::Matrix4& a, const gleam::Matrix4& b, float v) -> void {
     EXPECT_NEAR(a(0, 0), b(0, 0), v);
     EXPECT_NEAR(a(0, 1), b(0, 1), v);
     EXPECT_NEAR(a(0, 2), b(0, 2), v);
@@ -88,43 +88,43 @@ auto EXPECT_MAT4_NEAR(const engine::Matrix4& a, const engine::Matrix4& b, float 
     EXPECT_NEAR(a(3, 3), b(3, 3), v);
 }
 
-auto EXPECT_COLOR_EQ(const engine::Color& a, const engine::Color& b) -> void {
+auto EXPECT_COLOR_EQ(const gleam::Color& a, const gleam::Color& b) -> void {
     EXPECT_FLOAT_EQ(a.r, b.r);
     EXPECT_FLOAT_EQ(a.g, b.g);
     EXPECT_FLOAT_EQ(a.b, b.b);
 }
 
-auto EXPECT_COLOR_NEAR(const engine::Color& a, const engine::Color& b, float v) -> void {
+auto EXPECT_COLOR_NEAR(const gleam::Color& a, const gleam::Color& b, float v) -> void {
     EXPECT_NEAR(a.r, b.r, v);
     EXPECT_NEAR(a.g, b.g, v);
     EXPECT_NEAR(a.b, b.b, v);
 }
 
-auto EXPECT_VEC2_EQ(const engine::Vector2& a, const engine::Vector2& b) -> void {
+auto EXPECT_VEC2_EQ(const gleam::Vector2& a, const gleam::Vector2& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);
 }
 
-auto EXPECT_VEC3_EQ(const engine::Vector3& a, const engine::Vector3& b) -> void {
+auto EXPECT_VEC3_EQ(const gleam::Vector3& a, const gleam::Vector3& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);
     EXPECT_EQ(a.z, b.z);
 }
 
-auto EXPECT_VEC3_NEAR(const engine::Vector3& a, const engine::Vector3& b, float v) -> void {
+auto EXPECT_VEC3_NEAR(const gleam::Vector3& a, const gleam::Vector3& b, float v) -> void {
     EXPECT_NEAR(a.x, b.x, v);
     EXPECT_NEAR(a.y, b.y, v);
     EXPECT_NEAR(a.z, b.z, v);
 }
 
-auto EXPECT_VEC4_EQ(const engine::Vector4& a, const engine::Vector4& b) -> void {
+auto EXPECT_VEC4_EQ(const gleam::Vector4& a, const gleam::Vector4& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);
     EXPECT_EQ(a.z, b.z);
     EXPECT_EQ(a.w, b.w);
 }
 
-auto EXPECT_VEC4_NEAR(const engine::Vector4& a, const engine::Vector4& b, float v) -> void {
+auto EXPECT_VEC4_NEAR(const gleam::Vector4& a, const gleam::Vector4& b, float v) -> void {
     EXPECT_NEAR(a.x, b.x, v);
     EXPECT_NEAR(a.y, b.y, v);
     EXPECT_NEAR(a.z, b.z, v);

@@ -13,7 +13,7 @@
 
 class ExampleFlatMaterial : public ExampleScene {
 public:
-    explicit ExampleFlatMaterial(std::shared_ptr<engine::Camera>);
+    explicit ExampleFlatMaterial(std::shared_ptr<gleam::Camera>);
 
     auto OnAttached() -> void override;
 
@@ -22,7 +22,7 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<engine::FlatMaterial> material_;
-    std::shared_ptr<engine::Mesh> mesh_;
-    std::shared_ptr<engine::Texture2D> texture_;
+    std::shared_ptr<gleam::FlatMaterial> material_;
+    std::shared_ptr<gleam::Mesh> mesh_;
+    std::shared_ptr<gleam::Texture2D> texture_;
 };

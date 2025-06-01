@@ -8,7 +8,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-namespace engine {
+namespace gleam {
 
 class Window::Impl {
 public:

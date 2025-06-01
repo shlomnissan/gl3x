@@ -10,7 +10,7 @@
 #include <cmath>
 #include <numeric>
 
-namespace engine {
+namespace gleam {
 
 auto Geometry::SetAttribute(const GeometryAttribute &attribute) -> void {
     assert(attribute.item_size > 0);

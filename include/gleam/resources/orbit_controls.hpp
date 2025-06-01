@@ -12,7 +12,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Camera orbit node that allows the user to orbit, zoom and pan around a target point.

@@ -8,7 +8,7 @@
 
 #include <gleam/math/utilities.hpp>
 
-using namespace engine;
+using namespace gleam;
 
 #pragma region Degrees and Radians
 

@@ -12,12 +12,12 @@
 
 class ExampleGridResource : public ExampleScene {
 public:
-    explicit ExampleGridResource(std::shared_ptr<engine::Camera>);
+    explicit ExampleGridResource(std::shared_ptr<gleam::Camera>);
 
     auto ContextMenu() -> void override;
 
 private:
-    engine::Grid::Parameters grid_params_;
+    gleam::Grid::Parameters grid_params_;
 
-    std::shared_ptr<engine::Grid> grid_;
+    std::shared_ptr<gleam::Grid> grid_;
 };

@@ -11,7 +11,7 @@
 #include <memory>
 #include <string_view>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Represents a 2D texture that can be attached to materials. While you

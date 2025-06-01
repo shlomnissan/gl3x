@@ -5,7 +5,7 @@
 
 #include <cassert>
 
-namespace engine {
+namespace gleam {
 
 ConeGeometry::ConeGeometry(const Parameters& params)
     : CylinderGeometry({

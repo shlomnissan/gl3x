@@ -5,7 +5,7 @@
 
 #include <glad/glad.h>
 
-namespace engine {
+namespace gleam {
 
 auto GLState::ProcessMaterial(const std::shared_ptr<Material>& material) -> void {
     SetBackfaceCulling(!material->two_sided);

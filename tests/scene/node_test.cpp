@@ -11,8 +11,8 @@
 #pragma region Node Operations
 
 TEST(Node, AddChild) {
-    auto parent = engine::Node::Create();
-    auto child = engine::Node::Create();
+    auto parent = gleam::Node::Create();
+    auto child = gleam::Node::Create();
 
     parent->Add(child);
 
@@ -21,8 +21,8 @@ TEST(Node, AddChild) {
 }
 
 TEST(Node, RemoveChild) {
-    auto parent = engine::Node::Create();
-    auto child = engine::Node::Create();
+    auto parent = gleam::Node::Create();
+    auto child = gleam::Node::Create();
 
     parent->Add(child);
     parent->Remove(child);
@@ -31,9 +31,9 @@ TEST(Node, RemoveChild) {
 }
 
 TEST(Node, RemoveAllChildren) {
-    auto parent = engine::Node::Create();
-    auto child1 = engine::Node::Create();
-    auto child2 = engine::Node::Create();
+    auto parent = gleam::Node::Create();
+    auto child1 = gleam::Node::Create();
+    auto child2 = gleam::Node::Create();
 
     parent->Add(child1);
     parent->Add(child2);
@@ -47,9 +47,9 @@ TEST(Node, RemoveAllChildren) {
 #pragma region Hierarchy Queries
 
 TEST(Node, IsChild) {
-    auto node_1 = engine::Node::Create();
-    auto node_2 = engine::Node::Create();
-    auto node_3 = engine::Node::Create();
+    auto node_1 = gleam::Node::Create();
+    auto node_2 = gleam::Node::Create();
+    auto node_3 = gleam::Node::Create();
 
     node_1->Add(node_2);
     node_2->Add(node_3);
@@ -62,8 +62,8 @@ TEST(Node, IsChild) {
 }
 
 TEST(Node, IsChildAfterRemoval) {
-    auto parent = engine::Node::Create();
-    auto child = engine::Node::Create();
+    auto parent = gleam::Node::Create();
+    auto child = gleam::Node::Create();
 
     parent->Add(child);
     EXPECT_TRUE(parent->IsChild(child.get()));
@@ -73,12 +73,12 @@ TEST(Node, IsChildAfterRemoval) {
 }
 
 TEST(Node, IsChildSelf) {
-    auto node = engine::Node::Create();
+    auto node = gleam::Node::Create();
     EXPECT_FALSE(node->IsChild(node.get()));
 }
 
 TEST(Node, IsChildWithNullptr) {
-    auto node = engine::Node::Create();
+    auto node = gleam::Node::Create();
     EXPECT_FALSE(node->IsChild(nullptr));
 }
 
@@ -87,7 +87,7 @@ TEST(Node, IsChildWithNullptr) {
 #pragma region Update Transforms
 
 TEST(Node, UpdateTransformsWithoutParent) {
-    auto node = std::make_shared<engine::Node>();
+    auto node = std::make_shared<gleam::Node>();
     node->SetScale(2.0f);
 
     node->UpdateTransformHierarchy();
@@ -101,8 +101,8 @@ TEST(Node, UpdateTransformsWithoutParent) {
 }
 
 TEST(Node, UpdateTransformsWithParent) {
-    auto parent = engine::Node::Create();
-    auto child = engine::Node::Create();
+    auto parent = gleam::Node::Create();
+    auto child = gleam::Node::Create();
 
     parent->SetScale(2.0f);
     parent->Add(child);
@@ -118,8 +118,8 @@ TEST(Node, UpdateTransformsWithParent) {
 }
 
 TEST(Node, DisableTransformAutoUpdate) {
-    auto parent = engine::Node::Create();
-    auto child = engine::Node::Create();
+    auto parent = gleam::Node::Create();
+    auto child = gleam::Node::Create();
     child->transform_auto_update = false;
 
     parent->SetScale(2.0f);
@@ -142,8 +142,8 @@ TEST(Node, DisableTransformAutoUpdate) {
 }
 
 TEST(Node, MarkTransformedNodeAsUntouched) {
-    auto parent = engine::Node::Create();
-    auto child = engine::Node::Create();
+    auto parent = gleam::Node::Create();
+    auto child = gleam::Node::Create();
 
     parent->Add(child);
     parent->UpdateTransformHierarchy();
@@ -152,8 +152,8 @@ TEST(Node, MarkTransformedNodeAsUntouched) {
 }
 
 TEST(Node, MarkDetachedNodesAsTouched) {
-    auto parent = engine::Node::Create();
-    auto child = engine::Node::Create();
+    auto parent = gleam::Node::Create();
+    auto child = gleam::Node::Create();
 
     parent->Add(child);
     parent->UpdateTransformHierarchy();
@@ -168,7 +168,7 @@ TEST(Node, MarkDetachedNodesAsTouched) {
 #pragma region ShouldUpdate Checks
 
 TEST(Node, ShouldUpdateTransformWhenDirty) {
-    auto node = engine::Node::Create();
+    auto node = gleam::Node::Create();
     node->SetScale(0.5f);
 
     EXPECT_TRUE(node->ShouldUpdateWorldTransform());
@@ -179,9 +179,9 @@ TEST(Node, ShouldUpdateTransformWhenDirty) {
 #pragma region Edge Cases
 
 TEST(Node, AddChildWithExistingParent) {
-    auto parent1 = engine::Node::Create();
-    auto parent2 = engine::Node::Create();
-    auto child = engine::Node::Create();
+    auto parent1 = gleam::Node::Create();
+    auto parent2 = gleam::Node::Create();
+    auto child = gleam::Node::Create();
 
     parent1->Add(child);
     parent2->Add(child);
@@ -192,8 +192,8 @@ TEST(Node, AddChildWithExistingParent) {
 }
 
 TEST(Node, RemoveNonexistentChild) {
-    auto parent = engine::Node::Create();
-    auto child = engine::Node::Create();
+    auto parent = gleam::Node::Create();
+    auto child = gleam::Node::Create();
 
     parent->Remove(child);
 
@@ -206,21 +206,21 @@ TEST(Node, RemoveNonexistentChild) {
 #pragma region Type Helpers
 
 TEST(Node, TypeCheck) {
-    auto temp = engine::CameraPerspective::Create();
-    engine::Node* node = temp.get();
+    auto temp = gleam::CameraPerspective::Create();
+    gleam::Node* node = temp.get();
 
-    EXPECT_TRUE(node->Is<engine::CameraPerspective>());
-    EXPECT_FALSE(node->Is<engine::Mesh>());
+    EXPECT_TRUE(node->Is<gleam::CameraPerspective>());
+    EXPECT_FALSE(node->Is<gleam::Mesh>());
 }
 
 TEST(Node, TypeCast) {
-    auto temp = engine::CameraPerspective::Create();
-    engine::Node* node = temp.get();
+    auto temp = gleam::CameraPerspective::Create();
+    gleam::Node* node = temp.get();
 
-    auto camera = node->As<engine::CameraPerspective>();
+    auto camera = node->As<gleam::CameraPerspective>();
     EXPECT_NE(camera, nullptr);
 
-    auto mesh = node->As<engine::Mesh>();
+    auto mesh = node->As<gleam::Mesh>();
     EXPECT_EQ(mesh, nullptr);
 }
 

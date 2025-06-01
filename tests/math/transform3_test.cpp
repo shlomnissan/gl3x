@@ -12,7 +12,7 @@
 #pragma region Transformations
 
 TEST(Transform3, SetPosition) {
-    auto t = engine::Transform3 {};
+    auto t = gleam::Transform3 {};
     t.SetPosition({2.0f, 1.0f, 3.0f});
 
     EXPECT_VEC3_EQ(t.GetPosition(), {2.0f, 1.0f, 3.0f});
@@ -25,7 +25,7 @@ TEST(Transform3, SetPosition) {
 }
 
 TEST(Transform3, SetScale) {
-    auto t = engine::Transform3 {};
+    auto t = gleam::Transform3 {};
     t.SetScale({2.0f, 1.0f, 3.0f});
 
     EXPECT_VEC3_EQ(t.GetScale(), {2.0f, 1.0f, 3.0f});
@@ -38,9 +38,9 @@ TEST(Transform3, SetScale) {
 }
 
 TEST(Transform3, SetRotation) {
-    auto t = engine::Transform3 {};
-    auto p = engine::math::half_pi;
-    t.SetRotation(engine::Euler {{
+    auto t = gleam::Transform3 {};
+    auto p = gleam::math::half_pi;
+    t.SetRotation(gleam::Euler {{
         .pitch = p + 0.1f,
         .yaw = p + 0.2f,
         .roll = p + 0.3f
@@ -67,13 +67,13 @@ TEST(Transform3, SetRotation) {
 }
 
 TEST(Transform3, MultipleTransformations) {
-    auto t = engine::Transform3 {};
+    auto t = gleam::Transform3 {};
     t.SetPosition({2.0f, 1.0f, 3.0f});
     t.SetScale({2.0f, 1.0f, 3.0f});
-    t.SetRotation(engine::Euler {{
-        .pitch = engine::math::half_pi + 0.1f,
-        .yaw = engine::math::half_pi + 0.2f,
-        .roll = engine::math::half_pi + 0.3f
+    t.SetRotation(gleam::Euler {{
+        .pitch = gleam::math::half_pi + 0.1f,
+        .yaw = gleam::math::half_pi + 0.2f,
+        .roll = gleam::math::half_pi + 0.3f
     }});
 
     const auto& rotation = t.GetRotation();
@@ -111,7 +111,7 @@ TEST(Transform3, MultipleTransformations) {
 #pragma region Cumulative Transformations
 
 TEST(Transform3, Translate) {
-    auto t = engine::Transform3 {};
+    auto t = gleam::Transform3 {};
     t.Translate({2.0f, 1.0f, 3.0f});
     t.Translate({1.0f, 1.0f, 0.0f});
 
@@ -125,7 +125,7 @@ TEST(Transform3, Translate) {
 }
 
 TEST(Transform3, Scale) {
-    auto t = engine::Transform3 {};
+    auto t = gleam::Transform3 {};
     t.Scale({2.0f, 2.0f, 2.0f});
     t.Scale({3.0f, 3.0f, 2.0f});
 
@@ -139,13 +139,13 @@ TEST(Transform3, Scale) {
 }
 
 TEST(Transform3, RotateX) {
-    auto t = engine::Transform3 {};
-    t.Rotate(engine::Vector3::Right(), engine::math::half_pi);
-    t.Rotate(engine::Vector3::Right(), 0.1f);
+    auto t = gleam::Transform3 {};
+    t.Rotate(gleam::Vector3::Right(), gleam::math::half_pi);
+    t.Rotate(gleam::Vector3::Right(), 0.1f);
 
     auto c = std::cos(t.GetRotation().pitch);
     auto s = std::sin(t.GetRotation().pitch);
-    EXPECT_EQ(t.GetRotation().pitch, engine::math::half_pi + 0.1f);
+    EXPECT_EQ(t.GetRotation().pitch, gleam::math::half_pi + 0.1f);
     EXPECT_MAT4_EQ(t.Get(), {
         1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, c, -s, 0.0f,
@@ -155,13 +155,13 @@ TEST(Transform3, RotateX) {
 }
 
 TEST(Transform3, RotateY) {
-    auto t = engine::Transform3 {};
-    t.Rotate(engine::Vector3::Up(), engine::math::half_pi);
-    t.Rotate(engine::Vector3::Up(), 0.1f);
+    auto t = gleam::Transform3 {};
+    t.Rotate(gleam::Vector3::Up(), gleam::math::half_pi);
+    t.Rotate(gleam::Vector3::Up(), 0.1f);
 
     auto c = std::cos(t.GetRotation().yaw);
     auto s = std::sin(t.GetRotation().yaw);
-    EXPECT_EQ(t.GetRotation().yaw, engine::math::half_pi + 0.1f);
+    EXPECT_EQ(t.GetRotation().yaw, gleam::math::half_pi + 0.1f);
     EXPECT_MAT4_EQ(t.Get(), {
         c, 0.0f, s, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
@@ -171,13 +171,13 @@ TEST(Transform3, RotateY) {
 }
 
 TEST(Transform3, RotateZ) {
-    auto t = engine::Transform3 {};
-    t.Rotate(engine::Vector3::Forward(), engine::math::half_pi);
-    t.Rotate(engine::Vector3::Forward(), 0.1f);
+    auto t = gleam::Transform3 {};
+    t.Rotate(gleam::Vector3::Forward(), gleam::math::half_pi);
+    t.Rotate(gleam::Vector3::Forward(), 0.1f);
 
     auto c = std::cos(t.GetRotation().roll);
     auto s = std::sin(t.GetRotation().roll);
-    EXPECT_EQ(t.GetRotation().roll, engine::math::half_pi + 0.1f);
+    EXPECT_EQ(t.GetRotation().roll, gleam::math::half_pi + 0.1f);
     EXPECT_MAT4_EQ(t.Get(), {
         c, -s, 0.0f, 0.0f,
         s, c, 0.0f, 0.0f,
@@ -191,9 +191,9 @@ TEST(Transform3, RotateZ) {
 #pragma region Local-Space Translation
 
 TEST(Transform3, TranslateBeforeRotation) {
-    auto t = engine::Transform3 {};
+    auto t = gleam::Transform3 {};
     t.Translate({0.0f, 0.0f, 1.0f});
-    t.Rotate(engine::Vector3::Up(), engine::math::half_pi);
+    t.Rotate(gleam::Vector3::Up(), gleam::math::half_pi);
 
     EXPECT_VEC3_EQ(t.GetPosition(), {0.0f, 0.0f, 1.0f});
     EXPECT_MAT4_NEAR(t.Get(), {
@@ -205,8 +205,8 @@ TEST(Transform3, TranslateBeforeRotation) {
 }
 
 TEST(Transform3, TranslateAfterRotation) {
-    auto t = engine::Transform3 {};
-    t.Rotate(engine::Vector3::Up(), engine::math::half_pi);
+    auto t = gleam::Transform3 {};
+    t.Rotate(gleam::Vector3::Up(), gleam::math::half_pi);
     t.Translate({0.0f, 0.0f, 1.0f});
 
     EXPECT_VEC3_NEAR(t.GetPosition(), {1.0f, 0.0f, 0.0f}, 0.0001f);

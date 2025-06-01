@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 class RenderLists;
 

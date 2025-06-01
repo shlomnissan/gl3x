@@ -3,7 +3,7 @@
 
 #include "gleam/nodes/camera_orthographic.hpp"
 
-namespace engine {
+namespace gleam {
     CameraOrthographic::CameraOrthographic(const Parameters& params) : params_(params) {
         CameraOrthographic::SetProjection();
     }

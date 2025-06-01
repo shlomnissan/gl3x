@@ -5,7 +5,7 @@
 
 #include <imgui.h>
 
-namespace engine {
+namespace gleam {
 
 auto PerformanceGraph::RenderGraph(const float viewport_width) const -> void {
     static const float kWindowWidth {250.0f};

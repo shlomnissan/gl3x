@@ -13,10 +13,10 @@
 
 class ExampleBlending : public ExampleScene {
 public:
-    explicit ExampleBlending(std::shared_ptr<engine::Camera>);
+    explicit ExampleBlending(std::shared_ptr<gleam::Camera>);
 
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<engine::PhongMaterial> transparent_material_;
+    std::shared_ptr<gleam::PhongMaterial> transparent_material_;
 };

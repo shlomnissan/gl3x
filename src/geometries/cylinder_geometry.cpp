@@ -9,7 +9,7 @@
 #include <cassert>
 #include <cmath>
 
-namespace engine {
+namespace gleam {
 
 CylinderGeometry::CylinderGeometry(const Parameters& params) {
     assert(params.height > 0.0f);

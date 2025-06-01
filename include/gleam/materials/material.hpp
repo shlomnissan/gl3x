@@ -11,7 +11,7 @@
 #include <optional>
 #include <string>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief The type of material.

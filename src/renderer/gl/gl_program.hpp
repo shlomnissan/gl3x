@@ -12,7 +12,7 @@
 
 #include <glad/glad.h>
 
-namespace engine {
+namespace gleam {
 
 // Forward declarations
 enum class ShaderType;

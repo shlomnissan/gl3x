@@ -10,7 +10,7 @@
 #include <future>
 #include <thread>
 
-const auto mesh_loader = engine::MeshLoader::Create();
+const auto mesh_loader = gleam::MeshLoader::Create();
 
 #pragma region Helpers
 
@@ -29,11 +29,11 @@ auto RunAsyncTest(const std::string& file_path, Callback callback) {
     EXPECT_EQ(status, std::future_status::ready);
 }
 
-auto VerifyMesh(std::shared_ptr<engine::Node> root) {
+auto VerifyMesh(std::shared_ptr<gleam::Node> root) {
     EXPECT_NE(root, nullptr);
     EXPECT_EQ(root->Children().size(), 1);
 
-    auto mesh = root->Children()[0]->As<engine::Mesh>();
+    auto mesh = root->Children()[0]->As<gleam::Mesh>();
     EXPECT_NE(mesh->geometry, nullptr);
     EXPECT_NE(mesh->material, nullptr);
     EXPECT_EQ(mesh->geometry->VertexCount(), 4);

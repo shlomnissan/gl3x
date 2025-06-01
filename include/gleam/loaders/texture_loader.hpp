@@ -15,7 +15,7 @@
 #include <string>
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 namespace fs = std::filesystem;
 

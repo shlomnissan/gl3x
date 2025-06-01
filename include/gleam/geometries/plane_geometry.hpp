@@ -8,7 +8,7 @@
 
 #include <memory>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief A class for generating plane geometries.

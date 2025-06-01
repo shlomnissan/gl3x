@@ -14,7 +14,7 @@
 #include <optional>
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 /**
  * @brief Enum representing the type of a geometry attribute.

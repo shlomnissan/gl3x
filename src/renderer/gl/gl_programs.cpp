@@ -7,7 +7,7 @@
 
 #include <vector>
 
-namespace engine {
+namespace gleam {
 
 auto GLPrograms::GetProgram(const ProgramAttributes& attrs) -> GLProgram* {
     auto key = attrs.ProgramPermutationHash();

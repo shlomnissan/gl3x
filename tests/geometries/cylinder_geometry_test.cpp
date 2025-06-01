@@ -9,7 +9,7 @@
 
 class CylinderGeometryTest : public ::testing::Test {
 protected:
-    engine::CylinderGeometry cylinder_ {{
+    gleam::CylinderGeometry cylinder_ {{
         .radius_top = 1.0f,
         .radius_bottom = 1.0f,
         .height = 1.0f,
@@ -49,7 +49,7 @@ TEST_F(CylinderGeometryTest, ConstructorInitializesName) {
 #pragma region Attributes
 
 TEST_F(CylinderGeometryTest, AttributesConfiguredCorrectly) {
-    using enum engine::GeometryAttributeType;
+    using enum gleam::GeometryAttributeType;
 
     const auto& attrs = cylinder_.Attributes();
 
@@ -68,15 +68,15 @@ TEST_F(CylinderGeometryTest, AttributesConfiguredCorrectly) {
 
 TEST(CylinderGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        engine::CylinderGeometry({.height = 0.0f});
+        gleam::CylinderGeometry({.height = 0.0f});
     }, ".*params.height > 0");
 
     EXPECT_DEATH({
-        engine::CylinderGeometry({.radial_segments = 0});
+        gleam::CylinderGeometry({.radial_segments = 0});
     }, ".*params.radial_segments > 0");
 
     EXPECT_DEATH({
-        engine::CylinderGeometry({.height_segments = 0});
+        gleam::CylinderGeometry({.height_segments = 0});
     }, ".*params.height_segments > 0");
 }
 
