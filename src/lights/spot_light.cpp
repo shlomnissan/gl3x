@@ -20,19 +20,19 @@ auto SpotLight::Direction() -> Vector3 {
 }
 
 auto SpotLight::SetDebugMode(bool is_debug_mode) -> void {
-    if (debug_mode_enabled != is_debug_mode) {
+    if (debug_mode_enabled_ != is_debug_mode) {
         if (is_debug_mode) {
             CreateDebugMesh();
         } else {
             Remove(debug_mesh_cone_);
             debug_mesh_cone_.reset();
         }
-        debug_mode_enabled = is_debug_mode;
+        debug_mode_enabled_ = is_debug_mode;
     }
 }
 
 auto SpotLight::OnUpdate(float delta) -> void {
-    if (debug_mode_enabled) {
+    if (debug_mode_enabled_) {
         UpdateDebugMesh();
     }
 }

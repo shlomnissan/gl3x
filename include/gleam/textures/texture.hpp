@@ -22,7 +22,7 @@ enum class TextureType {
 };
 
 /**
- * @brief Base class for texture objects. It provides a common interface for
+ * @brief **Abstract** base class for texture objects. It provides a common interface for
  * all texture types, which currently includes Texture2D. Not intended to be
  * instantiated directly.
  *

@@ -27,7 +27,7 @@ enum class LightType {
 };
 
 /**
- * @brief Base class for light objects. It provides a common interface for
+ * @brief **Abstract** base class for light objects. It provides a common interface for
  * all light types. Not intended to be instantiated directly.
  *
  * @ingroup LightsGroup
@@ -52,9 +52,6 @@ public:
     /// @brief Light intensity.
     float intensity {1.0f};
 
-    /// @brief Indicates whether the light is in debug mode.
-    bool debug_mode_enabled {false};
-
     /**
      * @brief Constructs a Light object.
      *
@@ -76,8 +73,11 @@ public:
      * @param is_debug_mode True to enable debug mode, false to disable.
      */
     virtual auto SetDebugMode(bool is_debug_mode) -> void {
-        debug_mode_enabled = is_debug_mode;
+        debug_mode_enabled_ = is_debug_mode;
     }
+
+protected:
+    bool debug_mode_enabled_ {false};
 };
 
 }
