@@ -19,21 +19,7 @@ struct DirectionalLight::Impl {
     std::shared_ptr<Mesh> plane;
     std::shared_ptr<FlatMaterial> material;
 
-    auto UpdateDebugMesh(DirectionalLight* self) {
-        const auto target_world_pos = self->target != nullptr
-            ? self->target->GetWorldPosition()
-            : Vector3::Zero();
-
-        plane->LookAt(target_world_pos);
-        line->LookAt(target_world_pos);
-        material->color = self->color;
-
-        const auto length = (target_world_pos - self->GetWorldPosition()).Length();
-        plane->SetScale(debug_mesh_size);
-        line->SetScale({1.0f, 1.0f, length});
-    }
-
-    auto CreateDebugMesh(DirectionalLight* self) {
+    auto CreateDebugMesh(DirectionalLight* self) -> void {
         using enum GeometryAttributeType;
         using enum GeometryPrimitiveType;
 
@@ -47,7 +33,6 @@ struct DirectionalLight::Impl {
             0, 0, 0,
             0, 0, 1
         }), material);
-        line->geometry->SetName("directional light line");
         line->geometry->SetAttribute({Position, 3});
         line->geometry->primitive = Lines;
         line->transform_auto_update = false;
@@ -59,7 +44,6 @@ struct DirectionalLight::Impl {
              1, -1, 0,
             -1, -1, 0
         }), material);
-        plane->geometry->SetName("directional light plane");
         plane->geometry->SetAttribute({Position, 3});
         plane->geometry->primitive = LineLoop;
         plane->transform_auto_update = false;
@@ -68,7 +52,21 @@ struct DirectionalLight::Impl {
         UpdateDebugMesh(self);
     }
 
-    auto RemoveDebugMesh(DirectionalLight* self) {
+    auto UpdateDebugMesh(DirectionalLight* self) -> void {
+        const auto target_world_pos = self->target != nullptr
+            ? self->target->GetWorldPosition()
+            : Vector3::Zero();
+
+        plane->LookAt(target_world_pos);
+        line->LookAt(target_world_pos);
+        material->color = self->color;
+
+        const auto length = (target_world_pos - self->GetWorldPosition()).Length();
+        plane->SetScale(debug_mesh_size);
+        line->SetScale({1.0f, 1.0f, length});
+    }
+
+    auto RemoveDebugMesh(DirectionalLight* self) -> void {
         if (line != nullptr) self->Remove(line);
         if (plane != nullptr) self->Remove(plane);
         line.reset();
@@ -94,9 +92,9 @@ auto DirectionalLight::Direction() -> Vector3 {
 
 auto DirectionalLight::SetDebugMode(bool is_debug_mode) -> void {
     if (debug_mode_enabled_ != is_debug_mode) {
-        is_debug_mode ?
-            impl_->CreateDebugMesh(this) :
-            impl_->RemoveDebugMesh(this);
+        is_debug_mode
+        ? impl_->CreateDebugMesh(this)
+        : impl_->RemoveDebugMesh(this);
         debug_mode_enabled_ = is_debug_mode;
     }
 }

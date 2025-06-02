@@ -9,9 +9,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "gleam_export.h"
 #include "gleam/lights/light.hpp"
-#include "gleam/materials/flat_material.hpp"
-#include "gleam/math/utilities.hpp"
-#include "gleam/nodes/mesh.hpp"
 
 #include <memory>
 
@@ -73,15 +70,7 @@ public:
      *
      * @param params SpotLight::Parameters
      */
-    explicit SpotLight(const Parameters& params)
-        : Light(params.color, params.intensity),
-          angle(params.angle),
-          penumbra(params.penumbra),
-          target(params.target),
-          attenuation(params.attenuation)
-    {
-        SetName("spot light");
-    }
+    explicit SpotLight(const Parameters& params);
 
     /**
      * @brief Creates a shared pointer to a SpotLight object.
@@ -127,22 +116,14 @@ public:
      */
     auto OnUpdate(float delta) -> void override;
 
+    /**
+     * @brief Destructor.
+     */
+    ~SpotLight() override;
+
 private:
-    /// @brief Mesh used to visualize the light's cone in debug mode.
-    std::shared_ptr<Mesh> debug_mesh_cone_;
-
-    /// @brief Material used for rendering debug meshes.
-    std::shared_ptr<FlatMaterial> debug_mesh_material_;
-
-    /**
-     * @brief Creates the debug mesh for visualizing the light's cone.
-     */
-    auto CreateDebugMesh() -> void;
-
-    /**
-     * @brief Updates the debug mesh to reflect the current light state.
-     */
-    auto UpdateDebugMesh() -> void;
+    struct Impl;
+    std::unique_ptr<Impl> impl_;
 };
 
 }
