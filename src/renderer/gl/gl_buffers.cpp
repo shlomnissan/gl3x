@@ -1,5 +1,9 @@
-// Copyright © 2024 - Present, Shlomi Nissan.
-// All rights reserved.
+/*
+===========================================================================
+GLEAM ENGINE https://gleamengine.org
+Copyright © 2024 - Present, Shlomi Nissan
+===========================================================================
+*/
 
 #include "renderer/gl/gl_buffers.hpp"
 
