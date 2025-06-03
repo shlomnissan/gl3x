@@ -9,15 +9,11 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "gleam_export.h"
 
+#include "gleam/loaders/loader.hpp"
 #include "gleam/textures/texture_2d.hpp"
 
-#include "loaders/loader.hpp"
-
-#include <expected>
 #include <filesystem>
 #include <memory>
-#include <string>
-#include <vector>
 
 namespace gleam {
 
@@ -30,8 +26,6 @@ public:
     [[nodiscard]] static auto Create() -> std::shared_ptr<TextureLoader> {
         return std::shared_ptr<TextureLoader>(new TextureLoader());
     }
-
-    ~TextureLoader() override = default;
 
 private:
     TextureLoader() = default;

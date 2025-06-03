@@ -13,7 +13,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include "gleam/textures/texture.hpp"
 
 #include <memory>
-#include <string_view>
 
 namespace gleam {
 

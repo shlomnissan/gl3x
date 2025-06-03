@@ -8,6 +8,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 #pragma once
 
 #include "gleam_export.h"
+
 #include "gleam/lights/light.hpp"
 #include "gleam/math/vector3.hpp"
 

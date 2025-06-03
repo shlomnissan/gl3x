@@ -9,13 +9,10 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "gleam_export.h"
 
-#include "loaders/loader.hpp"
+#include "gleam/loaders/loader.hpp"
 
-#include <expected>
 #include <filesystem>
 #include <memory>
-#include <string>
-#include <vector>
 
 namespace gleam {
 
@@ -30,8 +27,6 @@ public:
     [[nodiscard]] static auto Create() -> std::shared_ptr<MeshLoader> {
         return std::shared_ptr<MeshLoader>(new MeshLoader());
     }
-
-    ~MeshLoader() override = default;
 
 private:
     MeshLoader() = default;

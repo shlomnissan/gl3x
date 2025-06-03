@@ -7,6 +7,8 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #pragma once
 
+#include "gleam_export.h"
+
 #include "gleam/lights/light.hpp"
 
 #include <memory>
@@ -26,7 +28,7 @@ namespace gleam {
  *
  * @ingroup LightsGroup
  */
-class AmbientLight : public Light {
+class GLEAM_EXPORT AmbientLight : public Light {
 public:
     /// @brief Parameters for constructing an AmbientLight object.
     struct Parameters {

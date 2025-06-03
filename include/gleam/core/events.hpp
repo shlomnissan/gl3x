@@ -8,6 +8,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 #pragma once
 
 #include "gleam_export.h"
+
 #include "gleam/math/vector2.hpp"
 #include "gleam/nodes/node.hpp"
 

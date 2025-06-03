@@ -11,7 +11,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "utilities/logger.hpp"
 
-#include <algorithm>
 #include <expected>
 #include <filesystem>
 #include <format>
@@ -19,7 +18,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include <memory>
 #include <string>
 #include <thread>
-#include <vector>
 
 namespace gleam {
 
@@ -31,9 +29,29 @@ using LoaderResult = std::expected<std::shared_ptr<T>, std::string>;
 template <typename T>
 using LoaderCallback = std::function<void(LoaderResult<T>)>;
 
+/**
+ * @brief **Abstract** base class for loading resources from the file system. This
+ * class defines the interface for resource loaders in the engine.
+ * It provides both synchronous and asynchronous methods for loading resources,
+ * enforcing a consistent error-handling model based on `std::expected`.
+ * Not intended to be instantiated directly.
+ *
+ * @tparam Resource Resource type to be loaded, e.g., `Texture`, `Mesh`.
+ * @ingroup LoadersGroup
+ */
 template <typename Resource>
 class GLEAM_EXPORT Loader : public std::enable_shared_from_this<Loader<Resource>> {
 public:
+    /**
+     * @brief Loads a resource synchronously from the specified file path. This
+     * method verifies that the file exists before attempting to load.
+     * If the file is missing or an error occurs during loading, an error
+     * message is returned via `std::unexpected`.
+     *
+     * @param path File system path to the resource.
+     * @return LoaderResult<Resource> Expected containing a shared pointer
+     * to the loaded resource, or an error string.
+     */
     auto Load(const fs::path& path) const -> LoaderResult<Resource> {
         if (!fs::exists(path)) {
             const auto message = std::format("File not found '{}'", path.string());
@@ -46,7 +64,16 @@ public:
         return result;
     }
 
-    // TODO: Use a thread pool instead of creating a thread and detaching it.
+    /**
+     * @brief Loads a resource asynchronously from the specified file path.
+     * The result is delivered to the provided callback on a background thread.
+     * File existence is verified before loading. This implementation currently
+     * spawns a detached thread and should be updated to use a thread pool
+     * for better control and efficiency.
+     *
+     * @param path File system path to the resource.
+     * @param callback Callback that receives the result of the loading operation.
+     */
     auto LoadAsync(const fs::path& path, LoaderCallback<Resource> callback) const {
         if (!fs::exists(path)) {
             const auto message = std::format("File not found '{}'", path.string());
@@ -64,9 +91,21 @@ public:
         }).detach();
     }
 
+    /**
+     * @brief Virtual destructor.
+     */
     virtual ~Loader() = default;
 
-protected:
+private:
+    /**
+     * @brief Pure virtual method to implement the actual loading logic. Must
+     * be overridden by derived classes to perform the resource-specific loading
+     * process. The file is guaranteed to exist at this point.
+     *
+     * @param path File system path to the resource.
+     * @return LoaderResult<Resource> Expected containing a shared pointer
+     * to the loaded resource, or an error string.
+     */
     [[nodiscard]] virtual auto LoadImpl(const fs::path& path) const -> LoaderResult<Resource> = 0;
 };
 
