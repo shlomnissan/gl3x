@@ -30,8 +30,9 @@ template <typename T>
 using LoaderCallback = std::function<void(LoaderResult<T>)>;
 
 /**
- * @brief **Abstract** base class for loading resources from the file system. This
- * class defines the interface for resource loaders in the engine.
+ * @brief **Abstract** base class for loading resources from the file system.
+ *
+ * This class defines the interface for resource loaders in the engine.
  * It provides both synchronous and asynchronous methods for loading resources,
  * enforcing a consistent error-handling model based on `std::expected`.
  * Not intended to be instantiated directly.
