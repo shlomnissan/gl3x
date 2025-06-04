@@ -26,20 +26,20 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
     type = material->Type();
 
     if (type == MaterialType::FlatMaterial) {
-        auto m = material->As<FlatMaterial>();
+        auto m = static_cast<const FlatMaterial*>(material);
         color = true;
         texture_map = m->texture_map != nullptr;
     }
 
     if (type == MaterialType::PhongMaterial) {
-        auto m = material->As<PhongMaterial>();
+        auto m = static_cast<const PhongMaterial*>(material);
         color = true;
         lights = !render_lists->Lights().empty();
         texture_map = m->texture_map != nullptr;
     }
 
     if (type == MaterialType::ShaderMaterial) {
-        auto m = material->As<ShaderMaterial>();
+        auto m = static_cast<const ShaderMaterial*>(material);
         vertex_shader = m->vertex_shader_;
         fragment_shader = m->fragment_shader_;
     }

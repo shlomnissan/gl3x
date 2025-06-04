@@ -92,39 +92,6 @@ public:
     [[nodiscard]] virtual auto Type() const -> MaterialType = 0;
 
     /**
-     * @brief Checks if the material is of the specified type.
-     *
-     * @tparam T The type of material to check.
-     * @return `true` if the material is of the specified type, `false` otherwise.
-     */
-    template<class T> requires std::is_base_of_v<Material, T>
-    [[nodiscard]] auto Is() const {
-        return dynamic_cast<const T*>(this) != nullptr;
-    }
-
-    /**
-     * @brief Casts the material to the specified type.
-     *
-     * @tparam T The type of material to cast to.
-     * @return A pointer to the material cast to the specified type.
-     */
-    template<class T> requires std::is_base_of_v<Material, T>
-    [[nodiscard]] auto As() {
-        return dynamic_cast<T*>(this);
-    }
-
-    /**
-     * @brief Casts the material to the specified type (const version).
-     *
-     * @tparam T The type of material to cast to.
-     * @return A pointer to the material cast to the specified type.
-     */
-    template<class T> requires std::is_base_of_v<Material, T>
-    [[nodiscard]] auto As() const {
-        return dynamic_cast<const T*>(this);
-    }
-
-    /**
      * @brief Converts a material type to a string.
      *
      * @param type The material type to convert.

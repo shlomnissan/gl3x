@@ -111,7 +111,7 @@ auto Renderer::Impl::SetUniforms(
     Camera* camera,
     Scene* scene
 ) -> void {
-    auto material = mesh->material;
+    auto material = mesh->material.get();
     auto model_view = camera->view_transform * mesh->GetWorldTransform();
 
     // Shared uniforms
@@ -143,7 +143,7 @@ auto Renderer::Impl::SetUniforms(
     // expected to be used in the shader source code that corresponds to the material type.
 
     if (attrs->type == MaterialType::FlatMaterial) {
-        auto m = material->As<FlatMaterial>();
+        auto m = static_cast<FlatMaterial*>(material);
         program->SetUniform("u_Color", m->color);
         if (attrs->texture_map) {
             program->SetUniform("u_TextureMap", 0);
@@ -153,7 +153,7 @@ auto Renderer::Impl::SetUniforms(
     }
 
     if (attrs->type == MaterialType::PhongMaterial) {
-        auto m = material->As<PhongMaterial>();
+        auto m = static_cast<PhongMaterial*>(material);
         if (attrs->directional_lights || attrs->point_lights || attrs->spot_lights) {
             program->SetUniform("u_Material.DiffuseColor", m->color);
             program->SetUniform("u_Material.SpecularColor", m->specular);
@@ -172,7 +172,7 @@ auto Renderer::Impl::SetUniforms(
     }
 
     if (attrs->type == MaterialType::ShaderMaterial) {
-        auto m = material->As<ShaderMaterial>();
+        auto m = static_cast<ShaderMaterial*>(material);
         for (const auto& [name, value] : m->uniforms) {
             program->SetUniform(name, value);
         }
