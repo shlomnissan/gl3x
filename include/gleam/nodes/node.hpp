@@ -141,7 +141,7 @@ public:
      *
      * @param target The target position to look at.
      */
-    auto LookAt(const Vector3& target) -> void;
+    virtual auto LookAt(const Vector3& target) -> void;
 
     /**
      * @brief Creates a new instance of the Node class.
@@ -150,39 +150,6 @@ public:
      */
     [[nodiscard]] static auto Create() {
         return std::make_shared<Node>();
-    }
-
-    /**
-     * @brief Checks if the current node is of the specified type.
-     *
-     * @tparam T The type to check against, which must be derived from Node.
-     * @return True if the node is of type T, otherwise false.
-     */
-    template<class T> requires std::is_base_of_v<Node, T>
-    [[nodiscard]] auto Is() const {
-        return dynamic_cast<const T*>(this) != nullptr;
-    }
-
-    /**
-     * @brief Casts the current node to the specified type.
-     *
-     * @tparam T The type to cast to, which must be derived from Node.
-     * @return A pointer to the node cast to type T, or nullptr if the cast fails.
-     */
-    template<class T> requires std::is_base_of_v<Node, T>
-    [[nodiscard]] auto As() {
-        return dynamic_cast<T*>(this);
-    }
-
-    /**
-     * @brief Casts the current node to the specified type (const version).
-     *
-     * @tparam T The type to cast to, which must be derived from Node.
-     * @return A constant pointer to the node cast to type T, or nullptr if the cast fails.
-    */
-    template<class T> requires std::is_base_of_v<Node, T>
-    [[nodiscard]] auto As() const {
-        return dynamic_cast<const T*>(this);
     }
 
     /**

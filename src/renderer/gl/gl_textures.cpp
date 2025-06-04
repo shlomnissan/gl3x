@@ -32,7 +32,7 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
     glGenTextures(1, &state.texture_id);
     glBindTexture(GL_TEXTURE_2D, state.texture_id);
 
-    auto texture_2d = dynamic_cast<Texture2D*>(texture);
+    auto texture_2d = static_cast<Texture2D*>(texture);
 
     // Using glTexImage2D instead of glTexStorage2D, as OpenGL 4.1
     // (the latest supported version on macOS) doesn't support the latter.

@@ -29,6 +29,13 @@ public:
      */
     auto UpdateViewTransform() -> void;
 
+    /**
+     * @brief Rotates the object to face a point in world space.
+     *
+     * @param target The target position to look at.
+     */
+    auto LookAt(const Vector3& target) -> void override;
+
 private:
     /**
      * @brief Sets the projection matrix of the camera.

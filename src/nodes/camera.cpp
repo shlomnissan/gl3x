@@ -16,4 +16,9 @@ auto Camera::UpdateViewTransform() -> void {
     }
 }
 
+auto Camera::LookAt(const Vector3& target) -> void {
+    const auto position = GetWorldPosition();
+    transform.LookAt(position, target, up);
+}
+
 }

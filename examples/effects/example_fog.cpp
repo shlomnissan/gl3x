@@ -69,12 +69,12 @@ auto ExampleFog::ContextMenu() -> void {
         if (str == "exponential") fog = ExponentialFog::Create(fog->color, 0.2f);
     });
 
-    if (auto linear_fog = dynamic_cast<LinearFog*>(fog.get())) {
+    if (auto linear_fog = static_cast<LinearFog*>(fog.get())) {
         UISliderFloat("near", linear_fog->near, 0.0f, 20.0f, _, 160.0f);
         UISliderFloat("far", linear_fog->far, 0.0f, 20.0f, _, 160.0f);
     }
 
-    if (auto exponential_fog = dynamic_cast<ExponentialFog*>(fog.get())) {
+    if (auto exponential_fog = static_cast<ExponentialFog*>(fog.get())) {
         UISliderFloat("density", exponential_fog->density, 0.0f, 1.0f, _, 160.0f);
     }
 }

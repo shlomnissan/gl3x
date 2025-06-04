@@ -21,6 +21,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include "core/program_attributes.hpp"
 #include "utilities/logger.hpp"
 
+#include <array>
 #include <cmath>
 #include <format>
 #include <utility>
@@ -192,47 +193,50 @@ auto Renderer::Impl::UpdateLights(GLProgram* program, const Camera* camera) cons
         if (auto light = weak_light.lock()) {
             const auto light_color = light->color;
             const auto intensity = light->intensity;
-
-            if (auto ambient = light->As<AmbientLight>()) {
-                ambient_light = light_color * intensity;
-            }
+            const auto type = light->Type();
 
             const auto uniform = std::format("u_Lights[{}]", idx);
 
-            if (auto directional = light->As<DirectionalLight>()) {
-                const auto direction = camera->view_transform * Vector4(directional->Direction(), 0.0f);
-                const auto color = directional->color * directional->intensity;
-                program->SetUniform(uniform + ".Type", std::to_underlying(directional->Type()));
+            if (type == LightType::AmbientLight) {
+                ambient_light = light_color * intensity;
+            } else {
+                program->SetUniform(uniform + ".Type", std::to_underlying(type));
+            }
+
+            if (type == LightType::DirectionalLight) {
+                auto l = static_cast<DirectionalLight*>(light.get());
+                const auto direction = camera->view_transform * Vector4(l->Direction(), 0.0f);
+                const auto color = l->color * l->intensity;
                 program->SetUniform(uniform + ".Color", color);
                 program->SetUniform(uniform + ".Direction", Vector3(direction));
                 ++idx;
             }
 
-            if (auto point = light->As<PointLight>()) {
-                const auto color = point->color * point->intensity;
+            if (type == LightType::PointLight) {
+                auto l = static_cast<PointLight*>(light.get());
+                const auto color = l->color * l->intensity;
                 const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
-                program->SetUniform(uniform + ".Type", std::to_underlying(point->Type()));
                 program->SetUniform(uniform + ".Color", color);
                 program->SetUniform(uniform + ".Position", Vector3(position));
-                program->SetUniform(uniform + ".Base", point->attenuation.base);
-                program->SetUniform(uniform + ".Linear", point->attenuation.linear);
-                program->SetUniform(uniform + ".Quadratic", point->attenuation.quadratic);
+                program->SetUniform(uniform + ".Base", l->attenuation.base);
+                program->SetUniform(uniform + ".Linear", l->attenuation.linear);
+                program->SetUniform(uniform + ".Quadratic", l->attenuation.quadratic);
                 ++idx;
             }
 
-            if (auto spot = light->As<SpotLight>()) {
-                const auto direction = camera->view_transform * Vector4(spot->Direction(), 0.0f);
-                const auto color = spot->color * spot->intensity;
+            if (type == LightType::SpotLight) {
+                auto l = static_cast<SpotLight*>(light.get());
+                const auto direction = camera->view_transform * Vector4(l->Direction(), 0.0f);
+                const auto color = l->color * l->intensity;
                 const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
-                program->SetUniform(uniform + ".Type", std::to_underlying(spot->Type()));
                 program->SetUniform(uniform + ".Color", color);
                 program->SetUniform(uniform + ".Direction", Vector3(direction));
                 program->SetUniform(uniform + ".Position", Vector3(position));
-                program->SetUniform(uniform + ".ConeCos", std::cos(spot->angle));
-                program->SetUniform(uniform + ".PenumbraCos", std::cos(spot->angle * (1 - spot->penumbra)));
-                program->SetUniform(uniform + ".Base", spot->attenuation.base);
-                program->SetUniform(uniform + ".Linear", spot->attenuation.linear);
-                program->SetUniform(uniform + ".Quadratic", spot->attenuation.quadratic);
+                program->SetUniform(uniform + ".ConeCos", std::cos(l->angle));
+                program->SetUniform(uniform + ".PenumbraCos", std::cos(l->angle * (1 - l->penumbra)));
+                program->SetUniform(uniform + ".Base", l->attenuation.base);
+                program->SetUniform(uniform + ".Linear", l->attenuation.linear);
+                program->SetUniform(uniform + ".Quadratic", l->attenuation.quadratic);
                 ++idx;
             }
         }

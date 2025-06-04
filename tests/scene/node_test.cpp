@@ -206,26 +206,3 @@ TEST(Node, RemoveNonexistentChild) {
 }
 
 #pragma endregion
-
-#pragma region Type Helpers
-
-TEST(Node, TypeCheck) {
-    auto temp = gleam::CameraPerspective::Create();
-    gleam::Node* node = temp.get();
-
-    EXPECT_TRUE(node->Is<gleam::CameraPerspective>());
-    EXPECT_FALSE(node->Is<gleam::Mesh>());
-}
-
-TEST(Node, TypeCast) {
-    auto temp = gleam::CameraPerspective::Create();
-    gleam::Node* node = temp.get();
-
-    auto camera = node->As<gleam::CameraPerspective>();
-    EXPECT_NE(camera, nullptr);
-
-    auto mesh = node->As<gleam::Mesh>();
-    EXPECT_EQ(mesh, nullptr);
-}
-
-#pragma endregion
