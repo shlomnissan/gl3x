@@ -124,17 +124,22 @@ auto Renderer::Impl::SetUniforms(
     program->SetUniformIfExists("u_Opacity", material->opacity);
     program->SetUniformIfExists("u_Resolution", Vector2(params_.width, params_.height));
 
-    if (auto fog = scene->fog->As<LinearFog>()) {
-        program->SetUniformIfExists("u_Fog.Type", std::to_underlying(fog->Type()));
-        program->SetUniformIfExists("u_Fog.Color", fog->color);
-        program->SetUniformIfExists("u_Fog.Near", fog->near);
-        program->SetUniformIfExists("u_Fog.Far", fog->far);
-    }
+    if (auto fog = scene->fog.get()) {
+        auto type = fog->Type();
+        program->SetUniformIfExists("u_Fog.Type", std::to_underlying(type));
+        if (fog->Type() == FogType::LinearFog) {
+            auto f = static_cast<LinearFog*>(fog);
+            program->SetUniformIfExists("u_Fog.Color", f->color);
+            program->SetUniformIfExists("u_Fog.Near", f->near);
+            program->SetUniformIfExists("u_Fog.Far", f->far);
+        }
 
-    if (auto fog = scene->fog->As<ExponentialFog>()) {
-        program->SetUniformIfExists("u_Fog.Type", std::to_underlying(fog->Type()));
-        program->SetUniformIfExists("u_Fog.Color", fog->color);
-        program->SetUniformIfExists("u_Fog.Density", fog->density);
+        if (fog->Type() == FogType::ExponentialFog) {
+            auto f = static_cast<ExponentialFog*>(fog);
+            program->SetUniformIfExists("u_Fog.Type", std::to_underlying(fog->Type()));
+            program->SetUniformIfExists("u_Fog.Color", f->color);
+            program->SetUniformIfExists("u_Fog.Density", f->density);
+        }
     }
 
     // Material specific uniforms

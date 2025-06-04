@@ -37,28 +37,6 @@ struct Fog {
     [[nodiscard]] virtual auto Type() const -> FogType = 0;
 
     /**
-     * @brief Casts the current fog object to the specified type.
-     *
-     * @tparam T The type to cast to, which must be derived from Fog.
-     * @return A pointer to the fog cast to type T, or nullptr if the cast fails.
-     */
-    template<class T> requires std::is_base_of_v<Fog, T>
-    [[nodiscard]] auto As() {
-        return dynamic_cast<T*>(this);
-    }
-
-    /**
-     * @brief Casts the current fog object to the specified type (const version)
-     *
-     * @tparam T The type to cast to, which must be derived from Fog.
-     * @return A constant pointer to the fog cast to type T, or nullptr if the cast fails.
-     */
-    template<class T> requires std::is_base_of_v<Fog, T>
-    [[nodiscard]] auto As() const {
-        return dynamic_cast<const T*>(this);
-    }
-
-    /**
      * @brief Default destructor.
      */
     virtual ~Fog() = default;
