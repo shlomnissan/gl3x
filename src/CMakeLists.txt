@@ -69,6 +69,7 @@ set(SOURCE_CODE
     "utilities/logger.hpp"
     "utilities/performance_graph.cpp"
     "utilities/performance_graph.hpp"
+    "utilities/scoped_timer.hpp"
 )
 
 set(PUBLIC_HEADERS
