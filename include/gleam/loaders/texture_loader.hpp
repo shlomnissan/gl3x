@@ -24,17 +24,17 @@ using TextureCallback = std::function<void(std::shared_ptr<Texture2D>)>;
 /**
  * @brief Loads 2D textures from engine-optimized `.tex` files.
  *
- * This class implements the abstract `Loader` interface to load `Texture2D`
+ * This class implements the abstract Loader interface to load Texture2D
  * resources from the file system, specifically targeting the engine's custom
  * `.tex` format. It supports both synchronous and asynchronous loading through
- * the base `Loader` API.
+ * the base Loader API.
  *
  * You can convert standard image formats (e.g., PNG, JPG) into `.tex` files using the
  * `asset_builder`—a command-line tool located in the tools directory.
  *
  * Explicit instantiation of this class is discouraged due to potential
  * lifetime issues in the current architecture, particularly when used with
- * asynchronous loading. Instead, access it through the `Node::OnAttached` hook,
+ * asynchronous loading. Instead, access it through the Node::OnAttached hook,
  * which provides a reference to the context that owns an instance of this class.
  *
  * @code

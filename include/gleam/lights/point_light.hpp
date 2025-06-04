@@ -16,9 +16,9 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 /**
- * @brief Represents a light that gets emitted from a single point in all
- * directions. A common use case for this is to replicate the light emitted
- * from a bare lightbulb.
+ * @brief Represents a light that gets emitted from a single point in all directions.
+ *
+ * A common use case for this is to replicate the light emitted from a bare lightbulb.
  *
  * @code
  * auto point_light = PointLight::Create({

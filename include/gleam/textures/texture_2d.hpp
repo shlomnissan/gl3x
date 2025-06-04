@@ -17,9 +17,10 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 /**
- * @brief Represents a 2D texture that can be attached to materials. While you
- * can instantiate a Texture2D object directly, it is recommended to use the texture
- * loader object to create texture instances:
+ * @brief Represents a 2D texture that can be attached to materials.
+ *
+ * While you can instantiate a Texture2D object directly, it is recommended to
+ * use the texture loader object to create texture instances:
  *
  * @code
  * auto MyNode::OnAttached() -> void override {

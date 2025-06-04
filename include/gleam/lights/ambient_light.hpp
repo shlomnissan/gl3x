@@ -16,7 +16,8 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 /**
- * @brief  a light that gets emitted in all directions equally.
+ * @brief Represents a light that gets emitted in all directions equally.
+ *
  * This light cannot be used to cast shadows as it does not have a direction.
  *
  * @code

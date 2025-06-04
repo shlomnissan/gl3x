@@ -17,11 +17,12 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 /**
- * @brief Represents a light that gets emitted in a specific direction. This
- * light will behave as though it is infinitely far away and the rays produced
- * from it are all parallel. The common use case for this is to simulate
- * daylight; the sun is far enough away that its position can be considered
- * to be infinite, and all light rays coming from it are parallel.
+ * @brief Represents a light that gets emitted in a specific direction.
+ *
+ * This light will behave as though it is infinitely far away and the rays
+ * produced from it are all parallel. The common use case for this is to
+ * simulate daylight; the sun is far enough away that its position can be
+ * considered to be infinite, and all light rays coming from it are parallel.
  *
  * @code
  * Add(DirectionalLight::Create({
