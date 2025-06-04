@@ -33,9 +33,9 @@ public:
 
     auto UpdateUniforms() -> void;
 
-    auto Use() const -> void;
-
     auto IsValid() const { return !has_errors_ && program_ > 0; }
+
+    auto Id() const { return program_; }
 
     auto SetUniformIfExists(const std::string& name, const UniformValue& v) -> void;
 

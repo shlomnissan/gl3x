@@ -64,10 +64,6 @@ auto GLProgram::UpdateUniforms() -> void {
     }
 }
 
-auto GLProgram::Use() const -> void {
-    glUseProgram(program_);
-}
-
 auto GLProgram::SetUniformIfExists(const std::string& name, const UniformValue& v) -> void {
     if (uniforms_.contains(name)) {
         SetUniform(name, v);

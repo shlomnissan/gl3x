@@ -25,6 +25,8 @@ public:
 
     auto SetViewport(int x, int y, int width, int height) const -> void;
 
+    auto UseProgram(unsigned int program_id) -> void;
+
     auto Reset() -> void;
 
 private:
@@ -37,6 +39,8 @@ private:
     bool curr_backface_culling_ {false};
     bool curr_depth_mask_ {false};
     bool curr_wireframe_mode_ {false};
+
+    unsigned int curr_program_ = 0;
 
     auto Enable(int token) -> void;
 

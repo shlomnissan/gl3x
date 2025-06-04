@@ -79,7 +79,7 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
 
     SetUniforms(program, &attrs, mesh, camera, scene);
 
-    program->Use();
+    state_.UseProgram(program->Id());
     program->UpdateUniforms();
 
     auto primitive = GL_TRIANGLES;

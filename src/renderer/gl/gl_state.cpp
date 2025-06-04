@@ -52,6 +52,13 @@ auto GLState::SetDepthMask(bool enabled) -> void {
     }
 }
 
+auto GLState::UseProgram(unsigned int program_id) -> void {
+    if (curr_program_ != program_id) {
+        glUseProgram(program_id);
+        curr_program_ = program_id;
+    }
+}
+
 auto GLState::SetPolygonOffset(const std::optional<PolygonOffset>& polygon_offset) -> void {
     if (polygon_offset) {
         Enable(GL_POLYGON_OFFSET_FILL);
@@ -115,6 +122,7 @@ auto GLState::Reset() -> void {
     curr_blending_ = Blending::None;
     curr_depth_mask_ = false;
     curr_wireframe_mode_ = false;
+    curr_program_ = 0;
 }
 
 }
