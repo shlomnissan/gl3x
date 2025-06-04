@@ -21,23 +21,17 @@ namespace gleam {
 enum class Key;
 enum class MouseButton;
 
+enum class EventType {
+    Keyboard,
+    Mouse,
+    Scene,
+    Undefined
+};
+
 struct GLEAM_EXPORT Event {
     bool handled {false};
 
-    template<class T> requires std::is_base_of_v<Event, T>
-    [[nodiscard]] auto Is() const {
-        return dynamic_cast<const T*>(this) != nullptr;
-    }
-
-    template<class T> requires std::is_base_of_v<Event, T>
-    [[nodiscard]] auto As() {
-        return dynamic_cast<T*>(this);
-    }
-
-    template<class T> requires std::is_base_of_v<Event, T>
-    [[nodiscard]] auto As() const {
-        return dynamic_cast<const T*>(this);
-    }
+    [[nodiscard]] virtual auto GetType() const -> EventType { return EventType::Undefined; }
 
     virtual ~Event() = default;
 };
@@ -52,6 +46,10 @@ struct GLEAM_EXPORT SceneEvent : public Event {
     SceneEvent::Type type;
 
     SceneEvent(Type type, std::shared_ptr<Node> node) : type(type), node(node) {}
+
+    auto GetType() const -> EventType override {
+        return EventType::Scene;
+    }
 };
 
 struct GLEAM_EXPORT KeyboardEvent : public Event {
@@ -62,6 +60,10 @@ struct GLEAM_EXPORT KeyboardEvent : public Event {
 
     KeyboardEvent::Type type;
     Key key;
+
+    auto GetType() const -> EventType override {
+        return EventType::Keyboard;
+    }
 };
 
 struct GLEAM_EXPORT MouseEvent : public Event {
@@ -77,6 +79,10 @@ struct GLEAM_EXPORT MouseEvent : public Event {
 
     MouseEvent::Type type;
     MouseButton button;
+
+    auto GetType() const -> EventType override {
+        return EventType::Mouse;
+    }
 };
 
 enum class MouseButton {

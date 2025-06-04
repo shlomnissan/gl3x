@@ -21,8 +21,10 @@ Scene::Scene() {
 }
 
 auto Scene::AddEventListeners() -> void {
+    using enum EventType;
+
     scene_event_listener_ = std::make_shared<EventListener>([&](Event* event) {
-        HandleSceneEvents(event->As<SceneEvent>());
+        HandleSceneEvents(static_cast<SceneEvent*>(event));
     });
 
     input_event_listener_ = std::make_shared<EventListener>([&](Event* event) {
@@ -30,8 +32,10 @@ auto Scene::AddEventListeners() -> void {
             HandleInputEvent(child, event);
         }
         if (event->handled) return;
-        if (auto e = event->As<KeyboardEvent>()) OnKeyboardEvent(e);
-        if (auto e = event->As<MouseEvent>()) OnMouseEvent(e);
+
+        const auto type = event->GetType();
+        if (type == Keyboard) OnKeyboardEvent(static_cast<KeyboardEvent*>(event));
+        if (type == Mouse) OnMouseEvent(static_cast<MouseEvent*>(event));
     });
 
     EventDispatcher::Get().AddEventListener("node_added", scene_event_listener_);
@@ -57,6 +61,8 @@ auto Scene::HandleNodeUpdates(std::weak_ptr<Node> node, float delta) -> void {
 }
 
 auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
+    using enum EventType;
+
     // Events are propagated from the bottom of the scene graph to the top.
     // This allows nodes at the bottom of the graph to mark events as handled
     // and prevent them from being processed by parent nodes.
@@ -66,8 +72,9 @@ auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
             HandleInputEvent(child, event);
         }
 
-        if (auto e = event->As<KeyboardEvent>()) n->OnKeyboardEvent(e);
-        if (auto e = event->As<MouseEvent>()) n->OnMouseEvent(e);
+        const auto type = event->GetType();
+        if (type == Keyboard) n->OnKeyboardEvent(static_cast<KeyboardEvent*>(event));
+        if (type == Mouse) n->OnMouseEvent(static_cast<MouseEvent*>(event));
     }
 }
 
