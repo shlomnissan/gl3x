@@ -71,10 +71,6 @@ auto GLProgram::SetUniformIfExists(const std::string& name, const UniformValue& 
 }
 
 auto GLProgram::SetUniform(const std::string& name, const UniformValue& v) -> void {
-    if (!uniforms_.contains(name)) {
-        Logger::Log(LogLevel::Error, "Uniform {} is not found", name);
-        return;
-    }
     uniforms_.at(name).SetValueIfNeeded(v);
 }
 
