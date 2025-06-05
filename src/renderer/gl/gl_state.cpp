@@ -11,7 +11,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
 
-auto GLState::ProcessMaterial(const std::shared_ptr<Material>& material) -> void {
+auto GLState::ProcessMaterial(const Material* material) -> void {
     SetBackfaceCulling(!material->two_sided);
     SetDepthTest(material->depth_test);
     SetPolygonOffset(material->polygon_offset);

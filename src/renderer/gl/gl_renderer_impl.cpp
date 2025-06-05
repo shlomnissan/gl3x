@@ -61,10 +61,10 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
     if (!IsValidMesh(mesh)) return;
     if (!IsVisible(mesh)) return;
 
-    auto geometry = mesh->geometry;
-    auto material = mesh->material;
+    auto geometry = mesh->geometry.get();
+    auto material = mesh->material.get();
 
-    auto attrs = ProgramAttributes {material.get(), render_lists_.get(), scene};
+    auto attrs = ProgramAttributes {material, render_lists_.get(), scene};
     auto program = programs_.GetProgram(attrs);
     if (!program->IsValid()) {
         return;

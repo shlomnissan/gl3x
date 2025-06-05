@@ -19,11 +19,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
 
-struct GLBufferState {
-    std::array<GLuint, 2> buffers {0};
-    GLuint vao {0};
-};
-
 class GLBuffers {
 public:
     GLBuffers() = default;
@@ -33,20 +28,18 @@ public:
     GLBuffers& operator=(const GLBuffers&) = delete;
     GLBuffers& operator=(GLBuffers&&) = delete;
 
-    auto Bind(const std::shared_ptr<Geometry>& geometry) -> void;
+    auto Bind(Geometry* geometry) -> void;
 
     ~GLBuffers();
 
 private:
-    std::unordered_map<std::string_view, GLBufferState> bindings_;
+    std::unordered_map<GLuint, std::array<GLuint, 2>> bindings_;
 
-    std::vector<std::weak_ptr<Geometry>> geometries_;
+    std::vector<Geometry*> geometries_;
 
     GLuint current_vao_ {0};
 
-    auto GenerateBuffers(const Geometry* geometry, GLBufferState& state) const -> void;
-
-    auto GeometryCallbacks(Geometry* geometry) -> void;
+    auto GenerateBuffers(Geometry* geometry) -> void;
 };
 
 }

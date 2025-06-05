@@ -56,6 +56,9 @@ public:
     /// @brief The primitive type of the geometry (e.g., triangles, lines).
     GeometryPrimitiveType primitive { GeometryPrimitiveType::Triangles };
 
+    /// @brief Handle to a data buffer maintained by the renderer.
+    unsigned int renderer_id = 0;
+
     /**
      * @brief Default construction.
      */

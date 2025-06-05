@@ -17,7 +17,7 @@ namespace gleam {
 
 class GLState {
 public:
-    auto ProcessMaterial(const std::shared_ptr<Material>& material) -> void;
+    auto ProcessMaterial(const Material* material) -> void;
 
     auto SetClearColor(const Color& color) -> void;
 

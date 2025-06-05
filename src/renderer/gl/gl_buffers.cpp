@@ -15,28 +15,30 @@ namespace gleam {
 
 #define BUFFER_OFFSET(offset) ((void*)(offset * sizeof(GLfloat)))
 
-auto GLBuffers::Bind(const std::shared_ptr<Geometry>& geometry) -> void {
-    GLBufferState state;
-    if (bindings_.contains(geometry->UUID())) {
-        state = bindings_[geometry->UUID()];
-        if (state.vao == current_vao_) { return; }
-    } else {
+auto GLBuffers::Bind(Geometry* geometry) -> void {
+    auto vao = geometry->renderer_id;
+    if (vao != 0 && vao == current_vao_) return;
+
+    if (vao == 0) {
+        GenerateBuffers(geometry);
+        vao = geometry->renderer_id;
         geometries_.emplace_back(geometry);
-        GenerateBuffers(geometry.get(), state);
-        GeometryCallbacks(geometry.get());
-        bindings_.try_emplace(geometry->UUID(), state);
     }
-    glBindVertexArray(state.vao);
-    current_vao_ = state.vao;
+
+    glBindVertexArray(vao);
+    current_vao_ = vao;
 }
 
-auto GLBuffers::GenerateBuffers(const Geometry* geometry, GLBufferState& state) const -> void {
-    glGenVertexArrays(1, &state.vao);
-    glBindVertexArray(state.vao);
-    glGenBuffers(state.buffers.size(), state.buffers.data());
+auto GLBuffers::GenerateBuffers(Geometry* geometry) -> void {
+    auto& vao = geometry->renderer_id;
+    auto buffers = std::array<GLuint, 2> {};
+
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(geometry->renderer_id);
+    glGenBuffers(buffers.size(), buffers.data());
 
     const auto& vertex = geometry->VertexData();
-    glBindBuffer(GL_ARRAY_BUFFER, state.buffers[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
     glBufferData(
         GL_ARRAY_BUFFER,
         vertex.size() * sizeof(GLfloat),
@@ -66,7 +68,7 @@ auto GLBuffers::GenerateBuffers(const Geometry* geometry, GLBufferState& state) 
 
     if (geometry->IndexData().size()) {
         const auto& index = geometry->IndexData();
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, state.buffers[1]);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[1]);
         glBufferData(
             GL_ELEMENT_ARRAY_BUFFER,
             index.size() * sizeof(GLuint),
@@ -75,22 +77,20 @@ auto GLBuffers::GenerateBuffers(const Geometry* geometry, GLBufferState& state) 
         );
     }
 
-    glBindVertexArray(0);
-}
+    bindings_.try_emplace(vao, std::move(buffers));
 
-auto GLBuffers::GeometryCallbacks(Geometry* geometry) -> void {
     geometry->OnDispose([this](Disposable* target){
-        auto& uuid = static_cast<Geometry*>(target)->UUID();
-        auto& state = this->bindings_[uuid];
-        glDeleteBuffers(state.buffers.size(), state.buffers.data());
+        const auto vao = static_cast<Geometry*>(target)->renderer_id;
+        auto& buffers = this->bindings_[vao];
+        glDeleteBuffers(buffers.size(), buffers.data());
         Logger::Log(LogLevel::Info, "Geometry buffer cleared {}", *static_cast<Geometry*>(target));
-        this->bindings_.erase(uuid);
+        this->bindings_.erase(vao);
     });
 }
 
 GLBuffers::~GLBuffers() {
     for (const auto& geometry : geometries_) {
-        if (auto g = geometry.lock()) g->Dispose();
+        geometry->Dispose();
     }
 }
 
