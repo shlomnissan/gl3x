@@ -15,12 +15,12 @@ namespace gleam {
 
 #define BUFFER_OFFSET(offset) ((void*)(offset * sizeof(GLfloat)))
 
-auto GLBuffers::Bind(Geometry* geometry) -> void {
+auto GLBuffers::Bind(const std::shared_ptr<Geometry>& geometry) -> void {
     auto vao = geometry->renderer_id;
     if (vao != 0 && vao == current_vao_) return;
 
     if (vao == 0) {
-        GenerateBuffers(geometry);
+        GenerateBuffers(geometry.get());
         vao = geometry->renderer_id;
         geometries_.emplace_back(geometry);
     }
@@ -90,7 +90,7 @@ auto GLBuffers::GenerateBuffers(Geometry* geometry) -> void {
 
 GLBuffers::~GLBuffers() {
     for (const auto& geometry : geometries_) {
-        geometry->Dispose();
+        if (auto g = geometry.lock()) g->Dispose();
     }
 }
 

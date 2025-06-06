@@ -76,7 +76,7 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
         UpdateLights(program, camera);
     }
 
-    buffers_.Bind(geometry);
+    buffers_.Bind(mesh->geometry);
 
     SetUniforms(program, &attrs, mesh, camera, scene);
 

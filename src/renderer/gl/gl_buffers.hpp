@@ -28,14 +28,14 @@ public:
     GLBuffers& operator=(const GLBuffers&) = delete;
     GLBuffers& operator=(GLBuffers&&) = delete;
 
-    auto Bind(Geometry* geometry) -> void;
+    auto Bind(const std::shared_ptr<Geometry>& geometry) -> void;
 
     ~GLBuffers();
 
 private:
     std::unordered_map<GLuint, std::array<GLuint, 2>> bindings_;
 
-    std::vector<Geometry*> geometries_;
+    std::vector<std::weak_ptr<Geometry>> geometries_;
 
     GLuint current_vao_ {0};
 
