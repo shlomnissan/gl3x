@@ -18,10 +18,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
 
-struct GLTextureState {
-    GLuint texture_id {0};
-};
-
 class GLTextures {
 public:
     GLTextures() = default;
@@ -36,15 +32,11 @@ public:
     ~GLTextures();
 
 private:
-    std::unordered_map<std::string_view, GLTextureState> bindings_;
-
     std::vector<std::weak_ptr<Texture>> textures_;
 
     GLuint current_texture_id_ {0};
 
-    auto GenerateTexture(Texture* texture, GLTextureState& state) const -> void;
-
-    auto TextureCallbacks(Texture* texture) -> void;
+    auto GenerateTexture(Texture* texture) const -> void;
 };
 
 }

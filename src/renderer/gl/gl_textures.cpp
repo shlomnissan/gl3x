@@ -14,33 +14,29 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 auto GLTextures::Bind(const std::shared_ptr<Texture>& texture) -> void {
-    GLTextureState state;
-    if (bindings_.contains(texture->UUID())) {
-        state = bindings_[texture->UUID()];
-        if (state.texture_id == current_texture_id_) { return; }
-    } else {
+    auto tex_id = texture->renderer_id;
+    if (tex_id != 0 && tex_id == current_texture_id_) return;
+
+    if (tex_id == 0) {
+        GenerateTexture(texture.get());
         textures_.emplace_back(texture);
-        GenerateTexture(texture.get(), state);
-        TextureCallbacks(texture.get());
-        bindings_.try_emplace(texture->UUID(), state);
     }
-    glBindTexture(GL_TEXTURE_2D, state.texture_id);
-    current_texture_id_ = state.texture_id;
 }
 
-auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const -> void {
-    glGenTextures(1, &state.texture_id);
-    glBindTexture(GL_TEXTURE_2D, state.texture_id);
+auto GLTextures::GenerateTexture(Texture* texture) const -> void {
+    auto& tex_id = texture->renderer_id;
 
+    glGenTextures(1, &tex_id);
+    glBindTexture(GL_TEXTURE_2D, tex_id);
+
+    // Currently, the engine only supports 2D textures.
     auto texture_2d = static_cast<Texture2D*>(texture);
 
-    // Using glTexImage2D instead of glTexStorage2D, as OpenGL 4.1
-    // (the latest supported version on macOS) doesn't support the latter.
+    // Use glTexImage2D instead of glTexStorage2D since we target OpenGL 4.1
     glTexImage2D(
         GL_TEXTURE_2D,
         0,
-        // We currently use stb_image to load images and set the desired number
-        // of channels to four, so the data is always in RGBA format.
+        // The engine-specific .tex format guarantees RGBA8 format.
         GL_RGBA8,
         texture_2d->width,
         texture_2d->height,
@@ -55,15 +51,10 @@ auto GLTextures::GenerateTexture(Texture* texture, GLTextureState& state) const 
     if (glGetError() != GL_NO_ERROR) {
         Logger::Log(LogLevel::Error, "OpenGL error failed to generate texture");
     }
-}
 
-auto GLTextures::TextureCallbacks(Texture* texture) -> void {
     texture->OnDispose([this](Disposable* target) {
-        const auto& uuid = static_cast<Texture*>(target)->UUID();
-        const auto& state = this->bindings_[uuid];
-        glDeleteTextures(1, &state.texture_id);
+        glDeleteTextures(1, &(static_cast<Texture*>(target)->renderer_id));
         Logger::Log(LogLevel::Info, "Texture buffer cleared {}", *static_cast<Texture*>(target));
-        this->bindings_.erase(uuid);
     });
 }
 

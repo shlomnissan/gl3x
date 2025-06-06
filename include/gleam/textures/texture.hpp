@@ -32,6 +32,9 @@ enum class TextureType {
  */
 class GLEAM_EXPORT Texture : public Disposable, public Identity {
 public:
+    /// @brief Renderer-specific identifier assigned by the graphics API
+    unsigned int renderer_id = 0;
+
     /**
      * @brief Returns texture type.
      *
