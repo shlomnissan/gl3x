@@ -30,6 +30,22 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
 
+namespace {
+
+static const auto light_uniforms = std::array<std::string, 9> {
+    "u_Lights[0]",
+    "u_Lights[1]",
+    "u_Lights[2]",
+    "u_Lights[3]",
+    "u_Lights[4]",
+    "u_Lights[5]",
+    "u_Lights[6]",
+    "u_Lights[7]",
+    "u_Lights[8]",
+};
+
+}
+
 Renderer::Impl::Impl(const Renderer::Parameters& params)
   : params_(params),
     render_lists_(std::make_unique<RenderLists>()) {
@@ -194,8 +210,7 @@ auto Renderer::Impl::UpdateLights(GLProgram* program, const Camera* camera) cons
             const auto light_color = light->color;
             const auto intensity = light->intensity;
             const auto type = light->Type();
-
-            const auto uniform = std::format("u_Lights[{}]", idx);
+            const auto& uniform = light_uniforms[idx];
 
             if (type == LightType::AmbientLight) {
                 ambient_light = light_color * intensity;
