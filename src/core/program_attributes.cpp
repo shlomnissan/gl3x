@@ -74,14 +74,12 @@ auto ProgramAttributes::ProgramPermutationHash() const -> std::string {
         two_sided ? 1 : 0,
     };
 
-    auto attrs_str = std::string {};
-    for (auto attr : attrs) attrs_str += std::to_string(attr);
+    auto output = std::string {};
+    output.reserve(64);
 
-    return std::format(
-        "{}_material|p{}",
-        Material::TypeToString(type),
-        attrs_str
-    );
+    for (auto attr : attrs) output += std::to_string(attr);
+    output += Material::TypeToString(type);
+    return output;
 }
 
 }
