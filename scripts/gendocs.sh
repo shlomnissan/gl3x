@@ -7,16 +7,16 @@ DOCS_DIR="$BUILD_DIR/docs/html"
 
 echo "Generating Doxygen documentation"
 
-# Step 1: Ensure build directory exists and CMake is configured
+# Ensure build directory exists and CMake is configured
 if [ ! -f "$BUILD_DIR/Makefile" ] && [ ! -f "$BUILD_DIR/build.ninja" ]; then
     echo "Configuring CMake"
     cmake -S . -B "$BUILD_DIR"
 fi
 
-# Step 2: Build the Doxygen target
+# Build the Doxygen target
 cmake --build "$BUILD_DIR" --target doxygen
 
-# Step 3: Verify output
+# Verify output
 if [ -f "$DOCS_DIR/index.html" ]; then
     echo "✅ Documentation generated at: $DOCS_DIR/index.html"
 else
