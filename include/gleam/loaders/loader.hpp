@@ -9,8 +9,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "gleam_export.h"
 
-#include "utilities/logger.hpp"
-
 #include <expected>
 #include <filesystem>
 #include <functional>
@@ -55,13 +53,10 @@ public:
     auto Load(const fs::path& path) const -> LoaderResult<Resource> {
         if (!fs::exists(path)) {
             const auto message = "File not found '" + path.string() + "'";
-            Logger::Log(LogLevel::Error, message);
             return std::unexpected(message);
         }
 
-        auto result = LoadImpl(path);
-        if (!result) Logger::Log(LogLevel::Error, result.error());
-        return result;
+        return LoadImpl(path);
     }
 
     /**
@@ -77,16 +72,12 @@ public:
     auto LoadAsync(const fs::path& path, LoaderCallback<Resource> callback) const {
         if (!fs::exists(path)) {
             const auto message = "File not found '" + path.string() + "'";
-            Logger::Log(LogLevel::Error, message);
             callback(std::unexpected(message));
         }
 
         auto self = this->shared_from_this();
         std::thread([self, path, callback]() {
             auto result = self->LoadImpl(path);
-            if (!result) {
-                Logger::Log(LogLevel::Error, result.error());
-            }
             callback(result);
         }).detach();
     }
