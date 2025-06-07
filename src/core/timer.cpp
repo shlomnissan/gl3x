@@ -9,6 +9,8 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "utilities/logger.hpp"
 
+#include <array>
+
 namespace gleam {
 
 using Clock = std::chrono::steady_clock;
