@@ -13,7 +13,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include <expected>
 #include <filesystem>
-#include <format>
 #include <functional>
 #include <memory>
 #include <string>
@@ -55,7 +54,7 @@ public:
      */
     auto Load(const fs::path& path) const -> LoaderResult<Resource> {
         if (!fs::exists(path)) {
-            const auto message = std::format("File not found '{}'", path.string());
+            const auto message = "File not found '" + path.string() + "'";
             Logger::Log(LogLevel::Error, message);
             return std::unexpected(message);
         }
@@ -77,7 +76,7 @@ public:
      */
     auto LoadAsync(const fs::path& path, LoaderCallback<Resource> callback) const {
         if (!fs::exists(path)) {
-            const auto message = std::format("File not found '{}'", path.string());
+            const auto message = "File not found '" + path.string() + "'";
             Logger::Log(LogLevel::Error, message);
             callback(std::unexpected(message));
         }

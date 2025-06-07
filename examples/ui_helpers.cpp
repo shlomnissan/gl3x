@@ -59,10 +59,7 @@ auto UIColor(
     bool& dirty,
     Label id) -> void
 {
-    const auto str = id.empty() ?
-        std::format("{}", label) :
-        std::format("{}##{}", label, id);
-
+    auto str = std::string {id.empty() ? label : label + "##" + id};
     if (ImGui::ColorEdit3(str.c_str(), color)) {
         dirty = true;
     }

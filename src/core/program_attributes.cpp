@@ -17,7 +17,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include "utilities/logger.hpp"
 
 #include <array>
-#include <format>
 #include <string>
 
 namespace gleam {

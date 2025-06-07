@@ -23,7 +23,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include <array>
 #include <cmath>
-#include <format>
 #include <utility>
 
 #include <glad/glad.h>

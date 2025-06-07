@@ -7,7 +7,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #pragma once
 
-#include <format>
 #include <functional>
 #include <span>
 #include <string>

@@ -13,7 +13,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include <cmath>
 #include <filesystem>
-#include <format>
 #include <iostream>
 #include <string_view>
 #include <unordered_map>
@@ -275,12 +274,12 @@ auto convert_mesh(
 
     if (!reader.ParseFromFile(input_path.string(), reader_config)) {
         return reader.Error().empty() ?
-            std::unexpected(std::format("Error: Failed to load mesh {}\n", input_path.string())) :
-            std::unexpected(std::format("Error: {}\n", reader.Error()));
+            std::unexpected("Error: Failed to load mesh " + input_path.string() + '\n') :
+            std::unexpected("Error " + reader.Error());
     }
 
     if (!reader.Warning().empty()) {
-        std::cout << std::format("Warning: {}\n", reader.Warning());
+        std::cout << "Warning: " << reader.Warning() << '\n';
     }
 
     auto& attrib = reader.GetAttrib();

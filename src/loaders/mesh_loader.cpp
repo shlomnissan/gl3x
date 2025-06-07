@@ -70,21 +70,17 @@ auto MeshLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Node> {
     auto file = std::ifstream {path, std::ios::binary};
     auto path_s = path.string();
     if (!file) {
-        return std::unexpected(std::format("Unable to open file '{}'", path_s));
+        return std::unexpected("Unable to open file '" + path_s + "'");
     }
 
     auto mesh_header = MeshHeader {};
     read_binary(file, mesh_header);
     if (std::memcmp(mesh_header.magic, "MES0", 4) != 0) {
-        return std::unexpected(
-            std::format("Invalid mesh file '{}'", path_s)
-        );
+        return std::unexpected("Invalid mesh file '" + path_s + "'");
     }
 
     if (mesh_header.version != 1 || mesh_header.header_size != sizeof(MeshHeader)) {
-        return std::unexpected(
-            std::format("Unsupported mesh version in file '{}'", path_s)
-        );
+        return std::unexpected("Unsupported mesh version in file '" + path_s + "'");
     }
 
     auto materials = load_materials(path, mesh_header.material_count, file);
@@ -95,9 +91,7 @@ auto MeshLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Node> {
         read_binary(file, geometry_header);
 
         if (geometry_header.vertex_count == 0 || geometry_header.index_count == 0) {
-            return std::unexpected(
-                std::format("Mesh entry {} has zero vertices or indices in file '{}'", i, path_s)
-            );
+            return std::unexpected("Mesh entry has zero vertices or indices in file '" + path_s + "'");
         }
 
         auto vertex_data = std::vector<float>(geometry_header.vertex_count * geometry_header.vertex_stride);
