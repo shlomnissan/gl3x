@@ -14,11 +14,11 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 auto GLPrograms::GetProgram(const ProgramAttributes& attrs) -> GLProgram* {
-    auto key = attrs.ProgramPermutationHash();
+    const auto& key = attrs.key;
     if (!programs_.contains(key)) {
         auto sources = shader_lib_.GetShaderSource(attrs);
         if (sources.empty()) return nullptr;
-        Logger::Log(LogLevel::Info, "Creating a new shader program {}", attrs.ProgramPermutationHash());
+        Logger::Log(LogLevel::Info, "Creating a new shader program {}", key);
         programs_[key] = std::make_unique<GLProgram>(sources);
     }
     return programs_[key].get();

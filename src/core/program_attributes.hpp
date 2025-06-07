@@ -12,12 +12,13 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "core/render_lists.hpp"
 
-#include <string>
 #include <string_view>
 
 namespace gleam {
 
 struct ProgramAttributes {
+    std::size_t key;
+
     MaterialType type;
 
     // Used to store shader source code for shader materials
@@ -36,8 +37,6 @@ struct ProgramAttributes {
     bool flat_shaded {false};
 
     ProgramAttributes(const Material* material, const RenderLists* render_lists, const Scene* scene);
-
-    auto ProgramPermutationHash() const -> std::string;
 };
 
 }

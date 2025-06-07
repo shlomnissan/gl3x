@@ -12,7 +12,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include "renderer/gl/gl_program.hpp"
 
 #include <memory>
-#include <string>
 #include <unordered_map>
 
 namespace gleam {
@@ -24,7 +23,7 @@ public:
 private:
     ShaderLibrary shader_lib_;
 
-    std::unordered_map<std::string, std::unique_ptr<GLProgram>> programs_ {};
+    std::unordered_map<std::size_t, std::unique_ptr<GLProgram>> programs_ {};
 };
 
 }
