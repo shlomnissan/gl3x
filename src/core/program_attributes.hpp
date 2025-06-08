@@ -13,6 +13,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include "core/render_lists.hpp"
 
 #include <string_view>
+#include <utility>
 
 namespace gleam {
 
