@@ -13,18 +13,15 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 // Compare function for sorting meshes based on their z position.
-const auto& compare = [](const auto& element) {
-    if (const auto mesh = element.lock()) {
-        return mesh->transform.GetPosition().z;
-    }
-    return std::numeric_limits<float>::max();
+const auto& compare = [](auto* mesh) {
+    return mesh->transform.GetPosition().z;
 };
 
 auto RenderLists::ProcessScene(Scene* scene) -> void {
     Reset();
 
     for (const auto& child : scene->Children()) {
-        ProcessNode(child);
+        ProcessNode(child.get());
     }
 
     // Sort opaque meshes front-to-back to optimize depth buffer writes.
@@ -34,19 +31,19 @@ auto RenderLists::ProcessScene(Scene* scene) -> void {
     std::ranges::sort(transparent_, std::ranges::less {}, compare);
 }
 
-auto RenderLists::ProcessNode(const std::shared_ptr<Node>& node) -> void {
-    if (auto mesh = std::dynamic_pointer_cast<Mesh>(node)) {
+auto RenderLists::ProcessNode(Node* node) -> void {
+    if (auto mesh = dynamic_cast<Mesh*>(node)) {
         mesh->material->transparent ?
             transparent_.emplace_back(mesh) :
             opaque_.emplace_back(mesh);
     }
 
-    if (auto light = std::dynamic_pointer_cast<Light>(node)) {
+    if (auto light = dynamic_cast<Light*>(node)) {
         lights_.emplace_back(light);
     }
 
     for (const auto& child : node->Children()) {
-        ProcessNode(child);
+        ProcessNode(child.get());
     }
 }
 

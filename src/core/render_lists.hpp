@@ -13,6 +13,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include <gleam/nodes/scene.hpp>
 
 #include <memory>
+#include <span>
 #include <vector>
 
 namespace gleam {
@@ -31,7 +32,7 @@ public:
      *
      * @return A vector of weak pointers to opaque meshes.
      */
-    [[nodiscard]] auto Opaque() const -> const std::vector<std::weak_ptr<Mesh>>& {
+    [[nodiscard]] auto Opaque() const -> std::span<Mesh* const> {
         return opaque_;
     }
 
@@ -40,7 +41,7 @@ public:
      *
      * @return A vector of weak pointers to transparent meshes.
      */
-    [[nodiscard]] auto Transparent() const -> const std::vector<std::weak_ptr<Mesh>>& {
+    [[nodiscard]] auto Transparent() const -> std::span<Mesh* const> {
         return transparent_;
     }
 
@@ -49,26 +50,26 @@ public:
      *
      * @return A vector of weak pointers to lights.
      */
-    [[nodiscard]] auto Lights() const -> const std::vector<std::weak_ptr<Light>>& {
+    [[nodiscard]] auto Lights() const -> std::span<Light* const> {
         return lights_;
     }
 
 private:
     /// @brief A vector of weak pointers to opaque meshes in the scene.
-    std::vector<std::weak_ptr<Mesh>> opaque_;
+    std::vector<Mesh*> opaque_;
 
     /// @brief A vector of weak pointers to transparent meshes in the scene.
-    std::vector<std::weak_ptr<Mesh>> transparent_;
+    std::vector<Mesh*> transparent_;
 
     /// @brief A vector of weak pointers to lights in the scene.
-    std::vector<std::weak_ptr<Light>> lights_;
+    std::vector<Light*> lights_;
 
     /**
      * @brief Processes nodes in the scene recursively.
      *
      * @param node The node to process.
      */
-    auto ProcessNode(const std::shared_ptr<Node>& node) -> void;
+    auto ProcessNode(Node*) -> void;
 
     /**
      * @brief Resets the render lists.

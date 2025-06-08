@@ -44,16 +44,13 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
     fog = material->fog && scene->fog != nullptr;
     two_sided = material->two_sided;
 
-    for (auto weak_light : render_lists->Lights()) {
-        if (auto light = weak_light.lock()) {
-            using enum LightType;
-            switch (light->Type()) {
-                case AmbientLight: /* noop */ break;
-                case DirectionalLight: directional_lights++; break;
-                case PointLight: point_lights++; break;
-                case SpotLight: spot_lights++; break;
-                default: Logger::Log(LogLevel::Error, "Unknown light type"); break;
-            }
+    for (auto light : render_lists->Lights()) {
+        switch (light->Type()) {
+            case LightType::AmbientLight: /* noop */ break;
+            case LightType::DirectionalLight: directional_lights++; break;
+            case LightType::PointLight: point_lights++; break;
+            case LightType::SpotLight: spot_lights++; break;
+            default: Logger::Log(LogLevel::Error, "Unknown light type"); break;
         }
     }
 

@@ -18,7 +18,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 struct ProgramAttributes {
-    std::size_t key;
+    std::size_t key {0};
 
     MaterialType type;
 

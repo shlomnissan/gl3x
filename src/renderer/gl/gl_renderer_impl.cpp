@@ -54,18 +54,15 @@ Renderer::Impl::Impl(const Renderer::Parameters& params)
 auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
     frustum_.SetWithViewProjection(camera->projection_transform * camera->view_transform);
 
-    for (auto weak_mesh : render_lists_->Opaque()) {
-        if (auto mesh = weak_mesh.lock()) {
-            RenderMesh(mesh.get(), scene, camera);
-        }
+    for (auto mesh : render_lists_->Opaque()) {
+        RenderMesh(mesh, scene, camera);
     }
 
     if (!render_lists_->Transparent().empty()) state_.SetDepthMask(false);
-    for (auto weak_mesh : render_lists_->Transparent()) {
-        if (auto mesh = weak_mesh.lock()) {
-            RenderMesh(mesh.get(), scene, camera);
-        }
+    for (auto mesh : render_lists_->Transparent()) {
+        RenderMesh(mesh, scene, camera);
     }
+
     state_.SetDepthMask(true);
 
     rendered_objects_per_frame_ = rendered_objects_counter_;
@@ -204,55 +201,53 @@ auto Renderer::Impl::UpdateLights(GLProgram* program, const Camera* camera) cons
     auto ambient_light = Color {0.0f, 0.0f, 0.0f};
     auto idx = 0;
 
-    for (auto weak_light : render_lists_->Lights()) {
-        if (auto light = weak_light.lock()) {
-            const auto light_color = light->color;
-            const auto intensity = light->intensity;
-            const auto type = light->Type();
-            const auto& uniform = light_uniforms[idx];
+    for (auto light : render_lists_->Lights()) {
+        const auto light_color = light->color;
+        const auto intensity = light->intensity;
+        const auto type = light->Type();
+        const auto& uniform = light_uniforms[idx];
 
-            if (type == LightType::AmbientLight) {
-                ambient_light = light_color * intensity;
-            } else {
-                program->SetUniform(uniform + ".Type", std::to_underlying(type));
-            }
+        if (type == LightType::AmbientLight) {
+            ambient_light = light_color * intensity;
+        } else {
+            program->SetUniform(uniform + ".Type", std::to_underlying(type));
+        }
 
-            if (type == LightType::DirectionalLight) {
-                auto l = static_cast<DirectionalLight*>(light.get());
-                const auto direction = camera->view_transform * Vector4(l->Direction(), 0.0f);
-                const auto color = l->color * l->intensity;
-                program->SetUniform(uniform + ".Color", color);
-                program->SetUniform(uniform + ".Direction", Vector3(direction));
-                ++idx;
-            }
+        if (type == LightType::DirectionalLight) {
+            auto l = static_cast<DirectionalLight*>(light);
+            const auto direction = camera->view_transform * Vector4(l->Direction(), 0.0f);
+            const auto color = l->color * l->intensity;
+            program->SetUniform(uniform + ".Color", color);
+            program->SetUniform(uniform + ".Direction", Vector3(direction));
+            ++idx;
+        }
 
-            if (type == LightType::PointLight) {
-                auto l = static_cast<PointLight*>(light.get());
-                const auto color = l->color * l->intensity;
-                const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
-                program->SetUniform(uniform + ".Color", color);
-                program->SetUniform(uniform + ".Position", Vector3(position));
-                program->SetUniform(uniform + ".Base", l->attenuation.base);
-                program->SetUniform(uniform + ".Linear", l->attenuation.linear);
-                program->SetUniform(uniform + ".Quadratic", l->attenuation.quadratic);
-                ++idx;
-            }
+        if (type == LightType::PointLight) {
+            auto l = static_cast<PointLight*>(light);
+            const auto color = l->color * l->intensity;
+            const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
+            program->SetUniform(uniform + ".Color", color);
+            program->SetUniform(uniform + ".Position", Vector3(position));
+            program->SetUniform(uniform + ".Base", l->attenuation.base);
+            program->SetUniform(uniform + ".Linear", l->attenuation.linear);
+            program->SetUniform(uniform + ".Quadratic", l->attenuation.quadratic);
+            ++idx;
+        }
 
-            if (type == LightType::SpotLight) {
-                auto l = static_cast<SpotLight*>(light.get());
-                const auto direction = camera->view_transform * Vector4(l->Direction(), 0.0f);
-                const auto color = l->color * l->intensity;
-                const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
-                program->SetUniform(uniform + ".Color", color);
-                program->SetUniform(uniform + ".Direction", Vector3(direction));
-                program->SetUniform(uniform + ".Position", Vector3(position));
-                program->SetUniform(uniform + ".ConeCos", std::cos(l->angle));
-                program->SetUniform(uniform + ".PenumbraCos", std::cos(l->angle * (1 - l->penumbra)));
-                program->SetUniform(uniform + ".Base", l->attenuation.base);
-                program->SetUniform(uniform + ".Linear", l->attenuation.linear);
-                program->SetUniform(uniform + ".Quadratic", l->attenuation.quadratic);
-                ++idx;
-            }
+        if (type == LightType::SpotLight) {
+            auto l = static_cast<SpotLight*>(light);
+            const auto direction = camera->view_transform * Vector4(l->Direction(), 0.0f);
+            const auto color = l->color * l->intensity;
+            const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
+            program->SetUniform(uniform + ".Color", color);
+            program->SetUniform(uniform + ".Direction", Vector3(direction));
+            program->SetUniform(uniform + ".Position", Vector3(position));
+            program->SetUniform(uniform + ".ConeCos", std::cos(l->angle));
+            program->SetUniform(uniform + ".PenumbraCos", std::cos(l->angle * (1 - l->penumbra)));
+            program->SetUniform(uniform + ".Base", l->attenuation.base);
+            program->SetUniform(uniform + ".Linear", l->attenuation.linear);
+            program->SetUniform(uniform + ".Quadratic", l->attenuation.quadratic);
+            ++idx;
         }
     }
 
