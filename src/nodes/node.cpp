@@ -65,18 +65,19 @@ auto Node::Children() -> std::vector<std::shared_ptr<Node>>& {
 }
 
 auto Node::IsChild(const Node* node) const -> bool {
-    auto to_process = std::queue<const Node*>();
-    for (const auto child : children_) {
-        if (child != nullptr) to_process.push(child.get());
+    auto to_process = std::queue<std::shared_ptr<Node>>();
+    for (const auto& child : children_) {
+        to_process.push(child);
     }
 
     while (!to_process.empty()) {
-        for (auto i = 0; i < to_process.size(); ++i) {
+        auto len = to_process.size();
+        for (auto i = 0; i < len; ++i) {
             const auto current = to_process.front();
             to_process.pop();
-            if (current == node) return true;
-            for (const auto child : current->children_) {
-                if (child != nullptr) to_process.push(child.get());
+            if (current.get() == node) return true;
+            for (const auto& child : current->children_) {
+                to_process.push(child);
             }
         }
     }
