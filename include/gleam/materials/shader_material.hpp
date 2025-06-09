@@ -60,7 +60,7 @@ public:
      *
      * @return The type of the material as `MaterialType::ShaderMaterial`.
      */
-    auto Type() const -> MaterialType override {
+    auto GetType() const -> MaterialType override {
         return MaterialType::ShaderMaterial;
     }
 

@@ -138,18 +138,18 @@ auto Renderer::Impl::SetUniforms(
     program->SetUniformIfExists("u_Resolution", Vector2(params_.width, params_.height));
 
     if (auto fog = scene->fog.get()) {
-        auto type = fog->Type();
+        auto type = fog->GetType();
         program->SetUniformIfExists("u_Fog.Type", std::to_underlying(type));
-        if (fog->Type() == FogType::LinearFog) {
+        if (type == FogType::LinearFog) {
             auto f = static_cast<LinearFog*>(fog);
             program->SetUniformIfExists("u_Fog.Color", f->color);
             program->SetUniformIfExists("u_Fog.Near", f->near);
             program->SetUniformIfExists("u_Fog.Far", f->far);
         }
 
-        if (fog->Type() == FogType::ExponentialFog) {
+        if (type == FogType::ExponentialFog) {
             auto f = static_cast<ExponentialFog*>(fog);
-            program->SetUniformIfExists("u_Fog.Type", std::to_underlying(fog->Type()));
+            program->SetUniformIfExists("u_Fog.Type", std::to_underlying(type));
             program->SetUniformIfExists("u_Fog.Color", f->color);
             program->SetUniformIfExists("u_Fog.Density", f->density);
         }
@@ -204,7 +204,7 @@ auto Renderer::Impl::UpdateLights(GLProgram* program, const Camera* camera) cons
     for (auto light : render_lists_->Lights()) {
         const auto light_color = light->color;
         const auto intensity = light->intensity;
-        const auto type = light->Type();
+        const auto type = light->GetType();
         const auto& uniform = light_uniforms[idx];
 
         if (type == LightType::AmbientLight) {

@@ -89,7 +89,7 @@ public:
      *
      * @return LightType::SpotLight
      */
-    [[nodiscard]] auto Type() const -> LightType override {
+    [[nodiscard]] auto GetType() const -> LightType override {
         return LightType::SpotLight;
     }
 

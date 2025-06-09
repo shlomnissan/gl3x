@@ -45,7 +45,7 @@ public:
      *
      * @return The type of the material as `MaterialType::PhongMaterial`.
      */
-    auto Type() const -> MaterialType override {
+    auto GetType() const -> MaterialType override {
         return MaterialType::PhongMaterial;
     }
 

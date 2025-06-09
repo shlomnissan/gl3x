@@ -19,7 +19,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists* render_lists, const Scene* scene) {
-    type = material->Type();
+    type = material->GetType();
 
     if (type == MaterialType::FlatMaterial) {
         auto m = static_cast<const FlatMaterial*>(material);
@@ -45,7 +45,7 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
     two_sided = material->two_sided;
 
     for (auto light : render_lists->Lights()) {
-        switch (light->Type()) {
+        switch (light->GetType()) {
             case LightType::AmbientLight: /* noop */ break;
             case LightType::DirectionalLight: directional_lights++; break;
             case LightType::PointLight: point_lights++; break;

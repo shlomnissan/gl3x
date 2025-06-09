@@ -68,7 +68,7 @@ public:
      *
      * @return LightType
      */
-    [[nodiscard]] virtual auto Type() const -> LightType = 0;
+    [[nodiscard]] virtual auto GetType() const -> LightType = 0;
 
     /**
      * @brief Sets debug mode.

@@ -39,7 +39,7 @@ public:
      *
      * @return The type of the material as `MaterialType::FlatMaterial`.
      */
-    auto Type() const -> MaterialType override {
+    auto GetType() const -> MaterialType override {
         return MaterialType::FlatMaterial;
     }
 

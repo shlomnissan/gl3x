@@ -89,7 +89,7 @@ public:
      *
      * @return The type of the material.
      */
-    [[nodiscard]] virtual auto Type() const -> MaterialType = 0;
+    [[nodiscard]] virtual auto GetType() const -> MaterialType = 0;
 
     /**
      * @brief Converts a material type to a string.

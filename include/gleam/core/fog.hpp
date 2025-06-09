@@ -34,7 +34,7 @@ struct Fog {
      *
      * @return The type of fog.
      */
-    [[nodiscard]] virtual auto Type() const -> FogType = 0;
+    [[nodiscard]] virtual auto GetType() const -> FogType = 0;
 
     /**
      * @brief Default destructor.
@@ -63,7 +63,7 @@ struct LinearFog : public Fog {
      *
      * @return The type of fog as `FogType::LinearFog`.
      */
-    auto Type() const -> FogType override {
+    auto GetType() const -> FogType override {
         return FogType::LinearFog;
     }
 
@@ -95,7 +95,7 @@ struct ExponentialFog : public Fog {
      *
      * @return The type of fog as `FogType::ExponentialFog`.
      */
-    auto Type() const -> FogType override {
+    auto GetType() const -> FogType override {
         return FogType::ExponentialFog;
     }
 
