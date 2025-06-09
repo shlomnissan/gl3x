@@ -39,7 +39,15 @@ find_package(imgui REQUIRED)
 
 add_executable(gleam-examples main.cpp ${SOURCE_CODE})
 
-target_include_directories(${PROJECT_NAME} PUBLIC
+# disable RTTI and exceptions
+target_compile_options(gleam-examples PRIVATE
+    $<$<CXX_COMPILER_ID:GNU>:-fno-rtti -fno-exceptions>
+    $<$<CXX_COMPILER_ID:Clang>:-fno-rtti -fno-exceptions>
+    $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti -fno-exceptions>
+    $<$<CXX_COMPILER_ID:MSVC>:/GR- /EHs-c->
+)
+
+target_include_directories(gleam-examples PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>
 )
 

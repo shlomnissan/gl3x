@@ -164,6 +164,14 @@ find_package(glad REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(imgui REQUIRED)
 
+# disable RTTI and exceptions
+target_compile_options(gleam PRIVATE
+    $<$<CXX_COMPILER_ID:GNU>:-fno-rtti -fno-exceptions>
+    $<$<CXX_COMPILER_ID:Clang>:-fno-rtti -fno-exceptions>
+    $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti -fno-exceptions>
+    $<$<CXX_COMPILER_ID:MSVC>:/GR- /EHs-c->
+)
+
 target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
