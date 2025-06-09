@@ -71,6 +71,15 @@ public:
     [[nodiscard]] virtual auto GetType() const -> LightType = 0;
 
     /**
+     * @brief Returns node type.
+     *
+     * @return NodeType::LightNode
+     */
+    [[nodiscard]] auto GetNodeType() const -> NodeType override {
+        return NodeType::LightNode;
+    }
+
+    /**
      * @brief Sets debug mode.
      *
      * @param is_debug_mode True to enable debug mode, false to disable.

@@ -24,6 +24,17 @@ struct KeyboardEvent;
 struct MouseEvent;
 
 /**
+ * @brief Represents available node types.
+ */
+enum class NodeType {
+    CameraNode,
+    DefaultNode,
+    LightNode,
+    MeshNode,
+    SceneNode
+};
+
+/**
  * @brief Represents a node in a scene graph.
  */
 class GLEAM_EXPORT Node : public Identity {
@@ -137,11 +148,20 @@ public:
     }
 
     /**
+     * @brief Returns node type.
+     *
+     * @return NodeType::DefaultNode
+     */
+    [[nodiscard]] virtual auto GetNodeType() const -> NodeType {
+        return NodeType::DefaultNode;
+    }
+
+    /**
      * @brief Rotates the object to face a point in world space.
      *
      * @param target The target position to look at.
      */
-    virtual auto LookAt(const Vector3& target) -> void;
+    auto LookAt(const Vector3& target) -> void;
 
     /**
      * @brief Creates a new instance of the Node class.

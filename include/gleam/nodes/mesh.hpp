@@ -53,6 +53,15 @@ public:
     ) {
         return std::make_shared<Mesh>(geometry, material);
     }
+
+    /**
+     * @brief Returns node type.
+     *
+     * @return NodeType::MeshNode
+     */
+    [[nodiscard]] auto GetNodeType() const -> NodeType override {
+        return NodeType::MeshNode;
+    }
 };
 
 }

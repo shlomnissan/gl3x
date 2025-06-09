@@ -52,6 +52,15 @@ public:
     }
 
     /**
+     * @brief Returns node type.
+     *
+     * @return NodeType::SceneNode
+     */
+    [[nodiscard]] auto GetNodeType() const -> NodeType override {
+        return NodeType::SceneNode;
+    }
+
+    /**
      * @brief Destructor for the Scene class.
      */
     ~Scene() override;

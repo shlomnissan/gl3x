@@ -32,14 +32,16 @@ auto RenderLists::ProcessScene(Scene* scene) -> void {
 }
 
 auto RenderLists::ProcessNode(Node* node) -> void {
-    if (auto mesh = dynamic_cast<Mesh*>(node)) {
+    const auto type = node->GetNodeType();
+    if (type == NodeType::MeshNode) {
+        auto mesh = static_cast<Mesh*>(node);
         mesh->material->transparent ?
             transparent_.emplace_back(mesh) :
             opaque_.emplace_back(mesh);
     }
 
-    if (auto light = dynamic_cast<Light*>(node)) {
-        lights_.emplace_back(light);
+    if (type == NodeType::LightNode) {
+        lights_.emplace_back(static_cast<Light*>(node));
     }
 
     for (const auto& child : node->Children()) {

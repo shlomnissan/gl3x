@@ -37,7 +37,7 @@ auto VerifyMesh(std::shared_ptr<gleam::Node> root) {
     EXPECT_NE(root, nullptr);
     EXPECT_EQ(root->Children().size(), 1);
 
-    if (auto mesh = dynamic_cast<gleam::Mesh*>(root->Children()[0].get())) {
+    if (auto mesh = static_cast<gleam::Mesh*>(root->Children()[0].get())) {
         EXPECT_NE(mesh->geometry, nullptr);
         EXPECT_NE(mesh->material, nullptr);
         EXPECT_EQ(mesh->geometry->VertexCount(), 4);

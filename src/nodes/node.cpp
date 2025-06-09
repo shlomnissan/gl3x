@@ -152,7 +152,9 @@ auto Node::Context() const -> SharedContext* {
 
 auto Node::LookAt(const Vector3& target) -> void {
     const auto position = GetWorldPosition();
-    transform.LookAt(target, position, up);
+    GetNodeType() == NodeType::CameraNode
+        ? transform.LookAt(position, target, up)
+        : transform.LookAt(target, position, up);
 }
 
 auto Node::AttachRecursive(SharedContext* context) -> void {

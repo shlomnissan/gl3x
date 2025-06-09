@@ -30,11 +30,13 @@ public:
     auto UpdateViewTransform() -> void;
 
     /**
-     * @brief Rotates the object to face a point in world space.
+     * @brief Returns node type.
      *
-     * @param target The target position to look at.
+     * @return NodeType::CameraNode
      */
-    auto LookAt(const Vector3& target) -> void override;
+    [[nodiscard]] auto GetNodeType() const -> NodeType override {
+        return NodeType::CameraNode;
+    }
 
 private:
     /**
