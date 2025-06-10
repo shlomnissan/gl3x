@@ -28,7 +28,7 @@ protected:
 
     std::shared_ptr<gleam::PerspectiveCamera> perspective_camera_ =
     gleam::PerspectiveCamera::Create({
-        .fov = 90.0f,
+        .fov = gleam::math::DegToRad(90.f),
         .aspect = 1.0f,
         .near = 1.0f,
         .far = 100.0f

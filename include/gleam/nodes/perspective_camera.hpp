@@ -24,7 +24,26 @@ namespace gleam {
  *
  * Although multiple cameras can be added to the scene graph and inherit
  * transformations from their parent objects, only one camera can be active at
- * a time. The active camera is managed by the application’s runtime object.
+ * a time. The active camera is managed by the application’s runtime object:
+ * @code
+ * class Application : public gleam::ApplicationContext {
+ * public:
+ *   auto Configure() -> void override {}
+ *
+ *   auto Setup() -> void override {
+ *     SetCamera(gleam::PerspectiveCamera::Create({
+ *       .fov = gleam::math::DegToRad(60.0f),
+ *       .aspect = Context()->Parameters().ratio,
+ *       .near = 0.1f,
+ *       .far = 100.0f
+ *     }));
+ *   }
+ *
+ *   auto Update(float delta) -> bool override {
+ *     return true;
+ *   }
+ * }
+ * @endcode
  *
  * @ingroup NodesGroup
  */
@@ -32,10 +51,10 @@ class GLEAM_EXPORT PerspectiveCamera : public Camera {
 public:
     /// @brief Parameters for constructing an PerspectiveCamera object.
     struct Parameters {
-        float fov = 60.0f; ///< Camera frustum vertical field of view
-        float aspect = 1.77f; ///< Camera frustum aspect ratio.
-        float near = 0.1f; ///< Camera frustum near plane.
-        float far = 1000.0f; ///< Camera frustum far plane.
+        float fov; ///< Camera frustum vertical field of view in radians.
+        float aspect; ///< Camera frustum aspect ratio.
+        float near; ///< Camera frustum near plane.
+        float far; ///< Camera frustum far plane.
     };
 
     /**

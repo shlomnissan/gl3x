@@ -24,7 +24,28 @@ namespace gleam {
  *
  * Although multiple cameras can be added to the scene graph and inherit
  * transformations from their parent objects, only one camera can be active at
- * a time. The active camera is managed by the application’s runtime object.
+ * a time. The active camera is managed by the application’s runtime object:
+ * @code
+ * class Application : public gleam::ApplicationContext {
+ * public:
+ *   auto Configure() -> void override {}
+ *
+ *   auto Setup() -> void override {
+ *     SetCamera(gleam::OrthographicCamera::Create({
+ *       .left = 0.0f,
+ *       .right = 1024.0f,
+ *       .top = 0.0f,
+ *       .bottom = 768.0f,
+ *       .near = 0.1f,
+ *       .far = 100.0f
+ *     }));
+ *   }
+ *
+ *   auto Update(float delta) -> bool override {
+ *     return true;
+ *   }
+ * }
+ * @endcode
  *
  * @ingroup NodesGroup
  */
