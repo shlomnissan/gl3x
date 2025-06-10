@@ -169,7 +169,7 @@ target_compile_options(gleam PRIVATE
     $<$<CXX_COMPILER_ID:GNU>:-fno-rtti -fno-exceptions>
     $<$<CXX_COMPILER_ID:Clang>:-fno-rtti -fno-exceptions>
     $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti -fno-exceptions>
-    $<$<CXX_COMPILER_ID:MSVC>:/GR- /EHs-c->
+    $<$<CXX_COMPILER_ID:MSVC>:/GR /EHsc>
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
