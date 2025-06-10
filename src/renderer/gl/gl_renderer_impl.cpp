@@ -258,7 +258,7 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     scene->UpdateTransformHierarchy();
-    camera->UpdateViewTransform();
+    camera->SetViewTransform();
 
     if (scene->touched_) {
         render_lists_->ProcessScene(scene);

@@ -9,7 +9,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
 
-auto Camera::UpdateViewTransform() -> void {
+auto Camera::SetViewTransform() -> void {
     if (ShouldUpdateWorldTransform()) {
         UpdateWorldTransform();
         this->view_transform = Inverse(GetWorldTransform());

@@ -12,7 +12,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include "gleam/math/vector2.hpp"
 #include "gleam/math/vector3.hpp"
 #include "gleam/nodes/node.hpp"
-#include "gleam/nodes/camera_perspective.hpp"
+#include "gleam/nodes/perspective_camera.hpp"
 
 #include <memory>
 

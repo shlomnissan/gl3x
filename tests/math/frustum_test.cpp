@@ -9,15 +9,15 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include <test_helpers.hpp>
 
 #include <gleam/math/frustum.hpp>
-#include <gleam/nodes/camera_orthographic.hpp>
-#include <gleam/nodes/camera_perspective.hpp>
+#include <gleam/nodes/orthographic_camera.hpp>
+#include <gleam/nodes/perspective_camera.hpp>
 
 #pragma region Fixtures
 
 class FrustumTest : public ::testing::Test {
 protected:
-    std::shared_ptr<gleam::CameraOrthographic> orthographic_camera =
-    gleam::CameraOrthographic::Create({
+    std::shared_ptr<gleam::OrthographicCamera> orthographic_camera =
+    gleam::OrthographicCamera::Create({
         .left = -1.0f,
         .right = 1.0f,
         .top = 1.0f,
@@ -26,8 +26,8 @@ protected:
         .far = 100.0f
     });
 
-    std::shared_ptr<gleam::CameraPerspective> perspective_camera_ =
-    gleam::CameraPerspective::Create({
+    std::shared_ptr<gleam::PerspectiveCamera> perspective_camera_ =
+    gleam::PerspectiveCamera::Create({
         .fov = 90.0f,
         .aspect = 1.0f,
         .near = 1.0f,

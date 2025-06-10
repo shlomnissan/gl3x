@@ -8,7 +8,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <gleam/nodes/camera_perspective.hpp>
+#include <gleam/nodes/perspective_camera.hpp>
 #include <gleam/nodes/mesh.hpp>
 #include <gleam/nodes/node.hpp>
 
