@@ -5,7 +5,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 ===========================================================================
 */
 
-#include <format>
 #include <memory>
 #include <string_view>
 
