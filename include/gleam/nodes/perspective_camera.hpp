@@ -35,7 +35,7 @@ namespace gleam {
  *       .fov = gleam::math::DegToRad(60.0f),
  *       .aspect = Context()->Parameters().ratio,
  *       .near = 0.1f,
- *       .far = 100.0f
+ *       .far = 1000.0f
  *     }));
  *   }
  *

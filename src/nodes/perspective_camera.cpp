@@ -12,7 +12,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
     PerspectiveCamera::PerspectiveCamera(const Parameters& params) {
-        const auto tan_half_fov = std::tan((gleam::math::DegToRad(params.fov)) / 2);
+        const auto tan_half_fov = std::tan(params.fov / 2);
         projection_transform[0] = {1.0f / (params.aspect * tan_half_fov), 0.0f, 0.0f, 0.0f};
         projection_transform[1] = {0.0f, 1.0f / tan_half_fov, 0.0f, 0.0f};
         projection_transform[2] = {0.0f, 0.0f, -(params.far + params.near) / (params.far - params.near), -1.0f};

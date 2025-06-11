@@ -37,7 +37,12 @@ public:
         SetTitle("Gleam Engine");
         SetClearColor(0x444444);
 
-        camera_ = CameraPerspective::Create({.aspect = Context()->Parameters().ratio});
+        camera_ = PerspectiveCamera::Create({
+            .fov = math::DegToRad(60.0f),
+            .aspect = Context()->Parameters().ratio,
+            .near = 0.1f,
+            .far = 1000.0f
+        });
         camera_->transform.Translate({0.0f, 0.0f, 3.0f});
         SetCamera(camera_);
 
@@ -81,7 +86,7 @@ public:
     }
 
 private:
-    std::shared_ptr<CameraPerspective> camera_;
+    std::shared_ptr<PerspectiveCamera> camera_;
     std::shared_ptr<ExampleScene> scene_;
 
     int current_scene_ = 0;
