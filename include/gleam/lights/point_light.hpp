@@ -21,7 +21,7 @@ namespace gleam {
  * A common use case for this is to replicate the light emitted from a bare lightbulb.
  *
  * @code
- * auto point_light = PointLight::Create({
+ * auto point_light = gleam::PointLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 1.0f,
  *   .attenuation = {

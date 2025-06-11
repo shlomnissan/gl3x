@@ -25,11 +25,11 @@ namespace gleam {
  * considered to be infinite, and all light rays coming from it are parallel.
  *
  * @code
- * Add(DirectionalLight::Create({
+ * auto directional_light = gleam::DirectionalLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 1.0f,
  *   .target = nullptr
- * }));
+ * });
  * @endcode
  *
  * When the target parameter is set to `nullptr` the light points to (0, 0, 0).

@@ -21,10 +21,10 @@ namespace gleam {
  * This light cannot be used to cast shadows as it does not have a direction.
  *
  * @code
- * Add(AmbientLight::Create({
+ * auto ambient_light = gleam::AmbientLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 0.3f
- * }));
+ * });
  * @endcode
  *
  * @ingroup LightsGroup

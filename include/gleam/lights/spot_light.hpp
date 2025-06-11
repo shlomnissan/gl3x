@@ -25,10 +25,10 @@ namespace gleam {
  * illumination is limited to a defined region and falls off outside of it.
  *
  * @code
- * Add(SpotLight::Create({
+ * auto spot_light = gleam::SpotLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 1.0f,
- *   .angle = math::DegToRad(10.0f),
+ *   .angle = gleam::math::DegToRad(10.0f),
  *   .penumbra = 0.3f,
  *   .target = nullptr,
  *   .attenuation = {
@@ -36,7 +36,7 @@ namespace gleam {
  *     .linear = 0.0f,
  *     .quadratic = 0.0f
  *   }
- * }));
+ * });
  * @endcode
  *
  * When the target parameter is set to `nullptr` the light points to (0, 0, 0).
