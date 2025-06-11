@@ -1,6 +1,9 @@
 set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/gleam)
 
 set(SOURCE_CODE
+    "cameras/camera.cpp"
+    "cameras/orthographic_camera.cpp"
+    "cameras/perspective_camera.cpp"
     "core/application_context.cpp"
     "core/event_dispatcher.hpp"
     "core/geometry.cpp"
@@ -23,8 +26,8 @@ set(SOURCE_CODE
     "lights/directional_light.cpp"
     "lights/point_light.cpp"
     "lights/spot_light.cpp"
-    "loaders/texture_loader.cpp"
     "loaders/mesh_loader.cpp"
+    "loaders/texture_loader.cpp"
     "math/box3.cpp"
     "math/euler.cpp"
     "math/frustum.cpp"
@@ -37,9 +40,6 @@ set(SOURCE_CODE
     "math/utilities.cpp"
     "math/vector3.cpp"
     "math/vector4.cpp"
-    "nodes/camera.cpp"
-    "nodes/orthographic_camera.cpp"
-    "nodes/perspective_camera.cpp"
     "nodes/mesh.cpp"
     "nodes/node.cpp"
     "nodes/scene.cpp"
@@ -73,6 +73,9 @@ set(SOURCE_CODE
 )
 
 set(PUBLIC_HEADERS
+    "${PUBLIC_HEADERS_DIR}/cameras/camera.hpp"
+    "${PUBLIC_HEADERS_DIR}/cameras/orthographic_camera.hpp"
+    "${PUBLIC_HEADERS_DIR}/cameras/perspective_camera.hpp"
     "${PUBLIC_HEADERS_DIR}/core/application_context.hpp"
     "${PUBLIC_HEADERS_DIR}/core/disposable.hpp"
     "${PUBLIC_HEADERS_DIR}/core/events.hpp"
@@ -92,8 +95,8 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/lights/light.hpp"
     "${PUBLIC_HEADERS_DIR}/lights/point_light.hpp"
     "${PUBLIC_HEADERS_DIR}/loaders/loader.hpp"
-    "${PUBLIC_HEADERS_DIR}/loaders/texture_loader.hpp"
     "${PUBLIC_HEADERS_DIR}/loaders/mesh_loader.hpp"
+    "${PUBLIC_HEADERS_DIR}/loaders/texture_loader.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/flat_material.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/material.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/phong_material.hpp"
@@ -112,9 +115,6 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/math/vector2.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector4.hpp"
-    "${PUBLIC_HEADERS_DIR}/nodes/camera.hpp"
-    "${PUBLIC_HEADERS_DIR}/nodes/orthographic_camera.hpp"
-    "${PUBLIC_HEADERS_DIR}/nodes/perspective_camera.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/mesh.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/node.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/scene.hpp"
@@ -129,6 +129,7 @@ set(PUBLIC_HEADERS
 )
 
 set(HEADER_BUNDLES
+    "${PUBLIC_HEADERS_DIR}/cameras.hpp"
     "${PUBLIC_HEADERS_DIR}/core.hpp"
     "${PUBLIC_HEADERS_DIR}/geometries.hpp"
     "${PUBLIC_HEADERS_DIR}/lights.hpp"

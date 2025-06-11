@@ -9,8 +9,8 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include <test_helpers.hpp>
 
 #include <gleam/math/frustum.hpp>
-#include <gleam/nodes/orthographic_camera.hpp>
-#include <gleam/nodes/perspective_camera.hpp>
+#include <gleam/cameras/orthographic_camera.hpp>
+#include <gleam/cameras/perspective_camera.hpp>
 
 #pragma region Fixtures
 

@@ -9,11 +9,11 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "gleam_export.h"
 
+#include "gleam/cameras/camera.hpp"
 #include "gleam/core/renderer.hpp"
 #include "gleam/core/shared_context.hpp"
 #include "gleam/core/timer.hpp"
 #include "gleam/core/window.hpp"
-#include "gleam/nodes/camera.hpp"
 #include "gleam/nodes/scene.hpp"
 
 #include <memory>

@@ -8,7 +8,8 @@ Copyright © 2024 - Present, Shlomi Nissan
 #pragma once
 
 #include "gleam_export.h"
-#include "gleam/nodes/camera.hpp"
+
+#include "gleam/cameras/camera.hpp"
 #include "gleam/math/color.hpp"
 #include "gleam/nodes/scene.hpp"
 

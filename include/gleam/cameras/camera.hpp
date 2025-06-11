@@ -16,7 +16,7 @@ namespace gleam {
 
 /**
  * @brief Represents available camera types.
- * @ingroup NodesGroup
+ * @ingroup CamerasGroup
  */
 enum class CameraType {
     OrthographicCamera,
@@ -29,7 +29,7 @@ enum class CameraType {
  * It provides a common interface for all camera types. Not intended to be
  * instantiated directly.
  *
- * @ingroup NodesGroup
+ * @ingroup CamerasGroup
  */
 class GLEAM_EXPORT Camera : public Node {
 public:

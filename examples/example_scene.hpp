@@ -8,6 +8,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 #pragma once
 
 #include <gleam/nodes.hpp>
+#include <gleam/cameras.hpp>
 
 class ExampleScene : public gleam::Scene {
 public:

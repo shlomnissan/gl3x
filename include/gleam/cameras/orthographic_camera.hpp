@@ -9,7 +9,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "gleam_export.h"
 
-#include "gleam/nodes/camera.hpp"
+#include "gleam/cameras/camera.hpp"
 
 #include <memory>
 
@@ -47,7 +47,7 @@ namespace gleam {
  * }
  * @endcode
  *
- * @ingroup NodesGroup
+ * @ingroup CamerasGroup
  */
 class GLEAM_EXPORT OrthographicCamera : public Camera {
 public:

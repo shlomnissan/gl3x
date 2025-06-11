@@ -5,15 +5,12 @@ Copyright © 2024 - Present, Shlomi Nissan
 ===========================================================================
 */
 
-#include "gleam/nodes/camera.hpp"
+#pragma once
 
-namespace gleam {
+/**
+ * @defgroup CamerasGroup Cameras
+ * @brief Camera types for scene viewing and projection.
+ */
 
-auto Camera::SetViewTransform() -> void {
-    if (ShouldUpdateWorldTransform()) {
-        UpdateWorldTransform();
-        this->view_transform = Inverse(GetWorldTransform());
-    }
-}
-
-}
+#include "gleam/cameras/orthographic_camera.hpp"
+#include "gleam/cameras/perspective_camera.hpp"

@@ -13,6 +13,5 @@ Copyright © 2024 - Present, Shlomi Nissan
  */
 #include "gleam/lights/ambient_light.hpp"
 #include "gleam/lights/directional_light.hpp"
-#include "gleam/lights/light.hpp"
 #include "gleam/lights/point_light.hpp"
 #include "gleam/lights/spot_light.hpp"

@@ -7,7 +7,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "gleam/nodes/node.hpp"
 
-#include "gleam/nodes/camera.hpp"
+#include "gleam/cameras/camera.hpp"
 
 #include "core/event_dispatcher.hpp"
 #include "utilities/logger.hpp"

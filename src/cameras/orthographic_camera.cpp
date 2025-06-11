@@ -5,7 +5,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 ===========================================================================
 */
 
-#include "gleam/nodes/orthographic_camera.hpp"
+#include "gleam/cameras/orthographic_camera.hpp"
 
 namespace gleam {
     OrthographicCamera::OrthographicCamera(const Parameters& params) {

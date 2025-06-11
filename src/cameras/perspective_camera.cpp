@@ -5,7 +5,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 ===========================================================================
 */
 
-#include "gleam/nodes/perspective_camera.hpp"
+#include "gleam/cameras/perspective_camera.hpp"
 #include "gleam/math/utilities.hpp"
 
 #include <cmath>

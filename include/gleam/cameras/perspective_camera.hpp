@@ -8,9 +8,8 @@ Copyright © 2024 - Present, Shlomi Nissan
 #pragma once
 
 #include "gleam_export.h"
-#include "gleam/math/utilities.hpp"
 
-#include "gleam/nodes/camera.hpp"
+#include "gleam/cameras/camera.hpp"
 
 #include <memory>
 
@@ -45,7 +44,7 @@ namespace gleam {
  * }
  * @endcode
  *
- * @ingroup NodesGroup
+ * @ingroup CamerasGroup
  */
 class GLEAM_EXPORT PerspectiveCamera : public Camera {
 public:

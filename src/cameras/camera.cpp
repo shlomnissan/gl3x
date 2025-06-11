@@ -5,13 +5,15 @@ Copyright © 2024 - Present, Shlomi Nissan
 ===========================================================================
 */
 
-#pragma once
+#include "gleam/cameras/camera.hpp"
 
-/**
- * @defgroup NodesGroup Nodes
- * @brief Scene graph node types for hierarchical object organization.
- */
+namespace gleam {
 
-#include "gleam/nodes/mesh.hpp"
-#include "gleam/nodes/node.hpp"
-#include "gleam/nodes/scene.hpp"
+auto Camera::SetViewTransform() -> void {
+    if (ShouldUpdateWorldTransform()) {
+        UpdateWorldTransform();
+        this->view_transform = Inverse(GetWorldTransform());
+    }
+}
+
+}
