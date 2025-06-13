@@ -103,6 +103,9 @@ private:
     /// @brief The current vertical scroll offset.
     float curr_scroll_offset_ {0.0f};
 
+    /// @brief Currently pressed mouse button.
+    MouseButton curr_mouse_button_ {MouseButton::None};
+
     /// @brief Flag indicating whether the camera has been updated before.
     bool first_update_ {true};
 

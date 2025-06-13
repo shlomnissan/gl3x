@@ -14,9 +14,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
 
-namespace {
-    MouseButton curr_mouse_button {MouseButton::None};
-}
+constexpr auto kVerticalLimit = math::half_pi - 0.1f;
 
 auto OrbitControls::OnMouseEvent(MouseEvent* event) -> void {
     using enum MouseButton;
@@ -24,12 +22,12 @@ auto OrbitControls::OnMouseEvent(MouseEvent* event) -> void {
 
     curr_mouse_pos_ = event->position;
 
-    if (event->type == ButtonPressed && curr_mouse_button == None) {
-        curr_mouse_button = event->button;
+    if (event->type == ButtonPressed && curr_mouse_button_ == None) {
+        curr_mouse_button_ = event->button;
     }
 
-    if (event->type == ButtonReleased && event->button == curr_mouse_button) {
-        curr_mouse_button = None;
+    if (event->type == ButtonReleased && event->button == curr_mouse_button_) {
+        curr_mouse_button_ = None;
     }
 
     if (event->type == Scrolled) {
@@ -44,13 +42,13 @@ auto OrbitControls::OnUpdate(float delta) -> void {
         return;
     }
 
-    auto mouse_offset = curr_mouse_pos_ - prev_mouse_pos_;
+    const auto mouse_offset = curr_mouse_pos_ - prev_mouse_pos_;
 
-    if (curr_mouse_button == MouseButton::Left) {
+    if (curr_mouse_button_ == MouseButton::Left) {
         Orbit(mouse_offset, delta);
     }
 
-    if (curr_mouse_button == MouseButton::Right) {
+    if (curr_mouse_button_ == MouseButton::Right) {
         Pan(mouse_offset, delta);
     }
 
@@ -61,7 +59,7 @@ auto OrbitControls::OnUpdate(float delta) -> void {
 
     prev_mouse_pos_ = curr_mouse_pos_;
 
-    // Convert spherical to cartesian coordinates
+    // convert spherical coordinates to cartesian coordinates
     const auto position = target + Vector3 {
         radius_ * std::sin(yaw_) * std::cos(pitch_),
         radius_ * std::sin(pitch_),
@@ -75,9 +73,7 @@ auto OrbitControls::OnUpdate(float delta) -> void {
 auto OrbitControls::Orbit(const Vector2& offset, float delta) -> void {
     yaw_ -= offset.x * orbit_speed * delta;
     pitch_ += offset.y * orbit_speed * delta;
-
-    static const float vertical_limit = math::half_pi - 0.1f;
-    pitch_ = std::clamp(pitch_, -vertical_limit, vertical_limit);
+    pitch_ = std::clamp(pitch_, -kVerticalLimit, kVerticalLimit);
 }
 
 auto OrbitControls::Zoom(float scroll_offset, float delta) -> void {
@@ -90,10 +86,10 @@ auto OrbitControls::Pan(const Vector2& offset, float delta) -> void {
     const auto right = Normalize(Cross(forward, Vector3::Up()));
     const auto up = Cross(right, forward);
 
-    const auto pan_h = right * offset.x * pan_speed * delta * -1;
-    const auto pan_v = up * -offset.y * pan_speed * delta;
+    const auto pan_h = right * (offset.x * pan_speed * delta);
+    const auto pan_v = up * (offset.y * pan_speed * delta);
 
-    target -= (pan_h + pan_v);
+    target += pan_h + pan_v;
 }
 
 }
