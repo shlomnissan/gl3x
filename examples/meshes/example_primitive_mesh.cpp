@@ -44,7 +44,8 @@ ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<gleam::Camera> camera
 
     auto geometry = BoxGeometry::Create(box_params_);
     auto base_material = PhongMaterial::Create(0x049EF4);
-    base_material->polygon_offset = {1.0f, 1.0f};
+    base_material->polygon_offset_factor = 1.0f;
+    base_material->polygon_offset_units = 1.0f;
 
     mesh_ = Mesh::Create(geometry, base_material);
     Add(mesh_);

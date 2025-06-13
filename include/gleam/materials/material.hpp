@@ -19,7 +19,8 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 /**
- * @brief The type of material.
+ * @brief Represents available material types.
+ * @ingroup MaterialsGroup
  */
 enum class MaterialType {
     FlatMaterial,
@@ -28,7 +29,8 @@ enum class MaterialType {
 };
 
 /**
- * @brief The type of blending to apply to the material.
+ * @brief Represents available blending modes.
+ * @ingroup MaterialsGroup
  */
 enum class Blending {
     None,
@@ -39,64 +41,57 @@ enum class Blending {
 };
 
 /**
- * @brief Structure to define polygon offset parameters.
- */
-struct GLEAM_EXPORT PolygonOffset {
-    /// @brief Scales the maximum depth slope of a polygon for depth offset.
-    float factor {0.0f};
-    /// @brief Specify a constant depth offset.
-    float units {0.0f};
-};
-
-/**
- * @brief Abstract base class for materials.
+ * @brief **Abstract** base class for material objects.
+ *
+ * The following member variables and methods are inherited by all other
+ * material types. Not intended to be instantiated directly.
+ *
+ * @ingroup MaterialsGroup
  */
 class GLEAM_EXPORT Material : public Identity {
 public:
-    /// @brief Optional polygon offset to prevent z-fighting.
-    std::optional<PolygonOffset> polygon_offset;
-
-    /// @brief The opacity of the material.
+    /// @brief Value in the range of `0.0` - `1.0` indicating how transparent the material is.
     float opacity {1.0f};
 
-    /// @brief Flag indicating whether the material is affected by fog.
+    /// @brief Sets the polygon offset factor.
+    float polygon_offset_factor {0.0f};
+
+    /// @brief Sets the polygon offset units.
+    float polygon_offset_units {0.0f};
+
+    /// @brief Enables scene fog for this material.
     bool fog {true};
 
-    /// @brief Flag indicating whether both sides should be rendered.
+    /// @brief Enables rendering both front and back faces of polygons.
     bool two_sided {false};
 
-    /// @brief Flag indicating whether depth testing should be enabled.
+    /// @brief Enables depth testing.
     bool depth_test {true};
 
-    /// @brief Flag indicating whether the material should be rendered in wireframe mode.
+    /// @brief Enables wireframe rendering.
     bool wireframe {false};
 
-    /// @brief Flag indicating whether the material is transparent.
+    /// @brief Enables transparency.
     bool transparent {false};
 
-    /// @brief Flag indicating whether to use flat shading instead of smooth shading.
+    /// @brief Enables flat shading.
     bool flat_shaded {false};
 
-    /// @brief The blending mode to apply to the material.
+    /// @brief Blending mode used for rendering this material.
     Blending blending {Blending::Normal};
 
     /**
-     * @brief Default constructor.
-     */
-    Material() = default;
-
-    /**
-     * @brief Retrieves the type of the material.
+     * @brief Returns material type.
      *
-     * @return The type of the material.
+     * @return MaterialType
      */
     [[nodiscard]] virtual auto GetType() const -> MaterialType = 0;
 
     /**
-     * @brief Converts a material type to a string.
+     * @brief Converts material type enum value to string.
      *
-     * @param type The material type to convert.
-     * @return The string representation of the material type.
+     * @param type MaterialType enum value.
+     * @return String representation of material type.
      */
     [[nodiscard]] inline static auto TypeToString(MaterialType type) {
         switch(type) {
@@ -112,7 +107,7 @@ public:
     }
 
     /**
-     * @brief Default destructor.
+     * @brief Default virtual destructor.
      */
     virtual ~Material() = default;
 };

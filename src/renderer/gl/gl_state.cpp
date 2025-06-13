@@ -14,7 +14,7 @@ namespace gleam {
 auto GLState::ProcessMaterial(const Material* material) -> void {
     SetBackfaceCulling(!material->two_sided);
     SetDepthTest(material->depth_test);
-    SetPolygonOffset(material->polygon_offset);
+    SetPolygonOffset(material->polygon_offset_factor, material->polygon_offset_units);
     SetWireframeMode(material->wireframe);
     SetBlending(!material->transparent ? Blending::None : material->blending);
 }
@@ -59,10 +59,10 @@ auto GLState::UseProgram(unsigned int program_id) -> void {
     }
 }
 
-auto GLState::SetPolygonOffset(const std::optional<PolygonOffset>& polygon_offset) -> void {
-    if (polygon_offset) {
+auto GLState::SetPolygonOffset(float factor, float units) -> void {
+    if (factor != 0.0f || units != 0.0f) {
         Enable(GL_POLYGON_OFFSET_FILL);
-        glPolygonOffset(polygon_offset->factor, polygon_offset->units);
+        glPolygonOffset(factor, units);
     } else {
         Disable(GL_POLYGON_OFFSET_FILL);
     }

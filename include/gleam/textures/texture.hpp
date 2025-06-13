@@ -25,8 +25,8 @@ enum class TextureType {
 /**
  * @brief **Abstract** base class for texture objects.
  *
- * This class provides a common interface for all texture types, which
- * currently includes Texture2D. Not intended to be instantiated directly.
+ * The following member variables and methods are inherited by all other
+ * texture types. Not intended to be instantiated directly.
  *
  * @ingroup TexturesGroup
  */

@@ -50,7 +50,7 @@ private:
 
     auto SetDepthTest(bool enabled) -> void;
 
-    auto SetPolygonOffset(const std::optional<PolygonOffset>& polygon_offset) -> void;
+    auto SetPolygonOffset(float factor, float units) -> void;
 
     auto SetWireframeMode(bool enabled) -> void;
 

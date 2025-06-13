@@ -26,8 +26,8 @@ enum class CameraType {
 /**
  * @brief **Abstract** base class for camera objects.
  *
- * It provides a common interface for all camera types. Not intended to be
- * instantiated directly.
+ * The following member variables and methods are inherited by the perspective
+ * and orthographic camera types. Not intended to be instantiated directly.
  *
  * @ingroup CamerasGroup
  */

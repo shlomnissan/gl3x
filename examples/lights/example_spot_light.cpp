@@ -28,12 +28,14 @@ ExampleSpotLight::ExampleSpotLight(std::shared_ptr<gleam::Camera> camera) {
     }));
 
     phong_material_ = PhongMaterial::Create(0xCCCCCC);
+    phong_material_->polygon_offset_factor = -1.0f;
+    phong_material_->polygon_offset_units = 1.0f;
+
     auto mesh = Mesh::Create(
         PlaneGeometry::Create({.width = 3, .height = 3}),
         phong_material_
     );
 
-    mesh->material->polygon_offset = {-0.5f, 0.5f};
     mesh->transform.Rotate(Vector3::Right(), math::DegToRad(-90.0f));
     Add(mesh);
 
