@@ -9,10 +9,9 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
 
-GLUniform::GLUniform(const std::string& name, GLint location, GLint size, GLenum type)
+GLUniform::GLUniform(const std::string& name, GLint location, GLenum type)
   : name_(name),
     location_(location),
-    size_(size),
     type_(type) {}
 
 auto GLUniform::SetValueIfNeeded(const UniformValue& v) -> void {

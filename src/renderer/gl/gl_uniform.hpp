@@ -29,7 +29,7 @@ using UniformValue = std::variant<int, float, Color, Matrix3, Matrix4, Vector2, 
 
 class GLUniform {
 public:
-    GLUniform(const std::string& name, GLint location, GLint size, GLenum type);
+    GLUniform(const std::string& name, GLint location, GLenum type);
 
     auto SetValueIfNeeded(const UniformValue& v) -> void;
 
@@ -41,7 +41,6 @@ private:
     std::string name_ {};
     UniformValue value_ {};
     GLint location_ {0};
-    GLint size_ {0};
     GLenum type_ {0};
 
     bool needs_update_ {true};

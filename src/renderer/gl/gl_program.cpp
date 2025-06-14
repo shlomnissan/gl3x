@@ -97,7 +97,7 @@ auto GLProgram::ProcessUniforms() -> void {
 
     auto buffer = std::string {"", static_cast<size_t>(max_name_length)};
     auto length = GLsizei {};
-    auto size = GLint {};
+    auto size_unused = GLint {};
     auto type = GLenum {};
 
     for (auto i = 0; i < n_active_uniforms; ++i) {
@@ -105,13 +105,13 @@ auto GLProgram::ProcessUniforms() -> void {
             program_, i,
             max_name_length,
             &length,
-            &size,
+            &size_unused,
             &type,
             buffer.data()
         );
 
         auto name = std::string(buffer.data(), length);
-        uniforms_.try_emplace(name, name, GetUniformLoc(name), size, type);
+        uniforms_.try_emplace(name, name, GetUniformLoc(name), type);
     }
 }
 
