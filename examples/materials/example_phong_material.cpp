@@ -24,6 +24,8 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<gleam::Camera> camera
 
     auto geometry = BoxGeometry::Create();
     material_ = PhongMaterial::Create(0x049EF4);
+    material_->specular = {0.3f, 0.3, 0.3f};
+    material_->shininess = 64.0f;
     material_->fog = false;
     mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);

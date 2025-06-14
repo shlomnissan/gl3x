@@ -8,6 +8,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 #pragma once
 
 #include "gleam_export.h"
+
 #include "gleam/materials/material.hpp"
 #include "gleam/math/color.hpp"
 #include "gleam/textures/texture_2d.hpp"
@@ -17,8 +18,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 /**
- * @brief Represents a material for drawing geometries that are not affected
- * by lights.
+ * @brief Represents a material for surfaces that are not affected by lights.
  *
  * This material is used to render objects with uniform color or texture,
  * without any lighting calculations. It is ideal for UI elements, 2D overlays,
@@ -26,7 +26,7 @@ namespace gleam {
  *
  * @code
  * auto material = gleam::FlatMaterial::Create(0x049EF4);
- * material.texture_map = texture;
+ * material->texture_map = texture;
  *
  * auto mesh = gleam::Mesh::Create(geometry, material);
  * scene->Add(mesh);
