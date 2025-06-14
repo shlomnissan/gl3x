@@ -17,39 +17,56 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 /**
- * @brief A material for drawing geometries without the influence of lighting.
+ * @brief Represents a material for drawing geometries that are not affected
+ * by lights.
+ *
+ * This material is used to render objects with uniform color or texture,
+ * without any lighting calculations. It is ideal for UI elements, 2D overlays,
+ * or wireframes where shading is not desired.
+ *
+ * @code
+ * auto material = gleam::FlatMaterial::Create(0x049EF4);
+ * material.texture_map = texture;
+ *
+ * auto mesh = gleam::Mesh::Create(geometry, material);
+ * scene->Add(mesh);
+ *
+ * @endcode
+ *
+ * @ingroup MaterialsGroup
  */
 class GLEAM_EXPORT FlatMaterial : public Material {
 public:
-    /// @brief The color of the material.
+    /// @brief Color of the material.
     Color color = 0xFFFFFF;
 
-    /// @brief The texture map to apply to the geometry.
+    /// @brief Texture map that may optionally include an alpha channel.
     std::shared_ptr<Texture2D> texture_map = nullptr;
 
     /**
-     * @brief Constructs a FlatMaterial with a specified color.
+     * @brief Constructs a FlatMaterial object.
      *
-     * @param color The color of the material.
+     * @param color Color of the material.
      */
     explicit FlatMaterial(const Color& color) : color(color) {}
 
     /**
-     * @brief Retrieves the type of the material.
+     * @brief Creates a shared pointer to a FlatMaterial object.
      *
-     * @return The type of the material as `MaterialType::FlatMaterial`.
-     */
-    auto GetType() const -> MaterialType override {
-        return MaterialType::FlatMaterial;
-    }
-
-    /**
-     * @brief Creates a new instance of FlatMaterial.
-     *
-     * @return A `std::shared_ptr` to a new instance of FlatMaterial.
+     * @param color Color of the material.
+     * @return std::shared_ptr<FlatMaterial>
      */
     [[nodiscard]] static auto Create(const Color& color = 0xFFFFFF) {
         return std::make_shared<FlatMaterial>(color);
+    }
+
+    /**
+     * @brief Returns material type.
+     *
+     * @return MaterialType::FlatMaterial
+     */
+    auto GetType() const -> MaterialType override {
+        return MaterialType::FlatMaterial;
     }
 };
 
