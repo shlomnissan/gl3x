@@ -9,6 +9,8 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "gleam_export.h"
 
+#include <cassert>
+
 namespace gleam {
 
 /**
@@ -47,6 +49,28 @@ public:
      * @return Vector2 A `Vector2` instance representing the zero vector.
      */
     [[nodiscard]] static constexpr auto Zero() { return Vector2 {0.0f}; }
+
+    /**
+     * @brief Accesses the component at the specified index.
+     *
+     * @param i The index of the component to access (0, or 1).
+     * @return float& A reference to the component at the specified index.
+     */
+    [[nodiscard]] auto& operator[](int i) {
+        assert(i >= 0 && i < 2);
+        return (reinterpret_cast<float*>(this))[i];
+    }
+
+    /**
+     * @brief Accesses the component at the specified index (const version).
+     *
+     * @param i The index of the component to access (0, or 1).
+     * @return const float& A reference to the component at the specified index.
+     */
+    [[nodiscard]] const auto& operator[](int i) const {
+        assert(i >= 0 && i < 2);
+        return (reinterpret_cast<const float*>(this))[i];
+    }
 
     /**
      * @brief Adds a vector to the current vector.

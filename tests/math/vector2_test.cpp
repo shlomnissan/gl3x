@@ -40,6 +40,25 @@ TEST(Vector2, ConstructorParameterized) {
 
 #pragma endregion
 
+#pragma region Component Access
+
+TEST(Vector2, ComponentAccessDirect) {
+    const auto v = gleam::Vector2 {1.0f, 2.0f};
+
+    EXPECT_FLOAT_EQ(v.x, 1.0f);
+    EXPECT_FLOAT_EQ(v.y, 2.0f);
+}
+
+TEST(Vector2, ComponentAccessRandomAccessOperator) {
+    const auto v = gleam::Vector2 {1.0f, 2.0f};
+
+    EXPECT_FLOAT_EQ(v[0], 1.0f);
+    EXPECT_FLOAT_EQ(v[1], 2.0f);
+    EXPECT_DEATH({ (void)v[3]; }, ".*i >= 0 && i < 2.*");
+}
+
+#pragma endregion
+
 #pragma region Addition
 
 TEST(Vector2, AdditionBasic) {
