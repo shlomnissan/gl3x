@@ -57,6 +57,8 @@ set(SOURCE_CODE
     "renderer/gl/gl_textures.hpp"
     "renderer/gl/gl_uniform.cpp"
     "renderer/gl/gl_uniform.hpp"
+    "renderer/gl/gl_uniform_xyz.cpp"
+    "renderer/gl/gl_uniform_xyz.hpp"
     "resources/arrow.cpp"
     "resources/bounding_box.cpp"
     "resources/bounding_plane.cpp"
