@@ -13,8 +13,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
 
-Vector4::Vector4() : Vector4(0.0) {}
-
 Vector4::Vector4(float value) : Vector4(value, value, value, value) {}
 
 Vector4::Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}

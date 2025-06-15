@@ -9,8 +9,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
 
-Matrix3::Matrix3() : Matrix3(0.0f) {}
-
 Matrix3::Matrix3(float value) : Matrix3(
     value, 0.0f, 0.0f,
     0.0f, value, 0.0f,

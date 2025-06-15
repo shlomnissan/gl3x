@@ -9,8 +9,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
 
-Matrix4::Matrix4() : Matrix4(0.0f) {}
-
 Matrix4::Matrix4(float value) : Matrix4(
     value, 0.0f, 0.0f, 0.0f,
     0.0f, value, 0.0f, 0.0f,

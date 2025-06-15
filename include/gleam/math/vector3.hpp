@@ -28,9 +28,9 @@ public:
     float z;
 
     /**
-     * @brief Default constructor that initializes the vector to (0, 0, 0).
+     * @brief Default constructor.
      */
-    Vector3();
+    Vector3() = default;
 
     /**
      * @brief Constructs a vector with all components initialized to the given value.

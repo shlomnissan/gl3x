@@ -17,9 +17,9 @@ namespace gleam {
 class GLEAM_EXPORT Vector2 {
 public:
     /// @brief The x component of the vector.
-    float x {0.0f};
+    float x;
     /// @brief The y component of the vector.
-    float y {0.0f};
+    float y;
 
     /**
      * @brief Default constructor that initializes the vector to (0, 0).

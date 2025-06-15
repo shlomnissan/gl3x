@@ -21,9 +21,9 @@ namespace gleam {
 class GLEAM_EXPORT Matrix4 {
 public:
     /**
-     * @brief Default constructor. Initializes the matrix to a zero matrix.
+     * @brief Default constructor.
      */
-    Matrix4();
+    Matrix4() = default;
 
     /**
      * @brief Constructs a new Matrix4 object with the given value.
