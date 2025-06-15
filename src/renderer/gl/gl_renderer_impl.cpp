@@ -127,11 +127,6 @@ auto Renderer::Impl::SetUniforms(
     auto material = mesh->material.get();
     auto model_view = camera->view_transform * mesh->GetWorldTransform();
 
-    // Shared uniforms
-    // ----------------
-    // These uniforms are shared across all materials. They are set only if they exist in
-    // the shader source code to support custom shaders that may choose not to use them.
-
     program->SetUniformIfExists("u_Projection", camera->projection_transform);
     program->SetUniformIfExists("u_ModelView", model_view);
     program->SetUniformIfExists("u_Opacity", material->opacity);
@@ -154,11 +149,6 @@ auto Renderer::Impl::SetUniforms(
             program->SetUniformIfExists("u_Fog.Density", f->density);
         }
     }
-
-    // Material specific uniforms
-    // ----------------
-    // These uniforms are specific to the material type. These uniforms are always
-    // expected to be used in the shader source code that corresponds to the material type.
 
     if (attrs->type == MaterialType::FlatMaterial) {
         auto m = static_cast<FlatMaterial*>(material);
