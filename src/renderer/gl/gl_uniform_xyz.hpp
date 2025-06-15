@@ -27,7 +27,8 @@ enum class UniformType {
     Matrix4,
     Vector2,
     Vector3,
-    Vector4
+    Vector4,
+    Unsupported
 };
 
 class GLUniformXYZ {

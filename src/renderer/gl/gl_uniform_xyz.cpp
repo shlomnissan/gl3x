@@ -15,28 +15,28 @@ namespace {
 
 UniformType ToUniformType(GLenum type) {
     switch (type) {
-        case GL_FLOAT:      return UniformType::Float;
+        case GL_FLOAT: return UniformType::Float;
         case GL_FLOAT_MAT3: return UniformType::Matrix3;
         case GL_FLOAT_MAT4: return UniformType::Matrix4;
         case GL_FLOAT_VEC2: return UniformType::Vector2;
         case GL_FLOAT_VEC3: return UniformType::Vector3;
         case GL_FLOAT_VEC4: return UniformType::Vector4;
-        case GL_INT:        return UniformType::Int;
-        default:
-            Logger::Log(LogLevel::Error, "Unsupported uniform type {}", type);
+        case GL_INT: return UniformType::Int;
+        default: return UniformType::Unsupported;
     }
 }
 
 }
 
-GLUniformXYZ::GLUniformXYZ(std::string_view name, GLint location, GLenum type) :
-    name_(name),
+GLUniformXYZ::GLUniformXYZ(std::string_view name, GLint location, GLenum type)
+  : name_(name),
     location_(location),
-    type_(ToUniformType(type)) {}
+    type_(ToUniformType(type))
+{
+    Logger::Log(LogLevel::Error, "Unsupported GL uniform type {}", type);
+}
 
 auto GLUniformXYZ::SetValue(const void* value) -> void {
-    needs_upload_ = true;
-
     switch(type_) {
         case UniformType::Float:
             if (data_.f != *reinterpret_cast<const float*>(value)) {
@@ -53,32 +53,39 @@ auto GLUniformXYZ::SetValue(const void* value) -> void {
          case UniformType::Matrix3:
             if (data_.m3 != *reinterpret_cast<const Matrix3*>(value)) {
                 data_.m3 = *reinterpret_cast<const Matrix3*>(value);
+                needs_upload_ = true;
             }
             break;
         case UniformType::Matrix4:
             if (data_.m4 != *reinterpret_cast<const Matrix4*>(value)) {
                 data_.m4 = *reinterpret_cast<const Matrix4*>(value);
+                needs_upload_ = true;
             }
             break;
         case UniformType::Vector2:
             if (data_.v2 != *reinterpret_cast<const Vector2*>(value)) {
                 data_.v2 = *reinterpret_cast<const Vector2*>(value);
+                needs_upload_ = true;
             }
             break;
         case UniformType::Vector3:
             if (data_.v3 != *reinterpret_cast<const Vector3*>(value)) {
                 data_.v3 = *reinterpret_cast<const Vector3*>(value);
+                needs_upload_ = true;
             }
             break;
         case UniformType::Vector4:
             if (data_.v4 != *reinterpret_cast<const Vector4*>(value)) {
                 data_.v4 = *reinterpret_cast<const Vector4*>(value);
+                needs_upload_ = true;
             }
             break;
+        case UniformType::Unsupported: break;
     }
 }
 
 auto GLUniformXYZ::UploadIfNeeded() -> void {
+    if (!needs_upload_) return;
     switch(type_) {
         case UniformType::Float: glUniform1f(location_, data_.f); break;
         case UniformType::Int: glUniform1i(location_, data_.i); break;
@@ -87,7 +94,10 @@ auto GLUniformXYZ::UploadIfNeeded() -> void {
         case UniformType::Vector2: glUniform2fv(location_, 1, &data_.v2[0]); break;
         case UniformType::Vector3: glUniform3fv(location_, 1, &data_.v3[0]); break;
         case UniformType::Vector4: glUniform4fv(location_, 1, &data_.v4[0]); break;
+        case UniformType::Unsupported: break;
     }
+
+    needs_upload_ = false;
 }
 
 }
