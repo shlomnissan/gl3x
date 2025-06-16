@@ -33,7 +33,9 @@ GLUniform::GLUniform(std::string_view name, GLint location, GLenum type)
     location_(location),
     type_(ToUniformType(type))
 {
-    Logger::Log(LogLevel::Error, "Unsupported GL uniform type {}", type);
+    if (type_ == UniformType::Unsupported) {
+        Logger::Log(LogLevel::Error, "Unsupported GL uniform type {}:{}", name, type);
+    }
 }
 
 auto GLUniform::SetValue(const void* value) -> void {
