@@ -26,7 +26,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 namespace gleam {
 
 using UniformValue = std::variant<int, float, Color, Matrix3, Matrix4, Vector2, Vector3, Vector4>;
-using Uniforms = std::unordered_map<std::string, UniformValue>;
 
 /**
  * @brief A material rendered with custom shaders.
@@ -48,7 +47,7 @@ public:
     ShaderMaterial(
         std::string_view vertex_shader,
         std::string_view fragment_shader,
-        const Uniforms& uniforms
+        const std::unordered_map<std::string, UniformValue>& uniforms
     ) :
         vertex_shader_(vertex_shader),
         fragment_shader_(fragment_shader),
@@ -74,7 +73,7 @@ public:
     [[nodiscard]] static auto Create(
         std::string_view vertex_shader,
         std::string_view fragment_shader,
-        const Uniforms& uniforms
+        const std::unordered_map<std::string, UniformValue>& uniforms
     ) {
         return std::make_shared<ShaderMaterial>(vertex_shader, fragment_shader, uniforms);
     }
