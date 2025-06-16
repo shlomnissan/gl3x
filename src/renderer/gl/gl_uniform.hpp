@@ -14,52 +14,49 @@ Copyright © 2024 - Present, Shlomi Nissan
 #include "gleam/math/vector3.hpp"
 #include "gleam/math/vector4.hpp"
 
-
-#include "utilities/logger.hpp"
-
 #include <string>
-#include <variant>
 
 #include <glad/glad.h>
 
 namespace gleam {
 
-// UniformValue is also defined in include/gleam/materials/shader_material.hpp
-using UniformValue = std::variant<int, float, Color, Matrix3, Matrix4, Vector2, Vector3, Vector4>;
+enum class UniformType {
+    Float,
+    Int,
+    Matrix3,
+    Matrix4,
+    Vector2,
+    Vector3,
+    Vector4,
+    Unsupported
+};
 
 class GLUniform {
 public:
-    GLUniform(const std::string& name, GLint location, GLenum type);
+    GLUniform(std::string_view name, GLint location, GLenum type);
 
-    auto SetValueIfNeeded(const UniformValue& v) -> void;
+    auto SetValue(const void* value) -> void;
 
-    auto UpdateUniformIfNeeded() -> void;
-
-    const auto& Value() const { return value_; }
+    auto UploadIfNeeded() -> void;
 
 private:
-    std::string name_ {};
-    UniformValue value_ {};
-    GLint location_ {0};
-    GLenum type_ {0};
+    std::string name_;
 
-    bool needs_update_ {true};
+    GLint location_ {-1};
 
-    template <typename... T>
-    auto SetValue(const UniformValue& v) -> bool {
-        return ((SetValueHelper<T>(v)) || ...);
-    }
+    UniformType type_;
 
-    template <typename T>
-    auto SetValueHelper(const UniformValue& v) -> bool {
-        if (const auto* f = std::get_if<T>(&v)) {
-            value_ = *f;
-            return true;
-        }
-        return false;
-    }
+    bool needs_upload_ {false};
 
-    auto GLenumToString(GLenum type) const -> const char*;
+    union {
+        GLfloat f;
+        GLint   i;
+        Matrix3 m3;
+        Matrix4 m4;
+        Vector2 v2;
+        Vector3 v3;
+        Vector4 v4;
+    } data_;
 };
 
 }

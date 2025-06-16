@@ -7,7 +7,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #pragma once
 
-#include "renderer/gl/gl_uniform_xyz.hpp"
+#include "renderer/gl/gl_uniform.hpp"
 
 #include <string>
 #include <string_view>
@@ -44,7 +44,7 @@ public:
     ~GLProgram();
 
 private:
-    std::unordered_map<std::string, GLUniformXYZ> uniforms_ {};
+    std::unordered_map<std::string, GLUniform> uniforms_ {};
 
     GLuint program_ {0};
 

@@ -7,143 +7,97 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "renderer/gl/gl_uniform.hpp"
 
+#include "utilities/logger.hpp"
+
 namespace gleam {
 
-GLUniform::GLUniform(const std::string& name, GLint location, GLenum type)
+namespace {
+
+UniformType ToUniformType(GLenum type) {
+    switch (type) {
+        case GL_FLOAT: return UniformType::Float;
+        case GL_FLOAT_MAT3: return UniformType::Matrix3;
+        case GL_FLOAT_MAT4: return UniformType::Matrix4;
+        case GL_FLOAT_VEC2: return UniformType::Vector2;
+        case GL_FLOAT_VEC3: return UniformType::Vector3;
+        case GL_FLOAT_VEC4: return UniformType::Vector4;
+        case GL_INT: return UniformType::Int;
+        default: return UniformType::Unsupported;
+    }
+}
+
+}
+
+GLUniform::GLUniform(std::string_view name, GLint location, GLenum type)
   : name_(name),
     location_(location),
-    type_(type) {}
+    type_(ToUniformType(type))
+{
+    Logger::Log(LogLevel::Error, "Unsupported GL uniform type {}", type);
+}
 
-auto GLUniform::SetValueIfNeeded(const UniformValue& v) -> void {
-    if (value_ == v && !needs_update_) return;
-
-    auto is_set = false;
-    switch (type_) {
-        case GL_INT:
-        case GL_SAMPLER_2D:
-            is_set = SetValue<GLint>(v);
+auto GLUniform::SetValue(const void* value) -> void {
+    switch(type_) {
+        case UniformType::Float:
+            if (data_.f != *reinterpret_cast<const float*>(value)) {
+                data_.f = *reinterpret_cast<const float*>(value);
+                needs_upload_ = true;
+            }
             break;
-        case GL_FLOAT:
-            is_set = SetValue<GLfloat>(v);
+        case UniformType::Int:
+            if (data_.i != *reinterpret_cast<const int*>(value)) {
+                data_.i = *reinterpret_cast<const int*>(value);
+                needs_upload_ = true;
+            }
             break;
-        case GL_FLOAT_VEC2:
-            is_set = SetValue<Vector2>(v);
+         case UniformType::Matrix3:
+            if (data_.m3 != *reinterpret_cast<const Matrix3*>(value)) {
+                data_.m3 = *reinterpret_cast<const Matrix3*>(value);
+                needs_upload_ = true;
+            }
             break;
-        case GL_FLOAT_VEC3:
-            is_set = SetValue<Color, Vector3>(v);
+        case UniformType::Matrix4:
+            if (data_.m4 != *reinterpret_cast<const Matrix4*>(value)) {
+                data_.m4 = *reinterpret_cast<const Matrix4*>(value);
+                needs_upload_ = true;
+            }
             break;
-        case GL_FLOAT_VEC4:
-            is_set = SetValue<Vector4>(v);
+        case UniformType::Vector2:
+            if (data_.v2 != *reinterpret_cast<const Vector2*>(value)) {
+                data_.v2 = *reinterpret_cast<const Vector2*>(value);
+                needs_upload_ = true;
+            }
             break;
-        case GL_FLOAT_MAT3:
-            is_set = SetValue<Matrix3>(v);
+        case UniformType::Vector3:
+            if (data_.v3 != *reinterpret_cast<const Vector3*>(value)) {
+                data_.v3 = *reinterpret_cast<const Vector3*>(value);
+                needs_upload_ = true;
+            }
             break;
-        case GL_FLOAT_MAT4:
-            is_set = SetValue<Matrix4>(v);
+        case UniformType::Vector4:
+            if (data_.v4 != *reinterpret_cast<const Vector4*>(value)) {
+                data_.v4 = *reinterpret_cast<const Vector4*>(value);
+                needs_upload_ = true;
+            }
             break;
-        default:
-            Logger::Log(
-                LogLevel::Error,
-                "Failed to set uniform '{}' with unsupported type {}",
-                name_, GLenumToString(type_)
-            );
-            return;
-    }
-
-    if (is_set) {
-        needs_update_ = true;
-    } else {
-        Logger::Log(
-            LogLevel::Error,
-            "Failed to set uniform '{}'. The underlying data type is unsupported",
-            name_, GLenumToString(type_)
-        );
+        case UniformType::Unsupported: break;
     }
 }
 
-auto GLUniform::UpdateUniformIfNeeded() -> void {
-    if (!needs_update_) return;
-
-    // This list is incomplete. Add new types as needed.
-    // We use reinterpret_cast because multiple values can map onto the same GL type.
-    // For instance, both Vector3 and Color map to GL_FLOAT_VEC3.
-    switch (type_) {
-        case GL_INT:
-        case GL_SAMPLER_2D:
-            glUniform1i(location_, *reinterpret_cast<const GLint*>(&value_));
-        break;
-        case GL_FLOAT:
-            glUniform1f(location_, *reinterpret_cast<const GLfloat*>(&value_));
-        break;
-        case GL_FLOAT_VEC2:
-            glUniform2fv(location_, 1, reinterpret_cast<const GLfloat*>(&value_));
-        break;
-        case GL_FLOAT_VEC3:
-            glUniform3fv(location_, 1, reinterpret_cast<const GLfloat*>(&value_));
-        break;
-        case GL_FLOAT_VEC4:
-            glUniform4fv(location_, 1, reinterpret_cast<const GLfloat*>(&value_));
-        break;
-        case GL_FLOAT_MAT3:
-            glUniformMatrix3fv(location_, 1, GL_FALSE, reinterpret_cast<const GLfloat*>(&value_));
-        break;
-        case GL_FLOAT_MAT4:
-            glUniformMatrix4fv(location_, 1, GL_FALSE, reinterpret_cast<const GLfloat*>(&value_));
-        break;
+auto GLUniform::UploadIfNeeded() -> void {
+    if (!needs_upload_) return;
+    switch(type_) {
+        case UniformType::Float: glUniform1f(location_, data_.f); break;
+        case UniformType::Int: glUniform1i(location_, data_.i); break;
+        case UniformType::Matrix3: glUniformMatrix3fv(location_, 1, GL_FALSE, &data_.m3[0][0]); break;
+        case UniformType::Matrix4: glUniformMatrix4fv(location_, 1, GL_FALSE, &data_.m4[0][0]); break;
+        case UniformType::Vector2: glUniform2fv(location_, 1, &data_.v2[0]); break;
+        case UniformType::Vector3: glUniform3fv(location_, 1, &data_.v3[0]); break;
+        case UniformType::Vector4: glUniform4fv(location_, 1, &data_.v4[0]); break;
+        case UniformType::Unsupported: break;
     }
 
-    needs_update_ = false;
-}
-
-auto GLUniform::GLenumToString(GLenum type) const -> const char* {
-    switch (type) {
-        case GL_FLOAT: return "GL_FLOAT";
-        case GL_FLOAT_VEC2: return "GL_FLOAT_VEC2";
-        case GL_FLOAT_VEC3: return "GL_FLOAT_VEC3";
-        case GL_FLOAT_VEC4: return "GL_FLOAT_VEC4";
-        case GL_INT: return "GL_INT";
-        case GL_INT_VEC2: return "GL_INT_VEC2";
-        case GL_INT_VEC3: return "GL_INT_VEC3";
-        case GL_INT_VEC4: return "GL_INT_VEC4";
-        case GL_UNSIGNED_INT: return "GL_UNSIGNED_INT";
-        case GL_UNSIGNED_INT_VEC2: return "GL_UNSIGNED_INT_VEC2";
-        case GL_UNSIGNED_INT_VEC3: return "GL_UNSIGNED_INT_VEC3";
-        case GL_UNSIGNED_INT_VEC4: return "GL_UNSIGNED_INT_VEC4";
-        case GL_BOOL: return "GL_BOOL";
-        case GL_BOOL_VEC2: return "GL_BOOL_VEC2";
-        case GL_BOOL_VEC3: return "GL_BOOL_VEC3";
-        case GL_BOOL_VEC4: return "GL_BOOL_VEC4";
-        case GL_FLOAT_MAT2: return "GL_FLOAT_MAT2";
-        case GL_FLOAT_MAT3: return "GL_FLOAT_MAT3";
-        case GL_FLOAT_MAT4: return "GL_FLOAT_MAT4";
-        case GL_FLOAT_MAT2x3: return "GL_FLOAT_MAT2x3";
-        case GL_FLOAT_MAT2x4: return "GL_FLOAT_MAT2x4";
-        case GL_FLOAT_MAT3x2: return "GL_FLOAT_MAT3x2";
-        case GL_FLOAT_MAT3x4: return "GL_FLOAT_MAT3x4";
-        case GL_FLOAT_MAT4x2: return "GL_FLOAT_MAT4x2";
-        case GL_FLOAT_MAT4x3: return "GL_FLOAT_MAT4x3";
-        case GL_SAMPLER_2D: return "GL_SAMPLER_2D";
-        case GL_SAMPLER_3D: return "GL_SAMPLER_3D";
-        case GL_SAMPLER_CUBE: return "GL_SAMPLER_CUBE";
-        case GL_SAMPLER_2D_SHADOW: return "GL_SAMPLER_2D_SHADOW";
-        case GL_SAMPLER_2D_ARRAY: return "GL_SAMPLER_2D_ARRAY";
-        case GL_SAMPLER_2D_ARRAY_SHADOW: return "GL_SAMPLER_2D_ARRAY_SHADOW";
-        case GL_SAMPLER_CUBE_SHADOW: return "GL_SAMPLER_CUBE_SHADOW";
-        case GL_SAMPLER_BUFFER: return "GL_SAMPLER_BUFFER";
-        case GL_SAMPLER_2D_MULTISAMPLE: return "GL_SAMPLER_2D_MULTISAMPLE";
-        case GL_SAMPLER_2D_MULTISAMPLE_ARRAY: return "GL_SAMPLER_2D_MULTISAMPLE_ARRAY";
-        case GL_SAMPLER_CUBE_MAP_ARRAY: return "GL_SAMPLER_CUBE_MAP_ARRAY";
-        case GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW: return "GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW";
-        case GL_INT_SAMPLER_2D: return "GL_INT_SAMPLER_2D";
-        case GL_INT_SAMPLER_3D: return "GL_INT_SAMPLER_3D";
-        case GL_INT_SAMPLER_CUBE: return "GL_INT_SAMPLER_CUBE";
-        case GL_INT_SAMPLER_2D_ARRAY: return "GL_INT_SAMPLER_2D_ARRAY";
-        case GL_UNSIGNED_INT_SAMPLER_2D: return "GL_UNSIGNED_INT_SAMPLER_2D";
-        case GL_UNSIGNED_INT_SAMPLER_3D: return "GL_UNSIGNED_INT_SAMPLER_3D";
-        case GL_UNSIGNED_INT_SAMPLER_CUBE: return "GL_UNSIGNED_INT_SAMPLER_CUBE";
-        case GL_UNSIGNED_INT_SAMPLER_2D_ARRAY: return "GL_UNSIGNED_INT_SAMPLER_2D_ARRAY";
-        default: return "Unknown";
-    }
+    needs_upload_ = false;
 }
 
 }
