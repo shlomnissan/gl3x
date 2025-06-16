@@ -7,7 +7,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #pragma once
 
-#include "renderer/gl/gl_uniform.hpp"
+#include "renderer/gl/gl_uniform_xyz.hpp"
 
 #include <string>
 #include <string_view>
@@ -37,14 +37,14 @@ public:
 
     auto Id() const { return program_; }
 
-    auto SetUniformIfExists(const std::string& name, const UniformValue& v) -> void;
+    auto SetUniformIfExists(const std::string& name, const void* v) -> void;
 
-    auto SetUniform(const std::string& name, const UniformValue& v) -> void;
+    auto SetUniform(const std::string& name, const void* v) -> void;
 
     ~GLProgram();
 
 private:
-    std::unordered_map<std::string, GLUniform> uniforms_ {};
+    std::unordered_map<std::string, GLUniformXYZ> uniforms_ {};
 
     GLuint program_ {0};
 

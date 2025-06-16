@@ -25,7 +25,6 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 namespace gleam {
 
-// UniformValue is also defined in include/renderer/gl/gl_uniform.hpp
 using UniformValue = std::variant<int, float, Color, Matrix3, Matrix4, Vector2, Vector3, Vector4>;
 using Uniforms = std::unordered_map<std::string, UniformValue>;
 

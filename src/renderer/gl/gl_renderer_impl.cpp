@@ -126,36 +126,38 @@ auto Renderer::Impl::SetUniforms(
 ) -> void {
     auto material = mesh->material.get();
     auto model_view = camera->view_transform * mesh->GetWorldTransform();
+    auto resolution = Vector2(params_.width, params_.height);
 
-    program->SetUniformIfExists("u_Projection", camera->projection_transform);
-    program->SetUniformIfExists("u_ModelView", model_view);
-    program->SetUniformIfExists("u_Opacity", material->opacity);
-    program->SetUniformIfExists("u_Resolution", Vector2(params_.width, params_.height));
+    program->SetUniform("u_Projection", &camera->projection_transform);
+    program->SetUniform("u_ModelView", &model_view);
+    program->SetUniform("u_Opacity", &material->opacity);
+    program->SetUniformIfExists("u_Resolution", &resolution);
 
     if (auto fog = scene->fog.get()) {
         auto type = fog->GetType();
-        program->SetUniformIfExists("u_Fog.Type", std::to_underlying(type));
+        program->SetUniformIfExists("u_Fog.Type", &type);
         if (type == FogType::LinearFog) {
             auto f = static_cast<LinearFog*>(fog);
-            program->SetUniformIfExists("u_Fog.Color", f->color);
-            program->SetUniformIfExists("u_Fog.Near", f->near);
-            program->SetUniformIfExists("u_Fog.Far", f->far);
+            program->SetUniformIfExists("u_Fog.Color", &f->color);
+            program->SetUniformIfExists("u_Fog.Near", &f->near);
+            program->SetUniformIfExists("u_Fog.Far", &f->far);
         }
 
         if (type == FogType::ExponentialFog) {
             auto f = static_cast<ExponentialFog*>(fog);
-            program->SetUniformIfExists("u_Fog.Type", std::to_underlying(type));
-            program->SetUniformIfExists("u_Fog.Color", f->color);
-            program->SetUniformIfExists("u_Fog.Density", f->density);
+            program->SetUniformIfExists("u_Fog.Type", &type);
+            program->SetUniformIfExists("u_Fog.Color", &f->color);
+            program->SetUniformIfExists("u_Fog.Density", &f->density);
         }
     }
 
     if (attrs->type == MaterialType::FlatMaterial) {
         auto m = static_cast<FlatMaterial*>(material);
-        program->SetUniform("u_Color", m->color);
+        program->SetUniform("u_Color", &m->color);
         if (attrs->texture_map) {
+            const auto& transform = m->texture_map->GetTransform();
             program->SetUniform("u_TextureMap", 0);
-            program->SetUniform("u_TextureTransform", m->texture_map->GetTransform());
+            program->SetUniform("u_TextureTransform", &transform);
             textures_.Bind(m->texture_map);
         }
     }
@@ -163,18 +165,20 @@ auto Renderer::Impl::SetUniforms(
     if (attrs->type == MaterialType::PhongMaterial) {
         auto m = static_cast<PhongMaterial*>(material);
         if (attrs->directional_lights || attrs->point_lights || attrs->spot_lights) {
-            program->SetUniform("u_Material.DiffuseColor", m->color);
-            program->SetUniform("u_Material.SpecularColor", m->specular);
-            program->SetUniform("u_Material.Shininess", m->shininess);
+            program->SetUniform("u_Material.DiffuseColor", &m->color);
+            program->SetUniform("u_Material.SpecularColor", &m->specular);
+            program->SetUniform("u_Material.Shininess", &m->shininess);
             if (!attrs->flat_shaded) {
                 // The normal matrix is optimized away in flat shaded mode.
-                program->SetUniformIfExists("u_NormalMatrix", Transpose(Inverse(Matrix3(model_view))));
+                const auto normal_matrix = Transpose(Inverse(Matrix3(model_view)));
+                program->SetUniformIfExists("u_NormalMatrix", &normal_matrix);
             }
         }
 
         if (attrs->texture_map) {
+            const auto& transform = m->texture_map->GetTransform();
             program->SetUniform("u_TextureMap", 0);
-            program->SetUniform("u_TextureTransform", m->texture_map->GetTransform());
+            program->SetUniform("u_TextureTransform", &transform);
             textures_.Bind(m->texture_map);
         }
     }
@@ -182,7 +186,7 @@ auto Renderer::Impl::SetUniforms(
     if (attrs->type == MaterialType::ShaderMaterial) {
         auto m = static_cast<ShaderMaterial*>(material);
         for (const auto& [name, value] : m->uniforms) {
-            program->SetUniform(name, value);
+            program->SetUniform(name, &value);
         }
     }
 }
@@ -200,48 +204,50 @@ auto Renderer::Impl::UpdateLights(GLProgram* program, const Camera* camera) cons
         if (type == LightType::AmbientLight) {
             ambient_light = light_color * intensity;
         } else {
-            program->SetUniform(uniform + ".Type", std::to_underlying(type));
+            program->SetUniform(uniform + ".Type", &type);
         }
 
         if (type == LightType::DirectionalLight) {
             auto l = static_cast<DirectionalLight*>(light);
-            const auto direction = camera->view_transform * Vector4(l->Direction(), 0.0f);
+            const auto direction = Vector3(camera->view_transform * Vector4(l->Direction(), 0.0f));
             const auto color = l->color * l->intensity;
-            program->SetUniform(uniform + ".Color", color);
-            program->SetUniform(uniform + ".Direction", Vector3(direction));
+            program->SetUniform(uniform + ".Color", &color);
+            program->SetUniform(uniform + ".Direction", &direction);
             ++idx;
         }
 
         if (type == LightType::PointLight) {
             auto l = static_cast<PointLight*>(light);
             const auto color = l->color * l->intensity;
-            const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
-            program->SetUniform(uniform + ".Color", color);
-            program->SetUniform(uniform + ".Position", Vector3(position));
-            program->SetUniform(uniform + ".Base", l->attenuation.base);
-            program->SetUniform(uniform + ".Linear", l->attenuation.linear);
-            program->SetUniform(uniform + ".Quadratic", l->attenuation.quadratic);
+            const auto position = Vector3(camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f));
+            program->SetUniform(uniform + ".Color", &color);
+            program->SetUniform(uniform + ".Position", &position);
+            program->SetUniform(uniform + ".Base", &l->attenuation.base);
+            program->SetUniform(uniform + ".Linear", &l->attenuation.linear);
+            program->SetUniform(uniform + ".Quadratic", &l->attenuation.quadratic);
             ++idx;
         }
 
         if (type == LightType::SpotLight) {
             auto l = static_cast<SpotLight*>(light);
-            const auto direction = camera->view_transform * Vector4(l->Direction(), 0.0f);
+            const auto direction = Vector3(camera->view_transform * Vector4(l->Direction(), 0.0f));
+            const auto position = Vector3(camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f));
             const auto color = l->color * l->intensity;
-            const auto position = camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f);
-            program->SetUniform(uniform + ".Color", color);
-            program->SetUniform(uniform + ".Direction", Vector3(direction));
-            program->SetUniform(uniform + ".Position", Vector3(position));
-            program->SetUniform(uniform + ".ConeCos", std::cos(l->angle));
-            program->SetUniform(uniform + ".PenumbraCos", std::cos(l->angle * (1 - l->penumbra)));
-            program->SetUniform(uniform + ".Base", l->attenuation.base);
-            program->SetUniform(uniform + ".Linear", l->attenuation.linear);
-            program->SetUniform(uniform + ".Quadratic", l->attenuation.quadratic);
+            const auto cone_cos = std::cos(l->angle);
+            const auto penumbra_cos = std::cos(l->angle * (1 - l->penumbra));
+            program->SetUniform(uniform + ".Color", &color);
+            program->SetUniform(uniform + ".Direction", &direction);
+            program->SetUniform(uniform + ".Position", &position);
+            program->SetUniform(uniform + ".ConeCos", &cone_cos);
+            program->SetUniform(uniform + ".PenumbraCos", &penumbra_cos);
+            program->SetUniform(uniform + ".Base", &l->attenuation.base);
+            program->SetUniform(uniform + ".Linear", &l->attenuation.linear);
+            program->SetUniform(uniform + ".Quadratic", &l->attenuation.quadratic);
             ++idx;
         }
     }
 
-    program->SetUniform("u_AmbientLight", ambient_light);
+    program->SetUniform("u_AmbientLight", &ambient_light);
 }
 
 auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {

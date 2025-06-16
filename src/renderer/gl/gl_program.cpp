@@ -60,18 +60,18 @@ GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
 
 auto GLProgram::UpdateUniforms() -> void {
     for (auto& [_, uniform] : uniforms_) {
-        uniform.UpdateUniformIfNeeded();
+        uniform.UploadIfNeeded();
     }
 }
 
-auto GLProgram::SetUniformIfExists(const std::string& name, const UniformValue& v) -> void {
+auto GLProgram::SetUniformIfExists(const std::string& name, const void* v) -> void {
     if (uniforms_.contains(name)) {
         SetUniform(name, v);
     }
 }
 
-auto GLProgram::SetUniform(const std::string& name, const UniformValue& v) -> void {
-    uniforms_.at(name).SetValueIfNeeded(v);
+auto GLProgram::SetUniform(const std::string& name, const void* v) -> void {
+    uniforms_.at(name).SetValue(v);
 }
 
 auto GLProgram::BindVertexAttributeLocations() const -> void {
