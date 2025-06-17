@@ -9,10 +9,12 @@ Copyright © 2024 - Present, Shlomi Nissan
 
 #include "renderer/gl/gl_uniform.hpp"
 
+#include <array>
 #include <string>
 #include <string_view>
 #include <unordered_map>
 #include <vector>
+#include <memory>
 
 #include <glad/glad.h>
 
@@ -21,6 +23,8 @@ namespace gleam {
 // Forward declarations
 enum class ShaderType;
 struct ShaderInfo;
+
+constexpr auto uniforms_len = static_cast<int>(Uniform::KnownUniformsLength);
 
 class GLProgram {
 public:
@@ -41,10 +45,14 @@ public:
 
     auto SetUniform(const std::string& name, const void* v) -> void;
 
+    auto SetUniform(Uniform uniform, const void* v) -> void;
+
     ~GLProgram();
 
 private:
-    std::unordered_map<std::string, GLUniform> uniforms_ {};
+    std::unordered_map<std::string, GLUniform> unknown_uniforms_ {};
+
+    std::array<std::unique_ptr<GLUniform>, uniforms_len> uniforms_ {nullptr};
 
     GLuint program_ {0};
 

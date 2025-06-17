@@ -59,26 +59,37 @@ GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
 }
 
 auto GLProgram::UpdateUniforms() -> void {
-    for (auto& [_, uniform] : uniforms_) {
+    for (auto& [_, uniform] : unknown_uniforms_) {
         uniform.UploadIfNeeded();
+    }
+
+    for (auto& uniform : uniforms_) {
+        if (uniform != nullptr) uniform->UploadIfNeeded();
     }
 }
 
 auto GLProgram::SetUniformIfExists(const std::string& name, const void* v) -> void {
-    if (uniforms_.contains(name)) {
+    if (unknown_uniforms_.contains(name)) {
         SetUniform(name, v);
     }
 }
 
 auto GLProgram::SetUniform(const std::string& name, const void* v) -> void {
-    uniforms_.at(name).SetValue(v);
+    unknown_uniforms_.at(name).SetValue(v);
+}
+
+auto GLProgram::SetUniform(Uniform uniform, const void* v) -> void {
+    auto i = static_cast<int>(uniform);
+    if (uniforms_[i] != nullptr) {
+        uniforms_[i]->SetValue(v);
+    }
 }
 
 auto GLProgram::BindVertexAttributeLocations() const -> void {
     for (auto& [attr_name, attr_type] : VertexAttributesMap) {
         glBindAttribLocation(
             program_,
-            std::to_underlying(attr_type),
+            static_cast<int>(attr_type),
             attr_name.data()
         );
     }
@@ -111,7 +122,12 @@ auto GLProgram::ProcessUniforms() -> void {
         );
 
         auto name = std::string(buffer.data(), length);
-        uniforms_.try_emplace(name, name, GetUniformLoc(name), type);
+        auto idx = uniform_index(name);
+        if (idx != -1) {
+            uniforms_[idx] = std::make_unique<GLUniform>(name, GetUniformLoc(name), type);
+        } else {
+            unknown_uniforms_.try_emplace(name, name, GetUniformLoc(name), type);
+        }
     }
 }
 

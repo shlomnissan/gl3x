@@ -128,11 +128,11 @@ auto Renderer::Impl::SetUniforms(
     auto model = mesh->GetWorldTransform();
     auto resolution = Vector2(params_.width, params_.height);
 
-    program->SetUniform("u_Projection", &camera->projection_transform);
-    program->SetUniform("u_Model", &model);
-    program->SetUniform("u_View", &camera->view_transform);
-    program->SetUniform("u_Opacity", &material->opacity);
-    program->SetUniformIfExists("u_Resolution", &resolution);
+    program->SetUniform(Uniform::Projection, &camera->projection_transform);
+    program->SetUniform(Uniform::Model, &model);
+    program->SetUniform(Uniform::View, &camera->view_transform);
+    program->SetUniform(Uniform::Opacity, &material->opacity);
+    program->SetUniform(Uniform::Resolution, &resolution);
 
     if (auto fog = scene->fog.get()) {
         auto type = fog->GetType();
@@ -154,11 +154,11 @@ auto Renderer::Impl::SetUniforms(
 
     if (attrs->type == MaterialType::FlatMaterial) {
         auto m = static_cast<FlatMaterial*>(material);
-        program->SetUniform("u_Color", &m->color);
+        program->SetUniform(Uniform::Color, &m->color);
         if (attrs->texture_map) {
             const auto& transform = m->texture_map->GetTransform();
-            program->SetUniform("u_TextureMap", 0);
-            program->SetUniform("u_TextureTransform", &transform);
+            program->SetUniform(Uniform::TextureMap, 0);
+            program->SetUniform(Uniform::TextureTransform, &transform);
             textures_.Bind(m->texture_map);
         }
     }
@@ -173,8 +173,8 @@ auto Renderer::Impl::SetUniforms(
 
         if (attrs->texture_map) {
             const auto& transform = m->texture_map->GetTransform();
-            program->SetUniform("u_TextureMap", 0);
-            program->SetUniform("u_TextureTransform", &transform);
+            program->SetUniform(Uniform::TextureMap, 0);
+            program->SetUniform(Uniform::TextureTransform, &transform);
             textures_.Bind(m->texture_map);
         }
     }
