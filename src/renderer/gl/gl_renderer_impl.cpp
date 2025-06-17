@@ -125,11 +125,12 @@ auto Renderer::Impl::SetUniforms(
     Scene* scene
 ) -> void {
     auto material = mesh->material.get();
-    auto model_view = camera->view_transform * mesh->GetWorldTransform();
+    auto model = mesh->GetWorldTransform();
     auto resolution = Vector2(params_.width, params_.height);
 
     program->SetUniform("u_Projection", &camera->projection_transform);
-    program->SetUniform("u_ModelView", &model_view);
+    program->SetUniform("u_Model", &model);
+    program->SetUniform("u_View", &camera->view_transform);
     program->SetUniform("u_Opacity", &material->opacity);
     program->SetUniformIfExists("u_Resolution", &resolution);
 
@@ -168,11 +169,6 @@ auto Renderer::Impl::SetUniforms(
             program->SetUniform("u_Material.DiffuseColor", &m->color);
             program->SetUniform("u_Material.SpecularColor", &m->specular);
             program->SetUniform("u_Material.Shininess", &m->shininess);
-            if (!attrs->flat_shaded) {
-                // The normal matrix is optimized away in flat shaded mode.
-                const auto normal_matrix = Transpose(Inverse(Matrix3(model_view)));
-                program->SetUniformIfExists("u_NormalMatrix", &normal_matrix);
-            }
         }
 
         if (attrs->texture_map) {
