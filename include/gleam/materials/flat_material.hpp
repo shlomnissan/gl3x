@@ -30,7 +30,6 @@ namespace gleam {
  *
  * auto mesh = gleam::Mesh::Create(geometry, material);
  * scene->Add(mesh);
- *
  * @endcode
  *
  * @ingroup MaterialsGroup
