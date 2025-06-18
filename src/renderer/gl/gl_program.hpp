@@ -8,6 +8,7 @@ Copyright © 2024 - Present, Shlomi Nissan
 #pragma once
 
 #include "renderer/gl/gl_uniform.hpp"
+#include "renderer/gl/gl_uniform_buffer.hpp"
 
 #include <array>
 #include <string>
@@ -25,6 +26,7 @@ enum class ShaderType;
 struct ShaderInfo;
 
 constexpr auto uniforms_len = static_cast<int>(Uniform::KnownUniformsLength);
+constexpr auto uniform_buffers_len = static_cast<int>(UniformBuffer::KnownUniformBuffersLength);
 
 class GLProgram {
 public:
@@ -52,6 +54,8 @@ private:
 
     std::array<std::unique_ptr<GLUniform>, uniforms_len> uniforms_ {nullptr};
 
+    std::array<std::unique_ptr<GLUniformBuffer>, uniform_buffers_len> uniform_buffers_ {nullptr};
+
     GLuint program_ {0};
 
     bool has_errors_ {false};
@@ -61,6 +65,8 @@ private:
     auto GetUniformLoc(std::string_view name) const -> int;
 
     auto ProcessUniforms() -> void;
+
+    auto ProcessUniformBlocks() -> void;
 
     auto CheckProgramLinkStatus() const -> bool;
 

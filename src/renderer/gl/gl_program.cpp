@@ -56,6 +56,7 @@ GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
     }
 
     ProcessUniforms();
+    ProcessUniformBlocks();
 }
 
 auto GLProgram::UpdateUniforms() -> void {
@@ -99,13 +100,12 @@ auto GLProgram::ProcessUniforms() -> void {
 
     auto max_name_length = GLsizei {0};
     glGetProgramiv(program_, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_name_length);
-
     auto buffer = std::string {"", static_cast<size_t>(max_name_length)};
-    auto length = GLsizei {};
-    auto size_unused = GLint {};
-    auto type = GLenum {};
 
     for (auto i = 0; i < n_active_uniforms; ++i) {
+        auto length = GLsizei {};
+        auto size_unused = GLint {};
+        auto type = GLenum {};
         glGetActiveUniform(
             program_, i,
             max_name_length,
@@ -116,12 +116,34 @@ auto GLProgram::ProcessUniforms() -> void {
         );
 
         auto name = std::string(buffer.data(), length);
-        auto idx = uniform_index(name);
+        auto idx = get_uniform_loc(name);
         if (idx != -1) {
             uniforms_[idx] = std::make_unique<GLUniform>(name, GetUniformLoc(name), type);
         } else {
             unknown_uniforms_.try_emplace(name, name, GetUniformLoc(name), type);
         }
+    }
+}
+
+auto GLProgram::ProcessUniformBlocks() -> void {
+    auto n_active_uniforms = GLint {0};
+    glGetProgramiv(program_, GL_ACTIVE_UNIFORM_BLOCKS, &n_active_uniforms);
+
+    GLint max_name_length = 0;
+    glGetProgramiv(program_, GL_ACTIVE_UNIFORM_BLOCK_MAX_NAME_LENGTH, &max_name_length);
+    auto buffer = std::string {"", static_cast<size_t>(max_name_length)};
+
+    for (GLint i = 0; i < n_active_uniforms; ++i) {
+        auto length = GLsizei {};
+        glGetActiveUniformBlockName(program_, i, max_name_length, &length, buffer.data());
+        auto name = std::string(buffer.data(), length);
+
+        auto idx = get_uniform_block_loc(name);
+        glUniformBlockBinding(program_, i, idx);
+
+        GLint block_size = 0;
+        glGetActiveUniformBlockiv(program_, i, GL_UNIFORM_BLOCK_DATA_SIZE, &block_size);
+        uniform_buffers_[idx] = std::make_unique<GLUniformBuffer>(name, block_size);
     }
 }
 

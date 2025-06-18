@@ -52,7 +52,7 @@ enum class Uniform {
     KnownUniformsLength
 };
 
-constexpr auto uniform_index(std::string_view str) {
+constexpr auto get_uniform_loc(std::string_view str) {
     using enum Uniform;
     if (str == "u_AmbientLight") return static_cast<int>(AmbientLight);
     if (str == "u_Color") return static_cast<int>(Color);

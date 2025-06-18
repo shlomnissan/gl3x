@@ -55,6 +55,8 @@ set(SOURCE_CODE
     "renderer/gl/gl_state.hpp"
     "renderer/gl/gl_textures.cpp"
     "renderer/gl/gl_textures.hpp"
+    "renderer/gl/gl_uniform_buffer.cpp"
+    "renderer/gl/gl_uniform_buffer.hpp"
     "renderer/gl/gl_uniform.cpp"
     "renderer/gl/gl_uniform.hpp"
     "resources/arrow.cpp"
