@@ -52,26 +52,6 @@ enum class Uniform {
     KnownUniformsLength
 };
 
-constexpr std::pair<std::string_view, Uniform> known_uniform_map[] = {
-    {"u_AmbientLight", Uniform::AmbientLight},
-    {"u_Color", Uniform::Color},
-    {"u_Fog.Color", Uniform::FogColor},
-    {"u_Fog.Density", Uniform::FogDensity},
-    {"u_Fog.Far", Uniform::FogFar},
-    {"u_Fog.Near", Uniform::FogNear},
-    {"u_Fog.Type", Uniform::FogType},
-    {"u_Material.DiffuseColor", Uniform::MaterialDiffuseColor},
-    {"u_Material.Shininess", Uniform::MaterialShininess},
-    {"u_Material.SpecularColor", Uniform::MaterialSpecularColor},
-    {"u_Model", Uniform::Model},
-    {"u_Opacity", Uniform::Opacity},
-    {"u_Projection", Uniform::Projection},
-    {"u_Resolution", Uniform::Resolution},
-    {"u_TextureMap", Uniform::TextureMap},
-    {"u_TextureTransform", Uniform::TextureTransform},
-    {"u_View", Uniform::View},
-};
-
 constexpr auto uniform_index(std::string_view str) {
     using enum Uniform;
     if (str == "u_AmbientLight") return static_cast<int>(AmbientLight);
