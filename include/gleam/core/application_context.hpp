@@ -31,11 +31,11 @@ public:
      * @brief Parameters for configuring the application context.
      */
     struct Parameters {
-        int width {1024};     ///< Width of the window in pixels.
-        int height {768};     ///< Height of the window in pixels.
+        int width {1024}; ///< Width of the window in pixels.
+        int height {768}; ///< Height of the window in pixels.
         int antialiasing {4}; ///< Number of samples for multisampling.
-        bool vsync {true};    ///< Enable vertical synchronization.
-        bool debug {false};   ///< Render the performance graph.
+        bool vsync {true}; ///< Enable vertical synchronization.
+        bool debug {false}; ///< Render the performance graph.
     };
 
     /**

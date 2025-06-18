@@ -41,9 +41,7 @@ public:
 
     auto Id() const { return program_; }
 
-    auto SetUniformIfExists(const std::string& name, const void* v) -> void;
-
-    auto SetUniform(const std::string& name, const void* v) -> void;
+    auto SetUnknownUniform(const std::string& name, const void* v) -> void;
 
     auto SetUniform(Uniform uniform, const void* v) -> void;
 

@@ -136,19 +136,18 @@ auto Renderer::Impl::SetUniforms(
 
     if (auto fog = scene->fog.get()) {
         auto type = fog->GetType();
-        program->SetUniformIfExists("u_Fog.Type", &type);
+        program->SetUniform(Uniform::FogType, &type);
         if (type == FogType::LinearFog) {
             auto f = static_cast<LinearFog*>(fog);
-            program->SetUniformIfExists("u_Fog.Color", &f->color);
-            program->SetUniformIfExists("u_Fog.Near", &f->near);
-            program->SetUniformIfExists("u_Fog.Far", &f->far);
+            program->SetUniform(Uniform::FogColor, &f->color);
+            program->SetUniform(Uniform::FogNear, &f->near);
+            program->SetUniform(Uniform::FogFar, &f->near);
         }
 
         if (type == FogType::ExponentialFog) {
             auto f = static_cast<ExponentialFog*>(fog);
-            program->SetUniformIfExists("u_Fog.Type", &type);
-            program->SetUniformIfExists("u_Fog.Color", &f->color);
-            program->SetUniformIfExists("u_Fog.Density", &f->density);
+            program->SetUniform(Uniform::FogColor, &f->color);
+            program->SetUniform(Uniform::FogDensity, &f->density);
         }
     }
 
@@ -166,9 +165,9 @@ auto Renderer::Impl::SetUniforms(
     if (attrs->type == MaterialType::PhongMaterial) {
         auto m = static_cast<PhongMaterial*>(material);
         if (attrs->directional_lights || attrs->point_lights || attrs->spot_lights) {
-            program->SetUniform("u_Material.DiffuseColor", &m->color);
-            program->SetUniform("u_Material.SpecularColor", &m->specular);
-            program->SetUniform("u_Material.Shininess", &m->shininess);
+            program->SetUniform(Uniform::MaterialDiffuseColor, &m->color);
+            program->SetUniform(Uniform::MaterialSpecularColor, &m->specular);
+            program->SetUniform(Uniform::MaterialShininess, &m->shininess);
         }
 
         if (attrs->texture_map) {
@@ -182,7 +181,7 @@ auto Renderer::Impl::SetUniforms(
     if (attrs->type == MaterialType::ShaderMaterial) {
         auto m = static_cast<ShaderMaterial*>(material);
         for (const auto& [name, value] : m->uniforms) {
-            program->SetUniform(name, &value);
+            program->SetUnknownUniform(name, &value);
         }
     }
 }
@@ -200,15 +199,15 @@ auto Renderer::Impl::UpdateLights(GLProgram* program, const Camera* camera) cons
         if (type == LightType::AmbientLight) {
             ambient_light = light_color * intensity;
         } else {
-            program->SetUniform(uniform + ".Type", &type);
+            program->SetUnknownUniform(uniform + ".Type", &type);
         }
 
         if (type == LightType::DirectionalLight) {
             auto l = static_cast<DirectionalLight*>(light);
             const auto direction = Vector3(camera->view_transform * Vector4(l->Direction(), 0.0f));
             const auto color = l->color * l->intensity;
-            program->SetUniform(uniform + ".Color", &color);
-            program->SetUniform(uniform + ".Direction", &direction);
+            program->SetUnknownUniform(uniform + ".Color", &color);
+            program->SetUnknownUniform(uniform + ".Direction", &direction);
             ++idx;
         }
 
@@ -216,11 +215,11 @@ auto Renderer::Impl::UpdateLights(GLProgram* program, const Camera* camera) cons
             auto l = static_cast<PointLight*>(light);
             const auto color = l->color * l->intensity;
             const auto position = Vector3(camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f));
-            program->SetUniform(uniform + ".Color", &color);
-            program->SetUniform(uniform + ".Position", &position);
-            program->SetUniform(uniform + ".Base", &l->attenuation.base);
-            program->SetUniform(uniform + ".Linear", &l->attenuation.linear);
-            program->SetUniform(uniform + ".Quadratic", &l->attenuation.quadratic);
+            program->SetUnknownUniform(uniform + ".Color", &color);
+            program->SetUnknownUniform(uniform + ".Position", &position);
+            program->SetUnknownUniform(uniform + ".Base", &l->attenuation.base);
+            program->SetUnknownUniform(uniform + ".Linear", &l->attenuation.linear);
+            program->SetUnknownUniform(uniform + ".Quadratic", &l->attenuation.quadratic);
             ++idx;
         }
 
@@ -231,19 +230,19 @@ auto Renderer::Impl::UpdateLights(GLProgram* program, const Camera* camera) cons
             const auto color = l->color * l->intensity;
             const auto cone_cos = std::cos(l->angle);
             const auto penumbra_cos = std::cos(l->angle * (1 - l->penumbra));
-            program->SetUniform(uniform + ".Color", &color);
-            program->SetUniform(uniform + ".Direction", &direction);
-            program->SetUniform(uniform + ".Position", &position);
-            program->SetUniform(uniform + ".ConeCos", &cone_cos);
-            program->SetUniform(uniform + ".PenumbraCos", &penumbra_cos);
-            program->SetUniform(uniform + ".Base", &l->attenuation.base);
-            program->SetUniform(uniform + ".Linear", &l->attenuation.linear);
-            program->SetUniform(uniform + ".Quadratic", &l->attenuation.quadratic);
+            program->SetUnknownUniform(uniform + ".Color", &color);
+            program->SetUnknownUniform(uniform + ".Direction", &direction);
+            program->SetUnknownUniform(uniform + ".Position", &position);
+            program->SetUnknownUniform(uniform + ".ConeCos", &cone_cos);
+            program->SetUnknownUniform(uniform + ".PenumbraCos", &penumbra_cos);
+            program->SetUnknownUniform(uniform + ".Base", &l->attenuation.base);
+            program->SetUnknownUniform(uniform + ".Linear", &l->attenuation.linear);
+            program->SetUnknownUniform(uniform + ".Quadratic", &l->attenuation.quadratic);
             ++idx;
         }
     }
 
-    program->SetUniform("u_AmbientLight", &ambient_light);
+    program->SetUniform(Uniform::AmbientLight, &ambient_light);
 }
 
 auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {

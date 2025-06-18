@@ -32,7 +32,16 @@ enum class UniformType {
 };
 
 enum class Uniform {
-    Color = 0,
+    AmbientLight,
+    Color,
+    FogColor,
+    FogDensity,
+    FogFar,
+    FogNear,
+    FogType,
+    MaterialDiffuseColor,
+    MaterialShininess,
+    MaterialSpecularColor,
     Model,
     Opacity,
     Projection,
@@ -44,7 +53,16 @@ enum class Uniform {
 };
 
 constexpr std::pair<std::string_view, Uniform> known_uniform_map[] = {
+    {"u_AmbientLight", Uniform::AmbientLight},
     {"u_Color", Uniform::Color},
+    {"u_Fog.Color", Uniform::FogColor},
+    {"u_Fog.Density", Uniform::FogDensity},
+    {"u_Fog.Far", Uniform::FogFar},
+    {"u_Fog.Near", Uniform::FogNear},
+    {"u_Fog.Type", Uniform::FogType},
+    {"u_Material.DiffuseColor", Uniform::MaterialDiffuseColor},
+    {"u_Material.Shininess", Uniform::MaterialShininess},
+    {"u_Material.SpecularColor", Uniform::MaterialSpecularColor},
     {"u_Model", Uniform::Model},
     {"u_Opacity", Uniform::Opacity},
     {"u_Projection", Uniform::Projection},
@@ -56,7 +74,16 @@ constexpr std::pair<std::string_view, Uniform> known_uniform_map[] = {
 
 constexpr auto uniform_index(std::string_view str) {
     using enum Uniform;
+    if (str == "u_AmbientLight") return static_cast<int>(AmbientLight);
     if (str == "u_Color") return static_cast<int>(Color);
+    if (str == "u_Fog.Color") return static_cast<int>(FogColor);
+    if (str == "u_Fog.Density") return static_cast<int>(FogDensity);
+    if (str == "u_Fog.Far") return static_cast<int>(FogFar);
+    if (str == "u_Fog.Near") return static_cast<int>(FogNear);
+    if (str == "u_Fog.Type") return static_cast<int>(FogType);
+    if (str == "u_Material.DiffuseColor") return static_cast<int>(MaterialDiffuseColor);
+    if (str == "u_Material.Shininess") return static_cast<int>(MaterialShininess);
+    if (str == "u_Material.SpecularColor") return static_cast<int>(MaterialSpecularColor);
     if (str == "u_Model") return static_cast<int>(Model);
     if (str == "u_Opacity") return static_cast<int>(Opacity);
     if (str == "u_Projection") return static_cast<int>(Projection);

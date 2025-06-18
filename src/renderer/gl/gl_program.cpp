@@ -68,13 +68,7 @@ auto GLProgram::UpdateUniforms() -> void {
     }
 }
 
-auto GLProgram::SetUniformIfExists(const std::string& name, const void* v) -> void {
-    if (unknown_uniforms_.contains(name)) {
-        SetUniform(name, v);
-    }
-}
-
-auto GLProgram::SetUniform(const std::string& name, const void* v) -> void {
+auto GLProgram::SetUnknownUniform(const std::string& name, const void* v) -> void {
     unknown_uniforms_.at(name).SetValue(v);
 }
 
