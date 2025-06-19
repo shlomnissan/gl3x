@@ -52,6 +52,7 @@ Renderer::Impl::Impl(const Renderer::Parameters& params)
 }
 
 auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
+    camera_.Update(camera->projection_transform, camera->view_transform);
     frustum_.SetWithViewProjection(camera->projection_transform * camera->view_transform);
 
     for (auto mesh : render_lists_->Opaque()) {
@@ -128,9 +129,7 @@ auto Renderer::Impl::SetUniforms(
     auto model = mesh->GetWorldTransform();
     auto resolution = Vector2(params_.width, params_.height);
 
-    program->SetUniform(Uniform::Projection, &camera->projection_transform);
     program->SetUniform(Uniform::Model, &model);
-    program->SetUniform(Uniform::View, &camera->view_transform);
     program->SetUniform(Uniform::Opacity, &material->opacity);
     program->SetUniform(Uniform::Resolution, &resolution);
 

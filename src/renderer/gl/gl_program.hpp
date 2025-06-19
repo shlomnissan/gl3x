@@ -26,7 +26,6 @@ enum class ShaderType;
 struct ShaderInfo;
 
 constexpr auto uniforms_len = static_cast<int>(Uniform::KnownUniformsLength);
-constexpr auto uniform_buffers_len = static_cast<int>(UniformBuffer::KnownUniformBuffersLength);
 
 class GLProgram {
 public:

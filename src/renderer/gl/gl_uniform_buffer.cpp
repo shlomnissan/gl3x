@@ -16,6 +16,8 @@ GLUniformBuffer::GLUniformBuffer(std::string_view name, std::size_t size) :
     binding_point_(get_uniform_block_loc(name)),
     size_(size)
 {
+    data_ = std::make_unique<std::byte[]>(size);
+
     glGenBuffers(1, &buffer_);
     glBindBuffer(GL_UNIFORM_BUFFER, buffer_);
     glBufferData(GL_UNIFORM_BUFFER, size_, nullptr, GL_DYNAMIC_DRAW);
@@ -28,9 +30,12 @@ auto GLUniformBuffer::UploadIfNeeded(const void* data, std::size_t size) const -
         Logger::Log(LogLevel::Error, "UBO {} update size exceeds buffer size", name_);
         return;
     }
-    glBindBuffer(GL_UNIFORM_BUFFER, buffer_);
-    glBufferSubData(GL_UNIFORM_BUFFER, 0, size, data);
-    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    if (std::memcmp(data_.get(), data, size) != 0) {
+        glBindBuffer(GL_UNIFORM_BUFFER, buffer_);
+        glBufferSubData(GL_UNIFORM_BUFFER, 0, size, data);
+        glBindBuffer(GL_UNIFORM_BUFFER, 0);
+        std::memcpy(data_.get(), data, size);
+    }
 }
 
 GLUniformBuffer::~GLUniformBuffer() {

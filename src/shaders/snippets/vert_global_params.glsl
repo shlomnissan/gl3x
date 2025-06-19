@@ -24,8 +24,11 @@ in vec2 a_TexCoord;
 
 uniform mat3 u_TextureTransform;
 uniform mat4 u_Model;
-uniform mat4 u_Projection;
-uniform mat4 u_View;
+
+layout(std140) uniform ub_Camera {
+    mat4 u_Projection;
+    mat4 u_View;
+};
 
 out float v_ViewDepth;
 out vec2 v_TexCoord;

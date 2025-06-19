@@ -44,11 +44,9 @@ enum class Uniform {
     MaterialSpecularColor,
     Model,
     Opacity,
-    Projection,
     Resolution,
     TextureMap,
     TextureTransform,
-    View,
     KnownUniformsLength
 };
 
@@ -66,11 +64,9 @@ constexpr auto get_uniform_loc(std::string_view str) {
     if (str == "u_Material.SpecularColor") return static_cast<int>(MaterialSpecularColor);
     if (str == "u_Model") return static_cast<int>(Model);
     if (str == "u_Opacity") return static_cast<int>(Opacity);
-    if (str == "u_Projection") return static_cast<int>(Projection);
     if (str == "u_Resolution") return static_cast<int>(Resolution);
     if (str == "u_TextureMap") return static_cast<int>(TextureMap);
     if (str == "u_TextureTransform") return static_cast<int>(TextureTransform);
-    if (str == "u_View") return static_cast<int>(View);
     return -1;
 }
 

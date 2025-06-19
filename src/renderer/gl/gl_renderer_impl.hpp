@@ -12,6 +12,7 @@
 #include "gleam/nodes/mesh.hpp"
 
 #include "renderer/gl/gl_buffers.hpp"
+#include "renderer/gl/gl_camera.hpp"
 #include "renderer/gl/gl_programs.hpp"
 #include "renderer/gl/gl_state.hpp"
 #include "renderer/gl/gl_textures.hpp"
@@ -46,6 +47,7 @@ private:
     GLPrograms programs_;
     GLState state_;
     GLTextures textures_;
+    GLCamera camera_;
 
     Renderer::Parameters params_;
 

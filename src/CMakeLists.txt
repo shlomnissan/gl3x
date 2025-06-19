@@ -45,6 +45,7 @@ set(SOURCE_CODE
     "nodes/scene.cpp"
     "renderer/gl/gl_buffers.cpp"
     "renderer/gl/gl_buffers.hpp"
+    "renderer/gl/gl_camera.hpp"
     "renderer/gl/gl_program.cpp"
     "renderer/gl/gl_program.hpp"
     "renderer/gl/gl_programs.cpp"

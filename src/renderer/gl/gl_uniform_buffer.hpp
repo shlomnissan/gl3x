@@ -11,6 +11,7 @@
 #include <span>
 #include <string>
 #include <string_view>
+#include <memory>
 
 #include <glad/glad.h>
 
@@ -24,8 +25,8 @@ enum class UniformBuffer {
 
 constexpr auto get_uniform_block_loc(std::string_view str) {
     using enum UniformBuffer;
-    if (str == "ubo_Camera") return static_cast<int>(Camera);
-    if (str == "ubo_Lights") return static_cast<int>(Lights);
+    if (str == "ub_Camera") return static_cast<int>(Camera);
+    if (str == "ub_Lights") return static_cast<int>(Lights);
     return -1;
 }
 
@@ -42,6 +43,7 @@ private:
     GLuint buffer_ {0};
     GLuint binding_point_ {0};
     std::size_t size_ {0};
+    std::unique_ptr<std::byte[]> data_;
 };
 
 }
