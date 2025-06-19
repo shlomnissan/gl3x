@@ -137,13 +137,12 @@ auto GLProgram::ProcessUniformBlocks() -> void {
         auto length = GLsizei {};
         glGetActiveUniformBlockName(program_, i, max_name_length, &length, buffer.data());
         auto name = std::string(buffer.data(), length);
-
         auto idx = get_uniform_block_loc(name);
+        if (idx == -1) {
+            Logger::Log(LogLevel::Error, "Unknown uniform buffer block {}", name);
+            continue;
+        }
         glUniformBlockBinding(program_, i, idx);
-
-        GLint block_size = 0;
-        glGetActiveUniformBlockiv(program_, i, GL_UNIFORM_BLOCK_DATA_SIZE, &block_size);
-        uniform_buffers_[idx] = std::make_unique<GLUniformBuffer>(name, block_size);
     }
 }
 

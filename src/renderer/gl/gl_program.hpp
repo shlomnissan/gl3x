@@ -54,8 +54,6 @@ private:
 
     std::array<std::unique_ptr<GLUniform>, uniforms_len> uniforms_ {nullptr};
 
-    std::array<std::unique_ptr<GLUniformBuffer>, uniform_buffers_len> uniform_buffers_ {nullptr};
-
     GLuint program_ {0};
 
     bool has_errors_ {false};

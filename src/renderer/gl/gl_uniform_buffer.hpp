@@ -9,6 +9,7 @@
 
 #include <cstddef>
 #include <span>
+#include <string>
 #include <string_view>
 
 #include <glad/glad.h>
@@ -32,14 +33,15 @@ class GLUniformBuffer {
 public:
     GLUniformBuffer(std::string_view name, std::size_t size);
 
-    auto UploadIfNeeded(const std::span<void*> data) const -> void;
+    auto UploadIfNeeded(const void* data, std::size_t size) const -> void;
 
     ~GLUniformBuffer();
 
 private:
-    GLuint buffer_ = 0;
-    GLuint binding_point_ = 0;
-    std::size_t size_ = 0;
+    std::string name_ {""};
+    GLuint buffer_ {0};
+    GLuint binding_point_ {0};
+    std::size_t size_ {0};
 };
 
 }
