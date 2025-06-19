@@ -1,7 +1,7 @@
 /*
 ===========================================================================
-GLEAM ENGINE https://gleamengine.org
-Copyright © 2024 - Present, Shlomi Nissan
+  GLEAM ENGINE https://gleamengine.org
+  Copyright © 2024 - Present, Shlomi Nissan
 ===========================================================================
 */
 
