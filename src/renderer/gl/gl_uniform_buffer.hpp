@@ -34,11 +34,11 @@ class GLUniformBuffer {
 public:
     GLUniformBuffer(std::string_view name, std::size_t size);
 
-    // implements move constructor and assignment operator
+    // implement move constructor and assignment operator
     GLUniformBuffer(GLUniformBuffer&& other) noexcept;
     auto operator=(GLUniformBuffer&& other) noexcept -> GLUniformBuffer&;
 
-    // deleted copy constructor and assignment operator
+    // delete copy constructor and assignment operator
     GLUniformBuffer(const GLUniformBuffer&) = delete;
     auto operator=(const GLUniformBuffer&) -> GLUniformBuffer& = delete;
 

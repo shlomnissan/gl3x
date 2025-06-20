@@ -18,7 +18,7 @@
 
 namespace gleam {
 
-ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists* render_lists, const Scene* scene) {
+ProgramAttributes::ProgramAttributes(const Material* material, const LightsCounter& lights, const Scene* scene) {
     type = material->GetType();
 
     if (type == MaterialType::FlatMaterial) {
@@ -30,7 +30,6 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
     if (type == MaterialType::PhongMaterial) {
         auto m = static_cast<const PhongMaterial*>(material);
         color = true;
-        lights = !render_lists->Lights().empty();
         texture_map = m->texture_map != nullptr;
     }
 
@@ -44,25 +43,17 @@ ProgramAttributes::ProgramAttributes(const Material* material, const RenderLists
     fog = material->fog && scene->fog != nullptr;
     two_sided = material->two_sided;
 
-    for (auto light : render_lists->Lights()) {
-        switch (light->GetType()) {
-            case LightType::AmbientLight: /* noop */ break;
-            case LightType::DirectionalLight: directional_lights++; break;
-            case LightType::PointLight: point_lights++; break;
-            case LightType::SpotLight: spot_lights++; break;
-            default: Logger::Log(LogLevel::Error, "Unknown light type"); break;
-        }
-    }
+    num_lights = lights.directional + lights.point + lights.spot;
 
-    key |= std::to_underlying(type);          // 0–15 → 4 bits
-    key |= (color         ? 1 : 0)  << 4;     // 1 bit
-    key |= (directional_lights & 0xF) << 5;   // 0–10 → 4 bits
-    key |= (flat_shaded   ? 1 : 0)  << 9;     // 1 bit
-    key |= (fog           ? 1 : 0)  << 10;    // 1 bit
-    key |= (point_lights  & 0xF)    << 11;    // 0–10 → 4 bits
-    key |= (spot_lights   & 0xF)    << 15;    // 0–10 → 4 bits
-    key |= (texture_map   ? 1 : 0)  << 19;    // 1 bit
-    key |= (two_sided     ? 1 : 0)  << 20;    // 1 bit
+    key |= std::to_underlying(type); // 0–15 → 4 bits
+    key |= (color ? 1 : 0)  << 4; // 1 bit
+    key |= (flat_shaded ? 1 : 0) << 9; // 1 bit
+    key |= (fog ? 1 : 0) << 10; // 1 bit
+    key |= (lights.directional & 0xF) << 5; // 0–10 → 4 bits
+    key |= (lights.point & 0xF) << 11; // 0–10 → 4 bits
+    key |= (lights.spot & 0xF) << 15; // 0–10 → 4 bits
+    key |= (texture_map ? 1 : 0) << 19; // 1 bit
+    key |= (two_sided ? 1 : 0) << 20; // 1 bit
 }
 
 }

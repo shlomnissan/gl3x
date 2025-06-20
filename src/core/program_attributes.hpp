@@ -10,14 +10,18 @@
 #include "gleam/materials/material.hpp"
 #include "gleam/nodes/scene.hpp"
 
-#include "core/render_lists.hpp"
-
 #include <string_view>
 #include <utility>
 
 namespace gleam {
 
 struct ProgramAttributes {
+    struct LightsCounter {
+        unsigned int directional {0};
+        unsigned int point {0};
+        unsigned int spot {0};
+    };
+
     std::size_t key {0};
 
     MaterialType type;
@@ -26,18 +30,15 @@ struct ProgramAttributes {
     std::string_view vertex_shader;
     std::string_view fragment_shader;
 
-    int directional_lights = 0;
-    int point_lights = 0;
-    int spot_lights = 0;
+    unsigned int num_lights {0};
 
     bool color {false};
     bool fog {false};
-    bool lights {false};
     bool texture_map {false};
     bool two_sided {false};
     bool flat_shaded {false};
 
-    ProgramAttributes(const Material* material, const RenderLists* render_lists, const Scene* scene);
+    ProgramAttributes(const Material* material, const LightsCounter& lights, const Scene* scene);
 };
 
 }

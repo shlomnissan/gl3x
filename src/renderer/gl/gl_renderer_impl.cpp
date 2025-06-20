@@ -77,7 +77,11 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
     auto geometry = mesh->geometry.get();
     auto material = mesh->material.get();
 
-    auto attrs = ProgramAttributes {material, render_lists_.get(), scene};
+    auto attrs = ProgramAttributes {material, {
+        .directional = lights_.directional,
+        .point = lights_.point,
+        .spot = lights_.spot
+    }, scene};
     auto program = programs_.GetProgram(attrs);
     if (!program->IsValid()) {
         return;
@@ -85,7 +89,7 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
 
     state_.ProcessMaterial(material);
 
-    if (attrs.lights && !render_lists_->Lights().empty()) {
+    if (lights_.HasLights()) {
         UpdateLights(program, camera);
     }
 
@@ -163,7 +167,7 @@ auto Renderer::Impl::SetUniforms(
 
     if (attrs->type == MaterialType::PhongMaterial) {
         auto m = static_cast<PhongMaterial*>(material);
-        if (attrs->directional_lights || attrs->point_lights || attrs->spot_lights) {
+        if (lights_.directional || lights_.point || lights_.spot) {
             program->SetUniform(Uniform::MaterialDiffuseColor, &m->color);
             program->SetUniform(Uniform::MaterialSpecularColor, &m->specular);
             program->SetUniform(Uniform::MaterialShininess, &m->shininess);
@@ -189,7 +193,9 @@ auto Renderer::Impl::UpdateLights(GLProgram* program, const Camera* camera) cons
     auto ambient_light = Color {0.0f, 0.0f, 0.0f};
     auto idx = 0;
 
-    for (auto light : render_lists_->Lights()) {
+    for (auto light : lights_.Lights()) {
+        if (light == nullptr) continue;
+
         const auto light_color = light->color;
         const auto intensity = light->intensity;
         const auto type = light->GetType();
@@ -252,6 +258,12 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
 
     if (scene->touched_) {
         render_lists_->ProcessScene(scene);
+
+        lights_.Reset();
+        for(auto light : render_lists_->Lights()) {
+            lights_.AddLight(light);
+        }
+
         scene->touched_ = false;
     }
 

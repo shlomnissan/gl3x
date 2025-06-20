@@ -89,7 +89,7 @@ auto ShaderLibrary::InjectAttributes(
     if (attrs.two_sided) features += "#define USE_TWO_SIDED\n";
     if (attrs.flat_shaded) features += "#define USE_FLAT_SHADED\n";
 
-    const auto lights = attrs.directional_lights + attrs.point_lights + attrs.spot_lights;
+    const auto lights = attrs.num_lights;
     features += "#define NUM_LIGHTS " + std::to_string(lights) + '\n';
 
     const auto token = std::string_view {"#pragma inject_attributes"};
