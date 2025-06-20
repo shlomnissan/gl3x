@@ -72,8 +72,6 @@ private:
         Scene* scene
     ) -> void;
 
-    auto UpdateLights(GLProgram* program, const Camera* camera) const -> void;
-
     [[nodiscard]] auto IsValidMesh(Mesh* mesh) const -> bool;
 
     [[nodiscard]] auto IsVisible(Mesh* mesh) const -> bool;

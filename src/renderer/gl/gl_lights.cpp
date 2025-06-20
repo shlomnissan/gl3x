@@ -7,13 +7,18 @@
 
 #include "renderer/gl/gl_lights.hpp"
 
+#include "gleam/lights/directional_light.hpp"
+#include "gleam/lights/point_light.hpp"
+#include "gleam/lights/spot_light.hpp"
+
 #include "utilities/logger.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace gleam {
 
-auto GLLights::AddLight(Light* light) -> void {
+auto GLLights::AddLight(Light* light, Camera* camera) -> void {
     using enum LightType;
 
     if (idx_ >= kMaxLights) {
@@ -25,24 +30,64 @@ auto GLLights::AddLight(Light* light) -> void {
         return;
     }
 
-    switch(light->GetType()) {
-        case AmbientLight: {
-            if (ambient > 0) {
-                Logger::Log(
-                    LogLevel::Error,
-                    "Only one ambient light is permitted per scene."
-                );
-                return;
-            }
-            ++ambient;
+    if (light->GetType() == AmbientLight) {
+        if (ambient >= 1) {
+            Logger::Log(
+                LogLevel::Error,
+                "Only one ambient light is permitted per scene."
+            );
+            return;
         }
-        break;
-        case DirectionalLight: ++directional; break;
-        case PointLight: ++point; break;
-        case SpotLight: ++spot; break;
-    }
+        ambient_ = light->color * light->intensity;
+        ++ambient;
+    } else {
+        auto& dst = lights_.lights[idx_++];
+        dst.type = static_cast<unsigned>(light->GetType());
+        dst.color = light->color * light->intensity;
 
-    lights_[idx_++] = light;
+        switch(light->GetType()) {
+            case DirectionalLight: {
+                ++directional;
+                auto src = static_cast<gleam::DirectionalLight*>(light);
+                dst.position = Vector3::Zero();
+                dst.direction = Vector3(camera->view_transform * Vector4(src->Direction(), 0.0f));
+                dst.cone_cos = 0.0f;
+                dst.penumbra_cos = 0.0f;
+                dst.base = 0.0f;
+                dst.linear = 0.0f;
+                dst.quadratic = 0.0f;
+            }
+            break;
+            case PointLight: {
+                ++point;
+                auto src = static_cast<gleam::PointLight*>(light);
+                dst.position = Vector3(camera->view_transform * Vector4(src->GetWorldPosition(), 1.0f));
+                dst.direction = Vector3::Zero();
+                dst.cone_cos = 0.0f;
+                dst.penumbra_cos = 0.0f;
+                dst.base = src->attenuation.base;
+                dst.linear = src->attenuation.linear;
+                dst.quadratic = src->attenuation.quadratic;
+            }
+            break;
+            case SpotLight: {
+                ++spot;
+                auto src = static_cast<gleam::SpotLight*>(light);
+                dst.position = Vector3(camera->view_transform * Vector4(src->GetWorldPosition(), 1.0f));
+                dst.direction = Vector3(camera->view_transform * Vector4(src->Direction(), 0.0f));
+                dst.cone_cos = std::cos(src->angle);
+                dst.penumbra_cos = std::cos(src->angle * (1 - src->penumbra));
+                dst.base = src->attenuation.base;
+                dst.linear = src->attenuation.linear;
+                dst.quadratic = src->attenuation.quadratic;
+            }
+            break;
+        };
+    }
+}
+
+auto GLLights::Update() -> void {
+    uniform_buffer_.UploadIfNeeded(&lights_, sizeof(lights_));
 }
 
 auto GLLights::HasLights() const -> bool {
@@ -50,7 +95,6 @@ auto GLLights::HasLights() const -> bool {
 }
 
 auto GLLights::Reset() -> void {
-    std::ranges::fill(lights_, nullptr);
     idx_ = 0;
     ambient = 0;
     directional = 0;

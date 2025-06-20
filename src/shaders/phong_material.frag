@@ -55,7 +55,9 @@ struct Light {
     float Quadratic;
 };
 
-uniform Light u_Lights[NUM_LIGHTS];
+layout(std140) uniform ub_Lights {
+    Light u_Lights[NUM_LIGHTS];
+};
 
 float attenuation(in float dist, in Light light) {
     float denominator = light.Base +

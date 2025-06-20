@@ -8,10 +8,6 @@
 #include "renderer/gl/gl_renderer_impl.hpp"
 
 #include "gleam/core/fog.hpp"
-#include "gleam/lights/ambient_light.hpp"
-#include "gleam/lights/directional_light.hpp"
-#include "gleam/lights/point_light.hpp"
-#include "gleam/lights/spot_light.hpp"
 #include "gleam/materials/flat_material.hpp"
 #include "gleam/materials/phong_material.hpp"
 #include "gleam/materials/shader_material.hpp"
@@ -28,22 +24,6 @@
 #include <glad/glad.h>
 
 namespace gleam {
-
-namespace {
-
-static const auto light_uniforms = std::array<std::string, 9> {
-    "u_Lights[0]",
-    "u_Lights[1]",
-    "u_Lights[2]",
-    "u_Lights[3]",
-    "u_Lights[4]",
-    "u_Lights[5]",
-    "u_Lights[6]",
-    "u_Lights[7]",
-    "u_Lights[8]",
-};
-
-}
 
 Renderer::Impl::Impl(const Renderer::Parameters& params)
   : params_(params),
@@ -88,11 +68,6 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
     }
 
     state_.ProcessMaterial(material);
-
-    if (lights_.HasLights()) {
-        UpdateLights(program, camera);
-    }
-
     buffers_.Bind(mesh->geometry);
 
     SetUniforms(program, &attrs, mesh, camera, scene);
@@ -167,7 +142,9 @@ auto Renderer::Impl::SetUniforms(
 
     if (attrs->type == MaterialType::PhongMaterial) {
         auto m = static_cast<PhongMaterial*>(material);
-        if (lights_.directional || lights_.point || lights_.spot) {
+        auto a = lights_.AmbientLight();
+        if (lights_.HasLights()) {
+            program->SetUniform(Uniform::AmbientLight, &a);
             program->SetUniform(Uniform::MaterialDiffuseColor, &m->color);
             program->SetUniform(Uniform::MaterialSpecularColor, &m->specular);
             program->SetUniform(Uniform::MaterialShininess, &m->shininess);
@@ -189,67 +166,6 @@ auto Renderer::Impl::SetUniforms(
     }
 }
 
-auto Renderer::Impl::UpdateLights(GLProgram* program, const Camera* camera) const -> void {
-    auto ambient_light = Color {0.0f, 0.0f, 0.0f};
-    auto idx = 0;
-
-    for (auto light : lights_.Lights()) {
-        if (light == nullptr) continue;
-
-        const auto light_color = light->color;
-        const auto intensity = light->intensity;
-        const auto type = light->GetType();
-        const auto& uniform = light_uniforms[idx];
-
-        if (type == LightType::AmbientLight) {
-            ambient_light = light_color * intensity;
-        } else {
-            program->SetUnknownUniform(uniform + ".Type", &type);
-        }
-
-        if (type == LightType::DirectionalLight) {
-            auto l = static_cast<DirectionalLight*>(light);
-            const auto direction = Vector3(camera->view_transform * Vector4(l->Direction(), 0.0f));
-            const auto color = l->color * l->intensity;
-            program->SetUnknownUniform(uniform + ".Color", &color);
-            program->SetUnknownUniform(uniform + ".Direction", &direction);
-            ++idx;
-        }
-
-        if (type == LightType::PointLight) {
-            auto l = static_cast<PointLight*>(light);
-            const auto color = l->color * l->intensity;
-            const auto position = Vector3(camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f));
-            program->SetUnknownUniform(uniform + ".Color", &color);
-            program->SetUnknownUniform(uniform + ".Position", &position);
-            program->SetUnknownUniform(uniform + ".Base", &l->attenuation.base);
-            program->SetUnknownUniform(uniform + ".Linear", &l->attenuation.linear);
-            program->SetUnknownUniform(uniform + ".Quadratic", &l->attenuation.quadratic);
-            ++idx;
-        }
-
-        if (type == LightType::SpotLight) {
-            auto l = static_cast<SpotLight*>(light);
-            const auto direction = Vector3(camera->view_transform * Vector4(l->Direction(), 0.0f));
-            const auto position = Vector3(camera->view_transform * Vector4(light->GetWorldPosition(), 1.0f));
-            const auto color = l->color * l->intensity;
-            const auto cone_cos = std::cos(l->angle);
-            const auto penumbra_cos = std::cos(l->angle * (1 - l->penumbra));
-            program->SetUnknownUniform(uniform + ".Color", &color);
-            program->SetUnknownUniform(uniform + ".Direction", &direction);
-            program->SetUnknownUniform(uniform + ".Position", &position);
-            program->SetUnknownUniform(uniform + ".ConeCos", &cone_cos);
-            program->SetUnknownUniform(uniform + ".PenumbraCos", &penumbra_cos);
-            program->SetUnknownUniform(uniform + ".Base", &l->attenuation.base);
-            program->SetUnknownUniform(uniform + ".Linear", &l->attenuation.linear);
-            program->SetUnknownUniform(uniform + ".Quadratic", &l->attenuation.quadratic);
-            ++idx;
-        }
-    }
-
-    program->SetUniform(Uniform::AmbientLight, &ambient_light);
-}
-
 auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -258,13 +174,13 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
 
     if (scene->touched_) {
         render_lists_->ProcessScene(scene);
-
-        lights_.Reset();
-        for(auto light : render_lists_->Lights()) {
-            lights_.AddLight(light);
-        }
-
         scene->touched_ = false;
+    }
+
+    lights_.Reset();
+    for(auto light : render_lists_->Lights()) lights_.AddLight(light, camera);
+    if (lights_.HasLights()) {
+        lights_.Update();
     }
 
     RenderObjects(scene, camera);
