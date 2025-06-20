@@ -9,6 +9,8 @@
 
 #include "utilities/logger.hpp"
 
+#include <cstring>
+
 namespace gleam {
 
 GLUniformBuffer::GLUniformBuffer(std::string_view name, std::size_t size) :

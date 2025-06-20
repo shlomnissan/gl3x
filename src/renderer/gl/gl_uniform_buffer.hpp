@@ -7,11 +7,10 @@
 
 #pragma once
 
-#include <cstddef>
+#include <memory>
 #include <span>
 #include <string>
 #include <string_view>
-#include <memory>
 
 #include <glad/glad.h>
 
