@@ -36,8 +36,8 @@ public:
             LogLevel level,
             std::string_view format_str,
             Args&&... args,
-            const std::source_location& loc = std::source_location::current())
-        {
+            const std::source_location& loc = std::source_location::current()
+        ) {
             const auto lock = std::scoped_lock(mutex_);
 
             auto stream = level == LogLevel::Error ? &std::cerr : &std::cout;
@@ -58,10 +58,19 @@ public:
                 loc.line()
             );
         }
+
+        Log(
+            std::string_view format_str,
+            Args&&... args,
+            const std::source_location& loc = std::source_location::current()
+        ) : Log(LogLevel::Debug, format_str, std::forward<Args>(args)..., loc) {}
     };
 
     template <typename... Args>
     Log(LogLevel level, std::string_view message, Args&&...) -> Log<Args...>;
+
+    template <typename... Args>
+    Log(std::string_view message, Args&&...) -> Log<Args...>;
 
 private:
     static std::mutex mutex_;
