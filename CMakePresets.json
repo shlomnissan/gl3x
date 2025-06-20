@@ -17,7 +17,6 @@
           "BUILD_SHARED_LIBS": "ON",
           "BUILD_TESTS": "OFF",
           "BUILD_EXAMPLES": "OFF",
-          "CMAKE_MSVC_RUNTIME_LIBRARY": "MultiThreadedDLL",
           "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
         }
       }
