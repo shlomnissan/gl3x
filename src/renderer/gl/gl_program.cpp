@@ -139,7 +139,7 @@ auto GLProgram::ProcessUniformBlocks() -> void {
         auto name = std::string(buffer.data(), length);
         auto idx = get_uniform_block_loc(name);
         if (idx == -1) {
-            Logger::Log(LogLevel::Error, "Unknown uniform buffer block {}", name);
+            Logger::Log(LogLevel::Error, "Unknown uniform block {}", name);
             continue;
         }
         glUniformBlockBinding(program_, i, idx);

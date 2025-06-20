@@ -16,6 +16,11 @@ GLUniformBuffer::GLUniformBuffer(std::string_view name, std::size_t size) :
     binding_point_(get_uniform_block_loc(name)),
     size_(size)
 {
+    if (binding_point_ == -1) {
+        Logger::Log(LogLevel::Error, "Unknown uniform block {}", name);
+        return;
+    }
+
     data_ = std::make_unique<std::byte[]>(size);
 
     glGenBuffers(1, &buffer_);
@@ -25,14 +30,59 @@ GLUniformBuffer::GLUniformBuffer(std::string_view name, std::size_t size) :
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
+GLUniformBuffer::GLUniformBuffer(GLUniformBuffer&& other) noexcept
+    : name_(std::move(other.name_)),
+      buffer_(other.buffer_),
+      binding_point_(other.binding_point_),
+      size_(other.size_),
+      data_(std::move(other.data_)) {
+    other.buffer_ = 0;
+    other.binding_point_ = -1;
+    other.size_ = 0;
+}
+
+auto GLUniformBuffer::operator=(GLUniformBuffer&& other) noexcept -> GLUniformBuffer& {
+    if (this != &other) {
+        if (buffer_ != 0) {
+            glDeleteBuffers(1, &buffer_);
+        }
+        name_ = std::move(other.name_);
+        buffer_ = other.buffer_;
+        binding_point_ = other.binding_point_;
+        size_ = other.size_;
+        data_ = std::move(other.data_);
+
+        other.buffer_ = 0;
+        other.binding_point_ = -1;
+        other.size_ = 0;
+    }
+    return *this;
+}
+
 auto GLUniformBuffer::UploadIfNeeded(const void* data, std::size_t size) const -> void {
+    if (binding_point_ == -1) return;
+
     if (size > size_) {
         Logger::Log(LogLevel::Error, "UBO {} update size exceeds buffer size", name_);
         return;
     }
     if (std::memcmp(data_.get(), data, size) != 0) {
         glBindBuffer(GL_UNIFORM_BUFFER, buffer_);
-        glBufferSubData(GL_UNIFORM_BUFFER, 0, size, data);
+
+        auto mapped = glMapBufferRange(
+            GL_UNIFORM_BUFFER,
+            /* offset = */ 0,
+            size,
+            GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT
+        );
+
+        if (mapped) {
+            std::memcpy(mapped, data, size);
+            glUnmapBuffer(GL_UNIFORM_BUFFER);
+        } else {
+            Logger::Log(LogLevel::Error, "UBO {} map buffer failed", name_);
+        }
+
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
         std::memcpy(data_.get(), data, size);
     }

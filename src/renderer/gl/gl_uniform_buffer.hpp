@@ -34,6 +34,14 @@ class GLUniformBuffer {
 public:
     GLUniformBuffer(std::string_view name, std::size_t size);
 
+    // implements move constructor and assignment operator
+    GLUniformBuffer(GLUniformBuffer&& other) noexcept;
+    auto operator=(GLUniformBuffer&& other) noexcept -> GLUniformBuffer&;
+
+    // deleted copy constructor and assignment operator
+    GLUniformBuffer(const GLUniformBuffer&) = delete;
+    auto operator=(const GLUniformBuffer&) -> GLUniformBuffer& = delete;
+
     auto UploadIfNeeded(const void* data, std::size_t size) const -> void;
 
     ~GLUniformBuffer();
@@ -41,7 +49,7 @@ public:
 private:
     std::string name_ {""};
     GLuint buffer_ {0};
-    GLuint binding_point_ {0};
+    int binding_point_ {-1};
     std::size_t size_ {0};
     std::unique_ptr<std::byte[]> data_;
 };
