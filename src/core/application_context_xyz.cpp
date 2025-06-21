@@ -15,8 +15,7 @@
 
 namespace gleam {
 
-class ApplicationContextXYZ::Impl {
-public:
+struct ApplicationContextXYZ::Impl {
     std::unique_ptr<PerformanceGraph> performance_graph;
     std::shared_ptr<Scene> scene;
     std::shared_ptr<Camera> camera;
@@ -24,7 +23,7 @@ public:
     std::unique_ptr<Renderer> renderer;
     std::unique_ptr<SharedContext> shared_context;
 
-    ApplicationContextXYZ::Impl() {
+    Impl() {
         performance_graph = std::make_unique<PerformanceGraph>();
     }
 
