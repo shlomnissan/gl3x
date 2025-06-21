@@ -46,6 +46,7 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
         dst.color = light->color * light->intensity;
 
         switch(light->GetType()) {
+            case AmbientLight: /* noop */ break;
             case DirectionalLight: {
                 ++directional;
                 auto src = static_cast<gleam::DirectionalLight*>(light);
