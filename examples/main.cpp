@@ -21,7 +21,7 @@
 
 using namespace gleam;
 
-class Application : public ApplicationContext {
+class Application : public ApplicationContextXYZ {
 public:
     auto Configure() -> void override {
         params.width = 1536;
@@ -29,25 +29,26 @@ public:
         params.antialiasing = 0;
         params.vsync = false;
         params.debug = true;
+        params.title = "Gleam Engine";
+        params.clear_color = 0x444444;
     }
 
-    auto Setup() -> void override {
-        ApplicationContext::Setup();
+    auto CreateScene() -> std::shared_ptr<Scene> override {
+        Theme();
 
-        SetTitle("Gleam Engine");
-        SetClearColor(0x444444);
+        LoadScene(examples[current_scene_]);
+        return scene_;
+    }
 
+    auto CreateCamera() -> std::shared_ptr<Camera> override {
         camera_ = PerspectiveCamera::Create({
             .fov = math::DegToRad(60.0f),
-            .aspect = Context()->Parameters().ratio,
+            .aspect = params.Ratio(),
             .near = 0.1f,
             .far = 1000.0f
         });
         camera_->transform.Translate({0.0f, 0.0f, 3.0f});
-        SetCamera(camera_);
-
-        LoadScene(examples[current_scene_]);
-        Theme();
+        return camera_;
     }
 
     auto Update(float delta) -> bool override {

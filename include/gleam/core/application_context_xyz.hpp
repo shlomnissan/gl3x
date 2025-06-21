@@ -31,10 +31,12 @@ public:
         bool vsync {true};
         bool debug {false};
 
-        [[nodiscard]] auto ratio() const -> float {
+        [[nodiscard]] auto Ratio() const -> float {
             return static_cast<float>(width) / static_cast<float>(height);
         }
     };
+
+    ApplicationContextXYZ();
 
     auto Start() -> void;
 

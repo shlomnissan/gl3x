@@ -48,27 +48,31 @@ public:
         return window->HasErrors() ? false : true;
     }
 
-    auto InitializeRenderer() -> bool {
+    auto InitializeRenderer(const ApplicationContextXYZ::Parameters& params) -> bool {
         const auto renderer_params = Renderer::Parameters {
             .width = window->Width(),
             .height = window->Height()
         };
         renderer = std::make_unique<Renderer>(renderer_params);
+        renderer->SetClearColor(params.clear_color);
         return true;
     }
 };
 
-auto ApplicationContextXYZ::Setup() -> void {
-    impl_->InitializeWindow(params);
-    impl_->InitializeRenderer();
+ApplicationContextXYZ::ApplicationContextXYZ() : impl_(std::make_unique<Impl>()) {}
 
+auto ApplicationContextXYZ::Setup() -> void {
     Configure();
 
-    SetScene(CreateScene());
+    impl_->InitializeWindow(params);
+    impl_->InitializeRenderer(params);
+
     SetCamera(CreateCamera());
     if (!impl_->camera) {
         impl_->camera = CreateDefaultCamera();
     }
+
+    SetScene(CreateScene());
 }
 
 auto ApplicationContextXYZ::CreateDefaultCamera() const -> std::shared_ptr<Camera> {
