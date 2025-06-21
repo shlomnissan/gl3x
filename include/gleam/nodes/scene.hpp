@@ -72,6 +72,8 @@ private:
     /// @brief The application context invokes the scene's 'SetContext' method.
     friend class ApplicationContext;
 
+    friend class ApplicationContextXYZ;
+
     /// @brief Event listener for handling input events.
     std::shared_ptr<EventListener> input_event_listener_;
 
