@@ -36,6 +36,7 @@ public:
     };
 
     struct alignas(16) UniformLights {
+        alignas(16) Color ambient_light {0x000000};
         alignas(16) UniformLight lights[kMaxLights];
     };
 
@@ -56,8 +57,6 @@ public:
 
     auto AddLight(Light* light, Camera* camera) -> void;
 
-    auto AmbientLight() const { return ambient_; }
-
     auto HasLights() const -> bool;
 
     auto Reset() -> void;
@@ -68,8 +67,6 @@ private:
     UniformLights lights_ {};
 
     GLUniformBuffer uniform_buffer_ {"ub_Lights", sizeof(UniformLights)};
-
-    Color ambient_ {0x000000};
 
     unsigned int idx_ {0};
 };

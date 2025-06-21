@@ -38,7 +38,7 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
             );
             return;
         }
-        ambient_ = light->color * light->intensity;
+        lights_.ambient_light = light->color * light->intensity;
         ++ambient;
     } else {
         auto& dst = lights_.lights[idx_++];
