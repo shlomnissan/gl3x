@@ -21,7 +21,7 @@
 
 using namespace gleam;
 
-class Application : public ApplicationContextXYZ {
+class Application : public ApplicationContext {
 public:
     auto Configure() -> void override {
         params.width = 1536;
