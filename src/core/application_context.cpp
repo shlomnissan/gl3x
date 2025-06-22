@@ -7,57 +7,89 @@
 
 #include "gleam/core/application_context.hpp"
 
-#include "utilities/logger.hpp"
+#include "gleam/cameras/perspective_camera.hpp"
+#include "gleam/core/renderer.hpp"
+#include "gleam/core/shared_context.hpp"
+#include "gleam/core/window.hpp"
+
 #include "utilities/performance_graph.hpp"
 
 namespace gleam {
 
-ApplicationContext::ApplicationContext() {
-    performance_graph_ = std::make_unique<PerformanceGraph>();
-}
+struct ApplicationContext::Impl {
+    std::unique_ptr<PerformanceGraph> performance_graph;
+    std::shared_ptr<Scene> scene;
+    std::shared_ptr<Camera> camera;
+    std::unique_ptr<Window> window;
+    std::unique_ptr<Renderer> renderer;
+    std::unique_ptr<SharedContext> shared_context;
+
+    Impl() {
+        performance_graph = std::make_unique<PerformanceGraph>();
+    }
+
+    auto InitializeWindow(const ApplicationContext::Parameters& params) -> bool {
+        const auto window_params = Window::Parameters {
+            .width = params.width,
+            .height = params.height,
+            .antialiasing = params.antialiasing,
+            .vsync = params.vsync
+        };
+        window = std::make_unique<Window>(window_params);
+        window->SetTitle(params.title);
+
+        shared_context = std::make_unique<SharedContext>(SharedContext::SharedParameters {
+            .ratio = window->AspectRatio(),
+            .width = window->Width(),
+            .height = window->Height(),
+            .debug = params.debug
+        });
+
+        return window->HasErrors() ? false : true;
+    }
+
+    auto InitializeRenderer(const ApplicationContext::Parameters& params) -> bool {
+        const auto renderer_params = Renderer::Parameters {
+            .width = window->Width(),
+            .height = window->Height()
+        };
+        renderer = std::make_unique<Renderer>(renderer_params);
+        renderer->SetClearColor(params.clear_color);
+        return true;
+    }
+};
+
+ApplicationContext::ApplicationContext() : impl_(std::make_unique<Impl>()) {}
 
 auto ApplicationContext::Setup() -> void {
-    InitializeWindow();
-    InitializeRenderer();
+    Configure();
 
-    shared_context_ = std::make_unique<SharedContext>(SharedContext::SharedParameters {
-        .ratio = window_->AspectRatio(),
-        .width = window_->Width(),
-        .height = window_->Height(),
-        .debug = params.debug
+    impl_->InitializeWindow(params);
+    impl_->InitializeRenderer(params);
+
+    SetCamera(CreateCamera());
+    if (!impl_->camera) {
+        impl_->camera = CreateDefaultCamera();
+    }
+
+    SetScene(CreateScene());
+}
+
+auto ApplicationContext::CreateDefaultCamera() const -> std::shared_ptr<Camera> {
+    return PerspectiveCamera::Create({
+        .fov = math::DegToRad(60.0f),
+        .aspect = static_cast<float>(params.width) / params.height,
+        .near = 0.1f,
+        .far = 1000.0f
     });
 }
 
 auto ApplicationContext::Start() -> void {
-    Configure();
     Setup();
-
-    if (shared_context_ == nullptr) {
-        Logger::Log(LogLevel::Error,
-            "The application context was not initialized properly. "
-            "Please ensure that ApplicationContext::Setup has been called, "
-            "and check the console logs for any errors."
-        );
-        return;
-    }
-
-    if (!scene_) {
-        Logger::Log(LogLevel::Error,
-            "You must override the Setup method and assign a Scene object."
-        );
-        return;
-    }
-
-    if (!camera_) {
-        Logger::Log(LogLevel::Error,
-            "You must override the Setup method and assign a Camera object."
-        );
-        return;
-    }
 
     timer.Start();
 
-    window_->Start([this]() {
+    impl_->window->Start([this]() {
         static auto last_frame_time = 0.0;
         static auto last_frame_rate_update = 0.0;
         static auto frame_time_ms = 0.0;
@@ -72,77 +104,45 @@ auto ApplicationContext::Start() -> void {
         // update the performance graph every second
         if (now - last_frame_rate_update >= 1.0) {
             using enum PerformanceMetric;
-            performance_graph_->AddData(FramesPerSecond, frame_count);
-            performance_graph_->AddData(FrameTime, frame_time_ms);
-            performance_graph_->AddData(RenderedObjects, renderer_->RenderedObjectsPerFrame());
+            impl_->performance_graph->AddData(FramesPerSecond, frame_count);
+            impl_->performance_graph->AddData(FrameTime, frame_time_ms);
+            impl_->performance_graph->AddData(RenderedObjects, impl_->renderer->RenderedObjectsPerFrame());
             frame_count = 0;
             last_frame_rate_update = now;
         }
 
         if (Update(delta)) {
             const auto start_time = timer.GetElapsedMilliseconds();
-            scene_->ProcessUpdates(delta);
-            renderer_->Render(scene_.get(), camera_.get());
+            impl_->scene->ProcessUpdates(delta);
+            impl_->renderer->Render(impl_->scene.get(), impl_->camera.get());
             const auto end_time = timer.GetElapsedMilliseconds();
 
             frame_time_ms = end_time - start_time;
 
             if (params.debug) {
-                performance_graph_->RenderGraph(static_cast<float>(params.width));
+                impl_->performance_graph->RenderGraph(static_cast<float>(params.width));
             }
         } else {
-            window_->Break();
+            impl_->window->Break();
         }
     });
 }
 
-auto ApplicationContext::InitializeWindow() -> bool {
-    const auto window_params = Window::Parameters {
-        .width = params.width,
-        .height = params.height,
-        .antialiasing = params.antialiasing,
-        .vsync = params.vsync
-    };
-    window_ = std::make_unique<Window>(window_params);
-    return window_->HasErrors() ? false : true;
+auto ApplicationContext::GetScene() const -> const Scene* {
+    return impl_->scene.get();
 }
 
-auto ApplicationContext::InitializeRenderer() -> bool {
-    const auto renderer_params = Renderer::Parameters {
-        .width = window_->Width(),
-        .height = window_->Height()
-    };
-    renderer_ = std::make_unique<Renderer>(renderer_params);
-    return true;
+auto ApplicationContext::GetCamera() const -> const Camera* {
+    return impl_->camera.get();
 }
 
 auto ApplicationContext::SetScene(std::shared_ptr<Scene> scene) -> void {
-    scene_ = scene;
-    scene_->SetContext(shared_context_.get());
+    impl_->scene = scene;
+    impl_->scene->SetContext(impl_->shared_context.get());
 }
 
 auto ApplicationContext::SetCamera(std::shared_ptr<Camera> camera) -> void {
-    camera_ = camera;
-}
-
-auto ApplicationContext::SetTitle(std::string_view title) -> void {
-    window_->SetTitle(title);
-}
-
-auto ApplicationContext::SetClearColor(const Color& color) -> void {
-    renderer_->SetClearColor(color);
-}
-
-auto ApplicationContext::Context() const -> const SharedContext* {
-    if (shared_context_ == nullptr) {
-        Logger::Log(LogLevel::Error,
-            "The shared context is not initialized. Ensure that "
-            "ApplicationContext::Setup has been called before attempting "
-            "to access the shared context."
-        );
-        return nullptr;
-    }
-    return shared_context_.get();
+    impl_->camera = camera;
 }
 
 ApplicationContext::~ApplicationContext() = default;
