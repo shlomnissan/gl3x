@@ -8,9 +8,10 @@
 #include "gleam/core/application_context.hpp"
 
 #include "gleam/cameras/perspective_camera.hpp"
-#include "gleam/core/renderer.hpp"
 #include "gleam/core/shared_context.hpp"
-#include "gleam/core/window.hpp"
+
+#include "core/renderer.hpp"
+#include "core/window.hpp"
 
 #include "utilities/performance_graph.hpp"
 

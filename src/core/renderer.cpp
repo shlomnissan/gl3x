@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/core/renderer.hpp"
+#include "core/renderer.hpp"
 
 #include "renderer/gl/gl_renderer_impl.hpp"
 

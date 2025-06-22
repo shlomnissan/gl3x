@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/core/window.hpp"
+#include "core/window.hpp"
 
 #include "core/window_impl.hpp"
 

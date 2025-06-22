@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "gleam/core/window.hpp"
+#include "core/window.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
