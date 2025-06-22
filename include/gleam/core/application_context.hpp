@@ -47,9 +47,9 @@ public:
 
     virtual auto Update(float delta) -> bool = 0;
 
-    [[nodiscard]] auto GetScene() const -> const Scene*;
+    [[nodiscard]] auto GetScene() const -> Scene*;
 
-    [[nodiscard]] auto GetCamera() const -> const Camera*;
+    [[nodiscard]] auto GetCamera() const -> Camera*;
 
     auto SetScene(std::shared_ptr<Scene> scene) -> void;
 

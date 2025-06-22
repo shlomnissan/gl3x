@@ -47,7 +47,7 @@ public:
      * @param camera Shared pointer to the camera to orbit around.
      * @param params Parameters struct of the camera orbit.
      */
-    OrbitControls(const std::shared_ptr<Camera>& camera, const Parameters& params)
+    OrbitControls(Camera* camera, const Parameters& params)
         : camera_(camera), radius_(params.radius), pitch_(params.pitch), yaw_(params.yaw) {};
 
     /**
@@ -58,7 +58,7 @@ public:
      * @return Shared pointer to the newly created instance.
      */
     [[nodiscard]] static auto Create(
-        const std::shared_ptr<Camera>& camera,
+        Camera* camera,
         const Parameters& params
     ) {
         return std::make_shared<OrbitControls>(camera, params);

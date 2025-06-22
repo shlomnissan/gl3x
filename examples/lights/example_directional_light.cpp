@@ -16,7 +16,7 @@
 using namespace gleam;
 
 ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<gleam::Camera> camera) {
-    Add(OrbitControls::Create(camera, {
+    Add(OrbitControls::Create(camera.get(), {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),
         .yaw = math::DegToRad(45.0f)

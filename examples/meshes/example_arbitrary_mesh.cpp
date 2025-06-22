@@ -18,7 +18,7 @@ using namespace gleam::math;
 ExampleArbitraryMesh::ExampleArbitraryMesh(std::shared_ptr<gleam::Camera> camera) {
     show_context_menu_ = false;
 
-    Add(OrbitControls::Create(camera, {
+    Add(OrbitControls::Create(camera.get(), {
         .radius = 4.0f,
         .pitch = DegToRad(5.0f),
         .yaw = DegToRad(15.0f)

@@ -18,7 +18,7 @@ using namespace gleam;
 ExampleLerpAnimationTest::ExampleLerpAnimationTest(std::shared_ptr<gleam::Camera> camera) {
     show_context_menu_ = false;
 
-    Add(OrbitControls::Create(camera, {.radius = 3.0f}));
+    Add(OrbitControls::Create(camera.get(), {.radius = 3.0f}));
 
     Add(AmbientLight::Create({
         .color = 0xFFFFFF,

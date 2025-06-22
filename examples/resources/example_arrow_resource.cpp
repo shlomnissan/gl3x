@@ -16,7 +16,7 @@ using namespace gleam;
 ExampleArrowResource::ExampleArrowResource(std::shared_ptr<gleam::Camera> camera) {
     show_context_menu_ = false;
 
-    Add(OrbitControls::Create(camera, {
+    Add(OrbitControls::Create(camera.get(), {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),
         .yaw = math::DegToRad(45.0f)

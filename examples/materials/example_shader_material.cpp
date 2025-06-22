@@ -15,7 +15,7 @@
 using namespace gleam;
 
 ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<gleam::Camera> camera) {
-    Add(OrbitControls::Create(camera, {.radius = 3.0f}));
+    Add(OrbitControls::Create(camera.get(), {.radius = 3.0f}));
 
     fog = ExponentialFog::Create(0x444444, 0.3f);
 

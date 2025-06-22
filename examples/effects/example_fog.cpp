@@ -18,7 +18,7 @@
 using namespace gleam;
 
 ExampleFog::ExampleFog(std::shared_ptr<gleam::Camera> camera) {
-    Add(OrbitControls::Create(camera, {
+    Add(OrbitControls::Create(camera.get(), {
         .radius = 3.0f,
         .pitch = math::DegToRad(25.0f),
         .yaw = math::DegToRad(-25.0f)

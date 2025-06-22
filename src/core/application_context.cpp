@@ -129,11 +129,11 @@ auto ApplicationContext::Start() -> void {
     });
 }
 
-auto ApplicationContext::GetScene() const -> const Scene* {
+auto ApplicationContext::GetScene() const -> Scene* {
     return impl_->scene.get();
 }
 
-auto ApplicationContext::GetCamera() const -> const Camera* {
+auto ApplicationContext::GetCamera() const -> Camera* {
     return impl_->camera.get();
 }
 

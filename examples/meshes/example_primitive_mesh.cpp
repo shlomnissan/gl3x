@@ -19,7 +19,7 @@ using namespace gleam::math;
 ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<gleam::Camera> camera) {
     InitializeParams();
 
-    Add(OrbitControls::Create(camera, {
+    Add(OrbitControls::Create(camera.get(), {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),
         .yaw = math::DegToRad(45.0f)
