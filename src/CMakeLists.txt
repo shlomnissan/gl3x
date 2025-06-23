@@ -134,6 +134,7 @@ set(PUBLIC_HEADERS
 )
 
 set(HEADER_BUNDLES
+    "${PUBLIC_HEADERS_DIR}/gleam.hpp"
     "${PUBLIC_HEADERS_DIR}/cameras.hpp"
     "${PUBLIC_HEADERS_DIR}/core.hpp"
     "${PUBLIC_HEADERS_DIR}/geometries.hpp"
