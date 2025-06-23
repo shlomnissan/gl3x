@@ -80,7 +80,7 @@ public:
 
 private:
     /// @brief The camera to orbit around.
-    std::shared_ptr<Camera> camera_;
+    Camera* camera_;
 
     /// @brief The target point around which the camera orbits.
     Vector3 target = Vector3::Zero();
