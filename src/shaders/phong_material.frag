@@ -19,6 +19,7 @@ struct PhongMaterial {
 };
 
 uniform PhongMaterial u_Material;
+uniform vec3 u_AmbientLight;
 
 vec3 phongShading(
     const in vec3 light_dir,
@@ -55,7 +56,6 @@ struct Light {
 };
 
 layout(std140) uniform ub_Lights {
-    vec3 u_AmbientLight;
     Light u_Lights[NUM_LIGHTS];
 };
 

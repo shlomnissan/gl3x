@@ -143,6 +143,7 @@ auto Renderer::Impl::SetUniforms(
     if (attrs->type == MaterialType::PhongMaterial) {
         auto m = static_cast<PhongMaterial*>(material);
         if (lights_.HasLights()) {
+            program->SetUniform(Uniform::AmbientLight, &lights_.ambient_light);
             program->SetUniform(Uniform::MaterialDiffuseColor, &m->color);
             program->SetUniform(Uniform::MaterialSpecularColor, &m->specular);
             program->SetUniform(Uniform::MaterialShininess, &m->shininess);

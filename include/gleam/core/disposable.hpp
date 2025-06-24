@@ -19,9 +19,11 @@ public:
 
     Disposable() = default;
 
+    // delete copy constructor and assignment operator
     Disposable(const Disposable&) = delete;
     auto operator=(const Disposable&) -> Disposable& = delete;
 
+    // delete move constructor and assignment operator
     Disposable(Disposable&&) = delete;
     auto operator=(Disposable&&) -> Disposable& = delete;
 

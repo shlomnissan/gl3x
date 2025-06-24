@@ -32,6 +32,7 @@ enum class UniformType {
 };
 
 enum class Uniform {
+    AmbientLight,
     Color,
     FogColor,
     FogDensity,
@@ -51,6 +52,7 @@ enum class Uniform {
 
 constexpr auto get_uniform_loc(std::string_view str) {
     using enum Uniform;
+    if (str == "u_AmbientLight") return static_cast<int>(AmbientLight);
     if (str == "u_Color") return static_cast<int>(Color);
     if (str == "u_Fog.Color") return static_cast<int>(FogColor);
     if (str == "u_Fog.Density") return static_cast<int>(FogDensity);

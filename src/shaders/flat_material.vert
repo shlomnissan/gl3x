@@ -4,9 +4,6 @@
 
 #pragma inject_attributes
 
-#pragma debug(on)
-#pragma optimize(off)
-
 #include "snippets/vert_global_params.glsl"
 
 void main() {

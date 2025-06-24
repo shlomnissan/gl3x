@@ -36,9 +36,10 @@ public:
     };
 
     struct alignas(16) UniformLights {
-        alignas(16) Color ambient_light {0x000000};
         alignas(16) UniformLight lights[kMaxLights];
     };
+
+    Color ambient_light {0x000000};
 
     unsigned int ambient {0};
     unsigned int directional {0};
@@ -47,13 +48,13 @@ public:
 
     GLLights() = default;
 
-    // delete move constructor and assignment operator
-    GLLights(GLLights&&) = delete;
-    auto operator=(GLLights&&) -> GLLights& = delete;
-
     // delete copy constructor and assignment operator
     GLLights(const GLLights&) = delete;
     auto operator=(const GLLights&) -> GLLights& = delete;
+
+    // delete move constructor and assignment operator
+    GLLights(GLLights&&) = delete;
+    auto operator=(GLLights&&) -> GLLights& = delete;
 
     auto AddLight(Light* light, Camera* camera) -> void;
 
