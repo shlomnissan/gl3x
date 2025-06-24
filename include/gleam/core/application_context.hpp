@@ -92,31 +92,97 @@ public:
         }
     };
 
+    /**
+     * @brief Constructs an ApplicationContext instance.
+     *
+     * Initializes internal state but does not start the application loop.
+     */
     ApplicationContext();
 
+    /**
+     * @brief Starts the application loop.
+     *
+     * This method initializes the window, rendering context, and user scene
+     * and enters the main loop until the application exits.
+     */
     auto Start() -> void;
 
+    /**
+     * @brief Optional user configuration step.
+     *
+     * Override to customize the application parameters before startup.
+     */
     virtual auto Configure() -> void {};
 
+    /**
+     * @brief Creates the root scene graph.
+     *
+     * This method **must be implemented** by the user and returns the primary
+     * scene used for rendering and updates.
+     *
+     * @return std::shared_ptr<Scene>
+     */
     virtual auto CreateScene() -> std::shared_ptr<Scene> = 0;
 
+    /**
+     * @brief Creates the main camera.
+     *
+     * This method can be optionally overridden. If null is returned, a default
+     * 3D perspective camera will be created automatically.
+     *
+     * @return std::shared_ptr<Camera>
+     */
     virtual auto CreateCamera() -> std::shared_ptr<Camera> { return nullptr; }
 
+    /**
+     * @brief Per-frame update callback.
+     *
+     * This method **must be implemented** and is called every frame with the
+     * elapsed time since the last frame. Return `false` to exit the main loop.
+     *
+     * @param delta Time in seconds since the last frame.
+     * @return `true` to continue running, `false` to exit the main loop.
+     */
     virtual auto Update(float delta) -> bool = 0;
 
+    /**
+     * @brief Returns the current scene pointer.
+     *
+     * @return Scene*
+     */
     [[nodiscard]] auto GetScene() const -> Scene*;
 
+    /**
+     * @brief Returns the current camera pointer.
+     *
+     * @return Camera*
+     */
     [[nodiscard]] auto GetCamera() const -> Camera*;
 
+    /**
+     * @brief Sets the active scene.
+     *
+     * @param scene Shared pointer to the new scene.
+     */
     auto SetScene(std::shared_ptr<Scene> scene) -> void;
 
+    /**
+     * @brief Sets the active camera.
+     *
+     * @param camera Shared pointer to the new camera.
+     */
     auto SetCamera(std::shared_ptr<Camera> camera) -> void;
 
+    /**
+     * @brief Destructor.
+     */
     virtual ~ApplicationContext();
 
 protected:
+    /// @brief Application configuration parameters.
     Parameters params;
 
+    /// @brief Internal timer used to calculate frame delta.
     Timer timer {false};
 
 private:
