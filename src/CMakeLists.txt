@@ -151,6 +151,7 @@ set(HEADER_BUNDLES
 set(VENDOR_SOURCES
     "${VENDOR_DIR}/imgui/backends/imgui_impl_glfw.cpp"
     "${VENDOR_DIR}/imgui/backends/imgui_impl_opengl3.cpp"
+    "${VENDOR_DIR}/glad/glad.c"
 )
 
 include(ShaderProcessor)
@@ -167,7 +168,6 @@ add_library(
     ${VENDOR_SOURCES}
 )
 
-find_package(glad REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(imgui REQUIRED)
 
@@ -183,16 +183,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/vendor>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/tools>
+    $<BUILD_INTERFACE:${VENDOR_DIR}>
+    $<BUILD_INTERFACE:${VENDOR_DIR}/glad>
 )
 
-target_link_libraries(${PROJECT_NAME}
-PRIVATE
-    glad::glad
-    glfw
-    imgui::imgui
-)
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw imgui::imgui)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     VERSION ${gleam_VERSION_MAJOR}.${gleam_VERSION_MINOR}.${gleam_VERSION_PATCH}

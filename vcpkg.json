@@ -1,11 +1,6 @@
 {
     "dependencies": [
         {
-            "name": "glad",
-            "version>=": "0.1.36",
-            "features": ["gl-api-41"]
-        },
-        {
             "name": "glfw3",
             "version>=": "3.4"
         },
