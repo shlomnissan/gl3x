@@ -147,9 +147,9 @@ set(HEADER_BUNDLES
     "${PUBLIC_HEADERS_DIR}/textures.hpp"
 )
 
-set(EXTERNAL_SOURCES
-    "${CMAKE_SOURCE_DIR}/external/imgui/imgui_impl_glfw.cpp"
-    "${CMAKE_SOURCE_DIR}/external/imgui/imgui_impl_opengl3.cpp"
+set(VENDOR_SOURCES
+    "vendor/imgui/imgui_impl_glfw.cpp"
+    "vendor/imgui/imgui_impl_opengl3.cpp"
 )
 
 include(ShaderProcessor)
@@ -163,7 +163,7 @@ add_library(
     ${PUBLIC_HEADERS}
     ${HEADER_BUNDLES}
     ${SOURCE_CODE}
-    ${EXTERNAL_SOURCES}
+    ${VENDOR_SOURCES}
 )
 
 find_package(OpenGL REQUIRED)
@@ -183,7 +183,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/external>
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src/vendor>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/tools>
 )
 
