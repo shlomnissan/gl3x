@@ -167,13 +167,12 @@ add_library(
     ${VENDOR_SOURCES}
 )
 
-find_package(OpenGL REQUIRED)
 find_package(glad REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(imgui REQUIRED)
 
 # disable RTTI and exceptions
-target_compile_options(gleam PRIVATE
+target_compile_options(${PROJECT_NAME} PRIVATE
     $<$<CXX_COMPILER_ID:GNU>:-fno-rtti -fno-exceptions>
     $<$<CXX_COMPILER_ID:Clang>:-fno-rtti -fno-exceptions>
     $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti -fno-exceptions>
@@ -190,7 +189,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 target_link_libraries(${PROJECT_NAME}
 PRIVATE
-    OpenGL::GL
     glad::glad
     glfw
     imgui::imgui
