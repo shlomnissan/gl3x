@@ -1,4 +1,5 @@
 set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/gleam)
+set(VENDOR_DIR ${CMAKE_SOURCE_DIR}/vendor)
 
 set(SOURCE_CODE
     "cameras/camera.cpp"
@@ -148,8 +149,8 @@ set(HEADER_BUNDLES
 )
 
 set(VENDOR_SOURCES
-    "vendor/imgui/imgui_impl_glfw.cpp"
-    "vendor/imgui/imgui_impl_opengl3.cpp"
+    "${VENDOR_DIR}/imgui/backends/imgui_impl_glfw.cpp"
+    "${VENDOR_DIR}/imgui/backends/imgui_impl_opengl3.cpp"
 )
 
 include(ShaderProcessor)
@@ -183,7 +184,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src/vendor>
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/vendor>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/tools>
 )
 
