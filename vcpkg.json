@@ -5,10 +5,6 @@
             "version>=": "3.4"
         },
         {
-            "name": "gtest",
-            "version>=": "1.15.2"
-        },
-        {
             "name": "imgui",
             "version>=": "1.91.6"
         }

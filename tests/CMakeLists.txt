@@ -1,19 +1,16 @@
-if (BUILD_SHARED_LIBS)
-    message(FATAL_ERROR "
-        ⚠️ Unit tests should be built in conjunction with a static library.\n
-        -- -DBUILD_SHARED_LIBS=0 or -DBUILD_TESTS=0
-    ")
-endif()
-
-set(BUILD_GMOCK OFF CACHE BOOL "")
-
-find_package(GTest REQUIRED)
+find_package(GTest QUIET)
 
 if (NOT GTest_FOUND)
-    message(FATAL_ERROR "
-        ⚠️ GTest was not found. Use conan to install missing depedencies.
-        -- conan install . --output-folder=build --build=missing
-    ")
+    include(FetchContent)
+    message(STATUS "📦 GTest not found, fetching via FetchContent...")
+    set(INSTALL_GMOCK ON CACHE BOOL "" FORCE)
+    set(BUILD_GMOCK ON CACHE BOOL "" FORCE)
+    FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG v1.14.0
+    )
+    FetchContent_MakeAvailable(googletest)
 endif()
 
 file(GLOB TEST_SOURCES
@@ -32,7 +29,7 @@ foreach(TEST IN LISTS TEST_SOURCES)
 
     set(TEST_TARGET run_${NAME_NO_EXT})
     add_executable(${TEST_TARGET} test_helpers.hpp ${TEST})
-    target_link_libraries(${TEST_TARGET} PRIVATE GTest::gtest GTest::gtest_main gleam)
+    target_link_libraries(${TEST_TARGET} PRIVATE GTest::gtest GTest::gtest_main GTest::gmock gleam)
     add_test(${NAME_NO_EXT} ${TEST_TARGET})
 
     add_custom_command(
