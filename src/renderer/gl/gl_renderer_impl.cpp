@@ -119,7 +119,7 @@ auto Renderer::Impl::SetUniforms(
             auto f = static_cast<LinearFog*>(fog);
             program->SetUniform(Uniform::FogColor, &f->color);
             program->SetUniform(Uniform::FogNear, &f->near);
-            program->SetUniform(Uniform::FogFar, &f->near);
+            program->SetUniform(Uniform::FogFar, &f->far);
         }
 
         if (type == FogType::ExponentialFog) {

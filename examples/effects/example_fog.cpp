@@ -25,8 +25,7 @@ ExampleFog::ExampleFog(std::shared_ptr<gleam::Camera> camera) {
     }));
 
     auto geometry = BoxGeometry::Create();
-    auto material = PhongMaterial::Create();
-    material->color = 0x049EF4;
+    auto material = PhongMaterial::Create(0x049EF4);
 
     for (auto i = 0; i < 10; ++i) {
         auto box = Mesh::Create(geometry, material);
@@ -69,12 +68,14 @@ auto ExampleFog::ContextMenu() -> void {
         if (str == "exponential") fog = ExponentialFog::Create(fog->color, 0.2f);
     });
 
-    if (auto linear_fog = static_cast<LinearFog*>(fog.get())) {
-        UISliderFloat("near", linear_fog->near, 0.0f, 20.0f, _, 160.0f);
-        UISliderFloat("far", linear_fog->far, 0.0f, 20.0f, _, 160.0f);
+    if (fog->GetType() == FogType::LinearFog) {
+        auto f = static_cast<LinearFog*>(fog.get());
+        UISliderFloat("near", f->near, 0.0f, 20.0f, _, 160.0f);
+        UISliderFloat("far", f->far, 0.0f, 20.0f, _, 160.0f);
     }
 
-    if (auto exponential_fog = static_cast<ExponentialFog*>(fog.get())) {
-        UISliderFloat("density", exponential_fog->density, 0.0f, 1.0f, _, 160.0f);
+    if (fog->GetType() == FogType::ExponentialFog) {
+        auto f = static_cast<ExponentialFog*>(fog.get());
+        UISliderFloat("density", f->density, 0.0f, 1.0f, _, 160.0f);
     }
 }
