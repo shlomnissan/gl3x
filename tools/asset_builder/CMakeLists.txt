@@ -17,7 +17,7 @@ set(SOURCE_CODE
 add_executable(asset_builder ${SOURCE_CODE})
 
 target_include_directories(asset_builder PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/external
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 

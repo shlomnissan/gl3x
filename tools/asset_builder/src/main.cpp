@@ -5,14 +5,14 @@
 ===========================================================================
 */
 
-#include "cxxopts.hpp"
+#include "mesh_converter.hpp"
+#include "texture_converter.hpp"
 
 #include <iostream>
 #include <string>
 #include <filesystem>
 
-#include "mesh_converter.hpp"
-#include "texture_converter.hpp"
+#include "cxxopts.hpp"
 
 namespace fs = std::filesystem;
 
