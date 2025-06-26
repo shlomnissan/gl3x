@@ -15,55 +15,57 @@
 namespace gleam {
 
 /**
- * @brief A timer class to measure elapsed time.
+ * @brief Utility class for measuring elapsed time.
+ *
+ * The `Timer` class provides a simple mechanism for tracking time intervals
+ * using a steady clock. Typical usage includes measuring frame time, profiling
+ * sections of code, or retrieving a human-readable timestamp string.
+ *
+ * @ingroup CoreGroup
  */
 class GLEAM_EXPORT Timer {
 public:
     /**
-     * @brief Constructs a new Timer object.
+     * @brief Constructs a Timer object.
      *
-     * @param auto_start Indicates whether the timer should start immediately.
+     * @param auto_start If true, the timer starts immediately upon construction.
      */
     explicit Timer(bool auto_start);
 
     /**
      * @brief Starts the timer.
-     *
-     * If the timer is already running, this function has no effect.
      */
     auto Start() -> void;
 
     /**
-     * @brief Returns the elapsed time in milliseconds.
+     * @brief Returns the elapsed time in milliseconds since the timer started.
      *
-     * @return double The elapsed time in milliseconds,
-     * or 0 if the timer has not been started.
+     * @return double
      */
     [[nodiscard]] auto GetElapsedMilliseconds() const -> double;
 
     /**
-     * @brief Returns the elapsed time in seconds.
+     * @brief Returns the elapsed time in seconds since the timer started.
      *
-     * @return double The elapsed time in seconds,
-     * or 0 if the timer has not been started.
+     * @return double
      */
     [[nodiscard]] auto GetElapsedSeconds() const -> double;
 
     /**
-     * @brief Gets the current timestamp in a formatted string.
+     * @brief Returns the current local time as a formatted string.
      *
-     * This function retrieves the current time and formats it as a string
-     * in the format "YYYY-MM-DD HH:MM:SS". The time is represented in UTC.
+     * The result is formatted as `YYYY-MM-DD HH:MM:SS` using the system's
+     * local timezone.
      *
-     * @return std::string The current timestamp as a formatted string.
+     * @return Formatted string representing the current local time.
      */
     [[nodiscard]] static auto GetTimestamp() -> std::string;
 
 private:
-    /// @brief Indicates whether the timer is currently running.
+    /// @brief Whether the timer is currently running.
     bool running_ {false};
 
-    /// @brief Time when the timer was started.
+    /// @brief Start time of the timer.
     std::chrono::time_point<std::chrono::steady_clock> start_time_;
 };
 
