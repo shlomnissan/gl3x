@@ -49,8 +49,8 @@ public:
     struct Parameters {
         Color color; ///< Light color.
         float intensity; ///< Light intensity.
-        float angle;
-        float penumbra;
+        float angle; ///< Cone angle (in radians) for spotlight cutoff.
+        float penumbra; ///< Softness of the spotlight edge.
         std::shared_ptr<Node> target; ///< Light target position.
         Attenuation attenuation; ///< Light attenuation properties.
     };
