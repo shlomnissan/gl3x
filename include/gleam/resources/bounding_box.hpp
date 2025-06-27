@@ -8,7 +8,8 @@
 #pragma once
 
 #include "gleam_export.h"
-#include "gleam/core/geometry.hpp"
+
+#include "gleam/geometries/geometry.hpp"
 #include "gleam/math/box3.hpp"
 #include "gleam/math/color.hpp"
 #include "gleam/nodes/node.hpp"

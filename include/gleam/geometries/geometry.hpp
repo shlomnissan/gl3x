@@ -172,9 +172,7 @@ public:
     /**
      * @brief Destructor calls the Dispose() method to clean up resources.
      */
-    ~Geometry() {
-        Dispose();
-    }
+    virtual ~Geometry();
 
 protected:
     /// @brief The vertex data of the geometry.

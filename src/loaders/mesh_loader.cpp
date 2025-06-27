@@ -8,7 +8,7 @@
 #include "gleam/loaders/mesh_loader.hpp"
 #include "gleam/loaders/texture_loader.hpp"
 
-#include "gleam/core/geometry.hpp"
+#include "gleam/geometries/geometry.hpp"
 #include "gleam/materials/phong_material.hpp"
 #include "gleam/math/color.hpp"
 #include "gleam/nodes/mesh.hpp"

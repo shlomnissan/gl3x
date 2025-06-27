@@ -7,8 +7,8 @@
 
 #include "gleam/resources/arrow.hpp"
 
-#include "gleam/core/geometry.hpp"
 #include "gleam/geometries/cone_geometry.hpp"
+#include "gleam/geometries/geometry.hpp"
 #include "gleam/materials/flat_material.hpp"
 #include "gleam/nodes/mesh.hpp"
 

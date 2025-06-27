@@ -15,5 +15,6 @@
 #include "gleam/geometries/box_geometry.hpp"
 #include "gleam/geometries/cone_geometry.hpp"
 #include "gleam/geometries/cylinder_geometry.hpp"
+#include "gleam/geometries/geometry.hpp"
 #include "gleam/geometries/plane_geometry.hpp"
 #include "gleam/geometries/sphere_geometry.hpp"

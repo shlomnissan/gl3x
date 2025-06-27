@@ -8,7 +8,8 @@
 #pragma once
 
 #include "gleam_export.h"
-#include "gleam/core/geometry.hpp"
+
+#include "gleam/geometries/geometry.hpp"
 #include "gleam/materials/material.hpp"
 #include "gleam/nodes/node.hpp"
 

@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "gleam/core/geometry.hpp"
+#include "gleam/geometries/geometry.hpp"
 
 #include <array>
 #include <memory>

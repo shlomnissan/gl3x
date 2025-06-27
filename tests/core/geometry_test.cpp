@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <gleam/core/geometry.hpp>
+#include <gleam/geometries/geometry.hpp>
 
 #include <vector>
 
