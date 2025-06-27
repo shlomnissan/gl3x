@@ -17,7 +17,7 @@
 #include "example_scene.hpp"
 #include "examples.hpp"
 
-#include <imgui.h>
+#include <imgui/imgui.h>
 
 using namespace gleam;
 

@@ -96,8 +96,4 @@ auto Geometry::CreateBoundingSphere() -> void {
     bounding_sphere_ = Sphere {center, std::sqrt(max_distance_squared)};
 }
 
-Geometry::~Geometry() {
-    Dispose();
-}
-
 }

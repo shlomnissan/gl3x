@@ -3,10 +3,6 @@
         {
             "name": "glfw3",
             "version>=": "3.4"
-        },
-        {
-            "name": "imgui",
-            "version>=": "1.91.6"
         }
     ]
 }

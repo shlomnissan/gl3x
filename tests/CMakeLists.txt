@@ -13,6 +13,8 @@ if (NOT GTest_FOUND)
     FetchContent_MakeAvailable(googletest)
 endif()
 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}/tests)
+
 file(GLOB TEST_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/**/*.cpp
     ${CMAKE_CURRENT_LIST_DIR}/**/**/*.cpp

@@ -7,7 +7,7 @@
 
 #include "utilities/performance_graph.hpp"
 
-#include <imgui.h>
+#include <imgui/imgui.h>
 
 namespace gleam {
 

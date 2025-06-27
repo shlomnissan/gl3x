@@ -8,6 +8,7 @@
 #pragma once
 
 #include "gleam_export.h"
+
 #include "gleam/core/disposable.hpp"
 #include "gleam/core/identity.hpp"
 #include "gleam/math/box3.hpp"
@@ -189,7 +190,9 @@ public:
     /**
      * @brief Destructor.
      */
-    virtual ~Geometry();
+    virtual ~Geometry() {
+        Dispose();
+    }
 
 protected:
     /// @brief Interleaved vertex buffer.

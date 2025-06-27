@@ -15,19 +15,20 @@ option(BUILD_EXAMPLES "build examples" ON)
 option(BUILD_TOOLS "build tools" ON)
 option(BUILD_DOCS "build documentation" ON)
 
-add_subdirectory(src)
+add_subdirectory("vendor")
+add_subdirectory("src")
 
 if (BUILD_TESTS)
     include(CTest)
-    add_subdirectory(tests)
+    add_subdirectory("tests")
 endif()
 
 if (BUILD_EXAMPLES)
-    add_subdirectory(examples)
+    add_subdirectory("examples")
 endif()
 
 if (BUILD_TOOLS)
-    add_subdirectory(tools/asset_builder)
+    add_subdirectory("tools/asset_builder")
 endif()
 
 if (BUILD_DOCS)

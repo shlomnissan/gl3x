@@ -32,8 +32,6 @@ set(SOURCE_CODE
     "test/example_lerp_animation_test.hpp"
 )
 
-find_package(imgui REQUIRED)
-
 add_executable(gleam-examples main.cpp ${SOURCE_CODE})
 
 # disable RTTI and exceptions
@@ -48,10 +46,7 @@ target_include_directories(gleam-examples PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>
 )
 
-target_link_libraries(gleam-examples PRIVATE
-    gleam
-    imgui::imgui
-)
+target_link_libraries(gleam-examples PRIVATE gleam)
 
 add_custom_command(
     TARGET gleam-examples POST_BUILD
