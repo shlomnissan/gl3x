@@ -168,8 +168,6 @@ add_library(
     ${VENDOR_SOURCES}
 )
 
-find_package(glfw3 REQUIRED)
-
 # disable RTTI and exceptions
 target_compile_options(${PROJECT_NAME} PRIVATE
     $<$<CXX_COMPILER_ID:GNU>:-fno-rtti -fno-exceptions>
