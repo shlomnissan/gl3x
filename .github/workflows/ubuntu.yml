@@ -13,9 +13,6 @@ jobs:
           sudo apt-get -yq update
           sudo apt-get install -yq cmake ninja-build libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config doxygen graphviz
           gcc --version
-          git clone https://github.com/microsoft/vcpkg.git ${{github.workspace}}/vcpkg
-          ${{github.workspace}}/vcpkg/bootstrap-vcpkg.sh
-          echo "VCPKG_ROOT=${{github.workspace}}/vcpkg" >> $GITHUB_ENV
       - name: Configure
         shell: bash
         run: cmake -B ${{github.workspace}}/build --preset="debug" -G "Ninja"

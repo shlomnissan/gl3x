@@ -1,11 +1,5 @@
 @echo off
 
-:: Set default triplet value
-set "triplet=x64-windows-static-md"
-
-:: Check if a triplet is provided as an argument
-if not "%~1"=="" set "triplet=%~1"
-
 :: Determine the script's location
 set "script_dir=%~dp0"
 
@@ -26,8 +20,8 @@ cd release
 if errorlevel 1 goto :error
 
 :: Configure the project
-echo Running CMake configuration with triplet: %triplet%
-cmake .. --preset "release" -DVCPKG_TARGET_TRIPLET=%triplet%
+echo Running CMake configuration
+cmake .. --preset "release"
 if errorlevel 1 goto :error
 
 :: Build the project

@@ -1,3 +1,3 @@
-add_subdirectory("glad")
-add_subdirectory("glfw")
-add_subdirectory("imgui")
+add_subdirectory("glad" EXCLUDE_FROM_ALL)
+add_subdirectory("glfw" EXCLUDE_FROM_ALL)
+add_subdirectory("imgui" EXCLUDE_FROM_ALL)

@@ -5,8 +5,7 @@
         "name": "debug",
         "binaryDir": "${sourceDir}/build",
         "cacheVariables": {
-          "CMAKE_BUILD_TYPE": "Debug",
-          "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+          "CMAKE_BUILD_TYPE": "Debug"
         }
       },
       {
@@ -16,8 +15,7 @@
           "CMAKE_BUILD_TYPE": "Release",
           "BUILD_SHARED_LIBS": "ON",
           "BUILD_TESTS": "OFF",
-          "BUILD_EXAMPLES": "OFF",
-          "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+          "BUILD_EXAMPLES": "OFF"
         }
       }
     ]

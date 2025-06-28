@@ -87,31 +87,31 @@ endif()
 if (GLFW_BUILD_WIN32)
     target_compile_definitions(glfw PRIVATE _GLFW_WIN32)
     target_sources(glfw PRIVATE
-        win32_platform.h
-        win32_joystick.h
-        win32_init.c
-        win32_joystick.c
-        win32_monitor.c
-        win32_window.c
-        wgl_context.c
+        "win32_platform.h"
+        "win32_joystick.h"
+        "win32_init.c"
+        "win32_joystick.c"
+        "win32_monitor.c"
+        "win32_window.c"
+        "wgl_context.c"
     )
 endif()
 
 if (GLFW_BUILD_X11)
     target_compile_definitions(glfw PRIVATE _GLFW_X11)
     target_sources(glfw PRIVATE
-        x11_platform.h
-        xkb_unicode.h
-        x11_init.c
-        x11_monitor.c
-        x11_window.c
-        xkb_unicode.c
-        glx_context.c
+        "x11_platform.h"
+        "xkb_unicode.h"
+        "x11_init.c"
+        "x11_monitor.c"
+        "x11_window.c"
+        "xkb_unicode.c"
+        "glx_context.c"
     )
     if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
-        target_sources(glfw PRIVATE linux_joystick.h linux_joystick.c)
+        target_sources(glfw PRIVATE "linux_joystick.h" "linux_joystick.c")
     endif()
-    target_sources(glfw PRIVATE posix_poll.h posix_poll.c)
+    target_sources(glfw PRIVATE "posix_poll.h" "posix_poll.c")
 endif()
 
 set_target_properties(glfw PROPERTIES
@@ -246,8 +246,8 @@ endif()
 # Workaround for legacy MinGW not providing XInput and DirectInput
 if (MINGW)
     include(CheckIncludeFile)
-    check_include_file(dinput.h DINPUT_H_FOUND)
-    check_include_file(xinput.h XINPUT_H_FOUND)
+    check_include_file("dinput.h" DINPUT_H_FOUND)
+    check_include_file("xinput.h" XINPUT_H_FOUND)
     if (NOT DINPUT_H_FOUND OR NOT XINPUT_H_FOUND)
         target_include_directories(glfw PRIVATE "${GLFW_SOURCE_DIR}/deps/mingw")
     endif()

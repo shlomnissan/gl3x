@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# Set default triplet value
-triplet="x64-linux-release"
-
-# Check if a triplet is provided as an argument
-if [ "$1" != "" ]; then
-    triplet="$1"
-fi
-
 # Determine the script's location
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -26,8 +18,8 @@ mkdir release || { echo "Failed to create 'release' folder"; exit 1; }
 cd release
 
 # Configure the project
-echo "Running CMake configuration with triplet: $triplet"
-cmake .. --preset "release" -DVCPKG_TARGET_TRIPLET="$triplet" || {
+echo "Running CMake configuration"
+cmake .. --preset "release" || {
     echo "CMake configuration failed";
     exit 1;
 }
