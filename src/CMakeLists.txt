@@ -121,6 +121,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/math/vector2.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector3.hpp"
     "${PUBLIC_HEADERS_DIR}/math/vector4.hpp"
+    "${PUBLIC_HEADERS_DIR}/nodes/fog.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/mesh.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/node.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/scene.hpp"

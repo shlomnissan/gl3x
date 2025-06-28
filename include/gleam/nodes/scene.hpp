@@ -9,8 +9,8 @@
 
 #include "gleam_export.h"
 #include "gleam/core/events.hpp"
-#include "gleam/core/fog.hpp"
 #include "gleam/math/color.hpp"
+#include "gleam/nodes/fog.hpp"
 #include "gleam/nodes/node.hpp"
 
 #include <functional>
