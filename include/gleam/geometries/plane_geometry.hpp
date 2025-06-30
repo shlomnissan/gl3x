@@ -17,7 +17,6 @@ namespace gleam {
 
 /**
  * @brief A class for generating plane geometries.
- * @ingroup GeometryGroup
  */
 class GLEAM_EXPORT PlaneGeometry : public Geometry {
 public:

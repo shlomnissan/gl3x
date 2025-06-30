@@ -18,7 +18,6 @@ namespace gleam {
 
 /**
  * @brief A class for generating sphere geometries.
- * @ingroup GeometryGroup
  */
 class GLEAM_EXPORT SphereGeometry : public Geometry {
 public:

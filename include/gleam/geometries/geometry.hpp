@@ -64,7 +64,7 @@ struct GeometryAttribute {
  * configured with attribute metadata via `SetAttribute`.
  *
  * @code
- * auto geometry = Geometry::Create({
+ * auto geometry = gleam::Geometry::Create({
  *    0.5f, -0.5f, 0.0f,
  *    0.0f,  0.5f, 0.0f,
  *   -0.5f, -0.5f, 0.0f,

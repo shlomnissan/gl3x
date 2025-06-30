@@ -18,7 +18,6 @@ namespace gleam {
 
 /**
  * @brief A class for generating cone geometries.
- * @ingroup GeometryGroup
  */
 class GLEAM_EXPORT ConeGeometry : public CylinderGeometry {
 public:

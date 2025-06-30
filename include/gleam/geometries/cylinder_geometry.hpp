@@ -17,7 +17,6 @@ namespace gleam {
 
 /**
  * @brief A class for generating cylinder geometries.
- * @ingroup GeometryGroup
  */
 class GLEAM_EXPORT CylinderGeometry : public Geometry {
 public:
