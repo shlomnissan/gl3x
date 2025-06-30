@@ -13,7 +13,7 @@
 
 class CubeGeometryTest : public ::testing::Test {
 protected:
-    gleam::CubeGeometry box_ {{
+    gleam::CubeGeometry cube_ {{
         .width = 1.0f,
         .height = 1.0f,
         .depth = 1.0f,
@@ -28,21 +28,21 @@ protected:
 #pragma region Constructor
 
 TEST_F(CubeGeometryTest, ConstructorInitializesVertexData) {
-    const auto& verts = box_.VertexData();
+    const auto& verts = cube_.VertexData();
 
     // 8 values per vertex, 9 vertices, 6 faces
     EXPECT_EQ(verts.size(), 8 * 9 * 6);
 }
 
 TEST_F(CubeGeometryTest, ConstructorInitializesIndexData) {
-    const auto& index = box_.IndexData();
+    const auto& index = cube_.IndexData();
 
     // 6 indices (2 triangles per sub-plane), 4 sub-planes, 6 faces
     EXPECT_EQ(index.size(), 6 * 4 * 6);
 }
 
 TEST_F(CubeGeometryTest, ConstructorInitializesName) {
-    EXPECT_EQ(box_.Name(), "box geometry");
+    EXPECT_EQ(cube_.Name(), "cube geometry");
 }
 
 #pragma endregion
@@ -52,7 +52,7 @@ TEST_F(CubeGeometryTest, ConstructorInitializesName) {
 TEST_F(CubeGeometryTest, AttributesConfiguredCorrectly) {
     using enum gleam::GeometryAttributeType;
 
-    const auto& attrs = box_.Attributes();
+    const auto& attrs = cube_.Attributes();
 
     EXPECT_EQ(attrs.size(), 3);
     EXPECT_EQ(attrs[0].type, Position);

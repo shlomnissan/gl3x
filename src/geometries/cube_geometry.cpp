@@ -11,56 +11,35 @@
 
 namespace gleam {
 
-CubeGeometry::CubeGeometry(const Parameters& params) {
-    assert(params.width > 0.0f);
-    assert(params.height > 0.0f);
-    assert(params.depth > 0.0f);
-    assert(params.width_segments > 0);
-    assert(params.height_segments > 0);
-    assert(params.depth_segments > 0);
+namespace {
 
-    SetName("box geometry");
+struct PlaneParameters {
+    char u;
+    char v;
+    char w;
+    int udir;
+    int vdir;
+    float width;
+    float height;
+    float depth;
+    unsigned grid_x;
+    unsigned grid_y;
+};
 
-    BuildPlane({
-        'z', 'y', 'x', -1, -1,
-        params.depth, params.height, params.width,
-        params.depth_segments, params.height_segments
-    });
-
-    BuildPlane({
-        'z', 'y', 'x', 1, -1,
-        params.depth, params.height, -params.width,
-        params.depth_segments, params.height_segments
-    });
-
-    BuildPlane({
-        'x', 'z', 'y', 1, 1,
-        params.width, params.depth, params.height,
-        params.width_segments, params.depth_segments
-    });
-
-    BuildPlane({
-        'x', 'z', 'y', 1, -1,
-        params.width, params.depth, -params.height,
-        params.width_segments, params.depth_segments
-    });
-
-    BuildPlane({
-        'x', 'y', 'z', 1, -1,
-        params.width, params.height, params.depth,
-        params.width_segments, params.height_segments
-    });
-
-    BuildPlane({
-        'x', 'y', 'z', -1, -1,
-        params.width, params.height, -params.depth,
-        params.width_segments, params.height_segments
-    });
-
-    SetAttributes();
+auto set_component(Vector3& vec, char axis, float value) {
+    switch(axis) {
+        case 'x': vec.x = value; break;
+        case 'y': vec.y = value; break;
+        case 'z': vec.z = value; break;
+    }
 }
 
-auto CubeGeometry::BuildPlane(const PlaneParameters& params) -> void {
+auto build_plane(
+    const PlaneParameters& params,
+    unsigned int& vertex_counter,
+    std::vector<float>& vertex_data,
+    std::vector<unsigned int>& index_data
+) {
     const auto width_half = params.width / 2;
     const auto height_half = params.height / 2;
     const auto depth_half = params.depth / 2;
@@ -80,28 +59,28 @@ auto CubeGeometry::BuildPlane(const PlaneParameters& params) -> void {
             const auto x = ix * segment_w - width_half;
 
             // set position
-            SetComponent(vec, params.u, x * params.udir);
-            SetComponent(vec, params.v, y * params.vdir);
-            SetComponent(vec, params.w, depth_half);
+            set_component(vec, params.u, x * params.udir);
+            set_component(vec, params.v, y * params.vdir);
+            set_component(vec, params.w, depth_half);
 
-            vertex_data_.emplace_back(vec.x);  // pos x
-            vertex_data_.emplace_back(vec.y);  // pos y
-            vertex_data_.emplace_back(vec.z);  // pos z
+            vertex_data.emplace_back(vec.x);
+            vertex_data.emplace_back(vec.y);
+            vertex_data.emplace_back(vec.z);
 
             // set normals
-            SetComponent(vec, params.u, 0);
-            SetComponent(vec, params.v, 0);
-            SetComponent(vec, params.w, params.depth > 0 ? 1 : -1);
+            set_component(vec, params.u, 0);
+            set_component(vec, params.v, 0);
+            set_component(vec, params.w, params.depth > 0 ? 1 : -1);
 
-            vertex_data_.emplace_back(vec.x);  // normal x
-            vertex_data_.emplace_back(vec.y);  // normal y
-            vertex_data_.emplace_back(vec.z);  // normal z
+            vertex_data.emplace_back(vec.x);
+            vertex_data.emplace_back(vec.y);
+            vertex_data.emplace_back(vec.z);
 
             // set uvs
             const auto u = static_cast<float>(ix) / params.grid_x;
             const auto v = 1 - (static_cast<float>(iy) / params.grid_y);
-            vertex_data_.emplace_back(u);
-            vertex_data_.emplace_back(v);
+            vertex_data.emplace_back(u);
+            vertex_data.emplace_back(v);
 
             ++counter;
         }
@@ -109,37 +88,74 @@ auto CubeGeometry::BuildPlane(const PlaneParameters& params) -> void {
 
     for (auto iy = 0; iy < params.grid_y; ++iy) {
         for (auto ix = 0; ix < params.grid_x; ++ix) {
-            const auto a = vertex_counter_ + ix + grid_x1 * iy;
-            const auto b = vertex_counter_ + ix + grid_x1 * (iy + 1);
-            const auto c = vertex_counter_ + ix + 1 + grid_x1 * (iy + 1);
-            const auto d = vertex_counter_ + ix + 1 + grid_x1 * iy;
+            const auto a = vertex_counter + ix + grid_x1 * iy;
+            const auto b = vertex_counter + ix + grid_x1 * (iy + 1);
+            const auto c = vertex_counter + ix + 1 + grid_x1 * (iy + 1);
+            const auto d = vertex_counter + ix + 1 + grid_x1 * iy;
 
-            index_data_.emplace_back(a);
-            index_data_.emplace_back(b);
-            index_data_.emplace_back(d);
-            index_data_.emplace_back(b);
-            index_data_.emplace_back(c);
-            index_data_.emplace_back(d);
+            index_data.emplace_back(a);
+            index_data.emplace_back(b);
+            index_data.emplace_back(d);
+            index_data.emplace_back(b);
+            index_data.emplace_back(c);
+            index_data.emplace_back(d);
         }
     }
 
-    vertex_counter_ += counter;
+    vertex_counter += counter;
 }
 
-auto CubeGeometry::SetComponent(Vector3& vec, char axis, float value) -> void {
-    switch(axis) {
-        case 'x': vec.x = value; break;
-        case 'y': vec.y = value; break;
-        case 'z': vec.z = value; break;
-    }
 }
 
-auto CubeGeometry::SetAttributes() -> void {
-    using enum GeometryAttributeType;
+CubeGeometry::CubeGeometry(const Parameters& params) {
+    assert(params.width > 0.0f);
+    assert(params.height > 0.0f);
+    assert(params.depth > 0.0f);
+    assert(params.width_segments > 0);
+    assert(params.height_segments > 0);
+    assert(params.depth_segments > 0);
 
-    SetAttribute({.type = Position, .item_size = 3});
-    SetAttribute({.type = Normal, .item_size = 3});
-    SetAttribute({.type = UV, .item_size = 2});
+    SetName("cube geometry");
+
+    build_plane({
+        'z', 'y', 'x', -1, -1,
+        params.depth, params.height, params.width,
+        params.depth_segments, params.height_segments
+    }, vertex_counter_, vertex_data_, index_data_);
+
+    build_plane({
+        'z', 'y', 'x', 1, -1,
+        params.depth, params.height, -params.width,
+        params.depth_segments, params.height_segments
+    }, vertex_counter_, vertex_data_, index_data_);
+
+    build_plane({
+        'x', 'z', 'y', 1, 1,
+        params.width, params.depth, params.height,
+        params.width_segments, params.depth_segments
+    }, vertex_counter_, vertex_data_, index_data_);
+
+    build_plane({
+        'x', 'z', 'y', 1, -1,
+        params.width, params.depth, -params.height,
+        params.width_segments, params.depth_segments
+    }, vertex_counter_, vertex_data_, index_data_);
+
+    build_plane({
+        'x', 'y', 'z', 1, -1,
+        params.width, params.height, params.depth,
+        params.width_segments, params.height_segments
+    }, vertex_counter_, vertex_data_, index_data_);
+
+    build_plane({
+        'x', 'y', 'z', -1, -1,
+        params.width, params.height, -params.depth,
+        params.width_segments, params.height_segments
+    }, vertex_counter_, vertex_data_, index_data_);
+
+    SetAttribute({.type = GeometryAttributeType::Position, .item_size = 3});
+    SetAttribute({.type = GeometryAttributeType::Normal, .item_size = 3});
+    SetAttribute({.type = GeometryAttributeType::UV, .item_size = 2});
 }
 
 }
