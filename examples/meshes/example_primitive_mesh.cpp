@@ -42,7 +42,7 @@ ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<gleam::Camera> camera
     point_light->transform.Translate({2.0f, 2.0f, 4.0f});
     Add(point_light);
 
-    auto geometry = BoxGeometry::Create(box_params_);
+    auto geometry = CubeGeometry::Create(box_params_);
     auto base_material = PhongMaterial::Create(0x049EF4);
     base_material->polygon_offset_factor = 1.0f;
     base_material->polygon_offset_units = 1.0f;
@@ -87,7 +87,7 @@ auto ExamplePrimitiveMesh::ContextMenu() -> void {
         std::shared_ptr<Geometry> geometry;
 
         if (curr_primitive_ == "box") {
-            geometry = BoxGeometry::Create(box_params_);
+            geometry = CubeGeometry::Create(box_params_);
         } else if (curr_primitive_ == "cone") {
             geometry = ConeGeometry::Create(cone_params_);
         } else if (curr_primitive_ == "cylinder") {

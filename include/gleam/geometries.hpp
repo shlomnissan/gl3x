@@ -12,8 +12,8 @@
  * @brief Geometry objects that represent basic primitives.
  */
 
-#include "gleam/geometries/box_geometry.hpp"
 #include "gleam/geometries/cone_geometry.hpp"
+#include "gleam/geometries/cube_geometry.hpp"
 #include "gleam/geometries/cylinder_geometry.hpp"
 #include "gleam/geometries/geometry.hpp"
 #include "gleam/geometries/plane_geometry.hpp"

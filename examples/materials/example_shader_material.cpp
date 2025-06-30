@@ -19,7 +19,7 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<gleam::Camera> came
 
     fog = ExponentialFog::Create(0x444444, 0.3f);
 
-    auto geometry = BoxGeometry::Create();
+    auto geometry = CubeGeometry::Create();
 
     material_ = ShaderMaterial::Create(
         // Vertex shader

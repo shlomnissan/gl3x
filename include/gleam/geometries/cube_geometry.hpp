@@ -20,7 +20,7 @@ namespace gleam {
  * @brief A class for generating box geometries.
  * @ingroup GeometryGroup
  */
-class GLEAM_EXPORT BoxGeometry : public Geometry {
+class GLEAM_EXPORT CubeGeometry : public Geometry {
 public:
     /**
      * @brief Structure containing parameters for the box geometry.
@@ -39,7 +39,7 @@ public:
      *
      * @param params Parameters defining the size and segmentation of the box.
      */
-    explicit BoxGeometry(const Parameters& params);
+    explicit CubeGeometry(const Parameters& params);
 
     /**
      * @brief Creates a shared pointer to a BoxGeometry object with default parameters.
@@ -47,7 +47,7 @@ public:
      * @return std::shared_ptr<BoxGeometry> A shared pointer to the newly created object.
      */
     [[nodiscard]] static auto Create() {
-        return std::make_shared<BoxGeometry>(Parameters {});
+        return std::make_shared<CubeGeometry>(Parameters {});
     }
 
     /**
@@ -57,7 +57,7 @@ public:
      * @return std::shared_ptr<BoxGeometry> A shared pointer to the newly created object.
      */
     [[nodiscard]] static auto Create(const Parameters& params){
-        return std::make_shared<BoxGeometry>(params);
+        return std::make_shared<CubeGeometry>(params);
     }
 
 private:

@@ -22,7 +22,7 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<gleam::Camera> camera
 
     fog = ExponentialFog::Create(0x444444, 0.3f);
 
-    auto geometry = BoxGeometry::Create();
+    auto geometry = CubeGeometry::Create();
     material_ = PhongMaterial::Create(0x049EF4);
     material_->specular = {0.3f, 0.3, 0.3f};
     material_->shininess = 64.0f;

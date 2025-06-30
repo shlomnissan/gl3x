@@ -7,13 +7,13 @@
 
 #include <gtest/gtest.h>
 
-#include <gleam/geometries/box_geometry.hpp>
+#include <gleam/geometries/cube_geometry.hpp>
 
 #pragma region Fixtures
 
-class BoxGeometryTest : public ::testing::Test {
+class CubeGeometryTest : public ::testing::Test {
 protected:
-    gleam::BoxGeometry box_ {{
+    gleam::CubeGeometry box_ {{
         .width = 1.0f,
         .height = 1.0f,
         .depth = 1.0f,
@@ -27,21 +27,21 @@ protected:
 
 #pragma region Constructor
 
-TEST_F(BoxGeometryTest, ConstructorInitializesVertexData) {
+TEST_F(CubeGeometryTest, ConstructorInitializesVertexData) {
     const auto& verts = box_.VertexData();
 
     // 8 values per vertex, 9 vertices, 6 faces
     EXPECT_EQ(verts.size(), 8 * 9 * 6);
 }
 
-TEST_F(BoxGeometryTest, ConstructorInitializesIndexData) {
+TEST_F(CubeGeometryTest, ConstructorInitializesIndexData) {
     const auto& index = box_.IndexData();
 
     // 6 indices (2 triangles per sub-plane), 4 sub-planes, 6 faces
     EXPECT_EQ(index.size(), 6 * 4 * 6);
 }
 
-TEST_F(BoxGeometryTest, ConstructorInitializesName) {
+TEST_F(CubeGeometryTest, ConstructorInitializesName) {
     EXPECT_EQ(box_.Name(), "box geometry");
 }
 
@@ -49,7 +49,7 @@ TEST_F(BoxGeometryTest, ConstructorInitializesName) {
 
 #pragma region Attributes
 
-TEST_F(BoxGeometryTest, AttributesConfiguredCorrectly) {
+TEST_F(CubeGeometryTest, AttributesConfiguredCorrectly) {
     using enum gleam::GeometryAttributeType;
 
     const auto& attrs = box_.Attributes();
@@ -67,29 +67,29 @@ TEST_F(BoxGeometryTest, AttributesConfiguredCorrectly) {
 
 #pragma region Assertions
 
-TEST(BoxGeometry, DeathWhenParamsAreInvalid) {
+TEST(CubeGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        gleam::BoxGeometry({.width = 0.0f});
+        gleam::CubeGeometry({.width = 0.0f});
     }, ".*params.width > 0");
 
     EXPECT_DEATH({
-        gleam::BoxGeometry({.height = 0.0f});
+        gleam::CubeGeometry({.height = 0.0f});
     }, ".*params.height > 0");
 
     EXPECT_DEATH({
-        gleam::BoxGeometry({.depth = 0.0f});
+        gleam::CubeGeometry({.depth = 0.0f});
     }, ".*params.depth > 0");
 
     EXPECT_DEATH({
-        gleam::BoxGeometry({.width_segments = 0});
+        gleam::CubeGeometry({.width_segments = 0});
     }, ".*params.width_segments > 0");
 
     EXPECT_DEATH({
-        gleam::BoxGeometry({.height_segments = 0});
+        gleam::CubeGeometry({.height_segments = 0});
     }, ".*params.height_segments > 0");
 
     EXPECT_DEATH({
-        gleam::BoxGeometry({.depth_segments = 0});
+        gleam::CubeGeometry({.depth_segments = 0});
     }, ".*params.depth_segments > 0");
 }
 

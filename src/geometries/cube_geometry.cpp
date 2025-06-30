@@ -5,13 +5,13 @@
 ===========================================================================
 */
 
-#include "gleam/geometries/box_geometry.hpp"
+#include "gleam/geometries/cube_geometry.hpp"
 
 #include <cassert>
 
 namespace gleam {
 
-BoxGeometry::BoxGeometry(const Parameters& params) {
+CubeGeometry::CubeGeometry(const Parameters& params) {
     assert(params.width > 0.0f);
     assert(params.height > 0.0f);
     assert(params.depth > 0.0f);
@@ -60,7 +60,7 @@ BoxGeometry::BoxGeometry(const Parameters& params) {
     SetAttributes();
 }
 
-auto BoxGeometry::BuildPlane(const PlaneParameters& params) -> void {
+auto CubeGeometry::BuildPlane(const PlaneParameters& params) -> void {
     const auto width_half = params.width / 2;
     const auto height_half = params.height / 2;
     const auto depth_half = params.depth / 2;
@@ -126,7 +126,7 @@ auto BoxGeometry::BuildPlane(const PlaneParameters& params) -> void {
     vertex_counter_ += counter;
 }
 
-auto BoxGeometry::SetComponent(Vector3& vec, char axis, float value) -> void {
+auto CubeGeometry::SetComponent(Vector3& vec, char axis, float value) -> void {
     switch(axis) {
         case 'x': vec.x = value; break;
         case 'y': vec.y = value; break;
@@ -134,7 +134,7 @@ auto BoxGeometry::SetComponent(Vector3& vec, char axis, float value) -> void {
     }
 }
 
-auto BoxGeometry::SetAttributes() -> void {
+auto CubeGeometry::SetAttributes() -> void {
     using enum GeometryAttributeType;
 
     SetAttribute({.type = Position, .item_size = 3});
