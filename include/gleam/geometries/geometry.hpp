@@ -65,9 +65,9 @@ struct GeometryAttribute {
  *
  * @code
  * auto geometry = gleam::Geometry::Create({
- *    0.5f, -0.5f, 0.0f,
- *    0.0f,  0.5f, 0.0f,
- *   -0.5f, -0.5f, 0.0f,
+ *   0.5f, -0.5f, 0.0f,
+ *   0.0f,  0.5f, 0.0f,
+ *  -0.5f, -0.5f, 0.0f,
  * });
  *
  * geometry->SetAttribute({GeometryAttributeType::Position, 3});

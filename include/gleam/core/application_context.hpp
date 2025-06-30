@@ -33,29 +33,29 @@ namespace gleam {
  * @code
  * class MyApp : public gleam::ApplicationContext {
  * public:
- *     void Configure() override {
- *         params.title = "My App";
- *         params.width = 1280;
- *         params.height = 720;
- *         params.clear_color = 0x444444;
- *     }
+ *   void Configure() override {
+ *     params.title = "My App";
+ *     params.width = 1280;
+ *     params.height = 720;
+ *     params.clear_color = 0x444444;
+ *   }
  *
- *     std::shared_ptr<gleam::Scene> CreateScene() override {
- *         auto scene = gleam::Scene::Create();
- *         // Add nodes to the scene
- *         return scene;
- *     }
+ *   std::shared_ptr<gleam::Scene> CreateScene() override {
+ *     auto scene = gleam::Scene::Create();
+ *     // Add nodes to the scene
+ *     return scene;
+ *   }
  *
  *     bool Update(float delta) override {
- *         // Called every frame
- *         return true;
+ *       // Called every frame
+ *       return true;
  *     }
  * };
  *
  * int main() {
- *     MyApp app;
- *     app.Start();
- *     return 0;
+ *   MyApp app;
+ *   app.Start();
+ *   return 0;
  * }
  * @endcode
  *

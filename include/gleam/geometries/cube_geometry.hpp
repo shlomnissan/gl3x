@@ -26,12 +26,12 @@ namespace gleam {
  *
  * @code
  * auto geometry = gleam::CubeGeometry::Create({
- *     .width = 2.0f,
- *     .height = 1.0f,
- *     .depth = 3.0f,
- *     .width_segments = 2,
- *     .height_segments = 2,
- *     .depth_segments = 2
+ *   .width = 2.0f,
+ *   .height = 1.0f,
+ *   .depth = 3.0f,
+ *   .width_segments = 2,
+ *   .height_segments = 2,
+ *   .depth_segments = 2
  * });
  *
  * auto mesh = gleam::Mesh::Create(geometry, FlatMaterial::Create(0x049EF4));

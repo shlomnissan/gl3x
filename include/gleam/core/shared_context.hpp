@@ -30,15 +30,15 @@ namespace gleam {
  * @code
  * class MyNode : public gleam::Node {
  * public:
- *     void OnAttached() override {
- *         // Safe to access context and initiate resource loading
- *         this->Context()->Loaders().Texture->LoadAsync(
- *             "assets/checker.tex",
- *             [this](auto result) {
- *                 if (result) texture_ = result.value();
- *             }
- *         );
- *     }
+ *   void OnAttached() override {
+ *     // Safe to access context and initiate resource loading
+ *     this->Context()->Loaders().Texture->LoadAsync(
+ *       "assets/checker.tex",
+ *       [this](auto result) {
+ *         if (result) texture_ = result.value();
+ *       }
+ *     );
+ *   }
  * };
  * @endcode
  *
