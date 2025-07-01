@@ -11,19 +11,13 @@
 
 namespace gleam {
 
-PlaneGeometry::PlaneGeometry(const Parameters& params) {
-    assert(params.width > 0.0f);
-    assert(params.height > 0.0f);
-    assert(params.width_segments > 0);
-    assert(params.height_segments > 0);
+namespace {
 
-    SetName("plane geometry");
-
-    GenerateGeometry(params);
-    SetAttributes();
-}
-
-auto PlaneGeometry::GenerateGeometry(const Parameters& params) -> void {
+auto generate_geometry(
+    const PlaneGeometry::Parameters& params,
+    std::vector<float>& vertex_data,
+    std::vector<unsigned int>& index_data
+) {
     const auto width_half = params.width / 2;
     const auto height_half = params.height / 2;
 
@@ -42,14 +36,14 @@ auto PlaneGeometry::GenerateGeometry(const Parameters& params) -> void {
             const auto u = static_cast<float>(ix) / grid_x;
             const auto v = 1 - (static_cast<float>(iy) / grid_y);
 
-            vertex_data_.emplace_back(x);     // pos x
-            vertex_data_.emplace_back(-y);    // pos y
-            vertex_data_.emplace_back(0.0f);  // pos z
-            vertex_data_.emplace_back(0.0f);  // normal x
-            vertex_data_.emplace_back(0.0f);  // normal y
-            vertex_data_.emplace_back(1.0f);  // normal z
-            vertex_data_.emplace_back(u);     // u
-            vertex_data_.emplace_back(v);     // v
+            vertex_data.emplace_back(x); // pos x
+            vertex_data.emplace_back(-y); // pos y
+            vertex_data.emplace_back(0.0f); // pos z
+            vertex_data.emplace_back(0.0f); // normal x
+            vertex_data.emplace_back(0.0f); // normal y
+            vertex_data.emplace_back(1.0f); // normal z
+            vertex_data.emplace_back(u); // u
+            vertex_data.emplace_back(v); // v
         }
     }
 
@@ -60,22 +54,31 @@ auto PlaneGeometry::GenerateGeometry(const Parameters& params) -> void {
             const auto c = ix + 1 + grid_x1 * (iy + 1);
             const auto d = ix + 1 + grid_x1 * iy;
 
-            index_data_.emplace_back(a);
-            index_data_.emplace_back(b);
-            index_data_.emplace_back(d);
-            index_data_.emplace_back(b);
-            index_data_.emplace_back(c);
-            index_data_.emplace_back(d);
+            index_data.emplace_back(a);
+            index_data.emplace_back(b);
+            index_data.emplace_back(d);
+            index_data.emplace_back(b);
+            index_data.emplace_back(c);
+            index_data.emplace_back(d);
         }
     }
 }
 
-auto PlaneGeometry::SetAttributes() -> void {
-    using enum GeometryAttributeType;
+}
 
-    SetAttribute({.type = Position, .item_size = 3});
-    SetAttribute({.type = Normal, .item_size = 3});
-    SetAttribute({.type = UV, .item_size = 2});
+PlaneGeometry::PlaneGeometry(const Parameters& params) {
+    assert(params.width > 0.0f);
+    assert(params.height > 0.0f);
+    assert(params.width_segments > 0);
+    assert(params.height_segments > 0);
+
+    SetName("plane geometry");
+
+    generate_geometry(params, vertex_data_, index_data_);
+
+    SetAttribute({.type = GeometryAttributeType::Position, .item_size = 3});
+    SetAttribute({.type = GeometryAttributeType::Normal, .item_size = 3});
+    SetAttribute({.type = GeometryAttributeType::UV, .item_size = 2});
 }
 
 }
