@@ -66,12 +66,8 @@ public:
     ~Scene() override;
 
 private:
-    /// @brief The renderer accesses the 'touched_' flag.
     friend class Renderer;
-
-    /// @brief The application context invokes the scene's 'SetContext' method.
     friend class ApplicationContext;
-
     friend class ApplicationContext;
 
     /// @brief Event listener for handling input events.
