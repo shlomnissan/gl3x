@@ -15,95 +15,78 @@
 
 namespace gleam {
 
-SphereGeometry::SphereGeometry(const Parameters& params) {
-    assert(params.radius > 0.0f);
-    assert(params.width_segments >= 3);
-    assert(params.height_segments >= 2);
-    assert(params.phi_start >= 0.0f);
-    assert(params.phi_length >= 0.0f);
-    assert(params.theta_start >= 0.0f);
-    assert(params.theta_length >= 0.0f);
+namespace {
 
-    SetName("sphere geometry");
-
-    GenerateGeometry(params);
-    SetAttributes();
-}
-
-auto SphereGeometry::GenerateGeometry(const Parameters& params) -> void {
-    const auto theta_end = std::min(params.theta_start + params.theta_length, math::pi);
+auto generate_geometry(
+    const SphereGeometry::Parameters& params,
+    std::vector<float>& vertex_data,
+    std::vector<unsigned int>& index_data
+) {
+    const auto phi_start = 0.0f;
+    const auto phi_length = math::two_pi;
+    const auto theta_start = 0.0f;
+    const auto theta_length = math::pi;
 
     for (auto iy = 0; iy <= params.height_segments; ++iy) {
         const auto v = static_cast<float>(iy) / static_cast<float>(params.height_segments);
-
-        float offset = 0;
-        if (iy == 0 && params.theta_start == 0) {
-            offset = 0.5f / static_cast<float>(params.width_segments);
-        } else if (iy == params.height_segments && theta_end == math::pi) {
-            offset = -0.5f / static_cast<float>(params.width_segments);
-        }
-
         for (auto ix = 0; ix <= params.width_segments; ++ix) {
             const auto u = static_cast<float>(ix) / static_cast<float>(params.width_segments);
+            const auto phi = phi_start + u * phi_length;
+            const auto theta = theta_start + v * theta_length;
 
             auto vec = Vector3 {};
-
-            vec.x = -params.radius *
-                std::cos(params.phi_start + u * params.phi_length) *
-                std::sin(params.theta_start + v * params.theta_length);
-
-            vec.y = params.radius *
-                std::cos(params.theta_start + v * params.theta_length);
-
-            vec.z = params.radius *
-                std::sin(params.phi_start + u * params.phi_length) *
-                std::sin(params.theta_start + v * params.theta_length);
+            vec.x = -params.radius * std::cos(phi) * std::sin(theta);
+            vec.y =  params.radius * std::cos(theta);
+            vec.z =  params.radius * std::sin(phi) * std::sin(theta);
 
             // set position
-            vertex_data_.emplace_back(vec.x);  // pos x
-            vertex_data_.emplace_back(vec.y);  // pos y
-            vertex_data_.emplace_back(vec.z);  // pos z
+            vertex_data.emplace_back(vec.x);
+            vertex_data.emplace_back(vec.y);
+            vertex_data.emplace_back(vec.z);
 
+            // set normal
             vec.Normalize();
+            vertex_data.emplace_back(vec.x);
+            vertex_data.emplace_back(vec.y);
+            vertex_data.emplace_back(vec.z);
 
-            // set normals
-            vertex_data_.emplace_back(vec.x);  // normal x
-            vertex_data_.emplace_back(vec.y);  // normal y
-            vertex_data_.emplace_back(vec.z);  // normal z
-
-            // set uvs
-            vertex_data_.insert(vertex_data_.end(), {u + offset, 1 - v});
+            // set uv
+            vertex_data.emplace_back(u);
+            vertex_data.emplace_back(1.0f - v);
         }
     }
 
-    for (auto iy = 0; iy < params.height_segments; ++iy) {
-        for (auto ix = 0; ix < params.width_segments; ++ix) {
+    for (unsigned iy = 0; iy < params.height_segments; ++iy) {
+        for (unsigned ix = 0; ix < params.width_segments; ++ix) {
             const auto a = ix + (params.width_segments + 1) * iy;
             const auto b = ix + (params.width_segments + 1) * (iy + 1);
             const auto c = ix + 1 + (params.width_segments + 1) * (iy + 1);
             const auto d = ix + 1 + (params.width_segments + 1) * iy;
 
-            if (iy != 0 || params.theta_start > 0) {
-                index_data_.emplace_back(a);
-                index_data_.emplace_back(b);
-                index_data_.emplace_back(d);
-            }
-
-            if (iy != params.height_segments - 1 || theta_end < math::pi) {
-                index_data_.emplace_back(b);
-                index_data_.emplace_back(c);
-                index_data_.emplace_back(d);
-            }
+            index_data.emplace_back(a);
+            index_data.emplace_back(b);
+            index_data.emplace_back(d);
+            index_data.emplace_back(b);
+            index_data.emplace_back(c);
+            index_data.emplace_back(d);
         }
     }
 }
 
-auto SphereGeometry::SetAttributes() -> void {
-    using enum GeometryAttributeType;
+}
 
-    SetAttribute({.type = Position, .item_size = 3});
-    SetAttribute({.type = Normal, .item_size = 3});
-    SetAttribute({.type = UV, .item_size = 2});
+SphereGeometry::SphereGeometry(const Parameters& params) {
+    assert(params.radius > 0.0f);
+    assert(params.width_segments >= 3);
+    assert(params.height_segments >= 2);
+
+    SetName("sphere geometry");
+
+    generate_geometry(params, vertex_data_, index_data_);
+
+    SetAttribute({.type = GeometryAttributeType::Position, .item_size = 3});
+    SetAttribute({.type = GeometryAttributeType::Normal, .item_size = 3});
+    SetAttribute({.type = GeometryAttributeType::UV, .item_size = 2});
 }
 
 }

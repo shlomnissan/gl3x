@@ -33,8 +33,8 @@ TEST_F(SphereGeometryTest, ConstructorInitializesVertexData) {
 TEST_F(SphereGeometryTest, ConstructorInitializesIndexData) {
     const auto& index = sphere_.IndexData();
 
-    // 18 indices (6 triangles)
-    EXPECT_EQ(index.size(), 6 * 3);
+    // 36 indices (6 quads * 2 triangles)
+    EXPECT_EQ(index.size(), 6 * 6);
 }
 
 TEST_F(SphereGeometryTest, ConstructorInitializesName) {
@@ -75,22 +75,6 @@ TEST(SphereGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
         gleam::SphereGeometry({.height_segments = 1});
     }, ".params.height_segments >= 2");
-
-    EXPECT_DEATH({
-        gleam::SphereGeometry({.phi_start = -0.1f});
-    }, ".*params.phi_start >= 0.0f");
-
-    EXPECT_DEATH({
-        gleam::SphereGeometry({.phi_length = -0.1f});
-    }, ".*params.phi_length >= 0.0f");
-
-    EXPECT_DEATH({
-        gleam::SphereGeometry({.theta_start = -0.1f});
-    }, ".*params.theta_start >= 0.0f");
-
-    EXPECT_DEATH({
-        gleam::SphereGeometry({.theta_length = -0.1f});
-    }, ".*params.theta_length >= 0.0f");
 }
 
 #pragma endregion

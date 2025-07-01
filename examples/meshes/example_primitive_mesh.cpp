@@ -147,8 +147,4 @@ auto ExamplePrimitiveMesh::SphereContextMenu(bool& dirty) -> void {
     UISliderFloat("radius", sphere_params_.radius, 0.5f, 2.0f, dirty);
     UISliderUnsigned("width_segments", sphere_params_.width_segments, 3, 64, dirty);
     UISliderUnsigned("height_segments", sphere_params_.height_segments, 2, 64, dirty);
-    UISliderFloat("phi_start", sphere_params_.phi_start, 0.0f, math::two_pi, dirty);
-    UISliderFloat("phi_length", sphere_params_.phi_length, 0.0f, math::two_pi, dirty);
-    UISliderFloat("theta_start", sphere_params_.theta_start, 0.0f, math::two_pi, dirty);
-    UISliderFloat("theta_length", sphere_params_.theta_length, 0.0f, math::two_pi, dirty);
 }
