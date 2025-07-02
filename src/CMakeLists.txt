@@ -149,11 +149,6 @@ set(HEADER_BUNDLES
     "${PUBLIC_HEADERS_DIR}/textures.hpp"
 )
 
-set(VENDOR_SOURCES
-    "${VENDOR_DIR}/imgui/backends/imgui_impl_glfw.cpp"
-    "${VENDOR_DIR}/imgui/backends/imgui_impl_opengl3.cpp"
-)
-
 include(ShaderProcessor)
 
 if(NOT_APPLE)
@@ -184,7 +179,18 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${VENDOR_DIR}>
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE glad glfw imgui)
+target_link_libraries(${PROJECT_NAME} PRIVATE glad glfw)
+
+if (GLEAM_BUILD_IMGUI)
+    target_sources(
+        ${PROJECT_NAME} PRIVATE
+        "${VENDOR_DIR}/imgui/backends/imgui_impl_glfw.cpp"
+        "${VENDOR_DIR}/imgui/backends/imgui_impl_opengl3.cpp"
+        "core/imgui_integration.hpp"
+    )
+    target_link_libraries(${PROJECT_NAME} PRIVATE imgui)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE GLEAM_USE_IMGUI=1)
+endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     VERSION ${gleam_VERSION_MAJOR}.${gleam_VERSION_MINOR}.${gleam_VERSION_PATCH}

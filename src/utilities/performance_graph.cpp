@@ -7,13 +7,17 @@
 
 #include "utilities/performance_graph.hpp"
 
+#ifdef GLEAM_USE_IMGUI
 #include <imgui/imgui.h>
+#endif
 
 namespace gleam {
 
 auto PerformanceGraph::RenderGraph(const float viewport_width) const -> void {
     static const float kWindowWidth {250.0f};
     static const float kWindowHeight {195.0f};
+
+#ifdef GLEAM_USE_IMGUI
     ImGui::SetNextWindowSize({kWindowWidth, kWindowHeight});
     ImGui::SetNextWindowPos({viewport_width - kWindowWidth - 10.0f, 10.0f});
     ImGui::Begin("##Stats", nullptr,
@@ -51,6 +55,7 @@ auto PerformanceGraph::RenderGraph(const float viewport_width) const -> void {
     ImGui::PopStyleColor();
 
     ImGui::End();
+#endif
 }
 
 }

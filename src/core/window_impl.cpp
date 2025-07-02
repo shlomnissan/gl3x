@@ -13,9 +13,9 @@
 #include <memory>
 #include <string>
 
-#include <imgui/imgui.h>
-#include <imgui/backends/imgui_impl_glfw.h>
-#include <imgui/backends/imgui_impl_opengl3.h>
+#ifdef GLEAM_USE_IMGUI
+#include "core/imgui_integration.hpp"
+#endif
 
 namespace gleam {
 
@@ -26,12 +26,6 @@ static auto glfw_mouse_button_callback(GLFWwindow*, int button, int action, int 
 static auto glfw_scroll_callback(GLFWwindow*, double x, double y) -> void;
 static auto glfw_mouse_button_map(int button) -> MouseButton;
 static auto glfw_keyboard_map(int key) -> Key;
-
-static auto imgui_initialize(GLFWwindow* window) -> void;
-static auto imgui_before_render() -> void;
-static auto imgui_after_render() -> void;
-static auto imgui_event() -> bool;
-static auto imgui_cleanup() -> void;
 
 Window::Impl::Impl(const Window::Parameters& params) {
     if (!glfwInit()) {
@@ -79,16 +73,23 @@ Window::Impl::Impl(const Window::Parameters& params) {
     glfwSetMouseButtonCallback(window_, glfw_mouse_button_callback);
     glfwSetScrollCallback(window_, glfw_scroll_callback);
 
+#ifdef GLEAM_USE_IMGUI
     imgui_initialize(window_);
+#endif
 }
 
 auto Window::Impl::Start(const OnTickCallback& tick) -> void {
     while(!glfwWindowShouldClose(window_) && !break_) {
-        imgui_before_render();
+#ifdef GLEAM_USE_IMGUI
+        imgui_begin_frame();
+#endif
 
         tick();
 
-        imgui_after_render();
+#ifdef GLEAM_USE_IMGUI
+        imgui_end_frame();
+#endif
+
         glfwSwapBuffers(window_);
         glfwPollEvents();
     }
@@ -114,44 +115,13 @@ auto Window::Impl::LogContextInfo() const -> void {
 }
 
 Window::Impl::~Impl() {
-    imgui_cleanup();
+#ifdef GLEAM_USE_IMGUI
+    imgui_shutdown();
+#endif
 
     if (window_) glfwDestroyWindow(window_);
     if (initialized_) glfwTerminate();
 }
-
-#pragma region ImGui helpers
-
-static auto imgui_initialize(GLFWwindow* window) -> void {
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init();
-}
-
-static auto imgui_before_render() -> void {
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-}
-
-static auto imgui_after_render() -> void {
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-}
-
-static auto imgui_event() -> bool {
-    ImGuiIO& io = ImGui::GetIO();
-    return io.WantCaptureMouse || io.WantCaptureKeyboard;
-}
-
-static auto imgui_cleanup() -> void {
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-}
-
-#pragma endregion
 
 #pragma region GLFW callbacks
 
@@ -162,7 +132,9 @@ static auto glfw_get_error() -> std::string {
 }
 
 static auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, int mods) -> void {
-    if (imgui_event()) return;
+#ifdef GLEAM_USE_IMGUI
+    if (imgui_wants_input()) return;
+#endif
 
     auto event = std::make_unique<KeyboardEvent>();
     event->type = KeyboardEvent::Type::Pressed;
@@ -193,7 +165,9 @@ static auto glfw_cursor_pos_callback(GLFWwindow* window, double x, double y) -> 
 }
 
 static auto glfw_mouse_button_callback(GLFWwindow* window, int button, int action, int) -> void {
-    if (imgui_event()) return;
+#ifdef GLEAM_USE_IMGUI
+    if (imgui_wants_input()) return;
+#endif
 
     auto event = std::make_unique<MouseEvent>();
     auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
@@ -217,7 +191,9 @@ static auto glfw_mouse_button_callback(GLFWwindow* window, int button, int actio
 }
 
 static auto glfw_scroll_callback(GLFWwindow* window, double x, double y) -> void {
-    if (imgui_event()) return;
+#ifdef GLEAM_USE_IMGUI
+    if (imgui_wants_input()) return;
+#endif
 
     auto event = std::make_unique<MouseEvent>();
     auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));

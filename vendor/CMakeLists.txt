@@ -1,3 +1,6 @@
 add_subdirectory("glad")
 add_subdirectory("glfw")
-add_subdirectory("imgui")
+
+if (GLEAM_BUILD_IMGUI)
+    add_subdirectory("imgui")
+endif()
