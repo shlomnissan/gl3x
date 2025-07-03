@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "gleam/core/events.hpp"
+#include "gleam/events/event.hpp"
 
 #include "utilities/logger.hpp"
 

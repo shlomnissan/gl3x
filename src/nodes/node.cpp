@@ -9,7 +9,7 @@
 
 #include "gleam/cameras/camera.hpp"
 
-#include "core/event_dispatcher.hpp"
+#include "events/event_dispatcher.hpp"
 #include "utilities/logger.hpp"
 
 #include <queue>

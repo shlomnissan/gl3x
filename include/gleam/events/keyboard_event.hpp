@@ -9,48 +9,11 @@
 
 #include "gleam_export.h"
 
-#include "gleam/math/vector2.hpp"
-#include "gleam/nodes/node.hpp"
-
-#include <memory>
-#include <type_traits>
+#include "gleam/events/event.hpp"
 
 namespace gleam {
 
-// Forward declarations
 enum class Key;
-enum class MouseButton;
-
-enum class EventType {
-    Keyboard,
-    Mouse,
-    Scene,
-    Undefined
-};
-
-struct GLEAM_EXPORT Event {
-    bool handled {false};
-
-    [[nodiscard]] virtual auto GetType() const -> EventType { return EventType::Undefined; }
-
-    virtual ~Event() = default;
-};
-
-struct GLEAM_EXPORT SceneEvent : public Event {
-    enum class Type {
-        NodeAdded,
-        NodeRemoved
-    };
-
-    std::shared_ptr<Node> node;
-    SceneEvent::Type type;
-
-    SceneEvent(Type type, std::shared_ptr<Node> node) : type(type), node(node) {}
-
-    auto GetType() const -> EventType override {
-        return EventType::Scene;
-    }
-};
 
 struct GLEAM_EXPORT KeyboardEvent : public Event {
     enum class Type {
@@ -64,32 +27,6 @@ struct GLEAM_EXPORT KeyboardEvent : public Event {
     auto GetType() const -> EventType override {
         return EventType::Keyboard;
     }
-};
-
-struct GLEAM_EXPORT MouseEvent : public Event {
-    enum class Type {
-        Moved,
-        ButtonPressed,
-        ButtonReleased,
-        Scrolled
-    };
-
-    Vector2 position;
-    Vector2 scroll;
-
-    MouseEvent::Type type;
-    MouseButton button;
-
-    auto GetType() const -> EventType override {
-        return EventType::Mouse;
-    }
-};
-
-enum class MouseButton {
-    None,
-    Left,
-    Right,
-    Middle
 };
 
 enum class Key {

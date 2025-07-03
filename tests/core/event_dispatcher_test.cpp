@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include "core/event_dispatcher.hpp"
+#include "events/event_dispatcher.hpp"
 
 #include <memory>
 #include <string>

@@ -8,7 +8,7 @@
 #pragma once
 
 #include "gleam_export.h"
-#include "gleam/core/events.hpp"
+
 #include "gleam/math/vector2.hpp"
 #include "gleam/math/vector3.hpp"
 #include "gleam/nodes/node.hpp"

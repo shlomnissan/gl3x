@@ -8,8 +8,12 @@
 #pragma once
 
 #include "gleam_export.h"
+
 #include "gleam/core/identity.hpp"
 #include "gleam/core/shared_context.hpp"
+#include "gleam/events/keyboard_event.hpp"
+#include "gleam/events/mouse_event.hpp"
+#include "gleam/events/scene_event.hpp"
 #include "gleam/math/matrix4.hpp"
 #include "gleam/math/transform3.hpp"
 #include "gleam/math/vector3.hpp"
@@ -18,10 +22,6 @@
 #include <vector>
 
 namespace gleam {
-
-// Forward declarations
-struct KeyboardEvent;
-struct MouseEvent;
 
 /**
  * @brief Represents available node types.

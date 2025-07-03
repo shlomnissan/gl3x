@@ -9,6 +9,7 @@
 
 #include "gleam/cameras.hpp"
 #include "gleam/core.hpp"
+#include "gleam/events.hpp"
 #include "gleam/geometries.hpp"
 #include "gleam/lights.hpp"
 #include "gleam/loaders.hpp"

@@ -7,7 +7,10 @@
 
 #include "core/window_impl.hpp"
 
-#include "core/event_dispatcher.hpp"
+#include "gleam/events/keyboard_event.hpp"
+#include "gleam/events/mouse_event.hpp"
+
+#include "events/event_dispatcher.hpp"
 #include "utilities/logger.hpp"
 
 #include <memory>
