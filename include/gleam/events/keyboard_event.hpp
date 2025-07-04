@@ -15,20 +15,59 @@ namespace gleam {
 
 enum class Key;
 
+/**
+ * @brief Event representing a keyboard key press or release.
+ *
+ * `KeyboardEvent` is dispatched when a key is pressed or released. Nodes can
+ * handle this event by overriding the `OnKeyboardEvent()` method. The event
+ * contains both the key involved and the type of interaction.
+ *
+ * @code
+ * class MyNode : public gleam::Node {
+ * public:
+ *   auto OnKeyboardEvent(gleam::KeyboardEvent* event) -> void override {
+ *     if (event->type == gleam::KeyboardEvent::Type::Pressed) {
+ *       if (event->key == gleam::Key::Sapce) {
+ *         Jump();
+ *         event->handled = true; // stop propagation
+ *       }
+ *     }
+ *   }
+ * };
+ * @endcode
+ *
+ * @ingroup EventsGroup
+ */
 struct GLEAM_EXPORT KeyboardEvent : public Event {
+    /**
+     * @brief Represents keyboard interaction type.
+     * @ingroup EventsGroup
+     */
     enum class Type {
-        Pressed,
-        Released
+        Pressed, ///< Key was pressed down.
+        Released ///< Key was released.
     };
 
+    /// @brief Keyboard event type.
     KeyboardEvent::Type type;
+
+    /// @brief Key code associated with the event.
     Key key;
 
+    /**
+     * @brief Returns event type.
+     *
+     * @return EventType::Keyboard
+     */
     auto GetType() const -> EventType override {
         return EventType::Keyboard;
     }
 };
 
+/**
+ * @brief Represents keyboard keys.
+ * @ingroup EventsGroup
+ */
 enum class Key {
     None,
     Space,

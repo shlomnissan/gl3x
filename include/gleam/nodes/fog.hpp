@@ -28,7 +28,7 @@ enum class FogType {
  * @internal
  * @brief Abstract base class for fog types.
  *
- * Not intended for direct use. Use `LinearFog` or `ExponentialFog` instead.
+ * Not intended for direct use.
  *
  * @ingroup NodesGroup
  */
