@@ -17,12 +17,24 @@
 
 namespace gleam {
 
+struct Node::Impl {
+    std::vector<std::shared_ptr<Node>> children;
+
+    Node* parent {nullptr};
+
+    Matrix4 world_transform {1.0f};
+
+    bool world_transform_touched {false};
+};
+
+Node::Node() : impl_(std::make_unique<Impl>()) {};
+
 auto Node::Add(const std::shared_ptr<Node>& node) -> void {
-    if (node->parent_) {
-        node->parent_->Remove(node);
+    if (node->impl_->parent) {
+        node->impl_->parent->Remove(node);
     }
-    node->parent_ = this;
-    children_.emplace_back(node);
+    node->impl_->parent = this;
+    impl_->children.emplace_back(node);
 
     EventDispatcher::Get().Dispatch(
         "node_added",
@@ -31,15 +43,16 @@ auto Node::Add(const std::shared_ptr<Node>& node) -> void {
 }
 
 auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
-    auto it = std::ranges::find(children_, node);
-    if (it != children_.end()) {
+    auto it = std::ranges::find(impl_->children, node);
+    if (it != impl_->children.end()) {
         EventDispatcher::Get().Dispatch(
             "node_removed",
             std::make_unique<SceneEvent>(SceneEvent::Type::NodeRemoved, node)
         );
-        children_.erase(it);
-        node->parent_ = nullptr;
+        impl_->children.erase(it);
+        node->impl_->parent = nullptr;
         node->transform.touched = true;
+        node->context_ = nullptr;
     } else {
         Logger::Log(
             LogLevel::Warning,
@@ -50,23 +63,24 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
 }
 
 auto Node::RemoveAllChildren() -> void {
-    for (const auto& node : children_) {
+    for (const auto& node : impl_->children) {
         EventDispatcher::Get().Dispatch(
             "node_removed",
             std::make_unique<SceneEvent>(SceneEvent::Type::NodeRemoved, node)
         );
-        node->parent_ = nullptr;
+        node->impl_->parent = nullptr;
+        node->context_ = nullptr;
     }
-    children_.clear();
+    impl_->children.clear();
 }
 
-auto Node::Children() -> std::vector<std::shared_ptr<Node>>& {
-    return children_;
+auto Node::Children() const -> const std::vector<std::shared_ptr<Node>>& {
+    return impl_->children;
 }
 
 auto Node::IsChild(const Node* node) const -> bool {
     auto to_process = std::queue<std::shared_ptr<Node>>();
-    for (const auto& child : children_) {
+    for (const auto& child : impl_->children) {
         to_process.push(child);
     }
 
@@ -76,7 +90,7 @@ auto Node::IsChild(const Node* node) const -> bool {
             const auto current = to_process.front();
             to_process.pop();
             if (current.get() == node) return true;
-            for (const auto& child : current->children_) {
+            for (const auto& child : current->impl_->children) {
                 to_process.push(child);
             }
         }
@@ -86,54 +100,54 @@ auto Node::IsChild(const Node* node) const -> bool {
 }
 
 auto Node::Parent() const -> const Node* {
-    return parent_;
+    return impl_->parent;
 }
 
 auto Node::UpdateTransformHierarchy() -> void {
     if (transform_auto_update && ShouldUpdateWorldTransform()) {
-        world_transform_ = parent_ == nullptr
+        impl_->world_transform = impl_->parent == nullptr
             ? transform.Get()
-            : parent_->world_transform_ * transform.Get();
+            : impl_->parent->impl_->world_transform * transform.Get();
         transform.touched = false;
-        world_transform_touched_ = true;
+        impl_->world_transform_touched = true;
     }
 
-    for (const auto child : children_) {
+    for (const auto child : impl_->children) {
         if (child != nullptr) {
             child->UpdateTransformHierarchy();
         }
     }
 
-    world_transform_touched_ = false;
+    impl_->world_transform_touched = false;
 }
 
 auto Node::UpdateWorldTransform() -> void {
-    if (parent_ != nullptr) {
-        parent_->UpdateWorldTransform();
+    if (impl_->parent != nullptr) {
+        impl_->parent->UpdateWorldTransform();
     }
 
     if (ShouldUpdateWorldTransform()) {
-        world_transform_ = parent_ == nullptr
+        impl_->world_transform = impl_->parent == nullptr
             ? transform.Get()
-            : parent_->world_transform_ * transform.Get();
+            : impl_->parent->impl_->world_transform * transform.Get();
         transform.touched = false;
     }
 }
 
 auto Node::ShouldUpdateWorldTransform() const -> bool {
-    return transform.touched || (parent_ && parent_->world_transform_touched_);
+    return transform.touched || (impl_->parent && impl_->parent->impl_->world_transform_touched);
 }
 
 auto Node::GetWorldPosition() -> Vector3 {
     UpdateWorldTransform();
-    return Vector3(world_transform_[3]);
+    return Vector3(impl_->world_transform[3]);
 }
 
 auto Node::GetWorldTransform() -> Matrix4 {
     if (transform_auto_update) {
         UpdateTransformHierarchy();
     }
-    return world_transform_;
+    return impl_->world_transform;
 }
 
 auto Node::Context() const -> SharedContext* {
@@ -150,6 +164,8 @@ auto Node::Context() const -> SharedContext* {
     return context_;
 }
 
+Node::~Node() = default;
+
 auto Node::LookAt(const Vector3& target) -> void {
     const auto position = GetWorldPosition();
     GetNodeType() == NodeType::CameraNode
@@ -160,7 +176,7 @@ auto Node::LookAt(const Vector3& target) -> void {
 auto Node::AttachRecursive(SharedContext* context) -> void {
     context_ = context;
     OnAttached();
-    for (const auto& child : children_) {
+    for (const auto& child : impl_->children) {
         if (child != nullptr) {
             child->AttachRecursive(context);
         }
@@ -169,7 +185,7 @@ auto Node::AttachRecursive(SharedContext* context) -> void {
 
 auto Node::DetachRecursive() -> void {
     context_ = nullptr;
-    for (const auto& child : children_) {
+    for (const auto& child : impl_->children) {
         if (child != nullptr) {
             child->DetachRecursive();
         }

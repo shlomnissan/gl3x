@@ -54,8 +54,6 @@ enum class NodeType {
  */
 class GLEAM_EXPORT Node : public Identity {
 public:
-    friend class Scene;
-
     /// @brief Local transformation.
     Transform3 transform;
 
@@ -67,6 +65,11 @@ public:
 
     /// @brief If true, the node is subject to frustum culling during rendering.
     bool frustum_culled {true};
+
+    /**
+     * @brief Constructs an Node instance.
+     */
+    Node();
 
     /**
      * @brief Adds a child node to this node.
@@ -92,7 +95,7 @@ public:
      *
      * @return Reference to the vector of child node pointers.
      */
-    [[nodiscard]] auto Children() -> std::vector<std::shared_ptr<Node>>&;
+    [[nodiscard]] auto Children() const -> const std::vector<std::shared_ptr<Node>>&;
 
     /**
      * @brief Checks whether the given node is a direct child of this node.
@@ -175,7 +178,7 @@ public:
     /**
      * @brief Virtual destructor.
      */
-    virtual ~Node() = default;
+    virtual ~Node();
 
     /// @name Convenience transformation methods
     /// @{
@@ -281,19 +284,16 @@ public:
     /// @}
 
 private:
-    std::vector<std::shared_ptr<Node>> children_;
+    /// @cond INTERNAL
+    class Impl;
+    std::unique_ptr<Impl> impl_;
 
+    // The active scene is responsible for propagating the context
+    friend class Scene;
     SharedContext* context_ {nullptr};
-
-    Node* parent_ {nullptr};
-
-    Matrix4 world_transform_ {1.0f};
-
-    bool world_transform_touched_ {false};
-
     auto AttachRecursive(SharedContext* context) -> void;
-
     auto DetachRecursive() -> void;
+    /// @endcond
 };
 
 }

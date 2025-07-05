@@ -124,8 +124,10 @@ public:
     ~SpotLight() override;
 
 private:
+    /// @cond INTERNAL
     struct Impl;
     std::unique_ptr<Impl> impl_;
+    /// @endcond
 };
 
 }
