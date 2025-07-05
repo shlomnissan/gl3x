@@ -25,6 +25,7 @@ namespace gleam {
 
 /**
  * @brief Represents available node types.
+ * @ingroup NodesGroup
  */
 enum class NodeType {
     CameraNode,
@@ -35,113 +36,119 @@ enum class NodeType {
 };
 
 /**
- * @brief Represents a node in a scene graph.
+ * @brief Base class for all scene graph objects.
+ *
+ * `Node` represents a transformable object that can be placed within a scene
+ * graph hierarchy. Nodes support local and world transforms, parent-child
+ * relationships, and can respond to events and updates. All renderable,
+ * light-emitting, and camera entities in the engine inherit from this class.
+ *
+ * Nodes can be organized in a tree structure, and transformations will
+ * propagate through the hierarchy. When attached to a scene, nodes gain
+ * access to the shared context and may perform initialization in `OnAttached()`.
+ *
+ * To define behavior, override virtual methods such as `OnUpdate()`,
+ * `OnKeyboardEvent()`, or `OnMouseEvent()`.
+ *
+ * @ingroup NodesGroup
  */
 class GLEAM_EXPORT Node : public Identity {
 public:
-    /// @brief Node's local transformation.
+    friend class Scene;
+
+    /// @brief Local transformation.
     Transform3 transform;
 
-    /// @brief The up vector of the node.
+    /// @brief Local up direction (defaults to +Y).
     Vector3 up {Vector3::Up()};
 
-    /// @brief Flag indicating whether the transform should be automatically updated.
+    /// @brief If true, the local transform is automatically updated before rendering.
     bool transform_auto_update {true};
 
-    /// @brief Flag indicating whether the node is culled by the view frustum.
+    /// @brief If true, the node is subject to frustum culling during rendering.
     bool frustum_culled {true};
 
     /**
      * @brief Adds a child node to this node.
      *
-     * @param node A shared pointer to the node to add.
+     * @param node Child node to add.
      */
     auto Add(const std::shared_ptr<Node>& node) -> void;
 
     /**
      * @brief Removes a child node from this node.
      *
-     * @param node A shared pointer to the node to remove.
+     * @param node Child node to remove.
      */
     auto Remove(const std::shared_ptr<Node>& node) -> void;
 
     /**
-     * @brief Removes all child nodes from this node.
+     * @brief Removes all children from this node.
      */
     auto RemoveAllChildren() -> void;
 
     /**
-     * @brief Retrieves the list of child nodes.
+     * @brief Returns the list of child nodes.
      *
-     * @return A reference to a vector of child nodes.
+     * @return Reference to the vector of child node pointers.
      */
     [[nodiscard]] auto Children() -> std::vector<std::shared_ptr<Node>>&;
 
     /**
-     * @brief Checks if the specified node is a child of this node.
+     * @brief Checks whether the given node is a direct child of this node.
      *
-     * @param node A pointer to the node to check.
-     * @return True if the node is a child of this node, otherwise false.
+     * @param node Pointer to the node to check.
+     * @return True if the node is a child.
      */
     [[nodiscard]] auto IsChild(const Node* node) const -> bool;
 
     /**
-     * @brief Retrieves the parent node of this node.
+     * @brief Returns the parent node.
      *
-     * @return A pointer to the parent node. If this node has no parent, the return value will be a null pointer.
+     * @return Pointer to the parent node, or nullptr if this is a root node.
      */
     [[nodiscard]] auto Parent() const -> const Node*;
 
     /**
-     * @brief Updates the transformation matrix of this node and all its child nodes.
+     * @brief Recursively updates this node and all child world transforms.
      *
-     * This function updates the transformation matrix of the current node first,
-     * and then recursively updates the transformation matrices of all child nodes.
-     * This ensures that the entire transformation hierarchy is updated correctly.
+     * This updates the transformation matrix of the current node first,
+     * then propagates the update recursively through all children.
      */
     auto UpdateTransformHierarchy() -> void;
 
     /**
-     * @brief Updates the world transform of this node and all its parent nodes.
+     * @brief Updates this node’s world transform, ensuring parent transforms are current.
      *
-     * This function ensures that the world transform of all parent nodes is updated
-     * before updating the world transform of this node. This is necessary to maintain
-     * the correct transformation hierarchy when fetching the current world position.
+     * This ensures that the world transform of all ancestors is updated before
+     * updating the current node. Required for correct world positioning.
      */
     auto UpdateWorldTransform() -> void;
 
     /**
-     * @brief Determines if the node's world transform should be updated.
-     *
-     * @return True if the transform was modified or the parent requires an update.
+     * @brief Determines whether the world transform should be recalculated.
      */
     [[nodiscard]] auto ShouldUpdateWorldTransform() const -> bool;
 
     /**
-     * @brief Retrieves the world position of the node.
-     *
-     * @return The world position of the node.
+     * @brief Returns the world-space position of this node.
      */
     [[nodiscard]] auto GetWorldPosition() -> Vector3;
 
     /**
-     * @brief Retrieves the world transformation matrix of the node.
-     *
-     * @return The world transformation matrix of the node.
+     * @brief Returns the world transformation matrix of this node.
      */
     [[nodiscard]] auto GetWorldTransform() -> Matrix4;
 
     /**
-     * @brief Retrieves the shared context of the node. If the context is not
-     * set, an error log is generated and a null pointer is returned.
+     * @brief Returns the shared context associated with this node.
      *
-     * @return A pointer to the shared context.
+     * The context becomes available once the node is attached to the scene.
      */
     [[nodiscard]] auto Context() const -> SharedContext*;
 
     /**
-     * @brief Returns whether the node is attached to an active scene.
-     * An active scene is one that has been attached to the application context.
+     * @brief Returns whether this node is currently attached to a scene.
      */
     [[nodiscard]] auto IsAttached() const {
         return context_ != nullptr;
@@ -157,156 +164,135 @@ public:
     }
 
     /**
-     * @brief Rotates the object to face a point in world space.
+     * @brief Creates a shared pointer to a Node object.
      *
-     * @param target The target position to look at.
-     */
-    auto LookAt(const Vector3& target) -> void;
-
-    /**
-     * @brief Creates a new instance of the Node class.
-     *
-     * @return A `std::shared_ptr<Node>` pointing to the newly created instance.
+     * @return std::shared_ptr<Node>
      */
     [[nodiscard]] static auto Create() {
         return std::make_shared<Node>();
     }
 
     /**
-     * @brief Default destructor.
+     * @brief Virtual destructor.
      */
     virtual ~Node() = default;
 
-    #pragma region Transformations
+    /// @name Convenience transformation methods
+    /// @{
 
     /**
-     * @brief Translates the node along the X-axis.
+     * @brief Rotates the node to face a given target position in world space.
      *
-     * @param value The amount to translate the node.
+     * @param target Target world-space position to look at.
+     */
+    auto LookAt(const Vector3& target) -> void;
+
+    /**
+     * @brief Translates the node along the X axis in local space.
+     * @param value Translation distance.
      */
     auto TranslateX(float value) { transform.Translate({value, 0.0f, 0.0f}); }
 
     /**
-     * @brief Translates the node along the Y-axis.
-     *
-     * @param value The amount to translate the node.
+     * @brief Translates the node along the Y axis in local space.
+     * @param value Translation distance.
      */
     auto TranslateY(float value) { transform.Translate({0.0f, value, 0.0f}); }
 
     /**
-     * @brief Translates the node along the Z-axis.
-     *
-     * @param value The amount to translate the node.
+     * @brief Translates the node along the Z axis in local space.
+     * @param value Translation distance.
      */
     auto TranslateZ(float value) { transform.Translate({0.0f, 0.0f, value}); }
 
     /**
-     * @brief Rotates the node around the X-axis.
-     *
-     * @param value The angle to rotate by in radians.
+     * @brief Rotates the node along the X axis in local space.
+     * @param value Rotation angle in radians.
      */
     auto RotateX(float angle) { transform.Rotate(Vector3::Right(), angle); }
 
     /**
-     * @brief Rotates the node around the Y-axis.
-     *
-     * @param value The angle to rotate by in radians.
+     * @brief Rotates the node along the Y axis in local space.
+     * @param value Rotation angle in radians.
      */
     auto RotateY(float angle) { transform.Rotate(Vector3::Up(), angle); }
 
     /**
-     * @brief Rotates the node around the Z-axis.
-     *
-     * @param value The angle to rotate by in radians.
+     * @brief Rotates the node along the Z axis in local space.
+     * @param value Rotation angle in radians.
      */
     auto RotateZ(float angle) { transform.Rotate(Vector3::Forward(), angle); }
 
     /**
-     * @brief Set a uniform scale for the node.
-     *
-     * @param value The amount to scale the node.
+     * @brief Scales the node uniformly in local space.
+     * @param value Scale value.
      */
     auto SetScale(float value) { transform.SetScale({value, value, value}); }
 
     /**
-     * @brief Set a scale for the node.
+     * @brief Scales the node non-uniformly in local space.
      *
-     * @param value The amount to scale the node.
+     * @param value Scale vector applied to the X, Y, and Z axes.
      */
     auto SetScale(const Vector3& value) { transform.SetScale(value); }
 
-    #pragma endregion
+    /// @}
 
-    #pragma region Events
+    /// @name Event hooks
+    /// @{
 
     /**
-     * @brief Invoked before rendering the node.
+     * @brief Called every frame.
+     *
+     * Override this method to implement per-frame logic or animation.
+     *
+     * @param delta Time in seconds since the last frame.
      */
     virtual auto OnUpdate(float delta) -> void { /* No-op by default */ }
 
     /**
-     * @brief Called when the node is attached to an active scene.
+     * @brief Called when the node becomes part of an attached scene.
      *
-     * This method is invoked when the node becomes part of a scene that is
-     * attached to the application context. At this point, the shared context
-     * is guaranteed to be initialized and accessible. Override this method
-     * to perform any setup or initialization that depends on the shared context
-     * such as loading resources or setting up event listeners.
+     * This method is invoked when the node is added to a scene that is
+     * currently attached to the application context. The shared context is
+     * guaranteed to be initialized and available. Use this hook to perform
+     * resource loading or event registration that depends on application state.
      */
     virtual auto OnAttached() -> void { /* No-op by default */ }
 
     /**
-     * @brief Invoked when a keyboard event is received.
+     * @brief Called when a keyboard event is dispatched to this node.
      *
-     * @param event A pointer to the keyboard event.
+     * Override to handle key presses or releases.
+     *
+     * @param event Pointer to the dispatched keyboard event.
      */
     virtual auto OnKeyboardEvent(KeyboardEvent* event) -> void { /* No-op by default */ }
 
     /**
-     * @brief Invoked when a mouse event is received.
+     * @brief Called when a mouse event is dispatched to this node.
      *
-     * @param event A pointer to the mouse event.
+     * Override to handle mouse movement, clicks, or scrolling.
+     *
+     * @param event Pointer to the dispatched mouse event.
      */
     virtual auto OnMouseEvent(MouseEvent* event) -> void { /* No-op by default */ }
 
-    #pragma endregion
+    /// @}
 
 private:
-    /// @brief The scene sets the node's shared context.
-    friend class Scene;
-
-    /// @brief List of child nodes.
     std::vector<std::shared_ptr<Node>> children_;
 
-    /// @brief The shared context for the scene.
     SharedContext* context_ {nullptr};
 
-    /// @brief Pointer to the parent node.
     Node* parent_ {nullptr};
 
-    /// @brief Node's world transformation.
     Matrix4 world_transform_ {1.0f};
 
-    /// @brief Flag indicating whether the world transform was modified.
     bool world_transform_touched_ {false};
 
-    /**
-     * @brief Recursively attaches the node and its children to the shared context.
-     *
-     * This method is called when the node is added to a scene. It ensures that the
-     * shared context is propagated to the node and all of its child nodes.
-     *
-     * @param context A pointer to the shared context to attach to the node and its children.
-     */
     auto AttachRecursive(SharedContext* context) -> void;
 
-    /**
-     * @brief Recursively detaches the node and its children from the shared context.
-     *
-     * This method is called when the node is removed from a scene. It ensures that the
-     * shared context is cleared for the node and all of its child nodes, effectively
-     * disconnecting them from the scene's shared resources.
-     */
     auto DetachRecursive() -> void;
 };
 

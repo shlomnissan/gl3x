@@ -88,6 +88,11 @@ public:
         debug_mode_enabled_ = is_debug_mode;
     }
 
+    /**
+     * @brief Virtual destructor.
+     */
+    ~Light() = default;
+
 protected:
     bool debug_mode_enabled_ {false};
 };
