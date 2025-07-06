@@ -52,6 +52,31 @@ constexpr float epsilon = 1e-6f;
 }
 
 /**
+ * @brief Returns a unique integer for a pair of non-negative integers.
+ * @see https://en.wikipedia.org/wiki/Pairing_function
+ *
+ * @param x First non-negative integer.
+ * @param y Second non-negative integer.
+ * @return Unique integer.
+ */
+constexpr auto CantorPairing(const auto x, const auto y) {
+    return ((x + y) * (x + y + 1)) / 2 + y;
+}
+
+/**
+ * @brief Returns a unique integer for a pair of integers, ignoring order.
+ *
+ * @param x First non-negative integer.
+ * @param y Second non-negative integer.
+ * @return Unique integer (order-independent).
+ *
+ * @see CantorPairing
+ */
+constexpr auto UnorderedCantorPairing(const auto x, const auto y) {
+    return x > y ? CantorPairing(y, x) : CantorPairing(x, y);
+}
+
+/**
  * @brief Generates a UUID.
  *
  * @return std::string UUID.
