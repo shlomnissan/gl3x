@@ -33,23 +33,23 @@ namespace gleam {
  * @code
  * class MyApp : public gleam::ApplicationContext {
  * public:
- *   void Configure() override {
+ *   auto Configure() -> void override {
  *     params.title = "My App";
  *     params.width = 1280;
  *     params.height = 720;
  *     params.clear_color = 0x444444;
  *   }
  *
- *   std::shared_ptr<gleam::Scene> CreateScene() override {
+ *   auto CreateScene() -> std::shared_ptr<gleam::Scene> override {
  *     auto scene = gleam::Scene::Create();
  *     // Add nodes to the scene
  *     return scene;
  *   }
  *
- *     bool Update(float delta) override {
- *       // Called every frame
- *       return true;
- *     }
+ *   auto Update(float delta) -> void override {
+ *     // Called every frame
+ *     return true;
+ *   }
  * };
  *
  * int main() {
@@ -186,12 +186,14 @@ protected:
     Timer timer {false};
 
 private:
+    /// @cond INTERNAL
     class Impl;
     std::unique_ptr<Impl> impl_;
 
     auto Setup() -> void;
 
     auto CreateDefaultCamera() const -> std::shared_ptr<Camera>;
+    /// @endcond
 };
 
 }

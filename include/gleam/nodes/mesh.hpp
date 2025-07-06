@@ -14,41 +14,54 @@
 #include "gleam/nodes/node.hpp"
 
 #include <memory>
-#include <optional>
 
 namespace gleam {
 
 /**
- * @brief Class representing a mesh, which is a node in the scene with associated geometry and material.
+ * @brief Renderable scene node composed of geometry and material.
+ *
+ * `Mesh` is a node that represents a visible object in the scene. It combines
+ * a `Geometry` object, which defines the shape and structure of the mesh,
+ * with a `Material` object, which defines its surface appearance and shading.
+ *
+ * Meshes are typically added to a scene to be rendered during each frame.
+ * Both the geometry and material can be assigned directly at creation time,
+ * or modified afterward.
+ *
+ * @code
+ * auto geometry = gleam::CubeGeometry::Create();
+ * auto material = gleam::FlatMaterial::Create(0x00FFAA);
+ * auto mesh = gleam::Mesh::Create(geometry, material);
+ * my_scene->Add(mesh);
+ * @endcode
+ *
+ * @ingroup NodesGroup
  */
 class GLEAM_EXPORT Mesh : public Node {
 public:
-    /// @brief The geometry associated with the mesh.
+    /// @brief Geometry data used for rendering this mesh.
     std::shared_ptr<Geometry> geometry;
 
-    /// @brief The material associated with the mesh.
+    /// @brief Material that controls how the mesh is shaded.
     std::shared_ptr<Material> material;
 
     /**
-     * @brief Constructs a Mesh object with the given geometry.
+     * @brief Constructs a mesh instance with the given geometry and material.
      *
-     * @param geometry A shared pointer to the Geometry object to be associated with the mesh.
-     * @param material A shared pointer to the Material object to be associated with the mesh.
+     * @param geometry Shared pointer to a geometry instance.
+     * @param material Shared pointer to a material instance.
      */
-    Mesh(
-        std::shared_ptr<Geometry> geometry,
-        std::shared_ptr<Material> material
-    );
+    Mesh(std::shared_ptr<Geometry> geometry, std::shared_ptr<Material> material)
+      : geometry(geometry), material(material) {}
 
     /**
-     * @brief Creates a shared pointer to a Mesh object with the specified geometry.
+     * @brief Creates a shared pointer to a Mesh object.
      *
-     * @param geometry A shared pointer to the Geometry object to be associated with the mesh.
-     * @param material A shared pointer to the Material object to be associated with the mesh.
-     * @return std::shared_ptr<Mesh> A shared pointer to the newly created Mesh object.
+     * @param geometry Shared pointer to a geometry instance.
+     * @param material Shared pointer to a material instance.
+     * @return std::shared_ptr<Mesh>
      */
-    [[nodiscard]]
-    static auto Create(
+    [[nodiscard]] static auto Create(
         std::shared_ptr<Geometry> geometry,
         std::shared_ptr<Material> material
     ) {

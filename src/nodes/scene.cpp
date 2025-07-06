@@ -10,57 +10,20 @@
 #include "events/event_dispatcher.hpp"
 #include "utilities/logger.hpp"
 
-#include <algorithm>
-#include <memory>
-#include <vector>
-
 namespace gleam {
 
-Scene::Scene() {
-    AddEventListeners();
-}
+namespace {
 
-auto Scene::AddEventListeners() -> void {
-    using enum EventType;
-
-    scene_event_listener_ = std::make_shared<EventListener>([&](Event* event) {
-        HandleSceneEvents(static_cast<SceneEvent*>(event));
-    });
-
-    input_event_listener_ = std::make_shared<EventListener>([&](Event* event) {
-        for (const auto& child : Children()) {
-            HandleInputEvent(child, event);
-        }
-        if (event->handled) return;
-
-        const auto type = event->GetType();
-        if (type == Keyboard) OnKeyboardEvent(static_cast<KeyboardEvent*>(event));
-        if (type == Mouse) OnMouseEvent(static_cast<MouseEvent*>(event));
-    });
-
-    EventDispatcher::Get().AddEventListener("node_added", scene_event_listener_);
-    EventDispatcher::Get().AddEventListener("node_removed", scene_event_listener_);
-    EventDispatcher::Get().AddEventListener("keyboard_event", input_event_listener_);
-    EventDispatcher::Get().AddEventListener("mouse_event", input_event_listener_);
-}
-
-auto Scene::ProcessUpdates(float delta) -> void {
-    OnUpdate(delta);
-     for (const auto& child : Children()) {
-        HandleNodeUpdates(child, delta);
-    }
-}
-
-auto Scene::HandleNodeUpdates(std::weak_ptr<Node> node, float delta) -> void {
+auto handle_node_updates(std::weak_ptr<Node> node, float delta) -> void {
     if (const auto n = node.lock()) {
         n->OnUpdate(delta);
         for (const auto& child : n->Children()) {
-            HandleNodeUpdates(child, delta);
+            handle_node_updates(child, delta);
         }
     }
 }
 
-auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
+auto handle_input_event(std::weak_ptr<Node> node, Event* event) -> void {
     using enum EventType;
 
     // Events are propagated from the bottom of the scene graph to the top.
@@ -69,7 +32,7 @@ auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
     if (const auto n = node.lock()) {
         for (const auto& child : n->Children()) {
             if (event->handled) return;
-            HandleInputEvent(child, event);
+            handle_input_event(child, event);
         }
 
         const auto type = event->GetType();
@@ -78,12 +41,48 @@ auto Scene::HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void {
     }
 }
 
-auto Scene::HandleSceneEvents(const SceneEvent* event) -> void {
-    using enum SceneEvent::Type;
-    if (IsChild(event->node.get())) {
-        touched_ = true;
-        if (event->type == NodeAdded) event->node->AttachRecursive(context_);
-        if (event->type == NodeRemoved) event->node->DetachRecursive();
+}
+
+struct Scene::Impl {
+    std::shared_ptr<EventListener> input_event_listener;
+    std::shared_ptr<EventListener> scene_event_listener;
+};
+
+Scene::Scene() : impl_(std::make_unique<Impl>()) {
+    using enum EventType;
+
+    impl_->scene_event_listener = std::make_shared<EventListener>([&](Event* event) {
+        using enum SceneEvent::Type;
+
+        auto e = static_cast<SceneEvent*>(event);
+        if (IsChild(e->node.get())) {
+            touched_ = true;
+            if (e->type == NodeAdded) e->node->AttachRecursive(context_);
+            if (e->type == NodeRemoved) e->node->DetachRecursive();
+        }
+    });
+
+    impl_->input_event_listener = std::make_shared<EventListener>([&](Event* event) {
+        for (const auto& child : Children()) {
+            handle_input_event(child, event);
+        }
+        if (event->handled) return;
+
+        const auto type = event->GetType();
+        if (type == Keyboard) OnKeyboardEvent(static_cast<KeyboardEvent*>(event));
+        if (type == Mouse) OnMouseEvent(static_cast<MouseEvent*>(event));
+    });
+
+    EventDispatcher::Get().AddEventListener("node_added", impl_->scene_event_listener);
+    EventDispatcher::Get().AddEventListener("node_removed", impl_->scene_event_listener);
+    EventDispatcher::Get().AddEventListener("keyboard_event", impl_->input_event_listener);
+    EventDispatcher::Get().AddEventListener("mouse_event", impl_->input_event_listener);
+}
+
+auto Scene::ProcessUpdates(float delta) -> void {
+    OnUpdate(delta);
+     for (const auto& child : Children()) {
+        handle_node_updates(child, delta);
     }
 }
 
@@ -92,10 +91,10 @@ auto Scene::SetContext(SharedContext* context) -> void {
 }
 
 Scene::~Scene() {
-    EventDispatcher::Get().RemoveEventListener("node_added", scene_event_listener_);
-    EventDispatcher::Get().RemoveEventListener("node_removed", scene_event_listener_);
-    EventDispatcher::Get().RemoveEventListener("keyboard_event", input_event_listener_);
-    EventDispatcher::Get().RemoveEventListener("mouse_event", input_event_listener_);
+    EventDispatcher::Get().RemoveEventListener("node_added", impl_->scene_event_listener);
+    EventDispatcher::Get().RemoveEventListener("node_removed", impl_->scene_event_listener);
+    EventDispatcher::Get().RemoveEventListener("keyboard_event", impl_->input_event_listener);
+    EventDispatcher::Get().RemoveEventListener("mouse_event", impl_->input_event_listener);
 }
 
 }

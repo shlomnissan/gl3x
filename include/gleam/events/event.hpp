@@ -11,6 +11,10 @@
 
 namespace gleam {
 
+/**
+ * @brief Represents available event types.
+ * @ingroup EventsGroup
+ */
 enum class EventType {
     Keyboard,
     Mouse,

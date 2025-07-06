@@ -9,43 +9,75 @@
 
 #include "gleam_export.h"
 
-#include "gleam/math/color.hpp"
 #include "gleam/nodes/fog.hpp"
 #include "gleam/nodes/node.hpp"
 
-#include <functional>
 #include <memory>
-#include <vector>
 
 namespace gleam {
 
-// Forward declarations
-class Renderer;
-
-using EventListener = std::function<void(Event*)>;
-
 /**
- * @brief Represents the scene's root node.
+ * @brief Root node and entry point for a scene graph.
+ *
+ * `Scene` is the top-level container for all nodes in a Gleam application. It acts as the
+ * root of the scene graph and is responsible for propagating update and input events
+ * throughout the hierarchy. Each application has one active scene at a time, which is
+ * managed by the `ApplicationContext`.
+ *
+ * A custom scene can be created by inheriting from this class and overriding behavior
+ * or adding initial nodes. The scene must be provided to the application during startup:
+ *
+ * @code
+ * class MyApp : public gleam::ApplicationContext {
+ * public:
+ *   auto Configure() -> void override {
+ *     params.title = "My App";
+ *   }
+ *
+ *   auto CreateScene() -> std::shared_ptr<gleam::Scene> override {
+ *     auto scene = gleam::Scene::Create();
+ *     // Add nodes to the scene
+ *     return scene;
+ *   }
+ *
+ *   auto Update(float delta) -> bool override {
+ *     // Called every frame
+ *     return true;
+ *   }
+ * };
+ * @endcode
+ *
+ * @note Only one scene can be attached to the application context at a time.
+ * Attaching a new scene using gleam::ApplicationContext::SetScene replaces the current one.
+ *
+ * @ingroup NodesGroup
  */
 class GLEAM_EXPORT Scene : public Node {
 public:
-    /// @brief Unique pointer to a fog object for the scene.
+    /**
+     * @brief Fog settings applied to the entire scene.
+     *
+     * Set this to a `LinearFog` or `ExponentialFog` instance to enable distance-based
+     * atmospheric fading. This is typically done during scene setup.
+     *
+     * @code
+     * scene->fog = gleam::LinearFog::Create(0x444444, 2.0f, 6.0f);
+     * @endcode
+     *
+     * @see gleam::LinearFog
+     * @see gleam::ExponentialFog
+     */
     std::unique_ptr<Fog> fog;
 
-    // @brief Initializes a scene object.
+    /**
+     * @brief Constructs an Scene instance.
+     */
     Scene();
 
     /**
-     * @brief Updates the scene and all of its children.
+     * @brief Creates a shared pointer to a Scene object.
      *
-     * @param delta The time in seconds since the last update.
-     */
-    auto ProcessUpdates(float delta) -> void;
-
-    /**
-     * @brief Creates a new instance of the Scene class.
-     *
-     * @return A `std::shared_ptr<Scene>` pointing to the newly created Scene instance.
+     * @return std::shared_ptr<Scene>
      */
     [[nodiscard]] static auto Create() {
         return std::make_shared<Scene>();
@@ -61,67 +93,22 @@ public:
     }
 
     /**
-     * @brief Destructor for the Scene class.
+     * @brief Destructor.
      */
     ~Scene() override;
 
 private:
+    /// @cond INTERNAL
+    class Impl;
+    std::unique_ptr<Impl> impl_;
+
     friend class Renderer;
-    friend class ApplicationContext;
-    friend class ApplicationContext;
-
-    /// @brief Event listener for handling input events.
-    std::shared_ptr<EventListener> input_event_listener_;
-
-    /// @brief Event listener for handling scene events.
-    std::shared_ptr<EventListener> scene_event_listener_;
-
-    /**
-     * @brief Tracks whether a node was added to or removed from the scene.
-     * This flag informs the renderer to update its internal render lists for
-     * managing render order. The renderer accesses this flag directly via
-     * the friend class declaration.
-     */
     bool touched_ = false;
 
-    /**
-     * @brief Add event listeners to manage game nodes within the scene.
-     */
-    auto AddEventListeners() -> void;
-
-    /**
-     * @brief Propagate the "update event" to game nodes within the scene.
-     *
-     * @param node The node to update.
-     * @param delta The time in seconds since the last update.
-     */
-    auto HandleNodeUpdates(std::weak_ptr<Node> node, float delta) -> void;
-
-    /**
-     * @brief Propagate input events to nodes within the scene.
-     *
-     * @param node The node to update.
-     * @param event The input event to handle.
-     */
-    auto HandleInputEvent(std::weak_ptr<Node> node, Event* event) -> void;
-
-    /**
-     * @brief Handles events related to the scene.
-     *
-     * @param event The scene event to handle.
-     */
-    auto HandleSceneEvents(const SceneEvent* event) -> void;
-
-    /**
-     * @brief Sets the shared context for the scene and its nodes.
-     *
-     * This method initializes the shared context for the scene and propagates it
-     * to all nodes within the scene. The shared context provides access to shared
-     * resources and parameters required by the scene and its nodes.
-     *
-     * @param context A pointer to the shared context to be set for the scene.
-     */
+    friend class ApplicationContext;
     auto SetContext(SharedContext* context) -> void;
+    auto ProcessUpdates(float delta) -> void;
+    /// @endcond
 };
 
 }

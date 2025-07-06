@@ -5,13 +5,10 @@
 ===========================================================================
 */
 
-#include "gleam/nodes/mesh.hpp"
+#include "gleam/geometries/wireframe_geometry.hpp"
 
 namespace gleam {
 
-Mesh::Mesh(
-    std::shared_ptr<Geometry> geometry,
-    std::shared_ptr<Material> material
-) : geometry(geometry), material(material) {}
+// TODO: implement
 
 }
