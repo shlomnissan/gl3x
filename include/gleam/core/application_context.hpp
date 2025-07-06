@@ -191,8 +191,6 @@ private:
     std::unique_ptr<Impl> impl_;
 
     auto Setup() -> void;
-
-    auto CreateDefaultCamera() const -> std::shared_ptr<Camera>;
     /// @endcond
 };
 

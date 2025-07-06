@@ -15,6 +15,8 @@
 
 namespace gleam {
 
+class Camera;
+
 /**
  * @brief Provides access to shared engine parameters and services.
  *
@@ -46,10 +48,13 @@ namespace gleam {
  */
 class GLEAM_EXPORT SharedContext {
 public:
+    friend class ApplicationContext;
+
     /**
      * @brief Runtime parameters shared across systems.
      */
     struct SharedParameters {
+        Camera* camera; ///< Current active camera.
         float ratio; ///< Aspect ratio of the render surface.
         int width; ///< Framebuffer width in pixels.
         int height; ///< Framebuffer height in pixels.

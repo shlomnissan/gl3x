@@ -17,6 +17,19 @@
 
 namespace gleam {
 
+namespace {
+
+auto create_default_camera(int width, int height) {
+    return PerspectiveCamera::Create({
+        .fov = math::DegToRad(60.0f),
+        .aspect = static_cast<float>(width) / height,
+        .near = 0.1f,
+        .far = 1000.0f
+    });
+}
+
+}
+
 struct ApplicationContext::Impl {
     std::unique_ptr<PerformanceGraph> performance_graph;
     std::shared_ptr<Scene> scene;
@@ -70,19 +83,10 @@ auto ApplicationContext::Setup() -> void {
 
     SetCamera(CreateCamera());
     if (!impl_->camera) {
-        impl_->camera = CreateDefaultCamera();
+        SetCamera(create_default_camera(params.width, params.height));
     }
 
     SetScene(CreateScene());
-}
-
-auto ApplicationContext::CreateDefaultCamera() const -> std::shared_ptr<Camera> {
-    return PerspectiveCamera::Create({
-        .fov = math::DegToRad(60.0f),
-        .aspect = static_cast<float>(params.width) / params.height,
-        .near = 0.1f,
-        .far = 1000.0f
-    });
 }
 
 auto ApplicationContext::Start() -> void {
@@ -143,6 +147,7 @@ auto ApplicationContext::SetScene(std::shared_ptr<Scene> scene) -> void {
 }
 
 auto ApplicationContext::SetCamera(std::shared_ptr<Camera> camera) -> void {
+    impl_->shared_context->params_.camera = camera.get();
     impl_->camera = camera;
 }
 
