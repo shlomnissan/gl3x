@@ -18,3 +18,4 @@
 #include "gleam/geometries/geometry.hpp"
 #include "gleam/geometries/plane_geometry.hpp"
 #include "gleam/geometries/sphere_geometry.hpp"
+#include "gleam/geometries/wireframe_geometry.hpp"
