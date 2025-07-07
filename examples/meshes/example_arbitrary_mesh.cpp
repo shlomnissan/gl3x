@@ -43,8 +43,8 @@ ExampleArbitraryMesh::ExampleArbitraryMesh(std::shared_ptr<gleam::Camera> camera
     Add(point_light);
 }
 
-auto ExampleArbitraryMesh::OnAttached() -> void {
-    this->Context()->Loaders().Mesh->LoadAsync(
+auto ExampleArbitraryMesh::OnAttached(gleam::SharedContext* context) -> void {
+    context->Loaders().Mesh->LoadAsync(
         "assets/bunny.msh",
         [this](auto result) {
             if (result) {

@@ -46,6 +46,7 @@ auto handle_input_event(std::weak_ptr<Node> node, Event* event) -> void {
 struct Scene::Impl {
     std::shared_ptr<EventListener> input_event_listener;
     std::shared_ptr<EventListener> scene_event_listener;
+    SharedContext* context {nullptr};
 };
 
 Scene::Scene() : impl_(std::make_unique<Impl>()) {
@@ -57,8 +58,7 @@ Scene::Scene() : impl_(std::make_unique<Impl>()) {
         auto e = static_cast<SceneEvent*>(event);
         if (IsChild(e->node.get())) {
             touched_ = true;
-            if (e->type == NodeAdded) e->node->AttachRecursive(context_);
-            if (e->type == NodeRemoved) e->node->DetachRecursive();
+            if (e->type == NodeAdded) e->node->AttachRecursive(impl_->context);
         }
     });
 
@@ -87,6 +87,7 @@ auto Scene::ProcessUpdates(float delta) -> void {
 }
 
 auto Scene::SetContext(SharedContext* context) -> void {
+    impl_->context = context;
     this->AttachRecursive(context);
 }
 

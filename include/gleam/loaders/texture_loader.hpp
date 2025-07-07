@@ -38,8 +38,8 @@ using TextureCallback = std::function<void(std::shared_ptr<Texture2D>)>;
  * which provides a reference to the context that owns an instance of this class.
  *
  * @code
- * auto MyNode::OnAttached() -> void override {
- *   this->Context()->Loaders().Texture->LoadAsync(
+ * auto MyNode::OnAttached(gleam::SharedContext* context) -> void override {
+ *   context->Loaders().Texture->LoadAsync(
  *     "assets/my_texture.tex",
  *     [this](auto result) { texture_ = result.value(); }
  *   );

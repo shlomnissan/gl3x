@@ -25,16 +25,16 @@ class Camera;
  * internally and made available to nodes and systems once they are attached
  * to the scene graph.
  *
- * Access to the `SharedContext` is typically done via the `Context()` method
- * in node classes. The context becomes available once the node is attached to
- * the scene hierarchy, typically during or after the `OnAttached()` callback.
+ * Access to the shared context is provided through the `Node::OnAttached(gleam::SharedContext* context)` callback,
+ * which is invoked when the node becomes part of an active scene hierarchy.
+ * Override this method in your node class to perform initialization that depends on the context,
+ * such as loading resources, accessing the active camera, etc.
  *
  * @code
  * class MyNode : public gleam::Node {
  * public:
- *   void OnAttached() override {
- *     // Safe to access context and initiate resource loading
- *     this->Context()->Loaders().Texture->LoadAsync(
+ *   void OnAttached(gleam::SharedContext* context) override {
+ *     context->Loaders().Texture->LoadAsync(
  *       "assets/checker.tex",
  *       [this](auto result) {
  *         if (result) texture_ = result.value();

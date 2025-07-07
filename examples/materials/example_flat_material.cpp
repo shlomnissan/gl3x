@@ -28,8 +28,8 @@ ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<gleam::Camera> camera) 
     Add(mesh_);
 }
 
-auto ExampleFlatMaterial::OnAttached() -> void {
-    this->Context()->Loaders().Texture->LoadAsync(
+auto ExampleFlatMaterial::OnAttached(gleam::SharedContext* context) -> void {
+    context->Loaders().Texture->LoadAsync(
         "assets/checker.tex",
         [this](auto result) {
             if (result) texture_ = result.value();

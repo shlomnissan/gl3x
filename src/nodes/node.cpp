@@ -52,7 +52,6 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
         impl_->children.erase(it);
         node->impl_->parent = nullptr;
         node->transform.touched = true;
-        node->context_ = nullptr;
     } else {
         Logger::Log(
             LogLevel::Warning,
@@ -69,7 +68,6 @@ auto Node::RemoveAllChildren() -> void {
             std::make_unique<SceneEvent>(SceneEvent::Type::NodeRemoved, node)
         );
         node->impl_->parent = nullptr;
-        node->context_ = nullptr;
     }
     impl_->children.clear();
 }
@@ -150,20 +148,6 @@ auto Node::GetWorldTransform() -> Matrix4 {
     return impl_->world_transform;
 }
 
-auto Node::Context() const -> SharedContext* {
-    if (context_ == nullptr) {
-        Logger::Log(
-            LogLevel::Error,
-            "Shared context is not set. Ensure the node is part of an active "
-            "scene and that the context is accessed after the node is initialized. "
-            "The context is guaranteed to be initialized after the node is attached "
-            "to an active scene which invokes the OnAttached() method."
-        );
-        return nullptr;
-    }
-    return context_;
-}
-
 Node::~Node() = default;
 
 auto Node::LookAt(const Vector3& target) -> void {
@@ -174,20 +158,10 @@ auto Node::LookAt(const Vector3& target) -> void {
 }
 
 auto Node::AttachRecursive(SharedContext* context) -> void {
-    context_ = context;
-    OnAttached();
+    OnAttached(context);
     for (const auto& child : impl_->children) {
         if (child != nullptr) {
             child->AttachRecursive(context);
-        }
-    }
-}
-
-auto Node::DetachRecursive() -> void {
-    context_ = nullptr;
-    for (const auto& child : impl_->children) {
-        if (child != nullptr) {
-            child->DetachRecursive();
         }
     }
 }

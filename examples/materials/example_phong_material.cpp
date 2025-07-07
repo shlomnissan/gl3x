@@ -48,8 +48,8 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<gleam::Camera> camera
     Add(point_light);
 }
 
-auto ExamplePhongMaterial::OnAttached() -> void {
-    this->Context()->Loaders().Texture->LoadAsync(
+auto ExamplePhongMaterial::OnAttached(gleam::SharedContext* context) -> void {
+    context->Loaders().Texture->LoadAsync(
         "assets/checker.tex",
         [this](auto result) {
             if (result) texture_ = result.value();

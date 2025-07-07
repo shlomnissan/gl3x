@@ -42,8 +42,8 @@ using MeshCallback = std::function<void(std::shared_ptr<Node>)>;
  * which provides a reference to the context that owns an instance of this class.
  *
  * @code
- * auto MyNode::OnAttached() -> void override {
- *   this->Context()->Loaders().Mesh->LoadAsync(
+ * auto MyNode::OnAttached(gleam::SharedContext* context) -> void override {
+ *   context->Loaders().Mesh->LoadAsync(
  *     "assets/my_model.msh",
  *     [this](auto result) { this->Add(result.value()); }
  *   );

@@ -45,7 +45,8 @@ enum class NodeType {
  *
  * Nodes can be organized in a tree structure, and transformations will
  * propagate through the hierarchy. When attached to a scene, nodes gain
- * access to the shared context and may perform initialization in `OnAttached()`.
+ * access to the shared context and may perform initialization in
+ * `OnAttached(gleam::SharedContext* context)`.
  *
  * To define behavior, override virtual methods such as `OnUpdate()`,
  * `OnKeyboardEvent()`, or `OnMouseEvent()`.
@@ -142,20 +143,6 @@ public:
      * @brief Returns the world transformation matrix of this node.
      */
     [[nodiscard]] auto GetWorldTransform() -> Matrix4;
-
-    /**
-     * @brief Returns the shared context associated with this node.
-     *
-     * The context becomes available once the node is attached to the scene.
-     */
-    [[nodiscard]] auto Context() const -> SharedContext*;
-
-    /**
-     * @brief Returns whether this node is currently attached to a scene.
-     */
-    [[nodiscard]] auto IsAttached() const {
-        return context_ != nullptr;
-    }
 
     /**
      * @brief Returns node type.
@@ -260,8 +247,10 @@ public:
      * currently attached to the application context. The shared context is
      * guaranteed to be initialized and available. Use this hook to perform
      * resource loading or event registration that depends on application state.
+     *
+     * @param context Pointer to the shared context.
      */
-    virtual auto OnAttached() -> void { /* No-op by default */ }
+    virtual auto OnAttached(SharedContext* context) -> void { /* No-op by default */ }
 
     /**
      * @brief Called when a keyboard event is dispatched to this node.
@@ -288,11 +277,8 @@ private:
     class Impl;
     std::unique_ptr<Impl> impl_;
 
-    // The active scene is responsible for propagating the context
     friend class Scene;
-    SharedContext* context_ {nullptr};
     auto AttachRecursive(SharedContext* context) -> void;
-    auto DetachRecursive() -> void;
     /// @endcond
 };
 
