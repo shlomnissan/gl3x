@@ -26,29 +26,32 @@ struct DirectionalLight::Impl {
         material = FlatMaterial::Create();
         material->two_sided = true;
         material->color = self->color;
-        material->wireframe = true;
         material->fog = false;
 
-        line = Mesh::Create(Geometry::Create({
+        auto line_geometry = Geometry::Create({
             0, 0, 0,
             0, 0, 1
-        }), material);
-        line->geometry->SetAttribute({Position, 3});
-        line->geometry->primitive = Lines;
+        });
+        line_geometry->SetAttribute({Position, 3});
+        line_geometry->primitive = Lines;
+
+        line = Mesh::Create(line_geometry, material);
         line->transform_auto_update = false;
         self->Add(line);
 
-        plane = Mesh::Create(Geometry::Create({
+        auto plane_geometry = Geometry::Create({
             -1,  1, 0,
              1,  1, 0,
              1, -1, 0,
             -1, -1, 0
-        }), material);
-        plane->geometry->SetAttribute({Position, 3});
-        plane->geometry->primitive = LineLoop;
-        plane->transform_auto_update = false;
+        });
+        plane_geometry->SetAttribute({Position, 3});
+        plane_geometry->primitive = LineLoop;
 
+        plane = Mesh::Create(plane_geometry, material);
+        plane->transform_auto_update = false;
         self->Add(plane);
+
         UpdateDebugMesh(self);
     }
 

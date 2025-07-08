@@ -38,10 +38,11 @@ auto VerifyMesh(std::shared_ptr<gleam::Node> root) {
     EXPECT_EQ(root->Children().size(), 1);
 
     if (auto mesh = static_cast<gleam::Mesh*>(root->Children()[0].get())) {
-        EXPECT_NE(mesh->geometry, nullptr);
-        EXPECT_NE(mesh->material, nullptr);
-        EXPECT_EQ(mesh->geometry->VertexCount(), 4);
-        EXPECT_EQ(mesh->geometry->IndexCount(), 6);
+        auto geometry = mesh->GetGeometry();
+        EXPECT_NE(geometry, nullptr);
+        EXPECT_NE(geometry, nullptr);
+        EXPECT_EQ(geometry->VertexCount(), 4);
+        EXPECT_EQ(geometry->IndexCount(), 6);
     }
 }
 

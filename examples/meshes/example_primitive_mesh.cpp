@@ -50,10 +50,10 @@ ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<gleam::Camera> camera
     mesh_ = Mesh::Create(geometry, base_material);
     Add(mesh_);
 
+    auto wireframe_geometry = WireframeGeometry::Create(geometry.get());
     auto wireframe_material = FlatMaterial::Create();
-    wireframe_material->wireframe = true;
     wireframe_material->fog = false;
-    wireframes_ = Mesh::Create(geometry, wireframe_material);
+    wireframes_ = Mesh::Create(wireframe_geometry, wireframe_material);
     mesh_->Add(wireframes_);
 }
 
@@ -98,8 +98,8 @@ auto ExamplePrimitiveMesh::ContextMenu() -> void {
             geometry = SphereGeometry::Create(sphere_params_);
         }
 
-        mesh_->geometry = geometry;
-        wireframes_->geometry = geometry;
+        mesh_->SetGeometry(geometry);
+        wireframes_->SetGeometry(WireframeGeometry::Create(geometry.get()));
     }
 }
 

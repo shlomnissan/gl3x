@@ -54,8 +54,8 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
     if (!IsValidMesh(mesh)) return;
     if (!IsVisible(mesh)) return;
 
-    auto geometry = mesh->geometry.get();
-    auto material = mesh->material.get();
+    auto geometry = mesh->GetGeometry().get();
+    auto material = mesh->GetMaterial().get();
 
     auto attrs = ProgramAttributes {material, {
         .directional = lights_.directional,
@@ -68,7 +68,12 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
     }
 
     state_.ProcessMaterial(material);
-    buffers_.Bind(mesh->geometry);
+    if (material->wireframe) {
+        buffers_.Bind(mesh->GetWireframeGeometry());
+        geometry = mesh->GetWireframeGeometry().get();
+    } else {
+        buffers_.Bind(mesh->GetGeometry());
+    }
 
     SetUniforms(program, &attrs, mesh, camera, scene);
 
@@ -104,7 +109,7 @@ auto Renderer::Impl::SetUniforms(
     Camera* camera,
     Scene* scene
 ) -> void {
-    auto material = mesh->material.get();
+    auto material = mesh->GetMaterial().get();
     auto model = mesh->GetWorldTransform();
     auto resolution = Vector2(params_.width, params_.height);
 
@@ -190,7 +195,7 @@ auto Renderer::Impl::SetClearColor(const Color& color) -> void {
 }
 
 auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
-    auto geometry = mesh->geometry;
+    auto geometry = mesh->GetGeometry();
 
     if (geometry->Disposed()) {
         Logger::Log(LogLevel::Warning,
@@ -217,7 +222,7 @@ auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
 }
 
 auto Renderer::Impl::IsVisible(Mesh* mesh) const -> bool {
-    auto bounding_sphere = mesh->geometry->BoundingSphere();
+    auto bounding_sphere = mesh->GetGeometry()->BoundingSphere();
     bounding_sphere.ApplyTransform(mesh->GetWorldTransform());
     return frustum_.IntersectsWithSphere(bounding_sphere);
 }

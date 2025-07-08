@@ -26,7 +26,6 @@ struct SpotLight::Impl {
         material = FlatMaterial::Create();
         material->two_sided = true;
         material->color = self->color;
-        material->wireframe = true;
         material->fog = false;
 
         // lines for the cone
@@ -49,10 +48,12 @@ struct SpotLight::Impl {
             });
         }
 
-        cone = Mesh::Create(Geometry::Create(points), material);
-        cone->geometry->SetName("directional light line");
-        cone->geometry->SetAttribute({Position, 3});
-        cone->geometry->primitive = Lines;
+        auto cone_geometry = Geometry::Create(points);
+        cone_geometry->SetName("directional light line");
+        cone_geometry->SetAttribute({Position, 3});
+        cone_geometry->primitive = Lines;
+
+        cone = Mesh::Create(cone_geometry, material);
         cone->transform_auto_update = false;
 
         self->Add(cone);

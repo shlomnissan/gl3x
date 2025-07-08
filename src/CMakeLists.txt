@@ -44,6 +44,7 @@ set(SOURCE_CODE
     "math/utilities.cpp"
     "math/vector3.cpp"
     "math/vector4.cpp"
+    "nodes/mesh.cpp"
     "nodes/node.cpp"
     "nodes/scene.cpp"
     "renderer/gl/gl_buffers.cpp"

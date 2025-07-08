@@ -15,7 +15,6 @@ auto GLState::ProcessMaterial(const Material* material) -> void {
     SetBackfaceCulling(!material->two_sided);
     SetDepthTest(material->depth_test);
     SetPolygonOffset(material->polygon_offset_factor, material->polygon_offset_units);
-    SetWireframeMode(material->wireframe);
     SetBlending(!material->transparent ? Blending::None : material->blending);
 }
 
@@ -65,14 +64,6 @@ auto GLState::SetPolygonOffset(float factor, float units) -> void {
         glPolygonOffset(factor, units);
     } else {
         Disable(GL_POLYGON_OFFSET_FILL);
-    }
-}
-
-auto GLState::SetWireframeMode(bool enabled) -> void {
-    if (curr_wireframe_mode_ != enabled) {
-        enabled ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
-                : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        curr_wireframe_mode_ = enabled;
     }
 }
 

@@ -52,8 +52,6 @@ private:
 
     auto SetPolygonOffset(float factor, float units) -> void;
 
-    auto SetWireframeMode(bool enabled) -> void;
-
     auto SetBlending(Blending blending) -> void;
 };
 
