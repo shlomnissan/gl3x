@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/resources/arrow.hpp"
+#include "gleam/nodes/arrow.hpp"
 
 #include "gleam/geometries/cone_geometry.hpp"
 #include "gleam/geometries/geometry.hpp"
@@ -17,8 +17,7 @@ namespace gleam {
 Arrow::Arrow(const Parameters& params) {
     const auto material = FlatMaterial::Create(params.color);
     const auto cone_height = 0.1f;
-
-    auto cone = Mesh::Create(ConeGeometry::Create({
+    const auto cone = Mesh::Create(ConeGeometry::Create({
         .radius = 0.03f,
         .height = cone_height
     }), material);
@@ -26,14 +25,13 @@ Arrow::Arrow(const Parameters& params) {
     cone->RotateX(math::DegToRad(90.0f));
     Add(cone);
 
-    auto geometry = Geometry::Create({
+    const auto geometry = Geometry::Create({
         0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, params.length - cone_height
     });
     geometry->SetAttribute({GeometryAttributeType::Position, 3});
     geometry->primitive = GeometryPrimitiveType::Lines;
-    auto line = Mesh::Create(geometry, material);
-    Add(line);
+    Add(Mesh::Create(geometry, material));
 
     SetOrigin(params.origin);
     SetDirection(params.direction);
