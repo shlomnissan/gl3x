@@ -20,13 +20,10 @@ using namespace gleam;
 ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<gleam::Camera> camera) {
     Add(OrbitControls::Create(camera.get(), {.radius = 3.0f}));
 
-    fog = ExponentialFog::Create(0x444444, 0.3f);
-
     auto geometry = CubeGeometry::Create();
     material_ = PhongMaterial::Create(0x049EF4);
     material_->specular = {0.3f, 0.3, 0.3f};
-    material_->shininess = 64.0f;
-    material_->fog = false;
+    material_->shininess = 32.0f;
     mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);
 

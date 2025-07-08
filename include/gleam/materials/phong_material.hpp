@@ -27,7 +27,7 @@ namespace gleam {
  * @code
  * auto material = gleam::PhongMaterial::Create(0x049EF4);
  * material->specular = {0.3f, 0.3, 0.3f}
- * material->shininess = 64.0f;
+ * material->shininess = 32.0f;
  * material->texture_map = texture;
  *
  * auto mesh = gleam::Mesh::Create(geometry, material);
@@ -42,7 +42,7 @@ public:
     Color color = 0xFFFFFF;
 
     /// @brief Specular color of the material.
-    Color specular = 0x191919;
+    Color specular = 0x111111;
 
     /// @brief How shiny the specular highlight is; a higher value gives a sharper highlight.
     float shininess = 32.0f;

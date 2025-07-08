@@ -101,18 +101,18 @@ void main() {
 
     vec3 base_color = u_Material.DiffuseColor;
     float opacity = u_Opacity;
+
     #ifdef USE_TEXTURE_MAP
         vec4 texture_sample = texture(u_TextureMap, v_TexCoord);
         base_color *= texture_sample.rgb;
         opacity *= texture_sample.a;
     #endif
 
-    vec3 light_intensity = u_AmbientLight;
+    vec3 output_color = base_color * u_AmbientLight;
     #if NUM_LIGHTS > 0
-        light_intensity += processLights(normal);
+        output_color += processLights(normal);
     #endif
 
-    vec3 output_color = base_color * light_intensity;
     #ifdef USE_FOG
         applyFog(output_color, v_ViewDepth);
     #endif
