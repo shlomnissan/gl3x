@@ -18,13 +18,11 @@ ExampleGridResource::ExampleGridResource(std::shared_ptr<gleam::Camera> camera) 
         .yaw = math::DegToRad(45.0f)
     }));
 
-    grid_params_ = {
+    grid_ = Grid::Create({
         .size = 4.0f,
         .divisions = 16,
         .color = Color(0x333333)
-    };
-
-    grid_ = Grid::Create(grid_params_);
+    });
 
     Add(grid_);
 }

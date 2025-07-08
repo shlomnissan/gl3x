@@ -8,6 +8,7 @@
 #pragma once
 
 #include "gleam_export.h"
+
 #include "gleam/math/matrix4.hpp"
 
 namespace gleam {

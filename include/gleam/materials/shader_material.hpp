@@ -8,6 +8,7 @@
 #pragma once
 
 #include "gleam_export.h"
+
 #include "gleam/materials/material.hpp"
 
 #include "gleam/math/color.hpp"

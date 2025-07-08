@@ -8,6 +8,7 @@
 #pragma once
 
 #include "gleam_export.h"
+
 #include "gleam/math/matrix3.hpp"
 #include "gleam/math/vector2.hpp"
 

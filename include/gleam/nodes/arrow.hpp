@@ -55,6 +55,12 @@ public:
      */
     explicit Arrow(const Parameters& params);
 
+    /**
+     * @brief Creates a shared pointer to an Arrow object.
+     *
+     * @param params Arrow::Parameters
+     * @return std::shared_ptr<Arrow>
+     */
     [[nodiscard]] static auto Create(const Parameters& params) {
         return std::make_shared<Arrow>(params);
     }
