@@ -13,5 +13,4 @@
  */
 
 #include "gleam/resources/bounding_plane.hpp"
-#include "gleam/resources/bounding_sphere.hpp"
 #include "gleam/resources/orbit_controls.hpp"

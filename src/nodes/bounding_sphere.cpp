@@ -5,8 +5,9 @@
 ===========================================================================
 */
 
-#include "gleam/resources/bounding_sphere.hpp"
+#include "gleam/nodes/bounding_sphere.hpp"
 
+#include "gleam/geometries/geometry.hpp"
 #include "gleam/materials/flat_material.hpp"
 #include "gleam/math/utilities.hpp"
 #include "gleam/nodes/mesh.hpp"
@@ -15,11 +16,9 @@
 
 namespace gleam {
 
-BoundingSphere::BoundingSphere(const Sphere& sphere, const Color& color) {
-    Add(Mesh::Create(CreateGeometry(sphere), FlatMaterial::Create(color)));
-}
+namespace {
 
-auto BoundingSphere::CreateGeometry(const Sphere& sphere) const -> std::shared_ptr<Geometry> {
+auto create_geometry(const Sphere& sphere) {
     constexpr auto segments = 64.0f;
 
     std::vector<float> vertices;
@@ -68,6 +67,12 @@ auto BoundingSphere::CreateGeometry(const Sphere& sphere) const -> std::shared_p
     });
 
     return geometry;
+}
+
+}
+
+BoundingSphere::BoundingSphere(const Sphere& sphere, const Color& color) {
+    Add(Mesh::Create(create_geometry(sphere), FlatMaterial::Create(color)));
 }
 
 }
