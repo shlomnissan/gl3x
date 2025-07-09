@@ -93,7 +93,7 @@ private:
 
     auto LoadScene(const std::string_view scene_name) -> void {
         if (scene_name == "Flat Material") {
-            scene_ = std::make_shared<ExampleFlatMaterial>(camera_);
+            scene_ = std::make_shared<ExampleFlatMaterial>();
         }
         if (scene_name == "Phong Material") {
             scene_ = std::make_shared<ExamplePhongMaterial>(camera_);

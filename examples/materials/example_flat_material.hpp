@@ -17,7 +17,7 @@
 
 class ExampleFlatMaterial : public ExampleScene {
 public:
-    explicit ExampleFlatMaterial(std::shared_ptr<gleam::Camera>);
+    explicit ExampleFlatMaterial();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

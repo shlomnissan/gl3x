@@ -16,9 +16,7 @@
 
 using namespace gleam;
 
-ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<gleam::Camera> camera) {
-    Add(OrbitControls::Create(camera.get(), {.radius = 3.0f}));
-
+ExampleFlatMaterial::ExampleFlatMaterial() {
     auto geometry = CubeGeometry::Create();
     material_ = FlatMaterial::Create(0x049EF4);
     mesh_ = Mesh::Create(geometry, material_);
@@ -26,6 +24,8 @@ ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<gleam::Camera> camera) 
 }
 
 auto ExampleFlatMaterial::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
+
     context->Loaders().Texture->LoadAsync(
         "assets/checker.tex",
         [this](auto result) {

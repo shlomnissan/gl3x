@@ -9,31 +9,42 @@
 
 #include "gleam_export.h"
 
-#include "gleam/math/vector2.hpp"
-#include "gleam/math/vector3.hpp"
+#include "gleam/cameras/camera.hpp"
 #include "gleam/nodes/node.hpp"
-#include "gleam/cameras/perspective_camera.hpp"
 
 #include <memory>
 
 namespace gleam {
 
 /**
- * @brief Camera orbit node that allows the user to orbit, zoom and pan around a target point.
+ * @brief Interactive camera controller for orbiting around a target point.
+ *
+ * `OrbitControls` enables intuitive camera manipulation using spherical coordinates,
+ * allowing users to orbit, zoom, and pan around a fixed target. It is typically
+ * attached to a scene node and linked to a `Camera` instance, responding to mouse
+ * input and updating camera transforms each frame.
+ *
+ * This controller is useful for editor views, previews, and navigation interfaces.
+ *
+ * @code
+ * auto MyScene::OnAttached(gleam::SharedContext* context) -> void override {
+ *   Add(gleam::OrbitControls::Create(
+ *     context->Parameters().camera,
+ *     { .radius = 3.0f }
+ *   ));
+ * }
+ * @endcode
+ *
+ * @ingroup CamerasGroup
  */
 class GLEAM_EXPORT OrbitControls : public Node {
 public:
-    /// @brief The speed at which the camera orbits around the target point.
-    float orbit_speed {3.5f};
-
-    /// @brief The speed at which the camera zooms in and out.
-    float zoom_speed {50.0f};
-
-    /// @brief The speed at which the camera pans around the target point.
-    float pan_speed {1.5f};
+    float orbit_speed {3.5f}; ///< Rate at which the camera orbits around the target point.
+    float zoom_speed {50.0f}; ///< Rate at which the camera zooms in and out.
+    float pan_speed {1.5f}; ///< Rate at which the camera pans around the target point.
 
     /**
-     * @brief Parameters for configuring the camera orbit.
+     * @brief Parameters for constructing a CameraOrbit object.
      */
     struct Parameters {
         float radius {1.0f}; ///< Distance of the camera from the target point.
@@ -44,94 +55,46 @@ public:
     /**
      * @brief Constructs a CameraOrbit object.
      *
-     * @param camera Shared pointer to the camera to orbit around.
-     * @param params Parameters struct of the camera orbit.
+     * @param camera Pointer to the camera to orbit around.
+     * @param params OrbitControls::Parameters
      */
-    OrbitControls(Camera* camera, const Parameters& params)
-        : camera_(camera), radius_(params.radius), pitch_(params.pitch), yaw_(params.yaw) {};
+    OrbitControls(Camera* camera, const Parameters& params);
 
     /**
-     * @brief Creates a new instance of the CameraOrbit class.
+     * @brief Creates a shared pointer to a OrbitCamera object.
      *
-     * @param camera Shared pointer to the camera to orbit around.
-     * @param params Parameters struct of the camera orbit.
-     * @return Shared pointer to the newly created instance.
+     * @param camera Pointer to the camera to orbit around.
+     * @param params OrbitControls::Parameters
+     * @return std::shared_ptr<OrbitControls>
      */
-    [[nodiscard]] static auto Create(
-        Camera* camera,
-        const Parameters& params
-    ) {
+    [[nodiscard]] static auto Create(Camera* camera, const Parameters& params) {
         return std::make_shared<OrbitControls>(camera, params);
     }
 
     /**
-     * @brief Invoked when a mouse event is received.
+     * @brief Mouse event handler.
      *
-     * @param event A pointer to the mouse event.
+     * @param event Pointer to the mouse event.
      */
     auto OnMouseEvent(MouseEvent* event) -> void override;
 
     /**
-     * @brief Invoked when the node is updated.
+     * @brief Updates the camera control each frame.
      *
-     * @param delta The time in seconds since the last update.
+     * @param delta Time in seconds since the last update.
      */
     auto OnUpdate(float delta) -> void override;
 
+    /**
+     * @brief Destructor.
+     */
+    ~OrbitControls();
+
 private:
-    /// @brief The camera to orbit around.
-    Camera* camera_;
-
-    /// @brief The target point around which the camera orbits.
-    Vector3 target = Vector3::Zero();
-
-    /// @brief The current mouse position.
-    Vector2 curr_mouse_pos_ {0.0f, 0.0f};
-
-    /// @brief The previous mouse position.
-    Vector2 prev_mouse_pos_ {0.0f, 0.0f};
-
-    /// @brief The radius of the camera's orbit around the target.
-    float radius_;
-
-    /// @brief The pitch angle in radians, measured from the vertical axis.
-    float pitch_;
-
-    /// @brief The yawal angle in radians, measured from the horizontal axis.
-    float yaw_;
-
-    /// @brief The current vertical scroll offset.
-    float curr_scroll_offset_ {0.0f};
-
-    /// @brief Currently pressed mouse button.
-    MouseButton curr_mouse_button_ {MouseButton::None};
-
-    /// @brief Flag indicating whether the camera has been updated before.
-    bool first_update_ {true};
-
-    /**
-     * @brief Orbits the camera around the target point.
-     *
-     * @param mouse_offset The offset of the mouse position.
-     * @param delta The time in seconds since the last update.
-     */
-    auto Orbit(const Vector2& mouse_offset, float delta) -> void;
-
-    /**
-     * @brief Zooms the camera in and out.
-     *
-     * @param scroll_offset The vertical offset of the scroll wheel.
-     * @param delta The time in seconds since the last update.
-     */
-    auto Zoom(float scroll_offset, float delta) -> void;
-
-    /**
-     * @brief Pans the camera around the target point.
-     *
-     * @param mouse_offset The offset of the mouse position.
-     * @param delta The time in seconds since the last update.
-     */
-    auto Pan(const Vector2& mouse_offset, float delta) -> void;
+    /// @cond INTERNAL
+    class Impl;
+    std::unique_ptr<Impl> impl_;
+    /// @endcond
 };
 
 }
