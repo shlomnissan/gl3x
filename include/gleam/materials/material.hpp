@@ -41,10 +41,9 @@ enum class Blending {
 };
 
 /**
- * @brief **Abstract** base class for material objects.
+ * @brief Abstract base class for material types.
  *
- * The following member variables and methods are inherited by all other
- * material types. Not intended to be instantiated directly.
+ * Not intended for direct use.
  *
  * @ingroup MaterialsGroup
  */

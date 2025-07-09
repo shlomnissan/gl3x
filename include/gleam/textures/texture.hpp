@@ -23,10 +23,9 @@ enum class TextureType {
 };
 
 /**
- * @brief **Abstract** base class for texture objects.
+ * @brief Abstract base class for texture types.
  *
- * The following member variables and methods are inherited by all other
- * texture types. Not intended to be instantiated directly.
+ * Not intended for direct use.
  *
  * @ingroup TexturesGroup
  */

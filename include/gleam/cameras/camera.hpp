@@ -24,10 +24,9 @@ enum class CameraType {
 };
 
 /**
- * @brief **Abstract** base class for camera objects.
+ * @brief Abstract base class for camera types.
  *
- * The following member variables and methods are inherited by the perspective
- * and orthographic camera types. Not intended to be instantiated directly.
+ * Not intended for direct use.
  *
  * @ingroup CamerasGroup
  */

@@ -25,7 +25,6 @@ enum class FogType {
 };
 
 /**
- * @internal
  * @brief Abstract base class for fog types.
  *
  * Not intended for direct use.
@@ -33,12 +32,26 @@ enum class FogType {
  * @ingroup NodesGroup
  */
 struct Fog {
+    /// @brief Color of the fog.
     Color color;
 
+    /**
+     * @brief Constructs a base Fog object.
+     *
+     * @param color Color of the fog.
+     */
     explicit Fog(Color color) : color(color) {}
 
+    /**
+     * @brief Returns fog type.
+     *
+     * @return FogType
+     */
     [[nodiscard]] virtual auto GetType() const -> FogType = 0;
 
+    /**
+     * @brief Default virtual destructor.
+     */
     virtual ~Fog() = default;
 };
 

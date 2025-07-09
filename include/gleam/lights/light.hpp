@@ -28,10 +28,9 @@ enum class LightType {
 };
 
 /**
- * @brief **Abstract** base class for light objects.
+ * @brief Abstract base class for light types.
  *
- * The following member variables and methods are inherited by all other
- * light types. Not intended to be instantiated directly.
+ * Not intended for direct use.
  *
  * @ingroup LightsGroup
  */
