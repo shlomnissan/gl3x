@@ -9,7 +9,6 @@
 
 #include "ui_helpers.hpp"
 
-#include <gleam/cameras.hpp>
 #include <gleam/geometries.hpp>
 
 using namespace gleam;

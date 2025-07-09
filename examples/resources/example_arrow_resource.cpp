@@ -7,7 +7,7 @@
 
 #include "example_arrow_resource.hpp"
 
-#include <gleam/cameras.hpp>
+#include <gleam/nodes.hpp>
 
 #include "ui_helpers.hpp"
 

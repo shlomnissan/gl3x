@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include <gleam/nodes.hpp>
 #include <gleam/materials.hpp>
 
 #include <array>

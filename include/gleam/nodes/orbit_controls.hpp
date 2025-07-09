@@ -35,7 +35,7 @@ namespace gleam {
  * }
  * @endcode
  *
- * @ingroup CamerasGroup
+ * @ingroup NodesGroup
  */
 class GLEAM_EXPORT OrbitControls : public Node {
 public:

@@ -20,4 +20,5 @@
 #include "gleam/nodes/grid.hpp"
 #include "gleam/nodes/mesh.hpp"
 #include "gleam/nodes/node.hpp"
+#include "gleam/nodes/orbit_controls.hpp"
 #include "gleam/nodes/scene.hpp"

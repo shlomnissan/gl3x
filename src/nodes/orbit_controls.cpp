@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/cameras/orbit_controls.hpp"
+#include "gleam/nodes/orbit_controls.hpp"
 
 #include "gleam/math/utilities.hpp"
 #include "gleam/math/vector2.hpp"

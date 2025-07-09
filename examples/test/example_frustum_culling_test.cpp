@@ -7,7 +7,6 @@
 
 #include "example_frustum_culling_test.hpp"
 
-#include <gleam/cameras.hpp>
 #include <gleam/geometries.hpp>
 #include <gleam/lights.hpp>
 #include <gleam/materials.hpp>

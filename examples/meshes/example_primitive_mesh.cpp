@@ -9,7 +9,6 @@
 
 #include "ui_helpers.hpp"
 
-#include <gleam/cameras.hpp>
 #include <gleam/materials.hpp>
 #include <gleam/lights.hpp>
 

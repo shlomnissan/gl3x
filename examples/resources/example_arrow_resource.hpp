@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include <gleam/nodes.hpp>
-
 #include <memory>
 
 #include "example_scene.hpp"

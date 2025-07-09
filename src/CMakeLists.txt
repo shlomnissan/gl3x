@@ -3,7 +3,6 @@ set(VENDOR_DIR ${CMAKE_SOURCE_DIR}/vendor)
 
 set(SOURCE_CODE
     "cameras/camera.cpp"
-    "cameras/orbit_controls.cpp"
     "cameras/orthographic_camera.cpp"
     "cameras/perspective_camera.cpp"
     "core/application_context.cpp"
@@ -52,6 +51,7 @@ set(SOURCE_CODE
     "nodes/grid.cpp"
     "nodes/mesh.cpp"
     "nodes/node.cpp"
+    "nodes/orbit_controls.cpp"
     "nodes/scene.cpp"
     "renderer/gl/gl_buffers.cpp"
     "renderer/gl/gl_buffers.hpp"
@@ -83,7 +83,6 @@ set(SOURCE_CODE
 
 set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/cameras/camera.hpp"
-    "${PUBLIC_HEADERS_DIR}/cameras/orbit_controls.hpp"
     "${PUBLIC_HEADERS_DIR}/cameras/orthographic_camera.hpp"
     "${PUBLIC_HEADERS_DIR}/cameras/perspective_camera.hpp"
     "${PUBLIC_HEADERS_DIR}/core/application_context.hpp"
@@ -135,6 +134,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/nodes/grid.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/mesh.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/node.hpp"
+    "${PUBLIC_HEADERS_DIR}/nodes/orbit_controls.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/scene.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture_2d.hpp"

@@ -7,7 +7,6 @@
 
 #include "example_lerp_animation_test.hpp"
 
-#include <gleam/cameras.hpp>
 #include <gleam/geometries.hpp>
 #include <gleam/lights.hpp>
 

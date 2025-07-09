@@ -9,9 +9,9 @@
 
 #include "ui_helpers.hpp"
 
-#include <gleam/cameras.hpp>
 #include <gleam/geometries.hpp>
 #include <gleam/lights.hpp>
+#include <gleam/nodes.hpp>
 
 using namespace gleam;
 
