@@ -5,8 +5,9 @@
 ===========================================================================
 */
 
-#include "gleam/resources/bounding_box.hpp"
+#include "gleam/nodes/bounding_box.hpp"
 
+#include "gleam/geometries/geometry.hpp"
 #include "gleam/materials/flat_material.hpp"
 #include "gleam/nodes/mesh.hpp"
 
@@ -14,11 +15,9 @@
 
 namespace gleam {
 
-BoundingBox::BoundingBox(const Box3& box, const Color& color) {
-    Add(Mesh::Create(CreateGeometry(box), FlatMaterial::Create(color)));
-}
+namespace {
 
-auto BoundingBox::CreateGeometry(const Box3& box) const -> std::shared_ptr<Geometry> {
+auto create_geometry(const Box3& box) {
     auto vertices = std::vector<float> {
         box.max.x, box.max.y, box.max.z,
         box.min.x, box.max.y, box.max.z,
@@ -44,6 +43,12 @@ auto BoundingBox::CreateGeometry(const Box3& box) const -> std::shared_ptr<Geome
     });
 
     return geometry;
+}
+
+}
+
+BoundingBox::BoundingBox(const Box3& box, const Color& color) {
+    Add(Mesh::Create(create_geometry(box), FlatMaterial::Create(color)));
 }
 
 }

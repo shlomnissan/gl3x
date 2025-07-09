@@ -19,11 +19,8 @@ using namespace gleam;
 ExampleFlatMaterial::ExampleFlatMaterial(std::shared_ptr<gleam::Camera> camera) {
     Add(OrbitControls::Create(camera.get(), {.radius = 3.0f}));
 
-    fog = ExponentialFog::Create(0x444444, 0.3f);
-
     auto geometry = CubeGeometry::Create();
     material_ = FlatMaterial::Create(0x049EF4);
-    material_->fog = false;
     mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);
 }

@@ -13,6 +13,7 @@
  */
 
 #include "gleam/nodes/arrow.hpp"
+#include "gleam/nodes/bounding_box.hpp"
 #include "gleam/nodes/fog.hpp"
 #include "gleam/nodes/grid.hpp"
 #include "gleam/nodes/mesh.hpp"
