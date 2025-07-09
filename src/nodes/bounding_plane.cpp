@@ -5,8 +5,10 @@
 ===========================================================================
 */
 
-#include "gleam/resources/bounding_plane.hpp"
+#include "gleam/nodes/bounding_plane.hpp"
 
+#include "gleam/geometries/geometry.hpp"
+#include "gleam/geometries/wireframe_geometry.hpp"
 #include "gleam/materials/flat_material.hpp"
 #include "gleam/nodes/mesh.hpp"
 
@@ -14,15 +16,9 @@
 
 namespace gleam {
 
-BoundingPlane::BoundingPlane(const Plane& plane, float size, const Color& color) {
-    CreateWireframeMesh(color);
-    CreateSolidMesh(color);
-    SetScale({size * 0.5f, size * 0.5f, size});
-    LookAt(plane.normal);
-    TranslateZ(-plane.distance);
-}
+namespace {
 
-auto BoundingPlane::CreateWireframeMesh(const Color& color) -> void {
+auto create_wireframe_mesh(const Color& color) {
     auto geometry = Geometry::Create({
          1.0f, -1.0f, 0.0f,
         -1.0f,  1.0f, 0.0f,
@@ -33,17 +29,17 @@ auto BoundingPlane::CreateWireframeMesh(const Color& color) -> void {
          1.0f, -1.0f, 0.0f,
          1.0f,  1.0f, 0.0f,
          0.0f,  0.0f, 0.0f
-    });
+    }, { 0, 1, 2, 3, 4, 5, 6, 7, 8 });
     geometry->SetAttribute({GeometryAttributeType::Position, 3});
 
+    auto wireframe_geometry = WireframeGeometry::Create(geometry.get());
     auto wireframe_material = FlatMaterial::Create(color);
-    wireframe_material->wireframe = true;
     wireframe_material->two_sided = true;
 
-    Add(Mesh::Create(geometry, wireframe_material));
+    return Mesh::Create(wireframe_geometry, wireframe_material);
 }
 
-auto BoundingPlane::CreateSolidMesh(const Color& color) -> void {
+auto create_solid_mesh(const Color& color) {
     auto geometry = Geometry::Create({
          1.0f,  1.0f, 0.0f,
         -1.0f,  1.0f, 0.0f,
@@ -59,7 +55,17 @@ auto BoundingPlane::CreateSolidMesh(const Color& color) -> void {
     solid_material->opacity = 0.2f;
     solid_material->transparent = true;
 
-    Add(Mesh::Create(geometry, solid_material));
+    return Mesh::Create(geometry, solid_material);
+}
+
+}
+
+BoundingPlane::BoundingPlane(const Plane& plane, float size, const Color& color) {
+    Add(create_wireframe_mesh(color));
+    Add(create_solid_mesh(color));
+    SetScale({size * 0.5f, size * 0.5f, size});
+    LookAt(plane.normal);
+    TranslateZ(-plane.distance);
 }
 
 }

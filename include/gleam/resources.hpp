@@ -12,5 +12,4 @@
  * @brief Reusable resources for UI, debugging, and control utilities.
  */
 
-#include "gleam/resources/bounding_plane.hpp"
 #include "gleam/resources/orbit_controls.hpp"

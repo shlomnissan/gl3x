@@ -14,6 +14,7 @@
 
 #include "gleam/nodes/arrow.hpp"
 #include "gleam/nodes/bounding_box.hpp"
+#include "gleam/nodes/bounding_plane.hpp"
 #include "gleam/nodes/bounding_sphere.hpp"
 #include "gleam/nodes/fog.hpp"
 #include "gleam/nodes/grid.hpp"
