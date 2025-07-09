@@ -12,5 +12,6 @@
  * @brief Camera types for scene viewing and projection.
  */
 
+#include "gleam/cameras/orbit_controls.hpp"
 #include "gleam/cameras/orthographic_camera.hpp"
 #include "gleam/cameras/perspective_camera.hpp"

@@ -7,6 +7,8 @@
 
 #include "example_grid_resource.hpp"
 
+#include <gleam/cameras.hpp>
+
 #include "ui_helpers.hpp"
 
 using namespace gleam;

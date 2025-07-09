@@ -8,7 +8,6 @@
 #pragma once
 
 #include <gleam/nodes.hpp>
-#include <gleam/resources.hpp>
 
 #include <memory>
 

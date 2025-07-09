@@ -7,9 +7,9 @@
 
 #include "example_arrow_resource.hpp"
 
-#include "ui_helpers.hpp"
+#include <gleam/cameras.hpp>
 
-#include <gleam/resources.hpp>
+#include "ui_helpers.hpp"
 
 using namespace gleam;
 

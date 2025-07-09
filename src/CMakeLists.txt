@@ -3,6 +3,7 @@ set(VENDOR_DIR ${CMAKE_SOURCE_DIR}/vendor)
 
 set(SOURCE_CODE
     "cameras/camera.cpp"
+    "cameras/orbit_controls.cpp"
     "cameras/orthographic_camera.cpp"
     "cameras/perspective_camera.cpp"
     "core/application_context.cpp"
@@ -71,7 +72,6 @@ set(SOURCE_CODE
     "renderer/gl/gl_uniform_buffer.hpp"
     "renderer/gl/gl_uniform.cpp"
     "renderer/gl/gl_uniform.hpp"
-    "resources/orbit_controls.cpp"
     "utilities/data_series.hpp"
     "utilities/file.hpp"
     "utilities/logger.cpp"
@@ -83,6 +83,7 @@ set(SOURCE_CODE
 
 set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/cameras/camera.hpp"
+    "${PUBLIC_HEADERS_DIR}/cameras/orbit_controls.hpp"
     "${PUBLIC_HEADERS_DIR}/cameras/orthographic_camera.hpp"
     "${PUBLIC_HEADERS_DIR}/cameras/perspective_camera.hpp"
     "${PUBLIC_HEADERS_DIR}/core/application_context.hpp"
@@ -135,7 +136,6 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/nodes/mesh.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/node.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/scene.hpp"
-    "${PUBLIC_HEADERS_DIR}/resources/orbit_controls.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture_2d.hpp"
 )
@@ -151,7 +151,6 @@ set(HEADER_BUNDLES
     "${PUBLIC_HEADERS_DIR}/materials.hpp"
     "${PUBLIC_HEADERS_DIR}/math.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes.hpp"
-    "${PUBLIC_HEADERS_DIR}/resources.hpp"
     "${PUBLIC_HEADERS_DIR}/textures.hpp"
 )
 

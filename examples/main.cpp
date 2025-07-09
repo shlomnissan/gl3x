@@ -9,7 +9,6 @@
 #include <string_view>
 
 #include <gleam/core.hpp>
-#include <gleam/resources.hpp>
 #include <gleam/math.hpp>
 
 #include "ui_helpers.hpp"

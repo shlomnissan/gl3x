@@ -9,8 +9,8 @@
 
 #include "ui_helpers.hpp"
 
+#include <gleam/cameras.hpp>
 #include <gleam/lights.hpp>
-#include <gleam/resources.hpp>
 
 using namespace gleam;
 using namespace gleam::math;
