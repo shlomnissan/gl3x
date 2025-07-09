@@ -17,7 +17,9 @@
 
 class ExampleShaderMaterial : public ExampleScene {
 public:
-    explicit ExampleShaderMaterial(std::shared_ptr<gleam::Camera>);
+    explicit ExampleShaderMaterial();
+
+    auto OnAttached(gleam::SharedContext* context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
 

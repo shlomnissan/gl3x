@@ -13,7 +13,9 @@
 
 class ExampleFog : public ExampleScene {
 public:
-    explicit ExampleFog(std::shared_ptr<gleam::Camera>);
+    explicit ExampleFog();
+
+    auto OnAttached(gleam::SharedContext* context) -> void override;
 
     auto ContextMenu() -> void override;
 };

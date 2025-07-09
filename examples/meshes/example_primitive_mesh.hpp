@@ -17,7 +17,9 @@
 
 class ExamplePrimitiveMesh : public ExampleScene {
 public:
-    explicit ExamplePrimitiveMesh(std::shared_ptr<gleam::Camera>);
+    explicit ExamplePrimitiveMesh();
+
+    auto OnAttached(gleam::SharedContext* context) -> void override;
 
     auto ContextMenu() -> void override;
 

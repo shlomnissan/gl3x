@@ -14,10 +14,8 @@
 
 using namespace gleam;
 
-ExampleLerpAnimationTest::ExampleLerpAnimationTest(std::shared_ptr<gleam::Camera> camera) {
+ExampleLerpAnimationTest::ExampleLerpAnimationTest() {
     show_context_menu_ = false;
-
-    Add(OrbitControls::Create(camera.get(), {.radius = 3.0f}));
 
     Add(AmbientLight::Create({
         .color = 0xFFFFFF,
@@ -59,6 +57,10 @@ ExampleLerpAnimationTest::ExampleLerpAnimationTest(std::shared_ptr<gleam::Camera
     active_point_ = Mesh::Create(sphere, active_material_);
     active_point_->transform.Translate(end_pos_);
     Add(active_point_);
+}
+
+auto ExampleLerpAnimationTest::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 }
 
 auto ExampleLerpAnimationTest::OnUpdate(float delta) -> void {

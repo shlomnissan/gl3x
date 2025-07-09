@@ -14,13 +14,7 @@
 
 using namespace gleam;
 
-ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<gleam::Camera> camera) {
-    Add(OrbitControls::Create(camera.get(), {
-        .radius = 5.0f,
-        .pitch = math::DegToRad(25.0f),
-        .yaw = math::DegToRad(45.0f)
-    }));
-
+ExampleDirectionalLight::ExampleDirectionalLight() {
     Add(Grid::Create({
         .size = 4,
         .divisions = 16,
@@ -54,6 +48,14 @@ ExampleDirectionalLight::ExampleDirectionalLight(std::shared_ptr<gleam::Camera> 
     directional_light_->transform.Translate({2.0f, 2.0f, -2.0f});
     directional_light_->SetDebugMode(true);
     Add(directional_light_);
+}
+
+auto ExampleDirectionalLight::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {
+        .radius = 5.0f,
+        .pitch = math::DegToRad(25.0f),
+        .yaw = math::DegToRad(45.0f)
+    }));
 }
 
 auto ExampleDirectionalLight::ContextMenu() -> void {

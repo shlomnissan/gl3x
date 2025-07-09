@@ -15,7 +15,9 @@
 
 class ExampleGridResource : public ExampleScene {
 public:
-    explicit ExampleGridResource(std::shared_ptr<gleam::Camera>);
+    explicit ExampleGridResource();
+
+    auto OnAttached(gleam::SharedContext* context) -> void override;
 
     auto ContextMenu() -> void override;
 

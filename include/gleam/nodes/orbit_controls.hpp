@@ -29,8 +29,11 @@ namespace gleam {
  * @code
  * auto MyScene::OnAttached(gleam::SharedContext* context) -> void override {
  *   Add(gleam::OrbitControls::Create(
- *     context->Parameters().camera,
- *     { .radius = 3.0f }
+ *     context->Parameters().camera, {
+ *       .radius = 5.0f,
+ *       .pitch = math::DegToRad(25.0f),
+*        .yaw = math::DegToRad(45.0f)
+ *     }
  *   ));
  * }
  * @endcode

@@ -14,13 +14,7 @@
 
 using namespace gleam;
 
-ExamplePointLight::ExamplePointLight(std::shared_ptr<gleam::Camera> camera) {
-    Add(OrbitControls::Create(camera.get(), {
-        .radius = 5.0f,
-        .pitch = math::DegToRad(25.0f),
-        .yaw = math::DegToRad(45.0f)
-    }));
-
+ExamplePointLight::ExamplePointLight() {
     Add(Grid::Create({
         .size = 4,
         .divisions = 16,
@@ -57,6 +51,14 @@ ExamplePointLight::ExamplePointLight(std::shared_ptr<gleam::Camera> camera) {
     point_light_->transform.Translate({1.0f, 2.0f, -2.0f});
     point_light_->SetDebugMode(true);
     Add(point_light_);
+}
+
+auto ExamplePointLight::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {
+        .radius = 5.0f,
+        .pitch = math::DegToRad(25.0f),
+        .yaw = math::DegToRad(45.0f)
+    }));
 }
 
 auto ExamplePointLight::ContextMenu() -> void {

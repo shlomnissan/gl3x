@@ -18,11 +18,13 @@
 
 class ExampleLerpAnimationTest : public ExampleScene {
 public:
-    explicit ExampleLerpAnimationTest(std::shared_ptr<gleam::Camera>);
+    explicit ExampleLerpAnimationTest();
 
-    auto ContextMenu() -> void override;
+    auto OnAttached(gleam::SharedContext* context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
+
+    auto ContextMenu() -> void override;
 
 private:
     std::shared_ptr<gleam::Mesh> active_point_;

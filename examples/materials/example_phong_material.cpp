@@ -16,8 +16,8 @@
 
 using namespace gleam;
 
-ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<gleam::Camera> camera) {
-    Add(OrbitControls::Create(camera.get(), {.radius = 3.0f}));
+ExamplePhongMaterial::ExamplePhongMaterial() {
+
 
     auto geometry = CubeGeometry::Create();
     material_ = PhongMaterial::Create(0x049EF4);
@@ -45,6 +45,8 @@ ExamplePhongMaterial::ExamplePhongMaterial(std::shared_ptr<gleam::Camera> camera
 }
 
 auto ExamplePhongMaterial::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
+
     context->Loaders().Texture->LoadAsync(
         "assets/checker.tex",
         [this](auto result) {

@@ -16,7 +16,9 @@
 
 class ExampleBlending : public ExampleScene {
 public:
-    explicit ExampleBlending(std::shared_ptr<gleam::Camera>);
+    explicit ExampleBlending();
+
+    auto OnAttached(gleam::SharedContext* context) -> void override;
 
     auto ContextMenu() -> void override;
 

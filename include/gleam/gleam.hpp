@@ -16,5 +16,4 @@
 #include "gleam/materials.hpp"
 #include "gleam/math.hpp"
 #include "gleam/nodes.hpp"
-#include "gleam/resources.hpp"
 #include "gleam/textures.hpp"

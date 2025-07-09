@@ -17,13 +17,7 @@
 
 using namespace gleam;
 
-ExampleFog::ExampleFog(std::shared_ptr<gleam::Camera> camera) {
-    Add(OrbitControls::Create(camera.get(), {
-        .radius = 3.0f,
-        .pitch = math::DegToRad(25.0f),
-        .yaw = math::DegToRad(-25.0f)
-    }));
-
+ExampleFog::ExampleFog() {
     auto geometry = CubeGeometry::Create();
     auto material = PhongMaterial::Create(0x049EF4);
 
@@ -51,6 +45,14 @@ ExampleFog::ExampleFog(std::shared_ptr<gleam::Camera> camera) {
     Add(point_light);
 
     fog = LinearFog::Create(0x444444, 2.0f, 6.0f);
+}
+
+auto ExampleFog::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {
+        .radius = 3.0f,
+        .pitch = math::DegToRad(25.0f),
+        .yaw = math::DegToRad(-25.0f)
+    }));
 }
 
 auto ExampleFog::ContextMenu() -> void {

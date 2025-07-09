@@ -13,9 +13,7 @@
 
 using namespace gleam;
 
-ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<gleam::Camera> camera) {
-    Add(OrbitControls::Create(camera.get(), {.radius = 3.0f}));
-
+ExampleShaderMaterial::ExampleShaderMaterial() {
     fog = ExponentialFog::Create(0x444444, 0.3f);
 
     auto geometry = CubeGeometry::Create();
@@ -66,6 +64,10 @@ ExampleShaderMaterial::ExampleShaderMaterial(std::shared_ptr<gleam::Camera> came
 
     mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);
+}
+
+auto ExampleShaderMaterial::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 }
 
 auto ExampleShaderMaterial::OnUpdate(float delta) -> void {

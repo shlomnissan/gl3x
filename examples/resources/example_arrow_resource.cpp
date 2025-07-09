@@ -13,14 +13,8 @@
 
 using namespace gleam;
 
-ExampleArrowResource::ExampleArrowResource(std::shared_ptr<gleam::Camera> camera) {
+ExampleArrowResource::ExampleArrowResource() {
     show_context_menu_ = false;
-
-    Add(OrbitControls::Create(camera.get(), {
-        .radius = 5.0f,
-        .pitch = math::DegToRad(25.0f),
-        .yaw = math::DegToRad(45.0f)
-    }));
 
     const auto arrows = Node::Create();
     Add(arrows);
@@ -47,6 +41,14 @@ ExampleArrowResource::ExampleArrowResource(std::shared_ptr<gleam::Camera> camera
     }));
 
     arrows->TranslateY(0.1f);
+}
+
+auto ExampleArrowResource::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {
+        .radius = 5.0f,
+        .pitch = math::DegToRad(25.0f),
+        .yaw = math::DegToRad(45.0f)
+    }));
 }
 
 auto ExampleArrowResource::ContextMenu() -> void {

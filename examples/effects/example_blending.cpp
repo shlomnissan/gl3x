@@ -15,10 +15,7 @@
 
 using namespace gleam;
 
-ExampleBlending::ExampleBlending(std::shared_ptr<gleam::Camera> camera) {
-    const auto camera_controls = OrbitControls::Create(camera.get(), {.radius = 3.0f});
-    Add(camera_controls);
-
+ExampleBlending::ExampleBlending() {
     auto plane_geometry = PlaneGeometry::Create({.width = 2.0f, .height = 2.0f});
     auto opaque_material = PhongMaterial::Create();
     auto plane = Mesh::Create(plane_geometry, opaque_material);
@@ -52,6 +49,10 @@ ExampleBlending::ExampleBlending(std::shared_ptr<gleam::Camera> camera) {
     });
     point_light->transform.Translate({2.0f, 2.0f, 2.0f});
     Add(point_light);
+}
+
+auto ExampleBlending::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 }
 
 auto ExampleBlending::ContextMenu() -> void {

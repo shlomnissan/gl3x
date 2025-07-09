@@ -16,7 +16,9 @@
 
 class ExampleSpotLight : public ExampleScene {
 public:
-    explicit ExampleSpotLight(std::shared_ptr<gleam::Camera>);
+    explicit ExampleSpotLight();
+
+    auto OnAttached(gleam::SharedContext* context) -> void override;
 
     auto ContextMenu() -> void override;
 

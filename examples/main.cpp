@@ -96,43 +96,43 @@ private:
             scene_ = std::make_shared<ExampleFlatMaterial>();
         }
         if (scene_name == "Phong Material") {
-            scene_ = std::make_shared<ExamplePhongMaterial>(camera_);
+            scene_ = std::make_shared<ExamplePhongMaterial>();
         }
         if (scene_name == "Shader Material") {
-            scene_ = std::make_shared<ExampleShaderMaterial>(camera_);
+            scene_ = std::make_shared<ExampleShaderMaterial>();
         }
         if (scene_name == "Directional Light") {
-            scene_ = std::make_shared<ExampleDirectionalLight>(camera_);
+            scene_ = std::make_shared<ExampleDirectionalLight>();
         }
         if (scene_name == "Point Light") {
-            scene_ = std::make_shared<ExamplePointLight>(camera_);
+            scene_ = std::make_shared<ExamplePointLight>();
         }
         if (scene_name == "Spot Light") {
-            scene_ = std::make_shared<ExampleSpotLight>(camera_);
+            scene_ = std::make_shared<ExampleSpotLight>();
         }
         if (scene_name == "Arbitrary Mesh") {
-            scene_ = std::make_shared<ExampleArbitraryMesh>(camera_);
+            scene_ = std::make_shared<ExampleArbitraryMesh>();
         }
         if (scene_name == "Primitive Mesh") {
-            scene_ = std::make_shared<ExamplePrimitiveMesh>(camera_);
+            scene_ = std::make_shared<ExamplePrimitiveMesh>();
         }
         if (scene_name == "Blending Effect") {
-            scene_ = std::make_shared<ExampleBlending>(camera_);
+            scene_ = std::make_shared<ExampleBlending>();
         }
         if (scene_name == "Fog Effect") {
-            scene_ = std::make_shared<ExampleFog>(camera_);
+            scene_ = std::make_shared<ExampleFog>();
         }
         if (scene_name == "Arrow Resource") {
-            scene_ = std::make_shared<ExampleArrowResource>(camera_);
+            scene_ = std::make_shared<ExampleArrowResource>();
         }
         if (scene_name == "Grid Resource") {
-            scene_ = std::make_shared<ExampleGridResource>(camera_);
+            scene_ = std::make_shared<ExampleGridResource>();
         }
         if (scene_name == "Frustum Culling Test") {
-            scene_ = std::make_shared<ExampleFrustumCullingTest>(camera_);
+            scene_ = std::make_shared<ExampleFrustumCullingTest>();
         }
         if (scene_name == "Lerp Animation Test") {
-            scene_ = std::make_shared<ExampleLerpAnimationTest>(camera_);
+            scene_ = std::make_shared<ExampleLerpAnimationTest>();
         }
         SetScene(scene_);
     }

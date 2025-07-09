@@ -13,7 +13,9 @@
 
 class ExampleArrowResource : public ExampleScene {
 public:
-    explicit ExampleArrowResource(std::shared_ptr<gleam::Camera>);
+    explicit ExampleArrowResource();
+
+    auto OnAttached(gleam::SharedContext* context) -> void override;
 
     auto ContextMenu() -> void override;
 };

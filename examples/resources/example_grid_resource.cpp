@@ -11,13 +11,7 @@
 
 using namespace gleam;
 
-ExampleGridResource::ExampleGridResource(std::shared_ptr<gleam::Camera> camera) {
-    Add(OrbitControls::Create(camera.get(), {
-        .radius = 5.0f,
-        .pitch = math::DegToRad(25.0f),
-        .yaw = math::DegToRad(45.0f)
-    }));
-
+ExampleGridResource::ExampleGridResource() {
     grid_ = Grid::Create({
         .size = 4.0f,
         .divisions = 16,
@@ -25,6 +19,14 @@ ExampleGridResource::ExampleGridResource(std::shared_ptr<gleam::Camera> camera) 
     });
 
     Add(grid_);
+}
+
+auto ExampleGridResource::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {
+        .radius = 5.0f,
+        .pitch = math::DegToRad(25.0f),
+        .yaw = math::DegToRad(45.0f)
+    }));
 }
 
 auto ExampleGridResource::ContextMenu() -> void {

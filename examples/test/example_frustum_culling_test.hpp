@@ -17,11 +17,13 @@
 
 class ExampleFrustumCullingTest : public ExampleScene {
 public:
-    explicit ExampleFrustumCullingTest(std::shared_ptr<gleam::Camera>);
+    explicit ExampleFrustumCullingTest();
 
-    auto ContextMenu() -> void override;
+    auto OnAttached(gleam::SharedContext* context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
+
+    auto ContextMenu() -> void override;
 
 private:
     gleam::Frustum frustum_;

@@ -16,7 +16,9 @@
 
 class ExampleDirectionalLight : public ExampleScene {
 public:
-    explicit ExampleDirectionalLight(std::shared_ptr<gleam::Camera>);
+    explicit ExampleDirectionalLight();
+
+    auto OnAttached(gleam::SharedContext* context) -> void override;
 
     auto ContextMenu() -> void override;
 

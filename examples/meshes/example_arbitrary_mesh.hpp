@@ -16,7 +16,7 @@
 
 class ExampleArbitraryMesh : public ExampleScene {
 public:
-    explicit ExampleArbitraryMesh(std::shared_ptr<gleam::Camera>);
+    explicit ExampleArbitraryMesh();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

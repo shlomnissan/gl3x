@@ -17,7 +17,7 @@
 
 class ExamplePhongMaterial : public ExampleScene {
 public:
-    explicit ExamplePhongMaterial(std::shared_ptr<gleam::Camera> camera);
+    explicit ExamplePhongMaterial();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

@@ -15,14 +15,8 @@
 using namespace gleam;
 using namespace gleam::math;
 
-ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<gleam::Camera> camera) {
+ExamplePrimitiveMesh::ExamplePrimitiveMesh() {
     InitializeParams();
-
-    Add(OrbitControls::Create(camera.get(), {
-        .radius = 5.0f,
-        .pitch = math::DegToRad(25.0f),
-        .yaw = math::DegToRad(45.0f)
-    }));
 
     Add(AmbientLight::Create({
         .color = 0xFFFFFF,
@@ -54,6 +48,14 @@ ExamplePrimitiveMesh::ExamplePrimitiveMesh(std::shared_ptr<gleam::Camera> camera
     wireframe_material->fog = false;
     wireframes_ = Mesh::Create(wireframe_geometry, wireframe_material);
     mesh_->Add(wireframes_);
+}
+
+auto ExamplePrimitiveMesh::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {
+        .radius = 5.0f,
+        .pitch = math::DegToRad(25.0f),
+        .yaw = math::DegToRad(45.0f)
+    }));
 }
 
 auto ExamplePrimitiveMesh::ContextMenu() -> void {

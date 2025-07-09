@@ -13,10 +13,8 @@
 
 using namespace gleam;
 
-ExampleFrustumCullingTest::ExampleFrustumCullingTest(std::shared_ptr<gleam::Camera> camera) {
+ExampleFrustumCullingTest::ExampleFrustumCullingTest() {
     show_context_menu_ = false;
-
-    Add(OrbitControls::Create(camera.get(), {.radius = 3.0f}));
 
     Add(AmbientLight::Create({
         .color = 0xFFFFFF,
@@ -46,6 +44,10 @@ ExampleFrustumCullingTest::ExampleFrustumCullingTest(std::shared_ptr<gleam::Came
             Add(box);
         }
     }
+}
+
+auto ExampleFrustumCullingTest::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 }
 
 auto ExampleFrustumCullingTest::OnUpdate(float delta) -> void {

@@ -14,13 +14,7 @@
 
 using namespace gleam;
 
-ExampleSpotLight::ExampleSpotLight(std::shared_ptr<gleam::Camera> camera) {
-    Add(OrbitControls::Create(camera.get(), {
-        .radius = 5.0f,
-        .pitch = math::DegToRad(25.0f),
-        .yaw = math::DegToRad(45.0f)
-    }));
-
+ExampleSpotLight::ExampleSpotLight() {
     Add(Grid::Create({
         .size = 4,
         .divisions = 16,
@@ -60,6 +54,14 @@ ExampleSpotLight::ExampleSpotLight(std::shared_ptr<gleam::Camera> camera) {
     spot_light_->transform.Translate({2.0f, 2.0f, -1.0f});
     spot_light_->SetDebugMode(true);
     Add(spot_light_);
+}
+
+auto ExampleSpotLight::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {
+        .radius = 5.0f,
+        .pitch = math::DegToRad(25.0f),
+        .yaw = math::DegToRad(45.0f)
+    }));
 }
 
 auto ExampleSpotLight::ContextMenu() -> void {
