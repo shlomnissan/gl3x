@@ -40,10 +40,14 @@ auto Sphere::ExpandWithPoint(const Vector3 &p) -> void {
 
 auto Sphere::ApplyTransform(const Matrix4 &transform) -> void {
     center = transform * center;
+    auto& t0 = transform[0];
+    auto& t1 = transform[1];
+    auto& t2 = transform[2];
+
     radius *= std::sqrt(std::max({
-        Vector3 {transform[0]}.LengthSquared(),
-        Vector3 {transform[1]}.LengthSquared(),
-        Vector3 {transform[2]}.LengthSquared()
+        Vector3 {t0.x, t0.y, t0.z}.LengthSquared(),
+        Vector3 {t1.x, t1.y, t1.z}.LengthSquared(),
+        Vector3 {t2.x, t2.y, t2.z}.LengthSquared(),
     }));
 }
 

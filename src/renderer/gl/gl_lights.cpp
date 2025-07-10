@@ -50,8 +50,10 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
             case DirectionalLight: {
                 ++directional;
                 auto src = static_cast<gleam::DirectionalLight*>(light);
+                auto src_dir = src->Direction();
+                auto dir = camera->view_transform * Vector4(src_dir.x, src_dir.y, src_dir.z, 0.0f);
                 dst.position = Vector3::Zero();
-                dst.direction = Vector3(camera->view_transform * Vector4(src->Direction(), 0.0f));
+                dst.direction = Vector3(dir.x, dir.y, dir.z);
                 dst.cone_cos = 0.0f;
                 dst.penumbra_cos = 0.0f;
                 dst.base = 0.0f;
@@ -62,7 +64,9 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
             case PointLight: {
                 ++point;
                 auto src = static_cast<gleam::PointLight*>(light);
-                dst.position = Vector3(camera->view_transform * Vector4(src->GetWorldPosition(), 1.0f));
+                auto world = src->GetWorldPosition();
+                auto pos = camera->view_transform *  Vector4(world.x, world.y, world.z, 1.0f);
+                dst.position = Vector3(pos.x, pos.y, pos.z);
                 dst.direction = Vector3::Zero();
                 dst.cone_cos = 0.0f;
                 dst.penumbra_cos = 0.0f;
@@ -74,8 +78,12 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
             case SpotLight: {
                 ++spot;
                 auto src = static_cast<gleam::SpotLight*>(light);
-                dst.position = Vector3(camera->view_transform * Vector4(src->GetWorldPosition(), 1.0f));
-                dst.direction = Vector3(camera->view_transform * Vector4(src->Direction(), 0.0f));
+                auto src_dir = src->Direction();
+                auto world = src->GetWorldPosition();
+                auto dir = camera->view_transform * Vector4(src_dir.x, src_dir.y, src_dir.z, 0.0f);
+                auto pos = camera->view_transform * Vector4(world.x, world.y, world.z, 1.0f);
+                dst.position = Vector3(pos.x, pos.y, pos.z);
+                dst.direction = Vector3(dir.x, dir.y, dir.z);
                 dst.cone_cos = std::cos(src->angle);
                 dst.penumbra_cos = std::cos(src->angle * (1 - src->penumbra));
                 dst.base = src->attenuation.base;

@@ -138,7 +138,8 @@ auto Node::ShouldUpdateWorldTransform() const -> bool {
 
 auto Node::GetWorldPosition() -> Vector3 {
     UpdateWorldTransform();
-    return Vector3(impl_->world_transform[3]);
+    auto& t = impl_->world_transform[3];
+    return Vector3(t.x, t.y, t.z);
 }
 
 auto Node::GetWorldTransform() -> Matrix4 {

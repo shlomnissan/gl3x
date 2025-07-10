@@ -11,7 +11,6 @@
 #include <limits>
 
 #include <gleam/math/vector3.hpp>
-#include <gleam/math/vector4.hpp>
 
 #pragma region Constructors
 
@@ -29,14 +28,6 @@ TEST(Vector3, ConstructorSingleParameter) {
 
 TEST(Vector3, ConstructorParameterized) {
     const auto v = gleam::Vector3 {1.0f, 2.0f, 3.0f};
-
-    EXPECT_VEC3_EQ(v, {1.0f, 2.0f, 3.0f});
-}
-
-TEST(Vector3, ConstructWithVector4) {
-    const auto v = gleam::Vector3 {
-        gleam::Vector4 {1.0f, 2.0f, 3.0f, 4.0f}
-    };
 
     EXPECT_VEC3_EQ(v, {1.0f, 2.0f, 3.0f});
 }

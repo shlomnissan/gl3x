@@ -42,8 +42,6 @@ set(SOURCE_CODE
     "math/transform2.cpp"
     "math/transform3.cpp"
     "math/utilities.cpp"
-    "math/vector3.cpp"
-    "math/vector4.cpp"
     "nodes/arrow.cpp"
     "nodes/bounding_box.cpp"
     "nodes/bounding_plane.cpp"

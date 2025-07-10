@@ -30,7 +30,9 @@ Matrix3::Matrix3(const Vector3& a, const Vector3& b, const Vector3& c) : n {
 } {}
 
 Matrix3::Matrix3(const Matrix4& m) : Matrix3({
-    Vector3(m[0]), Vector3(m[1]), Vector3(m[2])}) {}
+    Vector3(m[0].x, m[0].y, m[0].z),
+    Vector3(m[1].x, m[1].y, m[1].z),
+    Vector3(m[2].x, m[2].y, m[2].z)}) {}
 
 auto Determinant(const Matrix3& m) -> float {
     return m(0, 0) * (m(1, 1) * m(2, 2) - m(1, 2) * m(2, 1))
