@@ -39,7 +39,6 @@ set(SOURCE_CODE
     "math/sphere.cpp"
     "math/transform2.cpp"
     "math/transform3.cpp"
-    "math/utilities.cpp"
     "nodes/arrow.cpp"
     "nodes/bounding_box.cpp"
     "nodes/bounding_plane.cpp"
