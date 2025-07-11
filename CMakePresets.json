@@ -1,31 +1,57 @@
 {
-    "version": 3,
-    "configurePresets": [
-      {
-        "name": "debug",
-        "binaryDir": "${sourceDir}/build",
-        "cacheVariables": {
-          "CMAKE_BUILD_TYPE": "Debug",
-          "BUILD_SHARED_LIBS": "OFF",
-          "GLEAM_BUILD_DOCS": "ON",
-          "GLEAM_BUILD_EXAMPLES": "ON",
-          "GLEAM_BUILD_IMGUI": "ON",
-          "GLEAM_BUILD_TESTS": "ON",
-          "GLEAM_BUILD_TOOLS": "ON"
-        }
-      },
-      {
-        "name": "release",
-        "binaryDir": "${sourceDir}/release",
-        "cacheVariables": {
-          "CMAKE_BUILD_TYPE": "Release",
-          "BUILD_SHARED_LIBS": "ON",
-          "GLEAM_BUILD_DOCS": "OFF",
-          "GLEAM_BUILD_EXAMPLES": "OFF",
-          "GLEAM_BUILD_IMGUI": "ON",
-          "GLEAM_BUILD_TESTS": "OFF",
-          "GLEAM_BUILD_TOOLS": "ON"
-        }
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "dev-debug",
+      "binaryDir": "${sourceDir}/build/debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "GLEAM_BUILD_DOCS": "ON",
+        "GLEAM_BUILD_EXAMPLES": "ON",
+        "GLEAM_BUILD_IMGUI": "ON",
+        "GLEAM_BUILD_TESTS": "ON",
+        "GLEAM_BUILD_TOOLS": "ON",
+        "BUILD_SHARED_LIBS": "OFF"
       }
-    ]
-  }
+    },
+    {
+      "name": "dev-release",
+      "binaryDir": "${sourceDir}/build/release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "GLEAM_BUILD_DOCS": "ON",
+        "GLEAM_BUILD_EXAMPLES": "ON",
+        "GLEAM_BUILD_IMGUI": "ON",
+        "GLEAM_BUILD_TESTS": "ON",
+        "GLEAM_BUILD_TOOLS": "ON",
+        "BUILD_SHARED_LIBS": "OFF"
+      }
+    },
+    {
+      "name": "install-debug",
+      "binaryDir": "${sourceDir}/out/install-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "GLEAM_BUILD_DOCS": "OFF",
+        "GLEAM_BUILD_EXAMPLES": "OFF",
+        "GLEAM_BUILD_IMGUI": "ON",
+        "GLEAM_BUILD_TESTS": "OFF",
+        "GLEAM_BUILD_TOOLS": "ON",
+        "BUILD_SHARED_LIBS": "ON"
+      }
+    },
+    {
+      "name": "install-release",
+      "binaryDir": "${sourceDir}/out/install-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "GLEAM_BUILD_DOCS": "OFF",
+        "GLEAM_BUILD_EXAMPLES": "OFF",
+        "GLEAM_BUILD_IMGUI": "ON",
+        "GLEAM_BUILD_TESTS": "OFF",
+        "GLEAM_BUILD_TOOLS": "ON",
+        "BUILD_SHARED_LIBS": "ON"
+      }
+    }
+  ]
+}

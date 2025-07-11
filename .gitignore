@@ -12,6 +12,7 @@
 # conan/cmake
 
 **/build/
+**/out/
 **/release/
 src/shaders/headers/*.h
 src/shaders/snippets/headers/*.h

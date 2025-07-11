@@ -2,43 +2,39 @@
 
 :: Determine the script's location
 set "script_dir=%~dp0"
-
-:: Move to the root directory (parent of the "scripts" folder)
 cd /d "%script_dir%.."
 
-:: Check if the "release" folder exists, and remove it if it does
-if exist release (
-    echo Removing existing "release" folder
-    rmdir /s /q release
-    if errorlevel 1 goto :error
-)
+:: Remove old install directories
+echo Cleaning previous install builds...
+rmdir /s /q out\install-release 2>nul
+rmdir /s /q out\install-debug 2>nul
 
-:: Create the "release" folder
-echo Creating "release" folder
-mkdir release
-cd release
+:: Install release build
+echo Building Release (install-release)
+cmake --preset install-release
 if errorlevel 1 goto :error
 
-:: Configure the project
-echo Running CMake configuration
-cmake .. --preset "release"
+cmake --build out\install-release --config Release
 if errorlevel 1 goto :error
 
-:: Build the project
-echo Building the project
-cmake --build . --config Release
+cmake --install out\install-release --config Release
 if errorlevel 1 goto :error
 
-:: Install the project
-echo Installing the project
-cmake --install .
+:: Install debug build
+echo Building Debug (install-debug)
+cmake --preset install-debug
 if errorlevel 1 goto :error
 
-:: Completion message
+cmake --build out\install-debug --config Debug
+if errorlevel 1 goto :error
+
+cmake --install out\install-debug --config Debug
+if errorlevel 1 goto :error
+
+:: Done
 echo Installation complete
 goto :end
 
-:: Error message
 :error
 echo An error occurred during the installation process
 
