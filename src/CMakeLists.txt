@@ -35,8 +35,6 @@ set(SOURCE_CODE
     "math/box3.cpp"
     "math/euler.cpp"
     "math/frustum.cpp"
-    "math/matrix3.cpp"
-    "math/matrix4.cpp"
     "math/plane.cpp"
     "math/sphere.cpp"
     "math/transform2.cpp"

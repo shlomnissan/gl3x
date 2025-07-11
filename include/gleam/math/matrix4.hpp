@@ -16,77 +16,41 @@
 
 namespace gleam {
 
-/**
- * @brief A 4x4 matrix class for mathematical operations.
- */
 class GLEAM_EXPORT Matrix4 {
 public:
-    /**
-     * @brief Default constructor.
-     */
     Matrix4() = default;
 
-    /**
-     * @brief Constructs a new Matrix4 object with the given value.
-     *
-     * Initializes the matrix as a diagonal matrix where the main diagonal
-     * elements are set to the specified value, and all off-diagonal elements
-     * are set to zero.
-     *
-     * @param value The value to set for the diagonal elements of the matrix.
-     */
-    explicit Matrix4(float value);
+    explicit Matrix4(float value) : Matrix4(
+        value, 0.0f, 0.0f, 0.0f,
+        0.0f, value, 0.0f, 0.0f,
+        0.0f, 0.0f, value, 0.0f,
+        0.0f, 0.0f, 0.0f, value
+    ) {}
 
-    /**
-     * @brief Constructs a new Matrix4 object with the given elements.
-     *
-     * Initializes the matrix with the provided 16 floating-point values in
-     * column-major order.
-     *
-     * @param n00 The element at row 0, column 0.
-     * @param n01 The element at row 0, column 1.
-     * @param n02 The element at row 0, column 2.
-     * @param n03 The element at row 0, column 3.
-     * @param n10 The element at row 1, column 0.
-     * @param n11 The element at row 1, column 1.
-     * @param n12 The element at row 1, column 2.
-     * @param n13 The element at row 1, column 3.
-     * @param n20 The element at row 2, column 0.
-     * @param n21 The element at row 2, column 1.
-     * @param n22 The element at row 2, column 2.
-     * @param n23 The element at row 2, column 3.
-     * @param n30 The element at row 3, column 0.
-     * @param n31 The element at row 3, column 1.
-     * @param n32 The element at row 3, column 2.
-     * @param n33 The element at row 3, column 3.
-     */
     Matrix4(
         float n00, float n01, float n02, float n03,
         float n10, float n11, float n12, float n13,
         float n20, float n21, float n22, float n23,
         float n30, float n31, float n32, float n33
-    );
+    ) : n {
+        n00, n10, n20, n30,
+        n01, n11, n21, n31,
+        n02, n12, n22, n32,
+        n03, n13, n23, n33
+    } {}
 
-    /**
-     * @brief Constructs a new Matrix4 object using four Vector4 objects as columns.
-     *
-     * @param a The first column of the matrix.
-     * @param b The second column of the matrix.
-     * @param c The third column of the matrix.
-     * @param d The fourth column of the matrix.
-     */
     Matrix4(
         const Vector4& a,
         const Vector4& b,
         const Vector4& c,
         const Vector4& d
-    );
+    ) : n {
+        a.x, a.y, a.z, a.w,
+        b.x, b.y, b.z, b.w,
+        c.x, c.y, c.z, c.w,
+        d.x, d.y, d.z, d.w
+    } {}
 
-    /**
-     * @brief Creates an identity matrix.
-     *
-     * @return A `Matrix4` object representing the 4x4 identity matrix.
-     */
     [[nodiscard]] static auto Identity() {
         return Matrix4 {
             1.0f, 0.0f, 0.0f, 0.0f,
@@ -96,73 +60,27 @@ public:
         };
     }
 
-    /**
-     * @brief Access matrix element at (i, j) with row-major indexing.
-     *
-     * @param i Row index.
-     * @param j Column index.
-     * @return float& Reference to the matrix element.
-     */
     [[nodiscard]] auto& operator()(int i, int j) {
         return n[j][i];
     }
 
-    /**
-     * @brief Access matrix element at (i, j) with row-major indexing
-     * (const version).
-     *
-     * @param i Row index.
-     * @param j Column index.
-     * @return const float& Const reference to the matrix element.
-     */
     [[nodiscard]] const auto& operator()(int i, int j) const {
         return n[j][i];
     }
 
-    /**
-     * @brief Access the column vector at index j.
-     *
-     * @param j Column index.
-     * @return Vector4& Reference to the column vector.
-     */
     [[nodiscard]] auto& operator[](int j) {
         return (*reinterpret_cast<Vector4*>(n[j].data()));
     }
 
-    /**
-     * @brief Access the column vector at index j
-     * (const version).
-     *
-     * @param j Column index.
-     * @return const Vector4& Const reference to the column vector.
-     */
     [[nodiscard]] const auto& operator[](int j) const {
         return (*reinterpret_cast<const Vector4*>(n[j].data()));
     }
 
 private:
-    /// @brief Internal storage for the matrix elements in row-major order.
     std::array<std::array<float, 4>, 4> n;
 
-    /**
-     * @brief Checks if two matrices are equal, component-wise.
-     *
-     * @param a The first matrix to compare.
-     * @param b The second matrix to compare.
-     * @return bool `true` if the matrices are equal, `false` otherwise.
-     */
     [[nodiscard]] friend auto operator==(const Matrix4& a, const Matrix4& b) -> bool = default;
 
-    /**
-     * @brief Multiplies two 4x4 matrices and returns the result.
-     * @related Matrix4
-     *
-     * Performs matrix multiplication between the two input matrices.
-     *
-     * @param a The first matrix in the multiplication.
-     * @param b The second matrix in the multiplication.
-     * @return Matrix4 The resulting matrix after multiplication.
-     */
     [[nodiscard]] friend auto operator*(const Matrix4& a, const Matrix4& b) {
         return Matrix4 {
             a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0) + a(0, 3) * b(3, 0),
@@ -184,16 +102,6 @@ private:
         };
     }
 
-    /**
-     * @brief Multiplies a 4x4 matrix by a 4D vector.
-     * @related Matrix4
-     *
-     * Performs matrix-vector multiplication between the input matrix and vector.
-     *
-     * @param m The 4x4 matrix to multiply.
-     * @param v The 4D vector to multiply.
-     * @return Vector4 The resulting 4D vector after multiplication.
-     */
     [[nodiscard]] friend auto operator*(const Matrix4& m, const Vector4& v) {
         return Vector4 {
             m(0, 0) * v.x + m(0, 1) * v.y + m(0, 2) * v.z + m(0, 3) * v.w,
@@ -203,17 +111,6 @@ private:
         };
     }
 
-    /**
-     * @brief Multiplies a 4x4 matrix by a 3D vector.
-     * @related Matrix4
-     *
-     * Performs matrix-vector multiplication between the input matrix and vector.
-     * The 3D vector is treated as a point (4D vector with a w component of 1.0).
-     *
-     * @param m The 4x4 matrix to multiply.
-     * @param v The 3D vector to multiply.
-     * @return Vector3 The resulting 3D vector after multiplication.
-     */
     [[nodiscard]] friend auto operator*(const Matrix4& m, const Vector3& v) {
         return Vector3 {
             m(0, 0) * v.x + m(0, 1) * v.y + m(0, 2) * v.z + m(0, 3) * 1.0f,
@@ -223,31 +120,68 @@ private:
     }
 };
 
-/**
- * @brief Computes the determinant of a 4x4 matrix.
- * @related Matrix3
- *
- * @param m The input 4x4 matrix for which the determinant is to be computed.
- * @return The determinant of the matrix as a floating-point value.
- */
-[[nodiscard]] GLEAM_EXPORT auto Determinant(const Matrix4& m) -> float;
+[[nodiscard]] GLEAM_EXPORT inline auto Determinant(const Matrix4& m) {
+    return m(0, 0) * (
+        m(1, 1) * (m(2, 2) * m(3, 3) - m(2, 3) * m(3, 2)) -
+        m(1, 2) * (m(2, 1) * m(3, 3) - m(2, 3) * m(3, 1)) +
+        m(1, 3) * (m(2, 1) * m(3, 2) - m(2, 2) * m(3, 1))
+    ) - m(0, 1) * (
+        m(1, 0) * (m(2, 2) * m(3, 3) - m(2, 3) * m(3, 2)) -
+        m(1, 2) * (m(2, 0) * m(3, 3) - m(2, 3) * m(3, 0)) +
+        m(1, 3) * (m(2, 0) * m(3, 2) - m(2, 2) * m(3, 0))
+    ) + m(0, 2) * (
+        m(1, 0) * (m(2, 1) * m(3, 3) - m(2, 3) * m(3, 1)) -
+        m(1, 1) * (m(2, 0) * m(3, 3) - m(2, 3) * m(3, 0)) +
+        m(1, 3) * (m(2, 0) * m(3, 1) - m(2, 1) * m(3, 0))
+    ) - m(0, 3) * (
+        m(1, 0) * (m(2, 1) * m(3, 2) - m(2, 2) * m(3, 1)) -
+        m(1, 1) * (m(2, 0) * m(3, 2) - m(2, 2) * m(3, 0)) +
+        m(1, 2) * (m(2, 0) * m(3, 1) - m(2, 1) * m(3, 0))
+    );
+}
 
-/**
- * @brief Computes the inverse of a 4x4 matrix.
- * @related Matrix4
- *
- * @param m The input 4x4 matrix whose inverse is to be computed.
- * @return A new `Matrix4` object that represents the inverse of the input matrix.
- */
-[[nodiscard]] GLEAM_EXPORT auto Inverse(const Matrix4& m) -> Matrix4;
+[[nodiscard]] GLEAM_EXPORT inline auto Inverse(const Matrix4& m) {
+    const auto& a = reinterpret_cast<const Vector3&>(m[0]);
+    const auto& b = reinterpret_cast<const Vector3&>(m[1]);
+    const auto& c = reinterpret_cast<const Vector3&>(m[2]);
+    const auto& d = reinterpret_cast<const Vector3&>(m[3]);
 
-/**
- * @brief Computes the transpose of a 4x4 matrix.
- * @related Matrix4
- *
- * @param m The input 4x4 matrix to be transposed.
- * @return A new `Matrix4` object that represents the transpose of the input matrix.
- */
-[[nodiscard]] GLEAM_EXPORT auto Transpose(const Matrix4& m) -> Matrix4;
+    const float& x = m(3, 0);
+    const float& y = m(3, 1);
+    const float& z = m(3, 2);
+    const float& w = m(3, 3);
+
+    auto s = Cross(a, b);
+    auto t = Cross(c, d);
+    auto u = (a * y) - (b * x);
+    auto v = (c * w) - (d * z);
+
+    const auto inv_det = 1.0f / (Dot(s, v) + Dot(t, u));
+    s *= inv_det;
+    t *= inv_det;
+    u *= inv_det;
+    v *= inv_det;
+
+    auto r0 = Cross(b, v) + t * y;
+    auto r1 = Cross(v, a) - t * x;
+    auto r2 = Cross(d, u) + s * w;
+    auto r3 = Cross(u, c) - s * z;
+
+    return Matrix4 {
+        r0.x, r0.y, r0.z, -Dot(b, t),
+        r1.x, r1.y, r1.z,  Dot(a, t),
+        r2.x, r2.y, r2.z, -Dot(d, s),
+        r3.x, r3.y, r3.z,  Dot(c, s)
+    };
+}
+
+[[nodiscard]] GLEAM_EXPORT inline auto Transpose(const Matrix4& m) {
+    auto output = Matrix4 {};
+    output[0] = {m[0][0], m[1][0], m[2][0], m[3][0]};
+    output[1] = {m[0][1], m[1][1], m[2][1], m[3][1]};
+    output[2] = {m[0][2], m[1][2], m[2][2], m[3][2]};
+    output[3] = {m[0][3], m[1][3], m[2][3], m[3][3]};
+    return output;
+}
 
 }
