@@ -32,18 +32,9 @@ public:
 
     [[nodiscard]] static auto Zero() { return Vector4 {0.0f}; }
 
-    [[nodiscard]] auto Length() const -> float {
-        return std::sqrt(Dot(*this, *this));
-    }
+    [[nodiscard]] auto Length() const { return std::sqrt(Dot(*this, *this)); }
 
-    [[nodiscard]] auto LengthSquared() const -> float {
-        return Dot(*this, *this);
-    }
-
-    auto Normalize() -> Vector4& {
-        const auto len = Length();
-        return len == 0.0f ? *this : (*this *= (1.0f / len));
-    }
+    [[nodiscard]] auto LengthSquared() const { return Dot(*this, *this); }
 
     [[nodiscard]] auto& operator[](int i) {
         assert(i >= 0 && i < 4);
@@ -55,20 +46,9 @@ public:
         return (reinterpret_cast<const float*>(this))[i];
     }
 
-    auto operator*=(float n) -> Vector4& {
-        x *= n;
-        y *= n;
-        z *= n;
-        w *= n;
-        return *this;
-    }
-
-    auto operator*=(const Vector4& v) -> Vector4& {
-        x *= v.x;
-        y *= v.y;
-        z *= v.z;
-        w *= v.w;
-        return *this;
+    auto Normalize() -> Vector4& {
+        const auto len = Length();
+        return len == 0.0f ? *this : (*this *= (1.0f / len));
     }
 
     auto operator+=(const Vector4& v) -> Vector4& {
@@ -84,6 +64,22 @@ public:
         y -= v.y;
         z -= v.z;
         w -= v.w;
+        return *this;
+    }
+
+    auto operator*=(float n) -> Vector4& {
+        x *= n;
+        y *= n;
+        z *= n;
+        w *= n;
+        return *this;
+    }
+
+    auto operator*=(const Vector4& v) -> Vector4& {
+        x *= v.x;
+        y *= v.y;
+        z *= v.z;
+        w *= v.w;
         return *this;
     }
 
@@ -126,10 +122,7 @@ private:
 
 [[nodiscard]] inline auto Normalize(const Vector4& v) {
     const auto len = v.Length();
-    if (len == 0.0f) {
-        return Vector4::Zero();
-    }
-    return v * (1.0f / len);
+    return len == 0.0f ? Vector4::Zero() : v * (1.0f / len);
 }
 
 }

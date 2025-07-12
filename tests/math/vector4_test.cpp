@@ -34,6 +34,19 @@ TEST(Vector4, ConstructorParameterized) {
 
 #pragma endregion
 
+#pragma region Unit vectors
+
+TEST(Vector4, ZeroVector) {
+    const auto v = gleam::Vector4::Zero();
+
+    EXPECT_FLOAT_EQ(v.x, 0.0f);
+    EXPECT_FLOAT_EQ(v.y, 0.0f);
+    EXPECT_FLOAT_EQ(v.z, 0.0f);
+    EXPECT_FLOAT_EQ(v.w, 0.0f);
+}
+
+#pragma endregion
+
 #pragma region Component Access
 
 TEST(Vector4, ComponentAccessDirect) {

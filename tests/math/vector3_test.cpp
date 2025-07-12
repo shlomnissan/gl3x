@@ -60,6 +60,14 @@ TEST(Vector3, UnitVectorAlongZ) {
     EXPECT_FLOAT_EQ(v.z, 1.0f);
 }
 
+TEST(Vector3, ZeroVector) {
+    const auto v = gleam::Vector3::Zero();
+
+    EXPECT_FLOAT_EQ(v.x, 0.0f);
+    EXPECT_FLOAT_EQ(v.y, 0.0f);
+    EXPECT_FLOAT_EQ(v.z, 0.0f);
+}
+
 #pragma endregion
 
 #pragma region Component Access

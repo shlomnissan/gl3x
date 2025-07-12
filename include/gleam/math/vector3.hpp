@@ -29,26 +29,17 @@ public:
 
     Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
 
+    [[nodiscard]] static auto Forward() { return Vector3 {0.0f, 0.0f, 1.0f}; }
+
     [[nodiscard]] static auto Right() { return Vector3 {1.0f, 0.0f, 0.0f}; }
 
     [[nodiscard]] static auto Up() { return Vector3 {0.0f, 1.0f, 0.0f}; }
 
-    [[nodiscard]] static auto Forward() { return Vector3 {0.0f, 0.0f, 1.0f}; }
-
     [[nodiscard]] static auto Zero() { return Vector3 {0.0f}; }
 
-    [[nodiscard]] auto Length() const -> float {
-        return std::sqrt(Dot(*this, *this));
-    }
+    [[nodiscard]] auto Length() const { return std::sqrt(Dot(*this, *this)); }
 
-    [[nodiscard]] auto LengthSquared() const -> float {
-        return Dot(*this, *this);
-    }
-
-    auto Normalize() -> Vector3& {
-        const auto len = Length();
-        return len == 0.0f ? *this : (*this *= (1.0f / len));
-    }
+    [[nodiscard]] auto LengthSquared() const { return Dot(*this, *this); }
 
     [[nodiscard]] auto& operator[](int i) {
         assert(i >= 0 && i < 3);
@@ -60,18 +51,9 @@ public:
         return (reinterpret_cast<const float*>(this))[i];
     }
 
-    auto operator*=(float n) -> Vector3& {
-        x *= n;
-        y *= n;
-        z *= n;
-        return *this;
-    }
-
-    auto operator*=(const Vector3& v) -> Vector3& {
-        x *= v.x;
-        y *= v.y;
-        z *= v.z;
-        return *this;
+    auto Normalize() -> Vector3& {
+        const auto len = Length();
+        return len == 0.0f ? *this : (*this *= (1.0f / len));
     }
 
     auto operator+=(const Vector3& v) -> Vector3& {
@@ -85,6 +67,20 @@ public:
         x -= v.x;
         y -= v.y;
         z -= v.z;
+        return *this;
+    }
+
+    auto operator*=(float n) -> Vector3& {
+        x *= n;
+        y *= n;
+        z *= n;
+        return *this;
+    }
+
+    auto operator*=(const Vector3& v) -> Vector3& {
+        x *= v.x;
+        y *= v.y;
+        z *= v.z;
         return *this;
     }
 
@@ -135,10 +131,7 @@ private:
 
 [[nodiscard]] inline auto Normalize(const Vector3& v) {
     const auto len = v.Length();
-    if (len == 0.0f) {
-        return Vector3::Zero();
-    }
-    return v * (1.0f / len);
+    return len == 0.0f ? Vector3::Zero() : v * (1.0f / len);
 }
 
 }
