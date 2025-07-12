@@ -12,75 +12,62 @@
 #include "gleam/math/matrix4.hpp"
 #include "gleam/math/vector3.hpp"
 
+#include <array>
 #include <limits>
 
 namespace gleam {
 
-/**
- * @brief Represents an axis-aligned bounding box (AABB) in 3D space.
- */
 struct GLEAM_EXPORT Box3 {
-    /// @brief The minimum point of the box.
     Vector3 min {std::numeric_limits<float>::max()};
-
-    /// @brief The maximum point of the box.
     Vector3 max {std::numeric_limits<float>::lowest()};
 
-    /**
-     * @brief Constructs a new Box3 object.
-     */
     Box3() = default;
 
-    /**
-     * @brief Constructs a box with the specified minimum and maximum points.
-     *
-     * @param v_min The minimum point of the box.
-     * @param v_max The maximum point of the box.
-     */
-    Box3(const Vector3& v_min, const Vector3& v_max)
-      : min(v_min), max(v_max) {}
+    Box3(const Vector3& v_min, const Vector3& v_max) :
+        min(v_min),
+        max(v_max) {}
 
-    /**
-     * @brief Retrieves the center of the box.
-     *
-     * @return The center of the box as a Vector3.
-     */
     [[nodiscard]] auto Center() const { return (min + max) * 0.5f; }
 
-    /**
-     * @brief Resets the box to its empty state.
-     */
-    auto Reset() -> void;
+    auto Reset() {
+        min = Vector3(std::numeric_limits<float>::max());
+        max = Vector3(std::numeric_limits<float>::lowest());
+    }
 
-    /**
-     * @brief Checks if the box is empty.
-     *
-     * @return True if the box is empty, false otherwise.
-     */
     [[nodiscard]] auto IsEmpty() const {
         return min.x > max.x || min.y > max.y || min.z > max.z;
     }
 
-    /**
-     * @brief Expands the box to include the specified point.
-     *
-     * @param p The point to include in the box.
-     */
-    auto ExpandWithPoint(const Vector3& p) -> void;
+    auto ExpandWithPoint(const Vector3& p) {
+        if (p.x < min.x) min.x = p.x;
+        if (p.y < min.y) min.y = p.y;
+        if (p.z < min.z) min.z = p.z;
+        if (p.x > max.x) max.x = p.x;
+        if (p.y > max.y) max.y = p.y;
+        if (p.z > max.z) max.z = p.z;
+    }
 
-    /**
-     * @brief Transforms the box by the specified matrix.
-     *
-     * @param transform The matrix to apply to the box.
-     */
-    auto ApplyTransform(const Matrix4& transform) -> void;
+    auto ApplyTransform(const Matrix4& transform) {
+        static std::array<Vector3, 8> points_ {};
 
-    /**
-     * @brief Translates the box by the specified offset.
-     *
-     * @param offset The offset to translate the box by.
-     */
-    auto Translate(const Vector3& offset) -> void;
+        points_[0] = transform * Vector3 {min.x, min.y, min.z};
+        points_[1] = transform * Vector3 {min.x, min.y, max.z};
+        points_[2] = transform * Vector3 {min.x, max.y, min.z};
+        points_[3] = transform * Vector3 {min.x, max.y, max.z};
+        points_[4] = transform * Vector3 {max.x, min.y, min.z};
+        points_[5] = transform * Vector3 {max.x, min.y, max.z};
+        points_[6] = transform * Vector3 {max.x, max.y, min.z};
+        points_[7] = transform * Vector3 {max.x, max.y, max.z};
+
+        Reset();
+
+        for (const auto& point : points_) ExpandWithPoint(point);
+    }
+
+    auto Translate(const Vector3& translation) {
+        min += translation;
+        max += translation;
+    }
 };
 
 }

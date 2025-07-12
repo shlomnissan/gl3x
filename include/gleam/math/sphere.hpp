@@ -12,73 +12,70 @@
 #include "gleam/math/matrix4.hpp"
 #include "gleam/math/vector3.hpp"
 
+#include <algorithm>
+#include <cmath>
+
 namespace gleam {
 
-/**
- * @brief Represents a sphere in 3D space.
- */
 struct GLEAM_EXPORT Sphere {
-    /// @brief The center of the sphere.
     Vector3 center {Vector3::Zero()};
 
-    /// @brief The radius of the sphere.
     float radius {-1.0f};
 
-    /**
-     * @brief Constructs a new Sphere object.
-     */
     Sphere() = default;
 
-    /**
-     * @brief Constructs a sphere with the specified center and radius.
-     *
-     * @param center The center of the sphere.
-     * @param radius The radius of the sphere.
-     */
-    Sphere(const Vector3 center, float radius)
-      : center(center), radius(radius) {}
+    Sphere(const Vector3 center, float radius) :
+        center(center),
+        radius(radius) {}
 
-    /**
-     * @brief Retrieves the radius of the sphere.
-     *
-     * @return The radius of the sphere.
-     */
-    [[nodiscard]] auto Radius() const -> float { return radius; }
+    [[nodiscard]] auto Radius() const { return radius; }
 
-    /**
-     * @brief Resets the sphere to its empty state.
-     */
-    auto Reset() -> void;
+    auto Reset() {
+        center = Vector3::Zero();
+        radius = -1.0f;
+    }
 
-    /**
-     * @brief Checks if the sphere is empty.
-     *
-     * @return True if the sphere is empty, false otherwise.
-     */
     [[nodiscard]] auto IsEmpty() const {
         return radius < 0.0f;
     }
 
-    /**
-     * @brief Expands the sphere to include the specified point.
-     *
-     * @param p The point to include in the sphere.
-     */
-    auto ExpandWithPoint(const Vector3& p) -> void;
+    auto ExpandWithPoint(const Vector3& p) {
+        // Handle the case where the sphere is empty (invalid).
+        // In this case, the sphere is centered at the point and has a radius of 0.
+        if (IsEmpty()) {
+            center = p;
+            radius = 0.0f;
+            return;
+        }
 
-    /**
-     * @brief Transforms the sphere by the specified matrix.
-     *
-     * @param transform The matrix to apply to the sphere.
-     */
-    auto ApplyTransform(const Matrix4& transform) -> void;
+        const auto delta = p - center;
+        const auto length_sqr = delta.LengthSquared();
+        if (length_sqr > radius * radius) {
+            const auto length = std::sqrt(length_sqr);
+            // Move the center halfway towards the new pointm and expand the radius
+            // by half the distance to the new point.
+            const auto half_way = (length - radius) * 0.5f;
+            center += delta * (half_way / length);
+            radius += half_way;
+        }
+    }
 
-    /**
-     * @brief Translates the sphere by the specified offset.
-     *
-     * @param offset The offset to translate the sphere by.
-     */
-    auto Translate(const Vector3& offset) -> void;
+    auto ApplyTransform(const Matrix4& transform) {
+        center = transform * center;
+        auto& t0 = transform[0];
+        auto& t1 = transform[1];
+        auto& t2 = transform[2];
+
+        radius *= std::sqrt(std::max({
+            Vector3 {t0.x, t0.y, t0.z}.LengthSquared(),
+            Vector3 {t1.x, t1.y, t1.z}.LengthSquared(),
+            Vector3 {t2.x, t2.y, t2.z}.LengthSquared(),
+        }));
+    }
+
+    auto Translate(const Vector3& translation) {
+        center += translation;
+    }
 };
 
 }
