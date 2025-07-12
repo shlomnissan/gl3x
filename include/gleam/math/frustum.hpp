@@ -14,55 +14,82 @@
 #include "gleam/math/sphere.hpp"
 #include "gleam/math/plane.hpp"
 
+#include <algorithm>
 #include <array>
 
 namespace gleam {
 
-/**
- * @brief Represents a frustum in 3D space.
- */
 struct GLEAM_EXPORT Frustum {
-    /// @brief The six planes that make up the frustum.
     std::array<Plane, 6> planes = {};
 
-    /**
-     * @brief Default constructor for the Frustum class.
-     */
     Frustum() = default;
 
-    /**
-     * @brief Constructs a new Frustum object using a view and projection matrix.
-     */
-    explicit Frustum(const Matrix4& projection);
+    auto SetWithViewProjection(const Matrix4& projection) {
+        planes[0] = Plane {{
+            projection(3, 0) + projection(0, 0),
+            projection(3, 1) + projection(0, 1),
+            projection(3, 2) + projection(0, 2)
+        }, projection(3, 3) + projection(0, 3)};
 
-    /**
-     * @brief Reset the Frustum object planes using a view and projection matrix.
-     */
-    auto SetWithViewProjection(const Matrix4& projection) -> void;
+        planes[1] = Plane {{
+            projection(3, 0) - projection(0, 0),
+            projection(3, 1) - projection(0, 1),
+            projection(3, 2) - projection(0, 2)
+        }, projection(3, 3) - projection(0, 3)};
 
-    /**
-     * @brief Determines if the frustum contains a point.
-     *
-     * @param point The point to check for containment.
-     * @return True if the frustum contains the point, false otherwise.
-     */
-    [[nodiscard]] auto ContainsPoint(const Vector3& point) const -> bool;
+        planes[2] = Plane {{
+            projection(3, 0) + projection(1, 0),
+            projection(3, 1) + projection(1, 1),
+            projection(3, 2) + projection(1, 2)
+        }, projection(3, 3) + projection(1, 3)};
 
-    /**
-     * @brief Determines if the frustum intersects with an axis-aligned bounding box.
-     *
-     * @param box The box to check for intersection.
-     * @return True if the frustum intersects with the box, false otherwise.
-     */
-    [[nodiscard]] auto IntersectsWithBox3(const Box3& box) const -> bool;
+        planes[3] = Plane {{
+            projection(3, 0) - projection(1, 0),
+            projection(3, 1) - projection(1, 1),
+            projection(3, 2) - projection(1, 2)
+        }, projection(3, 3) - projection(1, 3)};
 
-    /**
-     * @brief Determines if the frustum intersects with a sphere.
-     *
-     * @param sphere The sphere to check for intersection.
-     * @return True if the frustum intersects with the sphere, false otherwise.
-     */
-    [[nodiscard]] auto IntersectsWithSphere(const Sphere& sphere) const -> bool;
+        planes[4] = Plane {{
+            projection(3, 0) + projection(2, 0),
+            projection(3, 1) + projection(2, 1),
+            projection(3, 2) + projection(2, 2)
+        }, projection(3, 3) + projection(2, 3)};
+
+        planes[5] = Plane {{
+            projection(3, 0) - projection(2, 0),
+            projection(3, 1) - projection(2, 1),
+            projection(3, 2) - projection(2, 2)
+        }, projection(3, 3) - projection(2, 3)};
+
+        for (auto& p : planes) p.Normalize();
+    }
+
+    explicit Frustum(const Matrix4& projection) {
+        SetWithViewProjection(projection);
+    }
+
+    [[nodiscard]] auto ContainsPoint(const Vector3& point) const {
+        return std::ranges::all_of(planes, [&](const auto& plane) {
+            return plane.DistanceToPoint(point) >= 0;
+        });
+    }
+
+    [[nodiscard]] auto IntersectsWithBox3(const Box3& box) const {
+        auto v = Vector3::Zero();
+        return std::ranges::all_of(planes, [&](const auto& plane) {
+            v.x = plane.normal.x > 0 ? box.max.x : box.min.x;
+            v.y = plane.normal.y > 0 ? box.max.y : box.min.y;
+            v.z = plane.normal.z > 0 ? box.max.z : box.min.z;
+            return plane.DistanceToPoint(v) >= 0;
+        });
+    }
+
+    [[nodiscard]] auto IntersectsWithSphere(const Sphere& sphere) const {
+        return std::ranges::all_of(planes, [&](const auto& plane) {
+            const auto distance = plane.DistanceToPoint(sphere.center);
+            return distance >= -sphere.radius;
+        });
+    }
 };
 
 }
