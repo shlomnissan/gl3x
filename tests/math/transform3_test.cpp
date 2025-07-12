@@ -44,11 +44,7 @@ TEST(Transform3, SetScale) {
 TEST(Transform3, SetRotation) {
     auto t = gleam::Transform3 {};
     auto p = gleam::math::half_pi;
-    t.SetRotation(gleam::Euler {{
-        .pitch = p + 0.1f,
-        .yaw = p + 0.2f,
-        .roll = p + 0.3f
-    }});
+    t.SetRotation(gleam::Euler {p + 0.1f, p + 0.2f, p + 0.3f});
 
     const auto rotation = t.GetRotation();
     EXPECT_NEAR(rotation.pitch, p + 0.1f, 0.0001f);
@@ -74,11 +70,11 @@ TEST(Transform3, MultipleTransformations) {
     auto t = gleam::Transform3 {};
     t.SetPosition({2.0f, 1.0f, 3.0f});
     t.SetScale({2.0f, 1.0f, 3.0f});
-    t.SetRotation(gleam::Euler {{
-        .pitch = gleam::math::half_pi + 0.1f,
-        .yaw = gleam::math::half_pi + 0.2f,
-        .roll = gleam::math::half_pi + 0.3f
-    }});
+    t.SetRotation(gleam::Euler {
+        gleam::math::half_pi + 0.1f,
+        gleam::math::half_pi + 0.2f,
+        gleam::math::half_pi + 0.3f
+    });
 
     const auto& rotation = t.GetRotation();
     const auto& position = t.GetPosition();

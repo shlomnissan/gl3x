@@ -20,7 +20,7 @@ auto Rotate(float angle, const gleam::Vector3& v) -> gleam::Matrix4;
 #pragma region Constructor
 
 TEST(Euler, ConstructorWithEulerAngles) {
-    const auto e = gleam::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.3f}};
+    const auto e = gleam::Euler {0.5f, 0.2f, 0.3f};
 
     EXPECT_FLOAT_EQ(e.pitch, 0.5f);
     EXPECT_FLOAT_EQ(e.yaw, 0.2f);
@@ -28,7 +28,7 @@ TEST(Euler, ConstructorWithEulerAngles) {
 }
 
 TEST(Euler, ConstructorWithMatrix) {
-    const auto in = gleam::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.3f}};
+    const auto in = gleam::Euler {0.5f, 0.2f, 0.3f};
     const auto out = gleam::Euler {in.GetMatrix()};
 
     EXPECT_NEAR(in.pitch, out.pitch, 1e-6);
@@ -41,7 +41,7 @@ TEST(Euler, ConstructorWithMatrix) {
 #pragma region Get Matrix
 
 TEST(Euler, GetMatrixBasic) {
-    const auto e = gleam::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.3f}};
+    const auto e = gleam::Euler {0.5f, 0.2f, 0.3f};
     const auto m = e.GetMatrix();
 
     const auto rotation_x = Rotate(e.pitch, gleam::Vector3::Right());
@@ -61,7 +61,7 @@ TEST(Euler, ConstrucotrWithMatrixGimbalLock) {
     const auto yaw = 0.0f;
     const auto roll = 0.0f;
 
-    const auto e = gleam::Euler {{.pitch = pitch, .yaw = yaw, .roll = roll}};
+    const auto e = gleam::Euler {pitch, yaw, roll};
     const auto m = e.GetMatrix();
     const auto output = gleam::Euler {m};
 
@@ -79,18 +79,18 @@ TEST(Euler, ConstrucotrWithMatrixGimbalLock) {
 #pragma region Equality Operator
 
 TEST(Euler, EqualityOperator) {
-    const auto e1 = gleam::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.0f}};
-    const auto e2 = gleam::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.0f}};
-    const auto e3 = gleam::Euler {{.pitch = 0.1f, .yaw = 0.2f, .roll = 0.0f}};
+    const auto e1 = gleam::Euler {0.5f, 0.2f, 0.0f};
+    const auto e2 = gleam::Euler {0.5f, 0.2f, 0.0f};
+    const auto e3 = gleam::Euler {0.1f, 0.2f, 0.0f};
 
     EXPECT_TRUE(e1 == e2);
     EXPECT_FALSE(e1 == e3);
 }
 
 TEST(Euler, InequalityOperator) {
-    const auto e1 = gleam::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.0f}};
-    const auto e2 = gleam::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.0f}};
-    const auto e3 = gleam::Euler {{.pitch = 0.1f, .yaw = 0.2f, .roll = 0.0f}};
+    const auto e1 = gleam::Euler {0.5f, 0.2f, 0.0f};
+    const auto e2 = gleam::Euler {0.5f, 0.2f, 0.0f};
+    const auto e3 = gleam::Euler {0.1f, 0.2f, 0.0f};
 
     EXPECT_FALSE(e1 != e2);
     EXPECT_TRUE(e1 != e3);
@@ -107,7 +107,7 @@ TEST(Euler, IsEmptyReturnsTrue) {
 }
 
 TEST(Euler, IsEmptyReturnsFalse) {
-    const auto e = gleam::Euler {{.pitch = 0.5f, .yaw = 0.2f, .roll = 0.0f}};
+    const auto e = gleam::Euler {0.5f, 0.2f, 0.0f};
 
     EXPECT_FALSE(e.IsEmpty());
 }

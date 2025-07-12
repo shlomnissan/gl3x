@@ -33,7 +33,6 @@ set(SOURCE_CODE
     "loaders/mesh_loader.cpp"
     "loaders/texture_loader.cpp"
     "math/box3.cpp"
-    "math/euler.cpp"
     "math/frustum.cpp"
     "math/plane.cpp"
     "math/sphere.cpp"
