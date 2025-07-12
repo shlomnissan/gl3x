@@ -13,107 +13,137 @@
 #include "gleam/math/matrix4.hpp"
 #include "gleam/math/vector3.hpp"
 
+#include <cmath>
+
 namespace gleam {
 
-/**
- * @brief Represents a 3D transformation.
- */
 class GLEAM_EXPORT Transform3 {
 public:
-    /// @brief Flag indicating if the transformation matrix was modified.
     bool touched {true};
 
-    /**
-     * @brief Update the position of the transformation.
-     *
-     * @param value The translation vector to apply.
-     */
-    auto Translate(const Vector3& value) -> void;
+    auto Translate(const Vector3& value) {
+        position_ += rotation_.IsEmpty() ? value : rotation_.GetMatrix() * value;
+        touched = true;
+    }
 
-    /**
-     * @brief Update the scale of the transformation.
-     *
-     * @param value The scaling vector to apply.
-     */
-    auto Scale(const Vector3& value) -> void;
+    auto Scale(const Vector3& value) {
+        scale_ *= value;
+        touched = true;
+    }
 
-    /**
-     * @brief Update the rotation of the transformation.
-     *
-     * @param axis The axis to rotate around.
-     * @param angle The angle to rotate by, in radians.
-     */
-    auto Rotate(const Vector3& axis, float angle) -> void;
+    auto Rotate(const Vector3& axis, float angle) {
+        assert(axis == Vector3::Right() || axis == Vector3::Up() || axis == Vector3::Forward());
+        if (axis == Vector3::Right()) {
+            rotation_.pitch += angle;
+        }else if (axis == Vector3::Up()) {
+            rotation_.yaw += angle;
+        } else if (axis == Vector3::Forward()) {
+            rotation_.roll += angle;
+        }
+        touched = true;
+    }
 
-    /**
-     * @brief Sets the transformation to look at a target position.
-     *
-     * @param position The position of the object.
-     * @param target The target position to look at.
-     * @param world_up The up vector of the world.
-     */
-    auto LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) -> void;
+    auto LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) {
+        auto forward = Normalize(position - target);
+        if (forward == Vector3::Zero()) {
+            // The position and target are the same,
+            // so we can't determine a forward vector.
+            forward = Vector3::Forward();
+        }
 
-    /**
-     * @brief Sets the position of the transformation.
-     *
-     * @param position The position vector to set.
-     */
-    auto SetPosition(const Vector3& position) -> void;
+        auto right = Cross(world_up, forward);
+        if (right.Length() == 0.0f) {
+            // If the right vector is zero, the forward vector
+            // is parallel to the world up vector.
+            if (std::abs(world_up.z) == 1.0f) {
+                forward.x += 0.0001f;
+            } else {
+                forward.z += 0.0001f;
+            }
+            forward.Normalize();
+            right = Cross(world_up, forward);
+        }
 
-    /**
-     * @brief Sets the scale of the transformation.
-     *
-     * @param scale The scale vector to set.
-     */
-    auto SetScale(const Vector3& scale) -> void;
+        right.Normalize();
+        auto up = Cross(forward, right);
 
-    /**
-     * @brief Sets the rotation of the transformation.
-     *
-     * @param rotation The Euler angles to set.
-     */
-    auto SetRotation(const Euler& rotation) -> void;
+        rotation_ = Euler {{
+            right.x, up.x, forward.x, 0.0f,
+            right.y, up.y, forward.y, 0.0f,
+            right.z, up.z, forward.z, 0.0f,
+            0.0f, 0.0f, 0.0f, 1.0f
+        }};
 
-    /**
-     * @brief Retrieves the position of the transformation.
-     *
-     * @return The position vector.
-     */
+        touched = true;
+    }
+
+    auto SetPosition(const Vector3& position) {
+        if (position_ != position) {
+            position_ = position;
+            touched = true;
+        }
+    }
+
+    auto SetScale(const Vector3& scale) {
+        if (scale_ != scale) {
+            scale_ = scale;
+            touched = true;
+        }
+    }
+
+    auto SetRotation(const Euler& rotation) {
+        if (rotation_ != rotation) {
+            rotation_ = rotation;
+            touched = true;
+        }
+    }
+
     [[nodiscard]] auto GetPosition() const { return position_; }
 
-    /**
-     * @brief Retrieves the scale of the transformation.
-     *
-     * @return The scale vector.
-     */
     [[nodiscard]] auto GetScale() const { return scale_; };
 
-    /**
-     * @brief Retrieves the rotation of the transformation.
-     *
-     * @return The Euler angles.
-     */
     [[nodiscard]] auto GetRotation() const { return rotation_; }
 
-    /**
-     * @brief Returns the transformation matrix.
-     *
-     * @return The transformation matrix representing the current scaling, translation, and rotation.
-     */
-    [[nodiscard]] auto Get() -> Matrix4;
+    [[nodiscard]] auto Get() {
+        if (touched) {
+            const auto cos_p = std::cos(rotation_.pitch);
+            const auto sin_p = std::sin(rotation_.pitch);
+            const auto cos_y = std::cos(rotation_.yaw);
+            const auto sin_y = std::sin(rotation_.yaw);
+            const auto cos_r = std::cos(rotation_.roll);
+            const auto sin_r = std::sin(rotation_.roll);
+
+            transform_ = {
+                scale_.x * (cos_r * cos_y - sin_r * sin_p * sin_y),
+                scale_.y * (-sin_r * cos_p),
+                scale_.z * (cos_r * sin_y + sin_r * sin_p * cos_y),
+                position_.x,
+
+                scale_.x * (sin_r * cos_y + cos_r * sin_p * sin_y),
+                scale_.y * (cos_r * cos_p),
+                scale_.z * (sin_r * sin_y - cos_r * sin_p * cos_y),
+                position_.y,
+
+                scale_.x * (-cos_p * sin_y),
+                scale_.y * sin_p,
+                scale_.z * (cos_p * cos_y),
+                position_.z,
+
+                0.0f, 0.0f, 0.0f, 1.0f
+            };
+
+            touched = false;
+        }
+        return transform_;
+    }
 
 private:
-    /// @brief The transformation matrix, initialized to identity.
     Matrix4 transform_ {1.0f};
 
-    /// @brief The position of the transformation.
     Vector3 position_ {0.0f};
 
-    /// @brief The scale of the transformation.
     Vector3 scale_ {1.0f};
 
-    /// @brief The rotation of the transformation.
     Euler rotation_ {};
 };
 

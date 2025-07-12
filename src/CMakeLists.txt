@@ -37,8 +37,6 @@ set(SOURCE_CODE
     "math/frustum.cpp"
     "math/plane.cpp"
     "math/sphere.cpp"
-    "math/transform2.cpp"
-    "math/transform3.cpp"
     "nodes/arrow.cpp"
     "nodes/bounding_box.cpp"
     "nodes/bounding_plane.cpp"
