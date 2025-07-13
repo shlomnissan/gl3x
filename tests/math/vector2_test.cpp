@@ -140,51 +140,67 @@ TEST(Vector2, DotProductParallelVectors) {
 #pragma region Length
 
 TEST(Vector2, LengthPositiveValues) {
-    const auto v = gleam::Vector2 {3.0f, 4.0f};
+    constexpr auto v = gleam::Vector2 {3.0f, 4.0f};
 
-    EXPECT_FLOAT_EQ(v.Length(), 5.0f);
+    EXPECT_TRUE(ApproxEqual(v.Length(), 5.0f));
+
+    static_assert(ApproxEqual(v.Length(), 5.0f));
 }
 
 TEST(Vector2, LengthNegativeValues) {
-    const auto v = gleam::Vector2 {-3.0f, -4.0f};
+    constexpr auto v = gleam::Vector2 {-3.0f, -4.0f};
 
-    EXPECT_FLOAT_EQ(v.Length(), 5.0f);
+    EXPECT_TRUE(ApproxEqual(v.Length(), 5.0f));
+
+    static_assert(ApproxEqual(v.Length(), 5.0f));
 }
 
 TEST(Vector2, LengthZeroVector) {
-    const auto v = gleam::Vector2 {0.0f, 0.0f};
+    constexpr auto v = gleam::Vector2 {0.0f, 0.0f};
 
     EXPECT_FLOAT_EQ(v.Length(), 0.0f);
+
+    static_assert(v.Length() == 0.0f);
 }
 
 TEST(Vector2, LengthUnitVector) {
-    const auto v = gleam::Vector2 {1.0f, 0.0f};
+    constexpr auto v = gleam::Vector2 {1.0f, 0.0f};
 
-    EXPECT_FLOAT_EQ(v.Length(), 1.0f);
+    EXPECT_TRUE(ApproxEqual(v.Length(), 1.0f));
+
+    static_assert(ApproxEqual(v.Length(), 1.0f));
 }
 
 TEST(Vector2, LengthSquarePositiveValues) {
-    const auto v = gleam::Vector2 {3.0f, 4.0f};
+    constexpr auto v = gleam::Vector2 {3.0f, 4.0f};
 
     EXPECT_FLOAT_EQ(v.LengthSquared(), 25.0f);
+
+    static_assert(v.LengthSquared() == 25.0f);
 }
 
 TEST(Vector2, LengthSquareNegativeValues) {
-    const auto v = gleam::Vector2 {-3.0f, -4.0f};
+    constexpr auto v = gleam::Vector2 {-3.0f, -4.0f};
 
     EXPECT_FLOAT_EQ(v.LengthSquared(), 25.0f);
+
+    static_assert(v.LengthSquared() == 25.0f);
 }
 
 TEST(Vector2, LengthSquareZeroVector) {
-    const auto v = gleam::Vector2 {0.0f, 0.0f};
+    constexpr auto v = gleam::Vector2 {0.0f, 0.0f};
 
     EXPECT_FLOAT_EQ(v.LengthSquared(), 0.0f);
+
+    static_assert(v.LengthSquared() == 0.0f);
 }
 
 TEST(Vector2, LengthSquareUnitVector) {
-    const auto v = gleam::Vector2 {1.0f, 0.0f};
+    constexpr auto v = gleam::Vector2 {1.0f, 0.0f};
 
     EXPECT_FLOAT_EQ(v.LengthSquared(), 1.0f);
+
+    static_assert(v.LengthSquared() == 1.0f);
 }
 
 #pragma endregion
@@ -406,42 +422,81 @@ TEST(Vector2, ScalarDivisionIdentity) {
 #pragma region Normalize
 
 TEST(Vector2, NormalizeBasic) {
-    const auto v = gleam::Vector2 {3.0f, 4.0f};
+    constexpr auto v = gleam::Vector2 {3.0f, 4.0f};
 
-    EXPECT_VEC2_EQ(gleam::Normalize(v), {0.6f, 0.8f});
+    EXPECT_VEC2_NEAR(gleam::Normalize(v), {0.6f, 0.8f}, 1e-4);
+
+    static_assert(ApproxEqual(gleam::Normalize(v).x, 0.6f));
+    static_assert(ApproxEqual(gleam::Normalize(v).y, 0.8f));
 }
 
 TEST(Vector2, NormalizeNormalizedVector) {
-    const auto v = gleam::Vector2 {0.6f, 0.8f};
+    constexpr auto v = gleam::Vector2 {0.6f, 0.8f};
 
-    EXPECT_VEC2_EQ(gleam::Normalize(v), {0.6f, 0.8f});
+    EXPECT_VEC2_NEAR(gleam::Normalize(v), {0.6f, 0.8f}, 1e-4);
+
+    static_assert(ApproxEqual(gleam::Normalize(v).x, 0.6f));
+    static_assert(ApproxEqual(gleam::Normalize(v).y, 0.8f));
 }
 
 TEST(Vector2, NormalizeZeroVector) {
-    const auto v = gleam::Vector2 {0.0f, 0.0f};
+    constexpr auto v = gleam::Vector2 {0.0f, 0.0f};
 
     EXPECT_VEC2_EQ(gleam::Normalize(v), {0.0f, 0.0f});
+
+    static_assert(gleam::Normalize(v).x == 0.0f);
+    static_assert(gleam::Normalize(v).y == 0.0f);
 }
 
 TEST(Vector2, NormalizeMemberBasic) {
-    auto v = gleam::Vector2 {3.0f, 4.0f};
-    v.Normalize();
+    auto v1 = gleam::Vector2 {3.0f, 4.0f};
+    v1.Normalize();
 
-    EXPECT_VEC2_EQ(v, {0.6f, 0.8f});
+    EXPECT_VEC2_NEAR(gleam::Normalize(v1), {0.6f, 0.8f}, 1e-4);
+
+    // Compile-time check
+    constexpr auto v2 = []() {
+        auto v = gleam::Vector2 {3.0f, 4.0f};
+        v.Normalize();
+        return v;
+    }();
+
+    static_assert(ApproxEqual(v2.x, 0.6f));
+    static_assert(ApproxEqual(v2.y, 0.8f));
 }
 
 TEST(Vector2, NormalizeMemberNormalizedVector) {
-    auto v = gleam::Vector2 {0.6f, 0.8f};
-    v.Normalize();
+    auto v1 = gleam::Vector2 {0.6f, 0.8f};
+    v1.Normalize();
 
-    EXPECT_VEC2_EQ(v, {0.6f, 0.8f});
+    EXPECT_VEC2_NEAR(gleam::Normalize(v1), {0.6f, 0.8f}, 1e-4);
+
+    // Compile-time check
+    constexpr auto v2 = []() {
+        auto v = gleam::Vector2 {0.6f, 0.8f};
+        v.Normalize();
+        return v;
+    }();
+
+    static_assert(ApproxEqual(v2.x, 0.6f));
+    static_assert(ApproxEqual(v2.y, 0.8f));
 }
 
 TEST(Vector2, NormalizedMemberZeroVector) {
-    auto v = gleam::Vector2 {0.0f, 0.0f};
-    v.Normalize();
+    auto v1 = gleam::Vector2 {0.0f, 0.0f};
+    v1.Normalize();
 
-    EXPECT_VEC2_EQ(v, {0.0f, 0.0f});
+    EXPECT_VEC2_EQ(v1, {0.0f, 0.0f});
+
+    // Compile-time check
+    constexpr auto v2 = []() {
+        auto v = gleam::Vector2 {0.0f, 0.0f};
+        v.Normalize();
+        return v;
+    }();
+
+    static_assert(v2.x == 0.0f);
+    static_assert(v2.y == 0.0f);
 }
 
 #pragma endregion

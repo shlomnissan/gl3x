@@ -9,8 +9,9 @@
 
 #include "gleam_export.h"
 
+#include "gleam/math/utilities.hpp"
+
 #include <cassert>
-#include <cmath>
 
 namespace gleam {
 
@@ -34,9 +35,9 @@ public:
 
     [[nodiscard]] static constexpr auto Zero() { return Vector2 {0.0f}; }
 
-    [[nodiscard]] auto Length() const { return std::sqrt(Dot(*this, *this)); }
+    [[nodiscard]] constexpr auto Length() const { return math::Sqrt(Dot(*this, *this)); }
 
-    [[nodiscard]] auto LengthSquared() const { return Dot(*this, *this); }
+    [[nodiscard]] constexpr auto LengthSquared() const { return Dot(*this, *this); }
 
     [[nodiscard]] auto& operator[](int i) {
         assert(i >= 0 && i < 2);
@@ -48,7 +49,7 @@ public:
         return (reinterpret_cast<const float*>(this))[i];
     }
 
-    auto Normalize() -> Vector2& {
+    constexpr auto Normalize() -> Vector2& {
         const auto len = Length();
         return len == 0.0f ? *this : (*this *= (1.0f / len));
     }
@@ -114,7 +115,7 @@ private:
     return v1 + (v2 - v1) * f;
 }
 
-[[nodiscard]] inline auto Normalize(const Vector2& v) {
+[[nodiscard]] inline constexpr auto Normalize(const Vector2& v) {
     const auto len = v.Length();
     return len == 0.0f ? Vector2::Zero() : v * (1.0f / len);
 }
