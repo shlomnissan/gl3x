@@ -45,8 +45,7 @@ TEST(Vector2, ConstructorParameterized) {
 TEST(Vector2, UnitVectorAlongX) {
     constexpr auto v = gleam::Vector2::Right();
 
-    EXPECT_FLOAT_EQ(v.x, 1.0f);
-    EXPECT_FLOAT_EQ(v.y, 0.0f);
+    EXPECT_VEC2_EQ(v, {1.0f, 0.0f});
 
     static_assert(v == gleam::Vector2 {1.0f, 0.0f});
 }
@@ -54,8 +53,7 @@ TEST(Vector2, UnitVectorAlongX) {
 TEST(Vector2, UnitVectorAlongY) {
     constexpr auto v = gleam::Vector2::Up();
 
-    EXPECT_FLOAT_EQ(v.x, 0.0f);
-    EXPECT_FLOAT_EQ(v.y, 1.0f);
+    EXPECT_VEC2_EQ(v, {0.0f, 1.0f});
 
     static_assert(v == gleam::Vector2 {0.0f, 1.0f});
 }
@@ -63,8 +61,7 @@ TEST(Vector2, UnitVectorAlongY) {
 TEST(Vector2, ZeroVector) {
     constexpr auto v = gleam::Vector2::Zero();
 
-    EXPECT_FLOAT_EQ(v.x, 0.0f);
-    EXPECT_FLOAT_EQ(v.y, 0.0f);
+    EXPECT_VEC2_EQ(v, {0.0f, 0.0f});
 
     static_assert(v == gleam::Vector2 {0.0f, 0.0f});
 }
@@ -74,10 +71,13 @@ TEST(Vector2, ZeroVector) {
 #pragma region Component Access
 
 TEST(Vector2, ComponentAccessDirect) {
-    const auto v = gleam::Vector2 {1.0f, 2.0f};
+    constexpr auto v = gleam::Vector2 {1.0f, 2.0f};
 
     EXPECT_FLOAT_EQ(v.x, 1.0f);
     EXPECT_FLOAT_EQ(v.y, 2.0f);
+
+    static_assert(v.x == 1.0f);
+    static_assert(v.y == 2.0f);
 }
 
 TEST(Vector2, ComponentAccessRandomAccessOperator) {
