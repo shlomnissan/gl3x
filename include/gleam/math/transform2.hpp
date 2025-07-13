@@ -21,7 +21,13 @@ public:
     bool touched {true};
 
     auto Translate(const Vector2& value) {
-        position_ += value;
+        const float s = std::sin(rotation_);
+        const float c = std::cos(rotation_);
+        const Vector2 rotated_value = {
+            value.x * c - value.y * s,
+            value.x * s + value.y * c
+        };
+        position_ += rotated_value;
         touched = true;
     }
 
@@ -74,15 +80,13 @@ public:
     [[nodiscard]] auto Get() {
         if (touched) {
             touched = false;
-            // This transform is currently used for UV transformations.
-            // 2D screen space transformations will require minor adjustments.
-            const auto rc = std::cos(rotation_);
-            const auto rs = std::sin(rotation_);
-            const auto ts = -scale_.x * (rc * center_.x + rs * center_.y) + center_.x + position_.x;
-            const auto ty = -scale_.y * (-rs * center_.x + rc * center_.y) + center_.y + position_.y;
+            const float rc = std::cos(rotation_);
+            const float rs = std::sin(rotation_);
+            const float tx = -scale_.x * (rc * center_.x - rs * center_.y) + center_.x + position_.x;
+            const float ty = -scale_.y * (rs * center_.x + rc * center_.y) + center_.y + position_.y;
             transform_ = {
-                scale_.x * rc, scale_.x * rs, ts,
-                -scale_.y * rs, scale_.y * rc, ty,
+                scale_.x * rc, -scale_.x * rs, tx,
+                scale_.y * rs,  scale_.y * rc, ty,
                 0.0f, 0.0f, 1.0f
             };
         }

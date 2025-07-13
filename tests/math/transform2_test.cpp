@@ -13,7 +13,70 @@
 
 #include <cmath>
 
-#pragma region Transformations
+#pragma region Mutators
+
+TEST(Transform2, SetPosition) {
+    auto t = gleam::Transform2 {};
+    t.SetPosition({2.0f, 1.0f});
+
+    EXPECT_VEC2_EQ(t.GetPosition(), {2.0f, 1.0f});
+    EXPECT_MAT3_EQ(t.Get(), {
+        1.0f, 0.0f, 2.0f,
+        0.0f, 1.0f, 1.0f,
+        0.0f, 0.0f, 1.0f
+    });
+}
+
+TEST(Transform2, SetScale) {
+    auto t = gleam::Transform2 {};
+    t.SetScale({2.0f, 1.0f});
+
+    EXPECT_VEC2_EQ(t.GetScale(), {2.0f, 1.0f});
+    EXPECT_MAT3_EQ(t.Get(), {
+        2.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
+    });
+}
+
+TEST(Transform2, SetRotation) {
+    auto t = gleam::Transform2 {};
+    t.SetRotation(gleam::math::half_pi);
+
+    auto r = t.GetRotation();
+    auto c = std::cos(r);
+    auto s = std::sin(r);
+    EXPECT_EQ(t.GetRotation(), r);
+    EXPECT_MAT3_EQ(t.Get(), {
+        c, -s, 0.0f,
+        s, c, 0.0f,
+        0.0f, 0.0f, 1.0f
+    });
+}
+
+TEST(Transform2, MultipleTransformations) {
+    auto t = gleam::Transform2 {};
+    t.SetCenter({0.5f, 0.5f});
+    t.SetPosition({2.0f, 3.0f});
+    t.SetScale({2.0f, 2.0f});
+    t.SetRotation(gleam::math::half_pi);
+
+    auto c = std::cos(t.GetRotation()) * t.GetScale().x;
+    auto s = std::sin(t.GetRotation()) * t.GetScale().y;
+    EXPECT_VEC2_EQ(t.GetCenter(), {0.5f, 0.5f});
+    EXPECT_VEC2_EQ(t.GetPosition(), {2.0f, 3.0f});
+    EXPECT_VEC2_EQ(t.GetScale(), {2.0f, 2.0f});
+    EXPECT_EQ(t.GetRotation(), gleam::math::half_pi);
+    EXPECT_MAT3_EQ(t.Get(), {
+        c, -s, 3.5f,
+        s, c, 2.5f,
+        0.0f, 0.0f, 1.0f
+    });
+}
+
+#pragma endregion
+
+#pragma region Cumulative Transformations
 
 TEST(Transform2, Translate) {
     auto t = gleam::Transform2 {};
@@ -47,8 +110,8 @@ TEST(Transform2, Rotate) {
     auto s = std::sin(t.GetRotation());
     EXPECT_EQ(t.GetRotation(), gleam::math::half_pi);
     EXPECT_MAT3_EQ(t.Get(), {
-        c, s, 0.0f,
-        -s, c, 0.0f,
+        c, -s, 0.0f,
+        s, c, 0.0f,
         0.0f, 0.0f, 1.0f
     });
 }
@@ -67,10 +130,44 @@ TEST(Transform2, TransformationsWithOffset) {
     EXPECT_VEC2_EQ(t.GetScale(), {2.0f, 2.0f});
     EXPECT_EQ(t.GetRotation(), gleam::math::half_pi);
     EXPECT_MAT3_EQ(t.Get(), {
-        c, s, 1.5f,
-        -s, c, 4.5f,
+        c, -s, 3.5f,
+        s, c, 2.5f,
         0.0f, 0.0f, 1.0f
     });
+}
+
+#pragma endregion
+
+#pragma region Local-Space Translation
+
+TEST(Transform2, TranslateBeforeRotation) {
+    auto t = gleam::Transform2 {};
+    t.Translate({0.0f, 1.0f});
+    t.Rotate(gleam::math::half_pi);
+
+    auto c = std::cos(t.GetRotation());
+    auto s = std::sin(t.GetRotation());
+    EXPECT_VEC2_EQ(t.GetPosition(), {0.0f, 1.0f});
+    EXPECT_MAT3_EQ(t.Get(), {
+        c, -s, 0.0f,
+        s,  c, 1.0f,
+        0.0f, 0.0f, 1.0f
+    });
+}
+
+TEST(Transform2, TranslateAfterRotation) {
+    auto t = gleam::Transform2 {};
+    t.Rotate(gleam::math::half_pi);
+    t.Translate({0.0f, 1.0f});
+
+    auto c = std::cos(t.GetRotation());
+    auto s = std::sin(t.GetRotation());
+    EXPECT_VEC2_NEAR(t.GetPosition(), {-1.0f, 0.0f}, 0.001f);
+    EXPECT_MAT3_NEAR(t.Get(), {
+        c, -s, -1.0f,
+        s,  c,  0.0f,
+        0.0f, 0.0f, 1.0f
+    }, 0.0001f);
 }
 
 #pragma endregion

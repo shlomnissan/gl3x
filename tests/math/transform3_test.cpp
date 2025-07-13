@@ -13,7 +13,7 @@
 
 #include <cmath>
 
-#pragma region Transformations
+#pragma region Mutators
 
 TEST(Transform3, SetPosition) {
     auto t = gleam::Transform3 {};

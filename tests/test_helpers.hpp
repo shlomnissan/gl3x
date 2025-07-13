@@ -109,6 +109,11 @@ auto EXPECT_VEC2_EQ(const gleam::Vector2& a, const gleam::Vector2& b) -> void {
     EXPECT_EQ(a.y, b.y);
 }
 
+auto EXPECT_VEC2_NEAR(const gleam::Vector2& a, const gleam::Vector2& b, float v) -> void {
+    EXPECT_NEAR(a.x, b.x, v);
+    EXPECT_NEAR(a.y, b.y, v);
+}
+
 auto EXPECT_VEC3_EQ(const gleam::Vector3& a, const gleam::Vector3& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);

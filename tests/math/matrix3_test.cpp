@@ -61,7 +61,7 @@ TEST(Matrix3, ConstructorVector) {
     });
 }
 
-TEST(Matrix3, ConstructWithMatrix4) {
+TEST(Matrix3, ConstructorMatrix4) {
     const auto m = gleam::Matrix3 {
         gleam::Matrix4 {
             1.0f,  2.0f,  3.0f,  4.0f,
