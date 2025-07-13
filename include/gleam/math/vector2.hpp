@@ -10,6 +10,7 @@
 #include "gleam_export.h"
 
 #include <cassert>
+#include <cmath>
 
 namespace gleam {
 
