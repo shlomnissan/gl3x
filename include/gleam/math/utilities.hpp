@@ -9,8 +9,10 @@
 
 #include "gleam_export.h"
 
+#include <bit>
 #include <cmath>
 #include <iomanip>
+#include <limits>
 #include <random>
 #include <sstream>
 #include <string>
@@ -34,12 +36,26 @@ constexpr float epsilon = 1e-6f;
     return std::lerp(a, b, f);
 }
 
-constexpr auto CantorPairing(const auto x, const auto y) {
+[[nodiscard]] constexpr auto CantorPairing(const auto x, const auto y) {
     return ((x + y) * (x + y + 1)) / 2 + y;
 }
 
-constexpr auto UnorderedCantorPairing(const auto x, const auto y) {
+[[nodiscard]] constexpr auto UnorderedCantorPairing(const auto x, const auto y) {
     return x > y ? CantorPairing(y, x) : CantorPairing(x, y);
+}
+
+[[nodiscard]] constexpr auto Sqrt(float x) {
+    if (x < std::numeric_limits<float>::min()) {
+        return 0.0f;
+    }
+
+    auto i = std::bit_cast<uint32_t>(x);
+    i = 0x5F375A86 - (i >> 1);
+    auto r = std::bit_cast<float>(i);
+    r = (0.5f * r) * (3.0f - x * r * r);
+    r = (0.5f * r) * (3.0f - x * r * r);
+
+    return r * x;
 }
 
 [[nodiscard]] GLEAM_EXPORT inline auto GenerateUUID() {

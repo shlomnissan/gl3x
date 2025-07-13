@@ -35,9 +35,9 @@ TEST(Color, ConstructorHex) {
 
     EXPECT_COLOR_NEAR(c, {1.0f, 0.4f, 0.3f}, 0.1f);
 
-    static_assert(approx_equal(c.r, 1.0f, 0.1f));
-    static_assert(approx_equal(c.g, 0.4f, 0.1f));
-    static_assert(approx_equal(c.b, 0.3f, 0.1f));
+    static_assert(ApproxEqual(c.r, 1.0f, 0.1f));
+    static_assert(ApproxEqual(c.g, 0.4f, 0.1f));
+    static_assert(ApproxEqual(c.b, 0.3f, 0.1f));
 }
 
 #pragma endregion
@@ -51,9 +51,9 @@ TEST(Color, ComponentAccessDirect) {
     EXPECT_NEAR(c.g, 0.4f, 0.1f);
     EXPECT_NEAR(c.b, 0.3f, 0.1f);
 
-    static_assert(approx_equal(c.r, 1.0f, 0.1f));
-    static_assert(approx_equal(c.g, 0.4f, 0.1f));
-    static_assert(approx_equal(c.b, 0.3f, 0.1f));
+    static_assert(ApproxEqual(c.r, 1.0f, 0.1f));
+    static_assert(ApproxEqual(c.g, 0.4f, 0.1f));
+    static_assert(ApproxEqual(c.b, 0.3f, 0.1f));
 }
 
 TEST(Color, ComponentAccessRandomAccessOperator) {
@@ -63,9 +63,9 @@ TEST(Color, ComponentAccessRandomAccessOperator) {
     EXPECT_NEAR(c[1], 0.4f, 0.1f);
     EXPECT_NEAR(c[2], 0.3f, 0.1f);
 
-    static_assert(approx_equal(c.r, 1.0f, 0.1f));
-    static_assert(approx_equal(c.g, 0.4f, 0.1f));
-    static_assert(approx_equal(c.b, 0.3f, 0.1f));
+    static_assert(ApproxEqual(c.r, 1.0f, 0.1f));
+    static_assert(ApproxEqual(c.g, 0.4f, 0.1f));
+    static_assert(ApproxEqual(c.b, 0.3f, 0.1f));
 }
 
 #pragma endregion

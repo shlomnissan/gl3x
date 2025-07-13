@@ -7,6 +7,8 @@
 
 #include <gtest/gtest.h>
 
+#include "test_helpers.hpp"
+
 #include <cassert>
 #include <regex>
 
@@ -42,6 +44,36 @@ TEST(MathUtilities, RadToDeg) {
     EXPECT_FLOAT_EQ(math::RadToDeg(math::pi), 180.0f);
     EXPECT_FLOAT_EQ(math::RadToDeg(math::two_pi), 360.0f);
     EXPECT_FLOAT_EQ(math::RadToDeg(math::pi / 4.0f), 45.0f);
+}
+
+#pragma endregion
+
+#pragma region Sqrt
+
+TEST(MathUtilities, SqrtAccuracyCommonCases) {
+    EXPECT_NEAR(math::Sqrt(0.0f), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Sqrt(1.0f), 1.0f, 1e-4f);
+    EXPECT_NEAR(math::Sqrt(2.0f), 1.4142f, 1e-4f);
+    EXPECT_NEAR(math::Sqrt(4.0f), 2.0f, 1e-4f);
+    EXPECT_NEAR(math::Sqrt(9.0f), 3.0f, 1e-4f);
+    EXPECT_NEAR(math::Sqrt(16.0f), 4.0f, 1e-4f);
+    EXPECT_NEAR(math::Sqrt(100.0f), 10.0f, 1e-3f);
+
+    static_assert(ApproxEqual(math::Sqrt(1.0f), 1.0f));
+    static_assert(ApproxEqual(math::Sqrt(0.0f), 0.0f));
+    static_assert(math::Sqrt(4.0f) > 1.9f && math::Sqrt(4.0f) < 2.1f);
+    static_assert(math::Sqrt(9.0f) > 2.9f && math::Sqrt(9.0f) < 3.1f);
+}
+
+TEST(MathUtilities, SqrtTinyValues) {
+    EXPECT_NEAR(math::Sqrt(1e-10f), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Sqrt(std::numeric_limits<float>::min()), 0.0f, 1e-4f);
+}
+
+TEST(MathUtilities, SqrtNegativeInputBehavior) {
+    float result = math::Sqrt(-1.0f);
+    EXPECT_TRUE(std::isfinite(result));
+    EXPECT_LT(result, 0.01f);
 }
 
 #pragma endregion

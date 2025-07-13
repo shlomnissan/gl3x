@@ -16,7 +16,8 @@
 #include <gleam/math/vector3.hpp>
 #include <gleam/math/vector4.hpp>
 
-constexpr bool approx_equal(float a, float b, float eps) {
+template <typename T>
+constexpr bool ApproxEqual(T a, T b, T eps = static_cast<T>(1e-4)) {
     return (a - b < eps) && (b - a < eps);
 }
 
