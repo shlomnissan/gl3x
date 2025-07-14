@@ -69,13 +69,18 @@ TEST(Vector4, ComponentAccessDirect) {
 }
 
 TEST(Vector4, ComponentAccessRandomAccessOperator) {
-    const auto v = gleam::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    constexpr auto v = gleam::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
 
     EXPECT_FLOAT_EQ(v[0], 1.0f);
     EXPECT_FLOAT_EQ(v[1], 2.0f);
     EXPECT_FLOAT_EQ(v[2], 3.0f);
     EXPECT_FLOAT_EQ(v[3], 4.0f);
     EXPECT_DEATH({ (void)v[4]; }, ".*i >= 0 && i < 4.*");
+
+    static_assert(v[0] == 1.0f);
+    static_assert(v[1] == 2.0f);
+    static_assert(v[2] == 3.0f);
+    static_assert(v[3] == 4.0f);
 }
 
 #pragma endregion

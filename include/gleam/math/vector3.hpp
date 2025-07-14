@@ -42,14 +42,24 @@ public:
 
     [[nodiscard]] constexpr auto LengthSquared() const { return Dot(*this, *this); }
 
-    [[nodiscard]] auto& operator[](int i) {
+    [[nodiscard]] constexpr auto& operator[](int i) {
         assert(i >= 0 && i < 3);
-        return (reinterpret_cast<float*>(this))[i];
+        switch (i) {
+            case 0: return x;
+            case 1: return y;
+            case 2: return z;
+            default: return x; // placeholder
+        }
     }
 
-    [[nodiscard]] const auto& operator[](int i) const {
+    [[nodiscard]] constexpr auto& operator[](int i) const {
         assert(i >= 0 && i < 3);
-        return (reinterpret_cast<const float*>(this))[i];
+        switch (i) {
+            case 0: return x;
+            case 1: return y;
+            case 2: return z;
+            default: return x; // placeholder
+        }
     }
 
     constexpr auto Normalize() -> Vector3& {

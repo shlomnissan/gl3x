@@ -81,11 +81,14 @@ TEST(Vector2, ComponentAccessDirect) {
 }
 
 TEST(Vector2, ComponentAccessRandomAccessOperator) {
-    const auto v = gleam::Vector2 {1.0f, 2.0f};
+    constexpr auto v = gleam::Vector2 {1.0f, 2.0f};
 
     EXPECT_FLOAT_EQ(v[0], 1.0f);
     EXPECT_FLOAT_EQ(v[1], 2.0f);
     EXPECT_DEATH({ (void)v[3]; }, ".*i >= 0 && i < 2.*");
+
+    static_assert(v[0] == 1.0f);
+    static_assert(v[1] == 2.0f);
 }
 
 #pragma region Dot Product
