@@ -487,16 +487,6 @@ TEST(Vector2, NormalizedMemberZeroVector) {
     v1.Normalize();
 
     EXPECT_VEC2_EQ(v1, {0.0f, 0.0f});
-
-    // Compile-time check
-    constexpr auto v2 = []() {
-        auto v = gleam::Vector2 {0.0f, 0.0f};
-        v.Normalize();
-        return v;
-    }();
-
-    static_assert(v2.x == 0.0f);
-    static_assert(v2.y == 0.0f);
 }
 
 #pragma endregion

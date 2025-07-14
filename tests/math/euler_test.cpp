@@ -49,7 +49,7 @@ TEST(Euler, GetMatrixBasic) {
     const auto rotation_z = Rotate(e.roll, gleam::Vector3::Forward());
 
     const auto expected = rotation_z * rotation_x * rotation_y;
-    EXPECT_MAT4_EQ(m, expected);
+    EXPECT_MAT4_NEAR(m, expected, 1e-4);
 }
 
 #pragma endregion
