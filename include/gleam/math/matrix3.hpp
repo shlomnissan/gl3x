@@ -18,15 +18,15 @@ namespace gleam {
 
 class GLEAM_EXPORT Matrix3 {
 public:
-    Matrix3() = default;
+    constexpr Matrix3() = default;
 
-    explicit Matrix3(float value) : Matrix3({
+    explicit constexpr Matrix3(float value) : Matrix3({
         value, 0.0f, 0.0f,
         0.0f, value, 0.0f,
         0.0f, 0.0f, value
     }) {}
 
-    Matrix3(
+    constexpr Matrix3(
         float n00, float n01, float n02,
         float n10, float n11, float n12,
         float n20, float n21, float n22
@@ -36,19 +36,19 @@ public:
         Vector3(n02, n12, n22)
     }} {}
 
-    Matrix3(
+    constexpr Matrix3(
         const Vector3& a,
         const Vector3& b,
         const Vector3& c
     ) : m {{a, b, c}} {}
 
-    Matrix3(const Matrix4& m) : Matrix3(
+    constexpr Matrix3(const Matrix4& m) : Matrix3(
         m[0].x, m[1].x, m[2].x,
         m[0].y, m[1].y, m[2].y,
         m[0].z, m[1].z, m[2].z
     ) {}
 
-    [[nodiscard]] static auto Identity() {
+    [[nodiscard]] static constexpr auto Identity() {
         return Matrix3 {
             1.0f, 0.0f, 0.0f,
             0.0f, 1.0f, 0.0f,
@@ -56,28 +56,28 @@ public:
         };
     }
 
-    [[nodiscard]] auto& operator()(int i, int j) {
+    [[nodiscard]] constexpr auto& operator()(int i, int j) {
         return m[j][i];
     }
 
-    [[nodiscard]] const auto& operator()(int i, int j) const {
+    [[nodiscard]] constexpr const auto& operator()(int i, int j) const {
         return m[j][i];
     }
 
-    [[nodiscard]] auto& operator[](int j) {
+    [[nodiscard]] constexpr auto& operator[](int j) {
         return m[j];
     }
 
-    [[nodiscard]] const auto& operator[](int j) const {
+    [[nodiscard]] constexpr const auto& operator[](int j) const {
         return m[j];
     }
 
 private:
     std::array<Vector3, 3> m;
 
-    [[nodiscard]] friend auto operator==(const Matrix3& a, const Matrix3& b) -> bool = default;
+    [[nodiscard]] friend constexpr auto operator==(const Matrix3& a, const Matrix3& b) -> bool = default;
 
-    [[nodiscard]] friend auto operator*(const Matrix3& a, const Matrix3& b) {
+    [[nodiscard]] friend constexpr auto operator*(const Matrix3& a, const Matrix3& b) {
         return Matrix3 {
             a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0),
             a(0, 0) * b(0, 1) + a(0, 1) * b(1, 1) + a(0, 2) * b(2, 1),
@@ -91,7 +91,7 @@ private:
         };
     }
 
-    [[nodiscard]] friend auto operator*(const Matrix3& m, const Vector3& v) {
+    [[nodiscard]] friend constexpr auto operator*(const Matrix3& m, const Vector3& v) {
         return Vector3 {
             m(0, 0) * v.x + m(0, 1) * v.y + m(0, 2) * v.z,
             m(1, 0) * v.x + m(1, 1) * v.y + m(1, 2) * v.z,
@@ -100,13 +100,13 @@ private:
     }
 };
 
-[[nodiscard]] GLEAM_EXPORT inline auto Determinant(const Matrix3& m) {
+[[nodiscard]] GLEAM_EXPORT inline constexpr auto Determinant(const Matrix3& m) {
     return m(0, 0) * (m(1, 1) * m(2, 2) - m(1, 2) * m(2, 1))
          + m(0, 1) * (m(1, 2) * m(2, 0) - m(1, 0) * m(2, 2))
          + m(0, 2) * (m(1, 0) * m(2, 1) - m(1, 1) * m(2, 0));
 }
 
-[[nodiscard]] GLEAM_EXPORT inline auto Inverse(const Matrix3& m) {
+[[nodiscard]] GLEAM_EXPORT inline constexpr auto Inverse(const Matrix3& m) {
     const auto& a = m[0];
     const auto& b = m[1];
     const auto& c = m[2];
@@ -124,7 +124,7 @@ private:
     };
 }
 
-[[nodiscard]] GLEAM_EXPORT inline auto Transpose(const Matrix3& m) {
+[[nodiscard]] GLEAM_EXPORT inline constexpr auto Transpose(const Matrix3& m) {
     auto output = Matrix3 {};
     output[0] = {m[0][0], m[1][0], m[2][0]};
     output[1] = {m[0][1], m[1][1], m[2][1]};

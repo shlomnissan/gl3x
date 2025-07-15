@@ -27,7 +27,7 @@ public:
         0.0f, 0.0f, 0.0f, value
     ) {}
 
-    Matrix4(
+    constexpr Matrix4(
         float n00, float n01, float n02, float n03,
         float n10, float n11, float n12, float n13,
         float n20, float n21, float n22, float n23,
@@ -63,11 +63,11 @@ public:
         return m[j][i];
     }
 
-    [[nodiscard]] auto& operator[](int j) {
+    [[nodiscard]] constexpr auto& operator[](int j) {
         return m[j];
     }
 
-    [[nodiscard]] const auto& operator[](int j) const {
+    [[nodiscard]] constexpr const auto& operator[](int j) const {
         return m[j];
     }
 
