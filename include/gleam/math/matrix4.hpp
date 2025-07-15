@@ -32,24 +32,19 @@ public:
         float n10, float n11, float n12, float n13,
         float n20, float n21, float n22, float n23,
         float n30, float n31, float n32, float n33
-    ) : n {
-        n00, n10, n20, n30,
-        n01, n11, n21, n31,
-        n02, n12, n22, n32,
-        n03, n13, n23, n33
-    } {}
+    ) : m {{
+        Vector4(n00, n10, n20, n30),
+        Vector4(n01, n11, n21, n31),
+        Vector4(n02, n12, n22, n32),
+        Vector4(n03, n13, n23, n33)
+    }} {}
 
     Matrix4(
         const Vector4& a,
         const Vector4& b,
         const Vector4& c,
         const Vector4& d
-    ) : n {
-        a.x, a.y, a.z, a.w,
-        b.x, b.y, b.z, b.w,
-        c.x, c.y, c.z, c.w,
-        d.x, d.y, d.z, d.w
-    } {}
+    ) : m {{a, b, c, d}} {}
 
     [[nodiscard]] static auto Identity() {
         return Matrix4 {
@@ -61,23 +56,23 @@ public:
     }
 
     [[nodiscard]] auto& operator()(int i, int j) {
-        return n[j][i];
+        return m[j][i];
     }
 
     [[nodiscard]] const auto& operator()(int i, int j) const {
-        return n[j][i];
+        return m[j][i];
     }
 
     [[nodiscard]] auto& operator[](int j) {
-        return (*reinterpret_cast<Vector4*>(n[j].data()));
+        return m[j];
     }
 
     [[nodiscard]] const auto& operator[](int j) const {
-        return (*reinterpret_cast<const Vector4*>(n[j].data()));
+        return m[j];
     }
 
 private:
-    std::array<std::array<float, 4>, 4> n;
+    std::array<Vector4, 4> m;
 
     [[nodiscard]] friend auto operator==(const Matrix4& a, const Matrix4& b) -> bool = default;
 

@@ -20,35 +20,33 @@ class GLEAM_EXPORT Matrix3 {
 public:
     Matrix3() = default;
 
-    explicit Matrix3(float value)  : Matrix3(
+    explicit Matrix3(float value) : Matrix3({
         value, 0.0f, 0.0f,
         0.0f, value, 0.0f,
         0.0f, 0.0f, value
-    ) {}
+    }) {}
 
     Matrix3(
         float n00, float n01, float n02,
         float n10, float n11, float n12,
         float n20, float n21, float n22
-    ) : n {
-        n00, n10, n20, n01, n11, n21, n02, n12, n22
-    } {}
+    ) : m {{
+        Vector3(n00, n10, n20),
+        Vector3(n01, n11, n21),
+        Vector3(n02, n12, n22)
+    }} {}
 
     Matrix3(
         const Vector3& a,
         const Vector3& b,
         const Vector3& c
-    ) : n {
-        a.x, a.y, a.z,
-        b.x, b.y, b.z,
-        c.x, c.y, c.z
-    } {}
+    ) : m {{a, b, c}} {}
 
-    Matrix3(const Matrix4& m) : Matrix3({
-        Vector3(m[0].x, m[0].y, m[0].z),
-        Vector3(m[1].x, m[1].y, m[1].z),
-        Vector3(m[2].x, m[2].y, m[2].z)
-    }) {}
+    Matrix3(const Matrix4& m) : Matrix3(
+        m[0].x, m[1].x, m[2].x,
+        m[0].y, m[1].y, m[2].y,
+        m[0].z, m[1].z, m[2].z
+    ) {}
 
     [[nodiscard]] static auto Identity() {
         return Matrix3 {
@@ -59,23 +57,23 @@ public:
     }
 
     [[nodiscard]] auto& operator()(int i, int j) {
-        return n[j][i];
+        return m[j][i];
     }
 
     [[nodiscard]] const auto& operator()(int i, int j) const {
-        return n[j][i];
+        return m[j][i];
     }
 
     [[nodiscard]] auto& operator[](int j) {
-        return (*reinterpret_cast<Vector3*>(n[j].data()));
+        return m[j];
     }
 
     [[nodiscard]] const auto& operator[](int j) const {
-        return (*reinterpret_cast<const Vector3*>(n[j].data()));
+        return m[j];
     }
 
 private:
-    std::array<std::array<float, 3>, 3> n;
+    std::array<Vector3, 3> m;
 
     [[nodiscard]] friend auto operator==(const Matrix3& a, const Matrix3& b) -> bool = default;
 
