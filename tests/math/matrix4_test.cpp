@@ -13,9 +13,16 @@
 #pragma region Constructors
 
 TEST(Matrix4, ConstructorDefault) {
-    const auto m = gleam::Matrix4 {};
+    constexpr auto m = gleam::Matrix4 {};
 
     EXPECT_MAT4_EQ(m, {
+        0.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 0.0f
+    });
+
+    static_assert(m == gleam::Matrix4 {
         0.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 0.0f,
@@ -24,9 +31,16 @@ TEST(Matrix4, ConstructorDefault) {
 }
 
 TEST(Matrix4, ConstructorSingleParameter) {
-    const auto m = gleam::Matrix4 {1.0f};
+    constexpr auto m = gleam::Matrix4 {1.0f};
 
     EXPECT_MAT4_EQ(m, {
+        1.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+
+    static_assert(m == gleam::Matrix4 {
         1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,
@@ -35,7 +49,7 @@ TEST(Matrix4, ConstructorSingleParameter) {
 }
 
 TEST(Matrix4, ConstructorParameterized) {
-    const auto m = gleam::Matrix4 {
+    constexpr auto m = gleam::Matrix4 {
          1.0f,  2.0f,  3.0f,  4.0f,
          5.0f,  6.0f,  7.0f,  8.0f,
          9.0f, 10.0f, 11.0f, 12.0f,
@@ -48,10 +62,17 @@ TEST(Matrix4, ConstructorParameterized) {
          9.0f, 10.0f, 11.0f, 12.0f,
         13.0f, 14.0f, 15.0f, 16.0f
     });
+
+    static_assert(m == gleam::Matrix4 {
+         1.0f,  2.0f,  3.0f,  4.0f,
+         5.0f,  6.0f,  7.0f,  8.0f,
+         9.0f, 10.0f, 11.0f, 12.0f,
+        13.0f, 14.0f, 15.0f, 16.0f
+    });
 }
 
 TEST(Matrix4, ConstructorVector) {
-    const auto m = gleam::Matrix4 {
+    constexpr auto m = gleam::Matrix4 {
         gleam::Vector4 {1.0f, 5.0f,  9.0f, 13.0f},
         gleam::Vector4 {2.0f, 6.0f, 10.0f, 14.0f},
         gleam::Vector4 {3.0f, 7.0f, 11.0f, 15.0f},
@@ -64,6 +85,13 @@ TEST(Matrix4, ConstructorVector) {
          9.0f, 10.0f, 11.0f, 12.0f,
         13.0f, 14.0f, 15.0f, 16.0f
     });
+
+    static_assert(m == gleam::Matrix4 {
+         1.0f,  2.0f,  3.0f,  4.0f,
+         5.0f,  6.0f,  7.0f,  8.0f,
+         9.0f, 10.0f, 11.0f, 12.0f,
+        13.0f, 14.0f, 15.0f, 16.0f
+    });
 }
 
 #pragma endregion
@@ -71,13 +99,13 @@ TEST(Matrix4, ConstructorVector) {
 #pragma region Matrix Multiplication
 
 TEST(Matrix4, MultiplicationMatrix) {
-    const auto m1 = gleam::Matrix4 {
+    constexpr auto m1 = gleam::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    const auto m2 = gleam::Matrix4 {
+    constexpr auto m2 = gleam::Matrix4 {
         1.0f, 5.0f, 1.0f, 8.0f,
         2.0f, 1.0f, 3.0f, 1.0f,
         1.0f, 5.0f, 4.0f, 2.0f,
@@ -90,6 +118,13 @@ TEST(Matrix4, MultiplicationMatrix) {
         21.0f,  39.0f, 22.0f, 42.0f,
         73.0f, 107.0f, 58.0f, 98.0f
     });
+
+    static_assert(m1 * m2 == gleam::Matrix4 {
+        44.0f,  46.0f, 23.0f, 28.0f,
+        96.0f, 114.0f, 59.0f, 84.0f,
+        21.0f,  39.0f, 22.0f, 42.0f,
+        73.0f, 107.0f, 58.0f, 98.0f
+    });
 }
 
 #pragma endregion
@@ -97,27 +132,31 @@ TEST(Matrix4, MultiplicationMatrix) {
 #pragma region Matrix-Vector Multiplication
 
 TEST(Matrix4, MultiplicationWithVector4) {
-    const auto m = gleam::Matrix4 {
+    constexpr auto m = gleam::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    const auto v = gleam::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    constexpr auto v = gleam::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
 
-    EXPECT_VEC4_EQ((m * v), {30.0f, 70.0f, 20.0f, 60.0f});
+    EXPECT_VEC4_EQ(m * v, {30.0f, 70.0f, 20.0f, 60.0f});
+
+    static_assert(m * v == gleam::Vector4 {30.0f, 70.0f, 20.0f, 60.0f});
 }
 
 TEST(Matrix4, MultiplicationWithVector3) {
-    const auto m = gleam::Matrix4 {
+    constexpr auto m = gleam::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    const auto v = gleam::Vector3 {1.0f, 2.0f, 3.0f};
+    constexpr auto v = gleam::Vector3 {1.0f, 2.0f, 3.0f};
 
-    EXPECT_VEC3_EQ((m * v), {18.0f, 46.0f, 17.0f});
+    EXPECT_VEC3_EQ(m * v, {18.0f, 46.0f, 17.0f});
+
+    static_assert(m * v == gleam::Vector3 {18.0f, 46.0f, 17.0f});
 }
 
 #pragma endregion
@@ -125,19 +164,19 @@ TEST(Matrix4, MultiplicationWithVector3) {
 #pragma region Equality Operator
 
 TEST(Matrix4, EqualityOperator) {
-    const auto m1 = gleam::Matrix4 {
+    constexpr auto m1 = gleam::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    const auto m2 = gleam::Matrix4 {
+    constexpr auto m2 = gleam::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    const auto m3 = gleam::Matrix4 {
+    constexpr auto m3 = gleam::Matrix4 {
         1.0f, 5.0f, 1.0f, 8.0f,
         2.0f, 1.0f, 3.0f, 1.0f,
         1.0f, 5.0f, 4.0f, 2.0f,
@@ -146,22 +185,25 @@ TEST(Matrix4, EqualityOperator) {
 
     EXPECT_TRUE(m1 == m2);
     EXPECT_FALSE(m1 == m3);
+
+    static_assert(m1 == m2);
+    static_assert(m1 != m3);
 }
 
 TEST(Matrix4, InequalityOperator) {
-    const auto m1 = gleam::Matrix4 {
+    constexpr auto m1 = gleam::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    const auto m2 = gleam::Matrix4 {
+    constexpr auto m2 = gleam::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    const auto m3 = gleam::Matrix4 {
+    constexpr auto m3 = gleam::Matrix4 {
         1.0f, 5.0f, 1.0f, 8.0f,
         2.0f, 1.0f, 3.0f, 1.0f,
         1.0f, 5.0f, 4.0f, 2.0f,
@@ -170,6 +212,9 @@ TEST(Matrix4, InequalityOperator) {
 
     EXPECT_FALSE(m1 != m2);
     EXPECT_TRUE(m1 != m3);
+
+    static_assert(m1 == m2);
+    static_assert(m1 != m3);
 }
 
 #pragma endregion
@@ -177,7 +222,7 @@ TEST(Matrix4, InequalityOperator) {
 #pragma region Determinant
 
 TEST(Matrix4, Determinant) {
-    const auto m = gleam::Matrix4 {
+    constexpr auto m = gleam::Matrix4 {
         4.0f, 7.0f, 2.0f, 1.0f,
         3.0f, 6.0f, 1.0f, 2.0f,
         2.0f, 5.0f, 3.0f, 3.0f,
@@ -185,10 +230,12 @@ TEST(Matrix4, Determinant) {
     };
 
     EXPECT_FLOAT_EQ(gleam::Determinant(m), 18.0f);
+
+    static_assert(gleam::Determinant(m) == 18.0f);
 }
 
 TEST(Matrix4, DeterminantNegative) {
-    const auto m = gleam::Matrix4 {
+    constexpr auto m = gleam::Matrix4 {
         2.0f, 4.0f, 1.0f, 3.0f,
         5.0f, 6.0f, 2.0f, 1.0f,
         3.0f, 1.0f, 4.0f, 2.0f,
@@ -196,10 +243,12 @@ TEST(Matrix4, DeterminantNegative) {
     };
 
     EXPECT_FLOAT_EQ(gleam::Determinant(m), -30.0f);
+
+    static_assert(gleam::Determinant(m) == -30.0f);
 }
 
 TEST(Matrix4, DeterminantZero) {
-    const auto m = gleam::Matrix4 {
+    constexpr auto m = gleam::Matrix4 {
          1.0f,  2.0f,  3.0f,  4.0f,
          5.0f,  6.0f,  7.0f,  8.0f,
          9.0f, 10.0f, 11.0f, 12.0f,
@@ -207,6 +256,8 @@ TEST(Matrix4, DeterminantZero) {
     };
 
     EXPECT_FLOAT_EQ(gleam::Determinant(m), 0.0f);
+
+    static_assert(gleam::Determinant(m) == 0.0f);
 }
 
 #pragma endregion
@@ -214,14 +265,15 @@ TEST(Matrix4, DeterminantZero) {
 #pragma region Inverse
 
 TEST(Matrix4, Inverse) {
-    const auto m = gleam::Matrix4 {
+    constexpr auto m = gleam::Matrix4 {
         4.0f, 7.0f, 2.0f, 1.0f,
         3.0f, 6.0f, 1.0f, 2.0f,
         2.0f, 5.0f, 3.0f, 3.0f,
         1.0f, 1.0f, 2.0f, 1.0f
     };
 
-    EXPECT_MAT4_NEAR(gleam::Inverse(m), {
+    constexpr auto inverse = gleam::Inverse(m);
+    EXPECT_MAT4_NEAR(inverse, {
        -0.33f,  1.00f, -1.00f,  1.33f,
         0.33f, -0.50f,  0.50f, -0.83f,
         0.33f, -0.66f,  0.33f,  0.00f,
@@ -230,10 +282,27 @@ TEST(Matrix4, Inverse) {
 
     // M^{-1} * M = I
     EXPECT_MAT4_NEAR(
-        gleam::Inverse(m) * m,
+        inverse * m,
         gleam::Matrix4::Identity(),
         0.01f
     );
+
+    static_assert(ApproxEqual(inverse(0, 0), -0.33f, 1e-2f));
+    static_assert(ApproxEqual(inverse(0, 1), 1.00f, 1e-2f));
+    static_assert(ApproxEqual(inverse(0, 2), -1.00f, 1e-2f));
+    static_assert(ApproxEqual(inverse(0, 3), 1.33f, 1e-2f));
+    static_assert(ApproxEqual(inverse(1, 0), 0.33f, 1e-2f));
+    static_assert(ApproxEqual(inverse(1, 1), -0.50f, 1e-2f));
+    static_assert(ApproxEqual(inverse(1, 2), 0.50f, 1e-2f));
+    static_assert(ApproxEqual(inverse(1, 3), -0.83f, 1e-2f));
+    static_assert(ApproxEqual(inverse(2, 0), 0.33f, 1e-2f));
+    static_assert(ApproxEqual(inverse(2, 1), -0.66f, 1e-2f));
+    static_assert(ApproxEqual(inverse(2, 2), 0.33f, 1e-2f));
+    static_assert(ApproxEqual(inverse(2, 3), 0.0f, 1e-2f));
+    static_assert(ApproxEqual(inverse(3, 0), -0.66f, 1e-2f));
+    static_assert(ApproxEqual(inverse(3, 1), 0.83f, 1e-2f));
+    static_assert(ApproxEqual(inverse(3, 2), -0.16f, 1e-2f));
+    static_assert(ApproxEqual(inverse(3, 3), 0.50f, 1e-2f));
 }
 
 #pragma endregion
@@ -241,9 +310,16 @@ TEST(Matrix4, Inverse) {
 #pragma region Transpose
 
 TEST(Matrix4, TransposeIdentity) {
-    const auto m = gleam::Matrix4::Identity();
+    constexpr auto m = gleam::Matrix4::Identity();
 
     EXPECT_MAT4_EQ(gleam::Transpose(m), {
+        1.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+
+    static_assert(gleam::Transpose(m) == gleam::Matrix4 {
         1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,
@@ -252,7 +328,7 @@ TEST(Matrix4, TransposeIdentity) {
 }
 
 TEST(Matrix4, TransposeNonIdentity) {
-    const auto m = gleam::Matrix4 {
+    constexpr auto m = gleam::Matrix4 {
         1.0f,  2.0f,  3.0f,  4.0f,
         5.0f,  6.0f,  7.0f,  8.0f,
         9.0f, 10.0f, 11.0f, 12.0f,
@@ -265,6 +341,13 @@ TEST(Matrix4, TransposeNonIdentity) {
         3.0f,  7.0f, 11.0f, 15.0f,
         4.0f,  8.0f, 12.0f, 16.0f
     });
+
+    static_assert(gleam::Transpose(m) == gleam::Matrix4 {
+        1.0f,  5.0f,  9.0f, 13.0f,
+        2.0f,  6.0f, 10.0f, 14.0f,
+        3.0f,  7.0f, 11.0f, 15.0f,
+        4.0f,  8.0f, 12.0f, 16.0f
+    });
 }
 
 #pragma endregion
@@ -272,7 +355,7 @@ TEST(Matrix4, TransposeNonIdentity) {
 #pragma region Operators
 
 TEST(Matrix4, SubscriptOperatorReturnsColumnVectorConst) {
-    const auto m = gleam::Matrix4 {
+    constexpr auto m = gleam::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
@@ -283,27 +366,61 @@ TEST(Matrix4, SubscriptOperatorReturnsColumnVectorConst) {
     EXPECT_VEC4_EQ(m[1], {2.0f, 6.0f, 3.0f, 7.0f});
     EXPECT_VEC4_EQ(m[2], {3.0f, 7.0f, 2.0f, 6.0f});
     EXPECT_VEC4_EQ(m[3], {4.0f, 8.0f, 1.0f, 5.0f});
+
+    static_assert(m[0] == gleam::Vector4 {1.0f, 5.0f, 4.0f, 8.0f});
+    static_assert(m[1] == gleam::Vector4 {2.0f, 6.0f, 3.0f, 7.0f});
+    static_assert(m[2] == gleam::Vector4 {3.0f, 7.0f, 2.0f, 6.0f});
+    static_assert(m[3] == gleam::Vector4 {4.0f, 8.0f, 1.0f, 5.0f});
 }
 
 TEST(Matrix4, SubscriptOperatorReturnsColumnVectorReference) {
-    auto m = gleam::Matrix4 {
+    auto m1 = gleam::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
 
-    auto& c1 = m[0];
-    auto& c2 = m[1];
-    auto& c3 = m[2];
-    auto& c4 = m[3];
+    auto& c1 = m1[0];
+    auto& c2 = m1[1];
+    auto& c3 = m1[2];
+    auto& c4 = m1[3];
 
     c1.x *= 2.0f;
     c2.y *= 2.0f;
     c3.z *= 2.0f;
     c4.w *= 2.0f;
 
-    EXPECT_MAT4_EQ(m, {
+    EXPECT_MAT4_EQ(m1, {
+        2.0f,  2.0f, 3.0f,  4.0f,
+        5.0f, 12.0f, 7.0f,  8.0f,
+        4.0f,  3.0f, 4.0f,  1.0f,
+        8.0f,  7.0f, 6.0f, 10.0f,
+    });
+
+    // Compile-time check
+    constexpr auto m2 = []() {
+        auto m = gleam::Matrix4 {
+            1.0f, 2.0f, 3.0f, 4.0f,
+            5.0f, 6.0f, 7.0f, 8.0f,
+            4.0f, 3.0f, 2.0f, 1.0f,
+            8.0f, 7.0f, 6.0f, 5.0f,
+        };
+
+        auto& c1 = m[0];
+        auto& c2 = m[1];
+        auto& c3 = m[2];
+        auto& c4 = m[3];
+
+        c1.x *= 2.0f;
+        c2.y *= 2.0f;
+        c3.z *= 2.0f;
+        c4.w *= 2.0f;
+
+        return m;
+    }();
+
+    static_assert(m2 == gleam::Matrix4 {
         2.0f,  2.0f, 3.0f,  4.0f,
         5.0f, 12.0f, 7.0f,  8.0f,
         4.0f,  3.0f, 4.0f,  1.0f,
@@ -312,32 +429,32 @@ TEST(Matrix4, SubscriptOperatorReturnsColumnVectorReference) {
 }
 
 TEST(Matrix4, CallOperatorReturnsElementsRowMajor) {
-    const auto m = gleam::Matrix4 {
+    constexpr auto m = gleam::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
 
-    EXPECT_EQ(m(0, 0), 1.0f);
-    EXPECT_EQ(m(0, 1), 2.0f);
-    EXPECT_EQ(m(0, 2), 3.0f);
-    EXPECT_EQ(m(0, 3), 4.0f);
+    EXPECT_EQ(m(0, 0), 1.0f);  static_assert(m(0, 0) == 1.0f);
+    EXPECT_EQ(m(0, 1), 2.0f);  static_assert(m(0, 1) == 2.0f);
+    EXPECT_EQ(m(0, 2), 3.0f);  static_assert(m(0, 2) == 3.0f);
+    EXPECT_EQ(m(0, 3), 4.0f);  static_assert(m(0, 3) == 4.0f);
 
-    EXPECT_EQ(m(1, 0), 5.0f);
-    EXPECT_EQ(m(1, 1), 6.0f);
-    EXPECT_EQ(m(1, 2), 7.0f);
-    EXPECT_EQ(m(1, 3), 8.0f);
+    EXPECT_EQ(m(1, 0), 5.0f); static_assert(m(1, 0) == 5.0f);
+    EXPECT_EQ(m(1, 1), 6.0f); static_assert(m(1, 1) == 6.0f);
+    EXPECT_EQ(m(1, 2), 7.0f); static_assert(m(1, 2) == 7.0f);
+    EXPECT_EQ(m(1, 3), 8.0f); static_assert(m(1, 3) == 8.0f);
 
-    EXPECT_EQ(m(2, 0), 4.0f);
-    EXPECT_EQ(m(2, 1), 3.0f);
-    EXPECT_EQ(m(2, 2), 2.0f);
-    EXPECT_EQ(m(2, 3), 1.0f);
+    EXPECT_EQ(m(2, 0), 4.0f); static_assert(m(2, 0) == 4.0f);
+    EXPECT_EQ(m(2, 1), 3.0f); static_assert(m(2, 1) == 3.0f);
+    EXPECT_EQ(m(2, 2), 2.0f); static_assert(m(2, 2) == 2.0f);
+    EXPECT_EQ(m(2, 3), 1.0f); static_assert(m(2, 3) == 1.0f);
 
-    EXPECT_EQ(m(3, 0), 8.0f);
-    EXPECT_EQ(m(3, 1), 7.0f);
-    EXPECT_EQ(m(3, 2), 6.0f);
-    EXPECT_EQ(m(3, 3), 5.0f);
+    EXPECT_EQ(m(3, 0), 8.0f); static_assert(m(3, 0) == 8.0f);
+    EXPECT_EQ(m(3, 1), 7.0f); static_assert(m(3, 1) == 7.0f);
+    EXPECT_EQ(m(3, 2), 6.0f); static_assert(m(3, 2) == 6.0f);
+    EXPECT_EQ(m(3, 3), 5.0f); static_assert(m(3, 3) == 5.0f);
 }
 
 #pragma endregion
