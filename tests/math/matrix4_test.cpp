@@ -271,7 +271,7 @@ TEST(Matrix4, TransposeNonIdentity) {
 
 #pragma region Operators
 
-TEST(Matrix4, SubscriptOperatorReturnsColumnVector) {
+TEST(Matrix4, SubscriptOperatorReturnsColumnVectorConst) {
     const auto m = gleam::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
@@ -283,6 +283,32 @@ TEST(Matrix4, SubscriptOperatorReturnsColumnVector) {
     EXPECT_VEC4_EQ(m[1], {2.0f, 6.0f, 3.0f, 7.0f});
     EXPECT_VEC4_EQ(m[2], {3.0f, 7.0f, 2.0f, 6.0f});
     EXPECT_VEC4_EQ(m[3], {4.0f, 8.0f, 1.0f, 5.0f});
+}
+
+TEST(Matrix4, SubscriptOperatorReturnsColumnVectorReference) {
+    auto m = gleam::Matrix4 {
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        4.0f, 3.0f, 2.0f, 1.0f,
+        8.0f, 7.0f, 6.0f, 5.0f,
+    };
+
+    auto& c1 = m[0];
+    auto& c2 = m[1];
+    auto& c3 = m[2];
+    auto& c4 = m[3];
+
+    c1.x *= 2.0f;
+    c2.y *= 2.0f;
+    c3.z *= 2.0f;
+    c4.w *= 2.0f;
+
+    EXPECT_MAT4_EQ(m, {
+        2.0f,  2.0f, 3.0f,  4.0f,
+        5.0f, 12.0f, 7.0f,  8.0f,
+        4.0f,  3.0f, 4.0f,  1.0f,
+        8.0f,  7.0f, 6.0f, 10.0f,
+    });
 }
 
 TEST(Matrix4, CallOperatorReturnsElementsRowMajor) {
