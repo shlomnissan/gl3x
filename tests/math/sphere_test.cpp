@@ -12,23 +12,31 @@
 #include <gleam/math/sphere.hpp>
 #include <gleam/math/vector3.hpp>
 
+#include <cassert>
+
 #pragma region Constructors
 
 TEST(Sphere, DefaultConstructor) {
-    const auto sphere = gleam::Sphere {};
+    constexpr auto sphere = gleam::Sphere {};
 
     EXPECT_VEC3_EQ(sphere.center, gleam::Vector3::Zero());
     EXPECT_FLOAT_EQ(sphere.radius, -1.0f);
+
+    static_assert(sphere.center == gleam::Vector3::Zero());
+    static_assert(sphere.radius == -1.0f);
 }
 
 TEST(Sphere, ConstructorParameterized) {
-    const auto sphere = gleam::Sphere {
+    constexpr auto sphere = gleam::Sphere {
         {1.0f, 1.0f, 1.0f},
         2.0f
     };
 
     EXPECT_VEC3_EQ(sphere.center, {1.0f, 1.0f, 1.0f});
     EXPECT_FLOAT_EQ(sphere.radius, 2.0f);
+
+    static_assert(sphere.center == gleam::Vector3 {1.0f, 1.0f, 1.0f});
+    static_assert(sphere.radius == 2.0f);
 }
 
 #pragma endregion
@@ -36,25 +44,39 @@ TEST(Sphere, ConstructorParameterized) {
 #pragma region Empty State
 
 TEST(Sphere, Reset) {
-    auto sphere = gleam::Sphere {1.0f, 2.0f};
+    auto s1 = gleam::Sphere {1.0f, 2.0f};
 
-    sphere.Reset();
+    s1.Reset();
 
-    EXPECT_TRUE(sphere.IsEmpty());
-    EXPECT_VEC3_EQ(sphere.center, gleam::Vector3::Zero());
-    EXPECT_FLOAT_EQ(sphere.radius, -1.0f);
+    EXPECT_TRUE(s1.IsEmpty());
+    EXPECT_VEC3_EQ(s1.center, gleam::Vector3::Zero());
+    EXPECT_FLOAT_EQ(s1.radius, -1.0f);
+
+    constexpr auto s2 = []() {
+        auto s = gleam::Sphere {1.0f, 2.0f};
+        s.Reset();
+        return s;
+    }();
+
+    static_assert(s2.IsEmpty());
+    static_assert(s2.center == gleam::Vector3::Zero());
+    static_assert(s2.radius == -1.0f);
 }
 
 TEST(Sphere, IsEmptyTrue) {
-    const auto sphere = gleam::Sphere {};
+    constexpr auto sphere = gleam::Sphere {};
 
     EXPECT_TRUE(sphere.IsEmpty());
+
+    static_assert(sphere.IsEmpty());
 }
 
 TEST(Sphere, IsEmptyFalse) {
-    const auto sphere = gleam::Sphere {1.0f, 1.0f};
+    constexpr auto sphere = gleam::Sphere {1.0f, 1.0f};
 
     EXPECT_FALSE(sphere.IsEmpty());
+
+    static_assert(!sphere.IsEmpty());
 }
 
 #pragma endregion
@@ -62,42 +84,77 @@ TEST(Sphere, IsEmptyFalse) {
 #pragma region Expand with Point
 
 TEST(Sphere, ExpandWithPointEmptySphere) {
-    auto sphere = gleam::Sphere {};
+    auto s1 = gleam::Sphere {};
 
-    sphere.ExpandWithPoint({1.0f, 1.0f, 1.0f});
+    s1.ExpandWithPoint({1.0f, 1.0f, 1.0f});
 
-    EXPECT_VEC3_EQ(sphere.center, {1.0f, 1.0f, 1.0f});
-    EXPECT_FLOAT_EQ(sphere.radius, 0.0f);
+    EXPECT_VEC3_EQ(s1.center, {1.0f, 1.0f, 1.0f});
+    EXPECT_FLOAT_EQ(s1.radius, 0.0f);
+
+    constexpr auto s2 = []() {
+        auto s = gleam::Sphere {};
+        s.ExpandWithPoint({1.0f, 1.0f, 1.0f});
+        return s;
+    }();
+
+    static_assert(s2.center == gleam::Vector3 {1.0f, 1.0f, 1.0f});
+    static_assert(s2.radius == 0.0f);
 }
 
 TEST(Sphere, ExpandWithPointInsideSphere) {
-    auto sphere = gleam::Sphere {gleam::Vector3::Zero(), 5.0f};
-    const auto point = gleam::Vector3 {1.0f, 1.0f, 1.0f};
+    auto s1 = gleam::Sphere {gleam::Vector3::Zero(), 5.0f};
 
-    sphere.ExpandWithPoint(point);
+    s1.ExpandWithPoint({1.0f, 1.0f, 1.0f});
 
-    EXPECT_VEC3_EQ(sphere.center, gleam::Vector3::Zero());
-    EXPECT_FLOAT_EQ(sphere.radius, 5.0f);
+    EXPECT_VEC3_EQ(s1.center, gleam::Vector3::Zero());
+    EXPECT_FLOAT_EQ(s1.radius, 5.0f);
+
+    constexpr auto s2 = []() {
+        auto s = gleam::Sphere {gleam::Vector3::Zero(), 5.0f};
+        s.ExpandWithPoint({1.0f, 1.0f, 1.0f});
+        return s;
+    }();
+
+    static_assert(s2.center == gleam::Vector3::Zero());
+    static_assert(s2.radius == 5.0f);
 }
 
 TEST(Sphere, ExpandWithPointOnSphereSurface) {
-    auto sphere = gleam::Sphere {gleam::Vector3::Zero(), 1.0f};
-    const auto point = gleam::Vector3 {1.0f, 0.0f, 0.0f};
+    auto s1 = gleam::Sphere {gleam::Vector3::Zero(), 1.0f};
 
-    sphere.ExpandWithPoint(point);
+    s1.ExpandWithPoint({1.0f, 0.0f, 0.0f});
 
-    EXPECT_VEC3_EQ(sphere.center, gleam::Vector3::Zero());
-    EXPECT_FLOAT_EQ(sphere.radius, 1.0f);
+    EXPECT_VEC3_EQ(s1.center, gleam::Vector3::Zero());
+    EXPECT_FLOAT_EQ(s1.radius, 1.0f);
+
+    constexpr auto s2 = []() {
+        auto s = gleam::Sphere {gleam::Vector3::Zero(), 1.0f};
+        s.ExpandWithPoint({1.0f, 0.0f, 0.0f});
+        return s;
+    }();
+
+    static_assert(s2.center == gleam::Vector3::Zero());
+    static_assert(s2.radius == 1.0f);
 }
 
 TEST(Sphere, ExpandWithPointOutsideSphere) {
-    auto sphere = gleam::Sphere {gleam::Vector3::Zero(), 1.0f};
-    const auto point = gleam::Vector3 {2.0f, 0.0f, 0.0f};
+    auto s1 = gleam::Sphere {gleam::Vector3::Zero(), 1.0f};
 
-    sphere.ExpandWithPoint(point);
+    s1.ExpandWithPoint({2.0f, 0.0f, 0.0f});
 
-    EXPECT_VEC3_EQ(sphere.center, {0.5f, 0.0f, 0.0f});
-    EXPECT_FLOAT_EQ(sphere.radius, 1.5f);
+    EXPECT_VEC3_NEAR(s1.center, {0.5f, 0.0f, 0.0f}, 1e-4);
+    EXPECT_NEAR(s1.radius, 1.5f, 1e-4);
+
+    constexpr auto s2 = []() {
+        auto s = gleam::Sphere {gleam::Vector3::Zero(), 1.0f};
+        s.ExpandWithPoint({2.0f, 0.0f, 0.0f});
+        return s;
+    }();
+
+    static_assert(ApproxEqual(s2.center.x, 0.5f));
+    static_assert(ApproxEqual(s2.center.y, 0.0f));
+    static_assert(ApproxEqual(s2.center.z, 0.0f));
+    static_assert(ApproxEqual(s2.radius, 1.5f));
 }
 
 #pragma endregion
@@ -105,60 +162,96 @@ TEST(Sphere, ExpandWithPointOutsideSphere) {
 #pragma region Apply Transform
 
 TEST(Sphere, TransformWithIdentityMatrix) {
-    auto sphere = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
-    const auto transform = gleam::Matrix4::Identity();
+    auto s1 = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+    constexpr auto transform = gleam::Matrix4::Identity();
 
-    sphere.ApplyTransform(transform);
+    s1.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(sphere.center, {1.0f, 2.0f, 3.0f});
-    EXPECT_FLOAT_EQ(sphere.radius, 4.0f);
+    EXPECT_VEC3_EQ(s1.center, {1.0f, 2.0f, 3.0f});
+    EXPECT_NEAR(s1.radius, 4.0f, 1e-4);
+
+    constexpr auto s2 = [&transform]() {
+        auto s = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+        s.ApplyTransform(transform);
+        return s;
+    }();
+
+    static_assert(s2.center == gleam::Vector3 {1.0f, 2.0f, 3.0f});
+    static_assert(ApproxEqual(s2.radius, 4.0f));
 }
 
 TEST(Sphere, TransformWithTranslation) {
-    auto sphere = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
-    const auto transform = gleam::Matrix4 {
+    auto s1 = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+    constexpr auto transform = gleam::Matrix4 {
         1.0f, 0.0f, 0.0f, 2.0f,
         0.0f, 1.0f, 0.0f, 3.0f,
         0.0f, 0.0f, 1.0f, 4.0f,
         0.0f, 0.0f, 0.0f, 1.0f
     };
 
-    sphere.ApplyTransform(transform);
+    s1.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(sphere.center, {3.0f, 5.0f, 7.0f});
-    EXPECT_FLOAT_EQ(sphere.radius, 4.0f);
+    EXPECT_VEC3_EQ(s1.center, {3.0f, 5.0f, 7.0f});
+    EXPECT_NEAR(s1.radius, 4.0f, 1e-4);
+
+    constexpr auto s2 = [&transform]() {
+        auto s = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+        s.ApplyTransform(transform);
+        return s;
+    }();
+
+    static_assert(s2.center == gleam::Vector3 {3.0f, 5.0f, 7.0f});
+    static_assert(ApproxEqual(s2.radius, 4.0f));
 }
 
 TEST(Sphere, TransformWithScale) {
-    auto sphere = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
-    const auto transform = gleam::Matrix4 {
+    auto s1 = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+    constexpr auto transform = gleam::Matrix4 {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 2.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 2.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 1.0f
     };
 
-    sphere.ApplyTransform(transform);
+    s1.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(sphere.center, {2.0f, 4.0f, 6.0f});
-    EXPECT_FLOAT_EQ(sphere.radius, 8.0f);
+    EXPECT_VEC3_EQ(s1.center, {2.0f, 4.0f, 6.0f});
+    EXPECT_NEAR(s1.radius, 8.0f, 1e-4);
+
+    constexpr auto s2 = [&transform]() {
+        auto s = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+        s.ApplyTransform(transform);
+        return s;
+    }();
+
+    static_assert(s2.center == gleam::Vector3 {2.0f, 4.0f, 6.0f});
+    static_assert(ApproxEqual(s2.radius, 8.0f));
 }
 
 TEST(Sphere, TransformWithRotation) {
-    auto sphere = gleam::Sphere {{1.0f, 0.0f, 0.0f}, 4.0f};
+    auto s1 = gleam::Sphere {{1.0f, 0.0f, 0.0f}, 4.0f};
 
     // Rotate 90 degrees around the z-axis
-    const auto transform = gleam::Matrix4 {
+    constexpr auto transform = gleam::Matrix4 {
         0.0f, -1.0f, 0.0f, 0.0f,
         1.0f,  0.0f, 0.0f, 0.0f,
         0.0f,  0.0f, 1.0f, 0.0f,
         0.0f,  0.0f, 0.0f, 1.0f
     };
 
-    sphere.ApplyTransform(transform);
+    s1.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(sphere.center, {0.0f, 1.0f, 0.0f});
-    EXPECT_FLOAT_EQ(sphere.radius, 4.0f);
+    EXPECT_VEC3_EQ(s1.center, {0.0f, 1.0f, 0.0f});
+    EXPECT_NEAR(s1.radius, 4.0f, 1e-4);
+
+    constexpr auto s2 = [&transform]() {
+        auto s = gleam::Sphere {{1.0f, 0.0f, 0.0f}, 4.0f};
+        s.ApplyTransform(transform);
+        return s;
+    }();
+
+    static_assert(s2.center == gleam::Vector3 {0.0f, 1.0f, 0.0f});
+    static_assert(ApproxEqual(s2.radius, 4.0f));
 }
 
 #pragma endregion
@@ -166,11 +259,20 @@ TEST(Sphere, TransformWithRotation) {
 #pragma region Translate
 
 TEST(Sphere, Translate) {
-    auto sphere = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
-    sphere.Translate({1.0f, 2.0f, 3.0f});
+    auto s1 = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+    s1.Translate({1.0f, 2.0f, 3.0f});
 
-    EXPECT_VEC3_EQ(sphere.center, {2.0f, 4.0f, 6.0f});
-    EXPECT_FLOAT_EQ(sphere.radius, 4.0f);
+    EXPECT_VEC3_EQ(s1.center, {2.0f, 4.0f, 6.0f});
+    EXPECT_FLOAT_EQ(s1.radius, 4.0f);
+
+    constexpr auto s2 = []() {
+        auto s = gleam::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+        s.Translate({1.0f, 2.0f, 3.0f});
+        return s;
+    }();
+
+    static_assert(s2.center == gleam::Vector3 {2.0f, 4.0f, 6.0f});
+    static_assert(s2.radius == 4.0f);
 }
 
 #pragma endregion

@@ -11,6 +11,8 @@
 #include <gleam/math/matrix3.hpp>
 #include <gleam/math/matrix4.hpp>
 
+#include <cassert>
+
 #pragma region Constructors
 
 TEST(Matrix3, ConstructorDefault) {

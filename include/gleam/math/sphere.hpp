@@ -10,10 +10,10 @@
 #include "gleam_export.h"
 
 #include "gleam/math/matrix4.hpp"
+#include "gleam/math/utilities.hpp"
 #include "gleam/math/vector3.hpp"
 
 #include <algorithm>
-#include <cmath>
 
 namespace gleam {
 
@@ -22,24 +22,24 @@ struct GLEAM_EXPORT Sphere {
 
     float radius {-1.0f};
 
-    Sphere() = default;
+    constexpr Sphere() = default;
 
-    Sphere(const Vector3 center, float radius) :
+    constexpr Sphere(const Vector3 center, float radius) :
         center(center),
         radius(radius) {}
 
-    [[nodiscard]] auto Radius() const { return radius; }
+    [[nodiscard]] constexpr auto Radius() const { return radius; }
 
-    auto Reset() {
+    constexpr auto Reset() {
         center = Vector3::Zero();
         radius = -1.0f;
     }
 
-    [[nodiscard]] auto IsEmpty() const {
+    [[nodiscard]] constexpr auto IsEmpty() const {
         return radius < 0.0f;
     }
 
-    auto ExpandWithPoint(const Vector3& p) {
+    constexpr auto ExpandWithPoint(const Vector3& p) {
         // Handle the case where the sphere is empty (invalid).
         // In this case, the sphere is centered at the point and has a radius of 0.
         if (IsEmpty()) {
@@ -51,7 +51,7 @@ struct GLEAM_EXPORT Sphere {
         const auto delta = p - center;
         const auto length_sqr = delta.LengthSquared();
         if (length_sqr > radius * radius) {
-            const auto length = std::sqrt(length_sqr);
+            const auto length = math::Sqrt(length_sqr);
             // Move the center halfway towards the new pointm and expand the radius
             // by half the distance to the new point.
             const auto half_way = (length - radius) * 0.5f;
@@ -60,20 +60,20 @@ struct GLEAM_EXPORT Sphere {
         }
     }
 
-    auto ApplyTransform(const Matrix4& transform) {
+    constexpr auto ApplyTransform(const Matrix4& transform) {
         center = transform * center;
         auto& t0 = transform[0];
         auto& t1 = transform[1];
         auto& t2 = transform[2];
 
-        radius *= std::sqrt(std::max({
+        radius *= math::Sqrt(std::max({
             Vector3 {t0.x, t0.y, t0.z}.LengthSquared(),
             Vector3 {t1.x, t1.y, t1.z}.LengthSquared(),
             Vector3 {t2.x, t2.y, t2.z}.LengthSquared(),
         }));
     }
 
-    auto Translate(const Vector3& translation) {
+    constexpr auto Translate(const Vector3& translation) {
         center += translation;
     }
 };

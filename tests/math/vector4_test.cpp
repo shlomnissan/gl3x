@@ -8,6 +8,7 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
+#include <cassert>
 #include <limits>
 
 #include <gleam/math/vector4.hpp>

@@ -10,6 +10,8 @@
 
 #include <gleam/math/matrix4.hpp>
 
+#include <cassert>
+
 #pragma region Constructors
 
 TEST(Matrix4, ConstructorDefault) {

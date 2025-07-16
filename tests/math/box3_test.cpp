@@ -8,6 +8,7 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
+#include <cassert>
 #include <limits>
 
 #include <gleam/math/box3.hpp>
@@ -240,7 +241,6 @@ TEST(Box3, TransformWithIdentityMatrix) {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
-
     constexpr auto transform = gleam::Matrix4::Identity();
 
     b1.ApplyTransform(transform);
@@ -266,7 +266,6 @@ TEST(Box3, TransformWithTranslation) {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
-
     constexpr auto transform = gleam::Matrix4 {
         1.0f, 0.0f, 0.0f, 2.0f,
         0.0f, 1.0f, 0.0f, 3.0f,
@@ -297,7 +296,6 @@ TEST(Box3, TransformWithScale) {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
-
     constexpr auto transform = gleam::Matrix4 {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
@@ -328,7 +326,6 @@ TEST(Box3, TransformWithRotation) {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
-
     // Rotate 90 degrees around the z-axis
     constexpr auto transform = gleam::Matrix4 {
         0.0f, -1.0f, 0.0f, 0.0f,
