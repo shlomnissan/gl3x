@@ -21,24 +21,20 @@ struct GLEAM_EXPORT Box3 {
     Vector3 min {std::numeric_limits<float>::max()};
     Vector3 max {std::numeric_limits<float>::lowest()};
 
-    Box3() = default;
+    constexpr Box3() = default;
 
-    Box3(const Vector3& v_min, const Vector3& v_max) :
+    constexpr Box3(const Vector3& v_min, const Vector3& v_max) :
         min(v_min),
         max(v_max) {}
 
-    [[nodiscard]] auto Center() const { return (min + max) * 0.5f; }
+    [[nodiscard]] constexpr auto Center() const { return (min + max) * 0.5f; }
 
-    auto Reset() {
-        min = Vector3(std::numeric_limits<float>::max());
-        max = Vector3(std::numeric_limits<float>::lowest());
-    }
 
-    [[nodiscard]] auto IsEmpty() const {
+    [[nodiscard]] constexpr auto IsEmpty() const {
         return min.x > max.x || min.y > max.y || min.z > max.z;
     }
 
-    auto ExpandWithPoint(const Vector3& p) {
+    constexpr auto ExpandWithPoint(const Vector3& p) {
         if (p.x < min.x) min.x = p.x;
         if (p.y < min.y) min.y = p.y;
         if (p.z < min.z) min.z = p.z;
@@ -47,8 +43,13 @@ struct GLEAM_EXPORT Box3 {
         if (p.z > max.z) max.z = p.z;
     }
 
-    auto ApplyTransform(const Matrix4& transform) {
-        static std::array<Vector3, 8> points_ {};
+    constexpr auto Reset() {
+        min = Vector3(std::numeric_limits<float>::max());
+        max = Vector3(std::numeric_limits<float>::lowest());
+    }
+
+    constexpr auto ApplyTransform(const Matrix4& transform) {
+        std::array<Vector3, 8> points_ {};
 
         points_[0] = transform * Vector3 {min.x, min.y, min.z};
         points_[1] = transform * Vector3 {min.x, min.y, max.z};
@@ -64,7 +65,7 @@ struct GLEAM_EXPORT Box3 {
         for (const auto& point : points_) ExpandWithPoint(point);
     }
 
-    auto Translate(const Vector3& translation) {
+    constexpr auto Translate(const Vector3& translation) {
         min += translation;
         max += translation;
     }

@@ -17,20 +17,26 @@
 #pragma region Constructors
 
 TEST(Box3, DefaultConstructor) {
-    const auto box = gleam::Box3 {};
+    constexpr auto box = gleam::Box3 {};
 
     EXPECT_VEC3_EQ(box.min, std::numeric_limits<float>::max());
     EXPECT_VEC3_EQ(box.max, std::numeric_limits<float>::lowest());
+
+    static_assert(box.min == std::numeric_limits<float>::max());
+    static_assert(box.max == std::numeric_limits<float>::lowest());
 }
 
 TEST(Vector3, ConstructorParameterized) {
-    const auto box = gleam::Box3 {
+    constexpr auto box = gleam::Box3 {
         {-1.0f, -1.0f, -1.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
     EXPECT_VEC3_EQ(box.min, {-1.0f, -1.0f, -1.0f});
     EXPECT_VEC3_EQ(box.max, {1.0f, 1.0f, 1.0f});
+
+    static_assert(box.min == gleam::Vector3 {-1.0f, -1.0f, -1.0f});
+    static_assert(box.max == gleam::Vector3 {1.0f, 1.0f, 1.0f});
 }
 
 #pragma endregion
@@ -38,34 +44,50 @@ TEST(Vector3, ConstructorParameterized) {
 #pragma region Empty State
 
 TEST(Box3, Reset) {
-    auto box = gleam::Box3 {
+    auto b1 = gleam::Box3 {
         {-1.0f, -1.0f, -1.0f},
         {1.0f, 1.0f, 1.0f}
     };
+    b1.Reset();
 
-    box.Reset();
+    EXPECT_TRUE(b1.IsEmpty());
+    EXPECT_VEC3_EQ(b1.min, std::numeric_limits<float>::max());
+    EXPECT_VEC3_EQ(b1.max, std::numeric_limits<float>::lowest());
 
-    EXPECT_TRUE(box.IsEmpty());
-    EXPECT_VEC3_EQ(box.min, std::numeric_limits<float>::max());
-    EXPECT_VEC3_EQ(box.max, std::numeric_limits<float>::lowest());
+    constexpr auto b2 = []() {
+        auto b = gleam::Box3 {
+            {-1.0f, -1.0f, -1.0f},
+            {1.0f, 1.0f, 1.0f}
+        };
+        b.Reset();
+        return b;
+    }();
+
+    static_assert(b2.IsEmpty());
+    static_assert(b2.min == std::numeric_limits<float>::max());
+    static_assert(b2.max == std::numeric_limits<float>::lowest());
 }
 
 TEST(Box3, IsEmptyTrue) {
-    const auto box = gleam::Box3 {
+    constexpr auto box = gleam::Box3 {
         {1.0f, 1.0f, 1.0f},
         {0.0f, 0.0f, 0.0f}
     };
 
     EXPECT_TRUE(box.IsEmpty());
+
+    static_assert(box.IsEmpty());
 }
 
 TEST(Box3, IsEmptyFalse) {
-    const auto box = gleam::Box3 {
+    constexpr auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
     EXPECT_FALSE(box.IsEmpty());
+
+    static_assert(!box.IsEmpty());
 }
 
 #pragma endregion
@@ -73,30 +95,36 @@ TEST(Box3, IsEmptyFalse) {
 #pragma region Center
 
 TEST(Box3, CenterWithNegativeAndPositiveValues) {
-    const auto box = gleam::Box3 {
+    constexpr auto box = gleam::Box3 {
         {0.0f, 0.0f, -1.0f},
         {1.0f, 1.0f, 2.0f}
     };
 
     EXPECT_VEC3_EQ(box.Center(), {0.5f, 0.5f, 0.5f});
+
+    static_assert(box.Center() == gleam::Vector3 {0.5f, 0.5f, 0.5f});
 }
 
 TEST(Box3, CenterWithSameValues) {
-    const auto box = gleam::Box3 {
+    constexpr auto box = gleam::Box3 {
         {1.0f, 1.0f, 1.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
     EXPECT_VEC3_EQ(box.Center(), {1.0f, 1.0f, 1.0f});
+
+    static_assert(box.Center() == gleam::Vector3 {1.0f, 1.0f, 1.0f});
 }
 
 TEST(Box3, CenterWithZeroValues) {
-    const auto box = gleam::Box3 {
+    constexpr auto box = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {0.0f, 0.0f, 0.0f}
     };
 
     EXPECT_VEC3_EQ(box.Center(), {0.0f, 0.0f, 0.0f});
+
+    static_assert(box.Center() == gleam::Vector3 {0.0f, 0.0f, 0.0f});
 }
 
 #pragma endregion
@@ -104,53 +132,103 @@ TEST(Box3, CenterWithZeroValues) {
 #pragma region Expand with Point
 
 TEST(Box3, ExpandWithPoint) {
-    auto box = gleam::Box3 {
+    auto b1 = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
-    box.ExpandWithPoint({1.0f, 2.0f, -2.0f});
+    b1.ExpandWithPoint({1.0f, 2.0f, -2.0f});
 
-    EXPECT_VEC3_EQ(box.min, {0.0f, 0.0f, -2.0f});
-    EXPECT_VEC3_EQ(box.max, {1.0f, 2.0f, 1.0f});
+    EXPECT_VEC3_EQ(b1.min, {0.0f, 0.0f, -2.0f});
+    EXPECT_VEC3_EQ(b1.max, {1.0f, 2.0f, 1.0f});
+
+    constexpr auto b2 = []() {
+        auto b = gleam::Box3 {
+            {0.0f, 0.0f, 0.0f},
+            {1.0f, 1.0f, 1.0f}
+        };
+        b.ExpandWithPoint({1.0f, 2.0f, -2.0f});
+        return b;
+    }();
+
+    static_assert(b2.min == gleam::Vector3 {0.0f, 0.0f, -2.0f});
+    static_assert(b2.max == gleam::Vector3 {1.0f, 2.0f, 1.0f});
 }
 
 TEST(Box3, ExpandWithPointInsideBox) {
-    auto box = gleam::Box3 {
+    auto b1 = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
-    box.ExpandWithPoint({0.5f, 0.5f, 0.5f});
+    b1.ExpandWithPoint({0.5f, 0.5f, 0.5f});
 
-    EXPECT_VEC3_EQ(box.min, {0.0f, 0.0f, 0.0f});
-    EXPECT_VEC3_EQ(box.max, {1.0f, 1.0f, 1.0f});
+    EXPECT_VEC3_EQ(b1.min, {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(b1.max, {1.0f, 1.0f, 1.0f});
+
+    constexpr auto b2 = []() {
+        auto b = gleam::Box3 {
+            {0.0f, 0.0f, 0.0f},
+            {1.0f, 1.0f, 1.0f}
+        };
+        b.ExpandWithPoint({0.5f, 0.5f, 0.5f});
+        return b;
+    }();
+
+    static_assert(b2.min == gleam::Vector3 {0.0f, 0.0f, 0.0f});
+    static_assert(b2.max == gleam::Vector3 {1.0f, 1.0f, 1.0f});
 }
 
 TEST(Box3, ExpandWithPointOnMinMax) {
-    auto box = gleam::Box3 {
+    auto b1 = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
-    box.ExpandWithPoint({0.0f, 0.0f, 0.0f});
-    box.ExpandWithPoint({1.0f, 1.0f, 1.0f});
+    b1.ExpandWithPoint({0.0f, 0.0f, 0.0f});
+    b1.ExpandWithPoint({1.0f, 1.0f, 1.0f});
 
-    EXPECT_VEC3_EQ(box.min, {0.0f, 0.0f, 0.0f});
-    EXPECT_VEC3_EQ(box.max, {1.0f, 1.0f, 1.0f});
+    EXPECT_VEC3_EQ(b1.min, {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(b1.max, {1.0f, 1.0f, 1.0f});
+
+    constexpr auto b2 = []() {
+        auto b = gleam::Box3 {
+            {0.0f, 0.0f, 0.0f},
+            {1.0f, 1.0f, 1.0f}
+        };
+        b.ExpandWithPoint({0.0f, 0.0f, 0.0f});
+        b.ExpandWithPoint({1.0f, 1.0f, 1.0f});
+        return b;
+    }();
+
+    static_assert(b2.min == gleam::Vector3 {0.0f, 0.0f, 0.0f});
+    static_assert(b2.max == gleam::Vector3 {1.0f, 1.0f, 1.0f});
 }
 
 TEST(Box3, ExpandWithMultiplePoints) {
-    auto box = gleam::Box3 {
+    auto b1 = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
-    box.ExpandWithPoint({2.0f, 2.0f, 2.0f});
-    box.ExpandWithPoint({-1.0f, -1.0f, -1.0f});
+    b1.ExpandWithPoint({2.0f, 2.0f, 2.0f});
+    b1.ExpandWithPoint({-1.0f, -1.0f, -1.0f});
 
-    EXPECT_VEC3_EQ(box.min, {-1.0f, -1.0f, -1.0f});
-    EXPECT_VEC3_EQ(box.max, {2.0f, 2.0f, 2.0f});
+    EXPECT_VEC3_EQ(b1.min, {-1.0f, -1.0f, -1.0f});
+    EXPECT_VEC3_EQ(b1.max, {2.0f, 2.0f, 2.0f});
+
+    constexpr auto b2 = []() {
+        auto b = gleam::Box3 {
+            {2.0f, 2.0f, 2.0f},
+            {-1.0f, -1.0f, -1.0f}
+        };
+        b.ExpandWithPoint({2.0f, 2.0f, 2.0f});
+        b.ExpandWithPoint({-1.0f, -1.0f, -1.0f});
+        return b;
+    }();
+
+    static_assert(b2.min == gleam::Vector3 {-1.0f, -1.0f, -1.0f});
+    static_assert(b2.max == gleam::Vector3 {2.0f, 2.0f, 2.0f});
 }
 
 #pragma endregion
@@ -158,75 +236,123 @@ TEST(Box3, ExpandWithMultiplePoints) {
 #pragma region Apply Transform
 
 TEST(Box3, TransformWithIdentityMatrix) {
-    auto box = gleam::Box3 {
+    auto b1 = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
-    const auto transform = gleam::Matrix4::Identity();
+    constexpr auto transform = gleam::Matrix4::Identity();
 
-    box.ApplyTransform(transform);
+    b1.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(box.min, {0.0f, 0.0f, 0.0f});
-    EXPECT_VEC3_EQ(box.max, {1.0f, 1.0f, 1.0f});
+    EXPECT_VEC3_EQ(b1.min, {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(b1.max, {1.0f, 1.0f, 1.0f});
+
+    constexpr auto b2 = [&transform]() {
+        auto b = gleam::Box3 {
+            {0.0f, 0.0f, 0.0f},
+            {1.0f, 1.0f, 1.0f}
+        };
+        b.ApplyTransform(transform);
+        return b;
+    }();
+
+    static_assert(b2.min == gleam::Vector3 {0.0f, 0.0f, 0.0f});
+    static_assert(b2.max == gleam::Vector3 {1.0f, 1.0f, 1.0f});
 }
 
 TEST(Box3, TransformWithTranslation) {
-    auto box = gleam::Box3 {
+    auto b1 = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
-    const auto transform = gleam::Matrix4 {
+    constexpr auto transform = gleam::Matrix4 {
         1.0f, 0.0f, 0.0f, 2.0f,
         0.0f, 1.0f, 0.0f, 3.0f,
         0.0f, 0.0f, 1.0f, 4.0f,
         0.0f, 0.0f, 0.0f, 1.0f
     };
 
-    box.ApplyTransform(transform);
+    b1.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(box.min, {2.0f, 3.0f, 4.0f});
-    EXPECT_VEC3_EQ(box.max, {3.0f, 4.0f, 5.0f});
+    EXPECT_VEC3_EQ(b1.min, {2.0f, 3.0f, 4.0f});
+    EXPECT_VEC3_EQ(b1.max, {3.0f, 4.0f, 5.0f});
+
+    constexpr auto b2 = [&transform]() {
+        auto b = gleam::Box3 {
+            {0.0f, 0.0f, 0.0f},
+            {1.0f, 1.0f, 1.0f}
+        };
+        b.ApplyTransform(transform);
+        return b;
+    }();
+
+    static_assert(b2.min == gleam::Vector3 {2.0f, 3.0f, 4.0f});
+    static_assert(b2.max == gleam::Vector3 {3.0f, 4.0f, 5.0f});
 }
 
 TEST(Box3, TransformWithScale) {
-    auto box = gleam::Box3 {
+    auto b1 = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
-    const auto transform = gleam::Matrix4 {
+    constexpr auto transform = gleam::Matrix4 {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 3.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 1.0f
     };
 
-    box.ApplyTransform(transform);
+    b1.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(box.min, {0.0f, 0.0f, 0.0f});
-    EXPECT_VEC3_EQ(box.max, {2.0f, 1.0f, 3.0f});
+    EXPECT_VEC3_EQ(b1.min, {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(b1.max, {2.0f, 1.0f, 3.0f});
+
+    constexpr auto b2 = [&transform]() {
+        auto b = gleam::Box3 {
+            {0.0f, 0.0f, 0.0f},
+            {1.0f, 1.0f, 1.0f}
+        };
+        b.ApplyTransform(transform);
+        return b;
+    }();
+
+    static_assert(b2.min == gleam::Vector3 {0.0f, 0.0f, 0.0f});
+    static_assert(b2.max == gleam::Vector3 {2.0f, 1.0f, 3.0f});
 }
 
 TEST(Box3, TransformWithRotation) {
-    auto box = gleam::Box3 {
+    auto b1 = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
     // Rotate 90 degrees around the z-axis
-    const auto transform = gleam::Matrix4 {
+    constexpr auto transform = gleam::Matrix4 {
         0.0f, -1.0f, 0.0f, 0.0f,
         1.0f,  0.0f, 0.0f, 0.0f,
         0.0f,  0.0f, 1.0f, 0.0f,
         0.0f,  0.0f, 0.0f, 1.0f
     };
 
-    box.ApplyTransform(transform);
+    b1.ApplyTransform(transform);
 
-    EXPECT_VEC3_EQ(box.min, {-1.0f, 0.0f, 0.0f});
-    EXPECT_VEC3_EQ(box.max, {0.0f, 1.0f, 1.0f});
+    EXPECT_VEC3_EQ(b1.min, {-1.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(b1.max, {0.0f, 1.0f, 1.0f});
+
+    constexpr auto b2 = [&transform]() {
+        auto b = gleam::Box3 {
+            {0.0f, 0.0f, 0.0f},
+            {1.0f, 1.0f, 1.0f}
+        };
+        b.ApplyTransform(transform);
+        return b;
+    }();
+
+    static_assert(b2.min == gleam::Vector3 {-1.0f, 0.0f, 0.0f});
+    static_assert(b2.max == gleam::Vector3 {0.0f, 1.0f, 1.0f});
 }
 
 #pragma endregion
@@ -234,15 +360,27 @@ TEST(Box3, TransformWithRotation) {
 #pragma region Translate
 
 TEST(Box3, Translate) {
-    auto box = gleam::Box3 {
+    auto b1 = gleam::Box3 {
         {0.0f, 0.0f, 0.0f},
         {1.0f, 1.0f, 1.0f}
     };
 
-    box.Translate({1.0f, 2.0f, 3.0f});
+    b1.Translate({1.0f, 2.0f, 3.0f});
 
-    EXPECT_VEC3_EQ(box.min, {1.0f, 2.0f, 3.0f});
-    EXPECT_VEC3_EQ(box.max, {2.0f, 3.0f, 4.0f});
+    EXPECT_VEC3_EQ(b1.min, {1.0f, 2.0f, 3.0f});
+    EXPECT_VEC3_EQ(b1.max, {2.0f, 3.0f, 4.0f});
+
+    constexpr auto b2 = []() {
+        auto b = gleam::Box3 {
+            {0.0f, 0.0f, 0.0f},
+            {1.0f, 1.0f, 1.0f}
+        };
+        b.Translate({1.0f, 2.0f, 3.0f});
+        return b;
+    }();
+
+    static_assert(b2.min == gleam::Vector3 {1.0f, 2.0f, 3.0f});
+    static_assert(b2.max == gleam::Vector3 {2.0f, 3.0f, 4.0f});
 }
 
 #pragma endregion
