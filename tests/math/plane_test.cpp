@@ -114,16 +114,16 @@ TEST(Plane, NormalizePlanWithNonUnitNormal) {
     auto plane = gleam::Plane {{2.0f, 0.0f, 0.0f}, 4.0f};
     plane.Normalize();
 
-    EXPECT_VEC3_EQ(plane.normal, gleam::Vector3::Right());
-    EXPECT_FLOAT_EQ(plane.distance, 2.0f);
+    EXPECT_VEC3_NEAR(plane.normal, gleam::Vector3::Right(), 1e-4f);
+    EXPECT_NEAR(plane.distance, 2.0f, 1e-4f);
 }
 
 TEST(Plane, NormalizePlaneWithUnitNormal) {
     auto plane = gleam::Plane {gleam::Vector3::Up(), 1.0f};
     plane.Normalize();
 
-    EXPECT_VEC3_EQ(plane.normal, gleam::Vector3::Up());
-    EXPECT_FLOAT_EQ(plane.distance, 1.0f);
+    EXPECT_VEC3_NEAR(plane.normal, gleam::Vector3::Up(), 1e-4f);
+    EXPECT_NEAR(plane.distance, 1.0f, 1e-4f);
 }
 
 #pragma endregion

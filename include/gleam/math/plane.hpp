@@ -10,9 +10,8 @@
 #include "gleam_export.h"
 
 #include "gleam/math/sphere.hpp"
+#include "gleam/math/utilities.hpp"
 #include "gleam/math/vector3.hpp"
-
-#include <cmath>
 
 namespace gleam {
 
@@ -36,10 +35,7 @@ struct GLEAM_EXPORT Plane {
     }
 
     auto Normalize() {
-        // TODO: Use fast inverse square root function to compute the length
-        // and resolve failing tests due to precision loss
-        const auto length = std::sqrt(Dot(normal, normal));
-        const auto inverse_length = 1.0 / length;
+        const auto inverse_length = math::InverseSqrt(Dot(normal, normal));
         normal *= inverse_length;
         distance *= inverse_length;
     }
