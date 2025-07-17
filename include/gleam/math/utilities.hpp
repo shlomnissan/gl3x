@@ -45,7 +45,7 @@ constexpr float epsilon = 1e-6f;
 }
 
 [[nodiscard]] constexpr auto Sqrt(float x) {
-    if (x < std::numeric_limits<float>::min()) {
+    if (x <= 0.0f) {
         return 0.0f;
     }
 
@@ -56,6 +56,20 @@ constexpr float epsilon = 1e-6f;
     r = (0.5f * r) * (3.0f - x * r * r);
 
     return r * x;
+}
+
+[[nodiscard]] constexpr auto InverseSqrt(float x) {
+    if (x <= 0.0f) {
+        return std::numeric_limits<float>::infinity();
+    }
+
+    auto i = std::bit_cast<uint32_t>(x);
+    i = 0x5F375A86 - (i >> 1);
+    auto r = std::bit_cast<float>(i);
+    r = (0.5f * r) * (3.0f - x * r * r);
+    r = (0.5f * r) * (3.0f - x * r * r);
+
+    return r;
 }
 
 [[nodiscard]] GLEAM_EXPORT inline auto GenerateUUID() {

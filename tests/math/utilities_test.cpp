@@ -68,12 +68,43 @@ TEST(MathUtilities, SqrtAccuracyCommonCases) {
 TEST(MathUtilities, SqrtTinyValues) {
     EXPECT_NEAR(math::Sqrt(1e-10f), 0.0f, 1e-4f);
     EXPECT_NEAR(math::Sqrt(std::numeric_limits<float>::min()), 0.0f, 1e-4f);
+
+    static_assert(ApproxEqual(math::Sqrt(1e-10f), 0.0f));
+    static_assert(ApproxEqual(math::Sqrt(std::numeric_limits<float>::min()), 0.0f));
 }
 
 TEST(MathUtilities, SqrtNegativeInputBehavior) {
-    float result = math::Sqrt(-1.0f);
-    EXPECT_TRUE(std::isfinite(result));
-    EXPECT_LT(result, 0.01f);
+    EXPECT_EQ(math::Sqrt(-1.0f), 0.0f);
+
+    static_assert(math::Sqrt(-1.0f) == 0.0f);
+}
+
+TEST(MathUtilities, InverseSqrtAccuracyCommonCases) {
+    EXPECT_NEAR(math::InverseSqrt(1.0f), 1.0f, 1e-4f);
+    EXPECT_NEAR(math::InverseSqrt(4.0f), 0.5f, 1e-4f);
+    EXPECT_NEAR(math::InverseSqrt(9.0f), 1.0f / 3.0f, 1e-4f);
+    EXPECT_NEAR(math::InverseSqrt(16.0f), 0.25f, 1e-4f);
+    EXPECT_NEAR(math::InverseSqrt(100.0f), 0.1f, 1e-3f);
+
+    static_assert(ApproxEqual(math::InverseSqrt(1.0f), 1.0f));
+    static_assert(math::InverseSqrt(4.0f) > 0.49f && math::InverseSqrt(4.0f) < 0.51f);
+    static_assert(math::InverseSqrt(9.0f) > 0.32f && math::InverseSqrt(9.0f) < 0.35f);
+}
+
+TEST(MathUtilities, InverseSqrtTinyValues) {
+    EXPECT_TRUE(std::isinf(math::InverseSqrt(0.0f)));
+    EXPECT_GT(math::InverseSqrt(std::numeric_limits<float>::min()), 1e-18f);
+    EXPECT_GT(math::InverseSqrt(1e-10f), 1e4f);
+
+    static_assert(std::isinf(math::InverseSqrt(0.0f)));
+    static_assert(math::InverseSqrt(std::numeric_limits<float>::min()) > 1e-18f);
+    static_assert(math::InverseSqrt(1e-10f) > 1e-4f);
+}
+
+TEST(MathUtilities, InverseSqrtNegativeInputBehavior) {
+    EXPECT_TRUE(std::isinf(math::InverseSqrt(-1.0f)));
+
+    static_assert(std::isinf(math::InverseSqrt(-1.0f)));
 }
 
 #pragma endregion
