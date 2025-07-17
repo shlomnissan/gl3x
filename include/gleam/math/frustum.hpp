@@ -22,9 +22,9 @@ namespace gleam {
 struct GLEAM_EXPORT Frustum {
     std::array<Plane, 6> planes = {};
 
-    Frustum() = default;
+    constexpr Frustum() = default;
 
-    auto SetWithViewProjection(const Matrix4& projection) {
+    constexpr auto SetWithViewProjection(const Matrix4& projection) {
         planes[0] = Plane {{
             projection(3, 0) + projection(0, 0),
             projection(3, 1) + projection(0, 1),
@@ -64,17 +64,17 @@ struct GLEAM_EXPORT Frustum {
         for (auto& p : planes) p.Normalize();
     }
 
-    explicit Frustum(const Matrix4& projection) {
+    explicit constexpr Frustum(const Matrix4& projection) {
         SetWithViewProjection(projection);
     }
 
-    [[nodiscard]] auto ContainsPoint(const Vector3& point) const {
+    [[nodiscard]] constexpr auto ContainsPoint(const Vector3& point) const {
         return std::ranges::all_of(planes, [&](const auto& plane) {
             return plane.DistanceToPoint(point) >= 0;
         });
     }
 
-    [[nodiscard]] auto IntersectsWithBox3(const Box3& box) const {
+    [[nodiscard]] constexpr auto IntersectsWithBox3(const Box3& box) const {
         auto v = Vector3::Zero();
         return std::ranges::all_of(planes, [&](const auto& plane) {
             v.x = plane.normal.x > 0 ? box.max.x : box.min.x;
@@ -84,7 +84,7 @@ struct GLEAM_EXPORT Frustum {
         });
     }
 
-    [[nodiscard]] auto IntersectsWithSphere(const Sphere& sphere) const {
+    [[nodiscard]] constexpr auto IntersectsWithSphere(const Sphere& sphere) const {
         return std::ranges::all_of(planes, [&](const auto& plane) {
             const auto distance = plane.DistanceToPoint(sphere.center);
             return distance >= -sphere.radius;
