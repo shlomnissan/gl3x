@@ -20,21 +20,21 @@ struct GLEAM_EXPORT Plane {
 
     float distance {0.0f};
 
-    Plane() = default;
+    constexpr Plane() = default;
 
-    Plane(const Vector3& normal, float distance) :
+    constexpr Plane(const Vector3& normal, float distance) :
         normal(normal),
         distance(distance) {}
 
-    [[nodiscard]] auto DistanceToPoint(const Vector3& point) const {
+    [[nodiscard]] constexpr auto DistanceToPoint(const Vector3& point) const {
         return Dot(normal, point) + distance;
     }
 
-    [[nodiscard]] auto DistanceToSphere(const Sphere& sphere) const {
+    [[nodiscard]] constexpr auto DistanceToSphere(const Sphere& sphere) const {
         return DistanceToPoint(sphere.center) - sphere.radius;
     }
 
-    auto Normalize() {
+    constexpr auto Normalize() {
         const auto inverse_length = math::InverseSqrt(Dot(normal, normal));
         normal *= inverse_length;
         distance *= inverse_length;

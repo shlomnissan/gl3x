@@ -10,22 +10,28 @@
 
 #include <gleam/math/plane.hpp>
 
-#include <cmath>
+#include <cassert>
 
 #pragma region Constructors
 
 TEST(Plane, DefaultConstructor) {
-    const auto plane = gleam::Plane {};
+    constexpr auto plane = gleam::Plane {};
 
     EXPECT_EQ(plane.normal, gleam::Vector3::Up());
     EXPECT_EQ(plane.distance, 0.0f);
+
+    static_assert(plane.normal == gleam::Vector3::Up());
+    static_assert(plane.distance == 0.0f);
 }
 
 TEST(Plane, ConstructorParameterized) {
-    const auto plane = gleam::Plane {gleam::Vector3::Right(), 1.0f};
+    constexpr auto plane = gleam::Plane {gleam::Vector3::Right(), 1.0f};
 
     EXPECT_EQ(plane.normal, gleam::Vector3::Right());
     EXPECT_EQ(plane.distance, 1.0f);
+
+    static_assert(plane.normal == gleam::Vector3::Right());
+    static_assert(plane.distance == 1.0f);
 }
 
 #pragma endregion
@@ -33,59 +39,75 @@ TEST(Plane, ConstructorParameterized) {
 #pragma region Distance to Point
 
 TEST(Plane, DistanceToPointOnPlane) {
-    const auto plane = gleam::Plane {gleam::Vector3::Up(), 0.0f};
-    const auto point = gleam::Vector3 {0.0f, 0.0f, 0.0f};
+    constexpr auto plane = gleam::Plane {gleam::Vector3::Up(), 0.0f};
+    constexpr auto point = gleam::Vector3 {0.0f, 0.0f, 0.0f};
 
     EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 0.0f);
+
+    static_assert(plane.DistanceToPoint(point) == 0.0f);
 }
 
 TEST(Plane, DistanceToPointAbovePlane) {
-    const auto plane = gleam::Plane {gleam::Vector3::Up(), 0.0f};
-    const auto point = gleam::Vector3 {0.0f, 1.0f, 0.0f};
+    constexpr auto plane = gleam::Plane {gleam::Vector3::Up(), 0.0f};
+    constexpr auto point = gleam::Vector3 {0.0f, 1.0f, 0.0f};
 
     EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 1.0f);
+
+    static_assert(plane.DistanceToPoint(point) == 1.0f);
 }
 
 TEST(Plane, DistanceToPointBelowPlane) {
-    const auto plane = gleam::Plane {gleam::Vector3::Up(), 0.0f};
-    const auto point = gleam::Vector3 {0.0f, -1.0f, 0.0f};
+    constexpr const auto plane = gleam::Plane {gleam::Vector3::Up(), 0.0f};
+    constexpr const auto point = gleam::Vector3 {0.0f, -1.0f, 0.0f};
 
     EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), -1.0f);
+
+    static_assert(plane.DistanceToPoint(point) == -1.0f);
 }
 
 TEST(Plane, DistanceToPointWithOffset) {
-    auto plane = gleam::Plane {gleam::Vector3::Up(), 1.0f};
-    auto point = gleam::Vector3 {0.0f, 2.0f, 0.0f};
+    constexpr auto plane = gleam::Plane {gleam::Vector3::Up(), 1.0f};
+    constexpr auto point = gleam::Vector3 {0.0f, 2.0f, 0.0f};
 
     EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 3.0f);
+
+    static_assert(plane.DistanceToPoint(point) == 3.0f);
 }
 
 TEST(Plane, DistanceToPointWithNegativeOffset) {
-    auto plane = gleam::Plane {gleam::Vector3::Up(), -1.0f};
-    auto point = gleam::Vector3 {0.0f, 2.0f, 0.0f};
+    constexpr auto plane = gleam::Plane {gleam::Vector3::Up(), -1.0f};
+    constexpr auto point = gleam::Vector3 {0.0f, 2.0f, 0.0f};
 
     EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 1.0f);
+
+    static_assert(plane.DistanceToPoint(point) == 1.0f);
 }
 
 TEST(Plane, DistanceToPointWithArbitraryNormal) {
-    auto point = gleam::Vector3 {1.0f, 1.0f, 1.0f};
-    auto plane = gleam::Plane {{0.577350259f}, 0.0f};
+    constexpr auto point = gleam::Vector3 {1.0f, 1.0f, 1.0f};
+    constexpr auto plane = gleam::Plane {{0.577350259f}, 0.0f};
 
     EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 1.7320508f);
+
+    static_assert(plane.DistanceToPoint(point) == 1.7320508f);
 }
 
 TEST(Plane, DistanceToPointWithArbitraryNormalAndOffset) {
-    auto point = gleam::Vector3 {1.0f, 1.0f, 1.0f};
-    auto plane = gleam::Plane {{0.577350259f}, 0.577350259f};
+    constexpr auto point = gleam::Vector3 {1.0f, 1.0f, 1.0f};
+    constexpr auto plane = gleam::Plane {{0.577350259f}, 0.577350259f};
 
     EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 2.30940104f);
+
+    static_assert(plane.DistanceToPoint(point) == 2.30940104f);
 }
 
 TEST(Plane, DistanceToPointWithNonUnitNormalAndOffset) {
-    auto point = gleam::Vector3 {1.0f, 1.0f, 1.0f};
-    auto plane = gleam::Plane {{1.0f, 1.0f, 1.0f}, 1.0f};
+    constexpr auto point = gleam::Vector3 {1.0f, 1.0f, 1.0f};
+    constexpr auto plane = gleam::Plane {{1.0f, 1.0f, 1.0f}, 1.0f};
 
     EXPECT_FLOAT_EQ(plane.DistanceToPoint(point), 4.0f);
+
+    static_assert(plane.DistanceToPoint(point) == 4.0f);
 }
 
 #pragma endregion
@@ -93,17 +115,21 @@ TEST(Plane, DistanceToPointWithNonUnitNormalAndOffset) {
 #pragma region Distance to Sphere
 
 TEST(Plane, DistanceToSphereWithCenterOnPlane) {
-    auto plane = gleam::Plane {gleam::Vector3::Up(), 0.0f};
-    auto sphere = gleam::Sphere {gleam::Vector3::Zero(), 1.0f};
+    constexpr auto plane = gleam::Plane {gleam::Vector3::Up(), 0.0f};
+    constexpr auto sphere = gleam::Sphere {gleam::Vector3::Zero(), 1.0f};
 
     EXPECT_FLOAT_EQ(plane.DistanceToSphere(sphere), -1.0f);
+
+    static_assert(plane.DistanceToSphere(sphere) == -1.0f);
 }
 
 TEST(Plane, DistanceToSphereAbovePlane) {
-    auto plane = gleam::Plane {gleam::Vector3::Up(), 1.0f};
-    auto sphere = gleam::Sphere {gleam::Vector3 {0.0f, 3.0f, 0.0f}, 1.0f};
+    constexpr auto plane = gleam::Plane {gleam::Vector3::Up(), 1.0f};
+    constexpr auto sphere = gleam::Sphere {gleam::Vector3 {0.0f, 3.0f, 0.0f}, 1.0f};
 
     EXPECT_FLOAT_EQ(plane.DistanceToSphere(sphere), 3.0f);
+
+    static_assert(plane.DistanceToSphere(sphere) == 3.0f);
 }
 
 #pragma endregion
@@ -111,19 +137,41 @@ TEST(Plane, DistanceToSphereAbovePlane) {
 #pragma region Normalize Plane
 
 TEST(Plane, NormalizePlanWithNonUnitNormal) {
-    auto plane = gleam::Plane {{2.0f, 0.0f, 0.0f}, 4.0f};
-    plane.Normalize();
+    auto p1 = gleam::Plane {{2.0f, 0.0f, 0.0f}, 4.0f};
+    p1.Normalize();
 
-    EXPECT_VEC3_NEAR(plane.normal, gleam::Vector3::Right(), 1e-4f);
-    EXPECT_NEAR(plane.distance, 2.0f, 1e-4f);
+    EXPECT_VEC3_NEAR(p1.normal, gleam::Vector3::Right(), 1e-4f);
+    EXPECT_NEAR(p1.distance, 2.0f, 1e-4f);
+
+    constexpr auto p2 = []() {
+        auto p = gleam::Plane {{2.0f, 0.0f, 0.0f}, 4.0f};
+        p.Normalize();
+        return p;
+    }();
+
+    static_assert(ApproxEqual(p2.normal.x, 1.0f));
+    static_assert(ApproxEqual(p2.normal.y, 0.0f));
+    static_assert(ApproxEqual(p2.normal.z, 0.0f));
+    static_assert(ApproxEqual(p2.distance, 2.0f));
 }
 
 TEST(Plane, NormalizePlaneWithUnitNormal) {
-    auto plane = gleam::Plane {gleam::Vector3::Up(), 1.0f};
-    plane.Normalize();
+    auto p1 = gleam::Plane {gleam::Vector3::Up(), 1.0f};
+    p1.Normalize();
 
-    EXPECT_VEC3_NEAR(plane.normal, gleam::Vector3::Up(), 1e-4f);
-    EXPECT_NEAR(plane.distance, 1.0f, 1e-4f);
+    EXPECT_VEC3_NEAR(p1.normal, gleam::Vector3::Up(), 1e-4f);
+    EXPECT_NEAR(p1.distance, 1.0f, 1e-4f);
+
+    constexpr auto p2 = []() {
+        auto p = gleam::Plane {gleam::Vector3::Up(), 1.0f};
+        p.Normalize();
+        return p;
+    }();
+
+    static_assert(ApproxEqual(p2.normal.x, 0.0f));
+    static_assert(ApproxEqual(p2.normal.y, 1.0f));
+    static_assert(ApproxEqual(p2.normal.z, 0.0f));
+    static_assert(ApproxEqual(p2.distance, 1.0f));
 }
 
 #pragma endregion
