@@ -11,8 +11,7 @@
 
 #include "gleam/math/matrix3.hpp"
 #include "gleam/math/vector2.hpp"
-
-#include <cmath>
+#include "gleam/math/utilities.hpp"
 
 namespace gleam {
 
@@ -21,8 +20,8 @@ public:
     bool touched {true};
 
     auto Translate(const Vector2& value) {
-        const float s = std::sin(rotation_);
-        const float c = std::cos(rotation_);
+        const float s = math::Sin(rotation_);
+        const float c = math::Cos(rotation_);
         const Vector2 rotated_value = {
             value.x * c - value.y * s,
             value.x * s + value.y * c

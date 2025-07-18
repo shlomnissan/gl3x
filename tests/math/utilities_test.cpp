@@ -109,6 +109,106 @@ TEST(MathUtilities, InverseSqrtNegativeInputBehavior) {
 
 #pragma endregion
 
+#pragma region Cos
+
+TEST(MathUtilities, CosCommonAngles) {
+    EXPECT_NEAR(math::Cos(0.0f), 1.0f, 1e-4f);
+    EXPECT_NEAR(math::Cos(math::half_pi), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Cos(math::pi), -1.0f, 1e-4f);
+    EXPECT_NEAR(math::Cos(3.0f * math::half_pi), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Cos(math::two_pi), 1.0f, 1e-4f);
+
+    static_assert(ApproxEqual(math::Cos(0.0f), 1.0f));
+    static_assert(ApproxEqual(math::Cos(math::half_pi), 0.0f));
+    static_assert(ApproxEqual(math::Cos(math::pi), -1.0f));
+    static_assert(ApproxEqual(math::Cos(3.0f * math::half_pi), 0.0f));
+    static_assert(ApproxEqual(math::Cos(math::two_pi), 1.0f));
+}
+
+TEST(MathUtilities, CosNegativeAngles) {
+    EXPECT_NEAR(math::Cos(-math::half_pi), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Cos(-math::pi), -1.0f, 1e-4f);
+    EXPECT_NEAR(math::Cos(-math::two_pi), 1.0f, 1e-4f);
+
+    static_assert(ApproxEqual(math::Cos(-math::half_pi), 0.0f));
+    static_assert(ApproxEqual(math::Cos(-math::pi), -1.0f));
+    static_assert(ApproxEqual(math::Cos(-math::two_pi), 1.0f));
+}
+
+TEST(MathUtilities, CosSymmetryProperties) {
+    constexpr float x = math::pi / 3.0f;
+    EXPECT_NEAR(math::Cos(x), math::Cos(-x), 1e-4f);
+    EXPECT_NEAR(math::Cos(math::pi - x), -math::Cos(x), 1e-4f);
+    EXPECT_NEAR(math::Cos(math::pi + x), -math::Cos(x), 1e-4f);
+    EXPECT_NEAR(math::Cos(math::two_pi - x), math::Cos(x), 1e-4f);
+
+    static_assert(ApproxEqual(math::Cos(x), math::Cos(-x)));
+    static_assert(ApproxEqual(math::Cos(math::pi - x), -math::Cos(x)));
+    static_assert(ApproxEqual(math::Cos(math::pi + x), -math::Cos(x)));
+    static_assert(ApproxEqual(math::Cos(math::two_pi - x), math::Cos(x)));
+}
+
+TEST(MathUtilities, CosPeriodicity) {
+    constexpr float x = 1.23f;
+    EXPECT_NEAR(math::Cos(x), math::Cos(x + math::two_pi), 1e-4f);
+    EXPECT_NEAR(math::Cos(x), math::Cos(x - math::two_pi), 1e-4f);
+
+    static_assert(ApproxEqual(math::Cos(x), math::Cos(x + math::two_pi)));
+    static_assert(ApproxEqual(math::Cos(x), math::Cos(x - math::two_pi)));
+}
+
+#pragma endregion
+
+#pragma region Sin
+
+TEST(MathUtilities, SinCommonAngles) {
+    EXPECT_NEAR(math::Sin(0.0f), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Sin(math::half_pi), 1.0f, 1e-4f);
+    EXPECT_NEAR(math::Sin(math::pi), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Sin(3.0f * math::half_pi), -1.0f, 1e-4f);
+    EXPECT_NEAR(math::Sin(math::two_pi), 0.0f, 1e-4f);
+
+    static_assert(ApproxEqual(math::Sin(0.0f), 0.0f));
+    static_assert(ApproxEqual(math::Sin(math::half_pi), 1.0f));
+    static_assert(ApproxEqual(math::Sin(math::pi), 0.0f));
+    static_assert(ApproxEqual(math::Sin(3.0f * math::half_pi), -1.0f));
+    static_assert(ApproxEqual(math::Sin(math::two_pi), 0.0f));
+}
+
+TEST(MathUtilities, SinNegativeAngles) {
+    EXPECT_NEAR(math::Sin(-math::half_pi), -1.0f, 1e-4f);
+    EXPECT_NEAR(math::Sin(-math::pi), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Sin(-math::two_pi), 0.0f, 1e-4f);
+
+    static_assert(ApproxEqual(math::Sin(-math::half_pi), -1.0f));
+    static_assert(ApproxEqual(math::Sin(-math::pi), 0.0f));
+    static_assert(ApproxEqual(math::Sin(-math::two_pi), 0.0f));
+}
+
+TEST(MathUtilities, SinSymmetryProperties) {
+    constexpr float x = math::pi / 3.0f;
+    EXPECT_NEAR(math::Sin(x), -math::Sin(-x), 1e-4f);
+    EXPECT_NEAR(math::Sin(math::pi - x), math::Sin(x), 1e-4f);
+    EXPECT_NEAR(math::Sin(math::pi + x), -math::Sin(x), 1e-4f);
+    EXPECT_NEAR(math::Sin(math::two_pi - x), -math::Sin(x), 1e-4f);
+
+    static_assert(ApproxEqual(math::Sin(x), -math::Sin(-x)));
+    static_assert(ApproxEqual(math::Sin(math::pi - x), math::Sin(x)));
+    static_assert(ApproxEqual(math::Sin(math::pi + x), -math::Sin(x)));
+    static_assert(ApproxEqual(math::Sin(math::two_pi - x), -math::Sin(x)));
+}
+
+TEST(MathUtilities, SinPeriodicity) {
+    constexpr float x = 1.23f;
+    EXPECT_NEAR(math::Sin(x), math::Sin(x + math::two_pi), 1e-4f);
+    EXPECT_NEAR(math::Sin(x), math::Sin(x - math::two_pi), 1e-4f);
+
+    static_assert(ApproxEqual(math::Sin(x), math::Sin(x + math::two_pi)));
+    static_assert(ApproxEqual(math::Sin(x), math::Sin(x - math::two_pi), 1e-3f));
+}
+
+#pragma endregion
+
 #pragma region Lerp
 
 TEST(MathUtilities, LerpBasic) {

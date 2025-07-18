@@ -20,9 +20,13 @@
 
 namespace gleam::math {
 
+using Pair = struct { float x, y; };
+
 constexpr float pi = 3.1415926535897932384626433832795f;
 constexpr float half_pi = 1.5707963267948966192313216916398f;
 constexpr float two_pi = 6.2831853071795864769252867665590f;
+constexpr float inv_tau = 40.74366543f;
+constexpr float tau_over_256 = 0.0245436926f;
 
 alignas(64) constexpr uint32_t trig_table[256][2] =
 {
@@ -60,6 +64,10 @@ alignas(64) constexpr uint32_t trig_table[256][2] =
 	{0x3F7B14BE, 0xBE47C5C2}, {0x3F7C3B28, 0xBE2F10A3}, {0x3F7D3AAC, 0xBE164083}, {0x3F7E1324, 0xBDFAB273}, {0x3F7EC46D, 0xBDC8BD36}, {0x3F7F4E6D, 0xBD96A905}, {0x3F7FB10F, 0xBD48FB30}, {0x3F7FEC43, 0xBCC90AB0}
 };
 
+[[nodiscard]] constexpr Pair GetTrigPair(int32_t index) {
+    return std::bit_cast<Pair>(trig_table[index & 255]);
+}
+
 [[nodiscard]] constexpr auto DegToRad(const float degrees) {
     return degrees * (pi / 180.0f);
 }
@@ -81,11 +89,32 @@ alignas(64) constexpr uint32_t trig_table[256][2] =
 }
 
 [[nodiscard]] constexpr auto Cos(float x) {
-    return 0.0f;
+    auto b = (x < 0.0f ? -x : x) * inv_tau;
+    auto i = static_cast<int32_t>(b);
+    b = (b - float(i)) * tau_over_256;
+
+    const auto cossin_alpha = GetTrigPair(i & 255);
+
+    auto b2 = b * b;
+    auto sine_beta = b - b * b2 * (0.1666666667f - b2 * 0.0083333333f);
+    auto cosine_beta = 1.0f - b2 * (0.5f - b2 * 0.0416666667f);
+
+    return cossin_alpha.x * cosine_beta - cossin_alpha.y * sine_beta;
 }
 
 [[nodiscard]] constexpr auto Sin(float x) {
-    return 0.0f;
+    auto b = (x < 0.0f ? -x : x) * inv_tau;
+    auto i = static_cast<int32_t>(b);
+    b = (b - float(i)) * tau_over_256;
+
+    const auto cossin_alpha = GetTrigPair(i & 255);
+
+    auto b2 = b * b;
+    auto sine_beta = b - b * b2 * (0.1666666667f - b2 * 0.0083333333f);
+    auto cosine_beta = 1.0f - b2 * (0.5f - b2 * 0.0416666667f);
+
+    auto sine = cossin_alpha.y * cosine_beta + cossin_alpha.x * sine_beta;
+    return x < 0.0f ? -sine : sine;
 }
 
 [[nodiscard]] constexpr auto Sqrt(float x) {
