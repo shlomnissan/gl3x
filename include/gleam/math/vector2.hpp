@@ -168,6 +168,7 @@ private:
     [[nodiscard]] friend constexpr auto operator+(const Vector2& a, const Vector2& b) {
         return Vector2 {a.x + b.x, a.y + b.y};
     }
+
     /// @brief Vector subtraction.
     [[nodiscard]] friend constexpr auto operator-(const Vector2& a, const Vector2& b) {
         return Vector2 {a.x - b.x, a.y - b.y};
@@ -214,7 +215,7 @@ private:
  * @param v1 Start vector.
  * @param v2 End vector.
  * @param f Interpolation factor [0, 1].
- * @return Vector2 Interpolated vector.
+ * @return gleam::Vector2 Interpolated vector.
  */
 [[nodiscard]] inline constexpr auto Lerp(const Vector2& v1, const Vector2& v2, float f) {
     return v1 + (v2 - v1) * f;
