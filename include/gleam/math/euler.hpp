@@ -21,14 +21,14 @@ public:
     float yaw {0.0f};
     float roll {0.0f};
 
-    Euler() = default;
+    constexpr Euler() = default;
 
-    Euler(float pitch, float yaw, float roll) :
+    constexpr Euler(float pitch, float yaw, float roll) :
         pitch(pitch),
         yaw(yaw),
         roll(roll) {}
 
-    explicit Euler(const Matrix4& m) {
+    explicit constexpr Euler(const Matrix4& m) {
         pitch = math::Asin(m[1].z);
         if (math::Cos(pitch) > 1e-6) {
             yaw = math::Atan2(-m[0].z, m[2].z);
@@ -41,7 +41,7 @@ public:
         }
     }
 
-    [[nodiscard]] auto GetMatrix() const {
+    [[nodiscard]] constexpr auto GetMatrix() const {
         const auto cos_p = math::Cos(pitch);
         const auto sin_p = math::Sin(pitch);
         const auto cos_y = math::Cos(yaw);
@@ -57,12 +57,12 @@ public:
         };
     }
 
-    [[nodiscard]] auto IsEmpty() const {
+    [[nodiscard]] constexpr auto IsEmpty() const {
         return pitch == 0.0f && yaw == 0.0f && roll == 0.0f;
     }
 
 private:
-   [[nodiscard]] friend auto operator==(const Euler& a, const Euler& b) -> bool = default;
+   [[nodiscard]] friend constexpr auto operator==(const Euler& a, const Euler& b) -> bool = default;
 };
 
 }
