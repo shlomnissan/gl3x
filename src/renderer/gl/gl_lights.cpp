@@ -10,11 +10,11 @@
 #include "gleam/lights/directional_light.hpp"
 #include "gleam/lights/point_light.hpp"
 #include "gleam/lights/spot_light.hpp"
+#include "gleam/math/utilities.hpp"
 
 #include "utilities/logger.hpp"
 
 #include <algorithm>
-#include <cmath>
 
 namespace gleam {
 
@@ -84,8 +84,8 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
                 auto pos = camera->view_transform * Vector4(world.x, world.y, world.z, 1.0f);
                 dst.position = Vector3(pos.x, pos.y, pos.z);
                 dst.direction = Vector3(dir.x, dir.y, dir.z);
-                dst.cone_cos = std::cos(src->angle);
-                dst.penumbra_cos = std::cos(src->angle * (1 - src->penumbra));
+                dst.cone_cos = math::Cos(src->angle);
+                dst.penumbra_cos = math::Cos(src->angle * (1 - src->penumbra));
                 dst.base = src->attenuation.base;
                 dst.linear = src->attenuation.linear;
                 dst.quadratic = src->attenuation.quadratic;

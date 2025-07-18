@@ -12,7 +12,6 @@
 #include "gleam/math/vector3.hpp"
 
 #include <algorithm>
-#include <cmath>
 
 namespace gleam {
 
@@ -76,9 +75,9 @@ struct OrbitControls::Impl {
 
         // convert spherical coordinates to cartesian coordinates
         const auto position = target + Vector3 {
-            radius * std::sin(yaw) * std::cos(pitch),
-            radius * std::sin(pitch),
-            radius * std::cos(yaw) * std::cos(pitch)
+            radius * math::Sin(yaw) * math::Cos(pitch),
+            radius * math::Sin(pitch),
+            radius * math::Cos(yaw) * math::Cos(pitch)
         };
 
         camera->transform.SetPosition(position);

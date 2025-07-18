@@ -8,10 +8,10 @@
 #include "gleam/geometries/sphere_geometry.hpp"
 
 #include "gleam/math/vector3.hpp"
+#include "gleam/math/utilities.hpp"
 
 #include <algorithm>
 #include <cassert>
-#include <cmath>
 
 namespace gleam {
 
@@ -35,9 +35,9 @@ auto generate_geometry(
             const auto theta = theta_start + v * theta_length;
 
             auto vec = Vector3 {};
-            vec.x = -params.radius * std::cos(phi) * std::sin(theta);
-            vec.y =  params.radius * std::cos(theta);
-            vec.z =  params.radius * std::sin(phi) * std::sin(theta);
+            vec.x = -params.radius * math::Cos(phi) * math::Sin(theta);
+            vec.y =  params.radius * math::Cos(theta);
+            vec.z =  params.radius * math::Sin(phi) * math::Sin(theta);
 
             // set position
             vertex_data.emplace_back(vec.x);

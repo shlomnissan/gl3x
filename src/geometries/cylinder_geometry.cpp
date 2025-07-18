@@ -11,7 +11,6 @@
 #include "gleam/math/vector3.hpp"
 
 #include <cassert>
-#include <cmath>
 
 namespace gleam {
 
@@ -32,8 +31,8 @@ auto generate_torso(
         for (auto x = 0; x <= params.radial_segments; ++x) {
             const auto u = static_cast<float>(x) / static_cast<float>(params.radial_segments);
             const auto theta = u * math::two_pi;
-            const auto cos_theta = std::cos(theta);
-            const auto sin_theta = std::sin(theta);
+            const auto cos_theta = math::Cos(theta);
+            const auto sin_theta = math::Sin(theta);
             const auto normal = Vector3(sin_theta, slope, cos_theta).Normalize();
 
             vertex_data.emplace_back(radius * sin_theta); // pos x
@@ -93,8 +92,8 @@ auto generate_cap(
     for (auto x = 0; x <= params.radial_segments; ++x) {
         const auto u = static_cast<float>(x) / static_cast<float>(params.radial_segments);
         const auto theta = u * math::two_pi;
-        const auto cos_theta = std::cos(theta);
-        const auto sin_theta = std::sin(theta);
+        const auto cos_theta = math::Cos(theta);
+        const auto sin_theta = math::Sin(theta);
 
         vertex_data.emplace_back(radius * sin_theta); // pos x
         vertex_data.emplace_back(half_height * sign); // pos y

@@ -12,8 +12,6 @@
 #include "gleam/math/utilities.hpp"
 #include "gleam/nodes/mesh.hpp"
 
-#include <cmath>
-
 namespace gleam {
 
 namespace {
@@ -36,16 +34,16 @@ auto create_geometry(const Sphere& sphere) {
             auto theta = (static_cast<float>(i) / segments) * math::two_pi;
 
             if (axis == static_cast<unsigned>(Axis::XY)) {
-                p.x += radius * std::cos(theta);
-                p.y += radius * std::sin(theta);
+                p.x += radius * math::Cos(theta);
+                p.y += radius * math::Sin(theta);
             }
             if (axis == static_cast<unsigned>(Axis::XZ)) {
-                p.x += radius * std::cos(theta);
-                p.z += radius * std::sin(theta);
+                p.x += radius * math::Cos(theta);
+                p.z += radius * math::Sin(theta);
             }
             if (axis == static_cast<unsigned>(Axis::YZ)) {
-                p.y += radius * std::cos(theta);
-                p.z += radius * std::sin(theta);
+                p.y += radius * math::Cos(theta);
+                p.z += radius * math::Sin(theta);
             }
 
             vertices.emplace_back(p.x);

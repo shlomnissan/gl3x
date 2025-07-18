@@ -8,9 +8,9 @@
 #include "gleam/lights/spot_light.hpp"
 
 #include "gleam/materials/flat_material.hpp"
+#include "gleam/math/utilities.hpp"
 #include "gleam/nodes/mesh.hpp"
 
-#include <cmath>
 #include <vector>
 
 namespace gleam {
@@ -43,8 +43,8 @@ struct SpotLight::Impl {
             const auto p1 = (static_cast<float>(i) / static_cast<float>(l)) * math::two_pi;
             const auto p2 = (static_cast<float>(j) / static_cast<float>(l)) * math::two_pi;
             points.insert(points.end(), {
-                std::cos(p1), std::sin(p1), 1.0f,
-                std::cos(p2), std::sin(p2), 1.0f
+                math::Cos(p1), math::Sin(p1), 1.0f,
+                math::Cos(p2), math::Sin(p2), 1.0f
             });
         }
 

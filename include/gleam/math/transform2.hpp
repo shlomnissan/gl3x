@@ -79,8 +79,8 @@ public:
     [[nodiscard]] auto Get() {
         if (touched) {
             touched = false;
-            const float rc = std::cos(rotation_);
-            const float rs = std::sin(rotation_);
+            const float rc = math::Cos(rotation_);
+            const float rs = math::Sin(rotation_);
             const float tx = -scale_.x * (rc * center_.x - rs * center_.y) + center_.x + position_.x;
             const float ty = -scale_.y * (rs * center_.x + rc * center_.y) + center_.y + position_.y;
             transform_ = {
