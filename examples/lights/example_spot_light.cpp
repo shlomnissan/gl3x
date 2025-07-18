@@ -69,7 +69,7 @@ auto ExampleSpotLight::ContextMenu() -> void {
 
     UIColor("color", &spot_light_->color[0], _, "light-color");
     UISliderFloat("intensity", spot_light_->intensity, 0.0f, 1.0f, _, 160.0f);
-    UISliderFloat("angle", spot_light_->angle, 0.1f, math::half_pi, _, 160.0f);
+    UISliderFloat("angle", spot_light_->angle, 0.1f, math::pi_over_2, _, 160.0f);
     UISliderFloat("penumbra", spot_light_->penumbra, 0.0f, 1.0f, _, 160.0f);
     UIText("Attenuation");
     UISliderFloat("base", spot_light_->attenuation.base, 0.0f, 2.0f, _, 160.0f);

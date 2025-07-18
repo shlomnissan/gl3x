@@ -113,24 +113,24 @@ TEST(MathUtilities, InverseSqrtNegativeInputBehavior) {
 
 TEST(MathUtilities, CosCommonAngles) {
     EXPECT_NEAR(math::Cos(0.0f), 1.0f, 1e-4f);
-    EXPECT_NEAR(math::Cos(math::half_pi), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Cos(math::pi_over_2), 0.0f, 1e-4f);
     EXPECT_NEAR(math::Cos(math::pi), -1.0f, 1e-4f);
-    EXPECT_NEAR(math::Cos(3.0f * math::half_pi), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Cos(3.0f * math::pi_over_2), 0.0f, 1e-4f);
     EXPECT_NEAR(math::Cos(math::two_pi), 1.0f, 1e-4f);
 
     static_assert(ApproxEqual(math::Cos(0.0f), 1.0f));
-    static_assert(ApproxEqual(math::Cos(math::half_pi), 0.0f));
+    static_assert(ApproxEqual(math::Cos(math::pi_over_2), 0.0f));
     static_assert(ApproxEqual(math::Cos(math::pi), -1.0f));
-    static_assert(ApproxEqual(math::Cos(3.0f * math::half_pi), 0.0f));
+    static_assert(ApproxEqual(math::Cos(3.0f * math::pi_over_2), 0.0f));
     static_assert(ApproxEqual(math::Cos(math::two_pi), 1.0f));
 }
 
 TEST(MathUtilities, CosNegativeAngles) {
-    EXPECT_NEAR(math::Cos(-math::half_pi), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Cos(-math::pi_over_2), 0.0f, 1e-4f);
     EXPECT_NEAR(math::Cos(-math::pi), -1.0f, 1e-4f);
     EXPECT_NEAR(math::Cos(-math::two_pi), 1.0f, 1e-4f);
 
-    static_assert(ApproxEqual(math::Cos(-math::half_pi), 0.0f));
+    static_assert(ApproxEqual(math::Cos(-math::pi_over_2), 0.0f));
     static_assert(ApproxEqual(math::Cos(-math::pi), -1.0f));
     static_assert(ApproxEqual(math::Cos(-math::two_pi), 1.0f));
 }
@@ -163,24 +163,24 @@ TEST(MathUtilities, CosPeriodicity) {
 
 TEST(MathUtilities, SinCommonAngles) {
     EXPECT_NEAR(math::Sin(0.0f), 0.0f, 1e-4f);
-    EXPECT_NEAR(math::Sin(math::half_pi), 1.0f, 1e-4f);
+    EXPECT_NEAR(math::Sin(math::pi_over_2), 1.0f, 1e-4f);
     EXPECT_NEAR(math::Sin(math::pi), 0.0f, 1e-4f);
-    EXPECT_NEAR(math::Sin(3.0f * math::half_pi), -1.0f, 1e-4f);
+    EXPECT_NEAR(math::Sin(3.0f * math::pi_over_2), -1.0f, 1e-4f);
     EXPECT_NEAR(math::Sin(math::two_pi), 0.0f, 1e-4f);
 
     static_assert(ApproxEqual(math::Sin(0.0f), 0.0f));
-    static_assert(ApproxEqual(math::Sin(math::half_pi), 1.0f));
+    static_assert(ApproxEqual(math::Sin(math::pi_over_2), 1.0f));
     static_assert(ApproxEqual(math::Sin(math::pi), 0.0f));
-    static_assert(ApproxEqual(math::Sin(3.0f * math::half_pi), -1.0f));
+    static_assert(ApproxEqual(math::Sin(3.0f * math::pi_over_2), -1.0f));
     static_assert(ApproxEqual(math::Sin(math::two_pi), 0.0f));
 }
 
 TEST(MathUtilities, SinNegativeAngles) {
-    EXPECT_NEAR(math::Sin(-math::half_pi), -1.0f, 1e-4f);
+    EXPECT_NEAR(math::Sin(-math::pi_over_2), -1.0f, 1e-4f);
     EXPECT_NEAR(math::Sin(-math::pi), 0.0f, 1e-4f);
     EXPECT_NEAR(math::Sin(-math::two_pi), 0.0f, 1e-4f);
 
-    static_assert(ApproxEqual(math::Sin(-math::half_pi), -1.0f));
+    static_assert(ApproxEqual(math::Sin(-math::pi_over_2), -1.0f));
     static_assert(ApproxEqual(math::Sin(-math::pi), 0.0f));
     static_assert(ApproxEqual(math::Sin(-math::two_pi), 0.0f));
 }
@@ -245,8 +245,8 @@ TEST(MathUtilities, AtanCommonAngles) {
     EXPECT_NEAR(math::Atan(0.0f), 0.0f, 1e-4f);
     EXPECT_NEAR(math::Atan(1.0f), math::pi_over_4, 1e-4f);
     EXPECT_NEAR(math::Atan(-1.0f), -math::pi_over_4, 1e-4f);
-    EXPECT_NEAR(math::Atan(std::numeric_limits<float>::infinity()), math::half_pi, 1e-4f);
-    EXPECT_NEAR(math::Atan(-std::numeric_limits<float>::infinity()), -math::half_pi, 1e-4f);
+    EXPECT_NEAR(math::Atan(std::numeric_limits<float>::infinity()), math::pi_over_2, 1e-4f);
+    EXPECT_NEAR(math::Atan(-std::numeric_limits<float>::infinity()), -math::pi_over_2, 1e-4f);
 
     static_assert(ApproxEqual(math::Atan(0.0f), 0.0f));
     static_assert(ApproxEqual(math::Atan(1.0f), math::pi_over_4));
@@ -261,8 +261,8 @@ TEST(MathUtilities, AtanSymmetryProperties) {
 }
 
 TEST(MathUtilities, AtanLimits) {
-    EXPECT_NEAR(math::Atan(1e6f), math::half_pi, 1e-4f);
-    EXPECT_NEAR(math::Atan(-1e6f), -math::half_pi, 1e-4f);
+    EXPECT_NEAR(math::Atan(1e6f), math::pi_over_2, 1e-4f);
+    EXPECT_NEAR(math::Atan(-1e6f), -math::pi_over_2, 1e-4f);
 }
 
 TEST(MathUtilities, AtanMonotonicity) {
@@ -281,16 +281,16 @@ TEST(MathUtilities, AtanMonotonicity) {
 
 TEST(MathUtilities, Atan2CommonAngles) {
     EXPECT_NEAR(math::Atan2(0.0f, 1.0f), 0.0f, 1e-4f);
-    EXPECT_NEAR(math::Atan2(1.0f, 0.0f), math::half_pi, 1e-4f);
+    EXPECT_NEAR(math::Atan2(1.0f, 0.0f), math::pi_over_2, 1e-4f);
     EXPECT_NEAR(math::Atan2(0.0f, -1.0f), math::pi, 1e-4f);
-    EXPECT_NEAR(math::Atan2(-1.0f, 0.0f), -math::half_pi, 1e-4f);
+    EXPECT_NEAR(math::Atan2(-1.0f, 0.0f), -math::pi_over_2, 1e-4f);
     EXPECT_NEAR(math::Atan2(1.0f, 1.0f), math::pi_over_4, 1e-4f);
     EXPECT_NEAR(math::Atan2(-1.0f, -1.0f), -3.0f * math::pi_over_4, 1e-4f);
 
     static_assert(ApproxEqual(math::Atan2(0.0f, 1.0f), 0.0f));
-    static_assert(ApproxEqual(math::Atan2(1.0f, 0.0f), math::half_pi));
+    static_assert(ApproxEqual(math::Atan2(1.0f, 0.0f), math::pi_over_2));
     static_assert(ApproxEqual(math::Atan2(0.0f, -1.0f), math::pi));
-    static_assert(ApproxEqual(math::Atan2(-1.0f, 0.0f), -math::half_pi));
+    static_assert(ApproxEqual(math::Atan2(-1.0f, 0.0f), -math::pi_over_2));
     static_assert(ApproxEqual(math::Atan2(1.0f, 1.0f), math::pi_over_4));
 }
 
@@ -315,6 +315,42 @@ TEST(MathUtilities, Atan2DiagonalQuadrants) {
 TEST(MathUtilities, Atan2ZeroZeroReturnsZero) {
     EXPECT_NEAR(math::Atan2(0.0f, 0.0f), 0.0f, 1e-4f); // defined fallback
     static_assert(ApproxEqual(math::Atan2(0.0f, 0.0f), 0.0f));
+}
+
+#pragma endregion
+
+#pragma region Asin
+
+TEST(MathUtilities, AsinCommonAngles) {
+    EXPECT_NEAR(math::Asin(0.0f), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Asin(0.5f), math::pi_over_6, 1e-4f);
+    EXPECT_NEAR(math::Asin(0.70710678f), math::pi_over_4, 1e-4f); // sin(π/4)
+    EXPECT_NEAR(math::Asin(1.0f), math::pi_over_2, 1e-4f);
+    EXPECT_NEAR(math::Asin(-0.5f), -math::pi_over_6, 1e-4f);
+    EXPECT_NEAR(math::Asin(-1.0f), -math::pi_over_2, 1e-4f);
+
+    static_assert(ApproxEqual(math::Asin(0.0f), 0.0f));
+    static_assert(ApproxEqual(math::Asin(0.5f), math::pi_over_6));
+    static_assert(ApproxEqual(math::Asin(1.0f), math::pi_over_2));
+    static_assert(ApproxEqual(math::Asin(-0.5f), -math::pi_over_6));
+    static_assert(ApproxEqual(math::Asin(-1.0f), -math::pi_over_2));
+}
+
+TEST(MathUtilities, AsinSymmetryProperties) {
+    constexpr float x = 0.6f;
+
+    EXPECT_NEAR(math::Asin(-x), -math::Asin(x), 1e-4f);
+    static_assert(ApproxEqual(math::Asin(-x), -math::Asin(x)));
+}
+
+TEST(MathUtilities, AsinInverseProperty) {
+    constexpr float x = 0.5f;
+    const auto angle = math::Asin(x);
+    EXPECT_NEAR(math::Sin(angle), x, 1e-4f);
+
+    constexpr float y = -0.7f;
+    const auto angle2 = math::Asin(y);
+    EXPECT_NEAR(math::Sin(angle2), y, 1e-4f);
 }
 
 #pragma endregion

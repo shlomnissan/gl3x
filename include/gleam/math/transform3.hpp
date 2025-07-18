@@ -11,9 +11,8 @@
 
 #include "gleam/math/euler.hpp"
 #include "gleam/math/matrix4.hpp"
+#include "gleam/math/utilities.hpp"
 #include "gleam/math/vector3.hpp"
-
-#include <cmath>
 
 namespace gleam {
 
@@ -106,12 +105,12 @@ public:
 
     [[nodiscard]] auto Get() {
         if (touched) {
-            const auto cos_p = std::cos(rotation_.pitch);
-            const auto sin_p = std::sin(rotation_.pitch);
-            const auto cos_y = std::cos(rotation_.yaw);
-            const auto sin_y = std::sin(rotation_.yaw);
-            const auto cos_r = std::cos(rotation_.roll);
-            const auto sin_r = std::sin(rotation_.roll);
+            const auto cos_p = math::Cos(rotation_.pitch);
+            const auto sin_p = math::Sin(rotation_.pitch);
+            const auto cos_y = math::Cos(rotation_.yaw);
+            const auto sin_y = math::Sin(rotation_.yaw);
+            const auto cos_r = math::Cos(rotation_.roll);
+            const auto sin_r = math::Sin(rotation_.roll);
 
             transform_ = {
                 scale_.x * (cos_r * cos_y - sin_r * sin_p * sin_y),

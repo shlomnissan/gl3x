@@ -10,6 +10,7 @@
 #include "gleam_export.h"
 
 #include "gleam/math/matrix4.hpp"
+#include "gleam/math/utilities.hpp"
 
 namespace gleam {
 
@@ -28,25 +29,25 @@ public:
         roll(roll) {}
 
     explicit Euler(const Matrix4& m) {
-        pitch = std::asin(m[1].z);
-        if (std::cos(pitch) > 1e-6) {
-            yaw = std::atan2(-m[0].z, m[2].z);
-            roll = std::atan2(-m[1].x, m[1].y);
+        pitch = math::Asin(m[1].z);
+        if (math::Cos(pitch) > 1e-6) {
+            yaw = math::Atan2(-m[0].z, m[2].z);
+            roll = math::Atan2(-m[1].x, m[1].y);
         } else {
             // If cos(pitch) is close to zero, we have a gimble lock
             // and only one of the angles can be determined
             yaw = 0.0f;
-            roll = std::atan2(m[0].y, m[0].x);
+            roll = math::Atan2(m[0].y, m[0].x);
         }
     }
 
     [[nodiscard]] auto GetMatrix() const {
-        const auto cos_p = std::cos(pitch);
-        const auto sin_p = std::sin(pitch);
-        const auto cos_y = std::cos(yaw);
-        const auto sin_y = std::sin(yaw);
-        const auto cos_r = std::cos(roll);
-        const auto sin_r = std::sin(roll);
+        const auto cos_p = math::Cos(pitch);
+        const auto sin_p = math::Sin(pitch);
+        const auto cos_y = math::Cos(yaw);
+        const auto sin_y = math::Sin(yaw);
+        const auto cos_r = math::Cos(roll);
+        const auto sin_r = math::Sin(roll);
 
         return Matrix4 {
             cos_r * cos_y - sin_r * sin_p * sin_y, -sin_r * cos_p, cos_r * sin_y + sin_r * sin_p * cos_y, 0.0f,

@@ -41,7 +41,7 @@ TEST(Transform2, SetScale) {
 
 TEST(Transform2, SetRotation) {
     auto t = gleam::Transform2 {};
-    t.SetRotation(gleam::math::half_pi);
+    t.SetRotation(gleam::math::pi_over_2);
 
     auto r = t.GetRotation();
     auto c = std::cos(r);
@@ -59,14 +59,14 @@ TEST(Transform2, MultipleTransformations) {
     t.SetCenter({0.5f, 0.5f});
     t.SetPosition({2.0f, 3.0f});
     t.SetScale({2.0f, 2.0f});
-    t.SetRotation(gleam::math::half_pi);
+    t.SetRotation(gleam::math::pi_over_2);
 
     auto c = std::cos(t.GetRotation()) * t.GetScale().x;
     auto s = std::sin(t.GetRotation()) * t.GetScale().y;
     EXPECT_VEC2_EQ(t.GetCenter(), {0.5f, 0.5f});
     EXPECT_VEC2_EQ(t.GetPosition(), {2.0f, 3.0f});
     EXPECT_VEC2_EQ(t.GetScale(), {2.0f, 2.0f});
-    EXPECT_EQ(t.GetRotation(), gleam::math::half_pi);
+    EXPECT_EQ(t.GetRotation(), gleam::math::pi_over_2);
     EXPECT_MAT3_EQ(t.Get(), {
         c, -s, 3.5f,
         s, c, 2.5f,
@@ -104,11 +104,11 @@ TEST(Transform2, Scale) {
 
 TEST(Transform2, Rotate) {
     auto t = gleam::Transform2 {};
-    t.Rotate(gleam::math::half_pi);
+    t.Rotate(gleam::math::pi_over_2);
 
     auto c = std::cos(t.GetRotation());
     auto s = std::sin(t.GetRotation());
-    EXPECT_EQ(t.GetRotation(), gleam::math::half_pi);
+    EXPECT_EQ(t.GetRotation(), gleam::math::pi_over_2);
     EXPECT_MAT3_EQ(t.Get(), {
         c, -s, 0.0f,
         s, c, 0.0f,
@@ -121,14 +121,14 @@ TEST(Transform2, TransformationsWithOffset) {
     t.SetCenter({0.5, 0.5f});
     t.Translate({2.0f, 3.0f});
     t.Scale({2.0f, 2.0f});
-    t.Rotate(gleam::math::half_pi);
+    t.Rotate(gleam::math::pi_over_2);
 
     auto c = std::cos(t.GetRotation()) * t.GetScale().x;
     auto s = std::sin(t.GetRotation()) * t.GetScale().y;
     EXPECT_VEC2_EQ(t.GetCenter(), {0.5f, 0.5f});
     EXPECT_VEC2_EQ(t.GetPosition(), {2.0f, 3.0f});
     EXPECT_VEC2_EQ(t.GetScale(), {2.0f, 2.0f});
-    EXPECT_EQ(t.GetRotation(), gleam::math::half_pi);
+    EXPECT_EQ(t.GetRotation(), gleam::math::pi_over_2);
     EXPECT_MAT3_EQ(t.Get(), {
         c, -s, 3.5f,
         s, c, 2.5f,
@@ -143,7 +143,7 @@ TEST(Transform2, TransformationsWithOffset) {
 TEST(Transform2, TranslateBeforeRotation) {
     auto t = gleam::Transform2 {};
     t.Translate({0.0f, 1.0f});
-    t.Rotate(gleam::math::half_pi);
+    t.Rotate(gleam::math::pi_over_2);
 
     auto c = std::cos(t.GetRotation());
     auto s = std::sin(t.GetRotation());
@@ -157,7 +157,7 @@ TEST(Transform2, TranslateBeforeRotation) {
 
 TEST(Transform2, TranslateAfterRotation) {
     auto t = gleam::Transform2 {};
-    t.Rotate(gleam::math::half_pi);
+    t.Rotate(gleam::math::pi_over_2);
     t.Translate({0.0f, 1.0f});
 
     auto c = std::cos(t.GetRotation());

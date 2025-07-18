@@ -23,9 +23,10 @@ namespace gleam::math {
 using Pair = struct { float x, y; };
 
 constexpr float pi = 3.1415926535897932384626433832795f;
-constexpr float half_pi = 1.5707963267948966192313216916398f;
 constexpr float two_pi = 6.2831853071795864769252867665590f;
+constexpr float pi_over_2 = 1.5707963267948966192313216916398f;
 constexpr float pi_over_4 = 0.78539816339744830961566084581988f;
+constexpr float pi_over_6 = 0.52359877559829887307710723054658f;
 constexpr float tau = 6.2831853071795864769252867665590f;
 constexpr float tau_over_2 = 3.1415926535897932384626433832795f;
 constexpr float tau_over_4 = 1.5707963267948966192313216916398f;
@@ -108,6 +109,34 @@ alignas(64) constexpr uint32_t arctan_table[65] {
     return (x < 0.0F) ? -x : x;
 }
 
+[[nodiscard]] constexpr auto Sqrt(float x) {
+    if (x <= 0.0f) {
+        return 0.0f;
+    }
+
+    auto i = std::bit_cast<uint32_t>(x);
+    i = 0x5F375A86 - (i >> 1);
+    auto r = std::bit_cast<float>(i);
+    r = (0.5f * r) * (3.0f - x * r * r);
+    r = (0.5f * r) * (3.0f - x * r * r);
+
+    return r * x;
+}
+
+[[nodiscard]] constexpr auto InverseSqrt(float x) {
+    if (x <= 0.0f) {
+        return std::numeric_limits<float>::infinity();
+    }
+
+    auto i = std::bit_cast<uint32_t>(x);
+    i = 0x5F375A86 - (i >> 1);
+    auto r = std::bit_cast<float>(i);
+    r = (0.5f * r) * (3.0f - x * r * r);
+    r = (0.5f * r) * (3.0f - x * r * r);
+
+    return r;
+}
+
 [[nodiscard]] constexpr auto Cos(float x) {
     auto b = Fabs(x) * inv_tau;
     auto i = static_cast<int32_t>(b);
@@ -178,42 +207,14 @@ alignas(64) constexpr uint32_t arctan_table[65] {
     }
 
     if (Fabs(y) > epsilon) {
-        return y > 0.0f ? math::half_pi : -math::half_pi;
+        return y > 0.0f ? math::pi_over_2 : -math::pi_over_2;
     }
 
     return 0.0f;
 }
 
-[[nodiscard]] constexpr auto Arcsin(float x) {
-    return 0.0f;
-}
-
-[[nodiscard]] constexpr auto Sqrt(float x) {
-    if (x <= 0.0f) {
-        return 0.0f;
-    }
-
-    auto i = std::bit_cast<uint32_t>(x);
-    i = 0x5F375A86 - (i >> 1);
-    auto r = std::bit_cast<float>(i);
-    r = (0.5f * r) * (3.0f - x * r * r);
-    r = (0.5f * r) * (3.0f - x * r * r);
-
-    return r * x;
-}
-
-[[nodiscard]] constexpr auto InverseSqrt(float x) {
-    if (x <= 0.0f) {
-        return std::numeric_limits<float>::infinity();
-    }
-
-    auto i = std::bit_cast<uint32_t>(x);
-    i = 0x5F375A86 - (i >> 1);
-    auto r = std::bit_cast<float>(i);
-    r = (0.5f * r) * (3.0f - x * r * r);
-    r = (0.5f * r) * (3.0f - x * r * r);
-
-    return r;
+[[nodiscard]] constexpr auto Asin(float y) {
+    return (Atan(y * InverseSqrt(1.0f - y * y)));
 }
 
 [[nodiscard]] GLEAM_EXPORT inline auto GenerateUUID() {

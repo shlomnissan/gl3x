@@ -13,8 +13,6 @@
 #include <gleam/math/vector3.hpp>
 #include <gleam/math/utilities.hpp>
 
-#include <cmath>
-
 auto Rotate(float angle, const gleam::Vector3& v) -> gleam::Matrix4;
 
 #pragma region Constructor
@@ -57,7 +55,7 @@ TEST(Euler, GetMatrixBasic) {
 #pragma region Edge Cases
 
 TEST(Euler, ConstrucotrWithMatrixGimbalLock) {
-    const auto pitch = gleam::math::half_pi;
+    const auto pitch = gleam::math::pi_over_2;
     const auto yaw = 0.0f;
     const auto roll = 0.0f;
 
@@ -118,8 +116,8 @@ TEST(Euler, IsEmptyReturnsFalse) {
 
 auto Rotate(float angle, const gleam::Vector3& v) -> gleam::Matrix4 {
     const auto a = angle;
-    const auto c = std::cos(a);
-    const auto s = std::sin(a);
+    const auto c = gleam::math::Cos(a);
+    const auto s = gleam::math::Sin(a);
     const auto axis = Normalize(v);
     const auto temp = (1.0f - c) * axis;
 

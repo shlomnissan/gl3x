@@ -16,7 +16,7 @@
 
 namespace gleam {
 
-constexpr auto kVerticalLimit = math::half_pi - 0.1f;
+constexpr auto kVerticalLimit = math::pi_over_2 - 0.1f;
 
 struct OrbitControls::Impl {
     Camera* camera;
