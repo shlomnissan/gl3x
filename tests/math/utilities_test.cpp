@@ -96,7 +96,7 @@ TEST(MathUtilities, InverseSqrtTinyValues) {
     EXPECT_GT(math::InverseSqrt(std::numeric_limits<float>::min()), 1e-18f);
     EXPECT_GT(math::InverseSqrt(1e-10f), 1e4f);
 
-    static_assert(std::isinf(math::InverseSqrt(0.0f)));
+    static_assert(math::InverseSqrt(0.0f) == std::numeric_limits<float>::infinity());
     static_assert(math::InverseSqrt(std::numeric_limits<float>::min()) > 1e-18f);
     static_assert(math::InverseSqrt(1e-10f) > 1e-4f);
 }
@@ -104,7 +104,7 @@ TEST(MathUtilities, InverseSqrtTinyValues) {
 TEST(MathUtilities, InverseSqrtNegativeInputBehavior) {
     EXPECT_TRUE(std::isinf(math::InverseSqrt(-1.0f)));
 
-    static_assert(std::isinf(math::InverseSqrt(-1.0f)));
+    static_assert(math::InverseSqrt(-1.0f) == std::numeric_limits<float>::infinity());
 }
 
 #pragma endregion
