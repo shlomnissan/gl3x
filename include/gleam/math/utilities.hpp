@@ -25,8 +25,13 @@ using Pair = struct { float x, y; };
 constexpr float pi = 3.1415926535897932384626433832795f;
 constexpr float half_pi = 1.5707963267948966192313216916398f;
 constexpr float two_pi = 6.2831853071795864769252867665590f;
-constexpr float inv_tau = 40.74366543f;
+constexpr float pi_over_4 = 0.78539816339744830961566084581988f;
+constexpr float tau = 6.2831853071795864769252867665590f;
+constexpr float tau_over_2 = 3.1415926535897932384626433832795f;
+constexpr float tau_over_4 = 1.5707963267948966192313216916398f;
 constexpr float tau_over_256 = 0.0245436926f;
+constexpr float inv_tau = 40.74366543f;
+constexpr float epsilon = 1e-6f;
 
 alignas(64) constexpr uint32_t trig_table[256][2] =
 {
@@ -64,6 +69,17 @@ alignas(64) constexpr uint32_t trig_table[256][2] =
 	{0x3F7B14BE, 0xBE47C5C2}, {0x3F7C3B28, 0xBE2F10A3}, {0x3F7D3AAC, 0xBE164083}, {0x3F7E1324, 0xBDFAB273}, {0x3F7EC46D, 0xBDC8BD36}, {0x3F7F4E6D, 0xBD96A905}, {0x3F7FB10F, 0xBD48FB30}, {0x3F7FEC43, 0xBCC90AB0}
 };
 
+alignas(64) constexpr uint32_t arctan_table[65] {
+    0x00000000, 0x3C7FFAAB, 0x3CFFEAAE, 0x3D3FDC0C, 0x3D7FAADE, 0x3D9FACF8, 0x3DBF70C1, 0x3DDF1CF6,
+    0x3DFEADD5, 0x3E0F0FD8, 0x3E1EB777, 0x3E2E4C09, 0x3E3DCBDA, 0x3E4D3547, 0x3E5C86BB, 0x3E6BBEAF,
+    0x3E7ADBB0, 0x3E84EE2D, 0x3E8C5FAD, 0x3E93C1B9, 0x3E9B13BA, 0x3EA25522, 0x3EA9856D, 0x3EB0A420,
+    0x3EB7B0CA, 0x3EBEAB02, 0x3EC5926A, 0x3ECC66AA, 0x3ED32776, 0x3ED9D489, 0x3EE06DA6, 0x3EE6F29A,
+    0x3EED6338, 0x3EF3BF5C, 0x3EFA06E8, 0x3F001CE4, 0x3F032BF5, 0x3F0630A3, 0x3F092AED, 0x3F0C1AD4,
+    0x3F0F005D, 0x3F11DB8F, 0x3F14AC73, 0x3F177314, 0x3F1A2F81, 0x3F1CE1C9, 0x3F1F89FE, 0x3F222833,
+    0x3F24BC7D, 0x3F2746F3, 0x3F29C7AC, 0x3F2C3EC1, 0x3F2EAC4C, 0x3F311069, 0x3F336B32, 0x3F35BCC5,
+    0x3F38053E, 0x3F3A44BC, 0x3F3C7B5E, 0x3F3EA941, 0x3F40CE86, 0x3F42EB4B, 0x3F44FFB0, 0x3F470BD5, 0x3F490FDB
+};
+
 [[nodiscard]] constexpr Pair GetTrigPair(int32_t index) {
     return std::bit_cast<Pair>(trig_table[index & 255]);
 }
@@ -88,12 +104,16 @@ alignas(64) constexpr uint32_t trig_table[256][2] =
     return x > y ? CantorPairing(y, x) : CantorPairing(x, y);
 }
 
+[[nodiscard]] constexpr auto Fabs(float x) {
+    return (x < 0.0F) ? -x : x;
+}
+
 [[nodiscard]] constexpr auto Cos(float x) {
-    auto b = (x < 0.0f ? -x : x) * inv_tau;
+    auto b = Fabs(x) * inv_tau;
     auto i = static_cast<int32_t>(b);
     b = (b - float(i)) * tau_over_256;
 
-    const auto cossin_alpha = GetTrigPair(i & 255);
+    auto cossin_alpha = GetTrigPair(i & 255);
 
     auto b2 = b * b;
     auto sine_beta = b - b * b2 * (0.1666666667f - b2 * 0.0083333333f);
@@ -103,11 +123,11 @@ alignas(64) constexpr uint32_t trig_table[256][2] =
 }
 
 [[nodiscard]] constexpr auto Sin(float x) {
-    auto b = (x < 0.0f ? -x : x) * inv_tau;
+    auto b = Fabs(x) * inv_tau;
     auto i = static_cast<int32_t>(b);
     b = (b - float(i)) * tau_over_256;
 
-    const auto cossin_alpha = GetTrigPair(i & 255);
+    auto cossin_alpha = GetTrigPair(i & 255);
 
     auto b2 = b * b;
     auto sine_beta = b - b * b2 * (0.1666666667f - b2 * 0.0083333333f);
@@ -115,6 +135,57 @@ alignas(64) constexpr uint32_t trig_table[256][2] =
 
     auto sine = cossin_alpha.y * cosine_beta + cossin_alpha.x * sine_beta;
     return x < 0.0f ? -sine : sine;
+}
+
+[[nodiscard]] constexpr auto Atan(float x) {
+    auto a = Fabs(x);
+
+    if (a <= 1.0f) {
+        auto b = a * 64.0f;
+        auto i = static_cast<int32_t>(b);
+        b = float(i) * 0.015625f; // inv_table_size: 1.0f / 64.0f
+
+        auto arctan_b = std::bit_cast<float>(arctan_table[i]);
+        auto c = (a - b) / (a * b + 1.0F);
+        auto c2 = c * c;
+
+        auto arctan_c = c * (1.0F - c2 * (0.3333333333f + c2 * (0.2f - c2 * 0.1428571429f)));
+        a = arctan_b + arctan_c;
+    } else {
+        a = 1.0f / a;
+        auto b = a * 64.0f;
+        auto i = static_cast<int32_t>(b);
+        b = float(i) * 0.015625f;
+
+        auto arctan_b = std::bit_cast<float>(arctan_table[i]);
+        auto c = (a - b) / (a * b + 1.0F);
+        auto c2 = c * c;
+
+        auto arctan_c = c * (1.0F - c2 * (0.3333333333f + c2 * (0.2f - c2 * 0.1428571429f)));
+        a = tau_over_4 - (arctan_b + arctan_c);
+    }
+
+    return x < 0.0f ? -a : a;
+}
+
+[[nodiscard]] constexpr auto Atan2(float y, float x) {
+    if (Fabs(x) > epsilon) {
+        auto r = Atan(y / x);
+        if (x < 0.0f) {
+            return y >= 0.0f ? r + math::pi : r - math::pi;
+        }
+        return r;
+    }
+
+    if (Fabs(y) > epsilon) {
+        return y > 0.0f ? math::half_pi : -math::half_pi;
+    }
+
+    return 0.0f;
+}
+
+[[nodiscard]] constexpr auto Arcsin(float x) {
+    return 0.0f;
 }
 
 [[nodiscard]] constexpr auto Sqrt(float x) {

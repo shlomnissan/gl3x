@@ -239,6 +239,86 @@ TEST(MathUtilities, LerpOutOfRangeFactor) {
 
 #pragma endregion
 
+#pragma region Atan
+
+TEST(MathUtilities, AtanCommonAngles) {
+    EXPECT_NEAR(math::Atan(0.0f), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Atan(1.0f), math::pi_over_4, 1e-4f);
+    EXPECT_NEAR(math::Atan(-1.0f), -math::pi_over_4, 1e-4f);
+    EXPECT_NEAR(math::Atan(std::numeric_limits<float>::infinity()), math::half_pi, 1e-4f);
+    EXPECT_NEAR(math::Atan(-std::numeric_limits<float>::infinity()), -math::half_pi, 1e-4f);
+
+    static_assert(ApproxEqual(math::Atan(0.0f), 0.0f));
+    static_assert(ApproxEqual(math::Atan(1.0f), math::pi_over_4));
+    static_assert(ApproxEqual(math::Atan(-1.0f), -math::pi_over_4));
+}
+
+TEST(MathUtilities, AtanSymmetryProperties) {
+    constexpr float x = 0.75f;
+    EXPECT_NEAR(math::Atan(x), -math::Atan(-x), 1e-4f);
+
+    static_assert(ApproxEqual(math::Atan(x), -math::Atan(-x)));
+}
+
+TEST(MathUtilities, AtanLimits) {
+    EXPECT_NEAR(math::Atan(1e6f), math::half_pi, 1e-4f);
+    EXPECT_NEAR(math::Atan(-1e6f), -math::half_pi, 1e-4f);
+}
+
+TEST(MathUtilities, AtanMonotonicity) {
+    constexpr float a = 0.5f;
+    constexpr float b = 1.0f;
+    constexpr float c = 2.0f;
+
+    EXPECT_GT(math::Atan(b), math::Atan(a));
+    EXPECT_GT(math::Atan(c), math::Atan(b));
+    EXPECT_GT(math::Atan(a), math::Atan(-a));
+}
+
+#pragma endregion
+
+#pragma region Atan2
+
+TEST(MathUtilities, Atan2CommonAngles) {
+    EXPECT_NEAR(math::Atan2(0.0f, 1.0f), 0.0f, 1e-4f);
+    EXPECT_NEAR(math::Atan2(1.0f, 0.0f), math::half_pi, 1e-4f);
+    EXPECT_NEAR(math::Atan2(0.0f, -1.0f), math::pi, 1e-4f);
+    EXPECT_NEAR(math::Atan2(-1.0f, 0.0f), -math::half_pi, 1e-4f);
+    EXPECT_NEAR(math::Atan2(1.0f, 1.0f), math::pi_over_4, 1e-4f);
+    EXPECT_NEAR(math::Atan2(-1.0f, -1.0f), -3.0f * math::pi_over_4, 1e-4f);
+
+    static_assert(ApproxEqual(math::Atan2(0.0f, 1.0f), 0.0f));
+    static_assert(ApproxEqual(math::Atan2(1.0f, 0.0f), math::half_pi));
+    static_assert(ApproxEqual(math::Atan2(0.0f, -1.0f), math::pi));
+    static_assert(ApproxEqual(math::Atan2(-1.0f, 0.0f), -math::half_pi));
+    static_assert(ApproxEqual(math::Atan2(1.0f, 1.0f), math::pi_over_4));
+}
+
+TEST(MathUtilities, Atan2SymmetryProperties) {
+    constexpr float x = 0.75f;
+    constexpr float y = 0.5f;
+
+    EXPECT_NEAR(math::Atan2(y, x), -math::Atan2(-y, x), 1e-4f);
+    static_assert(ApproxEqual(math::Atan2(y, x), -math::Atan2(-y, x)));
+}
+
+TEST(MathUtilities, Atan2DiagonalQuadrants) {
+    EXPECT_NEAR(math::Atan2(1.0f, -1.0f), 3.0f * math::pi_over_4, 1e-4f);
+    EXPECT_NEAR(math::Atan2(-1.0f, -1.0f), -3.0f * math::pi_over_4, 1e-4f);
+    EXPECT_NEAR(math::Atan2(-1.0f, 1.0f), -math::pi_over_4, 1e-4f);
+
+    static_assert(ApproxEqual(math::Atan2(1.0f, -1.0f), 3.0f * math::pi_over_4));
+    static_assert(ApproxEqual(math::Atan2(-1.0f, -1.0f), -3.0f * math::pi_over_4));
+    static_assert(ApproxEqual(math::Atan2(-1.0f, 1.0f), -math::pi_over_4));
+}
+
+TEST(MathUtilities, Atan2ZeroZeroReturnsZero) {
+    EXPECT_NEAR(math::Atan2(0.0f, 0.0f), 0.0f, 1e-4f); // defined fallback
+    static_assert(ApproxEqual(math::Atan2(0.0f, 0.0f), 0.0f));
+}
+
+#pragma endregion
+
 #pragma region Cantor Pairing
 
 TEST(MathUtilities, CantorPairingZeroPairing) {
