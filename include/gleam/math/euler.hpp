@@ -14,20 +14,53 @@
 
 namespace gleam {
 
-// The default rotation order of YXZ.
+/**
+ * @brief Represents 3D Euler angles with pitch, yaw, and roll components.
+ *
+ * `Euler` stores orientation using intrinsic Tait-Bryan angles in **YXZ order**, where:
+ * - **yaw** is a rotation around the Y-axis,
+ * - **pitch** is a rotation around the X-axis,
+ * - **roll** is a rotation around the Z-axis.
+ *
+ * This class supports construction from individual angles or a transformation matrix,
+ * and can convert back to a `Matrix4` representation for use in transformations.
+ *
+ * Note: Gimbal lock may occur when pitch approaches ±90°, limiting the reliability of angle reconstruction.
+ *
+ * @ingroup MathGroup
+ */
 class GLEAM_EXPORT Euler  {
 public:
-    float pitch {0.0f};
-    float yaw {0.0f};
-    float roll {0.0f};
+    float pitch {0.0f}; ///< Rotation around the X-axis in radians.
+    float yaw {0.0f}; ///< Rotation around the Y-axis in radians.
+    float roll {0.0f}; ///< Rotation around the Z-axis in radians.
 
+    /**
+     * @brief Constructs an Euler angles object.
+     */
     constexpr Euler() = default;
 
+    /**
+     * @brief Constructs an Euler angles object from pitch, yaw, and roll.
+     *
+     * @param pitch Rotation around the X-axis (in radians).
+     * @param yaw Rotation around the Y-axis (in radians).
+     * @param roll Rotation around the Z-axis (in radians).
+     */
     constexpr Euler(float pitch, float yaw, float roll) :
         pitch(pitch),
         yaw(yaw),
         roll(roll) {}
 
+    /**
+     * @brief Constructs an Euler angles object from a transformation matrix.
+     *
+     * This constructor extracts pitch, yaw, and roll from a given matrix.
+     * If gimbal lock is detected (when cos(pitch) is near zero), yaw is set to 0,
+     * and roll is computed using an alternate strategy.
+     *
+     * @param m Input transformation matrix.
+     */
     explicit constexpr Euler(const Matrix4& m) {
         pitch = math::Asin(m[1].z);
         if (math::Cos(pitch) > 1e-6) {
@@ -41,6 +74,13 @@ public:
         }
     }
 
+    /**
+     * @brief Converts the Euler angles into a 4×4 transformation matrix.
+     *
+     * The resulting matrix is constructed using the default YXZ rotation order.
+     *
+     * @return Transformation matrix representing the orientation.
+     */
     [[nodiscard]] constexpr auto GetMatrix() const {
         const auto cos_p = math::Cos(pitch);
         const auto sin_p = math::Sin(pitch);
@@ -57,12 +97,18 @@ public:
         };
     }
 
+    /**
+     * @brief Checks whether all angles are zero.
+     *
+     * @return true if pitch, yaw, and roll are all zero.
+     */
     [[nodiscard]] constexpr auto IsEmpty() const {
         return pitch == 0.0f && yaw == 0.0f && roll == 0.0f;
     }
 
 private:
-   [[nodiscard]] friend constexpr auto operator==(const Euler& a, const Euler& b) -> bool = default;
+    /// @brief Equality comparison operator.
+    [[nodiscard]] friend constexpr auto operator==(const Euler& a, const Euler& b) -> bool = default;
 };
 
 }
