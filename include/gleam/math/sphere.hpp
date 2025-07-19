@@ -17,28 +17,71 @@
 
 namespace gleam {
 
+/**
+ * @brief A bounding sphere defined by a center point and radius.
+ *
+ * Useful for fast intersection tests, frustum culling, and spatial bounds.
+ *
+ * @ingroup MathGroup
+ */
 struct GLEAM_EXPORT Sphere {
+    /// @brief Center of the sphere in 3D space.
     Vector3 center {Vector3::Zero()};
 
+    /// @brief Radius of the sphere. A negative value indicates an empty sphere.
     float radius {-1.0f};
 
+    /**
+     * @brief Constructs a Sphere with a negative (empty) radius.
+     */
     constexpr Sphere() = default;
 
+    /**
+     * @brief Constructs a Sphere from a center and a radius.
+     *
+     * @param center Center position.
+     * @param radius Radius.
+     */
     constexpr Sphere(const Vector3 center, float radius) :
         center(center),
         radius(radius) {}
 
+    /**
+     * @brief Returns the current radius of the sphere.
+     *
+     * @return Radius of the sphere.
+     */
     [[nodiscard]] constexpr auto Radius() const { return radius; }
 
+    /**
+     * @brief Resets the sphere to an empty state.
+     *
+     * Sets the center to (0, 0, 0) and the radius to -1.
+     */
     constexpr auto Reset() {
         center = Vector3::Zero();
         radius = -1.0f;
     }
 
+    /**
+     * @brief Checks if the sphere is empty.
+     *
+     * An empty sphere is defined by a negative radius.
+     *
+     * @return True if the sphere is empty, false otherwise.
+     */
     [[nodiscard]] constexpr auto IsEmpty() const {
         return radius < 0.0f;
     }
 
+    /**
+     * @brief Expands the sphere to include a given point.
+     *
+     * If the sphere is empty, it is initialized with the point.
+     * Otherwise, the sphere expands just enough to include the point.
+     *
+     * @param p Point to include in the sphere.
+     */
     constexpr auto ExpandWithPoint(const Vector3& p) {
         // Handle the case where the sphere is empty (invalid).
         // In this case, the sphere is centered at the point and has a radius of 0.
@@ -60,6 +103,14 @@ struct GLEAM_EXPORT Sphere {
         }
     }
 
+    /**
+     * @brief Transforms the sphere by the given matrix.
+     *
+     * The center is transformed directly, and the radius is scaled
+     * by the maximum scale component of the matrix.
+     *
+     * @param transform 4x4 matrix to apply to the sphere.
+     */
     constexpr auto ApplyTransform(const Matrix4& transform) {
         center = transform * center;
         auto& t0 = transform[0];
@@ -73,6 +124,11 @@ struct GLEAM_EXPORT Sphere {
         }));
     }
 
+    /**
+     * @brief Translates the sphere by a constant vector.
+     *
+     * @param translation Vector to translate by.
+     */
     constexpr auto Translate(const Vector3& translation) {
         center += translation;
     }
