@@ -19,6 +19,8 @@ class GLEAM_EXPORT Transform2 {
 public:
     bool touched {true};
 
+    constexpr Transform2() = default;
+
     constexpr auto Translate(const Vector2& value) {
         const float s = math::Sin(rotation_);
         const float c = math::Cos(rotation_);

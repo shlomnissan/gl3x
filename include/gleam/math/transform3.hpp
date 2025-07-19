@@ -20,17 +20,19 @@ class GLEAM_EXPORT Transform3 {
 public:
     bool touched {true};
 
-    auto Translate(const Vector3& value) {
+    constexpr Transform3() = default;
+
+    constexpr auto Translate(const Vector3& value) {
         position_ += rotation_.IsEmpty() ? value : rotation_.GetMatrix() * value;
         touched = true;
     }
 
-    auto Scale(const Vector3& value) {
+    constexpr auto Scale(const Vector3& value) {
         scale_ *= value;
         touched = true;
     }
 
-    auto Rotate(const Vector3& axis, float angle) {
+    constexpr auto Rotate(const Vector3& axis, float angle) {
         assert(axis == Vector3::Right() || axis == Vector3::Up() || axis == Vector3::Forward());
         if (axis == Vector3::Right()) {
             rotation_.pitch += angle;
@@ -42,7 +44,7 @@ public:
         touched = true;
     }
 
-    auto LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) {
+    constexpr auto LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) {
         auto forward = Normalize(position - target);
         if (forward == Vector3::Zero()) {
             // The position and target are the same,
@@ -76,34 +78,34 @@ public:
         touched = true;
     }
 
-    auto SetPosition(const Vector3& position) {
+    constexpr auto SetPosition(const Vector3& position) {
         if (position_ != position) {
             position_ = position;
             touched = true;
         }
     }
 
-    auto SetScale(const Vector3& scale) {
+    constexpr auto SetScale(const Vector3& scale) {
         if (scale_ != scale) {
             scale_ = scale;
             touched = true;
         }
     }
 
-    auto SetRotation(const Euler& rotation) {
+    constexpr auto SetRotation(const Euler& rotation) {
         if (rotation_ != rotation) {
             rotation_ = rotation;
             touched = true;
         }
     }
 
-    [[nodiscard]] auto GetPosition() const { return position_; }
+    [[nodiscard]] constexpr auto GetPosition() const { return position_; }
 
-    [[nodiscard]] auto GetScale() const { return scale_; };
+    [[nodiscard]] constexpr auto GetScale() const { return scale_; };
 
-    [[nodiscard]] auto GetRotation() const { return rotation_; }
+    [[nodiscard]] constexpr auto GetRotation() const { return rotation_; }
 
-    [[nodiscard]] auto Get() {
+    [[nodiscard]] constexpr auto Get() {
         if (touched) {
             const auto cos_p = math::Cos(rotation_.pitch);
             const auto sin_p = math::Sin(rotation_.pitch);
