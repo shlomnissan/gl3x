@@ -12,11 +12,7 @@
 using namespace gleam;
 
 ExampleGridResource::ExampleGridResource() {
-    grid_ = Grid::Create({
-        .size = 4.0f,
-        .divisions = 16,
-        .color = Color(0x333333)
-    });
+    grid_ = Grid::Create(grid_params_);
 
     Add(grid_);
 }

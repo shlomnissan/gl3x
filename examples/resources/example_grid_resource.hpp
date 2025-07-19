@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <gleam/math.hpp>
 #include <gleam/nodes.hpp>
 
 #include <memory>
@@ -22,7 +23,11 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    gleam::Grid::Parameters grid_params_;
+    gleam::Grid::Parameters grid_params_ {
+        .size = 4.0f,
+        .divisions = 16,
+        .color = gleam::Color(0x333333)
+    };
 
     std::shared_ptr<gleam::Grid> grid_;
 };
