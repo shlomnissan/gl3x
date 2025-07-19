@@ -37,7 +37,7 @@ public:
     /**
      * @brief Constructs a vector with all components set to the same value.
      *
-     * @param value Value to assign to x, y and y.
+     * @param value Value to assign to x, y and z.
      */
     constexpr Vector3(float value) : Vector3(value, value, value) {}
 
@@ -121,7 +121,7 @@ public:
      * @param i Index (0 for x, 1 for y, 2 for z).
      * @return float Const reference to component.
      */
-    [[nodiscard]] constexpr auto& operator[](int i) const {
+    [[nodiscard]] constexpr const auto& operator[](int i) const {
         assert(i >= 0 && i < 3);
         switch (i) {
             case 0: return x;
@@ -132,7 +132,7 @@ public:
     }
 
     /// @brief Adds another vector to this one.
-    constexpr auto operator+=(const Vector3& v) -> Vector3& {
+    constexpr auto& operator+=(const Vector3& v) {
         x += v.x;
         y += v.y;
         z += v.z;
@@ -140,7 +140,7 @@ public:
     }
 
     /// @brief Subtracts another vector from this one.
-    constexpr auto operator-=(const Vector3& v) -> Vector3& {
+    constexpr auto& operator-=(const Vector3& v) {
         x -= v.x;
         y -= v.y;
         z -= v.z;
@@ -148,7 +148,7 @@ public:
     }
 
     /// @brief Scales the vector by a scalar.
-    constexpr auto operator*=(float n) -> Vector3& {
+    constexpr auto& operator*=(float n) {
         x *= n;
         y *= n;
         z *= n;
@@ -156,7 +156,7 @@ public:
     }
 
     /// @brief Scales each component by another vector.
-    constexpr auto operator*=(const Vector3& v) -> Vector3& {
+    constexpr auto& operator*=(const Vector3& v) {
         x *= v.x;
         y *= v.y;
         z *= v.z;
@@ -170,7 +170,7 @@ public:
      *
      * @return gleam::Vector3 Reference to this vector.
      */
-    constexpr auto Normalize() -> Vector3& {
+    constexpr auto& Normalize() {
         const auto len = Length();
         return len == 0.0f ? *this : (*this *= (1.0f / len));
     }
@@ -217,7 +217,7 @@ private:
  *
  * @param a First vector.
  * @param b Second vector.
- * @return float Cross product (a × b).
+ * @return gleam::Vector3 Cross product (a × b).
  */
 [[nodiscard]] inline constexpr auto Cross(const Vector3& a, const Vector3& b) {
     return Vector3 {
@@ -257,7 +257,7 @@ private:
  * @relatesalso Vector3
  *
  * @param v Input vector.
- * @return Vector3 Normalized vector or zero if the input is zero-length.
+ * @return gleam::Vector3 Normalized vector or zero if the input is zero-length.
  */
 [[nodiscard]] inline constexpr auto Normalize(const Vector3& v) {
     const auto len = v.Length();
