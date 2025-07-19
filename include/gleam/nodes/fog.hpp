@@ -17,6 +17,7 @@ namespace gleam {
 
 /**
  * @brief Represents available fog types.
+ *
  * @ingroup NodesGroup
  */
 enum class FogType {
