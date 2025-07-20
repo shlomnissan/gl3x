@@ -24,10 +24,11 @@ uniform vec3 u_AmbientLight;
 vec3 phongShading(
     const in vec3 light_dir,
     const in vec3 light_color,
-    const in vec3 normal
+    const in vec3 normal,
+    const in vec3 diffuse_color
 ) {
     float diffuse_factor = max(dot(light_dir, normal), 0.0);
-    vec3 diffuse = light_color * u_Material.DiffuseColor * diffuse_factor;
+    vec3 diffuse = light_color * diffuse_color * diffuse_factor;
 
     // If the diffuse factor is zero, the light is facing away from the surface
     // and no light contribution should be calculated, so we skip specular calculation.
@@ -66,19 +67,19 @@ float attenuation(in float dist, in Light light) {
     return clamp(1.0 / max(denominator, 0.01), 0.02, 1.0);
 }
 
-vec3 processLights(const in vec3 normal) {
+vec3 processLights(const in vec3 normal, const in vec3 diffuse_color) {
     vec3 output_color = vec3(0.0);
     for (int i = 0; i < NUM_LIGHTS; i++) {
         Light light = u_Lights[i];
 
         if (light.Type == 1 /* directional light */) {
-            output_color += phongShading(light.Direction, light.Color, normal);
+            output_color += phongShading(light.Direction, light.Color, normal, diffuse_color);
         }
 
         if (light.Type == 2 /* point light */) {
             vec3 light_dir = normalize(light.Position - v_Position.xyz);
             float dist = length(light.Position - v_Position.xyz);
-            output_color += attenuation(dist, light) * phongShading(light_dir, light.Color, normal);
+            output_color += attenuation(dist, light) * phongShading(light_dir, light.Color, normal, diffuse_color);
         }
 
         if (light.Type == 3 /* spot light */) {
@@ -87,7 +88,7 @@ vec3 processLights(const in vec3 normal) {
             float angle_cos = dot(light_dir, light.Direction);
             if (angle_cos > light.ConeCos) {
                 vec3 spot_color = light.Color * smoothstep(light.ConeCos, light.PenumbraCos, angle_cos);
-                output_color += attenuation(dist, light) * phongShading(light_dir, spot_color, normal);
+                output_color += attenuation(dist, light) * phongShading(light_dir, spot_color, normal, diffuse_color);
             }
         }
     }
@@ -99,18 +100,19 @@ vec3 processLights(const in vec3 normal) {
 void main() {
     #include "snippets/frag_main_normal.glsl"
 
-    vec3 base_color = u_Material.DiffuseColor;
+    vec3 diffuse_color = u_Material.DiffuseColor;
     float opacity = u_Opacity;
 
     #ifdef USE_TEXTURE_MAP
         vec4 texture_sample = texture(u_TextureMap, v_TexCoord);
-        base_color *= texture_sample.rgb;
+        diffuse_color *= texture_sample.rgb;
         opacity *= texture_sample.a;
     #endif
 
-    vec3 output_color = base_color * u_AmbientLight;
+    vec3 output_color = diffuse_color * u_AmbientLight;
     #if NUM_LIGHTS > 0
-        output_color += processLights(normal);
+        output_color += processLights(normal, diffuse_color);
+        output_color = clamp(output_color, 0.0, 1.0);
     #endif
 
     #ifdef USE_FOG
