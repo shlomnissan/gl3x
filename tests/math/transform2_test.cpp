@@ -19,7 +19,7 @@ TEST(Transform2, SetPosition) {
     auto t1 = gleam::Transform2 {};
     t1.SetPosition({2.0f, 1.0f});
 
-    EXPECT_VEC2_EQ(t1.GetPosition(), {2.0f, 1.0f});
+    EXPECT_VEC2_EQ(t1.position, {2.0f, 1.0f});
     EXPECT_MAT3_EQ(t1.Get(), {
         1.0f, 0.0f, 2.0f,
         0.0f, 1.0f, 1.0f,
@@ -32,15 +32,15 @@ TEST(Transform2, SetPosition) {
         return t;
     }();
 
-    static_assert(t2.GetPosition().x == 2.0f);
-    static_assert(t2.GetPosition().y == 1.0f);
+    static_assert(t2.position.x == 2.0f);
+    static_assert(t2.position.y == 1.0f);
 }
 
 TEST(Transform2, SetScale) {
     auto t1 = gleam::Transform2 {};
     t1.SetScale({2.0f, 1.0f});
 
-    EXPECT_VEC2_EQ(t1.GetScale(), {2.0f, 1.0f});
+    EXPECT_VEC2_EQ(t1.scale, {2.0f, 1.0f});
     EXPECT_MAT3_EQ(t1.Get(), {
         2.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f,
@@ -53,8 +53,8 @@ TEST(Transform2, SetScale) {
         return t;
     }();
 
-    static_assert(t2.GetScale().x == 2.0f);
-    static_assert(t2.GetScale().y == 1.0f);
+    static_assert(t2.scale.x == 2.0f);
+    static_assert(t2.scale.y == 1.0f);
 }
 
 TEST(Transform2, SetRotation) {
@@ -92,10 +92,10 @@ TEST(Transform2, MultipleTransformations) {
     constexpr auto c = gleam::math::Cos(gleam::math::pi_over_2) * 2.0f;
     constexpr auto s = gleam::math::Sin(gleam::math::pi_over_2) * 2.0f;
 
-    EXPECT_VEC2_EQ(t.GetCenter(), {0.5f, 0.5f});
-    EXPECT_VEC2_EQ(t.GetPosition(), {2.0f, 3.0f});
-    EXPECT_VEC2_EQ(t.GetScale(), {2.0f, 2.0f});
-    EXPECT_EQ(t.GetRotation(), gleam::math::pi_over_2);
+    EXPECT_VEC2_EQ(t.center, {0.5f, 0.5f});
+    EXPECT_VEC2_EQ(t.position, {2.0f, 3.0f});
+    EXPECT_VEC2_EQ(t.scale, {2.0f, 2.0f});
+    EXPECT_EQ(t.rotation, gleam::math::pi_over_2);
     EXPECT_MAT3_EQ(t.Get(), {
         c, -s, 3.5f,
         s, c, 2.5f,
@@ -127,7 +127,7 @@ TEST(Transform2, Translate) {
     auto t1 = gleam::Transform2 {};
     t1.Translate({2.0f, 1.0f});
 
-    EXPECT_VEC2_EQ(t1.GetPosition(), {2.0f, 1.0f});
+    EXPECT_VEC2_EQ(t1.position, {2.0f, 1.0f});
     EXPECT_MAT3_EQ(t1.Get(), {
         1.0f, 0.0f, 2.0f,
         0.0f, 1.0f, 1.0f,
@@ -140,15 +140,15 @@ TEST(Transform2, Translate) {
         return t;
     }();
 
-    static_assert(t2.GetPosition().x == 2.0f);
-    static_assert(t2.GetPosition().y == 1.0f);
+    static_assert(t2.position.x == 2.0f);
+    static_assert(t2.position.y == 1.0f);
 }
 
 TEST(Transform2, Scale) {
     auto t = gleam::Transform2 {};
     t.Scale({2.0f, 1.0f});
 
-    EXPECT_VEC2_EQ(t.GetScale(), {2.0f, 1.0f});
+    EXPECT_VEC2_EQ(t.scale, {2.0f, 1.0f});
     EXPECT_MAT3_EQ(t.Get(), {
         2.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f,
@@ -161,8 +161,8 @@ TEST(Transform2, Scale) {
         return t;
     }();
 
-    static_assert(t2.GetScale().x == 2.0f);
-    static_assert(t2.GetScale().y == 1.0f);
+    static_assert(t2.scale.x == 2.0f);
+    static_assert(t2.scale.y == 1.0f);
 }
 
 TEST(Transform2, Rotate) {
@@ -200,10 +200,10 @@ TEST(Transform2, TransformationsWithOffset) {
     constexpr auto c = gleam::math::Cos(gleam::math::pi_over_2) * 2.0f;
     constexpr auto s = gleam::math::Sin(gleam::math::pi_over_2) * 2.0f;
 
-    EXPECT_VEC2_EQ(t.GetCenter(), {0.5f, 0.5f});
-    EXPECT_VEC2_EQ(t.GetPosition(), {2.0f, 3.0f});
-    EXPECT_VEC2_EQ(t.GetScale(), {2.0f, 2.0f});
-    EXPECT_EQ(t.GetRotation(), gleam::math::pi_over_2);
+    EXPECT_VEC2_EQ(t.center, {0.5f, 0.5f});
+    EXPECT_VEC2_EQ(t.position, {2.0f, 3.0f});
+    EXPECT_VEC2_EQ(t.scale, {2.0f, 2.0f});
+    EXPECT_EQ(t.rotation, gleam::math::pi_over_2);
     EXPECT_MAT3_EQ(t.Get(), {
         c, -s, 3.5f,
         s, c, 2.5f,
@@ -239,7 +239,7 @@ TEST(Transform2, TranslateBeforeRotation) {
     constexpr auto c = gleam::math::Cos(gleam::math::pi_over_2);
     constexpr auto s = gleam::math::Sin(gleam::math::pi_over_2);
 
-    EXPECT_VEC2_EQ(t.GetPosition(), {0.0f, 1.0f});
+    EXPECT_VEC2_EQ(t.position, {0.0f, 1.0f});
     EXPECT_MAT3_EQ(t.Get(), {
         c, -s, 0.0f,
         s,  c, 1.0f,
@@ -269,7 +269,7 @@ TEST(Transform2, TranslateAfterRotation) {
     constexpr auto c = gleam::math::Cos(gleam::math::pi_over_2);
     constexpr auto s = gleam::math::Sin(gleam::math::pi_over_2);
 
-    EXPECT_VEC2_NEAR(t.GetPosition(), {-1.0f, 0.0f}, 0.001f);
+    EXPECT_VEC2_NEAR(t.position, {-1.0f, 0.0f}, 0.001f);
     EXPECT_MAT3_EQ(t.Get(), {
         c, -s, -1.0f,
         s,  c,  0.0f,
