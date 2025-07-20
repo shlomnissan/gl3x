@@ -39,7 +39,7 @@ Written for native performance and modularity, Gleam is ideal for building real-
 - Precompiled asset pipeline – Converts external formats into optimized runtime formats.
 - Constexpr-first math library – Header-only vector and matrix types designed for compile-time use.
 - Strict API boundary – Clean separation between internal systems and public interfaces.
-- Comprehensive documentation – Doxygen-based, consistently formatted with grouped sections and related symbols.
+- Comprehensive documentation – Consistently formatted with grouped sections and related symbols.
 
 ## License
 ```
