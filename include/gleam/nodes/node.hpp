@@ -214,12 +214,6 @@ public:
     auto RotateZ(float angle) { transform.Rotate(Vector3::Forward(), angle); }
 
     /**
-     * @brief Scales the node uniformly in local space.
-     * @param value Scale value.
-     */
-    auto SetScale(float value) { transform.SetScale({value, value, value}); }
-
-    /**
      * @brief Scales the node non-uniformly in local space.
      *
      * @param value Scale vector applied to the X, Y, and Z axes.
