@@ -14,7 +14,7 @@ namespace gleam {
 
 // Compare function for sorting meshes based on their z position.
 const auto& compare = [](auto* mesh) {
-    return mesh->transform.GetPosition().z;
+    return mesh->transform.position.z;
 };
 
 auto RenderLists::ProcessScene(Scene* scene) -> void {

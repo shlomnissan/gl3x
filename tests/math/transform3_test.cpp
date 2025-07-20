@@ -17,7 +17,7 @@ TEST(Transform3, SetPosition) {
     auto t1 = gleam::Transform3 {};
     t1.SetPosition({2.0f, 1.0f, 3.0f});
 
-    EXPECT_VEC3_EQ(t1.GetPosition(), {2.0f, 1.0f, 3.0f});
+    EXPECT_VEC3_EQ(t1.position, {2.0f, 1.0f, 3.0f});
     EXPECT_MAT4_EQ(t1.Get(), {
         1.0f, 0.0f, 0.0f, 2.0f,
         0.0f, 1.0f, 0.0f, 1.0f,
@@ -31,16 +31,16 @@ TEST(Transform3, SetPosition) {
         return t;
     }();
 
-    static_assert(t2.GetPosition().x == 2.0f);
-    static_assert(t2.GetPosition().y == 1.0f);
-    static_assert(t2.GetPosition().z == 3.0f);
+    static_assert(t2.position.x == 2.0f);
+    static_assert(t2.position.y == 1.0f);
+    static_assert(t2.position.z == 3.0f);
 }
 
 TEST(Transform3, SetScale) {
     auto t1 = gleam::Transform3 {};
     t1.SetScale({2.0f, 1.0f, 3.0f});
 
-    EXPECT_VEC3_EQ(t1.GetScale(), {2.0f, 1.0f, 3.0f});
+    EXPECT_VEC3_EQ(t1.scale, {2.0f, 1.0f, 3.0f});
     EXPECT_MAT4_EQ(t1.Get(), {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
@@ -54,9 +54,9 @@ TEST(Transform3, SetScale) {
         return t;
     }();
 
-    static_assert(t2.GetScale().x == 2.0f);
-    static_assert(t2.GetScale().y == 1.0f);
-    static_assert(t2.GetScale().z == 3.0f);
+    static_assert(t2.scale.x == 2.0f);
+    static_assert(t2.scale.y == 1.0f);
+    static_assert(t2.scale.z == 3.0f);
 }
 
 TEST(Transform3, SetRotation) {
@@ -64,7 +64,7 @@ TEST(Transform3, SetRotation) {
     auto p = gleam::math::pi_over_2;
     t1.SetRotation(gleam::Euler {p + 0.1f, p + 0.2f, p + 0.3f});
 
-    const auto rotation = t1.GetRotation();
+    const auto rotation = t1.rotation;
     EXPECT_NEAR(rotation.pitch, p + 0.1f, 0.0001f);
     EXPECT_NEAR(rotation.yaw, p + 0.2f, 0.0001f);
     EXPECT_NEAR(rotation.roll, p + 0.3f, 0.0001f);
@@ -101,9 +101,9 @@ TEST(Transform3, MultipleTransformations) {
         gleam::math::pi_over_2 + 0.3f
     });
 
-    const auto& rotation = t.GetRotation();
-    const auto& position = t.GetPosition();
-    const auto& scale = t.GetScale();
+    const auto& rotation = t.rotation;
+    const auto& position = t.position;
+    const auto& scale = t.scale;
     const auto cos_p = gleam::math::Cos(rotation.pitch);
     const auto sin_p = gleam::math::Sin(rotation.pitch);
     const auto cos_y = gleam::math::Cos(rotation.yaw);
@@ -140,7 +140,7 @@ TEST(Transform3, Translate) {
     t1.Translate({2.0f, 1.0f, 3.0f});
     t1.Translate({1.0f, 1.0f, 0.0f});
 
-    EXPECT_VEC3_EQ(t1.GetPosition(), {3.0f, 2.0f, 3.0f});
+    EXPECT_VEC3_EQ(t1.position, {3.0f, 2.0f, 3.0f});
     EXPECT_MAT4_EQ(t1.Get(), {
         1.0f, 0.0f, 0.0f, 3.0f,
         0.0f, 1.0f, 0.0f, 2.0f,
@@ -155,9 +155,9 @@ TEST(Transform3, Translate) {
         return t;
     }();
 
-    static_assert(t2.GetPosition().x == 3.0f);
-    static_assert(t2.GetPosition().y == 2.0f);
-    static_assert(t2.GetPosition().z == 3.0f);
+    static_assert(t2.position.x == 3.0f);
+    static_assert(t2.position.y == 2.0f);
+    static_assert(t2.position.z == 3.0f);
 }
 
 TEST(Transform3, Scale) {
@@ -165,7 +165,7 @@ TEST(Transform3, Scale) {
     t1.Scale({2.0f, 2.0f, 2.0f});
     t1.Scale({3.0f, 3.0f, 2.0f});
 
-    EXPECT_VEC3_EQ(t1.GetScale(), {6.0f, 6.0f, 4.0f});
+    EXPECT_VEC3_EQ(t1.scale, {6.0f, 6.0f, 4.0f});
     EXPECT_MAT4_EQ(t1.Get(), {
         6.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 6.0f, 0.0f, 0.0f,
@@ -180,9 +180,9 @@ TEST(Transform3, Scale) {
         return t;
     }();
 
-    static_assert(t2.GetScale().x == 6.0f);
-    static_assert(t2.GetScale().y == 6.0f);
-    static_assert(t2.GetScale().z == 4.0f);
+    static_assert(t2.scale.x == 6.0f);
+    static_assert(t2.scale.y == 6.0f);
+    static_assert(t2.scale.z == 4.0f);
 }
 
 TEST(Transform3, RotateX) {

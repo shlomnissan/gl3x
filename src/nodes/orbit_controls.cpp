@@ -41,7 +41,7 @@ struct OrbitControls::Impl {
     }
 
     auto Pan(const Vector2& offset, float delta, float pan_speed) {
-        const auto forward = Normalize(camera->transform.GetPosition() - target);
+        const auto forward = Normalize(camera->transform.position - target);
         const auto right = Normalize(Cross(forward, Vector3::Up()));
         const auto up = Cross(right, forward);
         const auto pan_h = right * (offset.x * pan_speed * delta);

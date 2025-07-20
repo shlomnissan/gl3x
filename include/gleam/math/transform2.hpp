@@ -46,7 +46,9 @@ public:
     constexpr Transform2() = default;
 
     /**
-     * @brief Applies a translation to the transform in local space.
+     * @brief Applies a translation in local space.
+     *
+     * If rotation is non-zero, the translation is rotated accordingly.
      *
      * @param value Translation vector.
      */
