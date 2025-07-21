@@ -14,9 +14,9 @@
 
 #include "example_scene.hpp"
 
-class ExampleArbitraryMesh : public ExampleScene {
+class ExampleModelLoader : public ExampleScene {
 public:
-    explicit ExampleArbitraryMesh();
+    explicit ExampleModelLoader();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

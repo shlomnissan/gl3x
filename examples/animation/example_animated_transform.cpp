@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "example_lerp_animation_test.hpp"
+#include "example_animated_transform.hpp"
 
 #include <gleam/geometries.hpp>
 #include <gleam/lights.hpp>
@@ -14,7 +14,7 @@
 
 using namespace gleam;
 
-ExampleLerpAnimationTest::ExampleLerpAnimationTest() {
+ExampleAnimatedTransform::ExampleAnimatedTransform() {
     show_context_menu_ = false;
 
     Add(AmbientLight::Create({
@@ -59,11 +59,11 @@ ExampleLerpAnimationTest::ExampleLerpAnimationTest() {
     Add(active_point_);
 }
 
-auto ExampleLerpAnimationTest::OnAttached(gleam::SharedContext* context) -> void {
+auto ExampleAnimatedTransform::OnAttached(gleam::SharedContext* context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 }
 
-auto ExampleLerpAnimationTest::OnUpdate(float delta) -> void {
+auto ExampleAnimatedTransform::OnUpdate(float delta) -> void {
     elapsed_time_ += delta;
     auto t = elapsed_time_ / 2.0f;
     if (t >= 1.0f) {
@@ -79,6 +79,6 @@ auto ExampleLerpAnimationTest::OnUpdate(float delta) -> void {
     active_material_->color = Lerp(start_color_, end_color_, t);
 }
 
-auto ExampleLerpAnimationTest::ContextMenu() -> void {
+auto ExampleAnimatedTransform::ContextMenu() -> void {
     // Empty
 }

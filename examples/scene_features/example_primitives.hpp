@@ -15,9 +15,9 @@
 
 #include "example_scene.hpp"
 
-class ExamplePrimitiveMesh : public ExampleScene {
+class ExamplePrimitives : public ExampleScene {
 public:
-    explicit ExamplePrimitiveMesh();
+    explicit ExamplePrimitives();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

@@ -8,6 +8,7 @@
 #pragma once
 
 #include <gleam/core.hpp>
+#include <gleam/materials.hpp>
 #include <gleam/math.hpp>
 #include <gleam/nodes.hpp>
 
@@ -15,9 +16,9 @@
 
 #include <array>
 
-class ExampleFrustumCullingTest : public ExampleScene {
+class ExampleAnimatedTransform : public ExampleScene {
 public:
-    explicit ExampleFrustumCullingTest();
+    explicit ExampleAnimatedTransform();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 
@@ -26,7 +27,15 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    gleam::Frustum frustum_;
+    std::shared_ptr<gleam::Mesh> active_point_;
+    std::shared_ptr<gleam::PhongMaterial> active_material_;
 
-    std::array<std::shared_ptr<gleam::Mesh>, 2500> boxes_;
+    gleam::Vector3 start_pos_ {-1.5f, 0.0f, 0.0f};
+    gleam::Vector3 end_pos_ {1.5f, 0.0f, 0.0f};
+    gleam::Vector3 start_scale_ {1.0f};
+    gleam::Vector3 end_scale_ {0.5f};
+    gleam::Color start_color_ {0xFE4A49};
+    gleam::Color end_color_ {0xFED766};
+
+    float elapsed_time_ {0.0f};
 };

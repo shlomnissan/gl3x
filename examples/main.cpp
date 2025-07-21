@@ -73,7 +73,7 @@ public:
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 392})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 368})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.starts_with("-")) {
@@ -98,15 +98,18 @@ private:
     int current_scene_ = 1;
 
     auto LoadScene(const std::string_view scene_name) -> void {
+        // materials
+        if (scene_name == "Unlit Material") {
+            scene_ = std::make_shared<ExampleUnlitMaterial>();
+        }
         if (scene_name == "Phong Material") {
             scene_ = std::make_shared<ExamplePhongMaterial>();
         }
         if (scene_name == "Shader Material") {
             scene_ = std::make_shared<ExampleShaderMaterial>();
         }
-        if (scene_name == "Unlit Material") {
-            scene_ = std::make_shared<ExampleUnlitMaterial>();
-        }
+
+        // lighting
         if (scene_name == "Directional Light") {
             scene_ = std::make_shared<ExampleDirectionalLight>();
         }
@@ -116,17 +119,24 @@ private:
         if (scene_name == "Spot Light") {
             scene_ = std::make_shared<ExampleSpotLight>();
         }
-        if (scene_name == "Arbitrary Mesh") {
-            scene_ = std::make_shared<ExampleArbitraryMesh>();
-        }
-        if (scene_name == "Primitive Mesh") {
-            scene_ = std::make_shared<ExamplePrimitiveMesh>();
-        }
-        if (scene_name == "Blending Effect") {
+
+        // rendering effects
+        if (scene_name == "Transparency & Blending") {
             scene_ = std::make_shared<ExampleBlending>();
         }
         if (scene_name == "Fog Effect") {
             scene_ = std::make_shared<ExampleFog>();
+        }
+
+        // scene features
+        if (scene_name == "Frustum Culling") {
+            scene_ = std::make_shared<ExampleFrustumCulling>();
+        }
+        if (scene_name == "Model Loader") {
+            scene_ = std::make_shared<ExampleModelLoader>();
+        }
+        if (scene_name == "Primitives") {
+            scene_ = std::make_shared<ExamplePrimitives>();
         }
         if (scene_name == "Arrow Resource") {
             scene_ = std::make_shared<ExampleArrowResource>();
@@ -134,12 +144,12 @@ private:
         if (scene_name == "Grid Resource") {
             scene_ = std::make_shared<ExampleGridResource>();
         }
-        if (scene_name == "Frustum Culling Test") {
-            scene_ = std::make_shared<ExampleFrustumCullingTest>();
+
+        // animation
+        if (scene_name == "Animated Transform") {
+            scene_ = std::make_shared<ExampleAnimatedTransform>();
         }
-        if (scene_name == "Lerp Animation Test") {
-            scene_ = std::make_shared<ExampleLerpAnimationTest>();
-        }
+
         SetScene(scene_);
     }
 };

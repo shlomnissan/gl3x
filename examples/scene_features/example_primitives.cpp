@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "example_primitive_mesh.hpp"
+#include "example_primitives.hpp"
 
 #include "ui_helpers.hpp"
 
@@ -15,7 +15,7 @@
 using namespace gleam;
 using namespace gleam::math;
 
-ExamplePrimitiveMesh::ExamplePrimitiveMesh() {
+ExamplePrimitives::ExamplePrimitives() {
     InitializeParams();
 
     Add(AmbientLight::Create({
@@ -50,7 +50,7 @@ ExamplePrimitiveMesh::ExamplePrimitiveMesh() {
     mesh_->Add(wireframes_);
 }
 
-auto ExamplePrimitiveMesh::OnAttached(gleam::SharedContext* context) -> void {
+auto ExamplePrimitives::OnAttached(gleam::SharedContext* context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),
@@ -58,7 +58,7 @@ auto ExamplePrimitiveMesh::OnAttached(gleam::SharedContext* context) -> void {
     }));
 }
 
-auto ExamplePrimitiveMesh::ContextMenu() -> void {
+auto ExamplePrimitives::ContextMenu() -> void {
     static bool dirty = false;
 
     static auto primitives = std::array<const char*, 5> {
@@ -104,14 +104,14 @@ auto ExamplePrimitiveMesh::ContextMenu() -> void {
     }
 }
 
-auto ExamplePrimitiveMesh::InitializeParams() -> void {
+auto ExamplePrimitives::InitializeParams() -> void {
     cone_params_.radius = 0.5f;
     cylinder_params_.radius_top = 0.4f;
     cylinder_params_.radius_bottom = 0.4f;
     sphere_params_.radius = 0.8f;
 }
 
-auto ExamplePrimitiveMesh::BoxContextMenu(bool& dirty) -> void {
+auto ExamplePrimitives::BoxContextMenu(bool& dirty) -> void {
     UISliderFloat("width", box_params_.width, 1.0f, 5.0f, dirty);
     UISliderFloat("height", box_params_.height, 1.0f, 5.0f, dirty);
     UISliderFloat("depth", box_params_.depth, 1.0f, 5.0f, dirty);
@@ -120,7 +120,7 @@ auto ExamplePrimitiveMesh::BoxContextMenu(bool& dirty) -> void {
     UISliderUnsigned("depth_segments", box_params_.depth_segments, 1, 20, dirty);
 }
 
-auto ExamplePrimitiveMesh::ConeContextMenu(bool& dirty) -> void {
+auto ExamplePrimitives::ConeContextMenu(bool& dirty) -> void {
     UISliderFloat("radius", cone_params_.radius, 0.0f, 1.0f, dirty);
     UISliderFloat("height", cone_params_.height, 0.1f, 5.0f, dirty);
     UISliderUnsigned("radial_segments", cone_params_.radial_segments, 3, 64, dirty);
@@ -128,7 +128,7 @@ auto ExamplePrimitiveMesh::ConeContextMenu(bool& dirty) -> void {
     UICheckbox("open_ended", cone_params_.open_ended, dirty);
 }
 
-auto ExamplePrimitiveMesh::CylinderContextMenu(bool& dirty) -> void {
+auto ExamplePrimitives::CylinderContextMenu(bool& dirty) -> void {
     UISliderFloat("radius_top", cylinder_params_.radius_top, 0.0f, 1.0f, dirty);
     UISliderFloat("radius_bottom", cylinder_params_.radius_bottom, 0.0f, 1.0f, dirty);
     UISliderFloat("height", cylinder_params_.height, 1.0f, 5.0f, dirty);
@@ -137,14 +137,14 @@ auto ExamplePrimitiveMesh::CylinderContextMenu(bool& dirty) -> void {
     UICheckbox("open_ended", cylinder_params_.open_ended, dirty);
 }
 
-auto ExamplePrimitiveMesh::PlaneContextMenu(bool& dirty) -> void {
+auto ExamplePrimitives::PlaneContextMenu(bool& dirty) -> void {
     UISliderFloat("width", plane_params_.width, 1.0f, 5.0f, dirty);
     UISliderFloat("height", plane_params_.height, 1.0f, 5.0f, dirty);
     UISliderUnsigned("width_segments", plane_params_.width_segments, 1, 20, dirty);
     UISliderUnsigned("height_segments", plane_params_.height_segments, 1, 20, dirty);
 }
 
-auto ExamplePrimitiveMesh::SphereContextMenu(bool& dirty) -> void {
+auto ExamplePrimitives::SphereContextMenu(bool& dirty) -> void {
     UISliderFloat("radius", sphere_params_.radius, 0.5f, 2.0f, dirty);
     UISliderUnsigned("width_segments", sphere_params_.width_segments, 3, 64, dirty);
     UISliderUnsigned("height_segments", sphere_params_.height_segments, 2, 64, dirty);

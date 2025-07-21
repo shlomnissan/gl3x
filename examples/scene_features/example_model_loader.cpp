@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "example_arbitrary_mesh.hpp"
+#include "example_model_loader.hpp"
 
 #include "ui_helpers.hpp"
 
@@ -14,7 +14,7 @@
 using namespace gleam;
 using namespace gleam::math;
 
-ExampleArbitraryMesh::ExampleArbitraryMesh() {
+ExampleModelLoader::ExampleModelLoader() {
     show_context_menu_ = false;
 
     Add(AmbientLight::Create({
@@ -36,7 +36,7 @@ ExampleArbitraryMesh::ExampleArbitraryMesh() {
     Add(point_light);
 }
 
-auto ExampleArbitraryMesh::OnAttached(gleam::SharedContext* context) -> void {
+auto ExampleModelLoader::OnAttached(gleam::SharedContext* context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {
         .radius = 4.0f,
         .pitch = DegToRad(5.0f),
@@ -54,6 +54,6 @@ auto ExampleArbitraryMesh::OnAttached(gleam::SharedContext* context) -> void {
     );
 }
 
-auto ExampleArbitraryMesh::ContextMenu() -> void {
+auto ExampleModelLoader::ContextMenu() -> void {
     // Empty
 }

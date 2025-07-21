@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "example_frustum_culling_test.hpp"
+#include "example_frustum_culling.hpp"
 
 #include <gleam/geometries.hpp>
 #include <gleam/lights.hpp>
@@ -13,7 +13,7 @@
 
 using namespace gleam;
 
-ExampleFrustumCullingTest::ExampleFrustumCullingTest() {
+ExampleFrustumCulling::ExampleFrustumCulling() {
     show_context_menu_ = false;
 
     Add(AmbientLight::Create({
@@ -46,17 +46,17 @@ ExampleFrustumCullingTest::ExampleFrustumCullingTest() {
     }
 }
 
-auto ExampleFrustumCullingTest::OnAttached(gleam::SharedContext* context) -> void {
-    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
+auto ExampleFrustumCulling::OnAttached(gleam::SharedContext* context) -> void {
+    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 90.0f}));
 }
 
-auto ExampleFrustumCullingTest::OnUpdate(float delta) -> void {
+auto ExampleFrustumCulling::OnUpdate(float delta) -> void {
     for (const auto& b : boxes_) {
         b->RotateX(1.0f * delta);
         b->RotateY(1.0f * delta);
     }
 }
 
-auto ExampleFrustumCullingTest::ContextMenu() -> void {
+auto ExampleFrustumCulling::ContextMenu() -> void {
     // Empty
 }
