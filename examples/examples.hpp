@@ -11,19 +11,18 @@
 
 #include <gleam/nodes.hpp>
 
+#include "materials/example_unlit_material.hpp"
 #include "materials/example_phong_material.hpp"
 #include "materials/example_shader_material.hpp"
-#include "materials/example_unlit_material.hpp"
 #include "lighting/example_directional_light.hpp"
 #include "lighting/example_point_light.hpp"
 #include "lighting/example_spot_light.hpp"
 #include "rendering_effects/example_blending.hpp"
 #include "rendering_effects/example_fog.hpp"
+#include "scene_features/example_frustum_culling.hpp"
 #include "scene_features/example_model_loader.hpp"
 #include "scene_features/example_primitives.hpp"
-#include "scene_features/example_arrow_resource.hpp"
-#include "scene_features/example_grid_resource.hpp"
-#include "scene_features/example_frustum_culling.hpp"
+#include "scene_features/example_debug_visuals.hpp"
 #include "animation/example_animated_transform.hpp"
 
 static const auto examples = std::vector {
@@ -42,8 +41,7 @@ static const auto examples = std::vector {
     "Frustum Culling",
     "Model Loader",
     "Primitives",
-    "Arrow Resource",
-    "Grid Resource",
+    "Debug Visuals",
     "- Animation",
     "Animated Transform"
 };

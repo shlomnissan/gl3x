@@ -73,7 +73,7 @@ public:
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 368})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 348})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.starts_with("-")) {
@@ -138,11 +138,8 @@ private:
         if (scene_name == "Primitives") {
             scene_ = std::make_shared<ExamplePrimitives>();
         }
-        if (scene_name == "Arrow Resource") {
-            scene_ = std::make_shared<ExampleArrowResource>();
-        }
-        if (scene_name == "Grid Resource") {
-            scene_ = std::make_shared<ExampleGridResource>();
+        if (scene_name == "Debug Visuals") {
+            scene_ = std::make_shared<ExampleDebugVisuals>();
         }
 
         // animation
