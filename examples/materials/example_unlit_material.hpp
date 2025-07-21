@@ -15,9 +15,9 @@
 
 #include "example_scene.hpp"
 
-class ExampleFlatMaterial : public ExampleScene {
+class ExampleUnlitMaterial : public ExampleScene {
 public:
-    explicit ExampleFlatMaterial();
+    explicit ExampleUnlitMaterial();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 
@@ -26,7 +26,7 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<gleam::FlatMaterial> material_;
+    std::shared_ptr<gleam::UnlitMaterial> material_;
     std::shared_ptr<gleam::Mesh> mesh_;
     std::shared_ptr<gleam::Texture2D> texture_;
 };

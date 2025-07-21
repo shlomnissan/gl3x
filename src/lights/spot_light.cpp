@@ -7,7 +7,7 @@
 
 #include "gleam/lights/spot_light.hpp"
 
-#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/math/utilities.hpp"
 #include "gleam/nodes/mesh.hpp"
 
@@ -17,13 +17,13 @@ namespace gleam {
 
 struct SpotLight::Impl {
     std::shared_ptr<Mesh> cone;
-    std::shared_ptr<FlatMaterial> material;
+    std::shared_ptr<UnlitMaterial> material;
 
     auto CreateDebugMesh(SpotLight* self) -> void {
         using enum GeometryAttributeType;
         using enum GeometryPrimitiveType;
 
-        material = FlatMaterial::Create();
+        material = UnlitMaterial::Create();
         material->two_sided = true;
         material->color = self->color;
         material->fog = false;

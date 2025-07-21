@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "example_flat_material.hpp"
+#include "example_unlit_material.hpp"
 
 #include "ui_helpers.hpp"
 
@@ -15,14 +15,14 @@
 
 using namespace gleam;
 
-ExampleFlatMaterial::ExampleFlatMaterial() {
+ExampleUnlitMaterial::ExampleUnlitMaterial() {
     auto geometry = CubeGeometry::Create();
-    material_ = FlatMaterial::Create(0x049EF4);
+    material_ = UnlitMaterial::Create(0x049EF4);
     mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);
 }
 
-auto ExampleFlatMaterial::OnAttached(gleam::SharedContext* context) -> void {
+auto ExampleUnlitMaterial::OnAttached(gleam::SharedContext* context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 
     context->Loaders().Texture->LoadAsync(
@@ -33,12 +33,12 @@ auto ExampleFlatMaterial::OnAttached(gleam::SharedContext* context) -> void {
     );
 }
 
-auto ExampleFlatMaterial::OnUpdate(float delta) -> void {
+auto ExampleUnlitMaterial::OnUpdate(float delta) -> void {
     mesh_->transform.Rotate(Vector3::Up(), 1.0f * delta);
     mesh_->transform.Rotate(Vector3::Right(), 1.0f * delta);
 }
 
-auto ExampleFlatMaterial::ContextMenu() -> void {
+auto ExampleUnlitMaterial::ContextMenu() -> void {
     auto _ = false;
     static auto curr_texture = std::string {"none"};
     static auto textures = std::array<const char*, 2> {

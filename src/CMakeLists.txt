@@ -96,7 +96,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/loaders/loader.hpp"
     "${PUBLIC_HEADERS_DIR}/loaders/mesh_loader.hpp"
     "${PUBLIC_HEADERS_DIR}/loaders/texture_loader.hpp"
-    "${PUBLIC_HEADERS_DIR}/materials/flat_material.hpp"
+    "${PUBLIC_HEADERS_DIR}/materials/unlit_material.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/material.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/phong_material.hpp"
     "${PUBLIC_HEADERS_DIR}/materials/shader_material.hpp"

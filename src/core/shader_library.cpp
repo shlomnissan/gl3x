@@ -7,7 +7,7 @@
 
 #include "core/shader_library.hpp"
 
-#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/materials/phong_material.hpp"
 #include "gleam/materials/shader_material.hpp"
 
@@ -28,7 +28,7 @@
 namespace gleam {
 
 auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std::vector<ShaderInfo> {
-    if (attrs.type == MaterialType::FlatMaterial) {
+    if (attrs.type == MaterialType::UnlitMaterial) {
         return {{
             ShaderType::kVertexShader,
             ProcessShader(attrs, _SHADER_flat_material_vert)

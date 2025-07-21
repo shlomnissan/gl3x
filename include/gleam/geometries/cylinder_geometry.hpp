@@ -32,7 +32,7 @@ namespace gleam {
  *     .open_ended = false
  * });
  *
- * auto mesh = gleam::Mesh::Create(geometry, FlatMaterial::Create(0x049EF4));
+ * auto mesh = gleam::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
  * my_scene->Add(mesh);
  * @endcode
  *

@@ -71,7 +71,7 @@ struct GeometryAttribute {
  * });
  *
  * geometry->SetAttribute({GeometryAttributeType::Position, 3});
- * Add(Mesh::Create(geometry, FlatMaterial::Create(0xFF0133)));
+ * Add(Mesh::Create(geometry, UnlitMaterial::Create(0xFF0133)));
  * @endcode
  *
  * @ingroup GeometryGroup

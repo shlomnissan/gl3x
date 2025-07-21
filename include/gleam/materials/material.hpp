@@ -23,7 +23,7 @@ namespace gleam {
  * @ingroup MaterialsGroup
  */
 enum class MaterialType {
-    FlatMaterial,
+    UnlitMaterial,
     PhongMaterial,
     ShaderMaterial
 };
@@ -94,7 +94,7 @@ public:
      */
     [[nodiscard]] inline static auto TypeToString(MaterialType type) {
         switch(type) {
-            case MaterialType::FlatMaterial:
+            case MaterialType::UnlitMaterial:
                 return "flat";
             case MaterialType::PhongMaterial:
                 return "phong";

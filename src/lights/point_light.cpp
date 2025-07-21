@@ -8,7 +8,7 @@
 #include "gleam/lights/point_light.hpp"
 
 #include "gleam/geometries/sphere_geometry.hpp"
-#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/nodes/mesh.hpp"
 
 namespace gleam {
@@ -17,10 +17,10 @@ static constexpr auto debug_mesh_size = 0.2f;
 
 struct PointLight::Impl {
     std::shared_ptr<Mesh> sphere;
-    std::shared_ptr<FlatMaterial> material;
+    std::shared_ptr<UnlitMaterial> material;
 
     auto CreateDebugMesh(PointLight* self) -> void {
-        material = FlatMaterial::Create();
+        material = UnlitMaterial::Create();
         material->two_sided = true;
         material->color = self->color;
         material->wireframe = true;

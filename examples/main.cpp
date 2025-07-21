@@ -58,7 +58,9 @@ public:
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove
         );
-        if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) DrawExamplesList();
+        if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) {
+            DrawExamplesList();
+        }
 
         if (scene_->show_context_menu_) {
             if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
@@ -92,14 +94,14 @@ private:
     int current_scene_ = 0;
 
     auto LoadScene(const std::string_view scene_name) -> void {
-        if (scene_name == "Flat Material") {
-            scene_ = std::make_shared<ExampleFlatMaterial>();
-        }
         if (scene_name == "Phong Material") {
             scene_ = std::make_shared<ExamplePhongMaterial>();
         }
         if (scene_name == "Shader Material") {
             scene_ = std::make_shared<ExampleShaderMaterial>();
+        }
+        if (scene_name == "Unlit Material") {
+            scene_ = std::make_shared<ExampleUnlitMaterial>();
         }
         if (scene_name == "Directional Light") {
             scene_ = std::make_shared<ExampleDirectionalLight>();

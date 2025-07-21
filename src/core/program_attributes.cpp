@@ -10,7 +10,7 @@
 #include "gleam/lights/ambient_light.hpp"
 #include "gleam/lights/directional_light.hpp"
 #include "gleam/lights/point_light.hpp"
-#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/materials/phong_material.hpp"
 #include "gleam/materials/shader_material.hpp"
 
@@ -21,8 +21,8 @@ namespace gleam {
 ProgramAttributes::ProgramAttributes(const Material* material, const LightsCounter& lights, const Scene* scene) {
     type = material->GetType();
 
-    if (type == MaterialType::FlatMaterial) {
-        auto m = static_cast<const FlatMaterial*>(material);
+    if (type == MaterialType::UnlitMaterial) {
+        auto m = static_cast<const UnlitMaterial*>(material);
         color = true;
         texture_map = m->texture_map != nullptr;
     }

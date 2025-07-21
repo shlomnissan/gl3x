@@ -7,7 +7,7 @@
 
 #include "gleam/nodes/grid.hpp"
 
-#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/nodes/mesh.hpp"
 
 #include <vector>
@@ -37,7 +37,7 @@ Grid::Grid(const Parameters& params) {
     geometry->primitive = GeometryPrimitiveType::Lines;
     geometry->SetName("grid");
 
-    Add(Mesh::Create(geometry, FlatMaterial::Create(params.color)));
+    Add(Mesh::Create(geometry, UnlitMaterial::Create(params.color)));
 }
 
 }

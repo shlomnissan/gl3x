@@ -7,7 +7,7 @@
 
 #include "renderer/gl/gl_renderer_impl.hpp"
 
-#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/materials/phong_material.hpp"
 #include "gleam/materials/shader_material.hpp"
 #include "gleam/math/vector3.hpp"
@@ -134,8 +134,8 @@ auto Renderer::Impl::SetUniforms(
         }
     }
 
-    if (attrs->type == MaterialType::FlatMaterial) {
-        auto m = static_cast<FlatMaterial*>(material);
+    if (attrs->type == MaterialType::UnlitMaterial) {
+        auto m = static_cast<UnlitMaterial*>(material);
         program->SetUniform(Uniform::Color, &m->color);
         if (attrs->texture_map) {
             const auto& transform = m->texture_map->GetTransform();

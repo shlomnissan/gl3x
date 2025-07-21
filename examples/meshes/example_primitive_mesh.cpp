@@ -44,7 +44,7 @@ ExamplePrimitiveMesh::ExamplePrimitiveMesh() {
     Add(mesh_);
 
     auto wireframe_geometry = WireframeGeometry::Create(geometry.get());
-    auto wireframe_material = FlatMaterial::Create();
+    auto wireframe_material = UnlitMaterial::Create();
     wireframe_material->fog = false;
     wireframes_ = Mesh::Create(wireframe_geometry, wireframe_material);
     mesh_->Add(wireframes_);

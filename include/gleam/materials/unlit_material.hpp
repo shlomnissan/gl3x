@@ -25,7 +25,7 @@ namespace gleam {
  * or wireframes where shading is not desired.
  *
  * @code
- * auto material = gleam::FlatMaterial::Create(0x049EF4);
+ * auto material = gleam::UnlitMaterial::Create(0x049EF4);
  * material->texture_map = texture;
  *
  * auto mesh = gleam::Mesh::Create(geometry, material);
@@ -34,7 +34,7 @@ namespace gleam {
  *
  * @ingroup MaterialsGroup
  */
-class GLEAM_EXPORT FlatMaterial : public Material {
+class GLEAM_EXPORT UnlitMaterial : public Material {
 public:
     /// @brief Color of the material.
     Color color = 0xFFFFFF;
@@ -43,29 +43,29 @@ public:
     std::shared_ptr<Texture2D> texture_map = nullptr;
 
     /**
-     * @brief Constructs a FlatMaterial object.
+     * @brief Constructs a UnlitMaterial object.
      *
      * @param color Color of the material.
      */
-    explicit FlatMaterial(const Color& color) : color(color) {}
+    explicit UnlitMaterial(const Color& color) : color(color) {}
 
     /**
-     * @brief Creates a shared pointer to a FlatMaterial object.
+     * @brief Creates a shared pointer to a UnlitMaterial object.
      *
      * @param color Color of the material.
-     * @return std::shared_ptr<FlatMaterial>
+     * @return std::shared_ptr<UnlitMaterial>
      */
     [[nodiscard]] static auto Create(const Color& color = 0xFFFFFF) {
-        return std::make_shared<FlatMaterial>(color);
+        return std::make_shared<UnlitMaterial>(color);
     }
 
     /**
      * @brief Returns material type.
      *
-     * @return MaterialType::FlatMaterial
+     * @return MaterialType::UnlitMaterial
      */
     auto GetType() const -> MaterialType override {
-        return MaterialType::FlatMaterial;
+        return MaterialType::UnlitMaterial;
     }
 };
 

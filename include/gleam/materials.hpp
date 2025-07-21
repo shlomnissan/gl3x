@@ -12,6 +12,6 @@
  * @brief Classes defining material properties for meshes.
  */
 
-#include "gleam/materials/flat_material.hpp"
 #include "gleam/materials/phong_material.hpp"
 #include "gleam/materials/shader_material.hpp"
+#include "gleam/materials/unlit_material.hpp"

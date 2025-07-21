@@ -30,7 +30,7 @@ namespace gleam {
  *
  * @code
  * auto geometry = gleam::CubeGeometry::Create();
- * auto material = gleam::FlatMaterial::Create(0x00FFAA);
+ * auto material = gleam::UnlitMaterial::Create(0x00FFAA);
  * auto mesh = gleam::Mesh::Create(geometry, material);
  * my_scene->Add(mesh);
  * @endcode

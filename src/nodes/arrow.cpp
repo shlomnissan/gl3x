@@ -9,13 +9,13 @@
 
 #include "gleam/geometries/cone_geometry.hpp"
 #include "gleam/geometries/geometry.hpp"
-#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/nodes/mesh.hpp"
 
 namespace gleam {
 
 Arrow::Arrow(const Parameters& params) {
-    const auto material = FlatMaterial::Create(params.color);
+    const auto material = UnlitMaterial::Create(params.color);
     const auto cone_height = 0.1f;
     const auto cone = Mesh::Create(ConeGeometry::Create({
         .radius = 0.03f,

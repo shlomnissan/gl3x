@@ -7,7 +7,7 @@
 
 #include "gleam/lights/directional_light.hpp"
 
-#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/nodes/mesh.hpp"
 
 namespace gleam {
@@ -17,13 +17,13 @@ static constexpr auto debug_mesh_size = 0.5f;
 struct DirectionalLight::Impl {
     std::shared_ptr<Mesh> line;
     std::shared_ptr<Mesh> plane;
-    std::shared_ptr<FlatMaterial> material;
+    std::shared_ptr<UnlitMaterial> material;
 
     auto CreateDebugMesh(DirectionalLight* self) -> void {
         using enum GeometryAttributeType;
         using enum GeometryPrimitiveType;
 
-        material = FlatMaterial::Create();
+        material = UnlitMaterial::Create();
         material->two_sided = true;
         material->color = self->color;
         material->fog = false;

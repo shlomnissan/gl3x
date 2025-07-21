@@ -8,7 +8,7 @@
 #include "gleam/nodes/bounding_sphere.hpp"
 
 #include "gleam/geometries/geometry.hpp"
-#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/math/utilities.hpp"
 #include "gleam/nodes/mesh.hpp"
 
@@ -70,7 +70,7 @@ auto create_geometry(const Sphere& sphere) {
 }
 
 BoundingSphere::BoundingSphere(const Sphere& sphere, const Color& color) {
-    Add(Mesh::Create(create_geometry(sphere), FlatMaterial::Create(color)));
+    Add(Mesh::Create(create_geometry(sphere), UnlitMaterial::Create(color)));
 }
 
 }

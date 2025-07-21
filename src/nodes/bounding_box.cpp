@@ -8,7 +8,7 @@
 #include "gleam/nodes/bounding_box.hpp"
 
 #include "gleam/geometries/geometry.hpp"
-#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/nodes/mesh.hpp"
 
 #include <vector>
@@ -48,7 +48,7 @@ auto create_geometry(const Box3& box) {
 }
 
 BoundingBox::BoundingBox(const Box3& box, const Color& color) {
-    Add(Mesh::Create(create_geometry(box), FlatMaterial::Create(color)));
+    Add(Mesh::Create(create_geometry(box), UnlitMaterial::Create(color)));
 }
 
 }

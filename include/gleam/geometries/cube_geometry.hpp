@@ -34,7 +34,7 @@ namespace gleam {
  *   .depth_segments = 2
  * });
  *
- * auto mesh = gleam::Mesh::Create(geometry, FlatMaterial::Create(0x049EF4));
+ * auto mesh = gleam::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
  * my_scene->Add(mesh);
  * @endcode
  *

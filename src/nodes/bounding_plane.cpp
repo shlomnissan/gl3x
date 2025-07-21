@@ -9,7 +9,7 @@
 
 #include "gleam/geometries/geometry.hpp"
 #include "gleam/geometries/wireframe_geometry.hpp"
-#include "gleam/materials/flat_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/nodes/mesh.hpp"
 
 #include <vector>
@@ -33,7 +33,7 @@ auto create_wireframe_mesh(const Color& color) {
     geometry->SetAttribute({GeometryAttributeType::Position, 3});
 
     auto wireframe_geometry = WireframeGeometry::Create(geometry.get());
-    auto wireframe_material = FlatMaterial::Create(color);
+    auto wireframe_material = UnlitMaterial::Create(color);
     wireframe_material->two_sided = true;
 
     return Mesh::Create(wireframe_geometry, wireframe_material);
@@ -51,7 +51,7 @@ auto create_solid_mesh(const Color& color) {
 
     geometry->SetAttribute({GeometryAttributeType::Position, 3});
 
-    auto solid_material = FlatMaterial::Create(color);
+    auto solid_material = UnlitMaterial::Create(color);
     solid_material->opacity = 0.2f;
     solid_material->transparent = true;
 
