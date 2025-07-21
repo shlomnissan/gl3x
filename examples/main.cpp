@@ -73,11 +73,15 @@ public:
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 260})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 392})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
-                if (name.empty()) {
-                    ImGui::Separator();
+                if (name.starts_with("-")) {
+                    UISeparator();
+                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.4, 0.4, 0.4, 1));
+                    ImGui::TextUnformatted(name.substr(2).data());
+                    ImGui::PopStyleColor();
+                    UISeparator();
                 } else if (ImGui::Selectable(name.data(), current_scene_ == i) && current_scene_ != i) {
                     current_scene_ = i;
                     LoadScene(name);
@@ -91,7 +95,7 @@ private:
     std::shared_ptr<PerspectiveCamera> camera_;
     std::shared_ptr<ExampleScene> scene_;
 
-    int current_scene_ = 0;
+    int current_scene_ = 1;
 
     auto LoadScene(const std::string_view scene_name) -> void {
         if (scene_name == "Phong Material") {

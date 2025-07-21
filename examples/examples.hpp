@@ -27,23 +27,24 @@
 #include "test/example_lerp_animation_test.hpp"
 
 static const auto examples = std::vector {
+    "- Materials",
+    "Unlit Material",
     "Phong Material",
     "Shader Material",
-    "Unlit Material",
-    "",
+    "- Lights",
     "Directional Light",
     "Point Light",
     "Spot Light",
-    "",
+    "- Geometry",
     "Arbitrary Mesh",
     "Primitive Mesh",
-    "",
+    "- Effects",
     "Blending Effect",
     "Fog Effect",
-    "",
+    "- Helpers",
     "Arrow Resource",
     "Grid Resource",
-    "",
+    "- Tests",
     "Frustum Culling Test",
     "Lerp Animation Test"
 };
