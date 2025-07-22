@@ -30,7 +30,7 @@ private:
     gleam::PlaneGeometry::Parameters plane_params_;
     gleam::SphereGeometry::Parameters sphere_params_;
 
-    std::string curr_primitive_ = "box";
+    std::string curr_primitive_  {"box"};
     std::shared_ptr<gleam::Mesh> mesh_;
     std::shared_ptr<gleam::Mesh> wireframes_;
 

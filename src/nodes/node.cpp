@@ -68,6 +68,7 @@ auto Node::RemoveAllChildren() -> void {
             std::make_unique<SceneEvent>(SceneEvent::Type::NodeRemoved, node)
         );
         node->impl_->parent = nullptr;
+        node->transform.touched = true;
     }
     impl_->children.clear();
 }
