@@ -1,7 +1,5 @@
 # Gleam
 
-A fast real-time 3D rendering engine in modern C++.
-
 ![ubuntu-badge](https://github.com/shlomnissan/gleam/actions/workflows/ubuntu.yml/badge.svg)
 ![windows-badge](https://github.com/shlomnissan/gleam/actions/workflows/windows.yml/badge.svg)
 ![macos-badge](https://github.com/shlomnissan/gleam/actions/workflows/macos.yml/badge.svg)
@@ -43,19 +41,19 @@ Written for native performance and modularity, Gleam is ideal for building real-
 
 ## License
 ```
-      ___           ___       ___           ___           ___     
-     /\  \         /\__\     /\  \         /\  \         /\__\    
-    /::\  \       /:/  /    /::\  \       /::\  \       /::|  |   
-   /:/\:\  \     /:/  /    /:/\:\  \     /:/\:\  \     /:|:|  |   
-  /:/  \:\  \   /:/  /    /::\~\:\  \   /::\~\:\  \   /:/|:|__|__ 
+      ___           ___       ___           ___           ___
+     /\  \         /\__\     /\  \         /\  \         /\__\
+    /::\  \       /:/  /    /::\  \       /::\  \       /::|  |
+   /:/\:\  \     /:/  /    /:/\:\  \     /:/\:\  \     /:|:|  |
+  /:/  \:\  \   /:/  /    /::\~\:\  \   /::\~\:\  \   /:/|:|__|__
  /:/__/_\:\__\ /:/__/    /:/\:\ \:\__\ /:/\:\ \:\__\ /:/ |::::\__\
  \:\  /\ \/__/ \:\  \    \:\~\:\ \/__/ \/__\:\/:/  / \/__/~~/:/  /
-  \:\ \:\__\    \:\  \    \:\ \:\__\        \::/  /        /:/  / 
-   \:\/:/  /     \:\  \    \:\ \/__/        /:/  /        /:/  /  
-    \::/  /       \:\__\    \:\__\         /:/  /        /:/  /   
-     \/__/         \/__/     \/__/         \/__/         \/__/      
-                                                  
-Copyright (c) 2025–present Shlomi Nissan
+  \:\ \:\__\    \:\  \    \:\ \:\__\        \::/  /        /:/  /
+   \:\/:/  /     \:\  \    \:\ \/__/        /:/  /        /:/  /
+    \::/  /       \:\__\    \:\__\         /:/  /        /:/  /
+     \/__/         \/__/     \/__/         \/__/         \/__/
+
+Copyright (c) 2024–present Shlomi Nissan
 
 The MIT License (MIT)
 
