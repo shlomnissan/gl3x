@@ -379,20 +379,20 @@ TEST(MathUtilities, CantorPairingKnownValues) {
     EXPECT_EQ(math::CantorPairing(10, 5), 125);
 }
 
-TEST(MathUtilitieTest, UnorderedCantorPairingSymmetry) {
-    static_assert(math::UnorderedCantorPairing(2, 3) == math::UnorderedCantorPairing(3, 2));
-    static_assert(math::UnorderedCantorPairing(10, 5) == math::UnorderedCantorPairing(5, 10));
+TEST(MathUtilitieTest, CantorPairingUnorderedSymmetry) {
+    static_assert(math::CantorPairingUnordered(2, 3) == math::CantorPairingUnordered(3, 2));
+    static_assert(math::CantorPairingUnordered(10, 5) == math::CantorPairingUnordered(5, 10));
 
-    EXPECT_EQ(math::UnorderedCantorPairing(2, 3), math::UnorderedCantorPairing(3, 2));
-    EXPECT_EQ(math::UnorderedCantorPairing(10, 5), math::UnorderedCantorPairing(5, 10));
+    EXPECT_EQ(math::CantorPairingUnordered(2, 3), math::CantorPairingUnordered(3, 2));
+    EXPECT_EQ(math::CantorPairingUnordered(10, 5), math::CantorPairingUnordered(5, 10));
 }
 
-TEST(MathUtilitieTest, UnorderedCantorPairingDistinctFromOrdered) {
-    static_assert(math::UnorderedCantorPairing(2, 3) == math::CantorPairing(2, 3));
-    static_assert(math::UnorderedCantorPairing(2, 3) != math::CantorPairing(3, 2));
+TEST(MathUtilitieTest, CantorPairingUnorderedDistinctFromOrdered) {
+    static_assert(math::CantorPairingUnordered(2, 3) == math::CantorPairing(2, 3));
+    static_assert(math::CantorPairingUnordered(2, 3) != math::CantorPairing(3, 2));
 
-    EXPECT_EQ(math::UnorderedCantorPairing(2, 3), math::CantorPairing(2, 3));
-    EXPECT_NE(math::UnorderedCantorPairing(2, 3), math::CantorPairing(3, 2));
+    EXPECT_EQ(math::CantorPairingUnordered(2, 3), math::CantorPairing(2, 3));
+    EXPECT_NE(math::CantorPairingUnordered(2, 3), math::CantorPairing(3, 2));
 }
 
 #pragma endregion

@@ -12,7 +12,6 @@
 #include <bit>
 #include <cinttypes>
 #include <cmath>
-#include <iomanip>
 #include <limits>
 #include <random>
 #include <sstream>
@@ -30,6 +29,7 @@ constexpr float pi_over_6 = 0.52359877559829887307710723054658f;
 constexpr float tau = 6.2831853071795864769252867665590f;
 constexpr float tau_over_2 = 3.1415926535897932384626433832795f;
 constexpr float tau_over_4 = 1.5707963267948966192313216916398f;
+constexpr float tau_over_6 = 1.0471975511965977461542144610932f;
 constexpr float tau_over_256 = 0.0245436926f;
 constexpr float inv_tau = 40.74366543f;
 constexpr float epsilon = 1e-6f;
@@ -84,30 +84,85 @@ alignas(64) constexpr uint32_t arctan_table[65] {
     return std::bit_cast<Pair>(trig_table[index & 255]);
 }
 
+/**
+ * @brief Converts degrees to radians.
+ * @ingroup MathGroup
+ *
+ * @param degrees Angle in degrees.
+ * @return Angle in radians.
+ */
 [[nodiscard]] constexpr auto DegToRad(const float degrees) {
     return degrees * (pi / 180.0f);
 }
 
+/**
+ * @brief Converts radians to degrees.
+ * @ingroup MathGroup
+ *
+ * @param radians Angle in radians.
+ * @return Angle in degrees.
+ */
 [[nodiscard]] constexpr auto RadToDeg(const float radians) {
     return radians * (180.0f / pi);
 }
 
+/**
+ * @brief Linearly interpolates between two values.
+ * @ingroup MathGroup
+ *
+ * @param a Start value.
+ * @param b End value.
+ * @param f Interpolation factor in [0, 1].
+ * @return Interpolated value.
+ */
 [[nodiscard]] constexpr auto Lerp(const float a, const float b, const float f) {
     return std::lerp(a, b, f);
 }
 
+/**
+ * @brief Computes the Cantor pairing of two values.
+ * @ingroup MathGroup
+ *
+ * @tparam T Integer-like type.
+ * @param x First value.
+ * @param y Second value.
+ * @return Unique paired value.
+ */
 [[nodiscard]] constexpr auto CantorPairing(const auto x, const auto y) {
     return ((x + y) * (x + y + 1)) / 2 + y;
 }
 
-[[nodiscard]] constexpr auto UnorderedCantorPairing(const auto x, const auto y) {
+/**
+ * @brief Computes unordered Cantor pairing (order-invariant).
+ * @ingroup MathGroup
+ *
+ * @tparam T Integer-like type.
+ * @param x First value.
+ * @param y Second value.
+ * @return Unique paired value, independent of input order.
+ */
+[[nodiscard]] constexpr auto CantorPairingUnordered(const auto x, const auto y) {
     return x > y ? CantorPairing(y, x) : CantorPairing(x, y);
 }
 
+/**
+ * @brief Returns the absolute value.
+ * @ingroup MathGroup
+ *
+ * @param x Input float.
+ * @return Absolute value.
+ */
 [[nodiscard]] constexpr auto Fabs(float x) {
     return (x < 0.0F) ? -x : x;
 }
 
+/**
+ * @brief Computes square root using fast inverse sqrt refinement.
+ * @ingroup MathGroup
+ *
+ * @param x Input value.
+ * @return Approximated square root.
+ */
 [[nodiscard]] constexpr auto Sqrt(float x) {
     if (x <= 0.0f) {
         return 0.0f;
@@ -122,6 +177,13 @@ alignas(64) constexpr uint32_t arctan_table[65] {
     return r * x;
 }
 
+/**
+ * @brief Computes inverse square root using fast inverse sqrt refinement.
+ * @ingroup MathGroup
+ *
+ * @param x Input value.
+ * @return Approximated 1 / sqrt(x).
+ */
 [[nodiscard]] constexpr auto InverseSqrt(float x) {
     if (x <= 0.0f) {
         return std::numeric_limits<float>::infinity();
@@ -136,6 +198,13 @@ alignas(64) constexpr uint32_t arctan_table[65] {
     return r;
 }
 
+/**
+ * @brief Approximates cosine using lookup + polynomial correction.
+ * @ingroup MathGroup
+ *
+ * @param x Angle in radians.
+ * @return Approximate cosine.
+ */
 [[nodiscard]] constexpr auto Cos(float x) {
     auto b = Fabs(x) * inv_tau;
     auto i = static_cast<int32_t>(b);
@@ -150,6 +219,13 @@ alignas(64) constexpr uint32_t arctan_table[65] {
     return cossin_alpha.x * cosine_beta - cossin_alpha.y * sine_beta;
 }
 
+/**
+ * @brief Approximates sine using lookup + polynomial correction.
+ * @ingroup MathGroup
+ *
+ * @param x Angle in radians.
+ * @return Approximate sine.
+ */
 [[nodiscard]] constexpr auto Sin(float x) {
     auto b = Fabs(x) * inv_tau;
     auto i = static_cast<int32_t>(b);
@@ -165,6 +241,15 @@ alignas(64) constexpr uint32_t arctan_table[65] {
     return x < 0.0f ? -sine : sine;
 }
 
+/**
+ * @brief Approximates arctangent of a single value.
+ * @ingroup MathGroup
+ *
+ * Uses piecewise approximation with a small lookup table.
+ *
+ * @param x Input value.
+ * @return atan(x) in radians.
+ */
 [[nodiscard]] constexpr auto Atan(float x) {
     auto a = Fabs(x);
 
@@ -196,6 +281,14 @@ alignas(64) constexpr uint32_t arctan_table[65] {
     return x < 0.0f ? -a : a;
 }
 
+/**
+ * @brief Approximates atan2 with quadrant correction.
+ * @ingroup MathGroup
+ *
+ * @param y Y-coordinate.
+ * @param x X-coordinate.
+ * @return Angle in radians from positive X-axis.
+ */
 [[nodiscard]] constexpr auto Atan2(float y, float x) {
     if (Fabs(x) > epsilon) {
         auto r = Atan(y / x);
@@ -212,10 +305,23 @@ alignas(64) constexpr uint32_t arctan_table[65] {
     return 0.0f;
 }
 
+/**
+ * @brief Approximates arcsine using arctangent and inverse sqrt.
+ * @ingroup MathGroup
+ *
+ * @param y Sine value in [-1, 1].
+ * @return Angle in radians.
+ */
 [[nodiscard]] constexpr auto Asin(float y) {
     return (Atan(y * InverseSqrt(1.0f - y * y)));
 }
 
+/**
+ * @brief Generates a UUID string (version 4-like).
+ * @ingroup MathGroup
+ *
+ * @return Random UUID as a string.
+ */
 [[nodiscard]] GLEAM_EXPORT inline auto GenerateUUID() {
     static std::vector<std::string> lut{
         "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "0a",

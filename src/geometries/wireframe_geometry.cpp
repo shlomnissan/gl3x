@@ -39,7 +39,7 @@ WireframeGeometry::WireframeGeometry(const Geometry* geometry) :
 
     auto seen_edges = std::unordered_set<uint64_t> {};
     auto add_edge = [this, &seen_edges](unsigned int x, unsigned int y) {
-        const auto key = math::UnorderedCantorPairing(
+        const auto key = math::CantorPairingUnordered(
             static_cast<uint64_t>(x),
             static_cast<uint64_t>(y)
         );
