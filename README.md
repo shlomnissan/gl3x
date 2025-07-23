@@ -47,11 +47,9 @@ This section covers how to build Gleam from source, install it, and integrate it
 
 Gleam requires a C++23-compatible toolchain, CMake 3.20 or newer, and an OpenGL 4.1+ context, and currently supports both Windows and Unix-based systems, with active testing on the following platforms:
 
-![Ubuntu](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/UBT.png) 24.04 and GCC 11.3.0
-
-![macOS](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/MAC.png) macOS 14 and Clang 15.0.0
-
-![Windows](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/WIN.png) Windows 10 and MSVC 19.44
+- ![Ubuntu](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/UBT.png) 24.04 and GCC 11.3.0
+- ![macOS](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/MAC.png) macOS 14 and Clang 15.0.0
+- ![Windows](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/WIN.png) Windows 10 and MSVC 19.44
 
 Other combinations may work, but are not regularly tested.
 
@@ -61,9 +59,9 @@ Gleam vendors all of its dependencies directly into the repository—there’s n
 
 | Dependency | Version  | Location        | Description |
 |------------|----------|----------------|-------------|
-| **GLAD**   | 0.1.36   | `vendor/glad`  | OpenGL function loader generated from [glad.dav1d.de](https://glad.dav1d.de/), configured for OpenGL 4.1 Core. |
-| **GLFW**   | 3.5.0    | `vendor/glfw`  | Cross-platform window creation, input handling, and OpenGL context management. Slightly modified for internal integration. |
-| **ImGui**  | 1.92.1   | `vendor/imgui` | Immediate-mode GUI library for in-engine UI and debugging tools. Included conditionally via the `GLEAM_BUILD_IMGUI` CMake option. |
+| GLAD   | 0.1.36   | `vendor/glad`  | OpenGL function loader generated from [glad.dav1d.de](https://glad.dav1d.de/), configured for OpenGL 4.1 Core. |
+| GLFW   | 3.5.0    | `vendor/glfw`  | Cross-platform window creation, input handling, and OpenGL context management. Slightly modified for internal integration. |
+| ImGui  | 1.92.1   | `vendor/imgui` | Immediate-mode GUI library for in-engine UI and debugging tools. Included conditionally via the `GLEAM_BUILD_IMGUI` CMake option. |
 
 Each dependency includes license information in the root of its respective `vendor/` folder. Additional dependencies may be used in the asset pipeline, but these are not part of the core Gleam runtime or linked into the engine binaries.
 
