@@ -8,8 +8,8 @@
 ## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
-- [Getting Started]()
-   - [Requirements]()
+- [Getting Started](#getting-started)
+   - [Requirements](#requirements)
    - [Dependencies]()
    - [Build from Source]()
    - [Install and Integrate]()
@@ -38,6 +38,22 @@ Written for native performance and modularity, Gleam is ideal for building real-
 - Constexpr-first math library – Header-only vector and matrix types designed for compile-time use.
 - Strict API boundary – Clean separation between internal systems and public interfaces.
 - Comprehensive documentation – Consistently formatted with grouped sections and related symbols.
+
+## Getting Started
+
+This section covers how to build Gleam from source, install it, and integrate it into your own project. Gleam is designed to be easy to consume: all dependencies are vendored, and no system-wide packages are required.
+
+### Requirements
+
+Gleam requires a C++23-compatible toolchain, CMake 3.20 or newer, and an OpenGL 4.1+ context, and currently supports both Windows and Unix-based systems, with active testing on the following platforms:
+
+![Ubuntu](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/UBT.png) 24.04 and GCC 11.3.0
+
+![macOS](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/MAC.png) macOS 14 and Clang 15.0.0
+
+![Windows](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/WIN.png) Windows 10 and MSVC 19.44
+
+Other combinations may work, but are not regularly tested.
 
 ## License
 ```
