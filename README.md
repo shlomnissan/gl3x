@@ -11,7 +11,7 @@
 - [Getting Started](#getting-started)
    - [Requirements](#requirements)
    - [Dependencies](#dependencies)
-   - [Build from Source]()
+   - [Build from Source](#build-from-source)
    - [Install and Integrate]()
 - [Example]()
 - [Documentation](https://shlomnissan.github.io/gleam/)
@@ -64,6 +64,48 @@ Gleam vendors all of its dependencies directly into the repository—there’s n
 | ImGui  | 1.92.1   | `vendor/imgui` | Immediate-mode GUI library for in-engine UI and debugging tools. Included conditionally via the `GLEAM_BUILD_IMGUI` CMake option. |
 
 Each dependency includes license information in the root of its respective `vendor/` folder. Additional dependencies may be used in the asset pipeline, but these are not part of the core Gleam runtime or linked into the engine binaries.
+
+### Build From Source
+
+Gleam uses [CMake](https://cmake.org/download/) to configure and build the project across all platforms. CMake is also used to generate documentation, enable examples, and control build features. You can customize the build using the following CMake options:
+
+| Option                | Default | Description                                              |
+|-----------------------|---------|----------------------------------------------------------|
+| `GLEAM_BUILD_DOCS`     | `OFF`   | Builds Doxygen documentation.                           |
+| `GLEAM_BUILD_EXAMPLES` | `OFF`   | Builds example applications.                            |
+| `GLEAM_BUILD_IMGUI`    | `OFF`   | Enables ImGui support (required by some examples/tools). |
+| `GLEAM_BUILD_TESTS`    | `OFF`   | Builds unit tests.                                      |
+| `GLEAM_BUILD_TOOLS`    | `OFF`   | Builds command-line asset tools.                        |
+
+Gleam provides a set of preconfigured [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) so you can get started quickly without manually setting options:
+
+- `dev-debug` – Debug build with tests, tools, and ImGui enabled.
+- `dev-release` – Release build with tools and examples.
+- `install-debug` – Debug build for installation (minimal features).
+- `install-release` – Optimized release build for installation.
+
+#### Build Instructions
+
+1. Clone the repository:
+
+<pre>
+/$ git clone https://github.com/shlomnissan/gleam.git
+/$ cd gleam
+</pre>
+
+2. Configure the project using a preset:
+
+<pre>
+/$ cmake --preset dev-debug
+</pre>
+
+3. Build the engine:
+
+<pre>
+/$ cmake --build out/dev-debug --config Debug
+</pre>
+
+If you selected a development preset or enabled `GLEAM_BUILD_EXAMPLES`, you can run the example applications to verify that everything is working correctly.
 
 ## License
 ```
