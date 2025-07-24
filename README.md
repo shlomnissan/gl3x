@@ -11,8 +11,8 @@
 - [Getting Started](#getting-started)
    - [Requirements](#requirements)
    - [Dependencies](#dependencies)
-   - [Build from Source](#build-from-source)
-   - [Install and Integrate]()
+   - [Build for Development](#build-for-development)
+   - [Install and Integrate](#install-and-integrate)
 - [Example]()
 - [Documentation](https://shlomnissan.github.io/gleam/)
 - [Asset Generation Pipeline]()
@@ -65,9 +65,13 @@ Gleam vendors all of its dependencies directly into the repository—there’s n
 
 Each dependency includes license information in the root of its respective `vendor/` folder. Additional dependencies may be used in the asset pipeline, but these are not part of the core Gleam runtime or linked into the engine binaries.
 
-### Build from Source
+### Build for Development
 
-Gleam uses [CMake](https://cmake.org/download/) to configure and build the project across all platforms. CMake is also used to generate documentation, enable examples, and control build features. You can customize the build using the following CMake options:
+Gleam uses [CMake](https://cmake.org/download/) to configure and build the project on all platforms. You can enable optional features like documentation, examples, tools, and tests using CMake options or presets designed for development workflows.
+
+#### CMake Options
+
+The following options control which components are built:
 
 | Option                | Default | Description                                              |
 |-----------------------|---------|----------------------------------------------------------|
@@ -77,12 +81,14 @@ Gleam uses [CMake](https://cmake.org/download/) to configure and build the proje
 | `GLEAM_BUILD_TESTS`    | `ON`   | Builds unit tests.                                      |
 | `GLEAM_BUILD_TOOLS`    | `ON`   | Builds command-line asset tools.                        |
 
-Gleam provides a set of preconfigured [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) so you can get started quickly without manually setting options:
+#### Development Presets
 
-- `dev-debug` – Debug build with tests, tools, and ImGui enabled.
-- `dev-release` – Release build with tools and examples.
-- `install-debug` – Debug build for installation (minimal features).
-- `install-release` – Optimized release build for installation.
+To streamline development, Gleam provides a set of [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) with common configurations:
+
+- `dev-debug` – Debug build with all features enabled (tests, tools, ImGui, examples)
+- `dev-release` – Optimized build with tools and examples (useful for performance benchmarking)
+- `install-debug` – Debug build for installation (used with MSVC for debug integration).
+- `install-release` – Optimized build for installation (optimized release).
 
 #### Build Instructions
 
@@ -105,7 +111,11 @@ Gleam provides a set of preconfigured [CMake presets](https://cmake.org/cmake/he
 /$ cmake --build out/dev-debug --config Debug
 </pre>
 
-If you selected a development preset or enabled `GLEAM_BUILD_EXAMPLES`, you can run the example applications to verify that everything is working correctly.
+If you use a development preset or enable `GLEAM_BUILD_EXAMPLES`, you can run the examples target application to verify that everything is working correctly.
+
+### Install and Integrate
+
+Gleam can be installed using the provided script and then integrated into your own CMake-based project using standard `find_package` and `target_link_libraries` semantics.
 
 ## License
 ```
