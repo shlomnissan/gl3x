@@ -25,6 +25,8 @@ struct Node::Impl {
     Matrix4 world_transform {1.0f};
 
     bool world_transform_touched {false};
+
+    bool attached {false};
 };
 
 Node::Node() : impl_(std::make_unique<Impl>()) {};
@@ -51,6 +53,7 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
         );
         impl_->children.erase(it);
         node->impl_->parent = nullptr;
+        node->impl_->attached = false;
         node->transform.touched = true;
     } else {
         Logger::Log(
@@ -68,6 +71,7 @@ auto Node::RemoveAllChildren() -> void {
             std::make_unique<SceneEvent>(SceneEvent::Type::NodeRemoved, node)
         );
         node->impl_->parent = nullptr;
+        node->impl_->attached = false;
         node->transform.touched = true;
     }
     impl_->children.clear();
@@ -160,7 +164,11 @@ auto Node::LookAt(const Vector3& target) -> void {
 }
 
 auto Node::AttachRecursive(SharedContext* context) -> void {
+    if (impl_->attached) return;
+
     OnAttached(context);
+    impl_->attached = true;
+
     for (const auto& child : impl_->children) {
         if (child != nullptr) {
             child->AttachRecursive(context);
