@@ -71,11 +71,11 @@ Gleam uses [CMake](https://cmake.org/download/) to configure and build the proje
 
 | Option                | Default | Description                                              |
 |-----------------------|---------|----------------------------------------------------------|
-| `GLEAM_BUILD_DOCS`     | `OFF`   | Builds Doxygen documentation.                           |
-| `GLEAM_BUILD_EXAMPLES` | `OFF`   | Builds example applications.                            |
-| `GLEAM_BUILD_IMGUI`    | `OFF`   | Enables ImGui support (required by some examples/tools). |
-| `GLEAM_BUILD_TESTS`    | `OFF`   | Builds unit tests.                                      |
-| `GLEAM_BUILD_TOOLS`    | `OFF`   | Builds command-line asset tools.                        |
+| `GLEAM_BUILD_DOCS`     | `ON`   | Builds Doxygen documentation.                           |
+| `GLEAM_BUILD_EXAMPLES` | `ON`   | Builds example applications.                            |
+| `GLEAM_BUILD_IMGUI`    | `ON`   | Enables ImGui support (required by some examples/tools). |
+| `GLEAM_BUILD_TESTS`    | `ON`   | Builds unit tests.                                      |
+| `GLEAM_BUILD_TOOLS`    | `ON`   | Builds command-line asset tools.                        |
 
 Gleam provides a set of preconfigured [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) so you can get started quickly without manually setting options:
 
