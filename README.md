@@ -65,7 +65,7 @@ Gleam vendors all of its dependencies directly into the repository—there’s n
 
 Each dependency includes license information in the root of its respective `vendor/` folder. Additional dependencies may be used in the asset pipeline, but these are not part of the core Gleam runtime or linked into the engine binaries.
 
-### Build From Source
+### Build from Source
 
 Gleam uses [CMake](https://cmake.org/download/) to configure and build the project across all platforms. CMake is also used to generate documentation, enable examples, and control build features. You can customize the build using the following CMake options:
 
