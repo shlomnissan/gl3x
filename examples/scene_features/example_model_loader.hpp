@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <gleam/cameras.hpp>
 #include <gleam/geometries.hpp>
 #include <gleam/nodes.hpp>
 
@@ -20,8 +21,11 @@ public:
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 
+    auto OnUpdate(float delta) -> void override;
+
     auto ContextMenu() -> void override;
 
 private:
+    std::shared_ptr<gleam::Mesh> sphere_;
     std::shared_ptr<gleam::Node> mesh_;
 };
