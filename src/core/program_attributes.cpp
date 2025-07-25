@@ -25,12 +25,14 @@ ProgramAttributes::ProgramAttributes(const Material* material, const LightsCount
         auto m = static_cast<const UnlitMaterial*>(material);
         color = true;
         texture_map = m->texture_map != nullptr;
+        alpha_map = m->alpha_map != nullptr;
     }
 
     if (type == MaterialType::PhongMaterial) {
         auto m = static_cast<const PhongMaterial*>(material);
         color = true;
         texture_map = m->texture_map != nullptr;
+        alpha_map = m->alpha_map != nullptr;
     }
 
     if (type == MaterialType::ShaderMaterial) {
@@ -53,7 +55,8 @@ ProgramAttributes::ProgramAttributes(const Material* material, const LightsCount
     key |= (lights.point & 0xF) << 11; // 0–10 → 4 bits
     key |= (lights.spot & 0xF) << 15; // 0–10 → 4 bits
     key |= (texture_map ? 1 : 0) << 19; // 1 bit
-    key |= (two_sided ? 1 : 0) << 20; // 1 bit
+    key |= (alpha_map ? 1 : 0) << 20; // 1 bit
+    key |= (two_sided ? 1 : 0) << 21; // 1 bit
 }
 
 }

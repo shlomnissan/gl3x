@@ -109,6 +109,11 @@ void main() {
         opacity *= texture_sample.a;
     #endif
 
+    #ifdef USE_ALPHA_MAP
+        vec4 alpha_sample = texture(u_AlphaMap, v_TexCoord);
+        opacity *= alpha_sample.r;
+    #endif
+
     vec3 output_color = diffuse_color * u_AmbientLight;
     #if NUM_LIGHTS > 0
         output_color += processLights(normal, diffuse_color);

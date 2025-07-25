@@ -57,9 +57,24 @@ auto ExampleModelLoader::OnAttached(gleam::SharedContext* context) -> void {
             }
         }
     );
+
+    context->Loaders().Texture->LoadAsync(
+        "assets/mushroms_Opacity_1002.tex",
+        [this](auto result) {
+            if (result) alpha_map_ = result.value();
+        }
+    );
 }
 
 auto ExampleModelLoader::OnUpdate(float delta) -> void {
+    if (!is_alpha_set && alpha_map_ != nullptr && mesh_ != nullptr) {
+        auto x = static_cast<Mesh*>(mesh_->Children()[10].get());
+        auto m = static_cast<PhongMaterial*>(x->GetMaterial().get());
+        m->alpha_map = alpha_map_;
+        m->transparent = true;
+        is_alpha_set = true;
+    }
+
     sphere_->RotateY(0.1f * delta);
 }
 

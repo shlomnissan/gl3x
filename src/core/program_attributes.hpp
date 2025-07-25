@@ -35,6 +35,7 @@ struct ProgramAttributes {
     bool color {false};
     bool fog {false};
     bool texture_map {false};
+    bool alpha_map {false};
     bool two_sided {false};
     bool flat_shaded {false};
 

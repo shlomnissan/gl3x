@@ -22,6 +22,7 @@ UniformType ToUniformType(GLenum type) {
         case GL_FLOAT_VEC3: return UniformType::Vector3;
         case GL_FLOAT_VEC4: return UniformType::Vector4;
         case GL_INT: return UniformType::Int;
+        case GL_SAMPLER_2D: return UniformType::Sampler2D;
         default: return UniformType::Unsupported;
     }
 }
@@ -64,6 +65,12 @@ auto GLUniform::SetValue(const void* value) -> void {
                 needs_upload_ = true;
             }
             break;
+        case UniformType::Sampler2D:
+            if (data_.i != *reinterpret_cast<const int*>(value)) {
+                data_.i = *reinterpret_cast<const int*>(value);
+                needs_upload_ = true;
+            }
+            break;
         case UniformType::Vector2:
             if (data_.v2 != *reinterpret_cast<const Vector2*>(value)) {
                 data_.v2 = *reinterpret_cast<const Vector2*>(value);
@@ -93,6 +100,7 @@ auto GLUniform::UploadIfNeeded() -> void {
         case UniformType::Int: glUniform1i(location_, data_.i); break;
         case UniformType::Matrix3: glUniformMatrix3fv(location_, 1, GL_FALSE, &data_.m3[0][0]); break;
         case UniformType::Matrix4: glUniformMatrix4fv(location_, 1, GL_FALSE, &data_.m4[0][0]); break;
+        case UniformType::Sampler2D: glUniform1i(location_, data_.i); break;
         case UniformType::Vector2: glUniform2fv(location_, 1, &data_.v2[0]); break;
         case UniformType::Vector3: glUniform3fv(location_, 1, &data_.v3[0]); break;
         case UniformType::Vector4: glUniform4fv(location_, 1, &data_.v4[0]); break;

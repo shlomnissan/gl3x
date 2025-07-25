@@ -25,3 +25,4 @@ in vec4 v_Position;
 uniform vec3 u_Color;
 uniform float u_Opacity;
 uniform sampler2D u_TextureMap;
+uniform sampler2D u_AlphaMap;

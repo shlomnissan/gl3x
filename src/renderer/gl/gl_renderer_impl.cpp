@@ -137,11 +137,21 @@ auto Renderer::Impl::SetUniforms(
     if (attrs->type == MaterialType::UnlitMaterial) {
         auto m = static_cast<UnlitMaterial*>(material);
         program->SetUniform(Uniform::Color, &m->color);
+
         if (attrs->texture_map) {
-            const auto& transform = m->texture_map->GetTransform();
-            program->SetUniform(Uniform::TextureMap, 0);
-            program->SetUniform(Uniform::TextureTransform, &transform);
+            auto unit = 0;
+            glActiveTexture(GL_TEXTURE0);
             textures_.Bind(m->texture_map);
+            const auto& transform = m->texture_map->GetTransform();
+            program->SetUniform(Uniform::TextureMap, &unit);
+            program->SetUniform(Uniform::TextureTransform, &transform);
+        }
+
+        if (attrs->alpha_map) {
+            auto unit = 1;
+            glActiveTexture(GL_TEXTURE1);
+            textures_.Bind(m->alpha_map);
+            program->SetUniform(Uniform::AlphaMap, &unit);
         }
     }
 
@@ -155,10 +165,19 @@ auto Renderer::Impl::SetUniforms(
         }
 
         if (attrs->texture_map) {
-            const auto& transform = m->texture_map->GetTransform();
-            program->SetUniform(Uniform::TextureMap, 0);
-            program->SetUniform(Uniform::TextureTransform, &transform);
+            auto unit = 0;
+            glActiveTexture(GL_TEXTURE0);
             textures_.Bind(m->texture_map);
+            const auto& transform = m->texture_map->GetTransform();
+            program->SetUniform(Uniform::TextureMap, &unit);
+            program->SetUniform(Uniform::TextureTransform, &transform);
+        }
+
+        if (attrs->alpha_map) {
+            auto unit = 1;
+            glActiveTexture(GL_TEXTURE1);
+            textures_.Bind(m->alpha_map);
+            program->SetUniform(Uniform::AlphaMap, &unit);
         }
     }
 

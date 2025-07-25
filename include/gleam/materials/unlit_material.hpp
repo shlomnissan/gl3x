@@ -42,6 +42,9 @@ public:
     /// @brief Texture map that may optionally include an alpha channel.
     std::shared_ptr<Texture2D> texture_map = nullptr;
 
+    /// @brief Alpha map that controls the opacity across the surface.
+    std::shared_ptr<Texture2D> alpha_map = nullptr;
+
     /**
      * @brief Constructs a UnlitMaterial object.
      *

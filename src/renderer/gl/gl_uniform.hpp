@@ -25,6 +25,7 @@ enum class UniformType {
     Int,
     Matrix3,
     Matrix4,
+    Sampler2D,
     Vector2,
     Vector3,
     Vector4,
@@ -32,6 +33,7 @@ enum class UniformType {
 };
 
 enum class Uniform {
+    AlphaMap,
     AmbientLight,
     Color,
     FogColor,
@@ -52,6 +54,7 @@ enum class Uniform {
 
 constexpr auto get_uniform_loc(std::string_view str) {
     using enum Uniform;
+    if (str == "u_AlphaMap") return static_cast<int>(AlphaMap);
     if (str == "u_AmbientLight") return static_cast<int>(AmbientLight);
     if (str == "u_Color") return static_cast<int>(Color);
     if (str == "u_Fog.Color") return static_cast<int>(FogColor);
