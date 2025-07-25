@@ -21,6 +21,9 @@ auto GLTextures::Bind(const std::shared_ptr<Texture>& texture) -> void {
         GenerateTexture(texture.get());
         textures_.emplace_back(texture);
     }
+
+    glBindTexture(GL_TEXTURE_2D, tex_id);
+    current_texture_id_ = tex_id;
 }
 
 auto GLTextures::GenerateTexture(Texture* texture) const -> void {
