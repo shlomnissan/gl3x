@@ -13,9 +13,8 @@
    - [Dependencies](#dependencies)
    - [Build for Development](#build-for-development)
    - [Install and Integrate](#install-and-integrate)
-- [Example]()
 - [Documentation](https://shlomnissan.github.io/gleam/)
-- [Asset Generation Pipeline]()
+- [Asset Generation Pipeline](#asset-generation-pipeline)
 - [License](#license)
 
 ---
@@ -142,7 +141,7 @@ target_link_libraries(MyApp gleam::gleam)
 
 CMake will automatically detect the correct build configuration (Debug or Release) based on your current project settings.
 
-##### Platform Notes
+#### Platform Notes
 
 - Gleam disables RTTI by default to reduce binary size and improve performance. You may need to disable RTTI in your own targets using the following:
 ```cmake
@@ -163,6 +162,10 @@ if(WIN32)
   )
 endif()
 ```
+
+## Asset Generation Pipeline
+
+Gleam does not load raw asset files like .glTF or .png at runtime. Instead, it uses a precompiled asset format designed for fast, GPU-friendly loading. Assets are converted ahead of time using a command-line tool called `asset_builder`.
   
 ## License
 ```
