@@ -7,19 +7,15 @@
 
 #include "renderer/gl/gl_renderer_impl.hpp"
 
-#include "gleam/materials/unlit_material.hpp"
 #include "gleam/materials/phong_material.hpp"
 #include "gleam/materials/shader_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 #include "gleam/math/vector3.hpp"
 #include "gleam/nodes/fog.hpp"
 
-#include "core/render_lists.hpp"
 #include "core/program_attributes.hpp"
+#include "core/render_lists.hpp"
 #include "utilities/logger.hpp"
-
-#include <array>
-#include <cmath>
-#include <utility>
 
 #include <glad/glad.h>
 

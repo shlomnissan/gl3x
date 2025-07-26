@@ -15,11 +15,15 @@
 
 namespace gleam {
 
-static const auto VertexAttributesMap = std::unordered_map<std::string, GeometryAttributeType> {
+namespace {
+
+const auto VertexAttributesMap = std::unordered_map<std::string, GeometryAttributeType> {
     {"a_Position", GeometryAttributeType::Position},
     {"a_Normal", GeometryAttributeType::Normal},
     {"a_TexCoord", GeometryAttributeType::UV}
 };
+
+}
 
 GLProgram::GLProgram(const std::vector<ShaderInfo>& shaders) {
     program_ = glCreateProgram();

@@ -7,10 +7,10 @@
 
 #pragma once
 
+#include "core/renderer.hpp"
+
 #include "gleam/math/frustum.hpp"
 #include "gleam/nodes/mesh.hpp"
-
-#include "core/renderer.hpp"
 
 #include "renderer/gl/gl_buffers.hpp"
 #include "renderer/gl/gl_camera.hpp"
