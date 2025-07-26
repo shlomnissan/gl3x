@@ -13,8 +13,8 @@
 
 #include "utilities/logger.hpp"
 
-#include "shaders/headers/flat_material_vert.h"
-#include "shaders/headers/flat_material_frag.h"
+#include "shaders/headers/unlit_material_vert.h"
+#include "shaders/headers/unlit_material_frag.h"
 #include "shaders/headers/phong_material_vert.h"
 #include "shaders/headers/phong_material_frag.h"
 #include "shaders/snippets/headers/vert_global_params_glsl.h"
@@ -31,10 +31,10 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std
     if (attrs.type == MaterialType::UnlitMaterial) {
         return {{
             ShaderType::kVertexShader,
-            ProcessShader(attrs, _SHADER_flat_material_vert)
+            ProcessShader(attrs, _SHADER_unlit_material_vert)
         }, {
             ShaderType::kFragmentShader,
-            ProcessShader(attrs, _SHADER_flat_material_frag)
+            ProcessShader(attrs, _SHADER_unlit_material_frag)
         }};
     }
 
