@@ -165,7 +165,7 @@ endif()
 
 ## Asset Generation Pipeline
 
-Gleam does not load raw asset files like .glTF or .png at runtime. Instead, it uses a precompiled asset format designed for fast, GPU-friendly loading. Assets are converted ahead of time using a command-line tool called `asset_builder`.
+Gleam does not load raw asset files at runtime. Instead, it uses a precompiled asset format designed for fast, GPU-friendly loading. Assets are converted ahead of time using a command-line tool called `asset_builder`.
   
 ## License
 ```
