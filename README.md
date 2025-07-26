@@ -95,28 +95,75 @@ To streamline development, Gleam provides a set of [CMake presets](https://cmake
 1. Clone the repository:
 
 <pre>
-/$ git clone https://github.com/shlomnissan/gleam.git
-/$ cd gleam
+<i>/$</i> git clone https://github.com/shlomnissan/gleam.git
+<i>/$</i> cd gleam
 </pre>
 
 2. Configure the project using a preset:
 
 <pre>
-/$ cmake --preset dev-debug
+<i>/$</i> cmake --preset dev-debug
 </pre>
 
 3. Build the engine:
 
 <pre>
-/$ cmake --build out/dev-debug --config Debug
+<i>/$</i> cmake --build out/dev-debug --config Debug
 </pre>
 
 If you use a development preset or enable `GLEAM_BUILD_EXAMPLES`, you can run the examples target application to verify that everything is working correctly.
 
 ### Install and Integrate
 
-Gleam can be installed using the provided script and then integrated into your own CMake-based project using standard `find_package` and `target_link_libraries` semantics.
+Gleam can be installed using the provided installation script and then integrated into your own CMake-based project using standard `find_package` and `target_link_libraries` semantics. Alternatively, once installed, you can link Gleam directly using your compiler's native flags by pointing to the installed headers and linking against the built library manually (e.g., via `-I` and `-L` flags).
 
+Installation is handled by a platform-specific script that builds and installs the engine using the `install-*` presets:
+
+- macOS or Linux:
+<pre>
+<i>/$</i> sudo scripts/install.sh
+</pre>
+
+- Windows (PowerShell as admin):
+<pre>
+<i>/$</i> scripts\install.bat
+</pre>
+
+The installation script uses the `install-release` preset on macOS and Linux. On Windows with MSVC, both `install-debug` and `install-release` presets are used to install separate Debug and Release builds, since each configuration has a different ABI. Administrator or sudo privileges are required in both cases to write to system directories.
+
+By default, Gleam is installed as a **shared library**. This helps enforce a strong API boundary and keeps internal implementation details hidden via symbol visibility settings. If needed, static linking can be supported by modifying the build.
+
+Once installed, Gleam can be used in your own CMake project:
+
+```cmake
+find_package(gleam REQUIRED)
+target_link_libraries(MyApp gleam::gleam)
+```
+
+CMake will automatically detect the correct build configuration (Debug or Release) based on your current project settings.
+
+##### Platform Notes
+
+- Gleam disables RTTI by default to reduce binary size and improve performance. You may need to disable RTTI in your own targets using the following:
+```cmake
+target_compile_options(MyApp PRIVATE
+  $<$<CXX_COMPILER_ID:GNU>:-fno-rtti>
+  $<$<CXX_COMPILER_ID:Clang>:-fno-rtti>
+  $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti>
+  $<$<CXX_COMPILER_ID:MSVC>:/GR->
+)
+```
+- On MSVC: After building and installing Gleam, you may need to manually copy the appropriate DLL (Debug or Release) next to your executable. This can be automated in your project’s CMake configuration using:
+```cmake
+if(WIN32)
+  add_custom_command(TARGET MyApp POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    $<TARGET_FILE:gleam::gleam>
+    $<TARGET_FILE_DIR:MyApp>
+  )
+endif()
+```
+  
 ## License
 ```
       ___           ___       ___           ___           ___
