@@ -93,22 +93,22 @@ To streamline the build process, Gleam provides a set of [CMake presets](https:/
 
 1. Clone the repository:
 
-<pre>
-<i>/$</i> git clone https://github.com/shlomnissan/gleam.git
-<i>/$</i> cd gleam
-</pre>
+```bash
+/$ git clone https://github.com/shlomnissan/gleam.git
+/$ cd gleam
+```
 
 2. Configure the project using a preset:
 
-<pre>
-<i>/$</i> cmake --preset dev-debug
-</pre>
+```bash
+/$ cmake --preset dev-debug
+```
 
 3. Build the engine:
 
-<pre>
-<i>/$</i> cmake --build build/debug --config Debug
-</pre>
+```bash
+/$ cmake --build build/debug --config Debug
+```
 
 If you use a development preset or enable `GLEAM_BUILD_EXAMPLES`, you can run the examples target application to verify that everything is working correctly.
 
@@ -119,14 +119,14 @@ Gleam can be installed using the provided installation script and then integrate
 Installation is handled by a platform-specific script that builds and installs the engine using the `install-*` presets:
 
 - macOS or Linux:
-<pre>
-<i>/$</i> sudo scripts/install.sh
-</pre>
+```bash
+/$ sudo scripts/install.sh
+```
 
 - Windows (PowerShell as admin):
-<pre>
-<i>/$</i> scripts\install.bat
-</pre>
+```powershell
+scripts\install.bat
+```
 
 The installation script uses the `install-release` preset on macOS and Linux. On Windows with MSVC, both `install-debug` and `install-release` presets are used to install separate Debug and Release builds, since each configuration has a different ABI. Administrator or sudo privileges are required in both cases to write to system directories.
 
@@ -165,7 +165,39 @@ endif()
 
 ## Asset Generation Pipeline
 
-Gleam does not load raw asset files at runtime. Instead, it uses a precompiled asset format designed for fast, GPU-friendly loading. Assets are converted ahead of time using a command-line tool called `asset_builder`.
+Gleam does not load raw asset files at runtime. Instead, it uses precompiled formats optimized for fast, GPU-friendly loading. These assets are generated ahead of time using    `asset_builder`, a command-line tool included with Gleam and built when `GLEAM_BUILD_TOOLS` is enabled. It converts common formats like .png and .obj into Gleam-specific runtime formats such as `.tex` and `.msh`.
+
+#### Supported Formats
+
+
+| Input          | Output | Type    | Description |
+|----------------|--------|---------|-------------|
+| `.png`, `.jpg` | `.tex` | Texture | Converts 2D images into a GPU-ready format |
+| `.obj`         | `.msh` | Mesh    | Converts geometry and material files for runtime loading |
+
+#### Usage
+
+```bash
+asset_builder -i <input_file> -o <output_file>
+```
+
+Examples:
+
+```bash
+/$ asset_builder -i model.obj
+/$ asset_builder -i texture_map_lg01.png -o texture_map.tex 
+```
+
+#### Building `asset_builder`
+
+`asset_builder` is built by default with any CMake preset. When you install Gleam using the provided installation script, the `asset_builder` CLI is also installed. On Unix systems, it is placed in a standard location and added to the system `PATH` by default. On Windows, you might need to add it to the path manually using Environement Variables settings or PowerShell:
+
+```powershell
+# Example on Windows PowerShell
+$env:PATH += ";C:\path\to\gleam\bin"
+```
+
+
   
 ## License
 ```
