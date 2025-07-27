@@ -29,12 +29,12 @@ Written for native performance and modularity, Gleam is ideal for building real-
 
 - Real-time forward renderer – Supports cameras, meshes, materials, and lighting out of the box.
 - Cross-platform – Runs on Windows, macOS, and Linux with consistent behavior across platforms.
-- Modern C++ architecture – Written in C++23 with minimal runtime overhead and strong typing.
-- Windowing and event system – Handles input, resizing, and context management natively.
-- Flexible lighting system – Directional, point, and spot lights with attenuation and intensity support.
+- Modern C++ architecture – Written in C++23 with minimal runtime overhead.
+- Windowing and event system – Handles input and context management natively.
+- Flexible lighting system – Directional, point, and spot lights with attenuation support.
 - Rich material system – Supports multiple material types and customizable shader behavior.
 - Precompiled asset pipeline – Converts external formats into optimized runtime formats.
-- Constexpr-first math library – Header-only vector and matrix types designed for compile-time use.
+- `constexpr`-first math library – Header-only math types and functions designed for compile-time use.
 - Strict API boundary – Clean separation between internal systems and public interfaces.
 - Comprehensive documentation – Consistently formatted with grouped sections and related symbols.
 
@@ -50,15 +50,13 @@ Gleam requires a C++23-compatible toolchain, CMake 3.20 or newer, and an OpenGL 
 - ![macOS](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/MAC.png) macOS 14 and Clang 15.0.0
 - ![Windows](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/WIN.png) Windows 10 and MSVC 19.44
 
-Other combinations may work, but are not regularly tested.
-
 ### Dependencies
 
 Gleam vendors all of its dependencies directly into the repository—there’s no need to download or install anything manually. At runtime, it relies on only a minimal set of libraries to provide cross-platform windowing, input, OpenGL loading, and optional UI rendering. The following runtime dependencies are used:
 
 | Dependency | Version  | Location        | Description |
 |------------|----------|----------------|-------------|
-| GLAD   | 0.1.36   | `vendor/glad`  | OpenGL function loader generated from [glad.dav1d.de](https://glad.dav1d.de/), configured for OpenGL 4.1 Core. |
+| Glad   | 0.1.36   | `vendor/glad`  | OpenGL function loader generated from [glad.dav1d.de](https://glad.dav1d.de/), configured for OpenGL 4.1 Core. |
 | GLFW   | 3.5.0    | `vendor/glfw`  | Cross-platform window creation, input handling, and OpenGL context management. Slightly modified for internal integration. |
 | ImGui  | 1.92.1   | `vendor/imgui` | Immediate-mode GUI library for in-engine UI and debugging tools. Included conditionally via the `GLEAM_BUILD_IMGUI` CMake option. |
 
@@ -72,22 +70,24 @@ Gleam uses [CMake](https://cmake.org/download/) to configure and build the proje
 
 The following options control which components are built:
 
-| Option                | Default | Description                                              |
-|-----------------------|---------|----------------------------------------------------------|
-| `GLEAM_BUILD_DOCS`     | `ON`   | Builds Doxygen documentation.                           |
-| `GLEAM_BUILD_EXAMPLES` | `ON`   | Builds example applications.                            |
-| `GLEAM_BUILD_IMGUI`    | `ON`   | Enables ImGui support (required by some examples/tools). |
-| `GLEAM_BUILD_TESTS`    | `ON`   | Builds unit tests.                                      |
-| `GLEAM_BUILD_TOOLS`    | `ON`   | Builds command-line asset tools.                        |
+| Option                 | Description                                              |
+|------------------------|----------------------------------------------------------|
+| `GLEAM_BUILD_DOCS`     | Builds Doxygen documentation.                            |
+| `GLEAM_BUILD_EXAMPLES` | Builds example applications.                             |
+| `GLEAM_BUILD_IMGUI`    | Enables ImGui support (required by some examples/tools). |
+| `GLEAM_BUILD_TESTS`    | Builds unit tests.                                       |
+| `GLEAM_BUILD_TOOLS`    | Builds command-line asset tools.                         |
 
-#### Development Presets
+The default value of each option is determined by the selected preset.
 
-To streamline development, Gleam provides a set of [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) with common configurations:
+#### CMake Presets
+
+To streamline the build process, Gleam provides a set of [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) with common configurations:
 
 - `dev-debug` – Debug build with all features enabled (tests, tools, ImGui, examples)
 - `dev-release` – Optimized build with tools and examples (useful for performance benchmarking)
-- `install-debug` – Debug build for installation (used with MSVC for debug integration).
-- `install-release` – Optimized build for installation (optimized release).
+- `install-debug` – Debug build for installation (used for MSVC).
+- `install-release` – Optimized build for release and integration.
 
 #### Build Instructions
 
@@ -107,7 +107,7 @@ To streamline development, Gleam provides a set of [CMake presets](https://cmake
 3. Build the engine:
 
 <pre>
-<i>/$</i> cmake --build out/dev-debug --config Debug
+<i>/$</i> cmake --build build/debug --config Debug
 </pre>
 
 If you use a development preset or enable `GLEAM_BUILD_EXAMPLES`, you can run the examples target application to verify that everything is working correctly.
@@ -143,7 +143,7 @@ CMake will automatically detect the correct build configuration (Debug or Releas
 
 #### Platform Notes
 
-- Gleam disables RTTI by default to reduce binary size and improve performance. You may need to disable RTTI in your own targets using the following:
+- Gleam disables RTTI by default to reduce binary size and improve performance. You may need to disable RTTI in the consuming project using the following:
 ```cmake
 target_compile_options(MyApp PRIVATE
   $<$<CXX_COMPILER_ID:GNU>:-fno-rtti>
