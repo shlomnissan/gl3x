@@ -114,15 +114,8 @@ Gleam can be installed via the provided script and integrated into your project 
 
 #### Install Script
 
-- macOS/Linux:
-```bash
-sudo scripts/install.sh
-```
-
-- Windows (PowerShell as Admin):
-```powershell
-scripts\install.bat
-```
+- macOS/Linux: `sudo scripts/install.sh`
+- Windows (PowerShell as Admin): `scripts\install.bat`
 
 The script uses the `install-release` preset on Unix. On MSVC, both `install-debug` and `install-release` are installed due to ABI differences. Elevated privileges are required in both cases. By default, Gleam is installed as a **shared library**. This enforces a clean API boundary and hides internal symbols using platform-specific visibility controls.
 
@@ -138,24 +131,24 @@ CMake automatically selects the correct configuration (Debug/Release) based on y
 #### Platform Notes
 
 - Gleam disables RTTI by default. You can match this in your project:
-```cmake
-target_compile_options(MyApp PRIVATE
-  $<$<CXX_COMPILER_ID:GNU>:-fno-rtti>
-  $<$<CXX_COMPILER_ID:Clang>:-fno-rtti>
-  $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti>
-  $<$<CXX_COMPILER_ID:MSVC>:/GR->
-)
-```
-- On MSVC: You may need to copy the Gleam DLL next to your executable. Automate this with:
-```cmake
-if(WIN32)
-  add_custom_command(TARGET MyApp POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    $<TARGET_FILE:gleam::gleam>
-    $<TARGET_FILE_DIR:MyApp>
+  ```cmake
+  target_compile_options(MyApp PRIVATE
+    $<$<CXX_COMPILER_ID:GNU>:-fno-rtti>
+    $<$<CXX_COMPILER_ID:Clang>:-fno-rtti>
+    $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti>
+    $<$<CXX_COMPILER_ID:MSVC>:/GR->
   )
-endif()
-```
+  ```
+- On MSVC: You may need to copy the Gleam DLL next to your executable. Automate this with:
+  ```cmake
+  if(WIN32)
+    add_custom_command(TARGET MyApp POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy_if_different
+      $<TARGET_FILE:gleam::gleam>
+      $<TARGET_FILE_DIR:MyApp>
+    )
+  endif()
+  ```
 
 ## Asset Generation Pipeline
 
@@ -177,16 +170,8 @@ asset_builder --input texture.png --output texture.tex
 
 #### Building `asset_builder`
 
-`asset_builder` is built with any CMake preset. If installed with Gleam, it is placed into a system-wide location:
-- On Unix: added to PATH by default
-- On Windows: add it manually if needed
-```powershell
-# Example on Windows PowerShell
-$env:PATH += ";C:\path\to\gleam\bin"
-```
+`asset_builder` is built by default with any CMake preset. If installed with Gleam, it will be available on the system `PATH` by default on Unix systems. On Windows, you may need to add it manually, for example: `$env:PATH += ";C:\path\to\gleam\bin"` in PowerShell.
 
-
-  
 ## License
 ```
       ___           ___       ___           ___           ___
