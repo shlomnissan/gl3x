@@ -190,7 +190,7 @@ Examples:
 
 #### Building `asset_builder`
 
-`asset_builder` is built by default with any CMake preset. When you install Gleam using the provided installation script, the `asset_builder` CLI is also installed. On Unix systems, it is placed in a standard location and added to the system `PATH` by default. On Windows, you might need to add it to the path manually using Environement Variables settings or PowerShell:
+`asset_builder` is built by default with any CMake preset. When you install Gleam using the provided installation script, the `asset_builder` CLI is also installed. On Unix systems, it is placed in a standard location and added to the system `PATH` by default. On Windows, you might need to add it to the path manually using Environment Variables settings or PowerShell:
 
 ```powershell
 # Example on Windows PowerShell
