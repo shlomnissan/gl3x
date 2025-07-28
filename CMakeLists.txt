@@ -16,6 +16,8 @@ option(GLEAM_BUILD_IMGUI "Build and integrate ImGui from the vendored source" ON
 option(GLEAM_BUILD_TESTS "Build unit tests and test infrastructure using GTest" ON)
 option(GLEAM_BUILD_TOOLS "Build additional CLI tools used for asset processing" ON)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+
 add_subdirectory("vendor")
 add_subdirectory("src")
 

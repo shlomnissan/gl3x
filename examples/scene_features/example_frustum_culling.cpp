@@ -53,7 +53,7 @@ auto ExampleFrustumCulling::OnAttached(gleam::SharedContext* context) -> void {
 auto ExampleFrustumCulling::OnUpdate(float delta) -> void {
     for (const auto& b : boxes_) {
         b->RotateX(1.0f * delta);
-        b->RotateY(1.0f * delta);
+        // b->RotateY(1.0f * delta);
     }
 }
 

@@ -1,26 +1,11 @@
 # Gleam
+
 A fast real-time 3D rendering engine built with modern C++.
 
 ![ubuntu-badge](https://github.com/shlomnissan/gleam/actions/workflows/ubuntu.yml/badge.svg)
 ![windows-badge](https://github.com/shlomnissan/gleam/actions/workflows/windows.yml/badge.svg)
 ![macos-badge](https://github.com/shlomnissan/gleam/actions/workflows/macos.yml/badge.svg)
 [![docs-badge](https://img.shields.io/badge/docs-online-blue.svg)](https://shlomnissan.github.io/gleam/)
-
-## Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [Getting Started](#getting-started)
-   - [Requirements](#requirements)
-   - [Dependencies](#dependencies)
-   - [Building Gleam](#building-gleam)
-   - [Installation and Usage](#installation-and-usage)
-- [Documentation](https://shlomnissan.github.io/gleam/)
-- [Asset Generation Pipeline](#asset-generation-pipeline)
-- [License](#license)
-
----
-
-## Overview
 
 Gleam is a lightweight, high-performance 3D rendering engine written in modern C++. It follows a clean, scene-oriented architecture that provides fine-grained control over rendering, lighting, and assets through a minimal and expressive API. Built for native performance and modularity, Gleam is ideal for interactive tools, visualization applications, and real-time rendering workflows that don't need the weight of a full game engine.
 
@@ -75,7 +60,7 @@ The following options control which components are built:
 | `GLEAM_BUILD_EXAMPLES` | Build example applications.                              |
 | `GLEAM_BUILD_IMGUI`    | Enable ImGui support for debug UI/tools.                 |
 | `GLEAM_BUILD_TESTS`    | Build unit tests.                                        |
-| `GLEAM_BUILD_TOOLS`    | Build command-line tools.                                |
+| `GLEAM_BUILD_TOOLS`    | Build command-line.                                      |
 
 Defaults are preset-dependent.
 
