@@ -18,6 +18,7 @@
 #include "gleam/nodes/bounding_sphere.hpp"
 #include "gleam/nodes/fog.hpp"
 #include "gleam/nodes/grid.hpp"
+#include "gleam/nodes/instanced_mesh.hpp"
 #include "gleam/nodes/mesh.hpp"
 #include "gleam/nodes/node.hpp"
 #include "gleam/nodes/orbit_controls.hpp"

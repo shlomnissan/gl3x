@@ -32,6 +32,7 @@ enum class NodeType {
     DefaultNode,
     LightNode,
     MeshNode,
+    InstancedMeshNode,
     SceneNode
 };
 

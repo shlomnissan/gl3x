@@ -25,5 +25,5 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::array<std::shared_ptr<gleam::Mesh>, 2500> boxes_;
+    std::array<std::shared_ptr<gleam::Mesh>, 4> boxes_;
 };

@@ -20,29 +20,28 @@ ExampleMeshInstancing::ExampleMeshInstancing() {
     Add(ambient_light);
 
     auto point_light = PointLight::Create({.color = 0xFFFFFF, .intensity = 1.0f});
-    point_light->transform.Translate({0.0f, 0.0f, 30.0f});
-    point_light->SetDebugMode(true);
+    point_light->transform.Translate({0.0f, 0.0f, 5.0f});
     Add(point_light);
 
     const auto geometry = CubeGeometry::Create({1.0f, 1.0f, 1.0f});
     const auto material = PhongMaterial::Create(0x049EF4);
-    for (auto i = 0; i < 50; ++i) {
-        for (auto j = 0; j < 50; ++j) {
+    for (auto i = 0; i < 2; ++i) {
+        for (auto j = 0; j < 2; ++j) {
             auto box = Mesh::Create(geometry, material);
-            box->transform.Translate({i * 2.0f - 49.0f, j * 2.0f - 49.0f, 0.0f});
-            boxes_[i * 50 + j] = box;
+            box->transform.Translate({i * 2.5f - 1.0f, j * 2.0f - 1.0f, 0.0f});
+            boxes_[i * 2 + j] = box;
             Add(box);
         }
     }
 }
 
 auto ExampleMeshInstancing::OnAttached(gleam::SharedContext* context) -> void {
-    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 90.0f}));
+    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 5.0f}));
 }
 
 auto ExampleMeshInstancing::OnUpdate(float delta) -> void {
     for (const auto& b : boxes_) {
-        b->RotateX(1.0f * delta);
+        b->RotateY(1.0f * delta);
     }
 }
 
