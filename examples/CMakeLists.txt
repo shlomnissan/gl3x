@@ -24,6 +24,8 @@ set(SOURCE_CODE
     "scene_features/example_debug_visuals.hpp"
     "scene_features/example_frustum_culling.cpp"
     "scene_features/example_frustum_culling.hpp"
+    "scene_features/example_mesh_instancing.cpp"
+    "scene_features/example_mesh_instancing.hpp"
     "scene_features/example_model_loader.cpp"
     "scene_features/example_model_loader.hpp"
     "scene_features/example_primitives.cpp"

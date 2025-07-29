@@ -14,9 +14,9 @@
 
 #include <array>
 
-class ExampleFrustumCulling : public ExampleScene {
+class ExampleMeshInstancing : public ExampleScene {
 public:
-    ExampleFrustumCulling();
+    ExampleMeshInstancing();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

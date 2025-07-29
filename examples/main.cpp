@@ -73,7 +73,7 @@ public:
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 348})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 368})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.starts_with("-")) {
@@ -131,6 +131,9 @@ private:
         // scene features
         if (scene_name == "Frustum Culling") {
             scene_ = std::make_shared<ExampleFrustumCulling>();
+        }
+        if (scene_name == "Mesh Instancing") {
+            scene_ = std::make_shared<ExampleMeshInstancing>();
         }
         if (scene_name == "Model Loader") {
             scene_ = std::make_shared<ExampleModelLoader>();

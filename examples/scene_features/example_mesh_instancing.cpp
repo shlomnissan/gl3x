@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "example_frustum_culling.hpp"
+#include "example_mesh_instancing.hpp"
 
 #include <gleam/geometries.hpp>
 #include <gleam/lights.hpp>
@@ -13,7 +13,7 @@
 
 using namespace gleam;
 
-ExampleFrustumCulling::ExampleFrustumCulling() {
+ExampleMeshInstancing::ExampleMeshInstancing() {
     show_context_menu_ = false;
 
     auto ambient_light = AmbientLight::Create({.color = 0xFFFFFF, .intensity = .3f});
@@ -36,16 +36,16 @@ ExampleFrustumCulling::ExampleFrustumCulling() {
     }
 }
 
-auto ExampleFrustumCulling::OnAttached(gleam::SharedContext* context) -> void {
+auto ExampleMeshInstancing::OnAttached(gleam::SharedContext* context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {.radius = 90.0f}));
 }
 
-auto ExampleFrustumCulling::OnUpdate(float delta) -> void {
+auto ExampleMeshInstancing::OnUpdate(float delta) -> void {
     for (const auto& b : boxes_) {
         b->RotateX(1.0f * delta);
     }
 }
 
-auto ExampleFrustumCulling::ContextMenu() -> void {
+auto ExampleMeshInstancing::ContextMenu() -> void {
     // Empty
 }

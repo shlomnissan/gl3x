@@ -20,6 +20,7 @@
 #include "rendering_effects/example_blending.hpp"
 #include "rendering_effects/example_fog.hpp"
 #include "scene_features/example_frustum_culling.hpp"
+#include "scene_features/example_mesh_instancing.hpp"
 #include "scene_features/example_model_loader.hpp"
 #include "scene_features/example_primitives.hpp"
 #include "scene_features/example_debug_visuals.hpp"
@@ -39,6 +40,7 @@ static const auto examples = std::vector {
     "Fog Effect",
     "- Scene Features",
     "Frustum Culling",
+    "Mesh Instancing",
     "Model Loader",
     "Primitives",
     "Debug Visuals",
