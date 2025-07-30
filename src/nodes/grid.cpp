@@ -30,7 +30,7 @@ Grid::Grid(const Parameters& params) {
         k += step;
     }
 
-    using enum GeometryAttributeType;
+    using enum VertexAttributeType;
 
     auto geometry = Geometry::Create(vertices);
     geometry->SetAttribute({.type = Position, .item_size = 3});

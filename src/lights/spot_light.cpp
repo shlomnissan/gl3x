@@ -20,7 +20,7 @@ struct SpotLight::Impl {
     std::shared_ptr<UnlitMaterial> material;
 
     auto CreateDebugMesh(SpotLight* self) -> void {
-        using enum GeometryAttributeType;
+        using enum VertexAttributeType;
         using enum GeometryPrimitiveType;
 
         material = UnlitMaterial::Create();

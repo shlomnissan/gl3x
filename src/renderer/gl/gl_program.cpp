@@ -17,10 +17,11 @@ namespace gleam {
 
 namespace {
 
-const auto VertexAttributesMap = std::unordered_map<std::string, GeometryAttributeType> {
-    {"a_Position", GeometryAttributeType::Position},
-    {"a_Normal", GeometryAttributeType::Normal},
-    {"a_TexCoord", GeometryAttributeType::UV}
+const auto VertexAttributesMap = std::unordered_map<std::string, VertexAttributeType> {
+    {"a_Position", VertexAttributeType::Position},
+    {"a_Normal", VertexAttributeType::Normal},
+    {"a_TexCoord", VertexAttributeType::UV},
+    {"a_InstanceTransform", VertexAttributeType::InstanceTransform},
 };
 
 }

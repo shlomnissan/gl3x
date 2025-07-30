@@ -53,7 +53,7 @@ TEST_F(CylinderGeometryTest, ConstructorInitializesName) {
 #pragma region Attributes
 
 TEST_F(CylinderGeometryTest, AttributesConfiguredCorrectly) {
-    using enum gleam::GeometryAttributeType;
+    using enum gleam::VertexAttributeType;
 
     const auto& attrs = cylinder_.Attributes();
 

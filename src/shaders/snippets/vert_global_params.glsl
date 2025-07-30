@@ -6,6 +6,7 @@ used in both the vertex and fragment shaders.
 @in vec3 a_Position - Vertex position
 @in vec3 a_Normal - Vertex normal
 @in vec2 a_TexCoord - Vertex texture coordinate
+@in mat4 a_InstanceTransform - Instance transformation matrix
 @uniform mat3 u_TextureTransform - Applies texture coordinate transformations
 @uniform mat4 u_Model - Model transformation matrix
 @uniform mat4 u_Projection - Projection transformation matrix
@@ -21,6 +22,7 @@ used in both the vertex and fragment shaders.
 in vec3 a_Position;
 in vec3 a_Normal;
 in vec2 a_TexCoord;
+in mat4 a_InstanceTransform;
 
 uniform mat3 u_TextureTransform;
 uniform mat4 u_Model;

@@ -153,9 +153,9 @@ CubeGeometry::CubeGeometry(const Parameters& params) {
         params.width_segments, params.height_segments
     }, vertex_counter_, vertex_data_, index_data_);
 
-    SetAttribute({.type = GeometryAttributeType::Position, .item_size = 3});
-    SetAttribute({.type = GeometryAttributeType::Normal, .item_size = 3});
-    SetAttribute({.type = GeometryAttributeType::UV, .item_size = 2});
+    SetAttribute({.type = VertexAttributeType::Position, .item_size = 3});
+    SetAttribute({.type = VertexAttributeType::Normal, .item_size = 3});
+    SetAttribute({.type = VertexAttributeType::UV, .item_size = 2});
 }
 
 }

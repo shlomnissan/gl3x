@@ -50,7 +50,7 @@ TEST_F(ConeGeometryTest, ConstructorInitializesName) {
 #pragma endregion
 
 TEST_F(ConeGeometryTest, AttributesConfiguredCorrectly) {
-    using enum gleam::GeometryAttributeType;
+    using enum gleam::VertexAttributeType;
 
     const auto& attrs = cone_.Attributes();
 

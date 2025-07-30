@@ -48,7 +48,7 @@ TEST_F(PlaneGeometryTest, ConstructorInitializesName) {
 #pragma region Attributes
 
 TEST_F(PlaneGeometryTest, AttributesConfiguredCorrectly) {
-    using enum gleam::GeometryAttributeType;
+    using enum gleam::VertexAttributeType;
 
     const auto& attrs = plane_.Attributes();
 

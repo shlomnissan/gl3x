@@ -136,9 +136,9 @@ CylinderGeometry::CylinderGeometry(const Parameters& params) {
         if (params.radius_bottom > 0.0f) generate_cap(params, false, vertex_data_, index_data_);
     }
 
-    SetAttribute({.type = GeometryAttributeType::Position, .item_size = 3});
-    SetAttribute({.type = GeometryAttributeType::Normal, .item_size = 3});
-    SetAttribute({.type = GeometryAttributeType::UV, .item_size = 2});
+    SetAttribute({.type = VertexAttributeType::Position, .item_size = 3});
+    SetAttribute({.type = VertexAttributeType::Normal, .item_size = 3});
+    SetAttribute({.type = VertexAttributeType::UV, .item_size = 2});
 }
 
 }

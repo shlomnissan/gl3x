@@ -21,7 +21,7 @@ auto Geometry::SetAttribute(const GeometryAttribute &attribute) -> void {
     attributes_.emplace_back(attribute);
 }
 
-auto Geometry::HasAttribute(GeometryAttributeType type) const -> bool {
+auto Geometry::HasAttribute(VertexAttributeType type) const -> bool {
     return std::ranges::any_of(attributes_, [type](const auto& attr){
         return attr.type == type;
     });
@@ -53,7 +53,7 @@ auto Geometry::BoundingSphere() -> Sphere {
 }
 
 auto Geometry::CreateBoundingBox() -> void {
-    using enum GeometryAttributeType;
+    using enum VertexAttributeType;
     if (VertexCount() == 0 || !HasAttribute(Position)) {
         Logger::Log(LogLevel::Error, "Failed to create a bounding box");
         return;
@@ -71,7 +71,7 @@ auto Geometry::CreateBoundingBox() -> void {
 }
 
 auto Geometry::CreateBoundingSphere() -> void {
-    using enum GeometryAttributeType;
+    using enum VertexAttributeType;
     if (VertexCount() == 0 || !HasAttribute(Position)) {
         Logger::Log(LogLevel::Error, "Failed to create a bounding sphere");
         return;

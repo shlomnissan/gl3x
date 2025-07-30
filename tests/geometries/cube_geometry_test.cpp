@@ -50,7 +50,7 @@ TEST_F(CubeGeometryTest, ConstructorInitializesName) {
 #pragma region Attributes
 
 TEST_F(CubeGeometryTest, AttributesConfiguredCorrectly) {
-    using enum gleam::GeometryAttributeType;
+    using enum gleam::VertexAttributeType;
 
     const auto& attrs = cube_.Attributes();
 
