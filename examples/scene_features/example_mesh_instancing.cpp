@@ -25,14 +25,8 @@ ExampleMeshInstancing::ExampleMeshInstancing() {
 
     const auto geometry = CubeGeometry::Create({1.0f, 1.0f, 1.0f});
     const auto material = PhongMaterial::Create(0x049EF4);
-    for (auto i = 0; i < 2; ++i) {
-        for (auto j = 0; j < 2; ++j) {
-            auto box = Mesh::Create(geometry, material);
-            box->transform.Translate({i * 2.5f - 1.0f, j * 2.0f - 1.0f, 0.0f});
-            boxes_[i * 2 + j] = box;
-            Add(box);
-        }
-    }
+    boxes_ = InstancedMesh::Create(geometry, material, 1);
+    Add(boxes_);
 }
 
 auto ExampleMeshInstancing::OnAttached(gleam::SharedContext* context) -> void {
@@ -40,9 +34,7 @@ auto ExampleMeshInstancing::OnAttached(gleam::SharedContext* context) -> void {
 }
 
 auto ExampleMeshInstancing::OnUpdate(float delta) -> void {
-    for (const auto& b : boxes_) {
-        b->RotateY(1.0f * delta);
-    }
+    boxes_->RotateY(1.0f * delta);
 }
 
 auto ExampleMeshInstancing::ContextMenu() -> void {

@@ -33,7 +33,8 @@ auto RenderLists::ProcessScene(Scene* scene) -> void {
 
 auto RenderLists::ProcessNode(Node* node) -> void {
     const auto type = node->GetNodeType();
-    if (type == NodeType::MeshNode) {
+
+    if (type == NodeType::MeshNode || type == NodeType::InstancedMeshNode) {
         auto mesh = static_cast<Mesh*>(node);
         mesh->GetMaterial()->transparent ?
             transparent_.emplace_back(mesh) :
