@@ -9,7 +9,7 @@
 
 #include "utilities/logger.hpp"
 
-#include <array>
+#include <format>
 
 namespace gleam {
 
@@ -65,17 +65,14 @@ auto Timer::GetTimestamp() -> std::string {
     localtime_r(&in_time_t, &time_info);
 #endif
 
-    std::array<char, 32> buffer{};
-    std::snprintf(buffer.data(), buffer.size(),
-                  "%04d-%02d-%02d %02d:%02d:%02d",
-                  time_info.tm_year + 1900,
-                  time_info.tm_mon + 1,
-                  time_info.tm_mday,
-                  time_info.tm_hour,
-                  time_info.tm_min,
-                  time_info.tm_sec);
-
-    return std::string(buffer.data());
+    return std::format("{:04}-{:02}-{:02} {:02}:{:02}:{:02}",
+        time_info.tm_year + 1900,
+        time_info.tm_mon + 1,
+        time_info.tm_mday,
+        time_info.tm_hour,
+        time_info.tm_min,
+        time_info.tm_sec
+    );
 }
 
 }
