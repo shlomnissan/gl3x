@@ -53,7 +53,7 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
     auto geometry = mesh->GetGeometry().get();
     auto material = mesh->GetMaterial().get();
 
-    auto attrs = ProgramAttributes {material, {
+    auto attrs = ProgramAttributes {mesh, {
         .directional = lights_.directional,
         .point = lights_.point,
         .spot = lights_.spot

@@ -11,7 +11,7 @@
 
 #include <vector>
 
-using enum gleam::GeometryAttributeType;
+using enum gleam::VertexAttributeType;
 
 #pragma region Constructors
 

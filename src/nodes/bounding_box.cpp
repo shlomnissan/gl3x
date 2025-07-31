@@ -38,7 +38,7 @@ auto create_geometry(const Box3& box) {
     auto geometry = Geometry::Create(vertices, indices);
     geometry->primitive = GeometryPrimitiveType::Lines;
     geometry->SetAttribute({
-        .type = GeometryAttributeType::Position,
+        .type = VertexAttributeType::Position,
         .item_size = 3
     });
 

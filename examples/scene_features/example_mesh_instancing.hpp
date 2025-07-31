@@ -12,8 +12,6 @@
 
 #include "example_scene.hpp"
 
-#include <array>
-
 class ExampleMeshInstancing : public ExampleScene {
 public:
     ExampleMeshInstancing();
@@ -25,5 +23,5 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::array<std::shared_ptr<gleam::Mesh>, 4> boxes_;
+    std::shared_ptr<gleam::InstancedMesh> boxes_ {};
 };

@@ -33,6 +33,10 @@ public:
         return std::make_shared<InstancedMesh>(geometry, material, count);
     }
 
+    [[nodiscard]] auto GetNodeType() const -> NodeType override {
+        return NodeType::InstancedMeshNode;
+    }
+
     auto SetMatrixAt(const Matrix4& mat, int idx) -> void;
 
 private:

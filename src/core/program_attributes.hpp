@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "gleam/materials/material.hpp"
+#include "gleam/nodes/mesh.hpp"
 #include "gleam/nodes/scene.hpp"
 
 #include <string_view>
@@ -32,14 +32,15 @@ struct ProgramAttributes {
 
     unsigned int num_lights {0};
 
-    bool color {false};
-    bool fog {false};
-    bool texture_map {false};
     bool alpha_map {false};
-    bool two_sided {false};
+    bool color {false};
     bool flat_shaded {false};
+    bool fog {false};
+    bool instancing {false};
+    bool texture_map {false};
+    bool two_sided {false};
 
-    ProgramAttributes(const Material* material, const LightsCounter& lights, const Scene* scene);
+    ProgramAttributes(Mesh* mesh, const LightsCounter& lights, const Scene* scene);
 };
 
 }

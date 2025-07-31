@@ -83,12 +83,13 @@ auto ShaderLibrary::InjectAttributes(
 ) const -> void {
     auto features = std::string {};
 
-    if (attrs.color) features += "#define USE_COLOR\n";
-    if (attrs.fog) features += "#define USE_FOG\n";
-    if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
     if (attrs.alpha_map) features += "#define USE_ALPHA_MAP\n";
-    if (attrs.two_sided) features += "#define USE_TWO_SIDED\n";
+    if (attrs.color) features += "#define USE_COLOR\n";
     if (attrs.flat_shaded) features += "#define USE_FLAT_SHADED\n";
+    if (attrs.fog) features += "#define USE_FOG\n";
+    if (attrs.instancing) features += "#define USE_INSTANCING\n";
+    if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
+    if (attrs.two_sided) features += "#define USE_TWO_SIDED\n";
 
     const auto lights = attrs.num_lights;
     features += "#define NUM_LIGHTS " + std::to_string(lights) + '\n';

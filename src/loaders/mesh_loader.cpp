@@ -103,10 +103,10 @@ auto MeshLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Node> {
         auto geometry = Geometry::Create(vertex_data, index_data);
         geometry->SetName(geometry_header.name);
 
-        geometry->SetAttribute({.type = GeometryAttributeType::Position, .item_size = 3});
-        geometry->SetAttribute({.type = GeometryAttributeType::Normal, .item_size = 3});
+        geometry->SetAttribute({.type = VertexAttributeType::Position, .item_size = 3});
+        geometry->SetAttribute({.type = VertexAttributeType::Normal, .item_size = 3});
         if (geometry_header.vertex_flags & VertexAttributeFlags::UVs) {
-            geometry->SetAttribute({.type = GeometryAttributeType::UV, .item_size = 2});
+            geometry->SetAttribute({.type = VertexAttributeType::UV, .item_size = 2});
         }
 
         auto mat_index = geometry_header.material_index;

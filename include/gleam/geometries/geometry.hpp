@@ -25,10 +25,11 @@ namespace gleam {
  * @brief Represents available vertex attributes.
  * @ingroup GeometryGroup
  */
-enum class GeometryAttributeType {
-    Position, ///< Vertex position.
-    Normal, ///< Vertex normal vector.
-    UV, ///< Texture coordinates.
+enum class VertexAttributeType {
+    Position = 0, ///< Vertex position.
+    Normal = 1, ///< Vertex normal vector.
+    UV = 2, ///< Texture coordinates.
+    InstanceTransform = 3 ///< Instance transform.
 };
 
 /**
@@ -47,7 +48,7 @@ enum class GeometryPrimitiveType {
  */
 struct GeometryAttribute {
     /// @brief Semantic type of the attribute.
-    GeometryAttributeType type;
+    VertexAttributeType type;
     /// @brief Number of components (e.g., 3 for Vector3).
     unsigned int item_size;
 };
@@ -171,7 +172,7 @@ public:
      *
      * @param type Attribute type to query.
      */
-    [[nodiscard]] auto HasAttribute(GeometryAttributeType type) const -> bool;
+    [[nodiscard]] auto HasAttribute(VertexAttributeType type) const -> bool;
 
     /**
      * @brief Returns the geometry's bounding box (computed on demand).

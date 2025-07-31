@@ -29,7 +29,7 @@ Arrow::Arrow(const Parameters& params) {
         0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, params.length - cone_height
     });
-    geometry->SetAttribute({GeometryAttributeType::Position, 3});
+    geometry->SetAttribute({VertexAttributeType::Position, 3});
     geometry->primitive = GeometryPrimitiveType::Lines;
     Add(Mesh::Create(geometry, material));
 
