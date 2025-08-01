@@ -11,9 +11,14 @@
 
 #include "utilities/logger.hpp"
 
+#include <utility>
+
 namespace gleam {
 
-auto GLTextures::Bind(const std::shared_ptr<Texture>& texture) -> void {
+auto GLTextures::Bind(
+    const std::shared_ptr<Texture>& texture,
+    GLTextureMapType map_type
+) -> void {
     auto tex_id = texture->renderer_id;
     if (tex_id != 0 && tex_id == current_texture_id_) return;
 
@@ -22,6 +27,7 @@ auto GLTextures::Bind(const std::shared_ptr<Texture>& texture) -> void {
         textures_.emplace_back(texture);
     }
 
+    glActiveTexture(GL_TEXTURE0 + std::to_underlying(map_type));
     glBindTexture(GL_TEXTURE_2D, tex_id);
     current_texture_id_ = tex_id;
 }

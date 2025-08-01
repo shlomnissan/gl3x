@@ -135,19 +135,17 @@ auto Renderer::Impl::SetUniforms(
         program->SetUniform(Uniform::Color, &m->color);
 
         if (attrs->texture_map) {
-            auto unit = 0;
-            glActiveTexture(GL_TEXTURE0);
-            textures_.Bind(m->texture_map);
+            auto map_type = GLTextureMapType::TextureMap;
+            textures_.Bind(m->texture_map, map_type);
             const auto& transform = m->texture_map->GetTransform();
-            program->SetUniform(Uniform::TextureMap, &unit);
+            program->SetUniform(Uniform::TextureMap, &map_type);
             program->SetUniform(Uniform::TextureTransform, &transform);
         }
 
         if (attrs->alpha_map) {
-            auto unit = 1;
-            glActiveTexture(GL_TEXTURE1);
-            textures_.Bind(m->alpha_map);
-            program->SetUniform(Uniform::AlphaMap, &unit);
+            auto map_type = GLTextureMapType::AlphaMap;
+            textures_.Bind(m->alpha_map, map_type);
+            program->SetUniform(Uniform::AlphaMap, &map_type);
         }
     }
 
@@ -161,19 +159,17 @@ auto Renderer::Impl::SetUniforms(
         }
 
         if (attrs->texture_map) {
-            auto unit = 0;
-            glActiveTexture(GL_TEXTURE0);
-            textures_.Bind(m->texture_map);
+            auto map_type = GLTextureMapType::TextureMap;
+            textures_.Bind(m->texture_map, map_type);
             const auto& transform = m->texture_map->GetTransform();
-            program->SetUniform(Uniform::TextureMap, &unit);
+            program->SetUniform(Uniform::TextureMap, &map_type);
             program->SetUniform(Uniform::TextureTransform, &transform);
         }
 
         if (attrs->alpha_map) {
-            auto unit = 1;
-            glActiveTexture(GL_TEXTURE1);
-            textures_.Bind(m->alpha_map);
-            program->SetUniform(Uniform::AlphaMap, &unit);
+            auto map_type = GLTextureMapType::AlphaMap;
+            textures_.Bind(m->alpha_map, map_type);
+            program->SetUniform(Uniform::AlphaMap, &map_type);
         }
     }
 

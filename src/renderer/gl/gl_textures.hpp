@@ -18,6 +18,11 @@
 
 namespace gleam {
 
+enum class GLTextureMapType {
+    TextureMap = 0,
+    AlphaMap = 1
+};
+
 class GLTextures {
 public:
     GLTextures() = default;
@@ -27,7 +32,10 @@ public:
     GLTextures& operator=(const GLTextures&) = delete;
     GLTextures& operator=(GLTextures&&) = delete;
 
-    auto Bind(const std::shared_ptr<Texture>& texture) -> void;
+    auto Bind(
+        const std::shared_ptr<Texture>& texture,
+        GLTextureMapType map_type
+    ) -> void;
 
     ~GLTextures();
 
