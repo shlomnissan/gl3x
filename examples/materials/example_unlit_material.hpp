@@ -17,7 +17,7 @@
 
 class ExampleUnlitMaterial : public ExampleScene {
 public:
-    explicit ExampleUnlitMaterial();
+    ExampleUnlitMaterial();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

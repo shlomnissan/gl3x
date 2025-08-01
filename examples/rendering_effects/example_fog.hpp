@@ -13,7 +13,7 @@
 
 class ExampleFog : public ExampleScene {
 public:
-    explicit ExampleFog();
+    ExampleFog();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

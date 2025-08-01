@@ -17,7 +17,7 @@
 
 class ExampleModelLoader : public ExampleScene {
 public:
-    explicit ExampleModelLoader();
+    ExampleModelLoader();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

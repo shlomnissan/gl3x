@@ -17,7 +17,7 @@
 
 class ExamplePhongMaterial : public ExampleScene {
 public:
-    explicit ExamplePhongMaterial();
+    ExamplePhongMaterial();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

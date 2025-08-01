@@ -17,7 +17,7 @@
 
 class ExamplePrimitives : public ExampleScene {
 public:
-    explicit ExamplePrimitives();
+    ExamplePrimitives();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

@@ -16,7 +16,7 @@
 
 class ExampleDirectionalLight : public ExampleScene {
 public:
-    explicit ExampleDirectionalLight();
+    ExampleDirectionalLight();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

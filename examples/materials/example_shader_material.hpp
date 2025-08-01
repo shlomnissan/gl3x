@@ -17,7 +17,7 @@
 
 class ExampleShaderMaterial : public ExampleScene {
 public:
-    explicit ExampleShaderMaterial();
+    ExampleShaderMaterial();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

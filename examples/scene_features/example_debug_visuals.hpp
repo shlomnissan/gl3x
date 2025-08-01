@@ -16,7 +16,7 @@
 
 class ExampleDebugVisuals : public ExampleScene {
 public:
-    explicit ExampleDebugVisuals();
+    ExampleDebugVisuals();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

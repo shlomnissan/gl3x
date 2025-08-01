@@ -18,7 +18,7 @@
 
 class ExampleAnimatedTransform : public ExampleScene {
 public:
-    explicit ExampleAnimatedTransform();
+    ExampleAnimatedTransform();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 

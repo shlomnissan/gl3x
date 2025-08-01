@@ -16,7 +16,7 @@
 
 class ExamplePointLight : public ExampleScene {
 public:
-    explicit ExamplePointLight();
+    ExamplePointLight();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
 
