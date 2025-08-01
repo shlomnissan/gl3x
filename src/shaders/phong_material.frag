@@ -103,8 +103,8 @@ void main() {
     vec3 diffuse_color = u_Material.DiffuseColor;
     float opacity = u_Opacity;
 
-    #ifdef USE_TEXTURE_MAP
-        vec4 texture_sample = texture(u_TextureMap, v_TexCoord);
+    #ifdef USE_ALBEDO_MAP
+        vec4 texture_sample = texture(u_AlbedoMap, v_TexCoord);
         diffuse_color *= texture_sample.rgb;
         opacity *= texture_sample.a;
     #endif

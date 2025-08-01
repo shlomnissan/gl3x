@@ -88,7 +88,7 @@ auto ShaderLibrary::InjectAttributes(
     if (attrs.flat_shaded) features += "#define USE_FLAT_SHADED\n";
     if (attrs.fog) features += "#define USE_FOG\n";
     if (attrs.instancing) features += "#define USE_INSTANCING\n";
-    if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
+    if (attrs.albedo_map) features += "#define USE_ALBEDO_MAP\n";
     if (attrs.two_sided) features += "#define USE_TWO_SIDED\n";
 
     const auto lights = attrs.num_lights;

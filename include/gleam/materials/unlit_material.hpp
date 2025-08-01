@@ -26,7 +26,7 @@ namespace gleam {
  *
  * @code
  * auto material = gleam::UnlitMaterial::Create(0x049EF4);
- * material->texture_map = texture;
+ * material->albedo_map = texture;
  *
  * auto mesh = gleam::Mesh::Create(geometry, material);
  * scene->Add(mesh);
@@ -39,8 +39,8 @@ public:
     /// @brief Color of the material.
     Color color = 0xFFFFFF;
 
-    /// @brief Texture map that may optionally include an alpha channel.
-    std::shared_ptr<Texture2D> texture_map = nullptr;
+    /// @brief Albedo (base color) map, optionally containing an alpha channel.
+    std::shared_ptr<Texture2D> albedo_map = nullptr;
 
     /// @brief Alpha map that controls the opacity across the surface.
     std::shared_ptr<Texture2D> alpha_map = nullptr;

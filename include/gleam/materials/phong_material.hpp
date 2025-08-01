@@ -28,7 +28,7 @@ namespace gleam {
  * auto material = gleam::PhongMaterial::Create(0x049EF4);
  * material->specular = {0.3f, 0.3, 0.3f}
  * material->shininess = 32.0f;
- * material->texture_map = texture;
+ * material->albedo_map = texture;
  *
  * auto mesh = gleam::Mesh::Create(geometry, material);
  * scene->Add(mesh);
@@ -47,8 +47,8 @@ public:
     /// @brief How shiny the specular highlight is; a higher value gives a sharper highlight.
     float shininess = 32.0f;
 
-    /// @brief Texture map that may optionally include an alpha channel.
-    std::shared_ptr<Texture2D> texture_map = nullptr;
+    /// @brief Albedo (base color) map, optionally containing an alpha channel.
+    std::shared_ptr<Texture2D> albedo_map = nullptr;
 
     /// @brief Alpha map that controls the opacity across the surface.
     std::shared_ptr<Texture2D> alpha_map = nullptr;

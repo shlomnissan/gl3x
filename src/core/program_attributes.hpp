@@ -32,12 +32,12 @@ struct ProgramAttributes {
 
     unsigned int num_lights {0};
 
+    bool albedo_map {false};
     bool alpha_map {false};
     bool color {false};
     bool flat_shaded {false};
     bool fog {false};
     bool instancing {false};
-    bool texture_map {false};
     bool two_sided {false};
 
     ProgramAttributes(Mesh* mesh, const LightsCounter& lights, const Scene* scene);

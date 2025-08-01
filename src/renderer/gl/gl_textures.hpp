@@ -19,7 +19,7 @@
 namespace gleam {
 
 enum class GLTextureMapType {
-    TextureMap = 0,
+    AlbedoMap = 0,
     AlphaMap = 1
 };
 

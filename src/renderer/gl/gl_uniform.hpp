@@ -33,6 +33,7 @@ enum class UniformType {
 };
 
 enum class Uniform {
+    AlbedoMap,
     AlphaMap,
     AmbientLight,
     Color,
@@ -47,13 +48,13 @@ enum class Uniform {
     Model,
     Opacity,
     Resolution,
-    TextureMap,
     TextureTransform,
     KnownUniformsLength
 };
 
 constexpr auto get_uniform_loc(std::string_view str) {
     using enum Uniform;
+    if (str == "u_AlbedoMap") return static_cast<int>(AlbedoMap);
     if (str == "u_AlphaMap") return static_cast<int>(AlphaMap);
     if (str == "u_AmbientLight") return static_cast<int>(AmbientLight);
     if (str == "u_Color") return static_cast<int>(Color);
@@ -68,7 +69,6 @@ constexpr auto get_uniform_loc(std::string_view str) {
     if (str == "u_Model") return static_cast<int>(Model);
     if (str == "u_Opacity") return static_cast<int>(Opacity);
     if (str == "u_Resolution") return static_cast<int>(Resolution);
-    if (str == "u_TextureMap") return static_cast<int>(TextureMap);
     if (str == "u_TextureTransform") return static_cast<int>(TextureTransform);
     return -1;
 }

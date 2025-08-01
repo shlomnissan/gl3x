@@ -134,11 +134,11 @@ auto Renderer::Impl::SetUniforms(
         auto m = static_cast<UnlitMaterial*>(material);
         program->SetUniform(Uniform::Color, &m->color);
 
-        if (attrs->texture_map) {
-            auto map_type = GLTextureMapType::TextureMap;
-            textures_.Bind(m->texture_map, map_type);
-            const auto& transform = m->texture_map->GetTransform();
-            program->SetUniform(Uniform::TextureMap, &map_type);
+        if (attrs->albedo_map) {
+            auto map_type = GLTextureMapType::AlbedoMap;
+            textures_.Bind(m->albedo_map, map_type);
+            const auto& transform = m->albedo_map->GetTransform();
+            program->SetUniform(Uniform::AlbedoMap, &map_type);
             program->SetUniform(Uniform::TextureTransform, &transform);
         }
 
@@ -158,11 +158,11 @@ auto Renderer::Impl::SetUniforms(
             program->SetUniform(Uniform::MaterialShininess, &m->shininess);
         }
 
-        if (attrs->texture_map) {
-            auto map_type = GLTextureMapType::TextureMap;
-            textures_.Bind(m->texture_map, map_type);
-            const auto& transform = m->texture_map->GetTransform();
-            program->SetUniform(Uniform::TextureMap, &map_type);
+        if (attrs->albedo_map) {
+            auto map_type = GLTextureMapType::AlbedoMap;
+            textures_.Bind(m->albedo_map, map_type);
+            const auto& transform = m->albedo_map->GetTransform();
+            program->SetUniform(Uniform::AlbedoMap, &map_type);
             program->SetUniform(Uniform::TextureTransform, &transform);
         }
 

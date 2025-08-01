@@ -55,7 +55,7 @@ auto load_materials(const fs::path& path, uint32_t material_count, std::ifstream
         mat->shininess = material_header.shininess;
         if (textures.contains(tex)) {
             mat->color = 0xFFFFFF;
-            mat->texture_map = textures[tex];
+            mat->albedo_map = textures[tex];
         }
 
         output.emplace_back(mat);

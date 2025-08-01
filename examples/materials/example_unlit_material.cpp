@@ -49,8 +49,8 @@ auto ExampleUnlitMaterial::ContextMenu() -> void {
     UIDropDown("texture", textures, curr_texture,
       [this](std::string_view str) {
         curr_texture = str;
-        if (str == "none") material_->texture_map = nullptr;
-        if (str == "checkerboard") material_->texture_map = texture_;
+        if (str == "none") material_->albedo_map = nullptr;
+        if (str == "checkerboard") material_->albedo_map = texture_;
     });
 
     UISeparator();
