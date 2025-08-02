@@ -8,6 +8,7 @@
 #pragma once
 
 #include "gleam/geometries/geometry.hpp"
+#include "gleam/nodes/instanced_mesh.hpp"
 
 #include <array>
 #include <memory>
@@ -29,6 +30,8 @@ public:
     GLBuffers& operator=(GLBuffers&&) = delete;
 
     auto Bind(const std::shared_ptr<Geometry>& geometry) -> void;
+
+    auto BindInstancedMesh(InstancedMesh* mesh) -> void;
 
     ~GLBuffers();
 

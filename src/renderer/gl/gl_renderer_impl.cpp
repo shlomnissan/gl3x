@@ -12,6 +12,7 @@
 #include "gleam/materials/unlit_material.hpp"
 #include "gleam/math/vector3.hpp"
 #include "gleam/nodes/fog.hpp"
+#include "gleam/nodes/instanced_mesh.hpp"
 
 #include "core/program_attributes.hpp"
 #include "core/render_lists.hpp"
@@ -69,6 +70,13 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
         geometry = mesh->GetWireframeGeometry().get();
     } else {
         buffers_.Bind(mesh->GetGeometry());
+    }
+
+    if (mesh->GetNodeType() == NodeType::InstancedMeshNode) {
+        auto instanced = static_cast<InstancedMesh*>(mesh);
+        if (instanced->touched) {
+            buffers_.BindInstancedMesh(instanced);
+        }
     }
 
     SetUniforms(program, &attrs, mesh, camera, scene);

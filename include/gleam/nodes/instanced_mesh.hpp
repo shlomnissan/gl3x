@@ -19,6 +19,12 @@ namespace gleam {
 
 class GLEAM_EXPORT InstancedMesh : public Mesh {
 public:
+    unsigned int count;
+
+    unsigned int renderer_id = 0;
+
+    bool touched {true};
+
     InstancedMesh(
         std::shared_ptr<Geometry> geometry,
         std::shared_ptr<Material> material,
@@ -42,12 +48,8 @@ public:
     auto SetTransformAt(Transform3& transform, int idx) -> void;
 
 private:
+    friend class GLBuffers;
     std::vector<Matrix4> transforms_;
-
-    int count_;
-
-    friend class Renderer;
-    bool touched_ {true};
 };
 
 }

@@ -88,6 +88,11 @@ auto GLBuffers::GenerateBuffers(Geometry* geometry) -> void {
     });
 }
 
+auto GLBuffers::BindInstancedMesh(InstancedMesh* mesh) -> void {
+    // TODO: implement
+    mesh->touched = false;
+}
+
 GLBuffers::~GLBuffers() {
     for (const auto& geometry : geometries_) {
         if (auto g = geometry.lock()) g->Dispose();
