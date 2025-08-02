@@ -16,13 +16,17 @@ InstancedMesh::InstancedMesh(
     std::shared_ptr<Material> material,
     int count
 ): Mesh(geometry, material), count_(count) {
-    matrices_.resize(count_);
+    transforms_.resize(count_);
 }
 
-auto InstancedMesh::SetMatrixAt(const Matrix4& mat, int idx) -> void {
+auto InstancedMesh::SetTransformAt(const Matrix4& mat, int idx) -> void {
     assert(idx <= count_);
-    matrices_[idx] = mat;
+    transforms_[idx] = mat;
     touched_ = true;
+}
+
+auto InstancedMesh::SetTransformAt(Transform3& transform, int idx) -> void {
+    SetTransformAt(transform.Get(), idx);
 }
 
 }

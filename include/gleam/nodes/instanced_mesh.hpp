@@ -37,10 +37,12 @@ public:
         return NodeType::InstancedMeshNode;
     }
 
-    auto SetMatrixAt(const Matrix4& mat, int idx) -> void;
+    auto SetTransformAt(const Matrix4& mat, int idx) -> void;
+
+    auto SetTransformAt(Transform3& transform, int idx) -> void;
 
 private:
-    std::vector<Matrix4> matrices_;
+    std::vector<Matrix4> transforms_;
 
     int count_;
 

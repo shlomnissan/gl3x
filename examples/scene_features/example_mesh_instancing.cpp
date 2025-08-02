@@ -10,6 +10,7 @@
 #include <gleam/geometries.hpp>
 #include <gleam/lights.hpp>
 #include <gleam/materials.hpp>
+#include <gleam/math.hpp>
 
 using namespace gleam;
 
@@ -25,8 +26,14 @@ ExampleMeshInstancing::ExampleMeshInstancing() {
 
     const auto geometry = CubeGeometry::Create({1.0f, 1.0f, 1.0f});
     const auto material = PhongMaterial::Create(0x049EF4);
-    boxes_ = InstancedMesh::Create(geometry, material, 1);
+    boxes_ = InstancedMesh::Create(geometry, material, 2);
     Add(boxes_);
+
+    for (auto i = 0; i < 2; ++i) {
+        auto t = Transform3 {};
+        t.SetPosition({i * 2.0f - 1.0f, 0.0f, 0.0f});
+        boxes_->SetTransformAt(t, i);
+    }
 }
 
 auto ExampleMeshInstancing::OnAttached(gleam::SharedContext* context) -> void {
