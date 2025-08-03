@@ -21,7 +21,7 @@ class GLEAM_EXPORT InstancedMesh : public Mesh {
 public:
     unsigned int count;
 
-    unsigned int renderer_id = 0;
+    unsigned int instance_id = 0;
 
     bool touched {true};
 

@@ -72,12 +72,7 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
         buffers_.Bind(mesh->GetGeometry());
     }
 
-    if (mesh->GetNodeType() == NodeType::InstancedMeshNode) {
-        auto instanced = static_cast<InstancedMesh*>(mesh);
-        if (instanced->touched) {
-            buffers_.BindInstancedMesh(instanced);
-        }
-    }
+
 
     SetUniforms(program, &attrs, mesh, camera, scene);
 
@@ -92,15 +87,21 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
         primitive = GL_LINE_LOOP;
     }
 
-    if (geometry->IndexData().empty()) {
-        glDrawArrays(primitive, 0, geometry->VertexCount());
-    } else {
-        glDrawElements(
-            primitive,
-            geometry->IndexData().size(),
-            GL_UNSIGNED_INT,
-            nullptr
-        );
+    const auto index_sz = geometry->IndexData().size();
+    const auto vertex_sz = geometry->VertexCount();
+
+    if (mesh->GetNodeType() == NodeType::MeshNode) {
+        index_sz ? glDrawElements(primitive, index_sz, GL_UNSIGNED_INT, nullptr)
+              : glDrawArrays(primitive, 0, vertex_sz);
+    }
+
+    if (mesh->GetNodeType() == NodeType::InstancedMeshNode) {
+        const auto instanced = static_cast<InstancedMesh*>(mesh);
+        const auto count = instanced->count;
+        buffers_.BindInstancedMesh(instanced);
+
+        index_sz ? glDrawElementsInstanced(primitive, index_sz, GL_UNSIGNED_INT, nullptr, count)
+              : glDrawArraysInstanced(primitive, 0, vertex_sz, count);
     }
 
     rendered_objects_counter_++;
