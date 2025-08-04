@@ -43,6 +43,8 @@ public:
         return NodeType::InstancedMeshNode;
     }
 
+    [[nodiscard]] auto GetTransformAt(int idx) -> const Matrix4;
+
     auto SetTransformAt(const Matrix4& mat, int idx) -> void;
 
     auto SetTransformAt(Transform3& transform, int idx) -> void;

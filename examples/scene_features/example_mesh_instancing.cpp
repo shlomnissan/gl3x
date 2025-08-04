@@ -21,27 +21,33 @@ ExampleMeshInstancing::ExampleMeshInstancing() {
     Add(ambient_light);
 
     auto point_light = PointLight::Create({.color = 0xFFFFFF, .intensity = 1.0f});
-    point_light->transform.Translate({0.0f, 0.0f, 5.0f});
+    point_light->transform.Translate({0.0f, 0.0f, 30.0f});
     Add(point_light);
 
     const auto geometry = CubeGeometry::Create({1.0f, 1.0f, 1.0f});
     const auto material = PhongMaterial::Create(0x049EF4);
-    boxes_ = InstancedMesh::Create(geometry, material, 2);
+    boxes_ = InstancedMesh::Create(geometry, material, 2500);
     Add(boxes_);
 
-    for (auto i = 0; i < 2; ++i) {
-        auto t = Transform3 {};
-        t.SetPosition({i * 2.0f - 1.0f, 0.0f, 0.0f});
-        boxes_->SetTransformAt(t, i);
+    for (auto i = 0; i < 50; ++i) {
+        for (auto j = 0; j < 50; ++j) {
+            auto t = Transform3 {};
+            t.SetPosition({i * 2.0f - 49.0f, j * 2.0f - 49.0f, 0.0f});
+            boxes_->SetTransformAt(t, j * 50 + i);
+        }
     }
 }
 
 auto ExampleMeshInstancing::OnAttached(gleam::SharedContext* context) -> void {
-    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 5.0f}));
+    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 90.0f}));
 }
 
 auto ExampleMeshInstancing::OnUpdate(float delta) -> void {
-    boxes_->RotateY(1.0f * delta);
+    auto t = Transform3 {};
+    t.Rotate(Vector3::Right(), 1.0f * delta);
+    for (auto i = 0; i < boxes_->count; ++i) {
+        boxes_->SetTransformAt(boxes_->GetTransformAt(i) * t.Get(), i);
+    }
 }
 
 auto ExampleMeshInstancing::ContextMenu() -> void {

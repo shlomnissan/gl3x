@@ -19,6 +19,11 @@ InstancedMesh::InstancedMesh(
     transforms_.resize(count);
 }
 
+auto InstancedMesh::GetTransformAt(int idx) -> const Matrix4 {
+    assert(idx <= count);
+    return transforms_[idx];
+}
+
 auto InstancedMesh::SetTransformAt(const Matrix4& mat, int idx) -> void {
     assert(idx <= count);
     transforms_[idx] = mat;
