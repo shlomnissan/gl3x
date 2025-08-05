@@ -14,24 +14,24 @@ namespace gleam {
 InstancedMesh::InstancedMesh(
     std::shared_ptr<Geometry> geometry,
     std::shared_ptr<Material> material,
-    int count
+    std::size_t count
 ): Mesh(geometry, material), count(count) {
     transforms_.resize(count);
 }
 
-auto InstancedMesh::GetTransformAt(int idx) -> const Matrix4 {
+auto InstancedMesh::GetTransformAt(std::size_t idx) -> const Matrix4 {
     assert(idx <= count);
     return transforms_[idx];
 }
 
-auto InstancedMesh::SetTransformAt(const Matrix4& mat, int idx) -> void {
+auto InstancedMesh::SetTransformAt(std::size_t idx, const Matrix4& mat) -> void {
     assert(idx <= count);
     transforms_[idx] = mat;
     touched = true;
 }
 
-auto InstancedMesh::SetTransformAt(Transform3& transform, int idx) -> void {
-    SetTransformAt(transform.Get(), idx);
+auto InstancedMesh::SetTransformAt(std::size_t idx, Transform3& transform) -> void {
+    SetTransformAt(idx, transform.Get());
 }
 
 }

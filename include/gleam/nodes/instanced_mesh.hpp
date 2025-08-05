@@ -19,7 +19,7 @@ namespace gleam {
 
 class GLEAM_EXPORT InstancedMesh : public Mesh {
 public:
-    unsigned int count;
+    std::size_t count;
 
     unsigned int instance_id = 0;
 
@@ -28,13 +28,13 @@ public:
     InstancedMesh(
         std::shared_ptr<Geometry> geometry,
         std::shared_ptr<Material> material,
-        int count
+        std::size_t count
     );
 
     [[nodiscard]] static auto Create(
         std::shared_ptr<Geometry> geometry,
         std::shared_ptr<Material> material,
-        int count
+        std::size_t count
     ) {
         return std::make_shared<InstancedMesh>(geometry, material, count);
     }
@@ -43,11 +43,11 @@ public:
         return NodeType::InstancedMeshNode;
     }
 
-    [[nodiscard]] auto GetTransformAt(int idx) -> const Matrix4;
+    [[nodiscard]] auto GetTransformAt(std::size_t idx) -> const Matrix4;
 
-    auto SetTransformAt(const Matrix4& mat, int idx) -> void;
+    auto SetTransformAt(std::size_t idx, const Matrix4& mat) -> void;
 
-    auto SetTransformAt(Transform3& transform, int idx) -> void;
+    auto SetTransformAt(std::size_t idx, Transform3& transform) -> void;
 
 private:
     friend class GLBuffers;
