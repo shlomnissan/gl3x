@@ -198,19 +198,19 @@ public:
 
     /**
      * @brief Rotates the node along the X axis in local space.
-     * @param value Rotation angle in radians.
+     * @param angle Rotation angle in radians.
      */
     auto RotateX(float angle) { transform.Rotate(Vector3::Right(), angle); }
 
     /**
      * @brief Rotates the node along the Y axis in local space.
-     * @param value Rotation angle in radians.
+     * @param angle Rotation angle in radians.
      */
     auto RotateY(float angle) { transform.Rotate(Vector3::Up(), angle); }
 
     /**
      * @brief Rotates the node along the Z axis in local space.
-     * @param value Rotation angle in radians.
+     * @param angle Rotation angle in radians.
      */
     auto RotateZ(float angle) { transform.Rotate(Vector3::Forward(), angle); }
 

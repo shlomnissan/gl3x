@@ -150,8 +150,8 @@ private:
  * @brief Linearly interpolates between two vectors.
  * @relatesalso Color
  *
- * @param v1 Start color.
- * @param v2 End color.
+ * @param a Start color.
+ * @param b End color.
  * @param f Interpolation factor [0, 1].
  * @return Interpolated color.
  */

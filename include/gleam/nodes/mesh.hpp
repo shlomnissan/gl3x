@@ -81,7 +81,7 @@ public:
      /**
      * @brief Sets the material used to render this mesh.
      *
-     * @param geometry Shared pointer to the new material.
+     * @param material Shared pointer to the new material.
      */
     auto SetMaterial(std::shared_ptr<Material> material) { material_ = material; }
 
