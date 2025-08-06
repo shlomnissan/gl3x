@@ -11,6 +11,7 @@
 
 #include <gleam/nodes.hpp>
 
+#include "example_sandbox.hpp"
 #include "materials/example_unlit_material.hpp"
 #include "materials/example_phong_material.hpp"
 #include "materials/example_shader_material.hpp"

@@ -23,8 +23,8 @@ using namespace gleam;
 class Application : public ApplicationContext {
 public:
     auto Configure() -> void override {
-        params.width = 1536;
-        params.height = 1152;
+        params.width = 1024;
+        params.height = 768;
         params.antialiasing = 0;
         params.vsync = false;
         params.debug = true;
@@ -98,6 +98,10 @@ private:
     int current_scene_ = 1;
 
     auto LoadScene(const std::string_view scene_name) -> void {
+        if (current_scene_ == 0) {
+            scene_ = std::make_shared<ExampleSandbox>();
+        }
+
         // materials
         if (scene_name == "Unlit Material") {
             scene_ = std::make_shared<ExampleUnlitMaterial>();
