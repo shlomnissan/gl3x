@@ -25,7 +25,3 @@ ExampleSandbox::ExampleSandbox() {
 auto ExampleSandbox::OnAttached(gleam::SharedContext* context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 }
-
-auto ExampleSandbox::ContextMenu() -> void {
-    // Empty
-}

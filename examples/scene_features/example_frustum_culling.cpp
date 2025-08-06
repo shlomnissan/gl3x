@@ -45,7 +45,3 @@ auto ExampleFrustumCulling::OnUpdate(float delta) -> void {
         b->RotateX(1.0f * delta);
     }
 }
-
-auto ExampleFrustumCulling::ContextMenu() -> void {
-    // Empty
-}

@@ -78,7 +78,3 @@ auto ExampleAnimatedTransform::OnUpdate(float delta) -> void {
     active_point_->SetScale(Lerp(start_scale_, end_scale_, t));
     active_material_->color = Lerp(start_color_, end_color_, t);
 }
-
-auto ExampleAnimatedTransform::ContextMenu() -> void {
-    // Empty
-}

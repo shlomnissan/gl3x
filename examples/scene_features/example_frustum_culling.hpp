@@ -22,8 +22,6 @@ public:
 
     auto OnUpdate(float delta) -> void override;
 
-    auto ContextMenu() -> void override;
-
 private:
     std::array<std::shared_ptr<gleam::Mesh>, 2500> boxes_;
 };

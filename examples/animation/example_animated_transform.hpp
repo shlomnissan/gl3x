@@ -24,8 +24,6 @@ public:
 
     auto OnUpdate(float delta) -> void override;
 
-    auto ContextMenu() -> void override;
-
 private:
     std::shared_ptr<gleam::Mesh> active_point_;
     std::shared_ptr<gleam::PhongMaterial> active_material_;

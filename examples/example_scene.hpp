@@ -14,5 +14,7 @@ class ExampleScene : public gleam::Scene {
 public:
     bool show_context_menu_ {true};
 
-    virtual auto ContextMenu() -> void = 0;
+    virtual auto ContextMenu() -> void {
+        // Empty
+    }
 };

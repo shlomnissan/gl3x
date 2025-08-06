@@ -77,7 +77,3 @@ auto ExampleModelLoader::OnUpdate(float delta) -> void {
 
     sphere_->RotateY(0.1f * delta);
 }
-
-auto ExampleModelLoader::ContextMenu() -> void {
-    // Empty
-}

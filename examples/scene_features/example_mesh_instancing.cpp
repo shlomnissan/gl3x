@@ -49,7 +49,3 @@ auto ExampleMeshInstancing::OnUpdate(float delta) -> void {
         boxes_->SetTransformAt(i, boxes_->GetTransformAt(i) * t.Get());
     }
 }
-
-auto ExampleMeshInstancing::ContextMenu() -> void {
-    // Empty
-}

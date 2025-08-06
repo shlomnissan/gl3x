@@ -23,8 +23,6 @@ public:
 
     auto OnUpdate(float delta) -> void override;
 
-    auto ContextMenu() -> void override;
-
 private:
     std::shared_ptr<gleam::Mesh> sphere_;
     std::shared_ptr<gleam::Node> mesh_;

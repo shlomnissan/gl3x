@@ -16,6 +16,4 @@ public:
     ExampleSandbox();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
-
-    auto ContextMenu() -> void override;
 };
