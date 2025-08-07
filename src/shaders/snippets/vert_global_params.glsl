@@ -22,18 +22,26 @@ used in both the vertex and fragment shaders.
 in vec3 a_Position;
 in vec3 a_Normal;
 in vec2 a_TexCoord;
-in mat4 a_InstanceTransform;
+
+#ifdef USE_INSTANCING
+    in mat4 a_InstanceTransform;
+#endif
+
+#ifdef USE_VERTEX_COLOR
+    in vec3 a_Color;
+    out vec3 v_Color;
+#endif
 
 uniform mat3 u_TextureTransform;
 uniform mat4 u_Model;
-
-layout(std140) uniform ub_Camera {
-    mat4 u_Projection;
-    mat4 u_View;
-};
 
 out float v_ViewDepth;
 out vec2 v_TexCoord;
 out vec3 v_Normal;
 out vec3 v_ViewDir;
 out vec4 v_Position;
+
+layout(std140) uniform ub_Camera {
+    mat4 u_Projection;
+    mat4 u_View;
+};

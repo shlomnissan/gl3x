@@ -16,10 +16,18 @@ using namespace gleam;
 ExampleSandbox::ExampleSandbox() {
     show_context_menu_ = false;
 
-    Add(Mesh::Create(
-        PlaneGeometry::Create(),
-        UnlitMaterial::Create(0xFF0000)
-    ));
+    auto geometry = Geometry::Create({
+    //   px,    py,   pz,   nx,   ny,   nz,   r,    g,    b
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+         0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+         0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f
+    });
+
+    geometry->SetAttribute({VertexAttributeType::Position, 3});
+    geometry->SetAttribute({VertexAttributeType::Normal, 3});
+    geometry->SetAttribute({VertexAttributeType::Color, 3});
+
+    Add(Mesh::Create(geometry, UnlitMaterial::Create(0xFFFFFF)));
 }
 
 auto ExampleSandbox::OnAttached(gleam::SharedContext* context) -> void {

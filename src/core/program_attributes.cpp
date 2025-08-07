@@ -19,6 +19,7 @@
 namespace gleam {
 
 ProgramAttributes::ProgramAttributes(Mesh* mesh, const LightsCounter& lights, const Scene* scene) {
+    auto geometry = mesh->GetGeometry().get();
     auto material = mesh->GetMaterial().get();
 
     type = material->GetType();
@@ -45,9 +46,10 @@ ProgramAttributes::ProgramAttributes(Mesh* mesh, const LightsCounter& lights, co
 
     flat_shaded = material->flat_shaded;
     fog = material->fog && scene->fog != nullptr;
-    two_sided = material->two_sided;
     instancing = mesh->GetNodeType() == NodeType::InstancedMeshNode;
     num_lights = lights.directional + lights.point + lights.spot;
+    two_sided = material->two_sided;
+    vertex_color = geometry->HasAttribute(VertexAttributeType::Color);
 
     key |= std::to_underlying(type); // 0–15 → 4 bits
     key |= (color ? 1 : 0)  << 4; // 1 bit
@@ -60,6 +62,7 @@ ProgramAttributes::ProgramAttributes(Mesh* mesh, const LightsCounter& lights, co
     key |= (alpha_map ? 1 : 0) << 20; // 1 bit
     key |= (two_sided ? 1 : 0) << 21; // 1 bit
     key |= (instancing ? 1 : 0) << 22; // 1 bit
+    key |= (vertex_color ? 1 : 0) << 23; // 1 bit
 }
 
 }

@@ -12,6 +12,10 @@ mat4 model_view = u_View * u_Model;
     model_view *= a_InstanceTransform;
 #endif
 
+#ifdef USE_VERTEX_COLOR
+    v_Color = a_Color;
+#endif
+
 mat3 normal_matrix = transpose(inverse(mat3(model_view)));
 
 v_Position = model_view * vec4(a_Position, 1.0);

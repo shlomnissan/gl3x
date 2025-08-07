@@ -29,7 +29,8 @@ enum class VertexAttributeType {
     Position = 0, ///< Vertex position.
     Normal = 1, ///< Vertex normal vector.
     UV = 2, ///< Texture coordinates.
-    InstanceTransform = 3 ///< Instance transform.
+    Color = 3, ///< Vertex color.
+    InstanceTransform = 4 ///< Instance transform.
 };
 
 /**

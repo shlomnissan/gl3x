@@ -39,6 +39,7 @@ struct ProgramAttributes {
     bool fog {false};
     bool instancing {false};
     bool two_sided {false};
+    bool vertex_color {false};
 
     ProgramAttributes(Mesh* mesh, const LightsCounter& lights, const Scene* scene);
 };

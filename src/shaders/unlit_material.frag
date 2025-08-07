@@ -11,6 +11,10 @@ precision mediump float;
 
 void main() {
     vec3 output_color = u_Color;
+    #ifdef USE_VERTEX_COLOR
+        output_color *= v_Color;
+    #endif
+
     float opacity = u_Opacity;
 
     #ifdef USE_ALBEDO_MAP

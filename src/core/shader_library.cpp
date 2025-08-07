@@ -90,6 +90,7 @@ auto ShaderLibrary::InjectAttributes(
     if (attrs.instancing) features += "#define USE_INSTANCING\n";
     if (attrs.albedo_map) features += "#define USE_ALBEDO_MAP\n";
     if (attrs.two_sided) features += "#define USE_TWO_SIDED\n";
+    if (attrs.vertex_color) features += "#define USE_VERTEX_COLOR\n";
 
     const auto lights = attrs.num_lights;
     features += "#define NUM_LIGHTS " + std::to_string(lights) + '\n';
