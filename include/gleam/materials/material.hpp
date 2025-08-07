@@ -25,7 +25,8 @@ namespace gleam {
 enum class MaterialType {
     UnlitMaterial,
     PhongMaterial,
-    ShaderMaterial
+    ShaderMaterial,
+    Length,
 };
 
 /**

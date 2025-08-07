@@ -16,6 +16,8 @@
 
 #include "utilities/logger.hpp"
 
+#include <cassert>
+
 namespace gleam {
 
 ProgramAttributes::ProgramAttributes(Mesh* mesh, const LightsCounter& lights, const Scene* scene) {
@@ -51,13 +53,15 @@ ProgramAttributes::ProgramAttributes(Mesh* mesh, const LightsCounter& lights, co
     two_sided = material->two_sided;
     vertex_color = geometry->HasAttribute(VertexAttributeType::Color);
 
-    key |= std::to_underlying(type); // 0–15 → 4 bits
+    static_assert(std::to_underlying(MaterialType::Length) <= 15);
+
+    key |= (std::to_underlying(type) & 0xF); // (0–15) → 4 bits
     key |= (color ? 1 : 0)  << 4; // 1 bit
     key |= (flat_shaded ? 1 : 0) << 9; // 1 bit
     key |= (fog ? 1 : 0) << 10; // 1 bit
-    key |= (lights.directional & 0xF) << 5; // 0–10 → 4 bits
-    key |= (lights.point & 0xF) << 11; // 0–10 → 4 bits
-    key |= (lights.spot & 0xF) << 15; // 0–10 → 4 bits
+    key |= (lights.directional & 0xF) << 5; // (0–15) → 4 bits
+    key |= (lights.point & 0xF) << 11; // (0–15) → 4 bits
+    key |= (lights.spot & 0xF) << 15; // (0–15) → 4 bits
     key |= (albedo_map ? 1 : 0) << 19; // 1 bit
     key |= (alpha_map ? 1 : 0) << 20; // 1 bit
     key |= (two_sided ? 1 : 0) << 21; // 1 bit

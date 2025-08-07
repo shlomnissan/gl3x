@@ -10,6 +10,7 @@
 #include "gleam/nodes/mesh.hpp"
 #include "gleam/nodes/scene.hpp"
 
+#include <cstdint>
 #include <string_view>
 #include <utility>
 
@@ -17,9 +18,9 @@ namespace gleam {
 
 struct ProgramAttributes {
     struct LightsCounter {
-        unsigned int directional {0};
-        unsigned int point {0};
-        unsigned int spot {0};
+        uint8_t directional {0};
+        uint8_t point {0};
+        uint8_t spot {0};
     };
 
     std::size_t key {0};
@@ -30,7 +31,7 @@ struct ProgramAttributes {
     std::string_view vertex_shader;
     std::string_view fragment_shader;
 
-    unsigned int num_lights {0};
+    uint8_t num_lights {0};
 
     bool albedo_map {false};
     bool alpha_map {false};
