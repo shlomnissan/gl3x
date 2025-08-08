@@ -50,10 +50,10 @@ auto ExampleModelLoader::OnAttached(gleam::SharedContext* context) -> void {
         "assets/mushroom.msh",
         [this](auto result) {
             if (result) {
-                mesh_ = result.value();
-                mesh_->SetScale(0.005f);
-                mesh_->TranslateY(-0.4f);
-                sphere_->Add(mesh_);
+                model_ = result.value();
+                model_->SetScale(0.005f);
+                model_->TranslateY(-0.4f);
+                sphere_->Add(model_);
             }
         }
     );
@@ -67,8 +67,8 @@ auto ExampleModelLoader::OnAttached(gleam::SharedContext* context) -> void {
 }
 
 auto ExampleModelLoader::OnUpdate(float delta) -> void {
-    if (!is_alpha_set && alpha_map_ != nullptr && mesh_ != nullptr) {
-        auto x = static_cast<Mesh*>(mesh_->Children()[10].get());
+    if (!is_alpha_set && alpha_map_ != nullptr && model_ != nullptr) {
+        auto x = static_cast<Mesh*>(model_->Children()[10].get());
         auto m = static_cast<PhongMaterial*>(x->GetMaterial().get());
         m->alpha_map = alpha_map_;
         m->transparent = true;

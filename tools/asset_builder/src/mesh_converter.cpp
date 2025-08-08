@@ -77,9 +77,8 @@ struct __vec3_t {
 
 auto stride(const tinyobj::attrib_t& attrib) {
     auto stride = 6u; // positions and normals are guaranteed
-    if (!attrib.texcoords.empty()) {
-        stride += 2;
-    }
+    if (!attrib.colors.empty()) stride += 3;
+    if (!attrib.texcoords.empty()) stride += 2;
     return stride;
 }
 
@@ -227,6 +226,14 @@ auto parse_shapes(
                 vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f});
             }
 
+            if (attrib.colors.size()) {
+                vertex_data.insert(vertex_data.end(), {
+                    attrib.colors[3 * idx.vertex_index + 0],
+                    attrib.colors[3 * idx.vertex_index + 1],
+                    attrib.colors[3 * idx.vertex_index + 2]
+                });
+            }
+
             if (idx.texcoord_index >= 0) {
                 vertex_data.insert(vertex_data.end(), {
                     attrib.texcoords[2 * idx.texcoord_index + 0],
@@ -253,9 +260,9 @@ auto parse_shapes(
         msh_entry.vertex_data_size = static_cast<uint64_t>(vertex_data.size() * sizeof(float));
         msh_entry.index_data_size = static_cast<uint64_t>(index_data.size() * sizeof(unsigned));
         msh_entry.vertex_flags = VertexAttributeFlags::Positions | VertexAttributeFlags::Normals;
-        if (!attrib.texcoords.empty()) {
-            msh_entry.vertex_flags |= VertexAttributeFlags::UVs;
-        }
+
+        if (!attrib.colors.empty()) msh_entry.vertex_flags |= VertexAttributeFlags::Colors;
+        if (!attrib.texcoords.empty()) msh_entry.vertex_flags |= VertexAttributeFlags::UVs;
 
         out_stream.write(reinterpret_cast<const char*>(&msh_entry), sizeof(msh_entry));
         out_stream.write(reinterpret_cast<const char*>(vertex_data.data()), vertex_data.size() * sizeof(float));

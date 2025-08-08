@@ -16,4 +16,7 @@ public:
     ExampleSandbox();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
+
+private:
+    std::shared_ptr<gleam::Node> model_;
 };

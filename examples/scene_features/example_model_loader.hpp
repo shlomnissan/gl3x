@@ -25,7 +25,7 @@ public:
 
 private:
     std::shared_ptr<gleam::Mesh> sphere_;
-    std::shared_ptr<gleam::Node> mesh_;
+    std::shared_ptr<gleam::Node> model_;
     std::shared_ptr<gleam::Texture2D> alpha_map_;
 
     bool is_alpha_set {false};

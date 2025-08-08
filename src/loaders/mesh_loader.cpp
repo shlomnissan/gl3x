@@ -105,6 +105,9 @@ auto MeshLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Node> {
 
         geometry->SetAttribute({.type = VertexAttributeType::Position, .item_size = 3});
         geometry->SetAttribute({.type = VertexAttributeType::Normal, .item_size = 3});
+        if (geometry_header.vertex_flags & VertexAttributeFlags::Colors) {
+            geometry->SetAttribute({.type = VertexAttributeType::Color, .item_size = 3});
+        }
         if (geometry_header.vertex_flags & VertexAttributeFlags::UVs) {
             geometry->SetAttribute({.type = VertexAttributeType::UV, .item_size = 2});
         }
