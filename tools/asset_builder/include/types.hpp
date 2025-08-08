@@ -16,8 +16,8 @@ enum TextureFormat : uint32_t {
 enum VertexAttributeFlags : uint32_t {
     Positions = 1 << 0,
     Normals = 1 << 1,
-    Colors = 1 << 2,
-    UVs = 1 << 3,
+    UVs = 1 << 2,
+    Colors = 1 << 3,
 };
 
 #pragma pack(push, 1)
