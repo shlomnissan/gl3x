@@ -16,6 +16,7 @@
 #include "renderer/gl/gl_uniform_buffer.hpp"
 
 #include <array>
+#include <cstdint>
 
 namespace gleam {
 
@@ -41,10 +42,10 @@ public:
 
     Color ambient_light {0x000000};
 
-    unsigned int ambient {0};
-    unsigned int directional {0};
-    unsigned int point {0};
-    unsigned int spot {0};
+    uint8_t ambient {0};
+    uint8_t directional {0};
+    uint8_t point {0};
+    uint8_t spot {0};
 
     GLLights() = default;
 
