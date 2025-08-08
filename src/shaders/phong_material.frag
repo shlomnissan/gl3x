@@ -101,11 +101,11 @@ void main() {
     #include "snippets/frag_main_normal.glsl"
 
     vec3 diffuse_color = u_Material.DiffuseColor;
-    #ifdef USE_VERTEX_COLOR
-        diffuse_color *= v_Color;
-    #endif
-
     float opacity = u_Opacity;
+    #ifdef USE_VERTEX_COLOR
+        diffuse_color *= v_Color.rgb;
+        opacity *= v_Color.a;
+    #endif
 
     #ifdef USE_ALBEDO_MAP
         vec4 texture_sample = texture(u_AlbedoMap, v_TexCoord);

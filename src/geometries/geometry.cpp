@@ -17,7 +17,14 @@
 namespace gleam {
 
 auto Geometry::SetAttribute(const GeometryAttribute &attribute) -> void {
-    assert(attribute.item_size > 0);
+    using enum VertexAttributeType;
+    if (attribute.type == Position) assert(attribute.item_size == 3);
+    if (attribute.type == Normal) assert(attribute.item_size == 3);
+    if (attribute.type == UV) assert(attribute.item_size == 2);
+    if (attribute.type == Color) assert(attribute.item_size == 4);
+
+    assert(attribute.type != InstanceTransform);
+
     attributes_.emplace_back(attribute);
 }
 
