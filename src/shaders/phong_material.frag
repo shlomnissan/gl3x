@@ -103,8 +103,7 @@ void main() {
     vec3 diffuse_color = u_Material.DiffuseColor;
     float opacity = u_Opacity;
     #ifdef USE_VERTEX_COLOR
-        diffuse_color *= v_Color.rgb;
-        opacity *= v_Color.a;
+        diffuse_color *= v_Color;
     #endif
 
     #ifdef USE_ALBEDO_MAP

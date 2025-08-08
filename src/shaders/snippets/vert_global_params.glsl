@@ -28,8 +28,8 @@ in vec2 a_TexCoord;
 #endif
 
 #ifdef USE_VERTEX_COLOR
-    in vec4 a_Color;
-    out vec4 v_Color;
+    in vec3 a_Color;
+    out vec3 v_Color;
 #endif
 
 uniform mat3 u_TextureTransform;

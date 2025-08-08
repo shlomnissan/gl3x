@@ -21,7 +21,7 @@ auto Geometry::SetAttribute(const GeometryAttribute &attribute) -> void {
     if (attribute.type == Position) assert(attribute.item_size == 3);
     if (attribute.type == Normal) assert(attribute.item_size == 3);
     if (attribute.type == UV) assert(attribute.item_size == 2);
-    if (attribute.type == Color) assert(attribute.item_size == 4);
+    if (attribute.type == Color) assert(attribute.item_size == 3);
 
     assert(attribute.type != InstanceTransform);
 

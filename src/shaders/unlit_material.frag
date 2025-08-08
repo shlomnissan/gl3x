@@ -13,8 +13,7 @@ void main() {
     vec3 output_color = u_Color;
     float opacity = u_Opacity;
     #ifdef USE_VERTEX_COLOR
-        output_color *= v_Color.rgb;
-        opacity *= v_Color.a;
+        output_color *= v_Color;
     #endif
 
     #ifdef USE_ALBEDO_MAP

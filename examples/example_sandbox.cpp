@@ -17,15 +17,15 @@ ExampleSandbox::ExampleSandbox() {
     show_context_menu_ = false;
 
     auto geometry = Geometry::Create({
-    //   px,    py,   pz,   nx,   ny,   nz,   r,    g,    b     a
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-         0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-         0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+    //   px,    py,   pz,   nx,   ny,   nz,   r,    g,    b
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+         0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+         0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
     });
 
     geometry->SetAttribute({VertexAttributeType::Position, 3});
     geometry->SetAttribute({VertexAttributeType::Normal, 3});
-    geometry->SetAttribute({VertexAttributeType::Color, 4});
+    geometry->SetAttribute({VertexAttributeType::Color, 3});
 
     auto material = UnlitMaterial::Create(0xFFFFFF);
     material->transparent = true;

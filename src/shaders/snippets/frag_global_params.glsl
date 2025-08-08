@@ -18,7 +18,7 @@ output color, varyings, and uniforms accessible within the fragment shader.
 layout (location = 0) out vec4 v_FragColor;
 
 #ifdef USE_VERTEX_COLOR
-    in vec4 v_Color;
+    in vec3 v_Color;
 #endif
 
 in float v_ViewDepth;
