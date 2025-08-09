@@ -68,7 +68,7 @@ auto ExampleMeshInstancing::OnAttached(gleam::SharedContext* context) -> void {
 auto ExampleMeshInstancing::OnUpdate(float delta) -> void {
     auto t = Transform3 {};
     t.Rotate(Vector3::Right(), 1.0f * delta);
-    for (auto i = 0; i < boxes_->count; ++i) {
+    for (auto i = 0; i < boxes_->Count(); ++i) {
         boxes_->SetTransformAt(i, boxes_->GetTransformAt(i) * t.Get());
     }
 }

@@ -97,7 +97,7 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
 
     if (mesh->GetNodeType() == NodeType::InstancedMeshNode) {
         const auto instanced = static_cast<InstancedMesh*>(mesh);
-        const auto count = instanced->count;
+        const auto count = instanced->Count();
         buffers_.BindInstancedMesh(instanced);
 
         index_sz ? glDrawElementsInstanced(primitive, index_sz, GL_UNSIGNED_INT, nullptr, count)

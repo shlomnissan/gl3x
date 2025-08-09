@@ -38,6 +38,7 @@ set(SOURCE_CODE
     "nodes/bounding_sphere.cpp"
     "nodes/grid.cpp"
     "nodes/instanced_mesh.cpp"
+    "nodes/instanced_mesh_impl.hpp"
     "nodes/mesh.cpp"
     "nodes/node.cpp"
     "nodes/orbit_controls.cpp"

@@ -9,6 +9,7 @@
 
 #include "gleam/math/vector4.hpp"
 
+#include "nodes/instanced_mesh_impl.hpp"
 #include "utilities/logger.hpp"
 
 #include <cstdint>
@@ -101,10 +102,10 @@ auto GLBuffers::GenerateBuffers(Geometry* geometry) -> void {
 }
 
 auto GLBuffers::BindInstancedMesh(InstancedMesh* mesh) -> void {
-    if (mesh->transforms_buff_id == 0) {
+    if (mesh->impl_->transforms_buff_id == 0) {
         auto& buffers = bindings_[mesh->GetGeometry()->renderer_id];
-        mesh->transforms_buff_id = buffers[BUFF_IDX_INSTANCE_TRANSFORM];
-        glBindBuffer(GL_ARRAY_BUFFER, mesh->transforms_buff_id);
+        mesh->impl_->transforms_buff_id = buffers[BUFF_IDX_INSTANCE_TRANSFORM];
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->impl_->transforms_buff_id);
 
         for (auto i = 0; i < 4; ++i) {
             auto loc = std::to_underlying(VertexAttributeType::InstanceTransform) + i;
@@ -121,21 +122,21 @@ auto GLBuffers::BindInstancedMesh(InstancedMesh* mesh) -> void {
         }
     }
 
-    if (mesh->transforms_touched) {
-        glBindBuffer(GL_ARRAY_BUFFER, mesh->transforms_buff_id);
+    if (mesh->impl_->transforms_touched) {
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->impl_->transforms_buff_id);
         glBufferData(
             GL_ARRAY_BUFFER,
             mesh->transforms_.size() * 4 * sizeof(Vector4),
             mesh->transforms_.data(),
             GL_DYNAMIC_DRAW
         );
-        mesh->transforms_touched = false;
+        mesh->impl_->transforms_touched = false;
     }
 
-    if (mesh->colors_buff_id == 0) {
+    if (mesh->impl_->colors_buff_id == 0) {
         auto& buffers = bindings_[mesh->GetGeometry()->renderer_id];
-        mesh->colors_buff_id = buffers[BUFF_IDX_INSTANCE_COLOR];
-        glBindBuffer(GL_ARRAY_BUFFER, mesh->colors_buff_id);
+        mesh->impl_->colors_buff_id = buffers[BUFF_IDX_INSTANCE_COLOR];
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->impl_->colors_buff_id);
 
         const auto loc = std::to_underlying(VertexAttributeType::InstanceColor);
         glEnableVertexAttribArray(loc);
@@ -150,8 +151,8 @@ auto GLBuffers::BindInstancedMesh(InstancedMesh* mesh) -> void {
         glVertexAttribDivisor(loc, 1);
     }
 
-    if (mesh->colors_touched) {
-        glBindBuffer(GL_ARRAY_BUFFER, mesh->colors_buff_id);
+    if (mesh->impl_->colors_touched) {
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->impl_->colors_buff_id);
 
         glBufferData(
             GL_ARRAY_BUFFER,
@@ -159,7 +160,7 @@ auto GLBuffers::BindInstancedMesh(InstancedMesh* mesh) -> void {
             mesh->colors_.data(),
             GL_DYNAMIC_DRAW
         );
-        mesh->colors_touched = false;
+        mesh->impl_->colors_touched = false;
     }
 }
 
