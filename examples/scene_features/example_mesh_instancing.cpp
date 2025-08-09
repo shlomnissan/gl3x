@@ -12,7 +12,26 @@
 #include <gleam/materials.hpp>
 #include <gleam/math.hpp>
 
+#include <array>
+
 using namespace gleam;
+
+namespace {
+
+auto colors = std::array<Color, 10> {
+    0xE63946, // red
+    0xF1A208, // orange
+    0xF6E05E, // warm yellow
+    0x90BE6D, // green
+    0x43AA8B, // teal
+    0x577590, // muted blue
+    0x277DA1, // blue
+    0x4D908E, // desaturated teal
+    0xBC6C25, // earthy orange
+    0x8E3B46  // wine red
+};
+
+}
 
 ExampleMeshInstancing::ExampleMeshInstancing() {
     show_context_menu_ = false;
@@ -38,7 +57,7 @@ ExampleMeshInstancing::ExampleMeshInstancing() {
     }
 
     for (auto i = 0; i < 2500; ++i) {
-        boxes_->SetColorAt(i, Color {1.0f, 0.0f, 0.0f});
+        boxes_->SetColorAt(i, colors[i % 10]);
     }
 }
 
