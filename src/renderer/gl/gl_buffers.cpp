@@ -11,15 +11,17 @@
 
 #include "utilities/logger.hpp"
 
+#include <cstdint>
 #include <utility>
 
 namespace gleam {
 
 namespace {
 
-constexpr unsigned int BUFF_IDX_VBO  = 0;
-constexpr unsigned int BUFF_IDX_EBO  = 1;
-constexpr unsigned int BUFF_IDX_INSTANCE_TRANSFORM = 2;
+constexpr uint8_t BUFF_IDX_VBO  = 0;
+constexpr uint8_t BUFF_IDX_EBO  = 1;
+constexpr uint8_t BUFF_IDX_INSTANCE_COLOR = 2;
+constexpr uint8_t BUFF_IDX_INSTANCE_TRANSFORM = 3;
 
 }
 
@@ -41,7 +43,7 @@ auto GLBuffers::Bind(const std::shared_ptr<Geometry>& geometry) -> void {
 
 auto GLBuffers::GenerateBuffers(Geometry* geometry) -> void {
     auto& vao = geometry->renderer_id;
-    auto buffers = std::array<GLuint, 3> {};
+    auto buffers = std::array<GLuint, 4> {};
 
     glGenVertexArrays(1, &vao);
     glBindVertexArray(geometry->renderer_id);
@@ -99,11 +101,10 @@ auto GLBuffers::GenerateBuffers(Geometry* geometry) -> void {
 }
 
 auto GLBuffers::BindInstancedMesh(InstancedMesh* mesh) -> void {
-    if (mesh->instance_id == 0) {
+    if (mesh->transforms_buff_id == 0) {
         auto& buffers = bindings_[mesh->GetGeometry()->renderer_id];
-        mesh->instance_id = buffers[BUFF_IDX_INSTANCE_TRANSFORM];
-
-        glBindBuffer(GL_ARRAY_BUFFER, mesh->instance_id);
+        mesh->transforms_buff_id = buffers[BUFF_IDX_INSTANCE_TRANSFORM];
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->transforms_buff_id);
 
         for (auto i = 0; i < 4; ++i) {
             auto loc = std::to_underlying(VertexAttributeType::InstanceTransform) + i;
@@ -120,17 +121,46 @@ auto GLBuffers::BindInstancedMesh(InstancedMesh* mesh) -> void {
         }
     }
 
-    if (mesh->touched) {
-        glBindBuffer(GL_ARRAY_BUFFER, mesh->instance_id);
+    if (mesh->transforms_touched) {
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->transforms_buff_id);
         glBufferData(
             GL_ARRAY_BUFFER,
             mesh->transforms_.size() * 4 * sizeof(Vector4),
             mesh->transforms_.data(),
             GL_DYNAMIC_DRAW
         );
+        mesh->transforms_touched = false;
     }
 
-    mesh->touched = false;
+    if (mesh->colors_buff_id == 0) {
+        auto& buffers = bindings_[mesh->GetGeometry()->renderer_id];
+        mesh->colors_buff_id = buffers[BUFF_IDX_INSTANCE_COLOR];
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->colors_buff_id);
+
+        const auto loc = std::to_underlying(VertexAttributeType::InstanceColor);
+        glEnableVertexAttribArray(loc);
+        glVertexAttribPointer(
+                loc,
+                3,
+                GL_FLOAT,
+                GL_FALSE,
+                3 * sizeof(GL_FLOAT),
+                BUFFER_OFFSET(0)
+        );
+        glVertexAttribDivisor(loc, 1);
+    }
+
+    if (mesh->colors_touched) {
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->colors_buff_id);
+
+        glBufferData(
+            GL_ARRAY_BUFFER,
+            mesh->colors_.size() * sizeof(Color),
+            mesh->colors_.data(),
+            GL_DYNAMIC_DRAW
+        );
+        mesh->colors_touched = false;
+    }
 }
 
 GLBuffers::~GLBuffers() {

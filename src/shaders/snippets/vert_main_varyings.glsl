@@ -10,6 +10,7 @@ mat4 model_view = u_View * u_Model;
 
 #ifdef USE_INSTANCING
     model_view *= a_InstanceTransform;
+    v_InstanceColor = a_InstanceColor;
 #endif
 
 #ifdef USE_VERTEX_COLOR

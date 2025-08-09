@@ -36,7 +36,7 @@ public:
     ~GLBuffers();
 
 private:
-    std::unordered_map<GLuint, std::array<GLuint, 3>> bindings_;
+    std::unordered_map<GLuint, std::array<GLuint, 4>> bindings_;
 
     std::vector<std::weak_ptr<Geometry>> geometries_;
 

@@ -22,7 +22,10 @@
 namespace gleam {
 
 /**
- * @brief Represents available vertex attributes.
+ * @brief Represents mapping between vertex attributes and locations.
+ *
+ * @note InstanceTransform contains Matrix4 entries which span 4 locations.
+ *
  * @ingroup GeometryGroup
  */
 enum class VertexAttributeType {
@@ -30,7 +33,8 @@ enum class VertexAttributeType {
     Normal = 1, ///< Vertex normal vector.
     UV = 2, ///< Texture coordinates.
     Color = 3, ///< Vertex color.
-    InstanceTransform = 4 ///< Instance transform.
+    InstanceColor = 4, ///< Instance color.
+    InstanceTransform = 5 ///< Instance transform.
 };
 
 /**

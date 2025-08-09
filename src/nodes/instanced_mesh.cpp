@@ -17,6 +17,12 @@ InstancedMesh::InstancedMesh(
     std::size_t count
 ): Mesh(geometry, material), count(count) {
     transforms_.resize(count);
+    colors_.resize(count);
+}
+
+auto InstancedMesh::GetColorAt(std::size_t idx) -> const Color {
+    assert(idx <= count);
+    return colors_[idx];
 }
 
 auto InstancedMesh::GetTransformAt(std::size_t idx) -> const Matrix4 {
@@ -24,10 +30,16 @@ auto InstancedMesh::GetTransformAt(std::size_t idx) -> const Matrix4 {
     return transforms_[idx];
 }
 
-auto InstancedMesh::SetTransformAt(std::size_t idx, const Matrix4& mat) -> void {
+auto InstancedMesh::SetColorAt(std::size_t idx, const Color& color) -> void {
     assert(idx <= count);
-    transforms_[idx] = mat;
-    touched = true;
+    colors_[idx] = color;
+    colors_touched = true;
+}
+
+auto InstancedMesh::SetTransformAt(std::size_t idx, const Matrix4& matrix) -> void {
+    assert(idx <= count);
+    transforms_[idx] = matrix;
+    transforms_touched = true;
 }
 
 auto InstancedMesh::SetTransformAt(std::size_t idx, Transform3& transform) -> void {

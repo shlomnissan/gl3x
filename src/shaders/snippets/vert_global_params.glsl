@@ -25,6 +25,8 @@ in vec2 a_TexCoord;
 
 #ifdef USE_INSTANCING
     in mat4 a_InstanceTransform;
+    in vec3 a_InstanceColor;
+    out vec3 v_InstanceColor;
 #endif
 
 #ifdef USE_VERTEX_COLOR

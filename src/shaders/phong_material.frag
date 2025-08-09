@@ -102,6 +102,11 @@ void main() {
 
     vec3 diffuse_color = u_Material.DiffuseColor;
     float opacity = u_Opacity;
+
+    #ifdef USE_INSTANCING
+        diffuse_color *= v_InstanceColor;
+    #endif
+
     #ifdef USE_VERTEX_COLOR
         diffuse_color *= v_Color;
     #endif

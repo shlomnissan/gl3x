@@ -25,7 +25,7 @@ ExampleMeshInstancing::ExampleMeshInstancing() {
     Add(point_light);
 
     const auto geometry = CubeGeometry::Create({1.0f, 1.0f, 1.0f});
-    const auto material = PhongMaterial::Create(0x049EF4);
+    const auto material = PhongMaterial::Create(0xFFFFFF);
     boxes_ = InstancedMesh::Create(geometry, material, 2500);
     Add(boxes_);
 
@@ -35,6 +35,10 @@ ExampleMeshInstancing::ExampleMeshInstancing() {
             t.SetPosition({i * 2.0f - 49.0f, j * 2.0f - 49.0f, 0.0f});
             boxes_->SetTransformAt(j * 50 + i, t);
         }
+    }
+
+    for (auto i = 0; i < 2500; ++i) {
+        boxes_->SetColorAt(i, Color {1.0f, 0.0f, 0.0f});
     }
 }
 

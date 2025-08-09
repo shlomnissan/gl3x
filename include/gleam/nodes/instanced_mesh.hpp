@@ -10,6 +10,7 @@
 #include "gleam_export.h"
 
 #include "gleam/nodes/mesh.hpp"
+#include "gleam/math/color.hpp"
 #include "gleam/math/matrix4.hpp"
 
 #include <memory>
@@ -21,9 +22,13 @@ class GLEAM_EXPORT InstancedMesh : public Mesh {
 public:
     std::size_t count;
 
-    unsigned int instance_id = 0;
+    unsigned int colors_buff_id = 0;
 
-    bool touched {true};
+    unsigned int transforms_buff_id = 0;
+
+    bool colors_touched {true};
+
+    bool transforms_touched {true};
 
     InstancedMesh(
         std::shared_ptr<Geometry> geometry,
@@ -43,14 +48,21 @@ public:
         return NodeType::InstancedMeshNode;
     }
 
+    [[nodiscard]] auto GetColorAt(std::size_t idx) -> const Color;
+
     [[nodiscard]] auto GetTransformAt(std::size_t idx) -> const Matrix4;
 
-    auto SetTransformAt(std::size_t idx, const Matrix4& mat) -> void;
+    auto SetColorAt(std::size_t idx, const Color& color) -> void;
+
+    auto SetTransformAt(std::size_t idx, const Matrix4& matrix) -> void;
 
     auto SetTransformAt(std::size_t idx, Transform3& transform) -> void;
 
 private:
     friend class GLBuffers;
+
+    std::vector<Color> colors_;
+
     std::vector<Matrix4> transforms_;
 };
 

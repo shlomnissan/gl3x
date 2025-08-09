@@ -12,6 +12,11 @@ precision mediump float;
 void main() {
     vec3 output_color = u_Color;
     float opacity = u_Opacity;
+
+    #ifdef USE_INSTANCING
+        output_color *= v_InstanceColor;
+    #endif
+
     #ifdef USE_VERTEX_COLOR
         output_color *= v_Color;
     #endif

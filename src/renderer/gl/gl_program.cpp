@@ -22,6 +22,7 @@ const auto VertexAttributesMap = std::unordered_map<std::string, VertexAttribute
     {"a_Normal", VertexAttributeType::Normal},
     {"a_TexCoord", VertexAttributeType::UV},
     {"a_Color", VertexAttributeType::Color},
+    {"a_InstanceColor", VertexAttributeType::InstanceColor},
     {"a_InstanceTransform", VertexAttributeType::InstanceTransform},
 };
 
