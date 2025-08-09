@@ -127,13 +127,38 @@ TEST(Geometry, VertexCount) {
 
 #pragma region Edge Cases
 
-TEST(Geometry, AddAttributeWithZeroItemSize) {
+TEST(Geometry, AddAttributeWithWrongItemSize) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
     auto geometry = gleam::Geometry::Create(vertex_data);
 
     EXPECT_DEATH({
-        geometry->SetAttribute({.type = Position, .item_size = 0});
-    }, ".*attribute.item_size > 0");
+        geometry->SetAttribute({.type = Position, .item_size = 4});
+    }, ".*attribute.item_size == 3");
+
+    EXPECT_DEATH({
+        geometry->SetAttribute({.type = Normal, .item_size = 4});
+    }, ".*attribute.item_size == 3");
+
+    EXPECT_DEATH({
+        geometry->SetAttribute({.type = UV, .item_size = 3});
+    }, ".*attribute.item_size == 2");
+
+    EXPECT_DEATH({
+        geometry->SetAttribute({.type = Color, .item_size = 4});
+    }, ".*attribute.item_size == 3");
+}
+
+TEST(Geometry, AddInternalAttributes) {
+    const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
+    auto geometry = gleam::Geometry::Create(vertex_data);
+
+    EXPECT_DEATH({
+        geometry->SetAttribute({.type = InstanceColor, .item_size = 3});
+    }, ".*attribute.type != InstanceColor");
+
+    EXPECT_DEATH({
+        geometry->SetAttribute({.type = InstanceTransform, .item_size = 4});
+    }, ".*attribute.type != InstanceTransform");
 }
 
 #pragma endregion

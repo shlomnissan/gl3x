@@ -24,7 +24,8 @@ namespace gleam {
 /**
  * @brief Represents mapping between vertex attributes and locations.
  *
- * @note InstanceTransform contains Matrix4 entries which span 4 locations.
+ * @note - InstanceColor and InstanceTransform are internal attributes.
+ * @note - InstanceTransform contains Matrix4 entries which span 4 locations.
  *
  * @ingroup GeometryGroup
  */

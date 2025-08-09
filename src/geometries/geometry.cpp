@@ -23,8 +23,8 @@ auto Geometry::SetAttribute(const GeometryAttribute &attribute) -> void {
     if (attribute.type == UV) assert(attribute.item_size == 2);
     if (attribute.type == Color) assert(attribute.item_size == 3);
 
-    assert(attribute.type != InstanceTransform);
     assert(attribute.type != InstanceColor);
+    assert(attribute.type != InstanceTransform);
 
     attributes_.emplace_back(attribute);
 }
