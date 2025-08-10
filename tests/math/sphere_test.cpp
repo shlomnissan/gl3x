@@ -276,3 +276,50 @@ TEST(Sphere, Translate) {
 }
 
 #pragma endregion
+
+#pragma region Union
+
+TEST(Sphere, UnionSphereEmpty) {
+    constexpr auto s = []() {
+        auto s = gleam::Sphere {};
+        s.Union(gleam::Sphere {{1.0f, 1.0f, 1.0f}, 1.0f});
+        return s;
+    }();
+
+    EXPECT_VEC3_EQ(s.center, {1.0f, 1.0f, 1.0f});
+    EXPECT_FLOAT_EQ(s.radius, 1.0f);
+
+    static_assert(s.center == gleam::Vector3 {1.0f, 1.0f, 1.0f});
+    static_assert(s.radius == 1.0f);
+}
+
+TEST(Sphere, UnionOtherSphereEmpty) {
+    constexpr auto s = []() {
+        auto s = gleam::Sphere {{1.0f, 1.0f, 1.0f}, 1.0f};
+        s.Union(gleam::Sphere {});
+        return s;
+    }();
+
+    EXPECT_VEC3_EQ(s.center, {1.0f, 1.0f, 1.0f});
+    EXPECT_FLOAT_EQ(s.radius, 1.0f);
+
+    static_assert(s.center == gleam::Vector3 {1.0f, 1.0f, 1.0f});
+    static_assert(s.radius == 1.0f);
+}
+
+TEST(Sphere, UnionCentersEqual) {
+    constexpr auto s = []() {
+        auto s1 = gleam::Sphere {{1.0f, 1.0f, 1.0f}, 2.0f};
+        auto s2 = gleam::Sphere {{1.0f, 1.0f, 1.0f}, 3.0f};
+        s1.Union(s2);
+        return s1;
+    }();
+
+    EXPECT_VEC3_EQ(s.center, {1.0f, 1.0f, 1.0f});
+    EXPECT_FLOAT_EQ(s.radius, 3.0f);
+
+    static_assert(s.center == gleam::Vector3 {1.0f, 1.0f, 1.0f});
+    static_assert(s.radius == 3.0f);
+}
+
+#pragma endregion
