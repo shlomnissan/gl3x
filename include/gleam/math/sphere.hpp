@@ -132,6 +132,32 @@ struct GLEAM_EXPORT Sphere {
     constexpr auto Translate(const Vector3& translation) {
         center += translation;
     }
+
+    /**
+     * @brief Expands this sphere to fully contain another sphere.
+     *
+     * @param other The sphere to merge into this one.
+     *
+     * @see ExpandWithPoint
+     */
+    constexpr auto Union(const Sphere& other) {
+        if (other.IsEmpty()) return;
+
+        if (IsEmpty()) {
+            center = other.center;
+            radius = other.radius;
+            return;
+        }
+
+        if (center == other.center) {
+            radius = std::max(radius, other.radius);
+            return;
+        }
+
+        auto radius_dir = Normalize(other.center - center) * other.radius;
+        ExpandWithPoint(other.center + radius_dir);
+        ExpandWithPoint(other.center - radius_dir);
+    }
 };
 
 }
