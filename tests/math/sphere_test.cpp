@@ -322,4 +322,36 @@ TEST(Sphere, UnionCentersEqual) {
     static_assert(s.radius == 3.0f);
 }
 
+TEST(Sphere, UnionAxisAligned) {
+    constexpr auto s = []() {
+        auto s1 = gleam::Sphere {{0.0f, 0.0f, 0.0f}, 1.0f};
+        auto s2 = gleam::Sphere {{3.0f, 0.0f, 0.0f}, 2.0f};
+        s1.Union(s2);
+        return s1;
+    }();
+
+    EXPECT_VEC3_EQ(s.center, {2.0f, 0.0f, 0.0f});
+    EXPECT_NEAR(s.radius, 3.0f, 1e-3f);
+
+    static_assert(s.center == gleam::Vector3 {2.0f, 0.0f, 0.0f});
+    static_assert(ApproxEqual(s.radius, 3.0f, 1e-3f));
+}
+
+TEST(Sphere, UnionOffAxis) {
+    constexpr auto s = []() {
+        auto s1 = gleam::Sphere {{0.0f, 0.0f, 0.0f}, 1.0f};
+        auto s2 = gleam::Sphere {{3.0f, 4.0f, 0.0f}, 1.0f};
+        s1.Union(s2);
+        return s1;
+    }();
+
+    EXPECT_VEC3_NEAR(s.center, {1.5f, 2.0f, 0.0f}, 1e-3f);
+    EXPECT_NEAR(s.radius, 3.5f, 1e-3f);
+
+    static_assert(ApproxEqual(s.center.x, 1.5f, 1e-3f));
+    static_assert(ApproxEqual(s.center.y, 2.0f, 1e-3f));
+    static_assert(ApproxEqual(s.center.z, 0.0f, 1e-3f));
+    static_assert(ApproxEqual(s.radius, 3.5f, 1e-3f));
+}
+
 #pragma endregion
