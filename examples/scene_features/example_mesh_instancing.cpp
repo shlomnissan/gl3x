@@ -62,7 +62,7 @@ ExampleMeshInstancing::ExampleMeshInstancing() {
 }
 
 auto ExampleMeshInstancing::OnAttached(gleam::SharedContext* context) -> void {
-    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 90.0f}));
+    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 5.0f}));
 }
 
 auto ExampleMeshInstancing::OnUpdate(float delta) -> void {

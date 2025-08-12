@@ -106,6 +106,16 @@ public:
      */
     [[nodiscard]] auto GetMaterial() { return material_; }
 
+    /**
+     * @brief Returns the mesh's bounding box.
+     */
+    [[nodiscard]] virtual auto BoundingBox() -> Box3;
+
+    /**
+     * @brief Returns the mesh's bounding sphere.
+     */
+    [[nodiscard]] virtual auto BoundingSphere() -> Sphere;
+
 private:
     /// @brief Geometry data used for rendering this mesh.
     std::shared_ptr<Geometry> geometry_;

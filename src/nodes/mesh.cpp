@@ -28,4 +28,12 @@ auto Mesh::GetWireframeGeometry() -> std::shared_ptr<Geometry> {
     return wireframe_geometry_;
 }
 
+auto Mesh::BoundingBox() -> Box3 {
+    return geometry_->BoundingBox();
+}
+
+auto Mesh::BoundingSphere() -> Sphere {
+    return geometry_->BoundingSphere();
+}
+
 }

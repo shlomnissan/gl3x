@@ -216,23 +216,37 @@ auto Renderer::Impl::SetClearColor(const Color& color) -> void {
 
 auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
     auto geometry = mesh->GetGeometry();
+    if (geometry == nullptr) {
+        Logger::Log(LogLevel::Error,
+            "Skipped rendering a mesh with no valid geometry {}", *mesh
+        );
+        return false;
+    }
+
+    auto material = mesh->GetMaterial();
+    if (material == nullptr) {
+        Logger::Log(LogLevel::Error,
+            "Skipped rendering a mesh with no valid material {}", *mesh
+        );
+        return false;
+    }
 
     if (geometry->Disposed()) {
-        Logger::Log(LogLevel::Warning,
+        Logger::Log(LogLevel::Error,
             "Skipped rendering a mesh with disposed geometry {}", *mesh
         );
         return false;
     }
 
     if (geometry->VertexData().empty()) {
-        Logger::Log(LogLevel::Warning,
+        Logger::Log(LogLevel::Error,
             "Skipped rendering a mesh with no geometry data {}", *mesh
         );
         return false;
     }
 
     if (geometry->Attributes().empty()) {
-        Logger::Log(LogLevel::Warning,
+        Logger::Log(LogLevel::Error,
             "Skipped rendering a mesh with no geometry attributes {}", *mesh
         );
         return false;
@@ -242,7 +256,7 @@ auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
 }
 
 auto Renderer::Impl::IsVisible(Mesh* mesh) const -> bool {
-    auto bounding_sphere = mesh->GetGeometry()->BoundingSphere();
+    auto bounding_sphere = mesh->BoundingSphere();
     bounding_sphere.ApplyTransform(mesh->GetWorldTransform());
     return frustum_.IntersectsWithSphere(bounding_sphere);
 }
