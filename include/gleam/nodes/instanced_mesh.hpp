@@ -14,6 +14,7 @@
 #include "gleam/math/matrix4.hpp"
 
 #include <memory>
+#include <optional>
 #include <vector>
 
 namespace gleam {
@@ -145,6 +146,20 @@ public:
     auto SetTransformAt(std::size_t idx, Transform3& transform) -> void;
 
     /**
+     * @brief Returns the instanced mesh bounding box.
+     *
+     * @note Cluster box in mesh-local space by unioning per-instance boxes
+     */
+    [[nodiscard]] auto BoundingBox() -> Box3 override;
+
+    /**
+     * @brief Returns the instanced mesh bounding sphere.
+     *
+     * @note Cluster sphere in mesh-local space by unioning per-instance spheres
+     */
+    [[nodiscard]] auto BoundingSphere() -> Sphere override;
+
+    /**
      * @brief Destructor.
      */
     ~InstancedMesh();
@@ -161,6 +176,12 @@ private:
 
      /// @brief Per-instance model matrices indexed by instance ID.
     std::vector<Matrix4> transforms_;
+
+    /// @brief Cached bounding box.
+    std::optional<Box3> bounding_box_;
+
+    /// @brief Cached bounding sphere.
+    std::optional<Sphere> bounding_sphere_;
 
     /// @brief Number of instances.
     std::size_t count_;

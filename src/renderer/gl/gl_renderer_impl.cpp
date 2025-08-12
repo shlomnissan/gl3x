@@ -72,8 +72,6 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
         buffers_.Bind(mesh->GetGeometry());
     }
 
-
-
     SetUniforms(program, &attrs, mesh, camera, scene);
 
     state_.UseProgram(program->Id());
