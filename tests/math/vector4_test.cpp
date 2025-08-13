@@ -416,6 +416,35 @@ TEST(Vector4, ScalarDivisionIdentity) {
 
 #pragma endregion
 
+#pragma region MinMax
+
+TEST(Vector4, ComponentwiseMinMax) {
+    auto v1 = gleam::Vector4 {2, -1, 5, 1};
+    auto v2 = gleam::Vector4 {2, -1, 5, 1};
+
+    v1.Min({3, -2, 4, -1});
+    EXPECT_VEC4_EQ(v1, {2, -2, 4, -1});
+
+    v2.Max({3, -2, 4, 7});
+    EXPECT_VEC4_EQ(v2, {3, -1, 5, 7});
+
+    constexpr auto v3 = []() {
+        auto v = gleam::Vector4 {2, -1, 5, 1};
+        v.Min({3, -2, 4, -1});
+        return v;
+    }();
+    static_assert(v3 == gleam::Vector4 {2, -2, 4, -1});
+
+    constexpr auto v4 = []() {
+        auto v = gleam::Vector4 {2, -1, 5, 1};
+        v.Max({3, -2, 4, 7});
+        return v;
+    }();
+    static_assert(v4 == gleam::Vector4 {3, -1, 5, 7});
+}
+
+#pragma endregion
+
 #pragma region Normalize
 
 TEST(Vector4, NormalizeBasic) {

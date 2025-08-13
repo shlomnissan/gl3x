@@ -11,6 +11,7 @@
 
 #include "gleam/math/utilities.hpp"
 
+#include <algorithm>
 #include <cassert>
 
 namespace gleam {
@@ -162,6 +163,38 @@ public:
         z *= v.z;
         return *this;
     }
+
+    /**
+     * @brief Component-wise in-place minimum.
+     *
+     * Sets each component of this vector to the smaller of the corresponding components
+     * in this vector and the given vector @p v.
+     *
+     * @param v Vector to compare against.
+     * @return gleam::Vector3 Reference to this vector after modification.
+     */
+    constexpr auto& Min(const Vector3& v) noexcept {
+        x = std::min(x, v.x);
+        y = std::min(y, v.y);
+        z = std::min(z, v.z);
+        return *this;
+    };
+
+    /**
+     * @brief Component-wise in-place maximum.
+     *
+     * Sets each component of this vector to the larger of the corresponding components
+     * in this vector and the given vector @p v.
+     *
+     * @param v Vector to compare against.
+     * @return gleam::Vector3 Reference to this vector after modification.
+     */
+    constexpr auto& Max(const Vector3& v) noexcept {
+        x = std::max(x, v.x);
+        y = std::max(y, v.y);
+        z = std::max(z, v.z);
+        return *this;
+    };
 
     /**
      * @brief Normalizes the vector in-place.

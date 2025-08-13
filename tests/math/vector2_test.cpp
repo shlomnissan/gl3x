@@ -422,6 +422,35 @@ TEST(Vector2, ScalarDivisionIdentity) {
 
 #pragma endregion
 
+#pragma region MinMax
+
+TEST(Vector2, ComponentwiseMinMax) {
+    auto v1 = gleam::Vector2 {2, -1};
+    auto v2 = gleam::Vector2 {2, -1};
+
+    v1.Min({3, -2});
+    EXPECT_VEC2_EQ(v1, {2, -2});
+
+    v2.Max({3, -2});
+    EXPECT_VEC2_EQ(v2, {3, -1});
+
+    constexpr auto v3 = []() {
+        auto v = gleam::Vector2 {2, -1};
+        v.Min({3, -2});
+        return v;
+    }();
+    static_assert(v3 == gleam::Vector2 {2, -2});
+
+    constexpr auto v4 = []() {
+        auto v = gleam::Vector2 {2, -1};
+        v.Max({3, -2});
+        return v;
+    }();
+    static_assert(v4 == gleam::Vector2 {3, -1});
+}
+
+#pragma endregion
+
 #pragma region Normalize
 
 TEST(Vector2, NormalizeBasic) {
