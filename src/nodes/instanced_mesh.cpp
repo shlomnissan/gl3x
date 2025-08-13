@@ -48,16 +48,6 @@ auto InstancedMesh::SetTransformAt(std::size_t idx, Transform3& transform) -> vo
     SetTransformAt(idx, transform.Get());
 }
 
-auto Mesh::BoundingBox() -> Box3 {
-    // TODO: override, union instance bounding boxes if needed
-    return geometry_->BoundingBox();
-}
-
-auto Mesh::BoundingSphere() -> Sphere {
-    // TODO: override, union instance bounding spheres if needed
-    return geometry_->BoundingSphere();
-}
-
 InstancedMesh::~InstancedMesh() = default;
 
 }
