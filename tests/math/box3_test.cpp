@@ -381,3 +381,95 @@ TEST(Box3, Translate) {
 }
 
 #pragma endregion
+
+#pragma region Union
+
+TEST(Box3, UnionWithOverlappingBoxes) {
+    constexpr auto b = []() {
+        auto b1 = gleam::Box3 {{0.0f, 0.0f, 0.0f}, {2.0f, 2.0f, 2.0f}};
+        auto b2 = gleam::Box3 {{1.0f, -1.0f, 0.5f}, {3.0f, 1.0f, 4.0f}};
+        b1.Union(b2);
+        return b1;
+    }();
+
+    EXPECT_VEC3_EQ(b.min, {0.0f, -1.0f, 0.0f});
+    EXPECT_VEC3_EQ(b.max, {3.0f, 2.0f, 4.0f});
+
+    static_assert(b.min == gleam::Vector3 {0.0f, -1.0f, 0.0f});
+    static_assert(b.max == gleam::Vector3 {3.0f, 2.0f, 4.0f});
+}
+
+TEST(Box3, UnionWithDisjointBoxes) {
+    constexpr auto b = []() {
+        auto b1 = gleam::Box3 {{0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f}};
+        auto b2 = gleam::Box3 {{2.0f, -2.0f, 3.0f}, {4.0f, 0.5f, 5.0f}};
+        b1.Union(b2);
+        return b1;
+    }();
+
+    EXPECT_VEC3_EQ(b.min, {0.0f, -2.0f, 0.0f});
+    EXPECT_VEC3_EQ(b.max, {4.0f, 1.0f, 5.0f});
+
+    static_assert(b.min == gleam::Vector3 {0.0f, -2.0f, 0.0f});
+    static_assert(b.max == gleam::Vector3 {4.0f, 1.0f, 5.0f});
+}
+
+TEST(Box3, UnionWhenThisIsEmpty) {
+    constexpr auto b = []() {
+        auto b1 = gleam::Box3 {};
+        auto b2 = gleam::Box3 {{0.0f, 0.0f, 0.0f}, {2.0f, 2.0f, 2.0f}};
+        b1.Union(b2);
+        return b1;
+    }();
+
+    EXPECT_VEC3_EQ(b.min, {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(b.max, {2.0f, 2.0f, 2.0f});
+
+    static_assert(b.min == gleam::Vector3 {0.0f, 0.0f, 0.0f});
+    static_assert(b.max == gleam::Vector3 {2.0f, 2.0f, 2.0f});
+}
+
+TEST(Box3, UnionWhenOtherIsEmpty) {
+    constexpr auto b = []() {
+        auto b1 = gleam::Box3 {{0.0f, 0.0f, 0.0f}, {2.0f, 2.0f, 2.0f}};
+        auto b2 = gleam::Box3 {};
+        b1.Union(b2);
+        return b1;
+    }();
+
+    EXPECT_VEC3_EQ(b.min, {0.0f, 0.0f, 0.0f});
+    EXPECT_VEC3_EQ(b.max, {2.0f, 2.0f, 2.0f});
+
+    static_assert(b.min == gleam::Vector3 {0.0f, 0.0f, 0.0f});
+    static_assert(b.max == gleam::Vector3 {2.0f, 2.0f, 2.0f});
+}
+
+TEST(Box3, UnionBothEmptyStaysEmpty) {
+    constexpr auto b = []() {
+        auto b1 = gleam::Box3 {{2.0f, 2.0f, 2.0f}, {1.0f, 1.0f, 1.0f}}; // empty
+        auto b2 = gleam::Box3 {{5.0f, 0.0f, 0.0f}, {-1.0f, -1.0f, -1.0f}}; // empty
+        b1.Union(b2);
+        return b1;
+    }();
+
+    EXPECT_TRUE(b.IsEmpty());
+
+    static_assert(b.IsEmpty());
+}
+
+TEST(Box3, UnionWithPointBox) {
+    constexpr auto b = []() {
+        auto b1 = gleam::Box3 {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}}; // point
+        auto b2 = gleam::Box3 {{-1.0f, 2.0f, -3.0f}, {4.0f, 2.0f, 0.5f}};
+        b1.Union(b2);
+        return b1;
+    }();
+
+    EXPECT_VEC3_EQ(b.min, {-1.0f, 0.0f, -3.0f});
+    EXPECT_VEC3_EQ(b.max, {4.0f, 2.0f, 0.5f});
+
+    static_assert(b.min == gleam::Vector3 {-1.0f, 0.0f, -3.0f});
+    static_assert(b.max == gleam::Vector3 {4.0f, 2.0f, 0.5f});
+}
+
+#pragma endregion

@@ -131,6 +131,16 @@ struct GLEAM_EXPORT Box3 {
         min += translation;
         max += translation;
     }
+
+    /**
+     * @brief Expands this box to fully contain another box.
+     *
+     * @param other The box to merge into this one.
+     */
+    constexpr auto Union(const Box3& other) {
+        min.Min(other.min);
+        max.Max(other.max);
+    }
 };
 
 }
