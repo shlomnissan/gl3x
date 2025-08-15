@@ -48,6 +48,21 @@ auto InstancedMesh::SetTransformAt(std::size_t idx, Transform3& transform) -> vo
     SetTransformAt(idx, transform.Get());
 }
 
+auto InstancedMesh::BoundingSphere() -> Sphere {
+    if (impl_->transforms_touched) {
+        impl_->bounding_sphere.Reset();
+        auto base = GetGeometry()->BoundingSphere();
+        if (!base.IsEmpty() && count_ > 0) {
+            for (auto i = 0; i < count_; ++i) {
+                auto sphere = base;
+                sphere.ApplyTransform(GetTransformAt(i));
+                impl_->bounding_sphere.Union(sphere);
+            }
+        }
+    }
+    return impl_->bounding_sphere;
+}
+
 InstancedMesh::~InstancedMesh() = default;
 
 }
