@@ -50,7 +50,10 @@ namespace gleam {
  * scene->Add(boxes);
  * @endcode
  *
- * @note Out-of-range indices are invalid and result in undefined behavior.
+ * @note
+ * - Out-of-range indices are invalid and result in undefined behavior.
+ * - Frustum culling is performed once per draw call using a single
+ *   bounding sphere that encloses all instances (cluster-level culling).
  *
  * @ingroup NodesGroup
  */
