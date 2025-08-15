@@ -146,6 +146,11 @@ public:
     auto SetTransformAt(std::size_t idx, Transform3& transform) -> void;
 
     /**
+     * @brief Returns the instanced mesh cluster bounding box.
+     */
+    auto BoundingBox() -> Box3 override;
+
+    /**
      * @brief Returns the instanced mesh cluster bounding sphere.
      */
     auto BoundingSphere() -> Sphere override;

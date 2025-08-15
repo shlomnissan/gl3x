@@ -42,23 +42,42 @@ auto InstancedMesh::SetTransformAt(std::size_t idx, const Matrix4& matrix) -> vo
     assert(idx <= count_);
     transforms_[idx] = matrix;
     impl_->transforms_touched = true;
+    impl_->bounding_box_touched = true;
+    impl_->bounding_sphere_touched = true;
 }
 
 auto InstancedMesh::SetTransformAt(std::size_t idx, Transform3& transform) -> void {
     SetTransformAt(idx, transform.Get());
 }
 
-auto InstancedMesh::BoundingSphere() -> Sphere {
-    if (impl_->transforms_touched) {
-        impl_->bounding_sphere.Reset();
-        auto base = GetGeometry()->BoundingSphere();
+auto InstancedMesh::BoundingBox() -> Box3 {
+    if (impl_->bounding_box_touched) {
+        const auto base = GetGeometry()->BoundingBox();
         if (!base.IsEmpty() && count_ > 0) {
+            impl_->bounding_box.Reset();
+            for (auto i = 0; i < count_; ++i) {
+                auto box = base;
+                box.ApplyTransform(GetTransformAt(i));
+                impl_->bounding_box.Union(box);
+            }
+        }
+        impl_->bounding_box_touched = false;
+    }
+    return impl_->bounding_box;
+}
+
+auto InstancedMesh::BoundingSphere() -> Sphere {
+    if (impl_->bounding_sphere_touched) {
+        const auto base = GetGeometry()->BoundingSphere();
+        if (!base.IsEmpty() && count_ > 0) {
+            impl_->bounding_sphere.Reset();
             for (auto i = 0; i < count_; ++i) {
                 auto sphere = base;
                 sphere.ApplyTransform(GetTransformAt(i));
                 impl_->bounding_sphere.Union(sphere);
             }
         }
+        impl_->bounding_sphere_touched = false;
     }
     return impl_->bounding_sphere;
 }
