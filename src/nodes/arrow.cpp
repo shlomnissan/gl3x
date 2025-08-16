@@ -21,7 +21,7 @@ Arrow::Arrow(const Parameters& params) {
         .radius = 0.03f,
         .height = cone_height
     }), material);
-    cone->TranslateZ(params.length - cone_height);
+    cone->TranslateZ(params.length - cone_height / 2.0f);
     cone->RotateX(math::DegToRad(90.0f));
     Add(cone);
 
@@ -39,7 +39,7 @@ Arrow::Arrow(const Parameters& params) {
 
 auto Arrow::SetDirection(const Vector3& direction) -> void {
     if (direction.LengthSquared() == 0.0f) return;
-    LookAt(Normalize(direction));
+    LookAt(GetWorldPosition() + Normalize(direction));
 }
 
 auto Arrow::SetOrigin(const Vector3& origin) -> void {
