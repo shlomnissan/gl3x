@@ -24,7 +24,7 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    gleam::CubeGeometry::Parameters box_params_;
+    gleam::BoxGeometry::Parameters box_params_;
     gleam::ConeGeometry::Parameters cone_params_;
     gleam::CylinderGeometry::Parameters cylinder_params_;
     gleam::PlaneGeometry::Parameters plane_params_;

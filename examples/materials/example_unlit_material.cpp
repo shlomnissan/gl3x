@@ -16,7 +16,7 @@
 using namespace gleam;
 
 ExampleUnlitMaterial::ExampleUnlitMaterial() {
-    auto geometry = CubeGeometry::Create();
+    auto geometry = BoxGeometry::Create();
     material_ = UnlitMaterial::Create(0x049EF4);
     mesh_ = Mesh::Create(geometry, material_);
     Add(mesh_);

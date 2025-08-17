@@ -43,7 +43,7 @@ ExampleMeshInstancing::ExampleMeshInstancing() {
     point_light->transform.Translate({0.0f, 0.0f, 30.0f});
     Add(point_light);
 
-    const auto geometry = CubeGeometry::Create({1.0f, 1.0f, 1.0f});
+    const auto geometry = BoxGeometry::Create({1.0f, 1.0f, 1.0f});
     const auto material = PhongMaterial::Create(0xFFFFFF);
     boxes_ = InstancedMesh::Create(geometry, material, 2500);
     Add(boxes_);

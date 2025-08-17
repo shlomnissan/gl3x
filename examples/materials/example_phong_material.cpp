@@ -17,7 +17,7 @@
 using namespace gleam;
 
 ExamplePhongMaterial::ExamplePhongMaterial() {
-    auto geometry = CubeGeometry::Create();
+    auto geometry = BoxGeometry::Create();
     material_ = PhongMaterial::Create(0x049EF4);
     material_->specular = {0.3f, 0.3, 0.3f};
     material_->shininess = 32.0f;

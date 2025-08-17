@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/geometries/cube_geometry.hpp"
+#include "gleam/geometries/box_geometry.hpp"
 
 #include <cassert>
 
@@ -107,7 +107,7 @@ auto build_plane(
 
 }
 
-CubeGeometry::CubeGeometry(const Parameters& params) {
+BoxGeometry::BoxGeometry(const Parameters& params) {
     assert(params.width > 0.0f);
     assert(params.height > 0.0f);
     assert(params.depth > 0.0f);
@@ -115,7 +115,7 @@ CubeGeometry::CubeGeometry(const Parameters& params) {
     assert(params.height_segments > 0);
     assert(params.depth_segments > 0);
 
-    SetName("cube geometry");
+    SetName("box geometry");
 
     build_plane({
         'z', 'y', 'x', -1, -1,

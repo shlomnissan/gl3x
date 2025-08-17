@@ -28,7 +28,7 @@ namespace gleam {
  * a wireframe in the specified color.
  *
  * @code
- * auto geometry = gleam::CubeGeometry::Create();
+ * auto geometry = gleam::BoxGeometry::Create();
  * auto bounds = gleam::BoundingSphere::Create(
  *   geometry->BoundingSphere(),
  *   0xFF0000

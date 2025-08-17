@@ -27,7 +27,7 @@ namespace gleam {
  * @note The source geometry must be triangle-based and contain valid index data.
  *
  * @code
- * auto original = gleam::CubeGeometry::Create();
+ * auto original = gleam::BoxGeometry::Create();
  * auto wireframe = std::make_shared<gleam::WireframeGeometry>(original.get());
  * mesh->geometry = wireframe;
  * @endcode

@@ -17,15 +17,15 @@
 namespace gleam {
 
 /**
- * @brief Generates a cube geometry assignable to any mesh.
+ * @brief Generates a box geometry assignable to any mesh.
  *
- * `CubeGeometry` creates a 3D cube or rectangular box composed of triangles,
+ * `BoxGeometry` creates a 3D box or rectangular box composed of triangles,
  * based on configurable width, height, and depth. Optional segment parameters
  * allow for subdividing each face, enabling smoother lighting or custom
  * deformation effects.
  *
  * @code
- * auto geometry = gleam::CubeGeometry::Create({
+ * auto geometry = gleam::BoxGeometry::Create({
  *   .width = 2.0f,
  *   .height = 1.0f,
  *   .depth = 3.0f,
@@ -40,42 +40,42 @@ namespace gleam {
  *
  * @ingroup GeometryGroup
  */
-class GLEAM_EXPORT CubeGeometry : public Geometry {
+class GLEAM_EXPORT BoxGeometry : public Geometry {
 public:
-    /// @brief Parameters for constructing a CubeGeometry object.
+    /// @brief Parameters for constructing a BoxGeometry object.
     struct Parameters {
-        float width {1.0f}; ///< Width of the cube.
-        float height {1.0f}; ///< Height of the cube.
-        float depth {1.0f}; ///< Depth of the cube.
+        float width {1.0f}; ///< Width of the box.
+        float height {1.0f}; ///< Height of the box.
+        float depth {1.0f}; ///< Depth of the box.
         unsigned width_segments {1}; ///< Subdivisions along the X-axis.
         unsigned height_segments {1}; ///< Subdivisions along the Y-axis.
         unsigned depth_segments {1}; ///< Subdivisions along the Z-axis.
     };
 
     /**
-     * @brief Constructs a CubeGeometry object.
+     * @brief Constructs a BoxGeometry object.
      *
-     * @param params CubeGeometry::Parameters
+     * @param params BoxGeometry::Parameters
      */
-    explicit CubeGeometry(const Parameters& params);
+    explicit BoxGeometry(const Parameters& params);
 
     /**
-     * @brief Creates a shared pointer to a CubeGeometry object with default parameters.
+     * @brief Creates a shared pointer to a BoxGeometry object with default parameters.
      *
-     * @return std::shared_ptr<CubeGeometry>
+     * @return std::shared_ptr<BoxGeometry>
      */
     [[nodiscard]] static auto Create() {
-        return std::make_shared<CubeGeometry>(Parameters {});
+        return std::make_shared<BoxGeometry>(Parameters {});
     }
 
     /**
-     * @brief Creates a shared pointer to a CubeGeometry object.
+     * @brief Creates a shared pointer to a BoxGeometry object.
      *
-     * @param params CubeGeometry::Parameters
-     * @return std::shared_ptr<CubeGeometry>
+     * @param params BoxGeometry::Parameters
+     * @return std::shared_ptr<BoxGeometry>
      */
     [[nodiscard]] static auto Create(const Parameters& params){
-        return std::make_shared<CubeGeometry>(params);
+        return std::make_shared<BoxGeometry>(params);
     }
 
 private:

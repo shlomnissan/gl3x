@@ -16,7 +16,7 @@ using namespace gleam;
 ExampleShaderMaterial::ExampleShaderMaterial() {
     fog = ExponentialFog::Create(0x444444, 0.3f);
 
-    auto geometry = CubeGeometry::Create();
+    auto geometry = BoxGeometry::Create();
 
     material_ = ShaderMaterial::Create(
         // Vertex shader

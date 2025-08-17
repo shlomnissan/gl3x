@@ -34,7 +34,7 @@ namespace gleam {
  * Instances are addressed by zero‑based index in the range `[0, Count())`.
  *
  * @code
- * const auto geometry = CubeGeometry::Create({1.0f, 1.0f, 1.0f});
+ * const auto geometry = BoxGeometry::Create({1.0f, 1.0f, 1.0f});
  * const auto material = PhongMaterial::Create(0xFFFFFF);
  *
  * auto boxes = gleam::InstancedMesh::Create(geometry, material, 2500);

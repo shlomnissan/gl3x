@@ -18,7 +18,7 @@
 using namespace gleam;
 
 ExampleFog::ExampleFog() {
-    auto geometry = CubeGeometry::Create();
+    auto geometry = BoxGeometry::Create();
     auto material = PhongMaterial::Create(0x049EF4);
 
     for (auto i = 0; i < 10; ++i) {
