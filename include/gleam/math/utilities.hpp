@@ -92,7 +92,7 @@ alignas(64) constexpr uint32_t arctan_table[65] {
  * @return Angle in radians.
  */
 [[nodiscard]] constexpr auto DegToRad(const float degrees) {
-    return degrees * (pi / 180.0f);
+    return degrees * pi / 180.0f;
 }
 
 /**
@@ -103,7 +103,7 @@ alignas(64) constexpr uint32_t arctan_table[65] {
  * @return Angle in degrees.
  */
 [[nodiscard]] constexpr auto RadToDeg(const float radians) {
-    return radians * (180.0f / pi);
+    return radians * 180.0f / pi;
 }
 
 /**
