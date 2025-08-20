@@ -32,7 +32,7 @@ constexpr float tau_over_4 = 1.5707963267948966192313216916398f;
 constexpr float tau_over_6 = 1.0471975511965977461542144610932f;
 constexpr float tau_over_256 = 0.0245436926f;
 constexpr float inv_tau = 40.74366543f;
-constexpr float epsilon = 1e-6f;
+constexpr float eps = 1e-6f;
 
 alignas(64) constexpr uint32_t trig_table[256][2] = {
 	{0x3F800000, 0x00000000}, {0x3F7FEC43, 0x3CC90AB0}, {0x3F7FB10F, 0x3D48FB30}, {0x3F7F4E6D, 0x3D96A905}, {0x3F7EC46D, 0x3DC8BD36}, {0x3F7E1324, 0x3DFAB273}, {0x3F7D3AAC, 0x3E164083}, {0x3F7C3B28, 0x3E2F10A3},
@@ -290,7 +290,7 @@ alignas(64) constexpr uint32_t arctan_table[65] {
  * @return Angle in radians from positive X-axis.
  */
 [[nodiscard]] constexpr auto Atan2(float y, float x) {
-    if (Fabs(x) > epsilon) {
+    if (Fabs(x) > eps) {
         auto r = Atan(y / x);
         if (x < 0.0f) {
             return y >= 0.0f ? r + math::pi : r - math::pi;
@@ -298,7 +298,7 @@ alignas(64) constexpr uint32_t arctan_table[65] {
         return r;
     }
 
-    if (Fabs(y) > epsilon) {
+    if (Fabs(y) > eps) {
         return y > 0.0f ? math::pi_over_2 : -math::pi_over_2;
     }
 

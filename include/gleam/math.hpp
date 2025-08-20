@@ -20,6 +20,7 @@
 #include "gleam/math/matrix4.hpp"
 #include "gleam/math/plane.hpp"
 #include "gleam/math/sphere.hpp"
+#include "gleam/math/spherical.hpp"
 #include "gleam/math/transform2.hpp"
 #include "gleam/math/transform3.hpp"
 #include "gleam/math/utilities.hpp"
