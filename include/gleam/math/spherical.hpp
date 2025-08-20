@@ -71,6 +71,27 @@ struct GLEAM_EXPORT Spherical {
     constexpr auto MakeSafe() {
         phi = std::clamp(phi, math::eps, math::pi - math::eps);
     }
+
+    /**
+     * @brief Converts this spherical coordinate to a 3D Cartesian vector.
+     *
+     * Uses a Y-up convention where phi is the polar angle measured from the
+     * positive vertical axis (0 at “straight up,” π at “straight down”),
+     * and theta is the azimuth angle measured around that axis
+     * (0 pointing along the positive X direction, increasing toward Z).
+     *
+     * @return gleam::Vector3 Cartesian vector (x, y, z).
+     *
+     * @see MakeSafe
+     */
+    [[nodiscard]] constexpr auto ToVector3() const {
+        const auto s = math::Sin(phi);
+        return Vector3 {
+            radius * s * math::Cos(theta),
+            radius * math::Cos(phi),
+            radius * s * math::Sin(theta)
+        };
+    }
 };
 
 }

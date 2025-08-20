@@ -88,3 +88,66 @@ TEST(Spherical, MakeSafeNoChangeWhenInRange) {
 }
 
 #pragma endregion
+
+#pragma region ToVector3
+
+TEST(Spherical, ToVector3Basic) {
+    constexpr auto phi = gleam::math::pi_over_4; // 45° from "up"
+    constexpr auto theta = gleam::math::pi_over_4; // 45° azimuth
+    constexpr auto s = gleam::Spherical {1.0f, phi, theta};
+    constexpr auto v = s.ToVector3();
+
+    constexpr auto expect_x = gleam::math::Sin(phi) * gleam::math::Cos(theta);
+    constexpr auto expect_y = gleam::math::Cos(phi);
+    constexpr auto expect_z = gleam::math::Sin(phi) * gleam::math::Sin(theta);
+
+    EXPECT_VEC3_EQ(v, {expect_x, expect_y, expect_z});
+
+    static_assert(v.x == expect_x);
+    static_assert(v.y == expect_y);
+    static_assert(v.z == expect_z);
+}
+
+TEST(Spherical, ToVector3UpPoleIgnoresTheta) {
+    // Any theta should yield the same result when phi = 0.0f (pointing straight "up")
+    constexpr auto phi = 0.0f;
+    constexpr auto theta = gleam::math::pi_over_4;
+    constexpr auto s = gleam::Spherical {3.0f, phi, theta};
+    constexpr auto v = s.ToVector3();
+
+    EXPECT_VEC3_EQ(v, {0.0f, 3.0f, 0.0f});
+
+    static_assert(v.x == 0.0f);
+    static_assert(v.y == 3.0f);
+    static_assert(v.z == 0.0f);
+}
+
+TEST(Spherical, ToVector3EquatorXDirection) {
+    // On the equator (phi = π/2) with theta = 0 should point along +X
+    constexpr auto phi = gleam::math::pi_over_2;
+    constexpr auto theta = 0.0f;
+    constexpr auto s = gleam::Spherical {3.0f, phi, theta};
+    constexpr auto v = s.ToVector3();
+
+    EXPECT_VEC3_EQ(v, {3.0f, 0.0f, 0.0f});
+
+    static_assert(v.x == 3.0f);
+    static_assert(v.y == 0.0f);
+    static_assert(v.z == 0.0f);
+}
+
+TEST(Spherical, ToVector3EquatorZDirection) {
+    // On the equator (phi = π/2) with theta = π/2 should point along +Z
+    constexpr auto phi = gleam::math::pi_over_2;
+    constexpr auto theta = gleam::math::pi_over_2;
+    constexpr auto s = gleam::Spherical {3.0f, phi, theta};
+    constexpr auto v = s.ToVector3();
+
+    EXPECT_VEC3_EQ(v, {0.0f, 0.0f, 3.0f});
+
+    static_assert(v.x == 0.0f);
+    static_assert(v.y == 0.0f);
+    static_assert(v.z == 3.0f);
+}
+
+#pragma endregion
