@@ -34,56 +34,60 @@ TEST(Sphere, DefaultConstructor) {
 #pragma region MakeSafe
 
 TEST(Spherical, MakeSafeClampsLowerBound) {
-    constexpr auto phi = -gleam::math::DegToRad(10.0f);
-    constexpr auto theta = gleam::math::DegToRad(30.0f);
+    constexpr auto phi = gleam::math::DegToRad(30.0f);
+    constexpr auto theta = gleam::math::pi_over_2 + gleam::math::eps;
 
     auto s = gleam::Spherical {2.0f, phi, theta};
     s.MakeSafe();
 
-    EXPECT_FLOAT_EQ(s.phi, gleam::math::eps);
+    constexpr auto expected = gleam::math::pi_over_2 - gleam::math::eps;
+
+    EXPECT_FLOAT_EQ(s.phi, gleam::math::DegToRad(30.0f));
+    EXPECT_FLOAT_EQ(s.theta, expected);
     EXPECT_FLOAT_EQ(s.radius, 2.0f);
-    EXPECT_FLOAT_EQ(s.theta, gleam::math::DegToRad(30.0f));
 
     static_assert([&]{
         auto s = gleam::Spherical {2.0f, phi, theta};
         s.MakeSafe();
-        return s.phi == gleam::math::eps;
+        return s.theta == expected;
     }());
 }
 
 TEST(Spherical, MakeSafeClampsUpperBound) {
-    constexpr auto phi = gleam::math::pi + gleam::math::DegToRad(1.0f);
-    constexpr auto theta = gleam::math::DegToRad(30.0f);
+    constexpr auto phi = gleam::math::DegToRad(30.0f);
+    constexpr auto theta = -gleam::math::pi_over_2 - gleam::math::eps;
 
     auto s = gleam::Spherical {2.0f, phi, theta};
     s.MakeSafe();
 
-    EXPECT_FLOAT_EQ(s.phi, gleam::math::pi - gleam::math::eps);
+    constexpr auto expected = -gleam::math::pi_over_2 + gleam::math::eps;
+
+    EXPECT_FLOAT_EQ(s.phi, gleam::math::DegToRad(30.0f));
+    EXPECT_FLOAT_EQ(s.theta, expected);
     EXPECT_FLOAT_EQ(s.radius, 2.0f);
-    EXPECT_FLOAT_EQ(s.theta, gleam::math::DegToRad(30.0f));
 
     static_assert([&]{
         auto s = gleam::Spherical {2.0f, phi, theta};
         s.MakeSafe();
-        return s.phi == gleam::math::pi - gleam::math::eps;
+        return s.theta == expected;
     }());
 }
 
 TEST(Spherical, MakeSafeNoChangeWhenInRange) {
-    constexpr auto phi = gleam::math::pi_over_2;
+    constexpr auto phi = gleam::math::DegToRad(30.0f);
     constexpr auto theta = gleam::math::DegToRad(30.0f);
 
     auto s = gleam::Spherical {2.0f, phi, theta};
     s.MakeSafe();
 
-    EXPECT_FLOAT_EQ(s.phi, gleam::math::pi_over_2);
-    EXPECT_FLOAT_EQ(s.radius, 2.0f);
+    EXPECT_FLOAT_EQ(s.phi, gleam::math::DegToRad(30.0f));
     EXPECT_FLOAT_EQ(s.theta, gleam::math::DegToRad(30.0f));
+    EXPECT_FLOAT_EQ(s.radius, 2.0f);
 
     static_assert([&]{
         auto s = gleam::Spherical {2.0f, phi, theta};
         s.MakeSafe();
-        return s.phi == gleam::math::pi_over_2;
+        return s.theta == gleam::math::DegToRad(30.0f);
     }());
 }
 
@@ -92,14 +96,14 @@ TEST(Spherical, MakeSafeNoChangeWhenInRange) {
 #pragma region ToVector3
 
 TEST(Spherical, ToVector3Basic) {
-    constexpr auto phi = gleam::math::pi_over_4; // 45° from "up"
-    constexpr auto theta = gleam::math::pi_over_4; // 45° azimuth
+    constexpr auto phi = gleam::math::pi_over_4;
+    constexpr auto theta = gleam::math::pi_over_4;
     constexpr auto s = gleam::Spherical {1.0f, phi, theta};
     constexpr auto v = s.ToVector3();
 
     constexpr auto expect_x = gleam::math::Sin(phi) * gleam::math::Cos(theta);
-    constexpr auto expect_y = gleam::math::Cos(phi);
-    constexpr auto expect_z = gleam::math::Sin(phi) * gleam::math::Sin(theta);
+    constexpr auto expect_y = gleam::math::Sin(theta);
+    constexpr auto expect_z = gleam::math::Cos(phi) * gleam::math::Cos(theta);
 
     EXPECT_VEC3_EQ(v, {expect_x, expect_y, expect_z});
 
@@ -108,10 +112,10 @@ TEST(Spherical, ToVector3Basic) {
     static_assert(v.z == expect_z);
 }
 
-TEST(Spherical, ToVector3UpPoleIgnoresTheta) {
-    // Any theta should yield the same result when phi = 0.0f (pointing straight "up")
-    constexpr auto phi = 0.0f;
-    constexpr auto theta = gleam::math::pi_over_4;
+TEST(Spherical, ToVector3NorthPoleIgnoresPhi) {
+    // At the north pole (theta = +π/2), phi has no effect.
+    constexpr auto phi = gleam::math::pi_over_4;
+    constexpr auto theta = gleam::math::pi_over_2; // north pole
     constexpr auto s = gleam::Spherical {3.0f, phi, theta};
     constexpr auto v = s.ToVector3();
 
@@ -123,7 +127,7 @@ TEST(Spherical, ToVector3UpPoleIgnoresTheta) {
 }
 
 TEST(Spherical, ToVector3EquatorXDirection) {
-    // On the equator (phi = π/2) with theta = 0 should point along +X
+    // On the equator (theta = 0) with phi = π/2 → +X
     constexpr auto phi = gleam::math::pi_over_2;
     constexpr auto theta = 0.0f;
     constexpr auto s = gleam::Spherical {3.0f, phi, theta};
@@ -137,9 +141,9 @@ TEST(Spherical, ToVector3EquatorXDirection) {
 }
 
 TEST(Spherical, ToVector3EquatorZDirection) {
-    // On the equator (phi = π/2) with theta = π/2 should point along +Z
-    constexpr auto phi = gleam::math::pi_over_2;
-    constexpr auto theta = gleam::math::pi_over_2;
+    // On the equator (theta = 0) with phi = 0 → +Z.
+    constexpr auto phi = 0.0f;
+    constexpr auto theta = 0.0f;
     constexpr auto s = gleam::Spherical {3.0f, phi, theta};
     constexpr auto v = s.ToVector3();
 
