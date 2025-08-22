@@ -17,79 +17,67 @@
 namespace gleam {
 
 /**
- * @brief Spherical coordinates (radius, phi, theta).
+ * @brief Spherical coordinates (radius, phi = yaw, theta = pitch).
  *
- * Represents a point in 3D using spherical coordinates:
+ * Represents a point in 3D using spherical coordinates (Y-up convention):
  * - `radius` is the distance from the origin.
- * - `phi` is the polar angle in radians (0 at the “north pole”, π at the “south pole”).
- * - `theta` is the azimuthal angle in radians around the up axis.
+ * - `phi` is the azimuth (yaw) in radians.
+ * - `theta` is the elevation (pitch) from the equator in radians.
  *
- * This is useful for orbital camera rigs, sampling directions on a sphere,
- * and converting to/from Cartesian coordinates.
+ * Useful for orbit cameras, sampling directions on a sphere, and Cartesian conversion.
  *
  * @ingroup MathGroup
  */
 struct GLEAM_EXPORT Spherical {
-    /**
-     * @brief Radial distance from the origin.
-     *
-     * Must be non‑negative for a valid position; a value of 0 collapses to the origin.
-     */
-    float radius = 1.0f;
+    float radius = 1.0f; ///< Radial distance from the origin.
+    float phi = 0.0f; ///< Azimuth (yaw) in radians.
+    float theta = 0.0f; ///< Elevation (pitch) in radians.
 
     /**
-     * @brief Polar angle in radians.
-     *
-     * Ranges from 0 (north pole) to π (south pole). Values very close to the poles
-     * can lead to numerical instability in some conversions; see MakeSafe().
+     * @brief Default constructor.
      */
-    float phi = 0.0f;
-
-    /**
-     * @brief Azimuthal angle in radians around the up axis.
-     *
-     * Typically wrapped to the range [-π, π) or [0, 2π) by user code as needed.
-     */
-    float theta = 0.0f;
+    constexpr Spherical() = default;
 
     /**
      * @brief Constructs a spherical coordinate from radius, phi, and theta.
      *
      * @param radius Radial distance from the origin.
-     * @param phi Polar angle in radians.
-     * @param theta Azimuthal angle in radians around the up axis.
+     * @param phi Azimuth (yaw) in radians.
+     * @param theta Elevation (pitch) in radians.
      */
     constexpr Spherical(float radius, float phi, float theta)
         : radius(radius), phi(phi), theta(theta) {}
 
     /**
-     * @brief Clamps @ref phi away from the singularities at the poles.
+     * @brief Clamps @ref theta (elevation) away from the poles.
      *
-     * Ensures `phi` is within (ε, π − ε), where ε is a small constant to avoid
-     * degenerate cases during conversions and orientation calculations.
+     * Keeps `theta` within (-π/2 + ε, π/2 − ε) to avoid degeneracy
+     * where the azimuth becomes undefined and orientation calculations
+     * (e.g. cross products for basis vectors) can break down.
      */
     constexpr auto MakeSafe() {
-        phi = std::clamp(phi, math::eps, math::pi - math::eps);
+        const float lo = -math::pi_over_2 + math::eps;
+        const float hi =  math::pi_over_2 - math::eps;
+        theta = std::clamp(theta, lo, hi);
     }
 
     /**
      * @brief Converts this spherical coordinate to a 3D Cartesian vector.
      *
-     * Uses a Y-up convention where phi is the polar angle measured from the
-     * positive vertical axis (0 at “straight up,” π at “straight down”),
-     * and theta is the azimuth angle measured around that axis
-     * (0 pointing along the positive X direction, increasing toward Z).
+     * Convention:
+     * - `phi` (azimuth): 0 along +Z, increasing toward +X.
+     * - `theta` (elevation): 0 on the equator, +π/2 at +Y.
      *
      * @return gleam::Vector3 Cartesian vector (x, y, z).
      *
      * @see MakeSafe
      */
     [[nodiscard]] constexpr auto ToVector3() const {
-        const auto s = math::Sin(phi);
+        const auto c = math::Cos(theta);
         return Vector3 {
-            radius * s * math::Cos(theta),
-            radius * math::Cos(phi),
-            radius * s * math::Sin(theta)
+            radius * math::Sin(phi) * c,
+            radius * math::Sin(theta),
+            radius * math::Cos(phi) * c
         };
     }
 };
