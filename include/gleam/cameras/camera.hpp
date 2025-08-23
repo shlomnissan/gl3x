@@ -10,6 +10,7 @@
 #include "gleam_export.h"
 
 #include "gleam/math/matrix4.hpp"
+#include "gleam/math/vector3.hpp"
 #include "gleam/nodes/node.hpp"
 
 namespace gleam {
@@ -57,6 +58,36 @@ public:
      */
     [[nodiscard]] auto GetNodeType() const -> NodeType override {
         return NodeType::CameraNode;
+    }
+
+    /**
+     * @brief Returns the camera's right axis in view space.
+     *
+     * @return Vector3
+     */
+    [[nodiscard]] auto ViewRight() const {
+        const auto& t = view_transform;
+        return Vector3 {t[0][0], t[1][0], t[2][0]};
+    }
+
+    /**
+     * @brief Returns the camera's up axis in view space.
+     *
+     * @return Vector3
+     */
+    [[nodiscard]] auto ViewUp() const {
+        const auto& t = view_transform;
+        return Vector3 {t[0][1], t[1][1], t[2][1]};
+    }
+
+    /**
+     * @brief Returns the camera's forward axis in view space.
+     *
+     * @return Vector3
+     */
+    [[nodiscard]] auto ViewForward() const {
+        const auto& t = view_transform;
+        return Vector3 {t[0][2], t[1][2], t[2][2]};
     }
 };
 

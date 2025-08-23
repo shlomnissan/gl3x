@@ -21,8 +21,8 @@ namespace gleam {
  *
  * Represents a point in 3D using spherical coordinates:
  * - `radius` is the distance from the origin.
- * - `phi` is the azimuth (yaw) in radians.
- * - `theta` is the elevation (pitch) from the equator in radians.
+ * - `phi` is the azimuth angle (yaw) in radians.
+ * - `theta` is the polar angle (pitch) from the equator in radians.
  *
  * This is useful for orbital camera rigs, sampling directions on a sphere,
  * and converting to/from Cartesian coordinates.
@@ -31,8 +31,8 @@ namespace gleam {
  */
 struct GLEAM_EXPORT Spherical {
     float radius = 1.0f; ///< Radial distance from the origin.
-    float phi = 0.0f; ///< Azimuth (yaw) in radians.
-    float theta = 0.0f; ///< Elevation (pitch) in radians.
+    float phi = 0.0f; ///< Azimuth angle (yaw) in radians.
+    float theta = 0.0f; ///< Polar angle (pitch) in radians.
 
     /**
      * @brief Default constructor.
@@ -43,17 +43,17 @@ struct GLEAM_EXPORT Spherical {
      * @brief Constructs a spherical coordinate from radius, phi, and theta.
      *
      * @param radius Radial distance from the origin.
-     * @param phi Azimuth (yaw) in radians.
-     * @param theta Elevation (pitch) in radians.
+     * @param phi Azimuth angle (yaw) in radians.
+     * @param theta Polar angle (pitch) in radians.
      */
     constexpr Spherical(float radius, float phi, float theta)
         : radius(radius), phi(phi), theta(theta) {}
 
     /**
-     * @brief Clamps @ref theta (elevation) away from the poles.
+     * @brief Clamps @ref theta (polar) away from the poles.
      *
      * Keeps `theta` within (-π/2 + ε, π/2 − ε) to avoid degeneracy
-     * where the azimuth becomes undefined and orientation calculations
+     * where the azimuth angle becomes undefined and orientation calculations
      * (e.g. cross products for basis vectors) can break down.
      */
     constexpr auto MakeSafe() {
@@ -67,7 +67,7 @@ struct GLEAM_EXPORT Spherical {
      *
      * Convention:
      * - `phi` (azimuth): 0 along +Z, increasing toward +X.
-     * - `theta` (elevation): 0 on the equator, +π/2 at +Y.
+     * - `theta` (polar): 0 on the equator, +π/2 at +Y.
      *
      * @return gleam::Vector3 Cartesian vector (x, y, z).
      *
