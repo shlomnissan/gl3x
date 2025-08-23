@@ -7,80 +7,50 @@
 
 #include "gleam/nodes/orbit_controls.hpp"
 
-#include "gleam/math/utilities.hpp"
+#include "gleam/math/spherical.hpp"
 #include "gleam/math/vector2.hpp"
 #include "gleam/math/vector3.hpp"
 
-#include <algorithm>
-
 namespace gleam {
-
-constexpr auto kVerticalLimit = math::pi_over_2 - 0.1f;
 
 struct OrbitControls::Impl {
     Camera* camera;
+    Spherical spherical {};
     Vector3 target = Vector3::Zero();
-    Vector2 curr_mouse_pos {0.0f, 0.0f};
-    Vector2 prev_mouse_pos {0.0f, 0.0f};
-    MouseButton curr_mouse_button {MouseButton::None};
-    float radius;
-    float pitch;
-    float yaw;
+    Vector2 curr_pos {0.0f, 0.0f};
+    Vector2 prev_pos {0.0f, 0.0f};
+    MouseButton curr_button {MouseButton::None};
     float curr_scroll_offset {0.0f};
-    bool first_update {true};
-
-    auto Orbit(const Vector2& offset, float delta, float orbit_speed) {
-        yaw -= offset.x * orbit_speed * delta;
-        pitch += offset.y * orbit_speed * delta;
-        pitch = std::clamp(pitch, -kVerticalLimit, kVerticalLimit);
-    }
-
-    auto Zoom(float offset, float delta, float zoom_speed) {
-        radius -= offset * zoom_speed * delta;
-        radius = std::max(0.1f, radius);
-    }
-
-    auto Pan(const Vector2& offset, float delta, float pan_speed) {
-        const auto forward = Normalize(camera->transform.position - target);
-        const auto right = Normalize(Cross(forward, Vector3::Up()));
-        const auto up = Cross(right, forward);
-        const auto pan_h = right * (offset.x * pan_speed * delta);
-        const auto pan_v = up * (offset.y * pan_speed * delta);
-        target += pan_h + pan_v;
-    }
 
     auto OnUpdate(float delta, float orbit_speed, float pan_speed, float zoom_speed) {
-        if (!first_update) {
-            first_update = true;
-            prev_mouse_pos = curr_mouse_pos;
-            return;
+        const auto offset = curr_pos - prev_pos;
+        const auto do_orbit = curr_button == MouseButton::Left;
+        const auto do_pan = curr_button == MouseButton::Right;
+        const auto do_zoom = curr_scroll_offset != 0.0f;
+
+        if (do_orbit) {
+            spherical.phi -= offset.x * orbit_speed * delta;
+            spherical.theta += offset.y * orbit_speed * delta;
         }
 
-        const auto mouse_offset = curr_mouse_pos - prev_mouse_pos;
-
-        if (curr_mouse_button == MouseButton::Left) {
-            Orbit(mouse_offset, delta, orbit_speed);
-        }
-
-        if (curr_mouse_button == MouseButton::Right) {
-            Pan(mouse_offset, delta, pan_speed);
-        }
-
-        if (curr_scroll_offset != 0.0f) {
-            Zoom(curr_scroll_offset, delta, zoom_speed);
+        if (do_zoom) {
+            spherical.radius -= curr_scroll_offset * zoom_speed * delta;
+            spherical.radius = std::max(0.1f, spherical.radius);
             curr_scroll_offset = 0.0f;
         }
 
-        prev_mouse_pos = curr_mouse_pos;
+        if (do_pan) {
+            const auto& t = camera->view_transform;
+            const auto right = Vector3 {t[0][0], t[1][0], t[2][0]};
+            const auto up = Vector3 {t[0][1], t[1][1], t[2][1]};
+            const auto speed = pan_speed * spherical.radius * delta;
+            target -= (right * offset.x - up * offset.y) * speed;
+        }
 
-        // convert spherical coordinates to cartesian coordinates
-        const auto position = target + Vector3 {
-            radius * math::Sin(yaw) * math::Cos(pitch),
-            radius * math::Sin(pitch),
-            radius * math::Cos(yaw) * math::Cos(pitch)
-        };
+        prev_pos = curr_pos;
 
-        camera->transform.SetPosition(position);
+        spherical.MakeSafe();
+        camera->transform.SetPosition(target + spherical.ToVector3());
         camera->LookAt(target);
     }
 };
@@ -89,26 +59,25 @@ OrbitControls::OrbitControls(Camera* camera, const Parameters& params)
     : impl_(std::make_unique<Impl>())
 {
     impl_->camera = camera;
-    impl_->radius = params.radius;
-    impl_->pitch = params.pitch;
-    impl_->yaw = params.yaw;
+    impl_->spherical.radius = params.radius;
+    impl_->spherical.phi = params.yaw;
+    impl_->spherical.theta = params.pitch;
 };
 
 auto OrbitControls::OnMouseEvent(MouseEvent* event) -> void {
-    using enum MouseButton;
-    using enum MouseEvent::Type;
+    impl_->curr_pos = event->position;
 
-    impl_->curr_mouse_pos = event->position;
-
-    if (event->type == ButtonPressed && impl_->curr_mouse_button == None) {
-        impl_->curr_mouse_button = event->button;
+    const auto is_pressed = event->type == MouseEvent::Type::ButtonPressed;
+    if (is_pressed && impl_->curr_button == MouseButton::None) {
+        impl_->curr_button = event->button;
     }
 
-    if (event->type == ButtonReleased && event->button == impl_->curr_mouse_button) {
-        impl_->curr_mouse_button = None;
+    const auto is_released = event->type == MouseEvent::Type::ButtonReleased;
+    if (is_released && event->button == impl_->curr_button) {
+        impl_->curr_button = MouseButton::None;
     }
 
-    if (event->type == Scrolled) {
+    if (event->type == MouseEvent::Type::Scrolled) {
         impl_->curr_scroll_offset = event->scroll.y;
     }
 }

@@ -17,14 +17,15 @@
 namespace gleam {
 
 /**
- * @brief Spherical coordinates (radius, phi = yaw, theta = pitch).
+ * @brief Spherical coordinates (radius, phi, theta).
  *
- * Represents a point in 3D using spherical coordinates (Y-up convention):
+ * Represents a point in 3D using spherical coordinates:
  * - `radius` is the distance from the origin.
  * - `phi` is the azimuth (yaw) in radians.
  * - `theta` is the elevation (pitch) from the equator in radians.
  *
- * Useful for orbit cameras, sampling directions on a sphere, and Cartesian conversion.
+ * This is useful for orbital camera rigs, sampling directions on a sphere,
+ * and converting to/from Cartesian coordinates.
  *
  * @ingroup MathGroup
  */
@@ -62,7 +63,7 @@ struct GLEAM_EXPORT Spherical {
     }
 
     /**
-     * @brief Converts this spherical coordinate to a 3D Cartesian vector.
+     * @brief Converts spherical to Cartesian coordinates.
      *
      * Convention:
      * - `phi` (azimuth): 0 along +Z, increasing toward +X.

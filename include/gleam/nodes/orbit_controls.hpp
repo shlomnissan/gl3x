@@ -44,7 +44,7 @@ class GLEAM_EXPORT OrbitControls : public Node {
 public:
     float orbit_speed {3.5f}; ///< Rate at which the camera orbits around the target point.
     float zoom_speed {50.0f}; ///< Rate at which the camera zooms in and out.
-    float pan_speed {1.5f}; ///< Rate at which the camera pans around the target point.
+    float pan_speed {0.5f}; ///< Rate at which the camera pans around the target point.
 
     /**
      * @brief Parameters for constructing a CameraOrbit object.
