@@ -176,7 +176,7 @@ public:
      *
      * @param target Target world-space position to look at.
      */
-    auto LookAt(const Vector3& target) -> void;
+    virtual auto LookAt(const Vector3& target) -> void;
 
     /**
      * @brief Translates the node along the X axis in local space.

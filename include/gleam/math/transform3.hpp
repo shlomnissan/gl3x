@@ -96,7 +96,7 @@ public:
      * @param world_up World up direction.
      */
     constexpr auto LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) {
-        auto forward = Normalize(position - target);
+        auto forward = Normalize(target - position);
         if (forward == Vector3::Zero()) {
             // The position and target are the same,
             // so we can't determine a forward vector.

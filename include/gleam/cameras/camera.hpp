@@ -61,6 +61,13 @@ public:
     }
 
     /**
+     * @brief Rotates the camera to face a given target position in world space.
+     *
+     * @param target Target world-space position to look at.
+     */
+    auto LookAt(const Vector3& target) -> void override;
+
+    /**
      * @brief Returns the camera's right axis in view space.
      *
      * @return Vector3

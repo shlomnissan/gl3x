@@ -157,10 +157,7 @@ auto Node::GetWorldTransform() -> Matrix4 {
 Node::~Node() = default;
 
 auto Node::LookAt(const Vector3& target) -> void {
-    const auto position = GetWorldPosition();
-    GetNodeType() == NodeType::CameraNode
-        ? transform.LookAt(position, target, up)
-        : transform.LookAt(target, position, up);
+    transform.LookAt(GetWorldPosition(), target, up);
 }
 
 auto Node::AttachRecursive(SharedContext* context) -> void {

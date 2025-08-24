@@ -16,4 +16,8 @@ auto Camera::SetViewTransform() -> void {
     }
 }
 
+auto Camera::LookAt(const Vector3& target) -> void {
+    transform.LookAt(target, GetWorldPosition(), up);
+}
+
 }
