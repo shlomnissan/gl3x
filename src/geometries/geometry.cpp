@@ -7,11 +7,12 @@
 
 #include "gleam/geometries/geometry.hpp"
 
+#include "gleam/math/utilities.hpp"
+
 #include "utilities/logger.hpp"
 
 #include <algorithm>
 #include <cassert>
-#include <cmath>
 #include <numeric>
 
 namespace gleam {
@@ -101,7 +102,7 @@ auto Geometry::CreateBoundingSphere() -> void {
         );
     }
 
-    bounding_sphere_ = Sphere {center, std::sqrt(max_distance_squared)};
+    bounding_sphere_ = Sphere {center, math::Sqrt(max_distance_squared)};
 }
 
 }

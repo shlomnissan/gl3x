@@ -12,8 +12,6 @@
 #include "gleam/math/vector3.hpp"
 #include "gleam/math/utilities.hpp"
 
-#include <algorithm>
-
 namespace gleam {
 
 /**
@@ -59,7 +57,7 @@ struct GLEAM_EXPORT Spherical {
     constexpr auto MakeSafe() {
         const float lo = -math::pi_over_2 + math::eps;
         const float hi = math::pi_over_2 - math::eps;
-        theta = std::clamp(theta, lo, hi);
+        theta = math::Clamp(theta, lo, hi);
     }
 
     /**

@@ -85,6 +85,19 @@ alignas(64) constexpr uint32_t arctan_table[65] {
 }
 
 /**
+ * @brief Clamps a value to the inclusive range [lo, hi].
+ * @ingroup MathGroup
+ *
+ * @param v Input value.
+ * @param lo Lower bound (inclusive).
+ * @param hi Upper bound (inclusive).
+ * @return Value clamped to [lo, hi].
+ */
+[[nodiscard]] constexpr auto Clamp(float v, float lo, float hi) {
+    return v < lo ? lo : (v > hi ? hi : v);
+}
+
+/**
  * @brief Converts degrees to radians.
  * @ingroup MathGroup
  *
