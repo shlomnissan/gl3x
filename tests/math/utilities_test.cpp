@@ -397,6 +397,37 @@ TEST(MathUtilitieTest, CantorPairingUnorderedDistinctFromOrdered) {
 
 #pragma endregion
 
+#pragma region Clamp
+
+TEST(MathUtilities, ClampBasicBehavior) {
+    static_assert(math::Clamp(-1.0f, 0.0f, 1.0f) == 0.0f);
+    static_assert(math::Clamp(0.5f, 0.0f, 1.0f) == 0.5f);
+    static_assert(math::Clamp(2.0f, 0.0f, 1.0f) == 1.0f);
+
+    EXPECT_FLOAT_EQ(math::Clamp(-1.0f, 0.0f, 1.0f), 0.0f);
+    EXPECT_FLOAT_EQ(math::Clamp(0.5f, 0.0f, 1.0f), 0.5f);
+    EXPECT_FLOAT_EQ(math::Clamp(2.0f, 0.0f, 1.0f), 1.0f);
+}
+
+TEST(MathUtilities, ClampDegenerateRangeReturnsBound) {
+    static_assert(math::Clamp(-5.0f, 2.0f, 2.0f) == 2.0f);
+    static_assert(math::Clamp( 2.0f, 2.0f, 2.0f) == 2.0f);
+    static_assert(math::Clamp(10.0f, 2.0f, 2.0f) == 2.0f);
+
+    EXPECT_FLOAT_EQ(math::Clamp(-5.0f, 2.0f, 2.0f), 2.0f);
+    EXPECT_FLOAT_EQ(math::Clamp( 2.0f, 2.0f, 2.0f), 2.0f);
+    EXPECT_FLOAT_EQ(math::Clamp(10.0f, 2.0f, 2.0f), 2.0f);
+}
+
+TEST(MathUtilities, ClampNanPassThrough) {
+    // With this ternary implementation, if v is NaN then both comparisons evaluate
+    // to false, so the function returns v unchanged (NaN is preserved).
+    const float nan = std::numeric_limits<float>::quiet_NaN();
+    EXPECT_TRUE(std::isnan(math::Clamp(nan, -1.0f, 1.0f)));
+}
+
+#pragma endregion
+
 #pragma region UUID
 
 TEST(MathUtilities, UUIDFormat) {
