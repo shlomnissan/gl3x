@@ -20,11 +20,12 @@
 #include "lighting/example_spot_light.hpp"
 #include "rendering_effects/example_blending.hpp"
 #include "rendering_effects/example_fog.hpp"
+#include "scene_features/example_debug_visuals.hpp"
 #include "scene_features/example_frustum_culling.hpp"
 #include "scene_features/example_mesh_instancing.hpp"
 #include "scene_features/example_model_loader.hpp"
 #include "scene_features/example_primitives.hpp"
-#include "scene_features/example_debug_visuals.hpp"
+#include "scene_features/example_sprite.hpp"
 #include "animation/example_animated_transform.hpp"
 
 static const auto examples = std::vector {
@@ -44,6 +45,7 @@ static const auto examples = std::vector {
     "Mesh Instancing",
     "Model Loader",
     "Primitives",
+    "Sprite",
     "Debug Visuals",
     "- Animation",
     "Animated Transform"

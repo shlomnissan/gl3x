@@ -32,6 +32,8 @@ set(SOURCE_CODE
     "scene_features/example_model_loader.hpp"
     "scene_features/example_primitives.cpp"
     "scene_features/example_primitives.hpp"
+    "scene_features/example_sprite.cpp"
+    "scene_features/example_sprite.hpp"
 )
 
 add_executable(gleam-examples main.cpp ${SOURCE_CODE})

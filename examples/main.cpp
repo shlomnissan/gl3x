@@ -73,7 +73,7 @@ public:
     }
 
     auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 368})) {
+        if (ImGui::BeginListBox("##ListBox", {235, 384})) {
             for (auto i = 0; i < examples.size(); i++) {
                 const auto name = std::string_view {examples[i]};
                 if (name.starts_with("-")) {
@@ -144,6 +144,9 @@ private:
         }
         if (scene_name == "Primitives") {
             scene_ = std::make_shared<ExamplePrimitives>();
+        }
+        if (scene_name == "Sprite") {
+            scene_ = std::make_shared<ExampleSprite>();
         }
         if (scene_name == "Debug Visuals") {
             scene_ = std::make_shared<ExampleDebugVisuals>();
