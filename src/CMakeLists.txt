@@ -43,6 +43,7 @@ set(SOURCE_CODE
     "nodes/node.cpp"
     "nodes/orbit_controls.cpp"
     "nodes/scene.cpp"
+    "nodes/sprite.cpp"
     "renderer/gl/gl_buffers.cpp"
     "renderer/gl/gl_buffers.hpp"
     "renderer/gl/gl_camera.hpp"
@@ -128,6 +129,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/nodes/node.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/orbit_controls.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/scene.hpp"
+    "${PUBLIC_HEADERS_DIR}/nodes/sprite.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture_2d.hpp"
 )

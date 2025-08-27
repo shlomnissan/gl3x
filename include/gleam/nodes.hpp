@@ -23,3 +23,4 @@
 #include "gleam/nodes/node.hpp"
 #include "gleam/nodes/orbit_controls.hpp"
 #include "gleam/nodes/scene.hpp"
+#include "gleam/nodes/sprite.hpp"

@@ -78,7 +78,7 @@ public:
      */
     auto SetGeometry(std::shared_ptr<Geometry> geometry) -> void;
 
-     /**
+    /**
      * @brief Sets the material used to render this mesh.
      *
      * @param material Shared pointer to the new material.

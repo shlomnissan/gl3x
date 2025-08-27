@@ -30,10 +30,11 @@ namespace gleam {
 enum class NodeType {
     CameraNode,
     DefaultNode,
+    InstancedMeshNode,
     LightNode,
     MeshNode,
-    InstancedMeshNode,
-    SceneNode
+    SceneNode,
+    SpriteNode
 };
 
 /**
