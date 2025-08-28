@@ -29,7 +29,7 @@ namespace gleam {
  * @code
  * auto arrow = gleam::Arrow::Create({
  *   .direction = {1.0f, 0.0f, 0.0f},
- *   .origin = {0.0f, 0.0f, 0.0f},
+ *   .origin = Vector3::Zero(),
  *   .color = 0xFF0000,
  *   .length = 1.0f
  * });

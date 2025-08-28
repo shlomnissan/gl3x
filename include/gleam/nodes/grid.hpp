@@ -30,7 +30,7 @@ namespace gleam {
  * auto grid = gleam::Grid::Create({
  *     .size = 4.0f,
  *     .divisions = 16,
- *     .color = Color(0x333333)
+ *     .color = 0x333333
  * });
  * scene->Add(grid);
  * @endcode

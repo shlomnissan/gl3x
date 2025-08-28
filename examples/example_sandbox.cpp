@@ -10,26 +10,49 @@
 #include <gleam/geometries.hpp>
 #include <gleam/materials.hpp>
 #include <gleam/nodes.hpp>
+#include <gleam/math.hpp>
 
 using namespace gleam;
 
+namespace {
+
+auto arrow = Arrow::Create({
+    .direction = {1.0f, 0.0f, 0.0f},
+    .origin = Vector3::Zero(),
+    .color = 0x9E2B25,
+    .length = 1.0f
+});
+
+auto spherical = Spherical {1.0f, 0.0f, 0.0f};
+
+}
+
 ExampleSandbox::ExampleSandbox() {
     show_context_menu_ = false;
+
+    const auto grid = Grid::Create({
+        .size = 4.0f,
+        .divisions = 16,
+        .color = 0x333333
+    });
+
+    arrow->TranslateY(0.5f);
+    arrow->SetDirection(spherical.ToVector3());
+
+    Add(grid);
+    Add(arrow);
 }
 
 auto ExampleSandbox::OnAttached(gleam::SharedContext* context) -> void {
-    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
-
-    context->Loaders().Mesh->LoadAsync(
-        "assets/plane.msh", [this](auto result) {
-            if (result) {
-                model_ = result.value();
-                model_->RotateX(math::DegToRad(-90.0f));
-                auto x = static_cast<Mesh*>(model_->Children().front().get());
-                auto m = UnlitMaterial::Create(0xFFFFFF);
-                x->SetMaterial(m);
-                Add(model_);
-            }
-        }
+    Add(OrbitControls::Create(
+        context->Parameters().camera, {
+            .radius = 3.0f,
+            .pitch = math::pi_over_4
+        })
     );
+}
+
+auto ExampleSandbox::OnUpdate(float delta) -> void {
+    spherical.phi += 1.0f * delta;
+    arrow->SetDirection(spherical.ToVector3());
 }
