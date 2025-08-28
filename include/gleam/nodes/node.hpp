@@ -33,6 +33,7 @@ enum class NodeType {
     InstancedMeshNode,
     LightNode,
     MeshNode,
+    RenderableNode,
     SceneNode,
     SpriteNode
 };

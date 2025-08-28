@@ -128,6 +128,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/nodes/mesh.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/node.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/orbit_controls.hpp"
+    "${PUBLIC_HEADERS_DIR}/nodes/renderable.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/scene.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes/sprite.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture.hpp"

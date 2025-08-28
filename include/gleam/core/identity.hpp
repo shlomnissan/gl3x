@@ -14,7 +14,7 @@
 
 namespace gleam {
 
-/// @cond DOXYGEN_EXCLUDE
+/// @cond INTERNAL
 class Identity {
 public:
     [[nodiscard]] const auto& UUID() const { return uuid_; }

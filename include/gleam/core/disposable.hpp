@@ -12,7 +12,7 @@
 
 namespace gleam {
 
-/// @cond DOXYGEN_EXCLUDE
+/// @cond INTERNAL
 class Disposable {
 public:
     using OnDisposeCallback = std::function<void(Disposable*)>;
