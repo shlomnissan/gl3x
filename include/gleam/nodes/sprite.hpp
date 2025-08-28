@@ -11,21 +11,25 @@
 
 #include "gleam/geometries/geometry.hpp"
 #include "gleam/materials/material.hpp"
-#include "gleam/nodes/node.hpp"
+#include "gleam/nodes/renderable.hpp"
 
 #include <memory>
 
 namespace gleam {
 
 /**
- * @brief A sprite is a plane that always faces towards the camera.
+ * @brief Camera-facing quad renderable for billboards, UI, and text.
  *
- * `Sprite` is a lightweight renderable commonly used for UI elements, particles,
- * text rendering, etc. It draws a camera-facing quad using the assigned material.
+ * Sprite is a unit quad that always faces the active camera. It exposes
+ * the minimal Renderable interface so the renderer can draw it.
+ *
+ * Sprites are commonly used for particles, icons, and text glyphs. Geometry is
+ * shared across all sprites and treated as read-only; per-sprite appearance is
+ * controlled via the material.
  *
  * @ingroup NodesGroup
  */
-class GLEAM_EXPORT Sprite : public Node {
+class GLEAM_EXPORT Sprite : public Renderable {
 public:
     /**
      * @brief Constructs a sprite with an optional material.
@@ -55,6 +59,21 @@ public:
         return std::make_shared<Sprite>(material);
     }
 
+    /// @cond INTERNAL
+    [[nodiscard]] auto GetGeometry() -> std::shared_ptr<Geometry> override {
+        return geometry_;
+    }
+    /// @endcond
+
+    /**
+     * @brief Returns the material associated with the sprite.
+     *
+     * @return Shared pointer to the current material.
+     */
+    [[nodiscard]] auto GetMaterial() -> std::shared_ptr<Material> override {
+        return material_;
+    }
+
     /**
      * @brief Returns node type.
      *
@@ -70,13 +89,6 @@ public:
      * @param material Shared pointer to a SpriteMaterial instance.
      */
     auto SetMaterial(std::shared_ptr<Material> material) { material_ = material; }
-
-    /**
-     * @brief Returns the material associated with the sprite.
-     *
-     * @return Shared pointer to the current material.
-     */
-    auto GetMaterial() { return material_; }
 
 private:
     /// @cond INTERNAL

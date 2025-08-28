@@ -11,22 +11,19 @@
 
 #include "gleam/geometries/geometry.hpp"
 #include "gleam/materials/material.hpp"
-#include "gleam/nodes/node.hpp"
+#include "gleam/nodes/renderable.hpp"
 
 #include <memory>
 
 namespace gleam {
 
 /**
- * @brief Renderable scene node composed of geometry and material.
+ * @brief Renderable node that draws a Geometry with a Material.
  *
- * `Mesh` is a node that represents a visible object in the scene. It combines
- * a `Geometry` object, which defines the shape and structure of the mesh,
- * with a `Material` object, which defines its surface appearance and shading.
+ * Mesh is a scene node that owns a geometry and a material and exposes them
+ * through the Renderable interface so the renderer can process and draw it.
  *
- * Meshes are typically added to a scene to be rendered during each frame.
- * Both the geometry and material can be assigned directly at creation time,
- * or modified afterward.
+ * An optional wireframe geometry can be provided for debug rendering.
  *
  * @code
  * auto geometry = gleam::BoxGeometry::Create();
@@ -37,7 +34,7 @@ namespace gleam {
  *
  * @ingroup NodesGroup
  */
-class GLEAM_EXPORT Mesh : public Node {
+class GLEAM_EXPORT Mesh : public Renderable {
 public:
     /**
      * @brief Constructs a mesh instance with the given geometry and material.
@@ -72,6 +69,24 @@ public:
     }
 
     /**
+     * @brief Returns the geometry associated with this mesh.
+     *
+     * @return Shared pointer to the current geometry.
+     */
+    [[nodiscard]] auto GetGeometry() -> std::shared_ptr<Geometry> override {
+        return geometry_;
+    }
+
+    /**
+     * @brief Returns the material associated with this mesh.
+     *
+     * @return Shared pointer to the current material.
+     */
+    [[nodiscard]] auto GetMaterial() -> std::shared_ptr<Material> override {
+        return material_;
+    }
+
+    /**
      * @brief Sets the geometry used to render this mesh.
      *
      * @param geometry Shared pointer to the new geometry.
@@ -86,25 +101,11 @@ public:
     auto SetMaterial(std::shared_ptr<Material> material) { material_ = material; }
 
     /**
-     * @brief Returns the geometry associated with this mesh.
-     *
-     * @return Shared pointer to the current geometry.
-     */
-    [[nodiscard]] auto GetGeometry() { return geometry_; }
-
-    /**
      * @brief Returns the wireframe version of the mesh geometry.
      *
      * @return Shared pointer to the wireframe geometry.
      */
     [[nodiscard]] auto GetWireframeGeometry() -> std::shared_ptr<Geometry>;
-
-    /**
-     * @brief Returns the material associated with this mesh.
-     *
-     * @return Shared pointer to the current material.
-     */
-    [[nodiscard]] auto GetMaterial() { return material_; }
 
     /**
      * @brief Returns the mesh's bounding box.
@@ -115,6 +116,11 @@ public:
      * @brief Returns the mesh's bounding sphere.
      */
     [[nodiscard]] virtual auto BoundingSphere() -> Sphere;
+
+    /**
+     * @brief Default destructor.
+     */
+    virtual ~Mesh() = default;
 
 private:
     /// @brief Geometry data used for rendering this mesh.
