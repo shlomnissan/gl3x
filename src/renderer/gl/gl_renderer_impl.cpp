@@ -67,6 +67,7 @@ auto Renderer::Impl::RenderObject(Renderable* renderable, Scene* scene, Camera* 
         .point = lights_.point,
         .spot = lights_.spot
     }, scene};
+
     auto program = programs_.GetProgram(attrs);
     if (!program->IsValid()) {
         return;
@@ -94,12 +95,13 @@ auto Renderer::Impl::RenderObject(Renderable* renderable, Scene* scene, Camera* 
         primitive = GL_LINE_LOOP;
     }
 
-    const auto index_sz = geometry->IndexData().size();
-    const auto vertex_sz = geometry->VertexCount();
+    const auto index_size = geometry->IndexData().size();
+    const auto vertex_size = geometry->VertexCount();
 
     if (renderable->GetNodeType() != NodeType::InstancedMeshNode) {
-        index_sz ? glDrawElements(primitive, index_sz, GL_UNSIGNED_INT, nullptr)
-              : glDrawArrays(primitive, 0, vertex_sz);
+        index_size
+            ? glDrawElements(primitive, index_size, GL_UNSIGNED_INT, nullptr)
+            : glDrawArrays(primitive, 0, vertex_size);
     }
 
     if (renderable->GetNodeType() == NodeType::InstancedMeshNode) {
@@ -107,8 +109,9 @@ auto Renderer::Impl::RenderObject(Renderable* renderable, Scene* scene, Camera* 
         const auto count = instanced->Count();
         buffers_.BindInstancedMesh(instanced);
 
-        index_sz ? glDrawElementsInstanced(primitive, index_sz, GL_UNSIGNED_INT, nullptr, count)
-              : glDrawArraysInstanced(primitive, 0, vertex_sz, count);
+        index_size
+            ? glDrawElementsInstanced(primitive, index_size, GL_UNSIGNED_INT, nullptr, count)
+            : glDrawArraysInstanced(primitive, 0, vertex_size, count);
     }
 
     rendered_objects_counter_++;
@@ -230,6 +233,7 @@ auto IsValidRenderable(Renderable* r) -> bool {
     const auto level = LogLevel::Error;
     const auto geometry = r->GetGeometry();
     const auto material = r->GetMaterial();
+
     if (geometry == nullptr) {
         Logger::Log(level, "Skipped rendering a mesh with no valid geometry {}", *r);
         return false;
@@ -250,14 +254,17 @@ auto IsValidRenderable(Renderable* r) -> bool {
         Logger::Log(level, "Skipped rendering a mesh with no valid material {}", *r);
         return false;
     }
+
     return true;
 }
 
 auto IsVisibleRenderable(Renderable* r, const Frustum& frustum) -> bool {
     if (r->GetNodeType() == NodeType::SpriteNode) return true;
+
     auto mesh = static_cast<Mesh*>(r);
     auto bounding_sphere = mesh->BoundingSphere();
     bounding_sphere.ApplyTransform(mesh->GetWorldTransform());
+
     return frustum.IntersectsWithSphere(bounding_sphere);
 }
 

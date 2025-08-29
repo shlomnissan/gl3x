@@ -20,17 +20,16 @@ const auto geometry = []() {
         0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
        -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
     }, {0, 1, 2, 0, 2, 3});
+
     g->SetAttribute({VertexAttributeType::Position, 3});
     g->SetAttribute({VertexAttributeType::UV, 2});
+
     return g;
 }();
 
 }
 
-Sprite::Sprite(std::shared_ptr<Material> material)
-  : geometry_(geometry),
-    material_(material)
-{
+Sprite::Sprite(std::shared_ptr<Material> material) : geometry_(geometry), material_(material) {
     if (material_ == nullptr) {
         material_ = UnlitMaterial::Create(0xFFFFFF);
     }
