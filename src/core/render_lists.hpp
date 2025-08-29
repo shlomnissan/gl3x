@@ -8,8 +8,8 @@
 #pragma once
 
 #include "gleam/lights/light.hpp"
-#include "gleam/nodes/mesh.hpp"
 #include "gleam/nodes/node.hpp"
+#include "gleam/nodes/renderable.hpp"
 #include "gleam/nodes/scene.hpp"
 
 #include <memory>
@@ -22,11 +22,11 @@ class RenderLists {
 public:
     auto ProcessScene(Scene* scene) -> void;
 
-    [[nodiscard]] auto Opaque() const -> std::span<Mesh* const> {
+    [[nodiscard]] auto Opaque() const -> std::span<Renderable* const> {
         return opaque_;
     }
 
-    [[nodiscard]] auto Transparent() const -> std::span<Mesh* const> {
+    [[nodiscard]] auto Transparent() const -> std::span<Renderable* const> {
         return transparent_;
     }
 
@@ -35,9 +35,9 @@ public:
     }
 
 private:
-    std::vector<Mesh*> opaque_;
+    std::vector<Renderable*> opaque_;
 
-    std::vector<Mesh*> transparent_;
+    std::vector<Renderable*> transparent_;
 
     std::vector<Light*> lights_;
 

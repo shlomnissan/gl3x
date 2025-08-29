@@ -35,10 +35,10 @@ auto RenderLists::ProcessNode(Node* node) -> void {
     const auto type = node->GetNodeType();
 
     if (type == NodeType::MeshNode || type == NodeType::InstancedMeshNode) {
-        auto mesh = static_cast<Mesh*>(node);
-        mesh->GetMaterial()->transparent ?
-            transparent_.emplace_back(mesh) :
-            opaque_.emplace_back(mesh);
+        auto renderable = static_cast<Renderable*>(node);
+        renderable->GetMaterial()->transparent ?
+            transparent_.emplace_back(renderable) :
+            opaque_.emplace_back(renderable);
     }
 
     if (type == NodeType::LightNode) {

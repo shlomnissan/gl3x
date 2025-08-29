@@ -10,7 +10,7 @@
 #include "core/renderer.hpp"
 
 #include "gleam/math/frustum.hpp"
-#include "gleam/nodes/mesh.hpp"
+#include "gleam/nodes/renderable.hpp"
 
 #include "renderer/gl/gl_buffers.hpp"
 #include "renderer/gl/gl_camera.hpp"
@@ -63,19 +63,15 @@ private:
 
     auto RenderObjects(Scene* scene, Camera* camera) -> void;
 
-    auto RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> void;
+    auto RenderObject(Renderable* renderable, Scene* scene, Camera* camera) -> void;
 
     auto SetUniforms(
         GLProgram* program,
         ProgramAttributes* attrs,
-        Mesh* mesh,
+        Renderable* renderable,
         Camera* camera,
         Scene* scene
     ) -> void;
-
-    [[nodiscard]] auto IsValidMesh(Mesh* mesh) const -> bool;
-
-    [[nodiscard]] auto IsVisible(Mesh* mesh) const -> bool;
 };
 
 }

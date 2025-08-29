@@ -22,6 +22,14 @@
 
 namespace gleam {
 
+namespace {
+
+auto IsValidRenderable(Renderable* r) -> bool;
+auto IsVisibleRenderable(Renderable* r, const Frustum& frustum) -> bool;
+auto IsMesh(Renderable* r) -> bool;
+
+}
+
 Renderer::Impl::Impl(const Renderer::Parameters& params)
   : params_(params),
     render_lists_(std::make_unique<RenderLists>()) {
@@ -32,13 +40,13 @@ auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
     camera_.Update(camera->projection_transform, camera->view_transform);
     frustum_.SetWithViewProjection(camera->projection_transform * camera->view_transform);
 
-    for (auto mesh : render_lists_->Opaque()) {
-        RenderMesh(mesh, scene, camera);
+    for (auto renderable : render_lists_->Opaque()) {
+        RenderObject(renderable, scene, camera);
     }
 
     if (!render_lists_->Transparent().empty()) state_.SetDepthMask(false);
-    for (auto mesh : render_lists_->Transparent()) {
-        RenderMesh(mesh, scene, camera);
+    for (auto renderable : render_lists_->Transparent()) {
+        RenderObject(renderable, scene, camera);
     }
 
     state_.SetDepthMask(true);
@@ -47,14 +55,14 @@ auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
     rendered_objects_counter_ = 0;
 }
 
-auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> void {
-    if (!IsValidMesh(mesh)) return;
-    if (!IsVisible(mesh)) return;
+auto Renderer::Impl::RenderObject(Renderable* renderable, Scene* scene, Camera* camera) -> void {
+    if (!IsValidRenderable(renderable)) return;
+    if (!IsVisibleRenderable(renderable, frustum_)) return;
 
-    auto geometry = mesh->GetGeometry().get();
-    auto material = mesh->GetMaterial().get();
+    auto geometry = renderable->GetGeometry().get();
+    auto material = renderable->GetMaterial().get();
 
-    auto attrs = ProgramAttributes {mesh, {
+    auto attrs = ProgramAttributes {renderable, {
         .directional = lights_.directional,
         .point = lights_.point,
         .spot = lights_.spot
@@ -65,14 +73,15 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
     }
 
     state_.ProcessMaterial(material);
-    if (material->wireframe) {
+    if (material->wireframe && IsMesh(renderable)) {
+        const auto mesh = static_cast<Mesh*>(renderable);
         buffers_.Bind(mesh->GetWireframeGeometry());
         geometry = mesh->GetWireframeGeometry().get();
     } else {
-        buffers_.Bind(mesh->GetGeometry());
+        buffers_.Bind(renderable->GetGeometry());
     }
 
-    SetUniforms(program, &attrs, mesh, camera, scene);
+    SetUniforms(program, &attrs, renderable, camera, scene);
 
     state_.UseProgram(program->Id());
     program->UpdateUniforms();
@@ -88,13 +97,13 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
     const auto index_sz = geometry->IndexData().size();
     const auto vertex_sz = geometry->VertexCount();
 
-    if (mesh->GetNodeType() == NodeType::MeshNode) {
+    if (renderable->GetNodeType() != NodeType::InstancedMeshNode) {
         index_sz ? glDrawElements(primitive, index_sz, GL_UNSIGNED_INT, nullptr)
               : glDrawArrays(primitive, 0, vertex_sz);
     }
 
-    if (mesh->GetNodeType() == NodeType::InstancedMeshNode) {
-        const auto instanced = static_cast<InstancedMesh*>(mesh);
+    if (renderable->GetNodeType() == NodeType::InstancedMeshNode) {
+        const auto instanced = static_cast<InstancedMesh*>(renderable);
         const auto count = instanced->Count();
         buffers_.BindInstancedMesh(instanced);
 
@@ -108,12 +117,12 @@ auto Renderer::Impl::RenderMesh(Mesh* mesh, Scene* scene, Camera* camera) -> voi
 auto Renderer::Impl::SetUniforms(
     GLProgram* program,
     ProgramAttributes* attrs,
-    Mesh* mesh,
+    Renderable* renderable,
     Camera* camera,
     Scene* scene
 ) -> void {
-    auto material = mesh->GetMaterial().get();
-    auto model = mesh->GetWorldTransform();
+    auto material = renderable->GetMaterial().get();
+    auto model = renderable->GetWorldTransform();
     auto resolution = Vector2(params_.width, params_.height);
 
     program->SetUniform(Uniform::Model, &model);
@@ -212,53 +221,51 @@ auto Renderer::Impl::SetClearColor(const Color& color) -> void {
     state_.SetClearColor(color);
 }
 
-auto Renderer::Impl::IsValidMesh(Mesh* mesh) const -> bool {
-    auto geometry = mesh->GetGeometry();
+Renderer::Impl::~Impl() = default;
+
+
+namespace {
+
+auto IsValidRenderable(Renderable* r) -> bool {
+    const auto level = LogLevel::Error;
+    const auto geometry = r->GetGeometry();
+    const auto material = r->GetMaterial();
     if (geometry == nullptr) {
-        Logger::Log(LogLevel::Error,
-            "Skipped rendering a mesh with no valid geometry {}", *mesh
-        );
+        Logger::Log(level, "Skipped rendering a mesh with no valid geometry {}", *r);
         return false;
     }
-
-    auto material = mesh->GetMaterial();
-    if (material == nullptr) {
-        Logger::Log(LogLevel::Error,
-            "Skipped rendering a mesh with no valid material {}", *mesh
-        );
-        return false;
-    }
-
     if (geometry->Disposed()) {
-        Logger::Log(LogLevel::Error,
-            "Skipped rendering a mesh with disposed geometry {}", *mesh
-        );
+        Logger::Log(level, "Skipped rendering a mesh with disposed geometry {}", *r);
         return false;
     }
-
     if (geometry->VertexData().empty()) {
-        Logger::Log(LogLevel::Error,
-            "Skipped rendering a mesh with no geometry data {}", *mesh
-        );
+        Logger::Log(level, "Skipped rendering a mesh with no geometry data {}", *r);
         return false;
     }
-
     if (geometry->Attributes().empty()) {
-        Logger::Log(LogLevel::Error,
-            "Skipped rendering a mesh with no geometry attributes {}", *mesh
-        );
+        Logger::Log(level, "Skipped rendering a mesh with no geometry attributes {}", *r);
         return false;
     }
-
+    if (material == nullptr) {
+        Logger::Log(level, "Skipped rendering a mesh with no valid material {}", *r);
+        return false;
+    }
     return true;
 }
 
-auto Renderer::Impl::IsVisible(Mesh* mesh) const -> bool {
+auto IsVisibleRenderable(Renderable* r, const Frustum& frustum) -> bool {
+    if (r->GetNodeType() == NodeType::SpriteNode) return true;
+    auto mesh = static_cast<Mesh*>(r);
     auto bounding_sphere = mesh->BoundingSphere();
     bounding_sphere.ApplyTransform(mesh->GetWorldTransform());
-    return frustum_.IntersectsWithSphere(bounding_sphere);
+    return frustum.IntersectsWithSphere(bounding_sphere);
 }
 
-Renderer::Impl::~Impl() = default;
+auto IsMesh(Renderable* r) -> bool {
+    return r->GetNodeType() == NodeType::MeshNode ||
+           r->GetNodeType() == NodeType::InstancedMeshNode;
+}
+
+} // unnamed namespace
 
 }

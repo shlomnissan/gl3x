@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "gleam/nodes/mesh.hpp"
+#include "gleam/nodes/renderable.hpp"
 #include "gleam/nodes/scene.hpp"
 
 #include <cstdint>
@@ -42,7 +42,11 @@ struct ProgramAttributes {
     bool two_sided {false};
     bool vertex_color {false};
 
-    ProgramAttributes(Mesh* mesh, const LightsCounter& lights, const Scene* scene);
+    ProgramAttributes(
+        Renderable* renderable,
+        const LightsCounter& lights,
+        const Scene* scene
+    );
 };
 
 }

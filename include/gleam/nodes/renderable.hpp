@@ -7,14 +7,13 @@
 
 #pragma once
 
+#include "gleam/geometries/geometry.hpp"
+#include "gleam/materials/material.hpp"
 #include "gleam/nodes/node.hpp"
 
 #include <memory>
 
 namespace gleam {
-
-class Geometry;
-class Material;
 
 /**
  * @brief Internal base for anything renderable.

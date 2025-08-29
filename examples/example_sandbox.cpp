@@ -19,7 +19,7 @@ namespace {
 auto arrow = Arrow::Create({
     .direction = {1.0f, 0.0f, 0.0f},
     .origin = Vector3::Zero(),
-    .color = 0x9E2B25,
+    .color = 0x59CD90,
     .length = 1.0f
 });
 

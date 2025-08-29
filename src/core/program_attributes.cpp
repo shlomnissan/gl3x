@@ -20,9 +20,13 @@
 
 namespace gleam {
 
-ProgramAttributes::ProgramAttributes(Mesh* mesh, const LightsCounter& lights, const Scene* scene) {
-    auto geometry = mesh->GetGeometry().get();
-    auto material = mesh->GetMaterial().get();
+ProgramAttributes::ProgramAttributes(
+    Renderable* renderable,
+    const LightsCounter& lights,
+    const Scene* scene
+) {
+    auto geometry = renderable->GetGeometry().get();
+    auto material = renderable->GetMaterial().get();
 
     type = material->GetType();
 
@@ -48,7 +52,7 @@ ProgramAttributes::ProgramAttributes(Mesh* mesh, const LightsCounter& lights, co
 
     flat_shaded = material->flat_shaded;
     fog = material->fog && scene->fog != nullptr;
-    instancing = mesh->GetNodeType() == NodeType::InstancedMeshNode;
+    instancing = renderable->GetNodeType() == NodeType::InstancedMeshNode;
     num_lights = lights.directional + lights.point + lights.spot;
     two_sided = material->two_sided;
     vertex_color = geometry->HasAttribute(VertexAttributeType::Color);
