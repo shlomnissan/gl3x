@@ -7,10 +7,6 @@
 
 #include "gleam/nodes/sprite.hpp"
 
-#include "gleam/materials/sprite_material.hpp"
-
-#include "utilities/logger.hpp"
-
 namespace gleam {
 
 namespace {
@@ -31,12 +27,10 @@ const auto geometry = []() {
 
 }
 
-Sprite::Sprite(std::shared_ptr<Material> material) : geometry_(geometry), material_(material) {
+Sprite::Sprite(std::shared_ptr<SpriteMaterial> material)
+  : geometry_(geometry), material_(material) {
     if (material_ == nullptr) {
         material_ = SpriteMaterial::Create(0xFFFFFF);
-    } else if (material->GetType() != MaterialType::SpriteMaterial) {
-        Logger::Log(LogLevel::Error, "Failed to create Sprite with incompatible material");
-        material_ = nullptr;
     }
 }
 

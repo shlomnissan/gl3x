@@ -11,6 +11,7 @@
 
 #include "gleam/geometries/geometry.hpp"
 #include "gleam/materials/material.hpp"
+#include "gleam/materials/sprite_material.hpp"
 #include "gleam/nodes/renderable.hpp"
 
 #include <memory>
@@ -38,16 +39,25 @@ public:
      *
      * @param material Material used to render the sprite (may be null).
      */
-    Sprite(std::shared_ptr<Material> material);
+    Sprite(std::shared_ptr<SpriteMaterial> material);
 
     /**
      * @brief Creates a shared pointer to a Sprite object with material.
      *
-     * @param material Shared pointer to a SpriteMaterial instance.
+     * @param material Shared pointer to a sprite material.
      * @return std::shared_ptr<Sprite>
      */
-    [[nodiscard]] static auto Create(std::shared_ptr<Material> material = nullptr) {
+    [[nodiscard]] static auto Create(std::shared_ptr<SpriteMaterial> material = nullptr) {
         return std::make_shared<Sprite>(material);
+    }
+
+    /**
+     * @brief Returns node type.
+     *
+     * @return NodeType::SpriteNode
+     */
+    [[nodiscard]] auto GetNodeType() const -> NodeType override {
+        return NodeType::SpriteNode;
     }
 
     /// @cond INTERNAL
@@ -66,20 +76,13 @@ public:
     }
 
     /**
-     * @brief Returns node type.
-     *
-     * @return NodeType::SpriteNode
-     */
-    [[nodiscard]] auto GetNodeType() const -> NodeType override {
-        return NodeType::SpriteNode;
-    }
-
-    /**
      * @brief Sets the material used to render the sprite.
      *
-     * @param material Shared pointer to a SpriteMaterial instance.
+     * @param material Shared pointer to a sprite material.
      */
-    auto SetMaterial(std::shared_ptr<Material> material) { material_ = material; }
+    auto SetMaterial(std::shared_ptr<SpriteMaterial> material) {
+        material_ = material;
+    }
 
 private:
     /// @cond INTERNAL
