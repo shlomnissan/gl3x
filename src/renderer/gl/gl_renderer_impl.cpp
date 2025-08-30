@@ -9,6 +9,7 @@
 
 #include "gleam/materials/phong_material.hpp"
 #include "gleam/materials/shader_material.hpp"
+#include "gleam/materials/sprite_material.hpp"
 #include "gleam/materials/unlit_material.hpp"
 #include "gleam/math/vector3.hpp"
 #include "gleam/nodes/fog.hpp"
@@ -149,25 +150,6 @@ auto Renderer::Impl::SetUniforms(
         }
     }
 
-    if (attrs->type == MaterialType::UnlitMaterial) {
-        auto m = static_cast<UnlitMaterial*>(material);
-        program->SetUniform(Uniform::Color, &m->color);
-
-        if (attrs->albedo_map) {
-            auto map_type = GLTextureMapType::AlbedoMap;
-            textures_.Bind(m->albedo_map, map_type);
-            const auto& transform = m->albedo_map->GetTransform();
-            program->SetUniform(Uniform::AlbedoMap, &map_type);
-            program->SetUniform(Uniform::TextureTransform, &transform);
-        }
-
-        if (attrs->alpha_map) {
-            auto map_type = GLTextureMapType::AlphaMap;
-            textures_.Bind(m->alpha_map, map_type);
-            program->SetUniform(Uniform::AlphaMap, &map_type);
-        }
-    }
-
     if (attrs->type == MaterialType::PhongMaterial) {
         auto m = static_cast<PhongMaterial*>(material);
         if (lights_.HasLights()) {
@@ -196,6 +178,44 @@ auto Renderer::Impl::SetUniforms(
         auto m = static_cast<ShaderMaterial*>(material);
         for (const auto& [name, value] : m->uniforms) {
             program->SetUnknownUniform(name, &value);
+        }
+    }
+
+    if (attrs->type == MaterialType::SpriteMaterial) {
+        auto m = static_cast<SpriteMaterial*>(material);
+        program->SetUniform(Uniform::Color, &m->color);
+
+        if (attrs->albedo_map) {
+            auto map_type = GLTextureMapType::AlbedoMap;
+            textures_.Bind(m->albedo_map, map_type);
+            const auto& transform = m->albedo_map->GetTransform();
+            program->SetUniform(Uniform::AlbedoMap, &map_type);
+            program->SetUniform(Uniform::TextureTransform, &transform);
+        }
+
+        if (attrs->alpha_map) {
+            auto map_type = GLTextureMapType::AlphaMap;
+            textures_.Bind(m->alpha_map, map_type);
+            program->SetUniform(Uniform::AlphaMap, &map_type);
+        }
+    }
+
+    if (attrs->type == MaterialType::UnlitMaterial) {
+        auto m = static_cast<UnlitMaterial*>(material);
+        program->SetUniform(Uniform::Color, &m->color);
+
+        if (attrs->albedo_map) {
+            auto map_type = GLTextureMapType::AlbedoMap;
+            textures_.Bind(m->albedo_map, map_type);
+            const auto& transform = m->albedo_map->GetTransform();
+            program->SetUniform(Uniform::AlbedoMap, &map_type);
+            program->SetUniform(Uniform::TextureTransform, &transform);
+        }
+
+        if (attrs->alpha_map) {
+            auto map_type = GLTextureMapType::AlphaMap;
+            textures_.Bind(m->alpha_map, map_type);
+            program->SetUniform(Uniform::AlphaMap, &map_type);
         }
     }
 }

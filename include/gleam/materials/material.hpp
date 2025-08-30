@@ -23,9 +23,10 @@ namespace gleam {
  * @ingroup MaterialsGroup
  */
 enum class MaterialType {
-    UnlitMaterial,
     PhongMaterial,
     ShaderMaterial,
+    SpriteMaterial,
+    UnlitMaterial,
     Length,
 };
 
@@ -95,12 +96,14 @@ public:
      */
     [[nodiscard]] inline static auto TypeToString(MaterialType type) {
         switch(type) {
-            case MaterialType::UnlitMaterial:
-                return "flat";
             case MaterialType::PhongMaterial:
-                return "phong";
+                return "phong_material";
             case MaterialType::ShaderMaterial:
-                return "shader";
+                return "shader_material";
+            case MaterialType::SpriteMaterial:
+                return "sprite_material";
+            case MaterialType::UnlitMaterial:
+                return "unlit_material";
             default:
                 return "unkonwn";
         }

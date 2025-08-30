@@ -13,6 +13,7 @@
 #include "gleam/materials/unlit_material.hpp"
 #include "gleam/materials/phong_material.hpp"
 #include "gleam/materials/shader_material.hpp"
+#include "gleam/materials/sprite_material.hpp"
 
 #include "utilities/logger.hpp"
 
@@ -30,13 +31,6 @@ ProgramAttributes::ProgramAttributes(
 
     type = material->GetType();
 
-    if (type == MaterialType::UnlitMaterial) {
-        auto m = static_cast<const UnlitMaterial*>(material);
-        color = true;
-        albedo_map = m->albedo_map != nullptr;
-        alpha_map = m->alpha_map != nullptr;
-    }
-
     if (type == MaterialType::PhongMaterial) {
         auto m = static_cast<const PhongMaterial*>(material);
         color = true;
@@ -48,6 +42,20 @@ ProgramAttributes::ProgramAttributes(
         auto m = static_cast<const ShaderMaterial*>(material);
         vertex_shader = m->vertex_shader_;
         fragment_shader = m->fragment_shader_;
+    }
+
+    if (type == MaterialType::SpriteMaterial) {
+        auto m = static_cast<const SpriteMaterial*>(material);
+        color = true;
+        albedo_map = m->albedo_map != nullptr;
+        alpha_map = m->alpha_map != nullptr;
+    }
+
+    if (type == MaterialType::UnlitMaterial) {
+        auto m = static_cast<const UnlitMaterial*>(material);
+        color = true;
+        albedo_map = m->albedo_map != nullptr;
+        alpha_map = m->alpha_map != nullptr;
     }
 
     flat_shaded = material->flat_shaded;

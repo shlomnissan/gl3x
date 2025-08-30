@@ -7,9 +7,10 @@
 
 #include "core/shader_library.hpp"
 
-#include "gleam/materials/unlit_material.hpp"
 #include "gleam/materials/phong_material.hpp"
 #include "gleam/materials/shader_material.hpp"
+#include "gleam/materials/sprite_material.hpp"
+#include "gleam/materials/unlit_material.hpp"
 
 #include "utilities/logger.hpp"
 
@@ -17,6 +18,8 @@
 #include "shaders/headers/unlit_material_frag.h"
 #include "shaders/headers/phong_material_vert.h"
 #include "shaders/headers/phong_material_frag.h"
+#include "shaders/headers/sprite_material_vert.h"
+#include "shaders/headers/sprite_material_frag.h"
 #include "shaders/snippets/headers/vert_global_params_glsl.h"
 #include "shaders/snippets/headers/vert_main_varyings_glsl.h"
 #include "shaders/snippets/headers/frag_global_fog_glsl.h"
@@ -28,16 +31,6 @@
 namespace gleam {
 
 auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std::vector<ShaderInfo> {
-    if (attrs.type == MaterialType::UnlitMaterial) {
-        return {{
-            ShaderType::kVertexShader,
-            ProcessShader(attrs, _SHADER_unlit_material_vert)
-        }, {
-            ShaderType::kFragmentShader,
-            ProcessShader(attrs, _SHADER_unlit_material_frag)
-        }};
-    }
-
     if (attrs.type == MaterialType::PhongMaterial) {
         return {{
             ShaderType::kVertexShader,
@@ -55,6 +48,26 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std
         }, {
             ShaderType::kFragmentShader,
             ProcessShader(attrs, attrs.fragment_shader)
+        }};
+    }
+
+    if (attrs.type == MaterialType::SpriteMaterial) {
+        return {{
+            ShaderType::kVertexShader,
+            ProcessShader(attrs, _SHADER_sprite_material_vert)
+        }, {
+            ShaderType::kFragmentShader,
+            ProcessShader(attrs, _SHADER_sprite_material_frag)
+        }};
+    }
+
+    if (attrs.type == MaterialType::UnlitMaterial) {
+        return {{
+            ShaderType::kVertexShader,
+            ProcessShader(attrs, _SHADER_unlit_material_vert)
+        }, {
+            ShaderType::kFragmentShader,
+            ProcessShader(attrs, _SHADER_unlit_material_frag)
         }};
     }
 

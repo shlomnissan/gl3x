@@ -41,21 +41,12 @@ public:
     Sprite(std::shared_ptr<Material> material);
 
     /**
-     * @brief Creates a shared pointer to a Sprite object.
-     *
-     * @return std::shared_ptr<Sprite>
-     */
-    [[nodiscard]] static auto Create() {
-        return std::make_shared<Sprite>(nullptr);
-    }
-
-    /**
      * @brief Creates a shared pointer to a Sprite object with material.
      *
      * @param material Shared pointer to a SpriteMaterial instance.
      * @return std::shared_ptr<Sprite>
      */
-    [[nodiscard]] static auto Create(std::shared_ptr<Material> material) {
+    [[nodiscard]] static auto Create(std::shared_ptr<Material> material = nullptr) {
         return std::make_shared<Sprite>(material);
     }
 

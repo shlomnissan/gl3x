@@ -1,6 +1,6 @@
 #version 410 core
 
-#extension GL_ARB_shading_language_include : enable
+#extension GL_GOOGLE_include_directive : enable
 
 #pragma inject_attributes
 
