@@ -9,6 +9,7 @@
 
 #include "gleam/geometries/geometry.hpp"
 #include "gleam/materials/material.hpp"
+#include "gleam/math/frustum.hpp"
 #include "gleam/nodes/node.hpp"
 
 #include <memory>
@@ -34,6 +35,16 @@ public:
     [[nodiscard]] auto GetNodeType() const -> NodeType override {
         return NodeType::RenderableNode;
     }
+
+    [[nodiscard]] auto IsRenderable() const -> bool override {
+        return true;
+    }
+
+    [[nodiscard]] static auto CanRender(Renderable* r) -> bool;
+
+    [[nodiscard]] static auto IsInFrustum(Renderable* r, const Frustum& frustum) -> bool;
+
+    [[nodiscard]] static auto IsMeshType(Renderable* r) -> bool;
 
 protected:
     Renderable() = default;

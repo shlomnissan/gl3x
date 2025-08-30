@@ -23,14 +23,6 @@
 
 namespace gleam {
 
-namespace {
-
-auto IsValidRenderable(Renderable* r) -> bool;
-auto IsVisibleRenderable(Renderable* r, const Frustum& frustum) -> bool;
-auto IsMesh(Renderable* r) -> bool;
-
-}
-
 Renderer::Impl::Impl(const Renderer::Parameters& params)
   : params_(params),
     render_lists_(std::make_unique<RenderLists>()) {
@@ -57,8 +49,8 @@ auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
 }
 
 auto Renderer::Impl::RenderObject(Renderable* renderable, Scene* scene, Camera* camera) -> void {
-    if (!IsValidRenderable(renderable)) return;
-    if (!IsVisibleRenderable(renderable, frustum_)) return;
+    if (!Renderable::CanRender(renderable)) return;
+    if (!Renderable::IsInFrustum(renderable, frustum_)) return;
 
     auto geometry = renderable->GetGeometry().get();
     auto material = renderable->GetMaterial().get();
@@ -75,7 +67,7 @@ auto Renderer::Impl::RenderObject(Renderable* renderable, Scene* scene, Camera* 
     }
 
     state_.ProcessMaterial(material);
-    if (material->wireframe && IsMesh(renderable)) {
+    if (material->wireframe && Renderable::IsMeshType(renderable)) {
         const auto mesh = static_cast<Mesh*>(renderable);
         buffers_.Bind(mesh->GetWireframeGeometry());
         geometry = mesh->GetWireframeGeometry().get();
@@ -245,54 +237,5 @@ auto Renderer::Impl::SetClearColor(const Color& color) -> void {
 }
 
 Renderer::Impl::~Impl() = default;
-
-
-namespace {
-
-auto IsValidRenderable(Renderable* r) -> bool {
-    const auto level = LogLevel::Error;
-    const auto geometry = r->GetGeometry();
-    const auto material = r->GetMaterial();
-
-    if (geometry == nullptr) {
-        Logger::Log(level, "Skipped rendering a mesh with no valid geometry {}", *r);
-        return false;
-    }
-    if (geometry->Disposed()) {
-        Logger::Log(level, "Skipped rendering a mesh with disposed geometry {}", *r);
-        return false;
-    }
-    if (geometry->VertexData().empty()) {
-        Logger::Log(level, "Skipped rendering a mesh with no geometry data {}", *r);
-        return false;
-    }
-    if (geometry->Attributes().empty()) {
-        Logger::Log(level, "Skipped rendering a mesh with no geometry attributes {}", *r);
-        return false;
-    }
-    if (material == nullptr) {
-        Logger::Log(level, "Skipped rendering a mesh with no valid material {}", *r);
-        return false;
-    }
-
-    return true;
-}
-
-auto IsVisibleRenderable(Renderable* r, const Frustum& frustum) -> bool {
-    if (r->GetNodeType() == NodeType::SpriteNode) return true;
-
-    auto mesh = static_cast<Mesh*>(r);
-    auto bounding_sphere = mesh->BoundingSphere();
-    bounding_sphere.ApplyTransform(mesh->GetWorldTransform());
-
-    return frustum.IntersectsWithSphere(bounding_sphere);
-}
-
-auto IsMesh(Renderable* r) -> bool {
-    return r->GetNodeType() == NodeType::MeshNode ||
-           r->GetNodeType() == NodeType::InstancedMeshNode;
-}
-
-} // unnamed namespace
 
 }

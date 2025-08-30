@@ -157,6 +157,15 @@ public:
     }
 
     /**
+     * @brief Returns true if the node is renderable.
+     *
+     * @return false
+     */
+    [[nodiscard]] virtual auto IsRenderable() const -> bool {
+        return false;
+    }
+
+    /**
      * @brief Creates a shared pointer to a Node object.
      *
      * @return std::shared_ptr<Node>

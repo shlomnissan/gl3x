@@ -34,15 +34,13 @@ auto RenderLists::ProcessScene(Scene* scene) -> void {
 auto RenderLists::ProcessNode(Node* node) -> void {
     const auto type = node->GetNodeType();
 
-    if (
-        type == NodeType::MeshNode ||
-        type == NodeType::InstancedMeshNode ||
-        type == NodeType::SpriteNode
-    ) {
+    if (node->IsRenderable()) {
         auto renderable = static_cast<Renderable*>(node);
-        renderable->GetMaterial()->transparent ?
-            transparent_.emplace_back(renderable) :
-            opaque_.emplace_back(renderable);
+        if (Renderable::CanRender(renderable)) {
+            renderable->GetMaterial()->transparent
+                ? transparent_.emplace_back(renderable)
+                : opaque_.emplace_back(renderable);
+        }
     }
 
     if (type == NodeType::LightNode) {

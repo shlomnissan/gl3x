@@ -42,6 +42,7 @@ set(SOURCE_CODE
     "nodes/mesh.cpp"
     "nodes/node.cpp"
     "nodes/orbit_controls.cpp"
+    "nodes/renderable.cpp"
     "nodes/scene.cpp"
     "nodes/sprite.cpp"
     "renderer/gl/gl_buffers.cpp"
