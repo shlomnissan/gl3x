@@ -17,25 +17,41 @@ auto Renderable::CanRender(Renderable* r) -> bool {
     const auto level = LogLevel::Error;
     const auto geometry = r->GetGeometry();
     const auto material = r->GetMaterial();
+    const auto mat_type = material->GetType();
+    const auto node_type = r->GetNodeType();
 
     if (geometry == nullptr) {
         Logger::Log(level, "Skipped rendering a node with invalid geometry {}", *r);
         return false;
     }
+
     if (geometry->Disposed()) {
         Logger::Log(level, "Skipped rendering a node with disposed geometry {}", *r);
         return false;
     }
+
     if (geometry->VertexData().empty()) {
-        Logger::Log(level, "Skipped rendering a node with no geometry data {}", *r);
+        Logger::Log(level, "Skipped node with no geometry data {}", *r);
         return false;
     }
+
     if (geometry->Attributes().empty()) {
-        Logger::Log(level, "Skipped rendering a node with no vertex attributes {}", *r);
+        Logger::Log(level, "Skipped node with no vertex attributes {}", *r);
         return false;
     }
+
     if (material == nullptr) {
-        Logger::Log(level, "Skipped rendering a node with no valid material {}", *r);
+        Logger::Log(level, "Skipped node with invalid material {}", *r);
+        return false;
+    }
+
+    if (node_type == NodeType::SpriteNode && mat_type != MaterialType::SpriteMaterial) {
+        Logger::Log(level, "Skipped sprite with non-sprite material {}", *r);
+        return false;
+    }
+
+    if (mat_type == MaterialType::SpriteMaterial && node_type != NodeType::SpriteNode) {
+        Logger::Log(level, "Skipped non-sprite node with sprite material {}", *r);
         return false;
     }
 

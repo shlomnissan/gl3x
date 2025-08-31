@@ -12,6 +12,7 @@
 #include "gleam/geometries/geometry.hpp"
 #include "gleam/materials/material.hpp"
 #include "gleam/materials/sprite_material.hpp"
+#include "gleam/math/vector2.hpp"
 #include "gleam/nodes/renderable.hpp"
 
 #include <memory>
@@ -19,19 +20,35 @@
 namespace gleam {
 
 /**
- * @brief Camera-facing quad renderable for billboards, UI, and text.
+ * @brief A sprite is a flat, camera-oriented quad, typically rendered with a texture.
  *
  * Sprite is a unit quad that always faces the active camera. It exposes
- * the minimal Renderable interface so the renderer can draw it.
- *
- * Sprites are commonly used for particles, icons, and text glyphs. Geometry is
- * shared across all sprites and treated as read-only; per-sprite appearance is
- * controlled via the material.
+ * the minimal Renderable interface so the renderer can draw it. Sprites
+ * are commonly used for particles, icons, and text glyphs.
  *
  * @ingroup NodesGroup
  */
 class GLEAM_EXPORT Sprite : public Renderable {
 public:
+    /**
+     * @brief View-space rotation angle in radians applied to the sprite.
+     */
+    float rotation = 0.0f;
+
+    /**
+     * @brief Normalized anchor point inside the sprite.
+     *
+     * Defines the pivot used for placement and rotation of the sprite.
+     *
+     * - `(0.0f, 0.0f)` = lower-left corner of the sprite.
+     * - `(0.5f, 0.5f)` = center of the sprite (default).
+     * - `(1.0f, 1.0f)` = upper-right corner of the sprite.
+     *
+     * The sprite's world-space position corresponds to this anchor point.
+     * Rotation is applied around this pivot.
+     */
+    Vector2 anchor = {0.5f, 0.5f};
+
     /**
      * @brief Constructs a sprite with an optional material.
      *

@@ -14,4 +14,6 @@ public:
     ExampleSprite();
 
     auto OnAttached(gleam::SharedContext* context) -> void override;
+
+    auto OnUpdate(float delta) -> void override;
 };

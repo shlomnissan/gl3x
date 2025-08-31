@@ -7,6 +7,9 @@
 #include "snippets/vert_global_params.glsl"
 #include "snippets/utilities.glsl"
 
+uniform float u_Rotation;
+uniform vec2 u_Anchor;
+
 void main() {
     #include "snippets/vert_main_varyings.glsl"
 
@@ -18,7 +21,12 @@ void main() {
         scale *= -position.z;
     }
 
-    position.xy += a_Position.xy * scale;
+    vec2 offset = (a_Position.xy - (u_Anchor - vec2(0.5))) * scale;
+    vec2 offset_with_rotation = vec2(0.0);
+    offset_with_rotation.x = cos(u_Rotation) * offset.x - sin(u_Rotation) * offset.y;
+    offset_with_rotation.y = sin(u_Rotation) * offset.x + cos(u_Rotation) * offset.y;
+
+    position.xy += offset_with_rotation;
 
     gl_Position = u_Projection * position;
 }

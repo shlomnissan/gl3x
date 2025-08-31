@@ -31,7 +31,7 @@ in vec3 v_Normal;
 in vec3 v_ViewDir;
 in vec4 v_Position;
 
-uniform vec3 u_Color;
 uniform float u_Opacity;
+uniform vec3 u_Color;
 uniform sampler2D u_AlbedoMap;
 uniform sampler2D u_AlphaMap;

@@ -14,6 +14,7 @@
 #include "gleam/math/vector3.hpp"
 #include "gleam/nodes/fog.hpp"
 #include "gleam/nodes/instanced_mesh.hpp"
+#include "gleam/nodes/sprite.hpp"
 
 #include "core/program_attributes.hpp"
 #include "core/render_lists.hpp"
@@ -175,7 +176,11 @@ auto Renderer::Impl::SetUniforms(
 
     if (attrs->type == MaterialType::SpriteMaterial) {
         auto m = static_cast<SpriteMaterial*>(material);
+        auto r = static_cast<Sprite*>(renderable);
+
+        program->SetUniform(Uniform::Anchor, &r->anchor);
         program->SetUniform(Uniform::Color, &m->color);
+        program->SetUniform(Uniform::Rotation, &r->rotation);
 
         if (attrs->albedo_map) {
             auto map_type = GLTextureMapType::AlbedoMap;

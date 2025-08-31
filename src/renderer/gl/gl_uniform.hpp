@@ -36,6 +36,7 @@ enum class Uniform {
     AlbedoMap,
     AlphaMap,
     AmbientLight,
+    Anchor,
     Color,
     FogColor,
     FogDensity,
@@ -48,6 +49,7 @@ enum class Uniform {
     Model,
     Opacity,
     Resolution,
+    Rotation,
     TextureTransform,
     KnownUniformsLength
 };
@@ -57,6 +59,7 @@ constexpr auto get_uniform_loc(std::string_view str) {
     if (str == "u_AlbedoMap") return static_cast<int>(AlbedoMap);
     if (str == "u_AlphaMap") return static_cast<int>(AlphaMap);
     if (str == "u_AmbientLight") return static_cast<int>(AmbientLight);
+    if (str == "u_Anchor") return static_cast<int>(Anchor);
     if (str == "u_Color") return static_cast<int>(Color);
     if (str == "u_Fog.Color") return static_cast<int>(FogColor);
     if (str == "u_Fog.Density") return static_cast<int>(FogDensity);
@@ -69,6 +72,7 @@ constexpr auto get_uniform_loc(std::string_view str) {
     if (str == "u_Model") return static_cast<int>(Model);
     if (str == "u_Opacity") return static_cast<int>(Opacity);
     if (str == "u_Resolution") return static_cast<int>(Resolution);
+    if (str == "u_Rotation") return static_cast<int>(Rotation);
     if (str == "u_TextureTransform") return static_cast<int>(TextureTransform);
     return -1;
 }
@@ -92,7 +96,7 @@ private:
 
     union {
         GLfloat f;
-        GLint   i;
+        GLint i;
         Matrix3 m3;
         Matrix4 m4;
         Vector2 v2;

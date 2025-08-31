@@ -12,6 +12,12 @@
 
 using namespace gleam;
 
+namespace {
+
+std::shared_ptr<Sprite> sprite;
+
+}
+
 ExampleSprite::ExampleSprite() {
     show_context_menu_ = false;
 
@@ -21,7 +27,7 @@ ExampleSprite::ExampleSprite() {
         .color = 0x333333
     }));
 
-    auto sprite = Sprite::Create();
+    sprite = Sprite::Create();
     sprite->SetScale(0.3f);
     Add(sprite);
 }
@@ -31,4 +37,9 @@ auto ExampleSprite::OnAttached(gleam::SharedContext* context) -> void {
         .radius = 3.0f,
         .pitch = math::pi_over_6
     }));
+}
+
+auto ExampleSprite::OnUpdate(float delta) -> void {
+    sprite->anchor = {0.0f, 0.0f};
+    sprite->rotation += 1.0f * delta;
 }
