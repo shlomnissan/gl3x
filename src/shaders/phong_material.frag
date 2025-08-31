@@ -4,10 +4,7 @@
 
 #pragma inject_attributes
 
-#pragma debug(on)
-#pragma optimize(off)
-
-precision highp float;
+precision mediump float;
 
 #include "snippets/frag_global_params.glsl"
 #include "snippets/frag_global_fog.glsl"

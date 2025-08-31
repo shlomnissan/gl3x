@@ -14,17 +14,18 @@
 
 #include "utilities/logger.hpp"
 
-#include "shaders/headers/unlit_material_vert.h"
-#include "shaders/headers/unlit_material_frag.h"
-#include "shaders/headers/phong_material_vert.h"
 #include "shaders/headers/phong_material_frag.h"
-#include "shaders/headers/sprite_material_vert.h"
+#include "shaders/headers/phong_material_vert.h"
 #include "shaders/headers/sprite_material_frag.h"
-#include "shaders/snippets/headers/vert_global_params_glsl.h"
-#include "shaders/snippets/headers/vert_main_varyings_glsl.h"
+#include "shaders/headers/sprite_material_vert.h"
+#include "shaders/headers/unlit_material_frag.h"
+#include "shaders/headers/unlit_material_vert.h"
 #include "shaders/snippets/headers/frag_global_fog_glsl.h"
 #include "shaders/snippets/headers/frag_global_params_glsl.h"
 #include "shaders/snippets/headers/frag_main_normal_glsl.h"
+#include "shaders/snippets/headers/utilities_glsl.h"
+#include "shaders/snippets/headers/vert_global_params_glsl.h"
+#include "shaders/snippets/headers/vert_main_varyings_glsl.h"
 
 #include <unordered_map>
 
@@ -124,11 +125,12 @@ auto ShaderLibrary::InjectAttributes(
 
 auto ShaderLibrary::ResolveIncludes(std::string& source) const -> void {
     static const std::unordered_map<std::string, std::string> include_map = {
-        {"snippets/vert_global_params.glsl", _SNIPPET_vert_global_params},
-        {"snippets/vert_main_varyings.glsl", _SNIPPET_vert_main_varyings},
-        {"snippets/frag_global_params.glsl", _SNIPPET_frag_global_params},
         {"snippets/frag_global_fog.glsl", _SNIPPET_frag_global_fog},
-        {"snippets/frag_main_normal.glsl", _SNIPPET_frag_main_normal}
+        {"snippets/frag_global_params.glsl", _SNIPPET_frag_global_params},
+        {"snippets/frag_main_normal.glsl", _SNIPPET_frag_main_normal},
+        {"snippets/utilities.glsl", _SNIPPET_utilities},
+        {"snippets/vert_global_params.glsl", _SNIPPET_vert_global_params},
+        {"snippets/vert_main_varyings.glsl", _SNIPPET_vert_main_varyings}
     };
 
     for (const auto& [include, content] : include_map) {

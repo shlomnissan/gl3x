@@ -21,7 +21,9 @@ ExampleSprite::ExampleSprite() {
         .color = 0x333333
     }));
 
-    Add(Sprite::Create());
+    auto sprite = Sprite::Create();
+    sprite->SetScale(0.3f);
+    Add(sprite);
 }
 
 auto ExampleSprite::OnAttached(gleam::SharedContext* context) -> void {
