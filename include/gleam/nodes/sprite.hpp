@@ -20,11 +20,30 @@
 namespace gleam {
 
 /**
- * @brief A sprite is a flat, camera-oriented quad, typically rendered with a texture.
+ * @brief Billboarded quad that always faces the active camera.
  *
- * Sprite is a unit quad that always faces the active camera. It exposes
- * the minimal Renderable interface so the renderer can draw it. Sprites
- * are commonly used for particles, icons, and text glyphs.
+ * Sprite is a flat, unit-sized quad oriented toward the camera at all times.
+ * It is usually textured (often with transparency) and exposes the minimal
+ * Renderable interface so it can be submitted to the renderer.
+ *
+ * Common use cases include particles, labels, icons, and world-space markers.
+ *
+ * @code
+ * auto MyNode::OnAttached(gleam::SharedContext* context) -> void override {
+ *   context->Loaders().Texture->LoadAsync(
+ *     "assets/sprite.tex",
+ *     [this](auto result) {
+ *       if (result) {
+ *         auto mat = gleam::SpriteMaterial::Create();
+ *         mat->albedo_map = result.value();
+ *         auto sprite = Sprite::Create(mat);
+ *         sprite->SetScale(0.5f);
+ *         Add(sprite);
+ *       }
+ *     }
+ *   );
+ * }
+ * @endcode
  *
  * @ingroup NodesGroup
  */

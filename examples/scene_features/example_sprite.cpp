@@ -19,10 +19,6 @@ ExampleSprite::ExampleSprite() {
         .divisions = 16,
         .color = 0x333333
     }));
-
-    sprite_ = Sprite::Create();
-    sprite_->SetScale(0.3f);
-    Add(sprite_);
 }
 
 auto ExampleSprite::OnAttached(gleam::SharedContext* context) -> void {
@@ -30,8 +26,24 @@ auto ExampleSprite::OnAttached(gleam::SharedContext* context) -> void {
         .radius = 3.0f,
         .pitch = math::pi_over_6
     }));
+
+    context->Loaders().Texture->LoadAsync(
+        "assets/sprite.tex",
+        [this](auto result) {
+            if (result) {
+                auto material = SpriteMaterial::Create();
+                material->albedo_map = result.value();
+                sprite_ = Sprite::Create(material);
+                sprite_->SetScale(0.15f);
+                sprite_->TranslateY(1.0f);
+                Add(sprite_);
+            }
+        }
+    );
 }
 
 auto ExampleSprite::OnUpdate(float delta) -> void {
-    sprite_->rotation += 1.0f * delta;
+    if (sprite_) {
+        sprite_->rotation += 1.0f * delta;
+    }
 }
