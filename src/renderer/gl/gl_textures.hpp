@@ -9,6 +9,7 @@
 
 #include "gleam/textures/texture.hpp"
 
+#include <array>
 #include <memory>
 #include <string_view>
 #include <unordered_map>
@@ -42,9 +43,9 @@ public:
 private:
     std::vector<std::weak_ptr<Texture>> textures_;
 
-    GLuint current_texture_id_ {0};
+    std::array<GLuint, 16> current_texture_ids_ {};
 
-    auto GenerateTexture(Texture* texture) const -> void;
+    auto GenerateTexture(Texture* texture) const -> GLuint;
 };
 
 }

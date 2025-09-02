@@ -19,34 +19,36 @@ auto GLTextures::Bind(
     const std::shared_ptr<Texture>& texture,
     GLTextureMapType map_type
 ) -> void {
-    auto tex_id = texture->renderer_id;
-    if (tex_id != 0 && tex_id == current_texture_id_) return;
+    auto tex_unit = std::to_underlying(map_type);
+    glActiveTexture(GL_TEXTURE0 + tex_unit);
 
+    auto tex_id = texture->renderer_id;
     if (tex_id == 0) {
-        GenerateTexture(texture.get());
+        tex_id = GenerateTexture(texture.get());
         textures_.emplace_back(texture);
     }
 
-    glActiveTexture(GL_TEXTURE0 + std::to_underlying(map_type));
+    if (tex_id == current_texture_ids_[tex_unit]) return;
+
     glBindTexture(GL_TEXTURE_2D, tex_id);
-    current_texture_id_ = tex_id;
+    current_texture_ids_[tex_unit] = tex_id;
 }
 
-auto GLTextures::GenerateTexture(Texture* texture) const -> void {
+auto GLTextures::GenerateTexture(Texture* texture) const -> GLuint {
     auto& tex_id = texture->renderer_id;
-
     glGenTextures(1, &tex_id);
     glBindTexture(GL_TEXTURE_2D, tex_id);
 
     // Currently, the engine only supports 2D textures.
     auto texture_2d = static_cast<Texture2D*>(texture);
 
-    // Use glTexImage2D instead of glTexStorage2D since we target OpenGL 4.1
+    // Safe defaults for arbitrary row strides
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
     glTexImage2D(
         GL_TEXTURE_2D,
         0,
-        // The engine-specific .tex format guarantees RGBA8 format.
-        GL_RGBA8,
+        GL_RGBA8, // Guaranteed by asset builder
         texture_2d->width,
         texture_2d->height,
         0,
@@ -55,7 +57,13 @@ auto GLTextures::GenerateTexture(Texture* texture) const -> void {
         texture_2d->data.data()
     );
 
+    // Complete without mipmaps
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
     if (glGetError() != GL_NO_ERROR) {
         Logger::Log(LogLevel::Error, "OpenGL error failed to generate texture");
@@ -65,6 +73,8 @@ auto GLTextures::GenerateTexture(Texture* texture) const -> void {
         glDeleteTextures(1, &(static_cast<Texture*>(target)->renderer_id));
         Logger::Log(LogLevel::Info, "Texture buffer cleared {}", *static_cast<Texture*>(target));
     });
+
+    return tex_id;
 }
 
 GLTextures::~GLTextures() {
