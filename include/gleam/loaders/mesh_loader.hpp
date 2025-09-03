@@ -34,18 +34,27 @@ using MeshCallback = std::function<void(std::shared_ptr<Node>)>;
  * encapsulating one or more static Mesh objects.
  *
  * You can convert common 3D model formats (e.g., OBJ, FBX) into `.msh` files using the
- * `asset_builder`—a command-line tool located in the tools directory.
+ * `asset_builder` - a command-line tool located in the tools directory.
  *
  * Explicit instantiation of this class is discouraged due to potential
  * lifetime issues in the current architecture, particularly when used with
  * asynchronous loading. Instead, access it through the Node::OnAttached hook,
  * which provides a reference to the context that owns an instance of this class.
  *
+ * @note Loaders use `std::expect` for error values. Always check that loading
+ * operations return a valid result, and handle the error otherwise.
+ *
  * @code
  * auto MyNode::OnAttached(gleam::SharedContext* context) -> void override {
  *   context->Loaders().Mesh->LoadAsync(
  *     "assets/my_model.msh",
- *     [this](auto result) { this->Add(result.value()); }
+ *     [this](auto result) {
+ *       if (result) {
+ *         this->Add(result.value());
+ *       } else {
+ *         std::cerr << result.error() << '\n';
+ *       }
+ *     }
  *   );
  * }
  * @endcode

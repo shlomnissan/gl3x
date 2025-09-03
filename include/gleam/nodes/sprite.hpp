@@ -39,6 +39,8 @@ namespace gleam {
  *         auto sprite = Sprite::Create(mat);
  *         sprite->SetScale(0.5f);
  *         Add(sprite);
+ *       } else {
+ *         std::cerr << result.error() << '\n';
  *       }
  *     }
  *   );

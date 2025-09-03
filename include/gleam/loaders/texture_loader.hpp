@@ -30,18 +30,27 @@ using TextureCallback = std::function<void(std::shared_ptr<Texture2D>)>;
  * the base Loader API.
  *
  * You can convert standard image formats (e.g., PNG, JPG) into `.tex` files using the
- * `asset_builder`—a command-line tool located in the tools directory.
+ * `asset_builder` - a command-line tool located in the tools directory.
  *
  * Explicit instantiation of this class is discouraged due to potential
  * lifetime issues in the current architecture, particularly when used with
  * asynchronous loading. Instead, access it through the Node::OnAttached hook,
  * which provides a reference to the context that owns an instance of this class.
  *
+ * @note Loaders use `std::expect` for error values. Always check that loading
+ * operations return a valid result, and handle the error otherwise.
+ *
  * @code
  * auto MyNode::OnAttached(gleam::SharedContext* context) -> void override {
  *   context->Loaders().Texture->LoadAsync(
  *     "assets/my_texture.tex",
- *     [this](auto result) { texture_ = result.value(); }
+ *     [this](auto result) {
+ *       if (result) {
+ *         texture_ = result.value();
+ *       } else {
+ *         std::cerr << result.error() << '\n';
+ *       }
+ *      }
  *   );
  * }
  * @endcode

@@ -37,7 +37,11 @@ class Camera;
  *     context->Loaders().Texture->LoadAsync(
  *       "assets/checker.tex",
  *       [this](auto result) {
- *         if (result) texture_ = result.value();
+ *         if (result) {
+ *           texture_ = result.value();
+ *         } else {
+ *           std::cerr << result.error() << '\n';
+ *         }
  *       }
  *     );
  *   }

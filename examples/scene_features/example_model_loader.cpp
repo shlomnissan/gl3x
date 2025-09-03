@@ -12,6 +12,8 @@
 #include <gleam/lights.hpp>
 #include <gleam/materials.hpp>
 
+#include <iostream>
+
 using namespace gleam;
 using namespace gleam::math;
 
@@ -54,6 +56,8 @@ auto ExampleModelLoader::OnAttached(gleam::SharedContext* context) -> void {
                 model_->SetScale(0.005f);
                 model_->TranslateY(-0.4f);
                 sphere_->Add(model_);
+            } else {
+                std::cerr << result.error() << '\n';
             }
         }
     );
@@ -61,7 +65,11 @@ auto ExampleModelLoader::OnAttached(gleam::SharedContext* context) -> void {
     context->Loaders().Texture->LoadAsync(
         "assets/mushroms_Opacity_1002.tex",
         [this](auto result) {
-            if (result) alpha_map_ = result.value();
+            if (result) {
+                alpha_map_ = result.value();
+            } else {
+                std::cerr << result.error() << '\n';
+            }
         }
     );
 }

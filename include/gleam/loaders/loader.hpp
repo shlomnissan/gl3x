@@ -49,10 +49,8 @@ public:
      */
     auto Load(const fs::path& path) const -> LoaderResult<Resource> {
         if (!fs::exists(path)) {
-            const auto message = "File not found '" + path.string() + "'";
-            return std::unexpected(message);
+            return std::unexpected("File not found '" + path.string() + "'");
         }
-
         return LoadImpl(path);
     }
 
@@ -68,8 +66,8 @@ public:
      */
     auto LoadAsync(const fs::path& path, LoaderCallback<Resource> callback) const {
         if (!fs::exists(path)) {
-            const auto message = "File not found '" + path.string() + "'";
-            callback(std::unexpected(message));
+            callback(std::unexpected("File not found '" + path.string() + "'"));
+            return;
         }
 
         auto self = this->shared_from_this();

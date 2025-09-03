@@ -26,7 +26,13 @@ namespace gleam {
  * auto MyNode::OnAttached(gleam::SharedContext* context) -> void override {
  *   context->Loaders().Texture->LoadAsync(
  *     "assets/my_texture.tex",
- *     [this](auto result) { texture_ = result.value(); }
+ *     [this](auto result) {
+ *       if (result) {
+ *         texture_ = result.value();
+ *       } else {
+ *         std::cerr << result.error() << '\n';
+ *       }
+ *     }
  *   );
  * }
  * @endcode

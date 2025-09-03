@@ -13,6 +13,8 @@
 #include <gleam/loaders.hpp>
 #include <gleam/textures.hpp>
 
+#include <iostream>
+
 using namespace gleam;
 
 ExampleUnlitMaterial::ExampleUnlitMaterial() {
@@ -28,7 +30,11 @@ auto ExampleUnlitMaterial::OnAttached(gleam::SharedContext* context) -> void {
     context->Loaders().Texture->LoadAsync(
         "assets/checker.tex",
         [this](auto result) {
-            if (result) texture_ = result.value();
+            if (result) {
+                texture_ = result.value();
+            } else {
+                std::cerr << result.error() << '\n';
+            }
         }
     );
 }

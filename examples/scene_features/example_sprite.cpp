@@ -9,6 +9,8 @@
 
 #include "gleam/nodes/orbit_controls.hpp"
 
+#include <print>
+
 using namespace gleam;
 
 ExampleSprite::ExampleSprite() {
@@ -37,6 +39,8 @@ auto ExampleSprite::OnAttached(gleam::SharedContext* context) -> void {
                 sprite_->SetScale(0.15f);
                 sprite_->TranslateY(1.0f);
                 Add(sprite_);
+            } else {
+                std::print(stderr, "{}", result.error());
             }
         }
     );
