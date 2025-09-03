@@ -52,7 +52,7 @@ using MeshCallback = std::function<void(std::shared_ptr<Node>)>;
  *       if (result) {
  *         this->Add(result.value());
  *       } else {
- *         std::cerr << result.error() << '\n';
+ *         std::println(stderr, "{}", result.error());
  *       }
  *     }
  *   );

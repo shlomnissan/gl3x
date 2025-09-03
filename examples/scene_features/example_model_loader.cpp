@@ -12,7 +12,7 @@
 #include <gleam/lights.hpp>
 #include <gleam/materials.hpp>
 
-#include <iostream>
+#include <print>
 
 using namespace gleam;
 using namespace gleam::math;
@@ -57,7 +57,7 @@ auto ExampleModelLoader::OnAttached(gleam::SharedContext* context) -> void {
                 model_->TranslateY(-0.4f);
                 sphere_->Add(model_);
             } else {
-                std::cerr << result.error() << '\n';
+                std::println(stderr, "{}", result.error());
             }
         }
     );
@@ -68,7 +68,7 @@ auto ExampleModelLoader::OnAttached(gleam::SharedContext* context) -> void {
             if (result) {
                 alpha_map_ = result.value();
             } else {
-                std::cerr << result.error() << '\n';
+                std::println(stderr, "{}", result.error());
             }
         }
     );

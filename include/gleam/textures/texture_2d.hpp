@@ -30,7 +30,7 @@ namespace gleam {
  *       if (result) {
  *         texture_ = result.value();
  *       } else {
- *         std::cerr << result.error() << '\n';
+ *         std::println(stderr, "{}", result.error());
  *       }
  *     }
  *   );

@@ -48,7 +48,7 @@ using TextureCallback = std::function<void(std::shared_ptr<Texture2D>)>;
  *       if (result) {
  *         texture_ = result.value();
  *       } else {
- *         std::cerr << result.error() << '\n';
+ *         std::println(stderr, "{}", result.error());
  *       }
  *      }
  *   );

@@ -8,9 +8,9 @@
 #include "mesh_converter.hpp"
 #include "texture_converter.hpp"
 
-#include <iostream>
-#include <string>
 #include <filesystem>
+#include <print>
+#include <string>
 
 #include "cxxopts.hpp"
 
@@ -56,19 +56,19 @@ auto main(int argc, char** argv) -> int {
     auto options = opts.parse(argc, argv);
 
     if (options.count("help") || argc == 1) {
-        std::cout << opts.help() << "\n";
+        std::println("{}", opts.help());
         return 0;
     }
 
     if (!options.count("input")) {
-        std::cerr << "Error: input file required (-i)\n";
-        std::cout << opts.help() << "\n";
+        std::println(stderr, "Error: input file required (-i)");
+        std::println("{}", opts.help());
         return 1;
     }
 
     auto input = fs::path(options["input"].as<std::string>());
     if (!fs::exists(input)) {
-        std::cerr << "Error: input file does not exist: " << input.string() << "\n";
+        std::println(stderr, "Error: input file does not exist: {}", input.string());
         return 1;
     }
 
@@ -89,16 +89,16 @@ auto main(int argc, char** argv) -> int {
             result = convert_mesh(input, output);
             break;
         default:
-            std::cerr << "Error: unsupported asset type for file: " << input.string() << "\n";
+            std::println(stderr, "Error: unsupported asset type for file: {}", input.string());
             return 1;
     }
 
     if (!result) {
-        std::cerr << "Error: " << result.error() << '\n';
+        std::println(stderr, "Error: {}", result.error());
         return 1;
     }
 
-    std::cout << "Generated " << asset_type_to_str(asset_type) << " " + output.string() + "\n";
+    std::println("Generate {} {}", asset_type_to_str(asset_type), output.string());
 
     return 0;
 }

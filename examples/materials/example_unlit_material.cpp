@@ -13,7 +13,7 @@
 #include <gleam/loaders.hpp>
 #include <gleam/textures.hpp>
 
-#include <iostream>
+#include <print>
 
 using namespace gleam;
 
@@ -33,7 +33,7 @@ auto ExampleUnlitMaterial::OnAttached(gleam::SharedContext* context) -> void {
             if (result) {
                 texture_ = result.value();
             } else {
-                std::cerr << result.error() << '\n';
+                std::println(stderr, "{}", result.error());
             }
         }
     );

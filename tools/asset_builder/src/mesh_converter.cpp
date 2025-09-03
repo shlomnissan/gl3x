@@ -13,7 +13,7 @@
 
 #include <cmath>
 #include <filesystem>
-#include <iostream>
+#include <print>
 #include <string_view>
 #include <unordered_map>
 #include <vector>
@@ -140,7 +140,7 @@ auto convert_texture(
         auto dir = mesh_input_path.parent_path();
         tex_input = dir.append(texture);
         if (!fs::exists(tex_input)) {
-            std::cout << "Failed to load texture " << tex_input << '\n';
+            std::println(stderr, "Failed to load texture {}", tex_input.string());
             return "";
         }
     }
@@ -148,11 +148,11 @@ auto convert_texture(
     auto tex_output = tex_input;
     tex_output.replace_extension(".tex");
     if (auto result = ::convert_texture(tex_input, tex_output); !result) {
-        std::cout << result.error();
+        std::println(stderr, "{}", result.error());
         return "";
     }
 
-    std::cout << "Generated texture " << tex_output.string() << '\n';
+    std::println("Generated texture {}", tex_output.string());
     return tex_path.replace_extension(".tex").string();
 }
 
@@ -286,7 +286,7 @@ auto convert_mesh(
     }
 
     if (!reader.Warning().empty()) {
-        std::cout << "Warning: " << reader.Warning() << '\n';
+        std::println("Warning: {}", reader.Warning());
     }
 
     auto& attrib = reader.GetAttrib();
