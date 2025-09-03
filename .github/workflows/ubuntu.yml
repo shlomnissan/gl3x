@@ -11,10 +11,13 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get -yq update
-          sudo apt-get install -yq cmake ninja-build libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config doxygen graphviz
+          sudo apt-get install -yq cmake ninja-build libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config doxygen graphviz g++-14
           gcc --version
       - name: Configure
         shell: bash
+        env:
+          CC: gcc-14
+          CXX: g++-14
         run: cmake -B ${{github.workspace}}/build --preset="dev-debug" -G "Ninja"
       - name: Build
         shell: bash

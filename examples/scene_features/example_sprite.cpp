@@ -40,7 +40,7 @@ auto ExampleSprite::OnAttached(gleam::SharedContext* context) -> void {
                 sprite_->TranslateY(1.0f);
                 Add(sprite_);
             } else {
-                std::print(stderr, "{}", result.error());
+                std::println(stderr, "{}", result.error());
             }
         }
     );
