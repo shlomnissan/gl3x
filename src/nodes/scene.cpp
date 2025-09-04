@@ -57,7 +57,6 @@ Scene::Scene() : impl_(std::make_unique<Impl>()) {
 
         auto e = static_cast<SceneEvent*>(event);
         if (IsChild(e->node.get())) {
-            touched_ = true;
             if (e->type == NodeAdded) e->node->AttachRecursive(impl_->context);
         }
     });

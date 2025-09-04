@@ -78,6 +78,9 @@ public:
     /// @brief Enables flat shading.
     bool flat_shaded {false};
 
+    /// @brief Enables visibility.
+    bool visible {true};
+
     /// @brief Blending mode used for rendering this material.
     Blending blending {Blending::Normal};
 

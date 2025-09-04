@@ -36,11 +36,14 @@ auto RenderLists::ProcessNode(Node* node) -> void {
 
     if (node->IsRenderable()) {
         auto renderable = static_cast<Renderable*>(node);
-        if (Renderable::CanRender(renderable)) {
-            renderable->GetMaterial()->transparent
-                ? transparent_.emplace_back(renderable)
-                : opaque_.emplace_back(renderable);
-        }
+        auto material = renderable->GetMaterial();
+
+        if (!material->visible) return;
+        if (!Renderable::CanRender(renderable)) return;
+
+        renderable->GetMaterial()->transparent
+            ? transparent_.emplace_back(renderable)
+            : opaque_.emplace_back(renderable);
     }
 
     if (type == NodeType::LightNode) {

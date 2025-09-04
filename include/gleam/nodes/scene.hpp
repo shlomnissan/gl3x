@@ -102,9 +102,6 @@ private:
     class Impl;
     std::unique_ptr<Impl> impl_;
 
-    friend class Renderer;
-    bool touched_ = false;
-
     friend class ApplicationContext;
     auto SetContext(SharedContext* context) -> void;
     auto ProcessUpdates(float delta) -> void;

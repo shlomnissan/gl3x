@@ -92,5 +92,6 @@ auto ExamplePhongMaterial::ContextMenu() -> void {
     UICheckbox("flat_shaded", material_->flat_shaded, _);
     UICheckbox("fog", material_->fog, _);
     UICheckbox("two_sided", material_->two_sided, _);
+    UICheckbox("visible", material_->visible, _);
     UICheckbox("wireframe", material_->wireframe, _);
 }

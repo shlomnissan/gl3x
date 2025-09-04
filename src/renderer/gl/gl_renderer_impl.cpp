@@ -55,7 +55,6 @@ auto Renderer::Impl::RenderObject(Renderable* renderable, Scene* scene, Camera* 
 
     auto geometry = renderable->GetGeometry().get();
     auto material = renderable->GetMaterial().get();
-
     auto attrs = ProgramAttributes {renderable, {
         .directional = lights_.directional,
         .point = lights_.point,
@@ -223,10 +222,7 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     scene->UpdateTransformHierarchy();
     camera->SetViewTransform();
 
-    if (scene->touched_) {
-        render_lists_->ProcessScene(scene);
-        scene->touched_ = false;
-    }
+    render_lists_->ProcessScene(scene);
 
     lights_.Reset();
     for(auto light : render_lists_->Lights()) lights_.AddLight(light, camera);
