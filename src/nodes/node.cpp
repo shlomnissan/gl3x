@@ -32,6 +32,11 @@ struct Node::Impl {
 Node::Node() : impl_(std::make_unique<Impl>()) {};
 
 auto Node::Add(const std::shared_ptr<Node>& node) -> void {
+    if (node == nullptr) {
+        Logger::Log(LogLevel::Error, "Attempting to add invalid node");
+        return;
+    }
+
     if (node->impl_->parent) {
         node->impl_->parent->Remove(node);
     }
@@ -45,6 +50,11 @@ auto Node::Add(const std::shared_ptr<Node>& node) -> void {
 }
 
 auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
+    if (node == nullptr) {
+        Logger::Log(LogLevel::Error, "Attempting to remove invalid node");
+        return;
+    }
+
     auto it = std::ranges::find(impl_->children, node);
     if (it != impl_->children.end()) {
         EventDispatcher::Get().Dispatch(
@@ -56,11 +66,7 @@ auto Node::Remove(const std::shared_ptr<Node>& node) -> void {
         node->impl_->attached = false;
         node->transform.touched = true;
     } else {
-        Logger::Log(
-            LogLevel::Warning,
-            "Attempting to remove a node that was not added to the graph {}",
-            *node
-        );
+        Logger::Log(LogLevel::Warning, "Attempting to remove node that is not in scene {}", *node);
     }
 }
 
@@ -82,6 +88,11 @@ auto Node::Children() const -> const std::vector<std::shared_ptr<Node>>& {
 }
 
 auto Node::IsChild(const Node* node) const -> bool {
+    if (node == nullptr) {
+        Logger::Log(LogLevel::Error, "Attempting to check child relationship of invalid node");
+        return false;
+    }
+
     auto to_process = std::queue<std::shared_ptr<Node>>();
     for (const auto& child : impl_->children) {
         to_process.push(child);
