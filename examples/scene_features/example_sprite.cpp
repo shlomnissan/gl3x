@@ -8,10 +8,18 @@
 #include "example_sprite.hpp"
 
 #include "gleam/nodes/orbit_controls.hpp"
+#include "gleam/nodes/sprite.hpp"
 
 #include <print>
+#include <memory>
 
 using namespace gleam;
+
+namespace {
+
+std::shared_ptr<Sprite> sprite {nullptr};
+
+}
 
 ExampleSprite::ExampleSprite() {
     show_context_menu_ = false;
@@ -35,10 +43,10 @@ auto ExampleSprite::OnAttached(gleam::SharedContext* context) -> void {
             if (result) {
                 auto material = SpriteMaterial::Create();
                 material->albedo_map = result.value();
-                sprite_ = Sprite::Create(material);
-                sprite_->SetScale(0.15f);
-                sprite_->TranslateY(1.0f);
-                Add(sprite_);
+                sprite = Sprite::Create(material);
+                sprite->SetScale(0.15f);
+                sprite->TranslateY(1.0f);
+                Add(sprite);
             } else {
                 std::println(stderr, "{}", result.error());
             }
@@ -47,7 +55,7 @@ auto ExampleSprite::OnAttached(gleam::SharedContext* context) -> void {
 }
 
 auto ExampleSprite::OnUpdate(float delta) -> void {
-    if (sprite_) {
-        sprite_->rotation += 1.0f * delta;
+    if (sprite) {
+        sprite->rotation += 1.0f * delta;
     }
 }

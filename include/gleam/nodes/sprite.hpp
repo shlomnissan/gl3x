@@ -125,6 +125,7 @@ public:
 private:
     /// @cond INTERNAL
     std::shared_ptr<Geometry> geometry_;
+    static auto SharedGeometry() -> std::shared_ptr<Geometry>&;
     /// @endcond
 
     /// @brief Material used to render the sprite.

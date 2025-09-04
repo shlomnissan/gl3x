@@ -9,10 +9,6 @@
 
 #include "example_scene.hpp"
 
-#include "gleam/nodes/sprite.hpp"
-
-#include <memory>
-
 class ExampleSprite : public ExampleScene {
 public:
     ExampleSprite();
@@ -20,7 +16,4 @@ public:
     auto OnAttached(gleam::SharedContext* context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
-
-private:
-    std::shared_ptr<gleam::Sprite> sprite_;
 };
