@@ -46,7 +46,7 @@ public:
 
 private:
     GLBuffers buffers_;
-    GLCamera camera_;
+    GLCamera camera_ubo_;
     GLLights lights_;
     GLPrograms programs_;
     GLState state_;
@@ -60,6 +60,8 @@ private:
 
     size_t rendered_objects_counter_ {0};
     size_t rendered_objects_per_frame_ {0};
+
+    auto ProcessLights(Camera* camera) -> void;
 
     auto RenderObjects(Scene* scene, Camera* camera) -> void;
 

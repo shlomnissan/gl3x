@@ -31,7 +31,7 @@ Renderer::Impl::Impl(const Renderer::Parameters& params)
 }
 
 auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
-    camera_.Update(camera->projection_transform, camera->view_transform);
+    camera_ubo_.Update(camera->projection_transform, camera->view_transform);
     frustum_.SetWithViewProjection(camera->projection_transform * camera->view_transform);
 
     for (auto renderable : render_lists_->Opaque()) {
@@ -50,7 +50,6 @@ auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
 }
 
 auto Renderer::Impl::RenderObject(Renderable* renderable, Scene* scene, Camera* camera) -> void {
-    if (!Renderable::CanRender(renderable)) return;
     if (!Renderable::IsInFrustum(renderable, frustum_)) return;
 
     auto geometry = renderable->GetGeometry().get();
@@ -216,6 +215,16 @@ auto Renderer::Impl::SetUniforms(
     }
 }
 
+auto Renderer::Impl::ProcessLights(Camera* camera) -> void {
+    lights_.Reset();
+
+    for(auto light : render_lists_->Lights()) {
+        lights_.AddLight(light, camera);
+    }
+
+    if (lights_.HasLights()) lights_.Update();
+}
+
 auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -223,12 +232,7 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     camera->SetViewTransform();
 
     render_lists_->ProcessScene(scene);
-
-    lights_.Reset();
-    for(auto light : render_lists_->Lights()) lights_.AddLight(light, camera);
-    if (lights_.HasLights()) {
-        lights_.Update();
-    }
+    ProcessLights(camera);
 
     RenderObjects(scene, camera);
 }
