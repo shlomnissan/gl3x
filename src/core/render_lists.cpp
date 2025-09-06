@@ -18,8 +18,9 @@ namespace gleam {
 auto RenderLists::ProcessScene(Scene* scene, Camera* camera) -> void {
     Reset();
 
+    const auto frustum = camera->GetFrustum();
     for (const auto& child : scene->Children()) {
-        ProcessNode(child.get());
+        ProcessNode(child.get(), frustum);
     }
 
     const auto c = camera->GetWorldPosition();
@@ -35,7 +36,7 @@ auto RenderLists::ProcessScene(Scene* scene, Camera* camera) -> void {
     std::ranges::stable_sort(transparent_, std::ranges::greater {}, compare);
 }
 
-auto RenderLists::ProcessNode(Node* node) -> void {
+auto RenderLists::ProcessNode(Node* node, const Frustum& frustum) -> void {
     const auto type = node->GetNodeType();
 
     if (node->IsRenderable()) {
@@ -44,6 +45,7 @@ auto RenderLists::ProcessNode(Node* node) -> void {
 
         if (!material->visible) return;
         if (!Renderable::CanRender(renderable)) return;
+        if (!Renderable::IsInFrustum(renderable, frustum)) return;
 
         renderable->GetMaterial()->transparent
             ? transparent_.emplace_back(renderable)
@@ -55,7 +57,7 @@ auto RenderLists::ProcessNode(Node* node) -> void {
     }
 
     for (const auto& child : node->Children()) {
-        ProcessNode(child.get());
+        ProcessNode(child.get(), frustum);
     }
 }
 

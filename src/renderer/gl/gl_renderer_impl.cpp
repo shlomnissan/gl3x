@@ -49,11 +49,6 @@ auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
 }
 
 auto Renderer::Impl::RenderObject(Renderable* renderable, Scene* scene, Camera* camera) -> void {
-    if (!Renderable::IsInFrustum(
-        renderable,
-        camera->GetFrustum()
-    )) return;
-
     auto geometry = renderable->GetGeometry().get();
     auto material = renderable->GetMaterial().get();
     auto attrs = ProgramAttributes {renderable, {

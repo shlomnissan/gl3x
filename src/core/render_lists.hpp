@@ -9,6 +9,7 @@
 
 #include "gleam/cameras/camera.hpp"
 #include "gleam/lights/light.hpp"
+#include "gleam/math/frustum.hpp"
 #include "gleam/nodes/node.hpp"
 #include "gleam/nodes/renderable.hpp"
 #include "gleam/nodes/scene.hpp"
@@ -42,7 +43,7 @@ private:
 
     std::vector<Light*> lights_;
 
-    auto ProcessNode(Node*) -> void;
+    auto ProcessNode(Node* node, const Frustum& frustum) -> void;
 
     auto Reset() -> void;
 };
