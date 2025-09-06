@@ -231,7 +231,7 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     scene->UpdateTransformHierarchy();
     camera->SetViewTransform();
 
-    render_lists_->ProcessScene(scene);
+    render_lists_->ProcessScene(scene, camera);
     ProcessLights(camera);
 
     RenderObjects(scene, camera);

@@ -13,22 +13,26 @@
 namespace gleam {
 
 // Compare function for sorting meshes based on their z position.
-const auto& compare = [](auto* mesh) {
-    return mesh->transform.position.z;
-};
 
-auto RenderLists::ProcessScene(Scene* scene) -> void {
+
+auto RenderLists::ProcessScene(Scene* scene, Camera* camera) -> void {
     Reset();
 
     for (const auto& child : scene->Children()) {
         ProcessNode(child.get());
     }
 
+    const auto c = camera->GetWorldPosition();
+    const auto f = camera->ViewForward();
+    const auto compare = [&](auto* renderable) {
+        return Dot(renderable->GetWorldPosition() - c, f);
+    };
+
     // Sort opaque meshes front-to-back to optimize depth buffer writes.
-    std::ranges::sort(opaque_, std::ranges::greater {}, compare);
+    std::ranges::stable_sort(opaque_, std::ranges::less {}, compare);
 
     // Sort transparent meshes back-to-front to ensure correct blending.
-    std::ranges::sort(transparent_, std::ranges::less {}, compare);
+    std::ranges::stable_sort(transparent_, std::ranges::greater {}, compare);
 }
 
 auto RenderLists::ProcessNode(Node* node) -> void {

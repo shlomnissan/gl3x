@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "gleam/cameras/camera.hpp"
 #include "gleam/lights/light.hpp"
 #include "gleam/nodes/node.hpp"
 #include "gleam/nodes/renderable.hpp"
@@ -20,7 +21,7 @@ namespace gleam {
 
 class RenderLists {
 public:
-    auto ProcessScene(Scene* scene) -> void;
+    auto ProcessScene(Scene* scene, Camera* camera) -> void;
 
     [[nodiscard]] auto Opaque() const -> std::span<Renderable* const> {
         return opaque_;
