@@ -16,6 +16,10 @@ auto Camera::SetViewTransform() -> void {
     }
 }
 
+auto Camera::GetFrustum() -> Frustum {
+    return Frustum {projection_transform * view_transform};
+}
+
 auto Camera::LookAt(const Vector3& target) -> void {
     transform.LookAt(target, GetWorldPosition(), up);
 }

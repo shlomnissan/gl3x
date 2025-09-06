@@ -28,10 +28,10 @@ auto RenderLists::ProcessScene(Scene* scene, Camera* camera) -> void {
         return Dot(renderable->GetWorldPosition() - c, f);
     };
 
-    // Sort opaque meshes front-to-back to optimize depth buffer writes.
+    // Sort opaque renderables front-to-back to optimize depth buffer writes.
     std::ranges::stable_sort(opaque_, std::ranges::less {}, compare);
 
-    // Sort transparent meshes back-to-front to ensure correct blending.
+    // Sort transparent renderables back-to-front to ensure correct blending.
     std::ranges::stable_sort(transparent_, std::ranges::greater {}, compare);
 }
 

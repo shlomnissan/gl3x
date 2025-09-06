@@ -9,6 +9,7 @@
 
 #include "gleam_export.h"
 
+#include "gleam/math/frustum.hpp"
 #include "gleam/math/matrix4.hpp"
 #include "gleam/math/vector3.hpp"
 #include "gleam/nodes/node.hpp"
@@ -43,6 +44,11 @@ public:
      * @brief Sets the view transform to the inverse of the node's world transform.
      */
     auto SetViewTransform() -> void;
+
+    /**
+     * @brief Returns the cameras frustum.
+     */
+    auto GetFrustum() -> Frustum;
 
     /**
      * @brief Returns camera type.

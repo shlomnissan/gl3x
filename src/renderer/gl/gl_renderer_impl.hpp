@@ -9,7 +9,6 @@
 
 #include "core/renderer.hpp"
 
-#include "gleam/math/frustum.hpp"
 #include "gleam/nodes/renderable.hpp"
 
 #include "renderer/gl/gl_buffers.hpp"
@@ -53,8 +52,6 @@ private:
     GLTextures textures_;
 
     Renderer::Parameters params_;
-
-    Frustum frustum_;
 
     std::unique_ptr<RenderLists> render_lists_;
 

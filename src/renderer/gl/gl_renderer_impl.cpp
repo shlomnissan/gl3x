@@ -32,7 +32,6 @@ Renderer::Impl::Impl(const Renderer::Parameters& params)
 
 auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
     camera_ubo_.Update(camera->projection_transform, camera->view_transform);
-    frustum_.SetWithViewProjection(camera->projection_transform * camera->view_transform);
 
     for (auto renderable : render_lists_->Opaque()) {
         RenderObject(renderable, scene, camera);
@@ -50,7 +49,10 @@ auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
 }
 
 auto Renderer::Impl::RenderObject(Renderable* renderable, Scene* scene, Camera* camera) -> void {
-    if (!Renderable::IsInFrustum(renderable, frustum_)) return;
+    if (!Renderable::IsInFrustum(
+        renderable,
+        camera->GetFrustum()
+    )) return;
 
     auto geometry = renderable->GetGeometry().get();
     auto material = renderable->GetMaterial().get();
