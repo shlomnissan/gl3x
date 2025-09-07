@@ -62,10 +62,12 @@ auto GLBuffers::GenerateBuffers(Geometry* geometry) -> void {
     auto offset = 0;
     auto stride = 0;
     for (const auto& attr : geometry->Attributes()) {
+        if (attr.type == VertexAttributeType::None) continue;
         stride += attr.item_size;
     }
 
     for (const auto& attr : geometry->Attributes()) {
+        if (attr.type == VertexAttributeType::None) continue;
         auto loc = std::to_underlying(attr.type);
         glVertexAttribPointer(
             loc,

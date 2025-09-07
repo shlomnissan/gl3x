@@ -52,7 +52,6 @@ TEST_F(PlaneGeometryTest, AttributesConfiguredCorrectly) {
 
     const auto& attrs = plane_.Attributes();
 
-    EXPECT_EQ(attrs.size(), 3);
     EXPECT_EQ(attrs[0].type, Position);
     EXPECT_EQ(attrs[0].item_size, 3u);
     EXPECT_EQ(attrs[1].type, Normal);

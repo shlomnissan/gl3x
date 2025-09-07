@@ -15,9 +15,10 @@
 #include "gleam/math/sphere.hpp"
 #include "gleam/math/utilities.hpp"
 
+#include <array>
 #include <memory>
 #include <optional>
-#include <vector>
+#include <utility>
 
 namespace gleam {
 
@@ -35,7 +36,8 @@ enum class VertexAttributeType {
     UV = 2, ///< Texture coordinates.
     Color = 3, ///< Vertex color.
     InstanceColor = 4, ///< Instance color.
-    InstanceTransform = 5 ///< Instance transform.
+    InstanceTransform = 5, ///< Instance transform.
+    None
 };
 
 /**
@@ -54,9 +56,9 @@ enum class GeometryPrimitiveType {
  */
 struct GeometryAttribute {
     /// @brief Semantic type of the attribute.
-    VertexAttributeType type;
+    VertexAttributeType type = VertexAttributeType::None;
     /// @brief Number of components (e.g., 3 for Vector3).
-    unsigned int item_size;
+    unsigned int item_size = 0;
 };
 
 /**
@@ -215,7 +217,9 @@ protected:
     std::optional<Sphere> bounding_sphere_;
 
     /// @brief Vertex attribute metadata.
-    std::vector<GeometryAttribute> attributes_;
+    std::array<GeometryAttribute, std::to_underlying(
+        VertexAttributeType::None
+    )> attributes_ {};
 
     /**
      * @brief Computes and caches the bounding box.

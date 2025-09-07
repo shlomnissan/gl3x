@@ -27,13 +27,17 @@ auto Geometry::SetAttribute(const GeometryAttribute &attribute) -> void {
     assert(attribute.type != InstanceColor);
     assert(attribute.type != InstanceTransform);
 
-    attributes_.emplace_back(attribute);
+    auto idx = std::to_underlying(attribute.type);
+    if (HasAttribute(attribute.type)) {
+        Logger::Log(LogLevel::Warning, "Vertex attribute {} already exists", idx);
+        return;
+    }
+
+    attributes_[std::to_underlying(attribute.type)] = attribute;
 }
 
 auto Geometry::HasAttribute(VertexAttributeType type) const -> bool {
-    return std::ranges::any_of(attributes_, [type](const auto& attr){
-        return attr.type == type;
-    });
+    return attributes_[std::to_underlying(type)].type != VertexAttributeType::None;
 }
 
 auto Geometry::VertexCount() const -> size_t {

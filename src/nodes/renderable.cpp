@@ -43,8 +43,8 @@ auto Renderable::CanRender(Renderable* r) -> bool {
         return false;
     }
 
-    if (geometry->Attributes().empty()) {
-        Logger::Log(level, "Skipped node with no vertex attributes {}", *r);
+    if (!geometry->HasAttribute(VertexAttributeType::Position)) {
+        Logger::Log(level, "Skipped node with no vertex positions {}", *r);
         return false;
     }
 

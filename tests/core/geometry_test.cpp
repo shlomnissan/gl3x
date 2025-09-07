@@ -10,6 +10,7 @@
 #include <gleam/geometries/geometry.hpp>
 
 #include <vector>
+#include <utility>
 
 using enum gleam::VertexAttributeType;
 
@@ -17,10 +18,16 @@ using enum gleam::VertexAttributeType;
 
 TEST(Geometry, DefaultConstruction) {
     const auto geometry = gleam::Geometry::Create();
+    const auto attribs = geometry->Attributes();
 
     EXPECT_TRUE(geometry->VertexData().empty());
     EXPECT_TRUE(geometry->IndexData().empty());
-    EXPECT_TRUE(geometry->Attributes().empty());
+    EXPECT_EQ(attribs[std::to_underlying(Position)].type, None);
+    EXPECT_EQ(attribs[std::to_underlying(UV)].type, None);
+    EXPECT_EQ(attribs[std::to_underlying(Color)].type, None);
+    EXPECT_EQ(attribs[std::to_underlying(InstanceColor)].type, None);
+    EXPECT_EQ(attribs[std::to_underlying(InstanceTransform)].type, None);
+    EXPECT_EQ(attribs[std::to_underlying(Normal)].type, None);
 }
 
 TEST(Geometry, InitializeWithVertexAndIndexData) {
@@ -52,9 +59,9 @@ TEST(Geometry, AddAttribute) {
 
     const auto& attribs = geometry->Attributes();
 
-    EXPECT_EQ(attribs.size(), 1);
-    EXPECT_EQ(attribs.front().type, Position);
-    EXPECT_EQ(attribs.front().item_size, 3);
+    auto idx = std::to_underlying(gleam::VertexAttributeType::Position);
+    EXPECT_EQ(attribs[idx].type, Position);
+    EXPECT_EQ(attribs[idx].item_size, 3);
 }
 
 TEST(Geometry, AddMultipleAttributes) {
@@ -68,9 +75,12 @@ TEST(Geometry, AddMultipleAttributes) {
 
     const auto& attribs = geometry->Attributes();
 
-    EXPECT_EQ(attribs.size(), 2);
-    EXPECT_EQ(attribs.front().type, Position);
-    EXPECT_EQ(attribs.back().type, UV);
+    EXPECT_EQ(attribs[std::to_underlying(Position)].type, Position);
+    EXPECT_EQ(attribs[std::to_underlying(UV)].type, UV);
+    EXPECT_EQ(attribs[std::to_underlying(Color)].type, None);
+    EXPECT_EQ(attribs[std::to_underlying(InstanceColor)].type, None);
+    EXPECT_EQ(attribs[std::to_underlying(InstanceTransform)].type, None);
+    EXPECT_EQ(attribs[std::to_underlying(Normal)].type, None);
 }
 
 TEST(Geometry, ReturnsTrueIfAttributeExists) {
