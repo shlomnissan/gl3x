@@ -14,6 +14,7 @@
 #include "core/window.hpp"
 
 #include "utilities/performance_graph.hpp"
+#include "utilities/stats.hpp"
 
 namespace gleam {
 
@@ -94,7 +95,11 @@ auto ApplicationContext::Start() -> void {
 
     timer.Start();
 
-    impl_->window->Start([this]() {
+    auto stats = Stats {};
+
+    impl_->window->Start([this, &stats]() {
+
+
         static auto last_frame_time = 0.0;
         static auto last_frame_rate_update = 0.0;
         static auto frame_time_ms = 0.0;
@@ -117,6 +122,8 @@ auto ApplicationContext::Start() -> void {
         }
 
         if (Update(delta)) {
+            stats.BeforeRender(impl_->renderer->RenderedObjectsPerFrame());
+
             const auto start_time = timer.GetElapsedMilliseconds();
             impl_->scene->ProcessUpdates(delta);
             impl_->renderer->Render(impl_->scene.get(), impl_->camera.get());
@@ -124,8 +131,11 @@ auto ApplicationContext::Start() -> void {
 
             frame_time_ms = end_time - start_time;
 
+            stats.AfterRender();
+
             if (params.debug) {
                 impl_->performance_graph->RenderGraph(static_cast<float>(params.width));
+                stats.Draw();
             }
         } else {
             impl_->window->Break();
