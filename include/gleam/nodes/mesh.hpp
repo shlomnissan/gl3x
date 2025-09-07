@@ -108,16 +108,6 @@ public:
     [[nodiscard]] auto GetWireframeGeometry() -> std::shared_ptr<Geometry>;
 
     /**
-     * @brief Returns the mesh's bounding box.
-     */
-    [[nodiscard]] virtual auto BoundingBox() -> Box3;
-
-    /**
-     * @brief Returns the mesh's bounding sphere.
-     */
-    [[nodiscard]] virtual auto BoundingSphere() -> Sphere;
-
-    /**
      * @brief Default destructor.
      */
     virtual ~Mesh() = default;

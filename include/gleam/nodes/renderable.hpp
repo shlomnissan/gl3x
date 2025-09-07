@@ -32,17 +32,19 @@ public:
 
     [[nodiscard]] virtual auto GetMaterial() -> std::shared_ptr<Material> = 0;
 
+    [[nodiscard]] virtual auto BoundingBox() -> Box3;
+
+    [[nodiscard]] virtual auto BoundingSphere() -> Sphere;
+
     [[nodiscard]] auto GetNodeType() const -> NodeType override {
         return NodeType::RenderableNode;
     }
 
-    [[nodiscard]] auto IsRenderable() const -> bool override {
-        return true;
-    }
+    [[nodiscard]] auto IsRenderable() const -> bool override { return true; }
 
     [[nodiscard]] static auto CanRender(Renderable* r) -> bool;
 
-    [[nodiscard]] static auto IsInFrustum(Renderable* r, const Frustum& frustum) -> bool;
+    [[nodiscard]] static auto InFrustum(Renderable* r, const Frustum& frustum) -> bool;
 
     [[nodiscard]] static auto IsMeshType(Renderable* r) -> bool;
 

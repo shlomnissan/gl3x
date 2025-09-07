@@ -13,6 +13,14 @@
 
 namespace gleam {
 
+auto Renderable::BoundingBox() -> Box3 {
+    return GetGeometry()->BoundingBox();
+}
+
+auto Renderable::BoundingSphere() -> Sphere {
+    return GetGeometry()->BoundingSphere();
+}
+
 auto Renderable::CanRender(Renderable* r) -> bool {
     const auto level = LogLevel::Error;
     const auto geometry = r->GetGeometry();
@@ -58,13 +66,9 @@ auto Renderable::CanRender(Renderable* r) -> bool {
     return true;
 }
 
-auto Renderable::IsInFrustum(Renderable* r, const Frustum& frustum) -> bool {
-    if (r->GetNodeType() == NodeType::SpriteNode) return true;
-
-    auto mesh = static_cast<Mesh*>(r);
-    auto bounding_sphere = mesh->BoundingSphere();
-    bounding_sphere.ApplyTransform(mesh->GetWorldTransform());
-
+auto Renderable::InFrustum(Renderable* r, const Frustum& frustum) -> bool {
+    auto bounding_sphere = r->BoundingSphere();
+    bounding_sphere.ApplyTransform(r->GetWorldTransform());
     return frustum.IntersectsWithSphere(bounding_sphere);
 }
 
