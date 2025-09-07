@@ -15,11 +15,11 @@ class Stats {
 public:
     Stats();
 
-    auto BeforeRender(unsigned int n_objects) -> void;
+    auto BeforeRender() -> void;
 
-    auto AfterRender() -> void;
+    auto AfterRender(unsigned n_objects) -> void;
 
-    auto Draw() -> void;
+    auto Draw(float window_width) const -> void;
 
     ~Stats();
 

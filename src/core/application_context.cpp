@@ -13,10 +13,13 @@
 #include "core/renderer.hpp"
 #include "core/window.hpp"
 
-#include "utilities/performance_graph.hpp"
 #include "utilities/stats.hpp"
 
+#include <algorithm>
+
 namespace gleam {
+
+constexpr auto kMaxDelta = 0.1; // 100ms
 
 namespace {
 
@@ -32,16 +35,13 @@ auto create_default_camera(int width, int height) {
 }
 
 struct ApplicationContext::Impl {
-    std::unique_ptr<PerformanceGraph> performance_graph;
     std::shared_ptr<Scene> scene;
     std::shared_ptr<Camera> camera;
     std::unique_ptr<Window> window;
     std::unique_ptr<Renderer> renderer;
     std::unique_ptr<SharedContext> shared_context;
 
-    Impl() {
-        performance_graph = std::make_unique<PerformanceGraph>();
-    }
+    double last_frame_time = 0.0;
 
     auto InitializeWindow(const ApplicationContext::Parameters& params) -> bool {
         const auto window_params = Window::Parameters {
@@ -60,7 +60,7 @@ struct ApplicationContext::Impl {
             .debug = params.debug
         });
 
-        return window->HasErrors() ? false : true;
+        return !window->HasErrors();
     }
 
     auto InitializeRenderer(const ApplicationContext::Parameters& params) -> bool {
@@ -94,51 +94,33 @@ auto ApplicationContext::Start() -> void {
     Setup();
 
     timer.Start();
+    impl_->last_frame_time = timer.GetElapsedSeconds();
 
     auto stats = Stats {};
 
     impl_->window->Start([this, &stats]() {
-
-
-        static auto last_frame_time = 0.0;
-        static auto last_frame_rate_update = 0.0;
-        static auto frame_time_ms = 0.0;
-        static unsigned int frame_count = 0;
-
         const auto now = timer.GetElapsedSeconds();
-        const auto delta = static_cast<float>(now - last_frame_time);
 
-        last_frame_time = now;
-        frame_count++;
+        // Guard against timer anomalies and giant stalls.
+        auto delta_sec = std::clamp(
+            now - impl_->last_frame_time, 0.0, kMaxDelta
+        );
 
-        // update the performance graph every second
-        if (now - last_frame_rate_update >= 1.0) {
-            using enum PerformanceMetric;
-            impl_->performance_graph->AddData(FramesPerSecond, frame_count);
-            impl_->performance_graph->AddData(FrameTime, frame_time_ms);
-            impl_->performance_graph->AddData(RenderedObjects, impl_->renderer->RenderedObjectsPerFrame());
-            frame_count = 0;
-            last_frame_rate_update = now;
+        impl_->last_frame_time = now;
+        const auto delta = static_cast<float>(delta_sec);
+
+        if (!Update(delta)) {
+            impl_->window->Break();
+            return;
         }
 
-        if (Update(delta)) {
-            stats.BeforeRender(impl_->renderer->RenderedObjectsPerFrame());
+        stats.BeforeRender();
+        impl_->scene->ProcessUpdates(delta);
+        impl_->renderer->Render(impl_->scene.get(), impl_->camera.get());
+        stats.AfterRender(impl_->renderer->RenderedObjectsPerFrame());
 
-            const auto start_time = timer.GetElapsedMilliseconds();
-            impl_->scene->ProcessUpdates(delta);
-            impl_->renderer->Render(impl_->scene.get(), impl_->camera.get());
-            const auto end_time = timer.GetElapsedMilliseconds();
-
-            frame_time_ms = end_time - start_time;
-
-            stats.AfterRender();
-
-            if (params.debug) {
-                impl_->performance_graph->RenderGraph(static_cast<float>(params.width));
-                stats.Draw();
-            }
-        } else {
-            impl_->window->Break();
+        if (params.debug) {
+            stats.Draw(static_cast<float>(params.width));
         }
     });
 }

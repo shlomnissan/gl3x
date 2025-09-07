@@ -11,6 +11,10 @@
 
 #include "utilities/data_series.hpp"
 
+#ifdef GLEAM_USE_IMGUI
+#include <imgui/imgui.h>
+#endif
+
 namespace gleam {
 
 struct Stats::Impl {
@@ -24,19 +28,20 @@ struct Stats::Impl {
     double frame_start = 0.0;
     double frame_time = 0.0;
 
+    unsigned last_objects = 0;
     unsigned frame_count = 0;
 
     Impl() {
         last_flush = timer.GetElapsedMilliseconds();
     }
 
-    auto Before(unsigned int n_objects) {
+    auto Before() {
         const auto now = timer.GetElapsedMilliseconds();
 
         while (now - last_flush >= 1000.0) {
             fps_series.Push(static_cast<float>(frame_count));
             frame_time_series.Push(static_cast<float>(frame_time));
-            rendered_objects_series.Push(static_cast<float>(n_objects));
+            rendered_objects_series.Push(last_objects);
             frame_count = 0;
             last_flush += 1000.0;
         }
@@ -45,24 +50,64 @@ struct Stats::Impl {
         ++frame_count;
     }
 
-    auto After() {
+    auto After(unsigned int n_objects) {
         const auto frame_end = timer.GetElapsedMilliseconds();
         frame_time = frame_end - frame_start;
+        last_objects = n_objects;
     }
 };
 
 Stats::Stats() : impl_(std::make_unique<Stats::Impl>()) {}
 
-auto Stats::BeforeRender(unsigned int n_objects) -> void {
-    impl_->Before(n_objects);
+auto Stats::BeforeRender() -> void {
+    impl_->Before();
 }
 
-auto Stats::AfterRender() -> void {
-    impl_->After();
+auto Stats::AfterRender(unsigned int n_objects) -> void {
+    impl_->After(n_objects);
 }
 
-auto Stats::Draw() -> void {
-    // TODO: draw UI
+auto Stats::Draw(float window_width) const -> void {
+#ifdef GLEAM_USE_IMGUI
+    static const float kWindowWidth {250.0f};
+    static const float kWindowHeight {215.0f};
+
+    ImGui::SetNextWindowSize({kWindowWidth, kWindowHeight});
+    ImGui::SetNextWindowPos({window_width - kWindowWidth - 10.0f, 10.0f});
+    ImGui::Begin("Stats", nullptr,
+        ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_NoMove
+    );
+
+    // frames per second
+    ImGui::PushStyleColor(ImGuiCol_PlotHistogram, {0.68f, 0.07f, 0.35f, 1.0f});
+    ImGui::Text("FPS: %.0f", impl_->fps_series.LastValue());
+    ImGui::PlotHistogram(
+        "##FPS",
+        impl_->fps_series.Buffer(), 150, 0, nullptr, 0.0f, 120.0f, {235, 40}
+    );
+    ImGui::PopStyleColor();
+
+    // frame time
+    ImGui::PushStyleColor(ImGuiCol_PlotHistogram, {0.40f, 0.70f, 0.20f, 1.0f});
+    ImGui::Text("Frame Time: %.0fms", impl_->frame_time_series.LastValue());
+    ImGui::PlotHistogram(
+        "##Frame Time",
+        impl_->frame_time_series.Buffer(), 150, 0, nullptr, 0.0f, 10.0f, {235, 40}
+    );
+    ImGui::PopStyleColor();
+
+    // rendered objects
+    ImGui::PushStyleColor(ImGuiCol_PlotHistogram, {0.20f, 0.40f, 0.70f, 1.0f});
+    ImGui::Text("Rendered objects: %.0f", impl_->rendered_objects_series.LastValue());
+    ImGui::PlotHistogram(
+        "##Rendered Objects",
+        impl_->rendered_objects_series.Buffer(), 150, 0, nullptr, 0.0f, 1000.0f, {235, 40}
+    );
+    ImGui::PopStyleColor();
+
+    ImGui::End();
+#endif
 }
 
 Stats::~Stats() = default;
