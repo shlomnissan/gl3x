@@ -68,8 +68,6 @@ set(SOURCE_CODE
     "utilities/file.hpp"
     "utilities/logger.cpp"
     "utilities/logger.hpp"
-    "utilities/performance_graph.cpp"
-    "utilities/performance_graph.hpp"
     "utilities/scoped_timer.hpp"
     "utilities/stats.hpp"
     "utilities/stats.cpp"
