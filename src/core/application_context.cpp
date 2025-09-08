@@ -56,8 +56,7 @@ struct ApplicationContext::Impl {
         shared_context = std::make_unique<SharedContext>(SharedContext::SharedParameters {
             .ratio = window->AspectRatio(),
             .width = window->Width(),
-            .height = window->Height(),
-            .debug = params.debug
+            .height = window->Height()
         });
 
         return !window->HasErrors();
@@ -119,7 +118,7 @@ auto ApplicationContext::Start() -> void {
         impl_->renderer->Render(impl_->scene.get(), impl_->camera.get());
         stats.AfterRender(impl_->renderer->RenderedObjectsPerFrame());
 
-        if (params.debug) {
+        if (params.show_stats) {
             stats.Draw(static_cast<float>(params.width));
         }
     });

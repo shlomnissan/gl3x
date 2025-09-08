@@ -62,7 +62,6 @@ public:
         float ratio; ///< Aspect ratio of the render surface.
         int width; ///< Framebuffer width in pixels.
         int height; ///< Framebuffer height in pixels.
-        bool debug; ///< Whether the engine is running in debug mode.
     };
 
     /**

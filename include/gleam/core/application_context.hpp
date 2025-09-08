@@ -80,7 +80,7 @@ public:
         int height {768}; ///< Window height in pixels.
         int antialiasing {0}; ///< Antialiasing level (e.g., 4x MSAA).
         bool vsync {true}; ///< Enables vertical sync.
-        bool debug {false}; ///< Enables debug mode UI overlays.
+        bool show_stats {false}; ///< Show stats UI overlay.
 
         /**
          * @brief Returns the aspect ratio (width / height).

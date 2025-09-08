@@ -27,7 +27,7 @@ public:
         params.height = 768;
         params.antialiasing = 0;
         params.vsync = false;
-        params.debug = true;
+        params.show_stats = true;
         params.title = "Gleam Engine";
         params.clear_color = 0x444444;
     }
