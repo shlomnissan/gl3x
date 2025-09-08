@@ -27,3 +27,7 @@ Icon
 ._*
 .Spotlight-V100
 .Trashes
+
+node_modules
+docs/.vitepress/cache
+dics/.vitepress/dist

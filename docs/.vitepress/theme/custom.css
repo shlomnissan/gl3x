@@ -1,0 +1,41 @@
+:root {
+  --vp-font-family-heading: 'komet', sans-serif;
+  --vp-home-hero-name-color: var(--vp-c-text-1);
+}
+
+.VPNavBarTitle {
+  .title {
+    font-family: var(--vp-font-family-heading);
+    font-weight: 800;
+  }
+}
+
+.heading {
+  .name {
+    color: var(--vp-c-text-1);
+    font-family: var(--vp-font-family-heading);
+    font-weight: 800;
+  }
+
+  .text {
+    font-size: 2.5rem;
+
+    @media (max-width: 960px) {
+      font-size: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.main {
+  .tagline {
+    padding-top: 0rem;
+
+    @media (max-width: 640px) {
+      font-size: 1rem;
+    }
+  }
+}
