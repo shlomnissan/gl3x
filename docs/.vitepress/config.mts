@@ -15,15 +15,15 @@ export default defineConfig({
       dark: './logo-dark.svg'
     },
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: 'Guide', link: '/' },
+      { text: 'Reference', link: '/reference' }
     ],
     sidebar: [
       {
-        text: 'Examples',
+        text: 'Getting Started',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: 'Installation', link: '/' },
+          { text: 'Creating an Application', link: '/api-examples' }
         ]
       }
     ],

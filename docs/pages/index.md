@@ -1,24 +1,17 @@
----
-# https://vitepress.dev/reference/default-theme-home-page
-layout: home
+# Installation
 
-hero:
-  name: "Gleam"
-  text: "3D Rendering in Modern C++"
-  tagline: Lightweight, flexible, and performance focused
-  actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
+This guide walks you through installing Gleam so you can start using it right away.
 
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
----
+## Requirements
+
+Before building Gleam, make sure your system meets the following requirements:
+- **C++ compiler** with support for **C++23**
+  - GCC 11+, Clang 14+, or MSVC 2022 recommended
+- **CMake** version **3.20 or later**
+- A supported operating system: **macOS**, **Linux**, or **Windows**
+
+## Using CMake
+
+Gleam depends on [CMake](https://cmake.org/) version 3.20 or later for configuration, building, and installation. You’ll also use CMake to integrate Gleam into your own applications.
+
+Before continuing, make sure CMake is installed on your system:
