@@ -36,11 +36,11 @@ namespace gleam {
  * class MyApp : public gleam::Application {
  *  public:
  *   auto Configure() -> void override {
- *     params.title       = "My App";
- *     params.width       = 1280;
- *     params.height      = 720;
+ *     params.title = "My App";
+ *     params.width = 1280;
+ *     params.height = 720;
  *     params.clear_color = 0x444444;
- *     params.vsync       = true;
+ *     params.vsync = true;
  *   }
  *
  *   auto CreateScene() -> std::shared_ptr<gleam::Scene> override {

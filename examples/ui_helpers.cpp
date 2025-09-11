@@ -9,12 +9,37 @@
 
 #include <imgui/imgui.h>
 
-auto UISeparator() -> void {
-    ImGui::Separator();
+auto UICheckbox(Label label, bool& value, bool& dirty) -> void {
+    if (ImGui::Checkbox(label.c_str(), &value)) {
+        dirty = true;
+    }
 }
 
-auto UIText(Label text) -> void {
-    ImGui::Text("%s", text.c_str());
+auto UIColor(Label label, float* color, bool& dirty, Label id) -> void {
+    auto str = std::string {id.empty() ? label : label + "##" + id};
+    if (ImGui::ColorEdit3(str.c_str(), color)) {
+        dirty = true;
+    }
+}
+
+auto UIDropDown(
+    const std::string& label,
+    const std::span<const char*> items,
+    std::string_view selected_value,
+    const std::function<void(std::string_view)>& callback
+) -> void {
+    if (ImGui::BeginCombo(label.c_str(), selected_value.data())) {
+        for (const auto& item : items) {
+            if (ImGui::Selectable(item, selected_value == item)) {
+                callback(item);
+            }
+        }
+        ImGui::EndCombo();
+    }
+}
+
+auto UISeparator() -> void {
+    ImGui::Separator();
 }
 
 auto UISliderFloat(
@@ -47,38 +72,8 @@ auto UISliderUnsigned(
     }
 }
 
-auto UICheckbox(Label label, bool& value, bool& dirty) -> void {
-    if (ImGui::Checkbox(label.c_str(), &value)) {
-        dirty = true;
-    }
-}
-
-auto UIColor(
-    Label label,
-    float* color,
-    bool& dirty,
-    Label id) -> void
-{
-    auto str = std::string {id.empty() ? label : label + "##" + id};
-    if (ImGui::ColorEdit3(str.c_str(), color)) {
-        dirty = true;
-    }
-}
-
-auto UIDropDown(
-    const std::string& label,
-    const std::span<const char*> items,
-    std::string_view selected_value,
-    const std::function<void(std::string_view)>& callback
-) -> void {
-    if (ImGui::BeginCombo(label.c_str(), selected_value.data())) {
-        for (const auto& item : items) {
-            if (ImGui::Selectable(item, selected_value == item)) {
-                callback(item);
-            }
-        }
-        ImGui::EndCombo();
-    }
+auto UIText(Label text) -> void {
+    ImGui::Text("%s", text.c_str());
 }
 
 auto Theme() -> void {

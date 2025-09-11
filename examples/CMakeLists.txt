@@ -1,6 +1,4 @@
 set(SOURCE_CODE
-    "example_sandbox.cpp"
-    "example_sandbox.hpp"
     "example_scene.hpp"
     "ui_helpers.cpp"
     "ui_helpers.hpp"
@@ -22,6 +20,8 @@ set(SOURCE_CODE
     "rendering_effects/example_blending.hpp"
     "rendering_effects/example_fog.cpp"
     "rendering_effects/example_fog.hpp"
+    "sandbox/example_sandbox.cpp"
+    "sandbox/example_sandbox.hpp"
     "scene_features/example_debug_visuals.cpp"
     "scene_features/example_debug_visuals.hpp"
     "scene_features/example_frustum_culling.cpp"
@@ -36,25 +36,31 @@ set(SOURCE_CODE
     "scene_features/example_sprite.hpp"
 )
 
-add_executable(gleam-examples main_runtime.cpp ${SOURCE_CODE})
+add_executable(examples_launcher_runtime launcher_runtime.cpp ${SOURCE_CODE})
+add_executable(examples_launcher_direct launcher_direct.cpp ${SOURCE_CODE})
 
-# disable RTTI and exceptions
-target_compile_options(gleam-examples PRIVATE
+set(BINARIES examples_launcher_runtime examples_launcher_direct)
+
+foreach(BINARY IN LISTS BINARIES)
+
+target_compile_options(${BINARY} PRIVATE
     $<$<CXX_COMPILER_ID:GNU>:-fno-rtti -fno-exceptions>
     $<$<CXX_COMPILER_ID:Clang>:-fno-rtti -fno-exceptions>
     $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti -fno-exceptions>
     $<$<CXX_COMPILER_ID:MSVC>:/GR /EHsc>
 )
 
-target_include_directories(gleam-examples PUBLIC
+target_include_directories(${BINARY} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>
 )
 
-target_link_libraries(gleam-examples PRIVATE gleam)
+target_link_libraries(${BINARY} PRIVATE gleam)
 
 add_custom_command(
-    TARGET gleam-examples POST_BUILD
+    TARGET ${BINARY} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/assets
-    $<TARGET_FILE_DIR:gleam-examples>/assets
+    $<TARGET_FILE_DIR:${BINARY}>/assets
 )
+
+endforeach()

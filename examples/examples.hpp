@@ -9,24 +9,22 @@
 
 #include <vector>
 
-#include <gleam/nodes.hpp>
-
-#include "example_sandbox.hpp"
-#include "materials/example_unlit_material.hpp"
-#include "materials/example_phong_material.hpp"
-#include "materials/example_shader_material.hpp"
+#include "animation/example_animated_transform.hpp"
 #include "lighting/example_directional_light.hpp"
 #include "lighting/example_point_light.hpp"
 #include "lighting/example_spot_light.hpp"
+#include "materials/example_phong_material.hpp"
+#include "materials/example_shader_material.hpp"
+#include "materials/example_unlit_material.hpp"
 #include "rendering_effects/example_blending.hpp"
 #include "rendering_effects/example_fog.hpp"
+#include "sandbox/example_sandbox.hpp"
 #include "scene_features/example_debug_visuals.hpp"
 #include "scene_features/example_frustum_culling.hpp"
 #include "scene_features/example_mesh_instancing.hpp"
 #include "scene_features/example_model_loader.hpp"
 #include "scene_features/example_primitives.hpp"
 #include "scene_features/example_sprite.hpp"
-#include "animation/example_animated_transform.hpp"
 
 static const auto examples = std::vector {
     "- Materials",

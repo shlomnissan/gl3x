@@ -44,13 +44,13 @@ struct Application::Impl {
     double last_frame_time = 0.0;
 
     auto InitializeWindow(const Application::Parameters& params) -> bool {
-        const auto window_params = Window::Parameters {
+        window = std::make_unique<Window>(Window::Parameters{
             .width = params.width,
             .height = params.height,
             .antialiasing = params.antialiasing,
             .vsync = params.vsync
-        };
-        window = std::make_unique<Window>(window_params);
+        });
+
         window->SetTitle(params.title);
 
         shared_context = std::make_unique<SharedContext>(SharedContext::SharedParameters {
@@ -63,11 +63,10 @@ struct Application::Impl {
     }
 
     auto InitializeRenderer(const Application::Parameters& params) -> bool {
-        const auto renderer_params = Renderer::Parameters {
+        renderer = std::make_unique<Renderer>(Renderer::Parameters {
             .width = window->Width(),
             .height = window->Height()
-        };
-        renderer = std::make_unique<Renderer>(renderer_params);
+        });
         renderer->SetClearColor(params.clear_color);
         return true;
     }

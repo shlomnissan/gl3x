@@ -8,19 +8,16 @@
 #include <memory>
 #include <string_view>
 
-#include <gleam/core.hpp>
-#include <gleam/math.hpp>
+#include <gleam/gleam.hpp>
+#include <imgui/imgui.h>
 
 #include "ui_helpers.hpp"
-
 #include "example_scene.hpp"
 #include "examples.hpp"
 
-#include <imgui/imgui.h>
-
 using namespace gleam;
 
-class ExamplesRuntime : public Application {
+class Examples : public Application {
 public:
     auto Configure() -> void override {
         params.width = 1024;
@@ -162,7 +159,7 @@ private:
 };
 
 auto main() -> int {
-    auto app = ExamplesRuntime {};
+    auto app = Examples {};
     app.Start();
 
     return 0;
