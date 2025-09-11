@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/core/application_context.hpp"
+#include "gleam/core/application.hpp"
 
 #include "gleam/cameras/perspective_camera.hpp"
 #include "gleam/core/shared_context.hpp"
@@ -34,7 +34,7 @@ auto create_default_camera(int width, int height) {
 
 }
 
-struct ApplicationContext::Impl {
+struct Application::Impl {
     std::shared_ptr<Scene> scene;
     std::shared_ptr<Camera> camera;
     std::unique_ptr<Window> window;
@@ -43,7 +43,7 @@ struct ApplicationContext::Impl {
 
     double last_frame_time = 0.0;
 
-    auto InitializeWindow(const ApplicationContext::Parameters& params) -> bool {
+    auto InitializeWindow(const Application::Parameters& params) -> bool {
         const auto window_params = Window::Parameters {
             .width = params.width,
             .height = params.height,
@@ -62,7 +62,7 @@ struct ApplicationContext::Impl {
         return !window->HasErrors();
     }
 
-    auto InitializeRenderer(const ApplicationContext::Parameters& params) -> bool {
+    auto InitializeRenderer(const Application::Parameters& params) -> bool {
         const auto renderer_params = Renderer::Parameters {
             .width = window->Width(),
             .height = window->Height()
@@ -73,9 +73,9 @@ struct ApplicationContext::Impl {
     }
 };
 
-ApplicationContext::ApplicationContext() : impl_(std::make_unique<Impl>()) {}
+Application::Application() : impl_(std::make_unique<Impl>()) {}
 
-auto ApplicationContext::Setup() -> void {
+auto Application::Setup() -> void {
     Configure();
 
     impl_->InitializeWindow(params);
@@ -89,7 +89,7 @@ auto ApplicationContext::Setup() -> void {
     SetScene(CreateScene());
 }
 
-auto ApplicationContext::Start() -> void {
+auto Application::Start() -> void {
     Setup();
 
     timer.Start();
@@ -124,24 +124,24 @@ auto ApplicationContext::Start() -> void {
     });
 }
 
-auto ApplicationContext::GetScene() const -> Scene* {
+auto Application::GetScene() const -> Scene* {
     return impl_->scene.get();
 }
 
-auto ApplicationContext::GetCamera() const -> Camera* {
+auto Application::GetCamera() const -> Camera* {
     return impl_->camera.get();
 }
 
-auto ApplicationContext::SetScene(std::shared_ptr<Scene> scene) -> void {
+auto Application::SetScene(std::shared_ptr<Scene> scene) -> void {
     impl_->scene = scene;
     impl_->scene->SetContext(impl_->shared_context.get());
 }
 
-auto ApplicationContext::SetCamera(std::shared_ptr<Camera> camera) -> void {
+auto Application::SetCamera(std::shared_ptr<Camera> camera) -> void {
     impl_->shared_context->params_.camera = camera.get();
     impl_->camera = camera;
 }
 
-ApplicationContext::~ApplicationContext() = default;
+Application::~Application() = default;
 
 }

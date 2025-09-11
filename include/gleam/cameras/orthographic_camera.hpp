@@ -26,7 +26,7 @@ namespace gleam {
  * transformations from their parent objects, only one camera can be active at
  * a time. The active camera is managed by the application’s runtime object:
  * @code
- * class Application : public gleam::ApplicationContext {
+ * class MyApp : public gleam::Application {
  * public:
  *   auto Configure() -> void override {}
  *

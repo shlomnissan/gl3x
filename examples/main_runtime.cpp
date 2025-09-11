@@ -20,7 +20,7 @@
 
 using namespace gleam;
 
-class Application : public ApplicationContext {
+class ExamplesRuntime : public Application {
 public:
     auto Configure() -> void override {
         params.width = 1024;
@@ -162,7 +162,7 @@ private:
 };
 
 auto main() -> int {
-    auto app = Application {};
+    auto app = ExamplesRuntime {};
     app.Start();
 
     return 0;

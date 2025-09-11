@@ -20,34 +20,41 @@
 namespace gleam {
 
 /**
- * @brief Entry point for defining and launching a Gleam application.
+ * @brief Runtime entry point for defining and launching a Gleam app.
  *
- * The `ApplicationContext` class provides the main lifecycle hooks for setting
- * up a Gleam-based application. Users subclass this context and override key
- * methods such as `Configure`, `CreateScene`, and `Update` to define rendering
- * behavior, application parameters, and frame updates.
+ * The `Application` class is the runtime: it sets up the window,
+ * rendering context, a main loop, and calls your hooks. Subclass it and
+ * override `Configure`, `CreateScene`, and `Update` to define behavior.
  *
- * Typical usage involves creating a subclass and overriding the relevant
- * virtual methods:
+ * This is the preferred way to build apps in Gleam. If you need
+ * complete control, you can also assemble a program manually (window,
+ * renderer, loop, etc.), but that is outside the scope of this runtime API.
+ *
+ * Typical usage:
  *
  * @code
- * class MyApp : public gleam::ApplicationContext {
- * public:
+ * class MyApp : public gleam::Application {
+ *  public:
  *   auto Configure() -> void override {
- *     params.title = "My App";
- *     params.width = 1280;
- *     params.height = 720;
+ *     params.title       = "My App";
+ *     params.width       = 1280;
+ *     params.height      = 720;
  *     params.clear_color = 0x444444;
+ *     params.vsync       = true;
  *   }
  *
  *   auto CreateScene() -> std::shared_ptr<gleam::Scene> override {
  *     auto scene = gleam::Scene::Create();
- *     // Add nodes to the scene
+ *     // Add nodes to the scene...
  *     return scene;
  *   }
  *
- *   auto Update(float delta) -> void override {
- *     // Called every frame
+ *   // Optional: override CreateCamera() to provide your own camera.
+ *   // Returning nullptr creates a default perspective camera.
+ *   // auto CreateCamera() -> std::shared_ptr<gleam::Camera> override { ... }
+ *
+ *   auto Update(float delta) -> bool override {
+ *     // Per-frame logic. Return false to exit the main loop.
  *     return true;
  *   }
  * };
@@ -59,13 +66,13 @@ namespace gleam {
  * }
  * @endcode
  *
- * The lifecycle of the application is managed entirely by calling `Start()`.
- * This internally sets up the rendering context, main loop, and invokes
- * user-defined behavior as appropriate.
+ * Calling `Start()` initializes the runtime, constructs the user scene (and
+ * camera, if provided), then runs the main loop while invoking `Update()`
+ * each frame.
  *
  * @ingroup CoreGroup
  */
-class GLEAM_EXPORT ApplicationContext {
+class GLEAM_EXPORT Application {
 public:
     /**
      * @brief Configuration parameters for the application context.
@@ -93,11 +100,11 @@ public:
     };
 
     /**
-     * @brief Constructs an ApplicationContext instance.
+     * @brief Constructs an Application instance.
      *
      * Initializes internal state but does not start the application loop.
      */
-    ApplicationContext();
+    Application();
 
     /**
      * @brief Starts the application loop.
@@ -176,7 +183,7 @@ public:
     /**
      * @brief Destructor.
      */
-    virtual ~ApplicationContext();
+    virtual ~Application();
 
 protected:
     /// @brief Application configuration parameters.

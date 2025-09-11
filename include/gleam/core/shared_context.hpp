@@ -52,7 +52,7 @@ class Camera;
  */
 class GLEAM_EXPORT SharedContext {
 public:
-    friend class ApplicationContext;
+    friend class Application;
 
     /**
      * @brief Runtime parameters shared across systems.

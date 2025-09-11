@@ -12,5 +12,5 @@
  * @brief Core components used throughout the application.
  */
 
-#include "gleam/core/application_context.hpp"
+#include "gleam/core/application.hpp"
 #include "gleam/core/timer.hpp"

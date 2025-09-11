@@ -36,7 +36,7 @@ set(SOURCE_CODE
     "scene_features/example_sprite.hpp"
 )
 
-add_executable(gleam-examples main.cpp ${SOURCE_CODE})
+add_executable(gleam-examples main_runtime.cpp ${SOURCE_CODE})
 
 # disable RTTI and exceptions
 target_compile_options(gleam-examples PRIVATE
