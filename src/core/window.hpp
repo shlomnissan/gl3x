@@ -17,7 +17,6 @@ namespace gleam {
 class Event;
 
 using OnTickCallback = std::function<void()>;
-using OnEventCallback = std::function<void(std::unique_ptr<Event> event)>;
 
 class Window {
 public:
