@@ -19,6 +19,7 @@ enum class EventType {
     Keyboard,
     Mouse,
     Scene,
+    Window,
     Undefined
 };
 

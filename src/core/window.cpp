@@ -27,16 +27,16 @@ auto Window::SetTitle(std::string_view title) -> void {
 }
 
 auto Window::Width() const -> int {
-    return impl_->BufferWidth();
+    return impl_->buffer_width;
 }
 
 auto Window::Height() const -> int {
-    return impl_->BufferHeight();
+    return impl_->buffer_height;
 }
 
 auto Window::AspectRatio() const -> float {
-  return static_cast<float>(impl_->BufferWidth()) /
-         static_cast<float>(impl_->BufferHeight());
+  return static_cast<float>(impl_->buffer_width) /
+         static_cast<float>(impl_->buffer_height);
 };
 
 auto Window::HasErrors() const -> bool {

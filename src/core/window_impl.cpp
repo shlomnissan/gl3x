@@ -9,6 +9,7 @@
 
 #include "gleam/events/keyboard_event.hpp"
 #include "gleam/events/mouse_event.hpp"
+#include "gleam/events/window_event.hpp"
 
 #include "events/event_dispatcher.hpp"
 #include "utilities/logger.hpp"
@@ -29,6 +30,7 @@ static auto glfw_mouse_button_callback(GLFWwindow*, int button, int action, int 
 static auto glfw_scroll_callback(GLFWwindow*, double x, double y) -> void;
 static auto glfw_mouse_button_map(int button) -> MouseButton;
 static auto glfw_keyboard_map(int key) -> Key;
+static auto glfw_framebuffer_size_callback(GLFWwindow*, int w, int h) -> void;
 
 Window::Impl::Impl(const Window::Parameters& params) {
     if (!glfwInit()) {
@@ -39,7 +41,6 @@ Window::Impl::Impl(const Window::Parameters& params) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_ALPHA_BITS, 8);
@@ -69,12 +70,13 @@ Window::Impl::Impl(const Window::Parameters& params) {
 
     glfwSwapInterval(params.vsync ? 1 : 0);
     glfwSetWindowUserPointer(window_, this);
-    glfwGetFramebufferSize(window_, &buffer_width_, &buffer_height_);
+    glfwGetFramebufferSize(window_, &buffer_width, &buffer_height);
 
     glfwSetKeyCallback(window_, glfw_key_callback);
     glfwSetCursorPosCallback(window_, glfw_cursor_pos_callback);
     glfwSetMouseButtonCallback(window_, glfw_mouse_button_callback);
     glfwSetScrollCallback(window_, glfw_scroll_callback);
+    glfwSetFramebufferSizeCallback(window_, glfw_framebuffer_size_callback);
 
 #ifdef GLEAM_USE_IMGUI
     imgui_initialize(window_);
@@ -198,8 +200,8 @@ static auto glfw_scroll_callback(GLFWwindow* window, double x, double y) -> void
     if (imgui_wants_input()) return;
 #endif
 
-    auto event = std::make_unique<MouseEvent>();
     auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
+    auto event = std::make_unique<MouseEvent>();
 
     event->type = MouseEvent::Type::Scrolled;
     event->button = MouseButton::None;
@@ -221,6 +223,23 @@ static auto glfw_mouse_button_map(int button) -> MouseButton {
     }
     return MouseButton::None;
 }
+
+static auto glfw_framebuffer_size_callback(GLFWwindow* window, int w, int h) -> void {
+    auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
+    auto event = std::make_unique<WindowEvent>();
+
+    instance->buffer_width = w;
+    instance->buffer_height = h;
+
+    event->type = WindowEvent::Type::FramebufferSize;
+    event->framebuffer = {
+        static_cast<float>(instance->buffer_width),
+        static_cast<float>(instance->buffer_height)
+    };
+
+    EventDispatcher::Get().Dispatch("window_event", std::move(event));
+}
+
 
 static auto glfw_keyboard_map(int key) -> gleam::Key {
     switch(key) {

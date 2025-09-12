@@ -19,6 +19,9 @@ public:
     double mouse_pos_x {0.0};
     double mouse_pos_y {0.0};
 
+    int buffer_width {0};
+    int buffer_height {0};
+
     explicit Impl(const Window::Parameters& params);
 
     Impl(const Impl&) = delete;
@@ -32,18 +35,11 @@ public:
 
     auto SetTitle(std::string_view title) -> void;
 
-    auto BufferWidth() const { return buffer_width_; }
-
-    auto BufferHeight() const { return buffer_height_; }
-
     auto HasErrors() const { return !initialized_; }
 
     ~Impl();
 
 private:
-    int buffer_width_ {0};
-    int buffer_height_ {0};
-
     bool initialized_ {false};
     bool break_ {false};
 

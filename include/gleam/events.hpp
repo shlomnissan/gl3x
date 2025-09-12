@@ -14,3 +14,4 @@
 #include "gleam/events/keyboard_event.hpp"
 #include "gleam/events/mouse_event.hpp"
 #include "gleam/events/scene_event.hpp"
+#include "gleam/events/window_event.hpp"

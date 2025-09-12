@@ -9,9 +9,11 @@
 
 #include "gleam/cameras/perspective_camera.hpp"
 #include "gleam/core/shared_context.hpp"
+#include "gleam/events/window_event.hpp"
 
 #include "core/renderer.hpp"
 #include "core/window.hpp"
+#include "events/event_dispatcher.hpp"
 
 #include "utilities/stats.hpp"
 
@@ -40,6 +42,7 @@ struct Application::Impl {
     std::unique_ptr<Window> window;
     std::unique_ptr<Renderer> renderer;
     std::unique_ptr<SharedContext> shared_context;
+    std::shared_ptr<EventListener> event_listener;
 
     double last_frame_time = 0.0;
 
@@ -79,6 +82,17 @@ auto Application::Setup() -> void {
 
     impl_->InitializeWindow(params);
     impl_->InitializeRenderer(params);
+
+    // TODO: verify that window and renderer are initialized properly
+
+    impl_->event_listener = std::make_shared<EventListener>([&](Event* event) {
+        if (event->GetType() == EventType::Window) {
+            auto e = static_cast<WindowEvent*>(event);
+            // TODO: impl.
+        }
+    });
+
+    EventDispatcher::Get().AddEventListener("window_event", impl_->event_listener);
 
     SetCamera(CreateCamera());
     if (!impl_->camera) {
@@ -141,6 +155,8 @@ auto Application::SetCamera(std::shared_ptr<Camera> camera) -> void {
     impl_->camera = camera;
 }
 
-Application::~Application() = default;
+Application::~Application() {
+    EventDispatcher::Get().RemoveEventListener("window_event", impl_->event_listener);
+}
 
 }

@@ -55,13 +55,12 @@ public:
     }
 
     auto RemoveEventListenersForEvent(const std::string& name) {
+        // no-op if name doesn't exist
         callbacks_.erase(name);
     }
 
     auto Dispatch(const std::string& name, std::unique_ptr<Event> event) {
-        if (!callbacks_.contains(name)) {
-            return;
-        }
+        if (!callbacks_.contains(name)) return;
         auto& callbacks = callbacks_[name];
         for (auto iter = begin(callbacks); iter != end(callbacks);) {
             if (const auto& callback = iter->lock()) {
