@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "gleam_export.h"
+
 #include "gleam/geometries/geometry.hpp"
 #include "gleam/materials/material.hpp"
 #include "gleam/math/frustum.hpp"
@@ -24,7 +26,7 @@ namespace gleam {
  *
  * @cond INTERNAL
  */
-class Renderable : public Node {
+class GLEAM_EXPORT Renderable : public Node {
 public:
     virtual ~Renderable() = default;
 
