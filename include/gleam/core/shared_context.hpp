@@ -60,10 +60,10 @@ public:
     struct SharedParameters {
         Camera* camera; ///< Current active camera.
         float aspect_ratio; ///< Aspect ratio of the render surface.
-        int window_width; ///< Window width in logical units.
-        int window_height; ///< Window height in logical units.
         int framebuffer_width; ///< Framebuffer width in physical pixels.
         int framebuffer_height; ///< Frambuffer height in physical pixels.
+        int window_width; ///< Window width in logical units.
+        int window_height; ///< Window height in logical units.
     };
 
     /**

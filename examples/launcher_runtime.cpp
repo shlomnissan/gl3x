@@ -21,13 +21,13 @@ class Examples : public Application {
 public:
     auto Configure() -> Application::Parameters override {
         return {
+            .title = "Examples",
+            .clear_color = 0x444444,
             .width = 1024,
             .height = 768,
             .antialiasing = 0,
             .vsync = false,
-            .show_stats = true,
-            .title = "Examples",
-            .clear_color = 0x444444
+            .show_stats = true
         };
     }
 
