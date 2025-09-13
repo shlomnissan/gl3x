@@ -20,13 +20,13 @@
 namespace gleam {
 
 /**
- * @brief Runtime entry point for defining and launching a Gleam app.
+ * @brief The runtime entry point for defining and launching an app.
  *
  * The `Application` class is the runtime: it sets up the window,
  * rendering context, a main loop, and calls your hooks. Subclass it and
  * override `Configure`, `CreateScene`, and `Update` to define behavior.
  *
- * This is the preferred way to build apps in Gleam. If you need
+ * This is the preferred way to initialize a new app. If you need
  * complete control, you can also assemble a program manually (window,
  * renderer, loop, etc.), but that is outside the scope of this runtime API.
  *
@@ -35,12 +35,15 @@ namespace gleam {
  * @code
  * class MyApp : public gleam::Application {
  *  public:
- *   auto Configure() -> void override {
- *     params.title = "My App";
- *     params.width = 1280;
- *     params.height = 720;
- *     params.clear_color = 0x444444;
- *     params.vsync = true;
+ *   auto Configure() -> Application::Parameters override {
+ *     return {
+ *       .title = "My App",
+ *       .width = 1024,
+ *       .height = 768,
+ *       .clear_color = 0x444444,
+ *       .vsync = true,
+ *       .show_stats = true
+ *     };
  *   }
  *
  *   auto CreateScene() -> std::shared_ptr<gleam::Scene> override {
@@ -76,12 +79,9 @@ class GLEAM_EXPORT Application {
 public:
     /**
      * @brief Configuration parameters for the application context.
-     *
-     * These values control window properties, rendering options, and debug settings.
-     * Modify them by overriding the `Configure()` method in your subclass.
      */
     struct Parameters {
-        std::string title {"Gleam Application"}; ///< Window title.
+        std::string title {"Application"}; ///< Window title.
         Color clear_color {0x000000}; ///< Background clear color.
         int width {1024}; ///< Window width in pixels.
         int height {768}; ///< Window height in pixels.
@@ -106,16 +106,22 @@ public:
     auto Start() -> void;
 
     /**
-     * @brief Optional user configuration step.
+     * @brief Provides configuration parameters for the application.
      *
-     * Override to customize the application parameters before startup.
+     * Override this method to customize window settings, clear color,
+     * antialiasing, vsync, and other runtime options before the
+     * application starts.
+     *
+     * @return Parameters struct containing application configuration.
      */
-    virtual auto Configure() -> void {};
+    virtual auto Configure() -> Parameters {
+        return Parameters {};
+    };
 
     /**
      * @brief Creates the root scene graph.
      *
-     * This method **must be implemented** by the user and returns the primary
+     * This method must be implemented by the user and returns the primary
      * scene used for rendering and updates.
      *
      * @return std::shared_ptr<Scene>
@@ -126,7 +132,7 @@ public:
      * @brief Creates the main camera.
      *
      * This method can be optionally overridden. If null is returned, a default
-     * 3D perspective camera will be created automatically.
+     * perspective camera will be created automatically.
      *
      * @return std::shared_ptr<Camera>
      */
@@ -135,7 +141,7 @@ public:
     /**
      * @brief Per-frame update callback.
      *
-     * This method **must be implemented** and is called every frame with the
+     * This method must be implemented and is called every frame with the
      * elapsed time since the last frame. Return `false` to exit the main loop.
      *
      * @param delta Time in seconds since the last frame.
@@ -143,6 +149,18 @@ public:
      */
     virtual auto Update(float delta) -> bool = 0;
 
+    /**
+     * @brief Returns the runtime parameters shared across subsystems.
+     *
+     * These values are populated once the application is initialized and
+     * reflect the current state of the runtime (e.g., active camera,
+     * aspect ratio, framebuffer and window sizes).
+     *
+     * Useful for querying real window/framebuffer dimensions or the
+     * current camera when setting up nodes at runtime.
+     *
+     * @return SharedContext::SharedParameters containing current runtime parameters.
+     */
     [[nodiscard]] auto GetParameters() const -> SharedContext::SharedParameters;
 
     /**
@@ -178,16 +196,14 @@ public:
      */
     virtual ~Application();
 
-protected:
-    /// @brief Application configuration parameters.
-    Parameters params;
-
 private:
     /// @cond INTERNAL
     class Impl;
     std::unique_ptr<Impl> impl_;
 
     Timer timer_ {false};
+
+    bool show_stats_ = false;
 
     auto Setup() -> void;
     /// @endcond

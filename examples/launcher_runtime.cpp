@@ -19,14 +19,16 @@ using namespace gleam;
 
 class Examples : public Application {
 public:
-    auto Configure() -> void override {
-        params.width = 1024;
-        params.height = 768;
-        params.antialiasing = 0;
-        params.vsync = false;
-        params.show_stats = true;
-        params.title = "Gleam Engine";
-        params.clear_color = 0x444444;
+    auto Configure() -> Application::Parameters override {
+        return {
+            .width = 1024,
+            .height = 768,
+            .antialiasing = 0,
+            .vsync = false,
+            .show_stats = true,
+            .title = "Examples",
+            .clear_color = 0x444444
+        };
     }
 
     auto CreateScene() -> std::shared_ptr<Scene> override {

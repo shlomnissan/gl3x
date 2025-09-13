@@ -80,12 +80,15 @@ struct Application::Impl {
 Application::Application() : impl_(std::make_unique<Impl>()) {}
 
 auto Application::Setup() -> void {
-    Configure();
+    const auto params = Configure();
+
+    show_stats_ = params.show_stats;
 
     impl_->InitializeWindow(params);
     impl_->InitializeRenderer(params);
 
     // TODO: verify that window and renderer are initialized properly
+
     SetCamera(CreateCamera());
     if (!impl_->camera) {
         SetCamera(create_default_camera(
@@ -152,7 +155,7 @@ auto Application::Start() -> void {
         impl_->renderer->Render(impl_->scene.get(), impl_->camera.get());
         stats.AfterRender(impl_->renderer->RenderedObjectsPerFrame());
 
-        if (params.show_stats) {
+        if (show_stats_) {
             stats.Draw(static_cast<float>(GetParameters().window_width));
         }
     });
