@@ -72,7 +72,7 @@ Window::Impl::Impl(const Window::Parameters& params) {
 
     glfwSwapInterval(params.vsync ? 1 : 0);
     glfwSetWindowUserPointer(window_, this);
-    glfwGetFramebufferSize(window_, &buffer_width, &buffer_height);
+    glfwGetFramebufferSize(window_, &framebuffer_width, &framebuffer_height);
     glfwGetWindowSize(window_, &window_width, &window_height);
     glfwGetWindowContentScale(window_, &scale_x, &scale_y);
 
@@ -249,8 +249,8 @@ static auto glfw_framebuffer_size_callback(GLFWwindow* window, int w, int h) -> 
     auto event = std::make_unique<WindowEvent>();
     event->type = WindowEvent::Type::FramebufferResize;
 
-    instance->buffer_width = w;
-    instance->buffer_height = h;
+    instance->framebuffer_width = w;
+    instance->framebuffer_height = h;
 
     prepare_window_event(window, event.get());
 

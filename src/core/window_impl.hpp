@@ -22,8 +22,8 @@ public:
     float scale_x {0.0f};
     float scale_y {0.0f};
 
-    int buffer_width {0};
-    int buffer_height {0};
+    int framebuffer_width {0};
+    int framebuffer_height {0};
     int window_width {0};
     int window_height {0};
 

@@ -88,15 +88,6 @@ public:
         int antialiasing {0}; ///< Antialiasing level (e.g., 4x MSAA).
         bool vsync {true}; ///< Enables vertical sync.
         bool show_stats {false}; ///< Show stats UI overlay.
-
-        /**
-         * @brief Returns the aspect ratio (width / height).
-         *
-         * @return float
-         */
-        [[nodiscard]] auto Ratio() const -> float {
-            return static_cast<float>(width) / static_cast<float>(height);
-        }
     };
 
     /**
@@ -152,6 +143,8 @@ public:
      */
     virtual auto Update(float delta) -> bool = 0;
 
+    [[nodiscard]] auto GetParameters() const -> SharedContext::SharedParameters;
+
     /**
      * @brief Returns the current scene pointer.
      *
@@ -189,13 +182,12 @@ protected:
     /// @brief Application configuration parameters.
     Parameters params;
 
-    /// @brief Internal timer used to calculate frame delta.
-    Timer timer {false};
-
 private:
     /// @cond INTERNAL
     class Impl;
     std::unique_ptr<Impl> impl_;
+
+    Timer timer_ {false};
 
     auto Setup() -> void;
     /// @endcond

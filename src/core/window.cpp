@@ -26,17 +26,25 @@ auto Window::SetTitle(std::string_view title) -> void {
     impl_->SetTitle(title);
 }
 
+auto Window::FramebufferWidth() const -> int {
+    return impl_->framebuffer_width;
+}
+
+auto Window::FramebufferHeight() const -> int {
+    return impl_->framebuffer_height;
+}
+
 auto Window::Width() const -> int {
-    return impl_->buffer_width;
+    return impl_->window_width;
 }
 
 auto Window::Height() const -> int {
-    return impl_->buffer_height;
+    return impl_->window_height;
 }
 
 auto Window::AspectRatio() const -> float {
-  return static_cast<float>(impl_->buffer_width) /
-         static_cast<float>(impl_->buffer_height);
+  return static_cast<float>(impl_->window_width) /
+         static_cast<float>(impl_->window_height);
 };
 
 auto Window::HasErrors() const -> bool {

@@ -33,6 +33,10 @@ public:
 
     ~Window();
 
+    [[nodiscard]] auto FramebufferWidth() const -> int;
+
+    [[nodiscard]] auto FramebufferHeight() const -> int;
+
     [[nodiscard]] auto Width() const -> int;
 
     [[nodiscard]] auto Height() const -> int;

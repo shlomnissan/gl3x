@@ -55,11 +55,13 @@ struct Application::Impl {
         });
 
         window->SetTitle(params.title);
-
         shared_context = std::make_unique<SharedContext>(SharedContext::SharedParameters {
-            .ratio = window->AspectRatio(),
-            .width = window->Width(),
-            .height = window->Height()
+            .camera = camera.get(),
+            .aspect_ratio = window->AspectRatio(),
+            .framebuffer_width = window->FramebufferWidth(),
+            .framebuffer_height = window->FramebufferHeight(),
+            .window_width = window->Width(),
+            .window_height = window->Height()
         });
 
         return !window->HasErrors();
@@ -67,8 +69,8 @@ struct Application::Impl {
 
     auto InitializeRenderer(const Application::Parameters& params) -> bool {
         renderer = std::make_unique<Renderer>(Renderer::Parameters {
-            .width = window->Width(),
-            .height = window->Height()
+            .width = window->FramebufferWidth(),
+            .height = window->FramebufferHeight()
         });
         renderer->SetClearColor(params.clear_color);
         return true;
@@ -86,7 +88,10 @@ auto Application::Setup() -> void {
     // TODO: verify that window and renderer are initialized properly
     SetCamera(CreateCamera());
     if (!impl_->camera) {
-        SetCamera(create_default_camera(params.width, params.height));
+        SetCamera(create_default_camera(
+            GetParameters().window_width,
+            GetParameters().window_height
+        ));
     }
 
     SetScene(CreateScene());
@@ -96,10 +101,21 @@ auto Application::Setup() -> void {
             auto e = static_cast<WindowEvent*>(event);
 
             if (e->type == WindowEvent::Type::FramebufferResize) {
-                const auto iw = static_cast<int>(e->framebuffer.x);
-                const auto ih = static_cast<int>(e->framebuffer.y);
-                impl_->renderer->SetViewport(0, 0, iw, ih);
-                impl_->camera->Resize(iw, ih);
+                const auto w = static_cast<int>(e->framebuffer.x);
+                const auto h = static_cast<int>(e->framebuffer.y);
+
+                impl_->shared_context->params_.framebuffer_width = w;
+                impl_->shared_context->params_.framebuffer_height = h;
+                impl_->renderer->SetViewport(0, 0, w, h);
+                impl_->camera->Resize(w, h);
+            }
+
+            if (e->type == WindowEvent::Type::WindowResize) {
+                const auto w = static_cast<int>(e->window.x);
+                const auto h = static_cast<int>(e->window.y);
+
+                impl_->shared_context->params_.window_width = w;
+                impl_->shared_context->params_.window_height = h;
             }
         }
     });
@@ -110,13 +126,13 @@ auto Application::Setup() -> void {
 auto Application::Start() -> void {
     Setup();
 
-    timer.Start();
-    impl_->last_frame_time = timer.GetElapsedSeconds();
+    timer_.Start();
+    impl_->last_frame_time = timer_.GetElapsedSeconds();
 
     auto stats = Stats {};
 
     impl_->window->Start([this, &stats]() {
-        const auto now = timer.GetElapsedSeconds();
+        const auto now = timer_.GetElapsedSeconds();
 
         // Guard against timer anomalies and giant stalls.
         auto delta_sec = std::clamp(
@@ -137,9 +153,13 @@ auto Application::Start() -> void {
         stats.AfterRender(impl_->renderer->RenderedObjectsPerFrame());
 
         if (params.show_stats) {
-            stats.Draw(static_cast<float>(params.width));
+            stats.Draw(static_cast<float>(GetParameters().window_width));
         }
     });
+}
+
+auto Application::GetParameters() const -> SharedContext::SharedParameters {
+    return impl_->shared_context->Parameters();
 }
 
 auto Application::GetScene() const -> Scene* {
