@@ -53,13 +53,25 @@ class GLEAM_EXPORT OrthographicCamera : public Camera {
 public:
     /// @brief Parameters for constructing an OrthographicCamera object.
     struct Parameters {
-        float left; ///< Camera frustum left plane.
-        float right; ///< Camera frustum right plane.
-        float top; ///< Camera frustum top plane.
-        float bottom; ///< Camera frustum bottom plane.
-        float near; ///< Camera frustum near plane.
-        float far; ///< Camera frustum far plane.
+        float left; ///< Left clipping plane.
+        float right; ///< Right clipping plane.
+        float top; ///< Top clipping plane.
+        float bottom; ///< Bottom clipping plane.
+        float near; ///< Near clipping plane.
+        float far; ///< Far clipping plane.
     };
+
+    /**
+     * @brief Defines how the orthographic projection should adapt on window resize.
+     */
+    enum class ResizePolicy {
+        PixelSpace, ///< Projection matches framebuffer dimensions.
+        FixedVertical, ///< Vertical extent remains constant, horizontal adjusted.
+        FixedHorizontal ///< Horizontal extent remains constant, vertical adjusted.
+    };
+
+    /// @brief The current resize policy for this camera.
+    ResizePolicy resize_policy = ResizePolicy::PixelSpace;
 
    /**
      * @brief Constructs an OrthographicCamera object.
@@ -79,6 +91,16 @@ public:
     }
 
     /**
+     * @brief Updates the projection transform to match the new viewport size.
+     *
+     * @note The behavior depends on the current resize policy.
+     *
+     * @param width Viewport width in pixels.
+     * @param height Viewport height in pixels.
+     */
+    auto Resize(int width, int height) -> void override;
+
+    /**
      * @brief Returns camera type.
      *
      * @return CameraType::OrthographicCamera
@@ -86,6 +108,11 @@ public:
     [[nodiscard]] auto GetType() const -> CameraType override {
         return CameraType::OrthographicCamera;
     }
+
+private:
+    /// @cond INTERNAL
+    Parameters params_;
+    /// @endcond
 };
 
 }

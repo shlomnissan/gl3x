@@ -50,10 +50,10 @@ class GLEAM_EXPORT PerspectiveCamera : public Camera {
 public:
     /// @brief Parameters for constructing an PerspectiveCamera object.
     struct Parameters {
-        float fov; ///< Camera frustum vertical field of view in radians.
-        float aspect; ///< Camera frustum aspect ratio.
-        float near; ///< Camera frustum near plane.
-        float far; ///< Camera frustum far plane.
+        float fov; ///< Vertical field of view in radians.
+        float aspect; ///< Aspect ratio.
+        float near; ///< Distance to the near clipping plane
+        float far; ///< Distance to the far clipping plane
     };
 
     /**
@@ -74,6 +74,27 @@ public:
     }
 
     /**
+     * @brief Updates the projection transform to match the new viewport size.
+     *
+     * @param width Viewport width in pixels.
+     * @param height Viewport height in pixels.
+     */
+    auto Resize(int width, int height) -> void override;
+
+    /**
+     * @brief Configures perspective projection parameters.
+     *
+     * Updates the camera's vertical field of view, near plane, and far plane,
+     * and rebuilds the projection transform accordingly. The aspect ratio
+     * remains unchanged until @ref Resize is called.
+     *
+     * @param fov  Vertical field of view in radians.
+     * @param near Distance to the near clipping plane.
+     * @param far  Distance to the far clipping plane.
+     */
+    auto SetLens(float fov, float near, float far) -> void;
+
+    /**
      * @brief Returns camera type.
      *
      * @return CameraType::PerspectiveCamera
@@ -81,6 +102,11 @@ public:
     [[nodiscard]] auto GetType() const -> CameraType override {
         return CameraType::PerspectiveCamera;
     }
+
+private:
+    /// @cond INTERNAL
+    Parameters params_;
+    /// @endcond
 };
 
 }

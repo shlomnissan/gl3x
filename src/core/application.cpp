@@ -84,22 +84,24 @@ auto Application::Setup() -> void {
     impl_->InitializeRenderer(params);
 
     // TODO: verify that window and renderer are initialized properly
-
-    impl_->event_listener = std::make_shared<EventListener>([&](Event* event) {
-        if (event->GetType() == EventType::Window) {
-            auto e = static_cast<WindowEvent*>(event);
-            // TODO: impl.
-        }
-    });
-
-    EventDispatcher::Get().AddEventListener("window_event", impl_->event_listener);
-
     SetCamera(CreateCamera());
     if (!impl_->camera) {
         SetCamera(create_default_camera(params.width, params.height));
     }
 
     SetScene(CreateScene());
+
+    impl_->event_listener = std::make_shared<EventListener>([&](Event* event) {
+        if (event->GetType() == EventType::Window) {
+            auto e = static_cast<WindowEvent*>(event);
+            impl_->camera->Resize(
+                static_cast<int>(e->framebuffer.x),
+                static_cast<int>(e->framebuffer.y)
+            );
+        }
+    });
+
+    EventDispatcher::Get().AddEventListener("window_event", impl_->event_listener);
 }
 
 auto Application::Start() -> void {

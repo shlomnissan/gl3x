@@ -51,6 +51,14 @@ public:
     auto GetFrustum() -> Frustum;
 
     /**
+     * @brief Updates the projection transform to match the new viewport size.
+     *
+     * @param width Viewport width in pixels.
+     * @param height Viewport height in pixels.
+     */
+    virtual auto Resize(int width, int height) -> void = 0;
+
+    /**
      * @brief Returns camera type.
      *
      * @return CameraType
