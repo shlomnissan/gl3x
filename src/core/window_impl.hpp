@@ -19,8 +19,13 @@ public:
     double mouse_pos_x {0.0};
     double mouse_pos_y {0.0};
 
+    float scale_x {0.0f};
+    float scale_y {0.0f};
+
     int buffer_width {0};
     int buffer_height {0};
+    int window_width {0};
+    int window_height {0};
 
     explicit Impl(const Window::Parameters& params);
 

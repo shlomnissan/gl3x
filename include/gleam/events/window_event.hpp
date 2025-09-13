@@ -27,7 +27,9 @@ struct GLEAM_EXPORT WindowEvent : public Event {
      * @ingroup EventsGroup
      */
     enum class Type {
-        FramebufferSize,
+        FramebufferResize, // Framebuffer resize (physical pixels)
+        WindowResize, // Window resize (logical units)
+        ContentScale // Scaling factor change
     };
 
     /// @brief Window event type.
@@ -35,6 +37,12 @@ struct GLEAM_EXPORT WindowEvent : public Event {
 
     /// @brief Framebuffer size in physical pixels.
     Vector2 framebuffer;
+
+    /// @brief Window size in logical units.
+    Vector2 window;
+
+    /// @brief Scaling factor between logical and physical units.
+    Vector2 scale;
 
     /**
      * @brief Returns event type.

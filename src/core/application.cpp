@@ -95,7 +95,7 @@ auto Application::Setup() -> void {
         if (event->GetType() == EventType::Window) {
             auto e = static_cast<WindowEvent*>(event);
 
-            if (e->type == WindowEvent::Type::FramebufferSize) {
+            if (e->type == WindowEvent::Type::FramebufferResize) {
                 const auto iw = static_cast<int>(e->framebuffer.x);
                 const auto ih = static_cast<int>(e->framebuffer.y);
                 impl_->renderer->SetViewport(0, 0, iw, ih);

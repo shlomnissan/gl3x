@@ -31,6 +31,8 @@ static auto glfw_scroll_callback(GLFWwindow*, double x, double y) -> void;
 static auto glfw_mouse_button_map(int button) -> MouseButton;
 static auto glfw_keyboard_map(int key) -> Key;
 static auto glfw_framebuffer_size_callback(GLFWwindow*, int w, int h) -> void;
+static auto glfw_window_size_callback(GLFWwindow*, int w, int h) -> void;
+static auto glfw_content_scale_callback(GLFWwindow*, float sx, float sy) -> void;
 
 Window::Impl::Impl(const Window::Parameters& params) {
     if (!glfwInit()) {
@@ -71,12 +73,16 @@ Window::Impl::Impl(const Window::Parameters& params) {
     glfwSwapInterval(params.vsync ? 1 : 0);
     glfwSetWindowUserPointer(window_, this);
     glfwGetFramebufferSize(window_, &buffer_width, &buffer_height);
+    glfwGetWindowSize(window_, &window_width, &window_height);
+    glfwGetWindowContentScale(window_, &scale_x, &scale_y);
 
     glfwSetKeyCallback(window_, glfw_key_callback);
     glfwSetCursorPosCallback(window_, glfw_cursor_pos_callback);
     glfwSetMouseButtonCallback(window_, glfw_mouse_button_callback);
     glfwSetScrollCallback(window_, glfw_scroll_callback);
     glfwSetFramebufferSizeCallback(window_, glfw_framebuffer_size_callback);
+    glfwSetWindowSizeCallback(window_, glfw_window_size_callback);
+    glfwSetWindowContentScaleCallback(window_, glfw_content_scale_callback);
 
 #ifdef GLEAM_USE_IMGUI
     imgui_initialize(window_);
@@ -224,18 +230,55 @@ static auto glfw_mouse_button_map(int button) -> MouseButton {
     return MouseButton::None;
 }
 
+static auto prepare_window_event(GLFWwindow* window, WindowEvent* e) {
+    int w = 0; int h = 0;
+    float sx = 0.0f; float sy = 0.0f;
+
+    glfwGetFramebufferSize(window, &w, &h);
+    e->framebuffer = {static_cast<float>(w), static_cast<float>(h)};
+
+    glfwGetWindowSize(window, &w, &h);
+    e->window = {static_cast<float>(w), static_cast<float>(h)};
+
+    glfwGetWindowContentScale(window, &sx, &sy);
+    e->scale = {sx, sy};
+}
+
 static auto glfw_framebuffer_size_callback(GLFWwindow* window, int w, int h) -> void {
     auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
     auto event = std::make_unique<WindowEvent>();
+    event->type = WindowEvent::Type::FramebufferResize;
 
     instance->buffer_width = w;
     instance->buffer_height = h;
 
-    event->type = WindowEvent::Type::FramebufferSize;
-    event->framebuffer = {
-        static_cast<float>(instance->buffer_width),
-        static_cast<float>(instance->buffer_height)
-    };
+    prepare_window_event(window, event.get());
+
+    EventDispatcher::Get().Dispatch("window_event", std::move(event));
+}
+
+static auto glfw_window_size_callback(GLFWwindow* window, int w, int h) -> void {
+    auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
+    auto event = std::make_unique<WindowEvent>();
+    event->type = WindowEvent::Type::WindowResize;
+
+    instance->window_width = w;
+    instance->window_height = h;
+
+    prepare_window_event(window, event.get());
+
+    EventDispatcher::Get().Dispatch("window_event", std::move(event));
+}
+
+static auto glfw_content_scale_callback(GLFWwindow* window, float sx, float sy) -> void {
+    auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
+    auto event = std::make_unique<WindowEvent>();
+    event->type = WindowEvent::Type::ContentScale;
+
+    instance->scale_x = sx;
+    instance->scale_y = sy;
+
+    prepare_window_event(window, event.get());
 
     EventDispatcher::Get().Dispatch("window_event", std::move(event));
 }
