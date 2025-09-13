@@ -35,6 +35,8 @@ public:
 
     auto Render(Scene* scene, Camera* camera) -> void;
 
+    auto SetViewport(int x, int y, int width, int height) -> void;
+
     auto SetClearColor(const Color& color) -> void;
 
     [[nodiscard]] auto RenderedObjectsPerFrame() const {

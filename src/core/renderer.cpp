@@ -18,6 +18,10 @@ auto Renderer::Render(Scene* scene, Camera* camera) -> void {
     impl_->Render(scene, camera);
 }
 
+auto Renderer::SetViewport(int x, int y, int width, int height) -> void {
+    impl_->SetViewport(x, y, width, height);
+}
+
 auto Renderer::SetClearColor(const Color &color) -> void {
     impl_->SetClearColor(color);
 }

@@ -94,10 +94,13 @@ auto Application::Setup() -> void {
     impl_->event_listener = std::make_shared<EventListener>([&](Event* event) {
         if (event->GetType() == EventType::Window) {
             auto e = static_cast<WindowEvent*>(event);
-            impl_->camera->Resize(
-                static_cast<int>(e->framebuffer.x),
-                static_cast<int>(e->framebuffer.y)
-            );
+
+            if (e->type == WindowEvent::Type::FramebufferSize) {
+                const auto iw = static_cast<int>(e->framebuffer.x);
+                const auto ih = static_cast<int>(e->framebuffer.y);
+                impl_->renderer->SetViewport(0, 0, iw, ih);
+                impl_->camera->Resize(iw, ih);
+            }
         }
     });
 
