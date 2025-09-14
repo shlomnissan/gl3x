@@ -23,16 +23,20 @@
 
 namespace gleam {
 
-static auto glfw_get_error() -> std::string;
-static auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, int mods) -> void;
-static auto glfw_cursor_pos_callback(GLFWwindow*, double x, double y) -> void;
-static auto glfw_mouse_button_callback(GLFWwindow*, int button, int action, int mods) -> void;
-static auto glfw_scroll_callback(GLFWwindow*, double x, double y) -> void;
-static auto glfw_mouse_button_map(int button) -> MouseButton;
-static auto glfw_keyboard_map(int key) -> Key;
-static auto glfw_framebuffer_size_callback(GLFWwindow*, int w, int h) -> void;
-static auto glfw_window_size_callback(GLFWwindow*, int w, int h) -> void;
-static auto glfw_content_scale_callback(GLFWwindow*, float sx, float sy) -> void;
+namespace {
+
+auto glfw_get_error() -> std::string;
+auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, int mods) -> void;
+auto glfw_cursor_pos_callback(GLFWwindow*, double x, double y) -> void;
+auto glfw_mouse_button_callback(GLFWwindow*, int button, int action, int mods) -> void;
+auto glfw_scroll_callback(GLFWwindow*, double x, double y) -> void;
+auto glfw_mouse_button_map(int button) -> MouseButton;
+auto glfw_keyboard_map(int key) -> Key;
+auto glfw_framebuffer_size_callback(GLFWwindow*, int w, int h) -> void;
+auto glfw_window_size_callback(GLFWwindow*, int w, int h) -> void;
+auto glfw_content_scale_callback(GLFWwindow*, float sx, float sy) -> void;
+
+}
 
 Window::Impl::Impl(const Window::Parameters& params) {
     if (!glfwInit()) {
@@ -134,15 +138,15 @@ Window::Impl::~Impl() {
     if (initialized_) glfwTerminate();
 }
 
-#pragma region GLFW callbacks
+namespace {
 
-static auto glfw_get_error() -> std::string {
+auto glfw_get_error() -> std::string {
     static const char* error_description;
     glfwGetError(&error_description);
     return error_description;
 }
 
-static auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, int mods) -> void {
+auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, int mods) -> void {
 #ifdef GLEAM_USE_IMGUI
     if (imgui_wants_input()) return;
 #endif
@@ -161,7 +165,7 @@ static auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, in
     }
 }
 
-static auto glfw_cursor_pos_callback(GLFWwindow* window, double x, double y) -> void {
+auto glfw_cursor_pos_callback(GLFWwindow* window, double x, double y) -> void {
     auto event = std::make_unique<MouseEvent>();
     auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
     instance->mouse_pos_x = x;
@@ -175,7 +179,7 @@ static auto glfw_cursor_pos_callback(GLFWwindow* window, double x, double y) -> 
     EventDispatcher::Get().Dispatch("mouse_event", std::move(event));
 }
 
-static auto glfw_mouse_button_callback(GLFWwindow* window, int button, int action, int) -> void {
+auto glfw_mouse_button_callback(GLFWwindow* window, int button, int action, int) -> void {
 #ifdef GLEAM_USE_IMGUI
     if (imgui_wants_input()) return;
 #endif
@@ -201,7 +205,7 @@ static auto glfw_mouse_button_callback(GLFWwindow* window, int button, int actio
     }
 }
 
-static auto glfw_scroll_callback(GLFWwindow* window, double x, double y) -> void {
+auto glfw_scroll_callback(GLFWwindow* window, double x, double y) -> void {
 #ifdef GLEAM_USE_IMGUI
     if (imgui_wants_input()) return;
 #endif
@@ -220,7 +224,7 @@ static auto glfw_scroll_callback(GLFWwindow* window, double x, double y) -> void
     EventDispatcher::Get().Dispatch("mouse_event", std::move(event));
 }
 
-static auto glfw_mouse_button_map(int button) -> MouseButton {
+auto glfw_mouse_button_map(int button) -> MouseButton {
     switch(button) {
         case GLFW_MOUSE_BUTTON_LEFT: return MouseButton::Left;
         case GLFW_MOUSE_BUTTON_RIGHT: return MouseButton::Right;
@@ -230,7 +234,7 @@ static auto glfw_mouse_button_map(int button) -> MouseButton {
     return MouseButton::None;
 }
 
-static auto prepare_window_event(GLFWwindow* window, WindowEvent* e) {
+auto prepare_window_event(GLFWwindow* window, WindowEvent* e) {
     int w = 0; int h = 0;
     float sx = 0.0f; float sy = 0.0f;
 
@@ -244,7 +248,7 @@ static auto prepare_window_event(GLFWwindow* window, WindowEvent* e) {
     e->scale = {sx, sy};
 }
 
-static auto glfw_framebuffer_size_callback(GLFWwindow* window, int w, int h) -> void {
+auto glfw_framebuffer_size_callback(GLFWwindow* window, int w, int h) -> void {
     auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
     auto event = std::make_unique<WindowEvent>();
     event->type = WindowEvent::Type::FramebufferResize;
@@ -257,7 +261,7 @@ static auto glfw_framebuffer_size_callback(GLFWwindow* window, int w, int h) -> 
     EventDispatcher::Get().Dispatch("window_event", std::move(event));
 }
 
-static auto glfw_window_size_callback(GLFWwindow* window, int w, int h) -> void {
+auto glfw_window_size_callback(GLFWwindow* window, int w, int h) -> void {
     auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
     auto event = std::make_unique<WindowEvent>();
     event->type = WindowEvent::Type::WindowResize;
@@ -270,7 +274,7 @@ static auto glfw_window_size_callback(GLFWwindow* window, int w, int h) -> void 
     EventDispatcher::Get().Dispatch("window_event", std::move(event));
 }
 
-static auto glfw_content_scale_callback(GLFWwindow* window, float sx, float sy) -> void {
+auto glfw_content_scale_callback(GLFWwindow* window, float sx, float sy) -> void {
     auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
     auto event = std::make_unique<WindowEvent>();
     event->type = WindowEvent::Type::ContentScale;
@@ -284,7 +288,7 @@ static auto glfw_content_scale_callback(GLFWwindow* window, float sx, float sy) 
 }
 
 
-static auto glfw_keyboard_map(int key) -> gleam::Key {
+auto glfw_keyboard_map(int key) -> gleam::Key {
     switch(key) {
         case GLFW_KEY_SPACE: return gleam::Key::Space;
         case GLFW_KEY_APOSTROPHE: return gleam::Key::Apostrophe;
@@ -411,6 +415,6 @@ static auto glfw_keyboard_map(int key) -> gleam::Key {
     return gleam::Key::None;
 }
 
-#pragma endregion
+}
 
 }
