@@ -44,38 +44,34 @@ auto handle_input_event(std::weak_ptr<Node> node, Event* event) -> void {
 }
 
 struct Scene::Impl {
-    std::shared_ptr<EventListener> input_event_listener;
-    std::shared_ptr<EventListener> scene_event_listener;
+    std::shared_ptr<EventListener> event_listener;
     SharedContext* context {nullptr};
 };
 
 Scene::Scene() : impl_(std::make_unique<Impl>()) {
     using enum EventType;
 
-    impl_->scene_event_listener = std::make_shared<EventListener>([&](Event* event) {
-        using enum SceneEvent::Type;
+    impl_->event_listener = std::make_shared<EventListener>([&](Event* event) {
+        if (event->GetType() == EventType::Keyboard) {
+            OnKeyboardEvent(static_cast<KeyboardEvent*>(event));
+        }
 
-        auto e = static_cast<SceneEvent*>(event);
-        if (IsChild(e->node.get())) {
-            if (e->type == NodeAdded) e->node->AttachRecursive(impl_->context);
+        if (event->GetType() == EventType::Mouse) {
+            OnMouseEvent(static_cast<MouseEvent*>(event));
+        }
+
+        if (event->GetType() == EventType::Scene) {
+            auto e = static_cast<SceneEvent*>(event);
+            if (e->type == SceneEvent::Type::NodeAdded && IsChild(e->node.get())) {
+                e->node->AttachRecursive(impl_->context);
+            }
         }
     });
 
-    impl_->input_event_listener = std::make_shared<EventListener>([&](Event* event) {
-        for (const auto& child : Children()) {
-            handle_input_event(child, event);
-        }
-        if (event->handled) return;
-
-        const auto type = event->GetType();
-        if (type == Keyboard) OnKeyboardEvent(static_cast<KeyboardEvent*>(event));
-        if (type == Mouse) OnMouseEvent(static_cast<MouseEvent*>(event));
-    });
-
-    EventDispatcher::Get().AddEventListener("node_added", impl_->scene_event_listener);
-    EventDispatcher::Get().AddEventListener("node_removed", impl_->scene_event_listener);
-    EventDispatcher::Get().AddEventListener("keyboard_event", impl_->input_event_listener);
-    EventDispatcher::Get().AddEventListener("mouse_event", impl_->input_event_listener);
+    EventDispatcher::Get().AddEventListener("node_added", impl_->event_listener);
+    EventDispatcher::Get().AddEventListener("node_removed", impl_->event_listener);
+    EventDispatcher::Get().AddEventListener("keyboard_event", impl_->event_listener);
+    EventDispatcher::Get().AddEventListener("mouse_event", impl_->event_listener);
 }
 
 auto Scene::ProcessUpdates(float delta) -> void {
@@ -91,10 +87,10 @@ auto Scene::SetContext(SharedContext* context) -> void {
 }
 
 Scene::~Scene() {
-    EventDispatcher::Get().RemoveEventListener("node_added", impl_->scene_event_listener);
-    EventDispatcher::Get().RemoveEventListener("node_removed", impl_->scene_event_listener);
-    EventDispatcher::Get().RemoveEventListener("keyboard_event", impl_->input_event_listener);
-    EventDispatcher::Get().RemoveEventListener("mouse_event", impl_->input_event_listener);
+    EventDispatcher::Get().RemoveEventListener("node_added", impl_->event_listener);
+    EventDispatcher::Get().RemoveEventListener("node_removed", impl_->event_listener);
+    EventDispatcher::Get().RemoveEventListener("keyboard_event", impl_->event_listener);
+    EventDispatcher::Get().RemoveEventListener("mouse_event", impl_->event_listener);
 }
 
 }
