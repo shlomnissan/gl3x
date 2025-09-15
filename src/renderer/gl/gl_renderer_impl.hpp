@@ -33,6 +33,8 @@ public:
     Impl& operator=(const Impl&) = delete;
     Impl& operator=(Impl&&) = delete;
 
+    [[nodiscard]] auto Initialize() -> std::expected<void, std::string>;
+
     auto Render(Scene* scene, Camera* camera) -> void;
 
     auto SetViewport(int x, int y, int width, int height) -> void;

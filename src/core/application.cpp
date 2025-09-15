@@ -60,13 +60,13 @@ struct Application::Impl {
         return window->Initialize();
     }
 
-    auto InitializeRenderer(const Application::Parameters& params) -> bool {
+    auto InitializeRenderer(const Application::Parameters& params) -> std::expected<void, std::string> {
         renderer = std::make_unique<Renderer>(Renderer::Parameters {
             .width = window->FramebufferWidth(),
             .height = window->FramebufferHeight()
         });
         renderer->SetClearColor(params.clear_color);
-        return true;
+        return renderer->Initialize();
     }
 };
 
@@ -82,6 +82,12 @@ auto Application::Setup() -> void {
         return;
     }
 
+    auto init_renderer_result = impl_->InitializeRenderer(params);
+    if (!init_renderer_result) {
+        Logger::Log(LogLevel::Error, "{}", init_renderer_result.error());
+        return;
+    }
+
     auto window = impl_->window.get();
     auto camera = impl_->camera.get();
 
@@ -93,10 +99,6 @@ auto Application::Setup() -> void {
         .window_width = window->Width(),
         .window_height = window->Height()
     });
-
-    impl_->InitializeRenderer(params);
-
-    // TODO: verify that window and renderer are initialized properly
 
     SetCamera(CreateCamera());
     if (!impl_->camera) {

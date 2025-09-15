@@ -14,6 +14,10 @@ namespace gleam {
 Renderer::Renderer(const Renderer::Parameters& params)
     : impl_(std::make_unique<Impl>(params)) {}
 
+auto Renderer::Initialize() -> std::expected<void, std::string> {
+    return impl_->Initialize();
+}
+
 auto Renderer::Render(Scene* scene, Camera* camera) -> void {
     impl_->Render(scene, camera);
 }

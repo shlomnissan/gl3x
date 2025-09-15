@@ -30,6 +30,11 @@ Renderer::Impl::Impl(const Renderer::Parameters& params)
     state_.SetViewport(0, 0, params.width, params.height);
 }
 
+auto Renderer::Impl::Initialize() -> std::expected<void, std::string> {
+    // no-op, nothing to initialize
+    return {};
+}
+
 auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
     camera_ubo_.Update(camera->projection_transform, camera->view_transform);
 

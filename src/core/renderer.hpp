@@ -12,6 +12,7 @@
 #include "gleam/nodes/scene.hpp"
 
 #include <memory>
+#include <string>
 
 namespace gleam {
 
@@ -23,6 +24,8 @@ public:
     };
 
     explicit Renderer(const Renderer::Parameters& params);
+
+    [[nodiscard]] auto Initialize() -> std::expected<void, std::string>;
 
     auto Render(Scene* scene, Camera* camera) -> void;
 
