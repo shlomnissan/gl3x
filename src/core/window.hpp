@@ -24,6 +24,7 @@ public:
     class Impl;
 
     struct Parameters {
+        std::string title;
         int width;
         int height;
         int antialiasing;
@@ -47,8 +48,6 @@ public:
     auto Start(const OnTickCallback& tick) const -> void;
 
     auto Break() -> void;
-
-    auto SetTitle(std::string_view title) -> void;
 
     ~Window();
 

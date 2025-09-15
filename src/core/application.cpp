@@ -51,14 +51,13 @@ struct Application::Impl {
 
     auto InitializeWindow(const Application::Parameters& params) -> std::expected<void, std::string> {
         window = std::make_unique<Window>(Window::Parameters{
+            .title = params.title,
             .width = params.width,
             .height = params.height,
             .antialiasing = params.antialiasing,
             .vsync = params.vsync
         });
-
         return window->Initialize();
-
     }
 
     auto InitializeRenderer(const Application::Parameters& params) -> bool {
@@ -86,7 +85,6 @@ auto Application::Setup() -> void {
     auto window = impl_->window.get();
     auto camera = impl_->camera.get();
 
-    window->SetTitle(params.title);
     impl_->shared_context = std::make_unique<SharedContext>(SharedContext::SharedParameters {
         .camera = camera,
         .aspect_ratio = window->AspectRatio(),

@@ -62,7 +62,7 @@ auto Window::Impl::Initialize() -> std::expected<void, std::string> {
     window_ = glfwCreateWindow(
         params_.width,
         params_.height,
-        "Untitled",
+        params_.title.c_str(),
         nullptr,
         nullptr
     );
@@ -117,10 +117,6 @@ auto Window::Impl::Start(const OnTickCallback& tick) -> void {
 
 auto Window::Impl::Break() -> void {
     break_ = true;
-}
-
-auto Window::Impl::SetTitle(std::string_view title) -> void {
-    glfwSetWindowTitle(window_, title.data());
 }
 
 auto Window::Impl::LogContextInfo() const -> void {

@@ -26,10 +26,6 @@ auto Window::Break() -> void {
     impl_->Break();
 }
 
-auto Window::SetTitle(std::string_view title) -> void {
-    impl_->SetTitle(title);
-}
-
 auto Window::FramebufferWidth() const -> int {
     return impl_->framebuffer_width;
 }
