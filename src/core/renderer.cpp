@@ -26,10 +26,6 @@ auto Renderer::SetViewport(int x, int y, int width, int height) -> void {
     impl_->SetViewport(x, y, width, height);
 }
 
-auto Renderer::SetClearColor(const Color &color) -> void {
-    impl_->SetClearColor(color);
-}
-
 auto Renderer::RenderedObjectsPerFrame() const -> size_t {
     return impl_->RenderedObjectsPerFrame();
 }

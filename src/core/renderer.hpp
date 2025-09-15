@@ -21,6 +21,7 @@ public:
     struct Parameters {
         int width;
         int height;
+        Color clear_color;
     };
 
     explicit Renderer(const Renderer::Parameters& params);
@@ -30,8 +31,6 @@ public:
     auto Render(Scene* scene, Camera* camera) -> void;
 
     auto SetViewport(int x, int y, int width, int height) -> void;
-
-    auto SetClearColor(const Color& color) -> void;
 
     [[nodiscard]] auto RenderedObjectsPerFrame() const -> size_t;
 

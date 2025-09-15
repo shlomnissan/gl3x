@@ -39,8 +39,6 @@ public:
 
     auto SetViewport(int x, int y, int width, int height) -> void;
 
-    auto SetClearColor(const Color& color) -> void;
-
     [[nodiscard]] auto RenderedObjectsPerFrame() const {
         return rendered_objects_per_frame_;
     }

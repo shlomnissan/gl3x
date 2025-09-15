@@ -63,9 +63,9 @@ struct Application::Impl {
     auto InitializeRenderer(const Application::Parameters& params) -> std::expected<void, std::string> {
         renderer = std::make_unique<Renderer>(Renderer::Parameters {
             .width = window->FramebufferWidth(),
-            .height = window->FramebufferHeight()
+            .height = window->FramebufferHeight(),
+            .clear_color = params.clear_color
         });
-        renderer->SetClearColor(params.clear_color);
         return renderer->Initialize();
     }
 };

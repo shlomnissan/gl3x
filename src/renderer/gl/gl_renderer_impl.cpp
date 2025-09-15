@@ -28,6 +28,7 @@ Renderer::Impl::Impl(const Renderer::Parameters& params)
   : params_(params),
     render_lists_(std::make_unique<RenderLists>()) {
     state_.SetViewport(0, 0, params.width, params.height);
+    state_.SetClearColor(params.clear_color);
 }
 
 auto Renderer::Impl::Initialize() -> std::expected<void, std::string> {
@@ -241,10 +242,6 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
 
 auto Renderer::Impl::SetViewport(int x, int y, int width, int height) -> void {
     state_.SetViewport(x, y, width, height);
-}
-
-auto Renderer::Impl::SetClearColor(const Color& color) -> void {
-    state_.SetClearColor(color);
 }
 
 Renderer::Impl::~Impl() = default;
