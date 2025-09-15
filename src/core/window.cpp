@@ -14,6 +14,10 @@ namespace gleam {
 Window::Window(const Window::Parameters& params)
   : impl_(std::make_unique<Impl>(params)) {}
 
+auto Window::Initialize() -> std::expected<void, std::string> {
+    return impl_->Initialize();
+}
+
 auto Window::Start(const OnTickCallback& tick) const -> void {
     impl_->Start(tick);
 }
@@ -46,10 +50,6 @@ auto Window::AspectRatio() const -> float {
   return static_cast<float>(impl_->window_width) /
          static_cast<float>(impl_->window_height);
 };
-
-auto Window::HasErrors() const -> bool {
-    return impl_->HasErrors();
-}
 
 Window::~Window() = default;
 

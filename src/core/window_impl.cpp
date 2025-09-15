@@ -38,10 +38,11 @@ auto glfw_content_scale_callback(GLFWwindow*, float sx, float sy) -> void;
 
 }
 
-Window::Impl::Impl(const Window::Parameters& params) {
+Window::Impl::Impl(const Window::Parameters& params) : params_(params) {}
+
+auto Window::Impl::Initialize() -> std::expected<void, std::string> {
     if (!glfwInit()) {
-        Logger::Log(LogLevel::Error, "Failed to initialize GLFW {}", glfw_get_error());
-        return;
+        return std::unexpected("Failed to initialize GLFW " + glfw_get_error());
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -52,29 +53,31 @@ Window::Impl::Impl(const Window::Parameters& params) {
     glfwWindowHint(GLFW_ALPHA_BITS, 8);
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glfwWindowHint(GLFW_STENCIL_BITS, 8);
-    glfwWindowHint(GLFW_SAMPLES, params.antialiasing);
+    glfwWindowHint(GLFW_SAMPLES, params_.antialiasing);
 
     #ifdef __APPLE__
         glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_TRUE);
     #endif
 
-    window_ = glfwCreateWindow(params.width, params.height, "Untitled", nullptr, nullptr);
+    window_ = glfwCreateWindow(
+        params_.width,
+        params_.height,
+        "Untitled",
+        nullptr,
+        nullptr
+    );
 
     if (window_ == nullptr) {
-        Logger::Log(LogLevel::Error, "Failed to create a GLFW window {}", glfw_get_error());
-        return;
+        return std::unexpected("Failed to create a GLFW window " + glfw_get_error());
     }
 
     glfwMakeContextCurrent(window_);
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        Logger::Log(LogLevel::Error, "Failed to initialize GLAD OpenGL loader");
-        return;
+        return std::unexpected("Failed to initialize GLAD OpenGL loader");
     }
 
     LogContextInfo();
-    initialized_ = true;
-
-    glfwSwapInterval(params.vsync ? 1 : 0);
+    glfwSwapInterval(params_.vsync ? 1 : 0);
     glfwSetWindowUserPointer(window_, this);
     glfwGetFramebufferSize(window_, &framebuffer_width, &framebuffer_height);
     glfwGetWindowSize(window_, &window_width, &window_height);
@@ -91,6 +94,8 @@ Window::Impl::Impl(const Window::Parameters& params) {
 #ifdef GLEAM_USE_IMGUI
     imgui_initialize(window_);
 #endif
+
+    return {};
 }
 
 auto Window::Impl::Start(const OnTickCallback& tick) -> void {
@@ -134,8 +139,10 @@ Window::Impl::~Impl() {
     imgui_shutdown();
 #endif
 
-    if (window_) glfwDestroyWindow(window_);
-    if (initialized_) glfwTerminate();
+    if (window_) {
+        glfwDestroyWindow(window_);
+        glfwTerminate();
+    }
 }
 
 namespace {

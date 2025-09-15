@@ -15,9 +15,12 @@
 #include "core/window.hpp"
 #include "events/event_dispatcher.hpp"
 
+#include "utilities/logger.hpp"
 #include "utilities/stats.hpp"
 
 #include <algorithm>
+#include <expected>
+#include <string>
 
 namespace gleam {
 
@@ -46,7 +49,7 @@ struct Application::Impl {
 
     double last_frame_time = 0.0;
 
-    auto InitializeWindow(const Application::Parameters& params) -> bool {
+    auto InitializeWindow(const Application::Parameters& params) -> std::expected<void, std::string> {
         window = std::make_unique<Window>(Window::Parameters{
             .width = params.width,
             .height = params.height,
@@ -54,17 +57,8 @@ struct Application::Impl {
             .vsync = params.vsync
         });
 
-        window->SetTitle(params.title);
-        shared_context = std::make_unique<SharedContext>(SharedContext::SharedParameters {
-            .camera = camera.get(),
-            .aspect_ratio = window->AspectRatio(),
-            .framebuffer_width = window->FramebufferWidth(),
-            .framebuffer_height = window->FramebufferHeight(),
-            .window_width = window->Width(),
-            .window_height = window->Height()
-        });
+        return window->Initialize();
 
-        return !window->HasErrors();
     }
 
     auto InitializeRenderer(const Application::Parameters& params) -> bool {
@@ -81,10 +75,27 @@ Application::Application() : impl_(std::make_unique<Impl>()) {}
 
 auto Application::Setup() -> void {
     const auto params = Configure();
-
     show_stats_ = params.show_stats;
 
-    impl_->InitializeWindow(params);
+    auto init_window_result = impl_->InitializeWindow(params);
+    if (!init_window_result) {
+        Logger::Log(LogLevel::Error, "{}", init_window_result.error());
+        return;
+    }
+
+    auto window = impl_->window.get();
+    auto camera = impl_->camera.get();
+
+    window->SetTitle(params.title);
+    impl_->shared_context = std::make_unique<SharedContext>(SharedContext::SharedParameters {
+        .camera = camera,
+        .aspect_ratio = window->AspectRatio(),
+        .framebuffer_width = window->FramebufferWidth(),
+        .framebuffer_height = window->FramebufferHeight(),
+        .window_width = window->Width(),
+        .window_height = window->Height()
+    });
+
     impl_->InitializeRenderer(params);
 
     // TODO: verify that window and renderer are initialized properly

@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <expected>
 #include <functional>
 #include <memory>
 #include <string>
@@ -31,7 +32,7 @@ public:
 
     explicit Window(const Window::Parameters& params);
 
-    ~Window();
+    [[nodiscard]] auto Initialize() -> std::expected<void, std::string>;
 
     [[nodiscard]] auto FramebufferWidth() const -> int;
 
@@ -49,7 +50,7 @@ public:
 
     auto SetTitle(std::string_view title) -> void;
 
-    auto HasErrors() const -> bool;
+    ~Window();
 
 private:
     std::unique_ptr<Impl> impl_;

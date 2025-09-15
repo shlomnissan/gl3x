@@ -9,6 +9,9 @@
 
 #include "core/window.hpp"
 
+#include <expected>
+#include <string>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -29,6 +32,8 @@ public:
 
     explicit Impl(const Window::Parameters& params);
 
+    [[nodiscard]] auto Initialize() -> std::expected<void, std::string>;
+
     Impl(const Impl&) = delete;
     Impl(Impl&&) = delete;
     Impl& operator=(const Impl&) = delete;
@@ -40,15 +45,14 @@ public:
 
     auto SetTitle(std::string_view title) -> void;
 
-    auto HasErrors() const { return !initialized_; }
-
     ~Impl();
 
 private:
-    bool initialized_ {false};
-    bool break_ {false};
+    Window::Parameters params_;
 
     GLFWwindow* window_ {nullptr};
+
+    bool break_ {false};
 
     auto LogContextInfo() const -> void;
 };
