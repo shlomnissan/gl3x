@@ -68,6 +68,33 @@ struct Application::Impl {
         });
         return renderer->Initialize();
     }
+
+    auto MakeSharedContext() -> void {
+        shared_context = std::make_unique<SharedContext>(SharedContext::SharedParameters {
+            .camera = camera.get(),
+            .aspect_ratio = window->AspectRatio(),
+            .framebuffer_width = window->FramebufferWidth(),
+            .framebuffer_height = window->FramebufferHeight(),
+            .window_width = window->Width(),
+            .window_height = window->Height()
+        });
+    }
+
+    auto SetCamera(std::shared_ptr<Camera> camera) -> void {
+        this->camera = camera;
+        if (!this->camera) {
+            this->camera = create_default_camera(
+                shared_context->Parameters().window_width,
+                shared_context->Parameters().window_height
+            );
+        }
+        shared_context->params_.camera = this->camera.get();
+    }
+
+    auto SetScene(std::shared_ptr<Scene> scene) -> void {
+        this->scene = scene;
+        this->scene->SetContext(shared_context.get());
+    }
 };
 
 Application::Application() : impl_(std::make_unique<Impl>()) {}
@@ -88,27 +115,9 @@ auto Application::Setup() -> void {
         return;
     }
 
-    auto window = impl_->window.get();
-    auto camera = impl_->camera.get();
-
-    impl_->shared_context = std::make_unique<SharedContext>(SharedContext::SharedParameters {
-        .camera = camera,
-        .aspect_ratio = window->AspectRatio(),
-        .framebuffer_width = window->FramebufferWidth(),
-        .framebuffer_height = window->FramebufferHeight(),
-        .window_width = window->Width(),
-        .window_height = window->Height()
-    });
-
-    SetCamera(CreateCamera());
-    if (!impl_->camera) {
-        SetCamera(create_default_camera(
-            GetParameters().window_width,
-            GetParameters().window_height
-        ));
-    }
-
-    SetScene(CreateScene());
+    impl_->MakeSharedContext();
+    impl_->SetCamera(CreateCamera());
+    impl_->SetScene(CreateScene());
 
     impl_->event_listener = std::make_shared<EventListener>([&](Event* event) {
         if (event->GetType() == EventType::Window) {
@@ -185,13 +194,11 @@ auto Application::GetCamera() const -> Camera* {
 }
 
 auto Application::SetScene(std::shared_ptr<Scene> scene) -> void {
-    impl_->scene = scene;
-    impl_->scene->SetContext(impl_->shared_context.get());
+    impl_->SetScene(scene);
 }
 
 auto Application::SetCamera(std::shared_ptr<Camera> camera) -> void {
-    impl_->shared_context->params_.camera = camera.get();
-    impl_->camera = camera;
+    impl_->SetCamera(camera);
 }
 
 Application::~Application() {
