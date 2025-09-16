@@ -15,7 +15,6 @@ set(SOURCE_CODE
     "core/shader_library.cpp"
     "core/shader_library.hpp"
     "core/shared_context.cpp"
-    "core/timer.cpp"
     "core/window.cpp"
     "core/window.hpp"
     "core/window_impl.cpp"
@@ -72,6 +71,7 @@ set(SOURCE_CODE
     "utilities/scoped_timer.hpp"
     "utilities/stats.hpp"
     "utilities/stats.cpp"
+    "utilities/timer.cpp"
 )
 
 set(PUBLIC_HEADERS
@@ -82,7 +82,6 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/core/disposable.hpp"
     "${PUBLIC_HEADERS_DIR}/core/identity.hpp"
     "${PUBLIC_HEADERS_DIR}/core/shared_context.hpp"
-    "${PUBLIC_HEADERS_DIR}/core/timer.hpp"
     "${PUBLIC_HEADERS_DIR}/events/event.hpp"
     "${PUBLIC_HEADERS_DIR}/events/keyboard_event.hpp"
     "${PUBLIC_HEADERS_DIR}/events/mouse_event.hpp"
@@ -137,6 +136,8 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/nodes/sprite.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture_2d.hpp"
+    "${PUBLIC_HEADERS_DIR}/utilities/frame_timer.hpp"
+    "${PUBLIC_HEADERS_DIR}/utilities/timer.hpp"
 )
 
 set(HEADER_BUNDLES
@@ -151,6 +152,7 @@ set(HEADER_BUNDLES
     "${PUBLIC_HEADERS_DIR}/math.hpp"
     "${PUBLIC_HEADERS_DIR}/nodes.hpp"
     "${PUBLIC_HEADERS_DIR}/textures.hpp"
+    "${PUBLIC_HEADERS_DIR}/utilities.hpp"
 )
 
 include(ShaderProcessor)

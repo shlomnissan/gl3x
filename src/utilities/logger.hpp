@@ -8,7 +8,7 @@
 #pragma once
 
 #include "gleam/core/identity.hpp"
-#include "gleam/core/timer.hpp"
+#include "gleam/utilities/timer.hpp"
 
 #include <filesystem>
 #include <format>

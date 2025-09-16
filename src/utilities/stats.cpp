@@ -7,7 +7,7 @@
 
 #include "stats.hpp"
 
-#include "gleam/core/timer.hpp"
+#include "gleam/utilities/timer.hpp"
 
 #include "utilities/data_series.hpp"
 

@@ -21,7 +21,7 @@ namespace gleam {
  * using a steady clock. Typical usage includes measuring frame time, profiling
  * sections of code, or retrieving a human-readable timestamp string.
  *
- * @ingroup CoreGroup
+ * @ingroup UtilitiesGroup
  */
 class GLEAM_EXPORT Timer {
 public:

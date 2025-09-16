@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/core/timer.hpp"
+#include "gleam/utilities/timer.hpp"
 
 #include "utilities/logger.hpp"
 

@@ -8,8 +8,9 @@
 #pragma once
 
 /**
- * @defgroup CoreGroup Core
- * @brief Core components used throughout the application.
+ * @defgroup UtilitiesGroup Utilities
+ * @brief Utility classes for rendering and debugging
  */
 
-#include "gleam/core/application.hpp"
+#include "gleam/utilities/frame_timer.hpp"
+#include "gleam/utilities/timer.hpp"

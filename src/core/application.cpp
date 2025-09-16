@@ -10,6 +10,7 @@
 #include "gleam/cameras/perspective_camera.hpp"
 #include "gleam/core/shared_context.hpp"
 #include "gleam/events/window_event.hpp"
+#include "gleam/utilities/frame_timer.hpp"
 
 #include "core/renderer.hpp"
 #include "core/window.hpp"
@@ -142,29 +143,18 @@ auto Application::Setup() -> void {
 auto Application::Start() -> void {
     Setup();
 
-    timer_.Start();
-    impl_->last_frame_time = timer_.GetElapsedSeconds();
-
+    auto frame_timer = FrameTimer {true};
     auto stats = Stats {};
 
-    impl_->window->Start([this, &stats]() {
-        const auto now = timer_.GetElapsedSeconds();
-
-        // Guard against timer anomalies and giant stalls.
-        auto delta_sec = std::clamp(
-            now - impl_->last_frame_time, 0.0, kMaxDelta
-        );
-
-        impl_->last_frame_time = now;
-        const auto delta = static_cast<float>(delta_sec);
-
-        if (!Update(delta)) {
+    impl_->window->Start([this, &stats, &frame_timer]() {
+        const auto dt = frame_timer.Tick();
+        if (!Update(dt)) {
             impl_->window->Break();
             return;
         }
 
         stats.BeforeRender();
-        impl_->scene->ProcessUpdates(delta);
+        impl_->scene->ProcessUpdates(dt);
         impl_->renderer->Render(impl_->scene.get(), impl_->camera.get());
         stats.AfterRender(impl_->renderer->RenderedObjectsPerFrame());
 

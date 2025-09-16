@@ -10,7 +10,6 @@
 #include "gleam_export.h"
 
 #include "gleam/cameras/camera.hpp"
-#include "gleam/core/timer.hpp"
 #include "gleam/math/color.hpp"
 #include "gleam/nodes/scene.hpp"
 
@@ -200,8 +199,6 @@ private:
     /// @cond INTERNAL
     class Impl;
     std::unique_ptr<Impl> impl_;
-
-    Timer timer_ {false};
 
     bool show_stats_ = false;
 

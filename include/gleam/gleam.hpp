@@ -17,3 +17,4 @@
 #include "gleam/math.hpp"
 #include "gleam/nodes.hpp"
 #include "gleam/textures.hpp"
+#include "gleam/utilities.hpp"
