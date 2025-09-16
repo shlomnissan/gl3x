@@ -15,20 +15,22 @@
 
 namespace gleam {
 
+class Window;
 class Camera;
 
 /**
- * @brief Provides access to shared engine parameters and services.
+ * @brief Provides access to shared parameters and services.
  *
  * The `SharedContext` class encapsulates common runtime parameters and
- * services that are shared across the Gleam engine. This context is created
- * internally and made available to nodes and systems once they are attached
- * to the scene graph.
+ * services that are shared across the scene graph. This context is created
+ * internally within the runtime and made available to nodes once they are
+ * added to the active scene.
  *
- * Access to the shared context is provided through the `Node::OnAttached(gleam::SharedContext* context)` callback,
- * which is invoked when the node becomes part of an active scene hierarchy.
- * Override this method in your node class to perform initialization that depends on the context,
- * such as loading resources, accessing the active camera, etc.
+ * Access to the shared context is provided through the
+ * `Node::OnAttached(gleam::SharedContext* context)` callback, which is invoked
+ * when the node becomes part of an active scene hierarchy. Override this
+ * method in your node class to perform initialization that depends on the
+ * context, such as loading resources, accessing the active camera, etc.
  *
  * @code
  * class MyNode : public gleam::Node {
@@ -84,6 +86,21 @@ public:
      * @param params SharedContext::SharedParameters
      */
     explicit SharedContext(const SharedParameters& params) : params_(params) {};
+
+    /**
+     * @brief Creates a unique pointer to a shared context object.
+     *
+     * @param window Pointer to an initialized window instance.
+     * @param camera Pointer to the active camera instance.
+     *
+     * @note This function is normally invoked by the runtime. It is exposed
+     * publicly to allow explicit initialization when needed.
+     *
+     * Each application should maintain only a single instance of
+     * `SharedContext`. If you initialize it directly, you are responsible
+     * for keeping the active camera reference in sync with the context.
+     */
+    static auto Create(Window* window, Camera* camera) -> std::unique_ptr<SharedContext>;
 
     /**
      * @brief Returns the current runtime parameters.

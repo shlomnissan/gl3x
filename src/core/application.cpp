@@ -70,14 +70,7 @@ struct Application::Impl {
     }
 
     auto MakeSharedContext() -> void {
-        shared_context = std::make_unique<SharedContext>(SharedContext::SharedParameters {
-            .camera = camera.get(),
-            .aspect_ratio = window->AspectRatio(),
-            .framebuffer_width = window->FramebufferWidth(),
-            .framebuffer_height = window->FramebufferHeight(),
-            .window_width = window->Width(),
-            .window_height = window->Height()
-        });
+        shared_context = SharedContext::Create(window.get(), camera.get());
     }
 
     auto SetCamera(std::shared_ptr<Camera> camera) -> void {
