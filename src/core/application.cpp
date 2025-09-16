@@ -63,8 +63,8 @@ struct Application::Impl {
 
     auto InitializeRenderer(const Application::Parameters& params) -> std::expected<void, std::string> {
         renderer = std::make_unique<Renderer>(Renderer::Parameters {
-            .width = window->FramebufferWidth(),
-            .height = window->FramebufferHeight(),
+            .framebuffer_width = window->FramebufferWidth(),
+            .framebuffer_height = window->FramebufferHeight(),
             .clear_color = params.clear_color
         });
         return renderer->Initialize();
@@ -154,7 +154,7 @@ auto Application::Start() -> void {
         }
 
         stats.BeforeRender();
-        impl_->scene->ProcessUpdates(dt);
+        impl_->scene->Advance(dt);
         impl_->renderer->Render(impl_->scene.get(), impl_->camera.get());
         stats.AfterRender(impl_->renderer->RenderedObjectsPerFrame());
 

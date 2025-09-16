@@ -74,7 +74,7 @@ Scene::Scene() : impl_(std::make_unique<Impl>()) {
     EventDispatcher::Get().AddEventListener("mouse_event", impl_->event_listener);
 }
 
-auto Scene::ProcessUpdates(float delta) -> void {
+auto Scene::Advance(float delta) -> void {
     OnUpdate(delta);
      for (const auto& child : Children()) {
         handle_node_updates(child, delta);

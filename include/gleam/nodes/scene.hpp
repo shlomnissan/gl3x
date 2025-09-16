@@ -75,6 +75,30 @@ public:
     Scene();
 
     /**
+     * @brief Advances the scene by one frame.
+     *
+     * Propagates the per-frame update through the scene graph, calling
+     * `Node::Update(float delta)` on all attached nodes in depth-first order.
+     * This is invoked automatically by the runtime each frame.
+     *
+     * @param delta Elapsed time in seconds since the last frame.
+     */
+    auto Advance(float delta) -> void;
+
+    /**
+     * @brief Attaches a shared context to the scene.
+     * @deprecated
+     *
+     * The context provides runtime parameters (e.g., window size, active camera)
+     * and resource loaders. This is normally called by the runtime during
+     * initialization. All nodes added to the scene will receive the context
+     * via `Node::OnAttached`.
+     *
+     * @param context Pointer to the active SharedContext instance.
+     */
+    auto SetContext(SharedContext* context) -> void;
+
+    /**
      * @brief Creates a shared pointer to a Scene object.
      *
      * @return std::shared_ptr<Scene>
@@ -101,10 +125,6 @@ private:
     /// @cond INTERNAL
     class Impl;
     std::unique_ptr<Impl> impl_;
-
-    friend class Application;
-    auto SetContext(SharedContext* context) -> void;
-    auto ProcessUpdates(float delta) -> void;
     /// @endcond
 };
 

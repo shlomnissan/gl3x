@@ -27,7 +27,7 @@ namespace gleam {
 Renderer::Impl::Impl(const Renderer::Parameters& params)
   : params_(params),
     render_lists_(std::make_unique<RenderLists>()) {
-    state_.SetViewport(0, 0, params.width, params.height);
+    state_.SetViewport(0, 0, params.framebuffer_width, params.framebuffer_height);
     state_.SetClearColor(params.clear_color);
 }
 
@@ -121,7 +121,10 @@ auto Renderer::Impl::SetUniforms(
 ) -> void {
     auto material = renderable->GetMaterial().get();
     auto model = renderable->GetWorldTransform();
-    auto resolution = Vector2(params_.width, params_.height);
+    auto resolution = Vector2(
+        params_.framebuffer_width,
+        params_.framebuffer_height
+    );
 
     program->SetUniform(Uniform::Model, &model);
     program->SetUniform(Uniform::Opacity, &material->opacity);

@@ -19,8 +19,8 @@ namespace gleam {
 class Renderer {
 public:
     struct Parameters {
-        int width;
-        int height;
+        int framebuffer_width;
+        int framebuffer_height;
         Color clear_color;
     };
 
