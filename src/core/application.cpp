@@ -11,13 +11,13 @@
 #include "gleam/core/shared_context.hpp"
 #include "gleam/events/window_event.hpp"
 #include "gleam/utilities/frame_timer.hpp"
+#include "gleam/utilities/stats.hpp"
 
 #include "core/renderer.hpp"
 #include "core/window.hpp"
 #include "events/event_dispatcher.hpp"
 
 #include "utilities/logger.hpp"
-#include "utilities/stats.hpp"
 
 #include <algorithm>
 #include <expected>

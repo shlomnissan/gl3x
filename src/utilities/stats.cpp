@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "stats.hpp"
+#include "gleam/utilities/stats.hpp"
 
 #include "gleam/utilities/timer.hpp"
 

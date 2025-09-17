@@ -13,4 +13,5 @@
  */
 
 #include "gleam/utilities/frame_timer.hpp"
+#include "gleam/utilities/stats.hpp"
 #include "gleam/utilities/timer.hpp"

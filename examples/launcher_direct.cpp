@@ -20,7 +20,7 @@ auto main() -> int {
         .width = 1024,
         .height = 768,
         .antialiasing = 0,
-        .vsync = true
+        .vsync = false
     }};
     auto init_window = window.Initialize();
     if (!init_window) {
@@ -51,10 +51,17 @@ auto main() -> int {
     scene->SetContext(context.get());
 
     auto timer = FrameTimer {true}; // auto-start
+    auto stats = Stats {};
+
     window.Start([&]() {
+        stats.BeforeRender();
+
         const auto dt = timer.Tick();
         scene->Advance(dt);
         renderer.Render(scene.get(), camera.get());
+
+        stats.AfterRender(renderer.RenderedObjectsPerFrame());
+        stats.Draw(window.Width());
     });
 
     return 0;

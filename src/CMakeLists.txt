@@ -69,7 +69,6 @@ set(SOURCE_CODE
     "utilities/logger.cpp"
     "utilities/logger.hpp"
     "utilities/scoped_timer.hpp"
-    "utilities/stats.hpp"
     "utilities/stats.cpp"
     "utilities/timer.cpp"
 )
@@ -137,6 +136,7 @@ set(PUBLIC_HEADERS
     "${PUBLIC_HEADERS_DIR}/textures/texture.hpp"
     "${PUBLIC_HEADERS_DIR}/textures/texture_2d.hpp"
     "${PUBLIC_HEADERS_DIR}/utilities/frame_timer.hpp"
+    "${PUBLIC_HEADERS_DIR}/utilities/stats.hpp"
     "${PUBLIC_HEADERS_DIR}/utilities/timer.hpp"
 )
 
