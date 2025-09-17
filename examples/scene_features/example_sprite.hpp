@@ -17,7 +17,7 @@ class ExampleSprite : public ExampleScene {
 public:
     ExampleSprite();
 
-    auto OnAttached(gleam::SharedContext* context) -> void override;
+    auto OnAttached(const gleam::SharedContext* context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
 

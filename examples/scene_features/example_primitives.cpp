@@ -50,7 +50,7 @@ ExamplePrimitives::ExamplePrimitives() {
     mesh_->Add(wireframes_);
 }
 
-auto ExamplePrimitives::OnAttached(gleam::SharedContext* context) -> void {
+auto ExamplePrimitives::OnAttached(const gleam::SharedContext* context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),

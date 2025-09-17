@@ -16,7 +16,7 @@ class ExampleMeshInstancing : public ExampleScene {
 public:
     ExampleMeshInstancing();
 
-    auto OnAttached(gleam::SharedContext* context) -> void override;
+    auto OnAttached(const gleam::SharedContext* context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
 

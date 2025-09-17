@@ -171,7 +171,7 @@ auto Node::LookAt(const Vector3& target) -> void {
     transform.LookAt(GetWorldPosition(), target, up);
 }
 
-auto Node::AttachRecursive(SharedContext* context) -> void {
+auto Node::AttachRecursive(const SharedContext* context) -> void {
     if (impl_->attached) return;
 
     OnAttached(context);

@@ -18,7 +18,7 @@ class ExampleFrustumCulling : public ExampleScene {
 public:
     ExampleFrustumCulling();
 
-    auto OnAttached(gleam::SharedContext* context) -> void override;
+    auto OnAttached(const gleam::SharedContext* context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
 

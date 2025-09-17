@@ -23,7 +23,7 @@ ExampleSprite::ExampleSprite() {
     }));
 }
 
-auto ExampleSprite::OnAttached(gleam::SharedContext* context) -> void {
+auto ExampleSprite::OnAttached(const gleam::SharedContext* context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {
         .radius = 3.0f,
         .pitch = math::pi_over_6

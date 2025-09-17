@@ -65,7 +65,7 @@ class Examples {
 public:
     std::shared_ptr<ExampleScene> scene;
 
-    Examples(gleam::SharedContext* context, SceneChangeCallback cb = nullptr)
+    Examples(const gleam::SharedContext* context, SceneChangeCallback cb = nullptr)
       : context_ {context}, scene_change_cb_ {std::move(cb)} {
         Theme();
         LoadScene(examples[current_scene_]);
@@ -138,7 +138,7 @@ public:
     }
 
 private:
-    gleam::SharedContext* context_ {nullptr};
+    const gleam::SharedContext* context_ {nullptr};
 
     SceneChangeCallback scene_change_cb_;
 

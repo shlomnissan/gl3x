@@ -43,7 +43,7 @@ ExampleSandbox::ExampleSandbox() {
     Add(arrow);
 }
 
-auto ExampleSandbox::OnAttached(gleam::SharedContext* context) -> void {
+auto ExampleSandbox::OnAttached(const gleam::SharedContext* context) -> void {
     Add(OrbitControls::Create(
         context->Parameters().camera, {
             .radius = 3.0f,

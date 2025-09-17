@@ -94,9 +94,9 @@ public:
      * initialization. All nodes added to the scene will receive the context
      * via `Node::OnAttached`.
      *
-     * @param context Pointer to the active SharedContext instance.
+     * @param context Pointer to the active SharedContext instance (const).
      */
-    auto SetContext(SharedContext* context) -> void;
+    auto SetContext(const SharedContext* context) -> void;
 
     /**
      * @brief Creates a shared pointer to a Scene object.

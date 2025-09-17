@@ -18,7 +18,7 @@ class ExampleBlending : public ExampleScene {
 public:
     ExampleBlending();
 
-    auto OnAttached(gleam::SharedContext* context) -> void override;
+    auto OnAttached(const gleam::SharedContext* context) -> void override;
 
     auto ContextMenu() -> void override;
 

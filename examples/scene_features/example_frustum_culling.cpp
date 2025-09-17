@@ -36,7 +36,7 @@ ExampleFrustumCulling::ExampleFrustumCulling() {
     }
 }
 
-auto ExampleFrustumCulling::OnAttached(gleam::SharedContext* context) -> void {
+auto ExampleFrustumCulling::OnAttached(const gleam::SharedContext* context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {.radius = 5.0f}));
 }
 

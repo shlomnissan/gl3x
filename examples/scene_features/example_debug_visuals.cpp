@@ -40,7 +40,7 @@ ExampleDebugVisuals::ExampleDebugVisuals() {
     grid_ = Grid::Create(grid_params_);
 }
 
-auto ExampleDebugVisuals::OnAttached(gleam::SharedContext* context) -> void {
+auto ExampleDebugVisuals::OnAttached(const gleam::SharedContext* context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),
