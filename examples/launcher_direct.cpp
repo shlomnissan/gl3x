@@ -5,10 +5,12 @@
 ===========================================================================
 */
 
-#include <gleam/gleam.hpp>
-
 #include "core/window.hpp"
 #include "core/renderer.hpp"
+
+#include <gleam/gleam.hpp>
+
+#include "examples.hpp"
 
 #include <iostream>
 
@@ -16,7 +18,7 @@ using namespace gleam;
 
 auto main() -> int {
     auto window = Window {{
-        .title = "Examples",
+        .title = "Examples (Direct Initialization)",
         .width = 1024,
         .height = 768,
         .antialiasing = 0,
@@ -31,7 +33,7 @@ auto main() -> int {
     auto renderer = Renderer {{
         .framebuffer_width = window.FramebufferWidth(),
         .framebuffer_height = window.FramebufferHeight(),
-        .clear_color = 0x000080
+        .clear_color = 0x444444
     }};
     auto init_renderer = renderer.Initialize();
     if (!init_renderer) {
@@ -47,18 +49,17 @@ auto main() -> int {
     });
 
     auto context = SharedContext::Create(&window, camera.get());
-    auto scene = Scene::Create();
-    scene->SetContext(context.get());
-
     auto timer = FrameTimer {true}; // auto-start
     auto stats = Stats {};
+    auto examples = Examples {context.get()};
 
     window.Start([&]() {
         stats.BeforeRender();
 
         const auto dt = timer.Tick();
-        scene->Advance(dt);
-        renderer.Render(scene.get(), camera.get());
+        examples.scene->Advance(dt);
+        renderer.Render(examples.scene.get(), camera.get());
+        examples.Draw();
 
         stats.AfterRender(renderer.RenderedObjectsPerFrame());
         stats.Draw(window.Width());

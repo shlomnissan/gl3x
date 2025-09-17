@@ -6,13 +6,9 @@
 */
 
 #include <memory>
-#include <string_view>
 
 #include <gleam/gleam.hpp>
-#include <imgui/imgui.h>
 
-#include "ui_helpers.hpp"
-#include "example_scene.hpp"
 #include "examples.hpp"
 
 using namespace gleam;
@@ -21,7 +17,7 @@ class ExamplesApp : public Application {
 public:
     auto Configure() -> Application::Parameters override {
         return {
-            .title = "Examples",
+            .title = "Examples (Runtime Initialization)",
             .clear_color = 0x444444,
             .width = 1024,
             .height = 768,
@@ -32,132 +28,34 @@ public:
     }
 
     auto CreateScene() -> std::shared_ptr<Scene> override {
-        Theme();
-
-        LoadScene(examples[current_scene_]);
-        return scene_;
+        if (examples_ == nullptr) {
+            auto context = GetContext();
+            examples_ = std::make_unique<Examples>(
+                const_cast<gleam::SharedContext*>(context),
+                [this](std::shared_ptr<Scene> scene) { SetScene(scene); }
+            );
+        }
+        return examples_->scene;
     }
 
     auto CreateCamera() -> std::shared_ptr<Camera> override {
-        camera_ = PerspectiveCamera::Create({
+        auto camera = PerspectiveCamera::Create({
             .fov = math::DegToRad(60.0f),
             .aspect = GetContext()->Parameters().aspect_ratio,
             .near = 0.1f,
             .far = 1000.0f
         });
-        camera_->transform.Translate({0.0f, 0.0f, 3.0f});
-        return camera_;
+        camera->transform.Translate({0.0f, 0.0f, 3.0f});
+        return camera;
     }
 
     auto Update(float delta) -> bool override {
-        const auto height = static_cast<float>(GetContext()->Parameters().window_height);
-        ImGui::SetNextWindowSize({250, height - 20.0f});
-        ImGui::SetNextWindowPos({10, 10});
-        ImGui::Begin("Gleam Engine", nullptr,
-            ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_NoMove
-        );
-        if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) {
-            DrawExamplesList();
-        }
-
-        if (scene_->show_context_menu_) {
-            if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
-                scene_->ContextMenu();
-            }
-        }
-
-        ImGui::End();
+        examples_->Draw();
         return true;
     }
 
-    auto DrawExamplesList() -> void {
-        if (ImGui::BeginListBox("##ListBox", {235, 384})) {
-            for (auto i = 0; i < examples.size(); i++) {
-                const auto name = std::string_view {examples[i]};
-                if (name.starts_with("-")) {
-                    UISeparator();
-                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.4, 0.4, 0.4, 1));
-                    ImGui::TextUnformatted(name.substr(2).data());
-                    ImGui::PopStyleColor();
-                    UISeparator();
-                } else if (ImGui::Selectable(name.data(), current_scene_ == i) && current_scene_ != i) {
-                    current_scene_ = i;
-                    LoadScene(name);
-                }
-            }
-            ImGui::EndListBox();
-        }
-    }
-
 private:
-    std::shared_ptr<PerspectiveCamera> camera_;
-    std::shared_ptr<ExampleScene> scene_;
-
-    int current_scene_ = 1;
-
-    auto LoadScene(const std::string_view scene_name) -> void {
-        if (current_scene_ == 0) {
-            scene_ = std::make_shared<ExampleSandbox>();
-        }
-
-        // materials
-        if (scene_name == "Unlit Material") {
-            scene_ = std::make_shared<ExampleUnlitMaterial>();
-        }
-        if (scene_name == "Phong Material") {
-            scene_ = std::make_shared<ExamplePhongMaterial>();
-        }
-        if (scene_name == "Shader Material") {
-            scene_ = std::make_shared<ExampleShaderMaterial>();
-        }
-
-        // lighting
-        if (scene_name == "Directional Light") {
-            scene_ = std::make_shared<ExampleDirectionalLight>();
-        }
-        if (scene_name == "Point Light") {
-            scene_ = std::make_shared<ExamplePointLight>();
-        }
-        if (scene_name == "Spot Light") {
-            scene_ = std::make_shared<ExampleSpotLight>();
-        }
-
-        // rendering effects
-        if (scene_name == "Transparency & Blending") {
-            scene_ = std::make_shared<ExampleBlending>();
-        }
-        if (scene_name == "Fog Effect") {
-            scene_ = std::make_shared<ExampleFog>();
-        }
-
-        // scene features
-        if (scene_name == "Frustum Culling") {
-            scene_ = std::make_shared<ExampleFrustumCulling>();
-        }
-        if (scene_name == "Mesh Instancing") {
-            scene_ = std::make_shared<ExampleMeshInstancing>();
-        }
-        if (scene_name == "Model Loader") {
-            scene_ = std::make_shared<ExampleModelLoader>();
-        }
-        if (scene_name == "Primitives") {
-            scene_ = std::make_shared<ExamplePrimitives>();
-        }
-        if (scene_name == "Sprite") {
-            scene_ = std::make_shared<ExampleSprite>();
-        }
-        if (scene_name == "Debug Visuals") {
-            scene_ = std::make_shared<ExampleDebugVisuals>();
-        }
-
-        // animation
-        if (scene_name == "Animated Transform") {
-            scene_ = std::make_shared<ExampleAnimatedTransform>();
-        }
-
-        SetScene(scene_);
-    }
+    std::unique_ptr<Examples> examples_ {nullptr};
 };
 
 auto main() -> int {

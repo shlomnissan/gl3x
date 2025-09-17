@@ -9,6 +9,12 @@
 
 #include <vector>
 
+#include <gleam/gleam.hpp>
+#include <imgui/imgui.h>
+
+#include "ui_helpers.hpp"
+#include "example_scene.hpp"
+
 #include "animation/example_animated_transform.hpp"
 #include "lighting/example_directional_light.hpp"
 #include "lighting/example_point_light.hpp"
@@ -26,7 +32,9 @@
 #include "scene_features/example_primitives.hpp"
 #include "scene_features/example_sprite.hpp"
 
-static const auto examples = std::vector {
+namespace {
+
+    const auto examples = std::vector {
     "- Materials",
     "Unlit Material",
     "Phong Material",
@@ -47,4 +55,92 @@ static const auto examples = std::vector {
     "Debug Visuals",
     "- Animation",
     "Animated Transform"
+};
+
+}
+
+using SceneChangeCallback = std::function<void(std::shared_ptr<gleam::Scene>)>;
+
+class Examples {
+public:
+    std::shared_ptr<ExampleScene> scene;
+
+    Examples(gleam::SharedContext* context, SceneChangeCallback cb = nullptr)
+      : context_ {context}, scene_change_cb_ {std::move(cb)} {
+        Theme();
+        LoadScene(examples[current_scene_]);
+    }
+
+    auto Draw() -> void {
+        const auto height = static_cast<float>(context_->Parameters().window_height);
+        ImGui::SetNextWindowSize({250, height - 20.0f});
+        ImGui::SetNextWindowPos({10, 10});
+        ImGui::Begin("Gleam Engine", nullptr,
+            ImGuiWindowFlags_NoResize |
+            ImGuiWindowFlags_NoMove
+        );
+
+        if (ImGui::CollapsingHeader("Examples", ImGuiTreeNodeFlags_DefaultOpen)) {
+            if (ImGui::BeginListBox("##ListBox", {235, 384})) {
+                for (auto i = 0; i < examples.size(); i++) {
+                    const auto name = std::string_view {examples[i]};
+                    if (name.starts_with("-")) {
+                        UISeparator();
+                        ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.4, 0.4, 0.4, 1));
+                        ImGui::TextUnformatted(name.substr(2).data());
+                        ImGui::PopStyleColor();
+                        UISeparator();
+                    } else if (
+                        ImGui::Selectable(name.data(), current_scene_ == i)
+                        && current_scene_ != i
+                    ) {
+                        current_scene_ = i;
+                        LoadScene(name);
+                    }
+                }
+                ImGui::EndListBox();
+            }
+        }
+
+        if (scene->show_context_menu_) {
+            if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
+                scene->ContextMenu();
+            }
+        }
+
+        ImGui::End();
+    }
+
+    auto LoadScene(const std::string_view scene_name) -> void {
+        if (current_scene_ == 0) scene.reset(new ExampleSandbox());
+
+        if (scene_name == "Unlit Material") scene.reset(new ExampleUnlitMaterial());
+        if (scene_name == "Phong Material") scene.reset(new ExamplePhongMaterial());
+        if (scene_name == "Shader Material") scene.reset(new ExampleShaderMaterial());
+        if (scene_name == "Directional Light") scene.reset(new ExampleDirectionalLight());
+        if (scene_name == "Point Light") scene.reset(new ExamplePointLight());
+        if (scene_name == "Spot Light") scene.reset(new ExampleSpotLight());
+        if (scene_name == "Transparency & Blending") scene.reset(new ExampleBlending());
+        if (scene_name == "Fog Effect") scene.reset(new ExampleFog());
+        if (scene_name == "Frustum Culling") scene.reset(new ExampleFrustumCulling());
+        if (scene_name == "Mesh Instancing") scene.reset(new ExampleMeshInstancing());
+        if (scene_name == "Model Loader") scene.reset(new ExampleModelLoader());
+        if (scene_name == "Primitives") scene.reset(new ExamplePrimitives());
+        if (scene_name == "Sprite") scene.reset(new ExampleSprite());
+        if (scene_name == "Debug Visuals") scene.reset(new ExampleDebugVisuals());
+        if (scene_name == "Animated Transform") scene.reset(new ExampleAnimatedTransform());
+
+        if (scene_change_cb_) {
+            scene_change_cb_(scene);
+        } else {
+            scene->SetContext(context_);
+        }
+    }
+
+private:
+    gleam::SharedContext* context_ {nullptr};
+
+    SceneChangeCallback scene_change_cb_;
+
+    int current_scene_ = 1;
 };
