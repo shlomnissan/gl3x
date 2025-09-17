@@ -149,18 +149,20 @@ public:
     virtual auto Update(float delta) -> bool = 0;
 
     /**
-     * @brief Returns the runtime parameters shared across subsystems.
+     * @brief Returns the active shared context.
      *
-     * These values are populated once the application is initialized and
-     * reflect the current state of the runtime (e.g., active camera,
-     * aspect ratio, framebuffer and window sizes).
+     * The shared context holds runtime parameters (e.g., window size,
+     * framebuffer size, aspect ratio, active camera) and provides access to
+     * built-in resource loaders. It is created internally during application
+     * startup and is guaranteed to remain valid for the lifetime of the
+     * application.
      *
-     * Useful for querying real window/framebuffer dimensions or the
-     * current camera when setting up nodes at runtime.
+     * @return Pointer to the current SharedContext instance. The pointer is
+     * owned by the application and must not be deleted by the caller.
      *
-     * @return SharedContext::SharedParameters containing current runtime parameters.
+     * @see SharedContext
      */
-    [[nodiscard]] auto GetParameters() const -> SharedContext::SharedParameters;
+    [[nodiscard]] auto GetContext() const -> const SharedContext*;
 
     /**
      * @brief Returns the current scene pointer.

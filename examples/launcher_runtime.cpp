@@ -17,7 +17,7 @@
 
 using namespace gleam;
 
-class Examples : public Application {
+class ExamplesApp : public Application {
 public:
     auto Configure() -> Application::Parameters override {
         return {
@@ -41,7 +41,7 @@ public:
     auto CreateCamera() -> std::shared_ptr<Camera> override {
         camera_ = PerspectiveCamera::Create({
             .fov = math::DegToRad(60.0f),
-            .aspect = GetParameters().aspect_ratio,
+            .aspect = GetContext()->Parameters().aspect_ratio,
             .near = 0.1f,
             .far = 1000.0f
         });
@@ -50,7 +50,7 @@ public:
     }
 
     auto Update(float delta) -> bool override {
-        const auto height = static_cast<float>(GetParameters().window_height);
+        const auto height = static_cast<float>(GetContext()->Parameters().window_height);
         ImGui::SetNextWindowSize({250, height - 20.0f});
         ImGui::SetNextWindowPos({10, 10});
         ImGui::Begin("Gleam Engine", nullptr,
@@ -161,7 +161,7 @@ private:
 };
 
 auto main() -> int {
-    auto app = Examples {};
+    auto app = ExamplesApp {};
     app.Start();
 
     return 0;

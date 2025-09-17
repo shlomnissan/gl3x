@@ -159,13 +159,13 @@ auto Application::Start() -> void {
         stats.AfterRender(impl_->renderer->RenderedObjectsPerFrame());
 
         if (show_stats_) {
-            stats.Draw(static_cast<float>(GetParameters().window_width));
+            stats.Draw(static_cast<float>(GetContext()->Parameters().window_width));
         }
     });
 }
 
-auto Application::GetParameters() const -> SharedContext::SharedParameters {
-    return impl_->shared_context->Parameters();
+auto Application::GetContext() const -> const SharedContext* {
+    return impl_->shared_context.get();
 }
 
 auto Application::GetScene() const -> Scene* {
