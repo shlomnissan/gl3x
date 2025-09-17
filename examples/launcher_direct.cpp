@@ -51,7 +51,9 @@ auto main() -> int {
     auto context = SharedContext::Create(&window, camera.get());
     auto timer = FrameTimer {true}; // auto-start
     auto stats = Stats {};
-    auto examples = Examples {context.get()};
+    auto examples = Examples {[&context](std::shared_ptr<Scene> scene){
+        scene->SetContext(context.get());
+    }};
 
     window.Start([&]() {
         stats.BeforeRender();
@@ -62,7 +64,7 @@ auto main() -> int {
         examples.Draw();
 
         stats.AfterRender(renderer.RenderedObjectsPerFrame());
-        stats.Draw(window.Width());
+        stats.Draw();
     });
 
     return 0;

@@ -27,7 +27,7 @@ namespace GLEAM_EXPORT gleam {
  *   stats.BeforeRender();
  *   renderer.Render(scene, camera);
  *   stats.AfterRender(renderer.RenderedObjectsPerFrame());
- *   stats.Draw(window.Width());
+ *   stats.Draw();
  * }
  * @endcode
  *
@@ -64,12 +64,9 @@ public:
      * @brief Draws the performance overlay.
      *
      * Renders a window containing FPS, frame time, and rendered object
-     * histograms. The window is positioned in the top-right corner of the
-     * application window.
-     *
-     * @param window_width Logical width of the application window.
+     * histograms.
      */
-    auto Draw(float window_width) const -> void;
+    auto Draw() const -> void;
 
     /**
      * @brief Destructor.

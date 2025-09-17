@@ -159,7 +159,7 @@ auto Application::Start() -> void {
         stats.AfterRender(impl_->renderer->RenderedObjectsPerFrame());
 
         if (show_stats_) {
-            stats.Draw(static_cast<float>(GetContext()->Parameters().window_width));
+            stats.Draw();
         }
     });
 }

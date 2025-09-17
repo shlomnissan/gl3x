@@ -65,14 +65,14 @@ class Examples {
 public:
     std::shared_ptr<ExampleScene> scene;
 
-    Examples(const gleam::SharedContext* context, SceneChangeCallback cb = nullptr)
-      : context_ {context}, scene_change_cb_ {std::move(cb)} {
+    Examples(SceneChangeCallback cb) : scene_change_cb_ {std::move(cb)} {
         Theme();
         LoadScene(examples[current_scene_]);
     }
 
     auto Draw() -> void {
-        const auto height = static_cast<float>(context_->Parameters().window_height);
+        const auto height = ImGui::GetIO().DisplaySize.y;
+
         ImGui::SetNextWindowSize({250, height - 20.0f});
         ImGui::SetNextWindowPos({10, 10});
         ImGui::Begin("Gleam Engine", nullptr,
@@ -130,11 +130,7 @@ public:
         if (scene_name == "Debug Visuals") scene.reset(new ExampleDebugVisuals());
         if (scene_name == "Animated Transform") scene.reset(new ExampleAnimatedTransform());
 
-        if (scene_change_cb_) {
-            scene_change_cb_(scene);
-        } else {
-            scene->SetContext(context_);
-        }
+        scene_change_cb_(scene);
     }
 
 private:

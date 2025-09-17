@@ -17,6 +17,9 @@
 
 namespace gleam {
 
+static const float kContainerWidth {250.0f};
+static const float kContainerHeight {215.0f};
+
 struct Stats::Impl {
     DataSeries<float, 150> fps_series;
     DataSeries<float, 150> frame_time_series;
@@ -67,13 +70,12 @@ auto Stats::AfterRender(unsigned int n_objects) -> void {
     impl_->After(n_objects);
 }
 
-auto Stats::Draw(float window_width) const -> void {
+auto Stats::Draw() const -> void {
 #ifdef GLEAM_USE_IMGUI
-    static const float kWindowWidth {250.0f};
-    static const float kWindowHeight {215.0f};
+    const auto window_width = ImGui::GetIO().DisplaySize.x;
 
-    ImGui::SetNextWindowSize({kWindowWidth, kWindowHeight});
-    ImGui::SetNextWindowPos({window_width - kWindowWidth - 10.0f, 10.0f});
+    ImGui::SetNextWindowSize({kContainerWidth, kContainerHeight});
+    ImGui::SetNextWindowPos({window_width - kContainerWidth - 10.0f, 10.0f});
     ImGui::Begin("Stats", nullptr,
         ImGuiWindowFlags_NoResize |
         ImGuiWindowFlags_NoMove
