@@ -31,7 +31,6 @@ public:
         if (examples_ == nullptr) {
             auto context = GetContext();
             examples_ = std::make_unique<Examples>(
-                const_cast<gleam::SharedContext*>(context),
                 [this](std::shared_ptr<Scene> scene) { SetScene(scene); }
             );
         }
