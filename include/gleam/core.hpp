@@ -13,3 +13,6 @@
  */
 
 #include "gleam/core/application.hpp"
+#include "gleam/core/renderer.hpp"
+#include "gleam/core/shared_context.hpp"
+#include "gleam/core/window.hpp"

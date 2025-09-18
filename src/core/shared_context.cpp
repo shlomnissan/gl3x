@@ -7,7 +7,7 @@
 
 #include "gleam/core/shared_context.hpp"
 
-#include "core/window.hpp"
+#include "gleam/core/window.hpp"
 
 namespace gleam {
 

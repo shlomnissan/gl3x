@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "core/window.hpp"
+#include "gleam/core/window.hpp"
 
 #include <expected>
 #include <string>

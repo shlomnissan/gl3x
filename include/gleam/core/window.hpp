@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "gleam_export.h"
+
 #include <expected>
 #include <functional>
 #include <memory>
@@ -19,7 +21,7 @@ class Event;
 
 using OnTickCallback = std::function<void()>;
 
-class Window {
+class GLEAM_EXPORT Window {
 public:
     class Impl;
 

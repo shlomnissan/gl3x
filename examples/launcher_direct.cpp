@@ -5,9 +5,6 @@
 ===========================================================================
 */
 
-#include "core/window.hpp"
-#include "core/renderer.hpp"
-
 #include <gleam/gleam.hpp>
 
 #include "examples.hpp"

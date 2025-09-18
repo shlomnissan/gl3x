@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "gleam_export.h"
+
 #include "gleam/cameras/camera.hpp"
 #include "gleam/math/color.hpp"
 #include "gleam/nodes/scene.hpp"
@@ -16,7 +18,7 @@
 
 namespace gleam {
 
-class Renderer {
+class GLEAM_EXPORT Renderer {
 public:
     struct Parameters {
         int framebuffer_width;
