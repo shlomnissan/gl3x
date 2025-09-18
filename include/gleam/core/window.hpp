@@ -74,7 +74,7 @@ public:
     /**
      * @brief Initializes the underlying OS window and graphics context.
      *
-     * @return `std::expected<void, std::string>` — empty on success, or an
+     * @return `std::expected<void, std::string>` empty on success, or an
      * error message on failure.
      */
     [[nodiscard]] auto Initialize() -> std::expected<void, std::string>;
@@ -123,7 +123,7 @@ public:
     auto Break() -> void;
 
     /**
-     * @brief Destroys the window and associated resources.
+     * @brief Releases window resources.
      */
     ~Window();
 
