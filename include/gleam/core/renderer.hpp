@@ -110,6 +110,17 @@ public:
     auto SetViewport(int x, int y, int width, int height) -> void;
 
     /**
+     * @brief Sets the clear color for subsequent frames.
+     *
+     * The color is applied at the start of each frame when the framebuffer
+     * is cleared. Typically used to define the background color of the
+     * rendering surface.
+     *
+     * @param color Clear color in RGB format.
+     */
+    auto SetClearColor(const Color& color) -> void;
+
+    /**
      * @brief Returns the number of renderable objects drawn in the last frame.
      *
      * Intended for statistics overlays and debugging.

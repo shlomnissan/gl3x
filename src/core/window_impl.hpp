@@ -43,6 +43,8 @@ public:
 
     auto Break() -> void;
 
+    auto SetTitle(std::string_view title) -> void;
+
     ~Impl();
 
 private:

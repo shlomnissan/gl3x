@@ -47,6 +47,10 @@ auto Window::AspectRatio() const -> float {
          static_cast<float>(impl_->window_height);
 };
 
+auto Window::SetTitle(std::string_view title) -> void {
+    impl_->SetTitle(title);
+}
+
 Window::~Window() = default;
 
 }

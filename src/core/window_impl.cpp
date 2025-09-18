@@ -119,6 +119,10 @@ auto Window::Impl::Break() -> void {
     break_ = true;
 }
 
+auto Window::Impl::SetTitle(std::string_view title) -> void {
+    glfwSetWindowTitle(window_, title.data());
+}
+
 auto Window::Impl::LogContextInfo() const -> void {
     const auto getString = [](GLenum name) {
         return reinterpret_cast<const char*>(glGetString(name));

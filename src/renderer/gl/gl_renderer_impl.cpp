@@ -247,6 +247,10 @@ auto Renderer::Impl::SetViewport(int x, int y, int width, int height) -> void {
     state_.SetViewport(x, y, width, height);
 }
 
+auto Renderer::Impl::SetClearColor(const Color& color) -> void {
+    state_.SetClearColor(color);
+}
+
 Renderer::Impl::~Impl() = default;
 
 }

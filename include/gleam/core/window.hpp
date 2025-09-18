@@ -135,6 +135,13 @@ public:
     auto Break() -> void;
 
     /**
+     * @brief Updates the window title string.
+     *
+     * @param title UTF-8 string to display in the window title bar.
+     */
+    auto SetTitle(std::string_view title) -> void;
+
+    /**
      * @brief Releases window resources.
      */
     ~Window() noexcept;
