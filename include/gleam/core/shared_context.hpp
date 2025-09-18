@@ -87,6 +87,14 @@ public:
      */
     explicit SharedContext(const SharedParameters& params) : params_(params) {};
 
+    // Non-copyable
+    SharedContext(const SharedContext&) = delete;
+    auto operator=(const SharedContext&) -> SharedContext& = delete;
+
+    // Movable
+    SharedContext(SharedContext&&) noexcept = default;
+    auto operator=(SharedContext&&) noexcept -> SharedContext& = default;
+
     /**
      * @brief Creates a unique pointer to a shared context object.
      *

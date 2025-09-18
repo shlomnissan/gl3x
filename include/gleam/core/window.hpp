@@ -53,6 +53,10 @@ using OnTickCallback = std::function<void()>;
  */
 class GLEAM_EXPORT Window {
 public:
+    /// @cond INTERNAL
+    class Impl;
+    /// @endcond
+
     /// @brief Construction parameters for `Window`.
     struct Parameters {
         std::string title; ///< Window title string.
@@ -70,6 +74,14 @@ public:
      * @param params Window::Parameters
      */
     explicit Window(const Window::Parameters& params);
+
+    // Non-copyable
+    Window(const Window&) = delete;
+    auto operator=(const Window&) -> Window& = delete;
+
+    // Movable
+    Window(Window&&) noexcept = default;
+    auto operator=(Window&&) noexcept -> Window& = default;
 
     /**
      * @brief Initializes the underlying OS window and graphics context.
@@ -125,11 +137,10 @@ public:
     /**
      * @brief Releases window resources.
      */
-    ~Window();
+    ~Window() noexcept;
 
 private:
     /// @cond INTERNAL
-    class Impl;
     std::unique_ptr<Impl> impl_;
     /// @endcond
 };

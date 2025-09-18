@@ -96,6 +96,14 @@ public:
      */
     Application();
 
+    // Non-copyable
+    Application(const Application&) = delete;
+    auto operator=(const Application&) -> Application& = delete;
+
+    // Movable
+    Application(Application&&) noexcept = default;
+    auto operator=(Application&&) noexcept -> Application& = default;
+
     /**
      * @brief Starts the application loop.
      *

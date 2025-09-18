@@ -67,6 +67,14 @@ public:
      */
     explicit Renderer(const Renderer::Parameters& params);
 
+    // Non-copyable
+    Renderer(const Renderer&) = delete;
+    auto operator=(const Renderer&) -> Renderer& = delete;
+
+    // Movable
+    Renderer(Renderer&&) noexcept = default;
+    auto operator=(Renderer&&) noexcept -> Renderer& = default;
+
     /**
      * @brief Initializes GPU state and allocates required resources.
      *
@@ -111,7 +119,7 @@ public:
     /**
      * @brief Releases renderer resources.
      */
-    ~Renderer();
+    ~Renderer() noexcept;
 
 private:
     /// @cond INTERNAL
