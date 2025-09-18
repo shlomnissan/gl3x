@@ -44,7 +44,7 @@ ExamplePhongMaterial::ExamplePhongMaterial() {
     Add(point_light);
 }
 
-auto ExamplePhongMaterial::OnAttached(const gleam::SharedContext* context) -> void {
+auto ExamplePhongMaterial::OnAttached(SharedContextPointer context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 
     context->Loaders().Texture->LoadAsync(

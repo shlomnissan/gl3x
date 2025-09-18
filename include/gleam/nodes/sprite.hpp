@@ -29,7 +29,7 @@ namespace gleam {
  * Common use cases include particles, labels, icons, and world-space markers.
  *
  * @code
- * auto MyNode::OnAttached(const gleam::SharedContext* context) -> void override {
+ * auto MyNode::OnAttached(SharedContextPointer context) -> void override {
  *   context->Loaders().Texture->LoadAsync(
  *     "assets/sprite.tex",
  *     [this](auto result) {

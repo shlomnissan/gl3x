@@ -41,7 +41,7 @@ ExampleModelLoader::ExampleModelLoader() {
     sphere_->Add(light_1);
 }
 
-auto ExampleModelLoader::OnAttached(const gleam::SharedContext* context) -> void {
+auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {
         .radius = 4.0f,
         .pitch = DegToRad(20.0f),

@@ -18,7 +18,7 @@ class ExampleDebugVisuals : public ExampleScene {
 public:
     ExampleDebugVisuals();
 
-    auto OnAttached(const gleam::SharedContext* context) -> void override;
+    auto OnAttached(SharedContextPointer context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
 

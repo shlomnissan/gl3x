@@ -96,7 +96,7 @@ public:
      *
      * @param context Pointer to the active SharedContext instance (const).
      */
-    auto SetContext(const SharedContext* context) -> void;
+    auto SetContext(SharedContextPointer context) -> void;
 
     /**
      * @brief Creates a shared pointer to a Scene object.

@@ -27,7 +27,7 @@ namespace gleam {
  * This controller is useful for editor views, previews, and navigation interfaces.
  *
  * @code
- * auto MyScene::OnAttached(const gleam::SharedContext* context) -> void override {
+ * auto MyScene::OnAttached(SharedContextPointer context) -> void override {
  *   Add(gleam::OrbitControls::Create(
  *     context->Parameters().camera, {
  *       .radius = 5.0f,

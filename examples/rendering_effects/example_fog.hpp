@@ -15,7 +15,7 @@ class ExampleFog : public ExampleScene {
 public:
     ExampleFog();
 
-    auto OnAttached(const gleam::SharedContext* context) -> void override;
+    auto OnAttached(SharedContextPointer context) -> void override;
 
     auto ContextMenu() -> void override;
 };

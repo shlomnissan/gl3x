@@ -19,7 +19,7 @@ class ExampleModelLoader : public ExampleScene {
 public:
     ExampleModelLoader();
 
-    auto OnAttached(const gleam::SharedContext* context) -> void override;
+    auto OnAttached(SharedContextPointer context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
 

@@ -59,7 +59,7 @@ ExampleAnimatedTransform::ExampleAnimatedTransform() {
     Add(active_point_);
 }
 
-auto ExampleAnimatedTransform::OnAttached(const gleam::SharedContext* context) -> void {
+auto ExampleAnimatedTransform::OnAttached(SharedContextPointer context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 }
 

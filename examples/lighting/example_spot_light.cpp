@@ -56,7 +56,7 @@ ExampleSpotLight::ExampleSpotLight() {
     Add(spot_light_);
 }
 
-auto ExampleSpotLight::OnAttached(const gleam::SharedContext* context) -> void {
+auto ExampleSpotLight::OnAttached(SharedContextPointer context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),

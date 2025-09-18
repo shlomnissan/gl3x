@@ -66,7 +66,7 @@ ExampleShaderMaterial::ExampleShaderMaterial() {
     Add(mesh_);
 }
 
-auto ExampleShaderMaterial::OnAttached(const gleam::SharedContext* context) -> void {
+auto ExampleShaderMaterial::OnAttached(SharedContextPointer context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 }
 

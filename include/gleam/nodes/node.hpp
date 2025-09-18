@@ -49,7 +49,7 @@ enum class NodeType {
  * Nodes can be organized in a tree structure, and transformations will
  * propagate through the hierarchy. When attached to a scene, nodes gain
  * access to the shared context and may perform initialization in
- * `OnAttached(const gleam::SharedContext* context)`.
+ * `OnAttached(SharedContextPointer context)`.
  *
  * To define behavior, override virtual methods such as `OnUpdate()`,
  * `OnKeyboardEvent()`, or `OnMouseEvent()`.
@@ -256,7 +256,7 @@ public:
      *
      * @param context Pointer to the shared context (const).
      */
-    virtual auto OnAttached(const SharedContext* context) -> void { /* No-op by default */ }
+    virtual auto OnAttached(SharedContextPointer context) -> void { /* No-op by default */ }
 
     /**
      * @brief Called when a keyboard event is dispatched to this node.
@@ -284,7 +284,7 @@ private:
     std::unique_ptr<Impl> impl_;
 
     friend class Scene;
-    auto AttachRecursive(const SharedContext* context) -> void;
+    auto AttachRecursive(SharedContextPointer context) -> void;
     /// @endcond
 };
 

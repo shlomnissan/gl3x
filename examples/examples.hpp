@@ -134,7 +134,7 @@ public:
     }
 
 private:
-    const gleam::SharedContext* context_ {nullptr};
+    SharedContextPointer context_ {nullptr};
 
     SceneChangeCallback scene_change_cb_;
 

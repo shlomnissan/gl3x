@@ -51,7 +51,7 @@ ExampleBlending::ExampleBlending() {
     Add(point_light);
 }
 
-auto ExampleBlending::OnAttached(const gleam::SharedContext* context) -> void {
+auto ExampleBlending::OnAttached(SharedContextPointer context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 }
 

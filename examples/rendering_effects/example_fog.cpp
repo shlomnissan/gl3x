@@ -47,7 +47,7 @@ ExampleFog::ExampleFog() {
     fog = LinearFog::Create(0x444444, 2.0f, 6.0f);
 }
 
-auto ExampleFog::OnAttached(const gleam::SharedContext* context) -> void {
+auto ExampleFog::OnAttached(SharedContextPointer context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {
         .radius = 3.0f,
         .pitch = math::DegToRad(25.0f),

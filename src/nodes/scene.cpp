@@ -45,7 +45,7 @@ auto handle_input_event(std::weak_ptr<Node> node, Event* event) -> void {
 
 struct Scene::Impl {
     std::shared_ptr<EventListener> event_listener;
-    const SharedContext* context {nullptr};
+    SharedContextPointer context {nullptr};
 };
 
 Scene::Scene() : impl_(std::make_unique<Impl>()) {
@@ -81,7 +81,7 @@ auto Scene::Advance(float delta) -> void {
     }
 }
 
-auto Scene::SetContext(const SharedContext* context) -> void {
+auto Scene::SetContext(SharedContextPointer context) -> void {
     impl_->context = context;
     this->AttachRecursive(context);
 }

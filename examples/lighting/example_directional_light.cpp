@@ -50,7 +50,7 @@ ExampleDirectionalLight::ExampleDirectionalLight() {
     Add(directional_light_);
 }
 
-auto ExampleDirectionalLight::OnAttached(const gleam::SharedContext* context) -> void {
+auto ExampleDirectionalLight::OnAttached(SharedContextPointer context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),

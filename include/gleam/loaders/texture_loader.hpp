@@ -41,7 +41,7 @@ using TextureCallback = std::function<void(std::shared_ptr<Texture2D>)>;
  * operations return a valid result, and handle the error otherwise.
  *
  * @code
- * auto MyNode::OnAttached(const gleam::SharedContext* context) -> void override {
+ * auto MyNode::OnAttached(SharedContextPointer context) -> void override {
  *   context->Loaders().Texture->LoadAsync(
  *     "assets/my_texture.tex",
  *     [this](auto result) {

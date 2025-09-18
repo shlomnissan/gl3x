@@ -170,7 +170,7 @@ public:
      *
      * @see SharedContext
      */
-    [[nodiscard]] auto GetContext() const -> const SharedContext*;
+    [[nodiscard]] auto GetContext() const -> SharedContextPointer;
 
     /**
      * @brief Returns the current scene pointer.

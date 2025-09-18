@@ -164,7 +164,7 @@ auto Application::Start() -> void {
     });
 }
 
-auto Application::GetContext() const -> const SharedContext* {
+auto Application::GetContext() const -> SharedContextPointer {
     return impl_->shared_context.get();
 }
 

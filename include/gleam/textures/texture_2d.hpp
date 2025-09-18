@@ -23,7 +23,7 @@ namespace gleam {
  * use the texture loader object to create texture instances:
  *
  * @code
- * auto MyNode::OnAttached(const gleam::SharedContext* context) -> void override {
+ * auto MyNode::OnAttached(SharedContextPointer context) -> void override {
  *   context->Loaders().Texture->LoadAsync(
  *     "assets/my_texture.tex",
  *     [this](auto result) {

@@ -24,7 +24,7 @@ ExampleUnlitMaterial::ExampleUnlitMaterial() {
     Add(mesh_);
 }
 
-auto ExampleUnlitMaterial::OnAttached(const gleam::SharedContext* context) -> void {
+auto ExampleUnlitMaterial::OnAttached(SharedContextPointer context) -> void {
     Add(OrbitControls::Create(context->Parameters().camera, {.radius = 3.0f}));
 
     context->Loaders().Texture->LoadAsync(

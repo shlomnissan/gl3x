@@ -19,7 +19,7 @@ class ExampleUnlitMaterial : public ExampleScene {
 public:
     ExampleUnlitMaterial();
 
-    auto OnAttached(const gleam::SharedContext* context) -> void override;
+    auto OnAttached(SharedContextPointer context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
 
