@@ -11,11 +11,8 @@
 #include "gleam/core/renderer.hpp"
 #include "gleam/core/shared_context.hpp"
 #include "gleam/core/window.hpp"
-#include "gleam/events/window_event.hpp"
 #include "gleam/utilities/frame_timer.hpp"
 #include "gleam/utilities/stats.hpp"
-
-#include "events/event_dispatcher.hpp"
 
 #include "utilities/logger.hpp"
 
@@ -46,7 +43,6 @@ struct Application::Impl {
     std::unique_ptr<Window> window;
     std::unique_ptr<Renderer> renderer;
     std::unique_ptr<SharedContext> shared_context;
-    std::shared_ptr<EventListener> event_listener;
 
     double last_frame_time = 0.0;
 
@@ -113,31 +109,21 @@ auto Application::Setup() -> void {
     impl_->SetCamera(CreateCamera());
     impl_->SetScene(CreateScene());
 
-    impl_->event_listener = std::make_shared<EventListener>([&](Event* event) {
-        if (event->GetType() == EventType::Window) {
-            auto e = static_cast<WindowEvent*>(event);
+    impl_->window->OnResize([this](const ResizeParameters& params){
+        auto context = impl_->shared_context.get();
+        context->params_.framebuffer_width = params.framebuffer_width;
+        context->params_.framebuffer_height = params.framebuffer_height;
+        context->params_.window_width = params.window_width;
+        context->params_.window_height = params.window_height;
 
-            if (e->type == WindowEvent::Type::FramebufferResize) {
-                const auto w = static_cast<int>(e->framebuffer.x);
-                const auto h = static_cast<int>(e->framebuffer.y);
+        impl_->renderer->SetViewport(
+            0, 0,
+            params.framebuffer_width,
+            params.framebuffer_height
+        );
 
-                impl_->shared_context->params_.framebuffer_width = w;
-                impl_->shared_context->params_.framebuffer_height = h;
-                impl_->renderer->SetViewport(0, 0, w, h);
-                impl_->camera->Resize(w, h);
-            }
-
-            if (e->type == WindowEvent::Type::WindowResize) {
-                const auto w = static_cast<int>(e->window.x);
-                const auto h = static_cast<int>(e->window.y);
-
-                impl_->shared_context->params_.window_width = w;
-                impl_->shared_context->params_.window_height = h;
-            }
-        }
+        impl_->camera->Resize(params.window_width, params.window_height);
     });
-
-    EventDispatcher::Get().AddEventListener("window_event", impl_->event_listener);
 }
 
 auto Application::Start() -> void {
@@ -189,8 +175,6 @@ auto Application::SetCamera(std::shared_ptr<Camera> camera) -> void {
     impl_->SetCamera(camera);
 }
 
-Application::~Application() {
-    EventDispatcher::Get().RemoveEventListener("window_event", impl_->event_listener);
-}
+Application::~Application() = default;
 
 }

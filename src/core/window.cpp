@@ -67,6 +67,10 @@ auto Window::SetTitle(std::string_view title) -> void {
     impl_->SetTitle(title);
 }
 
+auto Window::OnResize(ResizeCallback callback) -> void {
+    impl_->SetResizeCallback(std::move(callback));
+}
+
 Window::~Window() = default;
 
 }

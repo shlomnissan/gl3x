@@ -17,7 +17,27 @@
 
 namespace gleam {
 
-class Event;
+/**
+ * @brief Parameters passed to resize callbacks.
+ *
+ * @related Window
+ */
+struct ResizeParameters {
+    int framebuffer_width; ///< Framebuffer width in physical pixels.
+    int framebuffer_height; ///< Framebuffer height in physical pixels.
+    int window_width; ///< Logical window width in screen coordinates.
+    int window_height; ///< Logical window height in screen coordinates.
+};
+
+/**
+ * @brief Function signature for window-resize notifications.
+ *
+ * The callback is invoked when the window’s client-area size changes.
+ * Use the provided sizes to update viewports and camera projection.
+ *
+ * @related Window
+ */
+using ResizeCallback = std::function<void(const ResizeParameters& params)>;
 
 /**
  * @brief Cross-platform application window.
@@ -175,6 +195,28 @@ public:
      * @param title UTF-8 string to display in the window title bar.
      */
     auto SetTitle(std::string_view title) -> void;
+
+    /**
+     * @brief Registers a callback to be invoked when the window is resized.
+     *
+     * The callback is executed whenever the client-area dimensions change,
+     * including user drag-resizes and OS-driven scaling changes on HiDPI
+     * displays. The callback receives both logical window sizes and the
+     * framebuffer sizes in physical pixels.
+     *
+     * Typical uses:
+     *  - Update the graphics viewport with framebuffer sizes.
+     *  - Recompute camera projection with logical window sizes.
+     *
+     * @param cb A function to invoke on resize with the new sizes.
+     *
+     * @note Only one resize callback is stored. Registering a new callback
+     * replaces the previous one.
+     *
+     * @note The callback is invoked on the main thread, typically during
+     * @ref PollEvents() processing.
+     */
+    auto OnResize(ResizeCallback callback) -> void;
 
     /**
      * @brief Releases window resources.

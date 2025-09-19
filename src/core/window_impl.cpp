@@ -9,7 +9,6 @@
 
 #include "gleam/events/keyboard_event.hpp"
 #include "gleam/events/mouse_event.hpp"
-#include "gleam/events/window_event.hpp"
 
 #include "events/event_dispatcher.hpp"
 #include "utilities/logger.hpp"
@@ -34,7 +33,6 @@ auto glfw_mouse_button_map(int button) -> MouseButton;
 auto glfw_keyboard_map(int key) -> Key;
 auto glfw_framebuffer_size_callback(GLFWwindow*, int w, int h) -> void;
 auto glfw_window_size_callback(GLFWwindow*, int w, int h) -> void;
-auto glfw_content_scale_callback(GLFWwindow*, float sx, float sy) -> void;
 
 }
 
@@ -81,7 +79,6 @@ auto Window::Impl::Initialize() -> std::expected<void, std::string> {
     glfwSetWindowUserPointer(window_, this);
     glfwGetFramebufferSize(window_, &framebuffer_width, &framebuffer_height);
     glfwGetWindowSize(window_, &window_width, &window_height);
-    glfwGetWindowContentScale(window_, &scale_x, &scale_y);
 
     glfwSetKeyCallback(window_, glfw_key_callback);
     glfwSetCursorPosCallback(window_, glfw_cursor_pos_callback);
@@ -89,7 +86,6 @@ auto Window::Impl::Initialize() -> std::expected<void, std::string> {
     glfwSetScrollCallback(window_, glfw_scroll_callback);
     glfwSetFramebufferSizeCallback(window_, glfw_framebuffer_size_callback);
     glfwSetWindowSizeCallback(window_, glfw_window_size_callback);
-    glfwSetWindowContentScaleCallback(window_, glfw_content_scale_callback);
 
 #ifdef GLEAM_USE_IMGUI
     imgui_initialize(window_);
@@ -99,7 +95,18 @@ auto Window::Impl::Initialize() -> std::expected<void, std::string> {
 }
 
 auto Window::Impl::PollEvents() -> void {
-    glfwSwapBuffers(window_);
+    glfwPollEvents();
+    if (did_resize) {
+        if (resize_callback_) {
+            resize_callback_({
+                framebuffer_width,
+                framebuffer_height,
+                window_width,
+                window_height
+            });
+            did_resize = false;
+        }
+    }
 }
 
 auto Window::Impl::BeginUIFrame() -> void {
@@ -115,7 +122,7 @@ auto Window::Impl::EndUIFrame() -> void {
 }
 
 auto Window::Impl::SwapBuffers() -> void {
-    glfwPollEvents();
+    glfwSwapBuffers(window_);
 }
 
 auto Window::Impl::RequestClose() -> void {
@@ -131,6 +138,10 @@ auto Window::Impl::ShouldClose() -> bool {
 
 auto Window::Impl::SetTitle(std::string_view title) -> void {
     glfwSetWindowTitle(window_, title.data());
+}
+
+auto Window::Impl::SetResizeCallback(ResizeCallback callback) -> void {
+    resize_callback_ = std::move(callback);
 }
 
 auto Window::Impl::LogContextInfo() const -> void {
@@ -251,59 +262,17 @@ auto glfw_mouse_button_map(int button) -> MouseButton {
     return MouseButton::None;
 }
 
-auto prepare_window_event(GLFWwindow* window, WindowEvent* e) {
-    int w = 0; int h = 0;
-    float sx = 0.0f; float sy = 0.0f;
-
-    glfwGetFramebufferSize(window, &w, &h);
-    e->framebuffer = {static_cast<float>(w), static_cast<float>(h)};
-
-    glfwGetWindowSize(window, &w, &h);
-    e->window = {static_cast<float>(w), static_cast<float>(h)};
-
-    glfwGetWindowContentScale(window, &sx, &sy);
-    e->scale = {sx, sy};
-}
-
 auto glfw_framebuffer_size_callback(GLFWwindow* window, int w, int h) -> void {
-    auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
-    auto event = std::make_unique<WindowEvent>();
-    event->type = WindowEvent::Type::FramebufferResize;
-
-    instance->framebuffer_width = w;
-    instance->framebuffer_height = h;
-
-    prepare_window_event(window, event.get());
-
-    EventDispatcher::Get().Dispatch("window_event", std::move(event));
+    auto in = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
+    glfwGetFramebufferSize(window, &in->framebuffer_width, &in->framebuffer_height);
+    in->did_resize = true;
 }
 
 auto glfw_window_size_callback(GLFWwindow* window, int w, int h) -> void {
-    auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
-    auto event = std::make_unique<WindowEvent>();
-    event->type = WindowEvent::Type::WindowResize;
-
-    instance->window_width = w;
-    instance->window_height = h;
-
-    prepare_window_event(window, event.get());
-
-    EventDispatcher::Get().Dispatch("window_event", std::move(event));
+    auto in = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
+    glfwGetWindowSize(window, &in->window_width, &in->window_height);
+    in->did_resize = true;
 }
-
-auto glfw_content_scale_callback(GLFWwindow* window, float sx, float sy) -> void {
-    auto instance = static_cast<Window::Impl*>(glfwGetWindowUserPointer(window));
-    auto event = std::make_unique<WindowEvent>();
-    event->type = WindowEvent::Type::ContentScale;
-
-    instance->scale_x = sx;
-    instance->scale_y = sy;
-
-    prepare_window_event(window, event.get());
-
-    EventDispatcher::Get().Dispatch("window_event", std::move(event));
-}
-
 
 auto glfw_keyboard_map(int key) -> gleam::Key {
     switch(key) {

@@ -22,13 +22,12 @@ public:
     double mouse_pos_x {0.0};
     double mouse_pos_y {0.0};
 
-    float scale_x {0.0f};
-    float scale_y {0.0f};
-
     int framebuffer_width {0};
     int framebuffer_height {0};
     int window_width {0};
     int window_height {0};
+
+    bool did_resize {false};
 
     explicit Impl(const Window::Parameters& params);
 
@@ -53,12 +52,16 @@ public:
 
     auto SetTitle(std::string_view title) -> void;
 
+    auto SetResizeCallback(ResizeCallback callback) -> void;
+
     ~Impl();
 
 private:
     Window::Parameters params_;
 
     GLFWwindow* window_ {nullptr};
+
+    ResizeCallback resize_callback_ {nullptr};
 
     bool should_close_ {false};
 
