@@ -98,25 +98,35 @@ auto Window::Impl::Initialize() -> std::expected<void, std::string> {
     return {};
 }
 
-auto Window::Impl::Start(const OnTickCallback& tick) -> void {
-    while(!glfwWindowShouldClose(window_) && !break_) {
-#ifdef GLEAM_USE_IMGUI
-        imgui_begin_frame();
-#endif
-
-        tick();
-
-#ifdef GLEAM_USE_IMGUI
-        imgui_end_frame();
-#endif
-
-        glfwSwapBuffers(window_);
-        glfwPollEvents();
-    }
+auto Window::Impl::PollEvents() -> void {
+    glfwSwapBuffers(window_);
 }
 
-auto Window::Impl::Break() -> void {
-    break_ = true;
+auto Window::Impl::BeginUIFrame() -> void {
+#ifdef GLEAM_USE_IMGUI
+    imgui_begin_frame();
+#endif
+}
+
+auto Window::Impl::EndUIFrame() -> void {
+#ifdef GLEAM_USE_IMGUI
+    imgui_end_frame();
+#endif
+}
+
+auto Window::Impl::SwapBuffers() -> void {
+    glfwPollEvents();
+}
+
+auto Window::Impl::RequestClose() -> void {
+    should_close_ = true;
+}
+
+auto Window::Impl::ShouldClose() -> bool {
+    if (!should_close_) {
+        should_close_ = glfwWindowShouldClose(window_);
+    }
+    return should_close_;
 }
 
 auto Window::Impl::SetTitle(std::string_view title) -> void {

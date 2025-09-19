@@ -18,12 +18,28 @@ auto Window::Initialize() -> std::expected<void, std::string> {
     return impl_->Initialize();
 }
 
-auto Window::Start(const OnTickCallback& tick) const -> void {
-    impl_->Start(tick);
+auto Window::PollEvents() -> void {
+    impl_->PollEvents();
 }
 
-auto Window::Break() -> void {
-    impl_->Break();
+auto Window::BeginUIFrame() -> void {
+    impl_->BeginUIFrame();
+}
+
+auto Window::EndUIFrame() -> void {
+    impl_->EndUIFrame();
+}
+
+auto Window::SwapBuffers() -> void {
+    impl_->SwapBuffers();
+}
+
+auto Window::RequestClose() -> void {
+    impl_->RequestClose();
+}
+
+auto Window::ShouldClose() -> bool {
+    return impl_->ShouldClose();
 }
 
 auto Window::FramebufferWidth() const -> int {

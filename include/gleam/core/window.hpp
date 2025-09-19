@@ -19,9 +19,6 @@ namespace gleam {
 
 class Event;
 
-// TODO: delete: Window shouldn't own the main loop
-using OnTickCallback = std::function<void()>;
-
 /**
  * @brief Cross-platform application window.
  *
@@ -92,6 +89,58 @@ public:
     [[nodiscard]] auto Initialize() -> std::expected<void, std::string>;
 
     /**
+     * @brief Processes pending window and input events.
+     *
+     * Polls the operating system for events such as input, window resize,
+     * or close requests. Must be called regularly to keep the window responsive.
+     */
+    auto PollEvents() -> void;
+
+    /**
+     * @brief Marks the beginning of a new UI frame.
+     *
+     * Call this once per frame before issuing any UI commands.
+     *
+     * @note If no UI system is active, this is a no-op.
+     */
+    auto BeginUIFrame() -> void;
+
+    /**
+     * @brief Marks the end of the current UI frame.
+     *
+     * Call this once per frame after all UI commands have been issued.
+     *
+     * @note If no UI system is active, this is a no-op.
+     */
+    auto EndUIFrame() -> void;
+
+    /**
+     * @brief Swaps the front and back buffers.
+     *
+     * Presents the rendered frame to the display. Should be called once per
+     * frame after rendering and UI submission.
+     */
+    auto SwapBuffers() -> void;
+
+    /**
+     * @brief Requests that the window be closed.
+     *
+     * Sets the internal close flag so that `ShouldClose()` returns true.
+     * This allows the application to exit the main loop gracefully.
+     */
+    auto RequestClose() -> void;
+
+    /**
+     * @brief Returns whether the window has been flagged for closing.
+     *
+     * This flag is set when the user requests the window to close through
+     * the operating system or when `RequestClose()` is called.
+     *
+     * @return `true` if the window should close, `false` otherwise.
+     */
+    auto ShouldClose() -> bool;
+
+    /**
      * @brief Returns the current framebuffer width in pixels.
      *
      * On HiDPI displays this may differ from `Width()`.
@@ -119,20 +168,6 @@ public:
      * @brief Returns the logical aspect ratio (width / height).
      */
     [[nodiscard]] auto AspectRatio() const -> float;
-
-    /**
-     * @brief Enters the main loop and invokes `tick` once per frame.
-     *
-     * @param tick User-provided per-frame callback.
-     */
-    auto Start(const OnTickCallback& tick) const -> void;
-
-    /**
-     * @brief Requests to break out of the main loop.
-     *
-     * The loop will exit after the current frame finishes.
-     */
-    auto Break() -> void;
 
     /**
      * @brief Updates the window title string.

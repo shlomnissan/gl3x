@@ -52,17 +52,23 @@ auto main() -> int {
         scene->SetContext(context.get());
     }};
 
-    window.Start([&]() {
-        stats.BeforeRender();
+    while(!window.ShouldClose()) {
+        window.PollEvents();
 
         const auto dt = timer.Tick();
         examples.scene->Advance(dt);
-        renderer.Render(examples.scene.get(), camera.get());
+
+        window.BeginUIFrame();
         examples.Draw();
+        stats.Draw();
+
+        stats.BeforeRender();
+        renderer.Render(examples.scene.get(), camera.get());
+        window.EndUIFrame();
 
         stats.AfterRender(renderer.RenderedObjectsPerFrame());
-        stats.Draw();
-    });
+        window.SwapBuffers();
+    }
 
     return 0;
 }

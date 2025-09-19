@@ -32,16 +32,24 @@ public:
 
     explicit Impl(const Window::Parameters& params);
 
-    [[nodiscard]] auto Initialize() -> std::expected<void, std::string>;
-
     Impl(const Impl&) = delete;
     Impl(Impl&&) = delete;
     Impl& operator=(const Impl&) = delete;
     Impl& operator=(Impl&&) = delete;
 
-    auto Start(const OnTickCallback& tick) -> void;
+    [[nodiscard]] auto Initialize() -> std::expected<void, std::string>;
 
-    auto Break() -> void;
+    auto PollEvents() -> void;
+
+    auto BeginUIFrame() -> void;
+
+    auto EndUIFrame() -> void;
+
+    auto SwapBuffers() -> void;
+
+    auto RequestClose() -> void;
+
+    auto ShouldClose() -> bool;
 
     auto SetTitle(std::string_view title) -> void;
 
@@ -52,7 +60,7 @@ private:
 
     GLFWwindow* window_ {nullptr};
 
-    bool break_ {false};
+    bool should_close_ {false};
 
     auto LogContextInfo() const -> void;
 };

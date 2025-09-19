@@ -146,22 +146,27 @@ auto Application::Start() -> void {
     auto frame_timer = FrameTimer {true};
     auto stats = Stats {};
 
-    impl_->window->Start([this, &stats, &frame_timer]() {
+    while (!impl_->window->ShouldClose()) {
+        impl_->window->PollEvents();
+
         const auto dt = frame_timer.Tick();
-        if (!Update(dt)) {
-            impl_->window->Break();
-            return;
-        }
-
-        stats.BeforeRender();
         impl_->scene->Advance(dt);
-        impl_->renderer->Render(impl_->scene.get(), impl_->camera.get());
-        stats.AfterRender(impl_->renderer->RenderedObjectsPerFrame());
 
+        impl_->window->BeginUIFrame();
+        if (!Update(dt)) {
+            impl_->window->RequestClose();
+        }
         if (show_stats_) {
             stats.Draw();
         }
-    });
+
+        stats.BeforeRender();
+        impl_->renderer->Render(impl_->scene.get(), impl_->camera.get());
+        impl_->window->EndUIFrame();
+
+        stats.AfterRender(impl_->renderer->RenderedObjectsPerFrame());
+        impl_->window->SwapBuffers();
+    }
 }
 
 auto Application::GetContext() const -> SharedContextPointer {
