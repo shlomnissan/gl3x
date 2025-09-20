@@ -122,13 +122,11 @@ auto Application::Setup() -> void {
         context->framebuffer_height = params.framebuffer_height;
         context->window_width = params.window_width;
         context->window_height = params.window_height;
-
         impl_->renderer->SetViewport(
             0, 0,
             params.framebuffer_width,
             params.framebuffer_height
         );
-
         impl_->camera->Resize(params.window_width, params.window_height);
     });
 }

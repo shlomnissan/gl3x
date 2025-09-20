@@ -60,6 +60,19 @@ auto main() -> int {
         scene->SetContext(context.get());
     }};
 
+    window.OnResize([&](const ResizeParameters& params){
+        context->framebuffer_width = params.framebuffer_width;
+        context->framebuffer_height = params.framebuffer_height;
+        context->window_width = params.window_width;
+        context->window_height = params.window_height;
+        renderer.SetViewport(
+            0, 0,
+            params.framebuffer_width,
+            params.framebuffer_height
+        );
+        camera->Resize(params.window_width, params.window_height);
+    });
+
     while(!window.ShouldClose()) {
         window.PollEvents();
 
