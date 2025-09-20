@@ -45,7 +45,15 @@ auto main() -> int {
         .far = 1000.0f
     });
 
-    auto context = SharedContext::Create(&window, camera.get());
+    auto context = std::make_unique<SharedContext> (
+        camera.get(),
+        window.AspectRatio(),
+        window.FramebufferWidth(),
+        window.FramebufferHeight(),
+        window.Width(),
+        window.Height()
+    );
+
     auto timer = FrameTimer {true}; // auto-start
     auto stats = Stats {};
     auto examples = Examples {[&context](std::shared_ptr<Scene> scene){

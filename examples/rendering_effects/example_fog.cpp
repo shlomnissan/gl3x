@@ -48,7 +48,7 @@ ExampleFog::ExampleFog() {
 }
 
 auto ExampleFog::OnAttached(SharedContextPointer context) -> void {
-    Add(OrbitControls::Create(context->Parameters().camera, {
+    Add(OrbitControls::Create(context->camera, {
         .radius = 3.0f,
         .pitch = math::DegToRad(25.0f),
         .yaw = math::DegToRad(-25.0f)

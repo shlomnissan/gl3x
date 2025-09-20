@@ -54,7 +54,7 @@ ExamplePointLight::ExamplePointLight() {
 }
 
 auto ExamplePointLight::OnAttached(SharedContextPointer context) -> void {
-    Add(OrbitControls::Create(context->Parameters().camera, {
+    Add(OrbitControls::Create(context->camera, {
         .radius = 5.0f,
         .pitch = math::DegToRad(25.0f),
         .yaw = math::DegToRad(45.0f)

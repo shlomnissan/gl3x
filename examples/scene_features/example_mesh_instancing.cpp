@@ -62,7 +62,7 @@ ExampleMeshInstancing::ExampleMeshInstancing() {
 }
 
 auto ExampleMeshInstancing::OnAttached(SharedContextPointer context) -> void {
-    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 5.0f}));
+    Add(OrbitControls::Create(context->camera, {.radius = 5.0f}));
 }
 
 auto ExampleMeshInstancing::OnUpdate(float delta) -> void {

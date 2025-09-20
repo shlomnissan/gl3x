@@ -46,7 +46,7 @@ using MeshCallback = std::function<void(std::shared_ptr<Node>)>;
  *
  * @code
  * auto MyNode::OnAttached(SharedContextPointer context) -> void override {
- *   context->Loaders().Mesh->LoadAsync(
+ *   context->loaders.Mesh->LoadAsync(
  *     "assets/my_model.msh",
  *     [this](auto result) {
  *       if (result) {

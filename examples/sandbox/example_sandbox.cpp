@@ -45,7 +45,7 @@ ExampleSandbox::ExampleSandbox() {
 
 auto ExampleSandbox::OnAttached(SharedContextPointer context) -> void {
     Add(OrbitControls::Create(
-        context->Parameters().camera, {
+        context->camera, {
             .radius = 3.0f,
             .pitch = math::pi_over_4
         })

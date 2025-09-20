@@ -15,7 +15,6 @@
 
 namespace gleam {
 
-class Window;
 class Camera;
 
 /**
@@ -36,7 +35,7 @@ class Camera;
  * class MyNode : public gleam::Node {
  * public:
  *   void OnAttached(SharedContextPointer context) override {
- *     context->Loaders().Texture->LoadAsync(
+ *     context->loaders.Texture->LoadAsync(
  *       "assets/checker.tex",
  *       [this](auto result) {
  *         if (result) {
@@ -54,86 +53,31 @@ class Camera;
  */
 class GLEAM_EXPORT SharedContext {
 public:
-    friend class Application;
+    /// @brief Current active camera.
+    Camera* camera;
 
-    /**
-     * @brief Runtime parameters shared across systems.
-     */
-    struct SharedParameters {
-        Camera* camera; ///< Current active camera.
-        float aspect_ratio; ///< Aspect ratio of the render surface.
-        int framebuffer_width; ///< Framebuffer width in physical pixels.
-        int framebuffer_height; ///< Frambuffer height in physical pixels.
-        int window_width; ///< Window width in logical units.
-        int window_height; ///< Window height in logical units.
-    };
+    /// @brief Aspect ratio of the render surface.
+    float aspect_ratio;
 
-    /**
-     * @brief Built-in resource loaders.
-     *
-     * Provides access to engine-supported loaders for loading textures and meshes.
-     */
-    struct SharedLoaders {
+    /// @brief Framebuffer width in physical pixels.
+    int framebuffer_width;
+
+    /// @brief Frambuffer height in physical pixels.
+    int framebuffer_height;
+
+    /// @brief Window width in logical units.
+    int window_width;
+
+    /// @brief Window height in logical units.
+    int window_height;
+
+    struct {
         /// @brief Texture loader instance.
         std::shared_ptr<TextureLoader> Texture = TextureLoader::Create();
+
         /// @brief Mesh loader instance.
         std::shared_ptr<MeshLoader> Mesh = MeshLoader::Create();
-    };
-
-    /**
-     * @brief Constructs a SharedContext object.
-     *
-     * @param params SharedContext::SharedParameters
-     */
-    explicit SharedContext(const SharedParameters& params) : params_(params) {};
-
-    // Non-copyable
-    SharedContext(const SharedContext&) = delete;
-    auto operator=(const SharedContext&) -> SharedContext& = delete;
-
-    // Movable
-    SharedContext(SharedContext&&) noexcept = default;
-    auto operator=(SharedContext&&) noexcept -> SharedContext& = default;
-
-    /**
-     * @brief Creates a unique pointer to a shared context object.
-     *
-     * @param window Pointer to an initialized window instance.
-     * @param camera Pointer to the active camera instance.
-     *
-     * @note This function is normally invoked by the runtime. It is exposed
-     * publicly to allow explicit initialization when needed.
-     *
-     * Each application should maintain only a single instance of
-     * `SharedContext`. If you initialize it directly, you are responsible
-     * for keeping the active camera reference in sync with the context.
-     */
-    static auto Create(Window* window, Camera* camera) -> std::unique_ptr<SharedContext>;
-
-    /**
-     * @brief Returns the current runtime parameters.
-     *
-     * @return Reference to `SharedContext::SharedParameters`.
-     */
-    [[nodiscard]] const SharedParameters& Parameters() const {
-        return params_;
-    }
-
-    /**
-     * @brief Returns resource loaders.
-     *
-     * @return Reference to `SharedContext::SharedLoaders`.
-     */
-    [[nodiscard]] const SharedLoaders& Loaders() const {
-        return loaders_;
-    }
-
-private:
-    /// @brief Internal parameter state.
-    SharedParameters params_ {};
-
-    /// @brief Internal loader registry.
-    SharedLoaders loaders_ {};
+    } loaders;
 };
 
 }

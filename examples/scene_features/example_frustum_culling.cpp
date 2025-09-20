@@ -37,7 +37,7 @@ ExampleFrustumCulling::ExampleFrustumCulling() {
 }
 
 auto ExampleFrustumCulling::OnAttached(SharedContextPointer context) -> void {
-    Add(OrbitControls::Create(context->Parameters().camera, {.radius = 5.0f}));
+    Add(OrbitControls::Create(context->camera, {.radius = 5.0f}));
 }
 
 auto ExampleFrustumCulling::OnUpdate(float delta) -> void {

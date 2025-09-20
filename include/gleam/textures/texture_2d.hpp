@@ -24,7 +24,7 @@ namespace gleam {
  *
  * @code
  * auto MyNode::OnAttached(SharedContextPointer context) -> void override {
- *   context->Loaders().Texture->LoadAsync(
+ *   context->loaders.Texture->LoadAsync(
  *     "assets/my_texture.tex",
  *     [this](auto result) {
  *       if (result) {

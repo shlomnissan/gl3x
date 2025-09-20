@@ -42,7 +42,7 @@ using TextureCallback = std::function<void(std::shared_ptr<Texture2D>)>;
  *
  * @code
  * auto MyNode::OnAttached(SharedContextPointer context) -> void override {
- *   context->Loaders().Texture->LoadAsync(
+ *   context->loaders.Texture->LoadAsync(
  *     "assets/my_texture.tex",
  *     [this](auto result) {
  *       if (result) {

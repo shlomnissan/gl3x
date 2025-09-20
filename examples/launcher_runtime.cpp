@@ -40,7 +40,7 @@ public:
     auto CreateCamera() -> std::shared_ptr<Camera> override {
         auto camera = PerspectiveCamera::Create({
             .fov = math::DegToRad(60.0f),
-            .aspect = GetContext()->Parameters().aspect_ratio,
+            .aspect = GetContext()->aspect_ratio,
             .near = 0.1f,
             .far = 1000.0f
         });

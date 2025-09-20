@@ -42,7 +42,7 @@ struct Application::Impl {
     std::shared_ptr<Camera> camera;
     std::unique_ptr<Window> window;
     std::unique_ptr<Renderer> renderer;
-    std::unique_ptr<SharedContext> shared_context;
+    std::unique_ptr<SharedContext> context;
 
     double last_frame_time = 0.0;
 
@@ -67,23 +67,30 @@ struct Application::Impl {
     }
 
     auto MakeSharedContext() -> void {
-        shared_context = SharedContext::Create(window.get(), camera.get());
+        context = std::make_unique<SharedContext> (
+            camera.get(),
+            window->AspectRatio(),
+            window->FramebufferWidth(),
+            window->FramebufferHeight(),
+            window->Width(),
+            window->Height()
+        );
     }
 
     auto SetCamera(std::shared_ptr<Camera> camera) -> void {
         this->camera = camera;
         if (!this->camera) {
             this->camera = create_default_camera(
-                shared_context->Parameters().window_width,
-                shared_context->Parameters().window_height
+                context->window_width,
+                context->window_height
             );
         }
-        shared_context->params_.camera = this->camera.get();
+        context->camera = this->camera.get();
     }
 
     auto SetScene(std::shared_ptr<Scene> scene) -> void {
         this->scene = scene;
-        this->scene->SetContext(shared_context.get());
+        this->scene->SetContext(context.get());
     }
 };
 
@@ -110,11 +117,11 @@ auto Application::Setup() -> void {
     impl_->SetScene(CreateScene());
 
     impl_->window->OnResize([this](const ResizeParameters& params){
-        auto context = impl_->shared_context.get();
-        context->params_.framebuffer_width = params.framebuffer_width;
-        context->params_.framebuffer_height = params.framebuffer_height;
-        context->params_.window_width = params.window_width;
-        context->params_.window_height = params.window_height;
+        auto context = impl_->context.get();
+        context->framebuffer_width = params.framebuffer_width;
+        context->framebuffer_height = params.framebuffer_height;
+        context->window_width = params.window_width;
+        context->window_height = params.window_height;
 
         impl_->renderer->SetViewport(
             0, 0,
@@ -156,7 +163,7 @@ auto Application::Start() -> void {
 }
 
 auto Application::GetContext() const -> SharedContextPointer {
-    return impl_->shared_context.get();
+    return impl_->context.get();
 }
 
 auto Application::GetScene() const -> Scene* {

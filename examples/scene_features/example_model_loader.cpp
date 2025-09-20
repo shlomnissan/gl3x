@@ -42,13 +42,13 @@ ExampleModelLoader::ExampleModelLoader() {
 }
 
 auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
-    Add(OrbitControls::Create(context->Parameters().camera, {
+    Add(OrbitControls::Create(context->camera, {
         .radius = 4.0f,
         .pitch = DegToRad(20.0f),
         .yaw = DegToRad(15.0f)
     }));
 
-    context->Loaders().Mesh->LoadAsync(
+    context->loaders.Mesh->LoadAsync(
         "assets/mushroom.msh",
         [this](auto result) {
             if (result) {
@@ -62,7 +62,7 @@ auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
         }
     );
 
-    context->Loaders().Texture->LoadAsync(
+    context->loaders.Texture->LoadAsync(
         "assets/mushroms_Opacity_1002.tex",
         [this](auto result) {
             if (result) {

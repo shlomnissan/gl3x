@@ -24,12 +24,12 @@ ExampleSprite::ExampleSprite() {
 }
 
 auto ExampleSprite::OnAttached(SharedContextPointer context) -> void {
-    Add(OrbitControls::Create(context->Parameters().camera, {
+    Add(OrbitControls::Create(context->camera, {
         .radius = 3.0f,
         .pitch = math::pi_over_6
     }));
 
-    context->Loaders().Texture->LoadAsync(
+    context->loaders.Texture->LoadAsync(
         "assets/sprite.tex",
         [this](auto result) {
             if (result) {
