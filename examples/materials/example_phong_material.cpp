@@ -47,7 +47,7 @@ ExamplePhongMaterial::ExamplePhongMaterial() {
 auto ExamplePhongMaterial::OnAttached(SharedContextPointer context) -> void {
     Add(OrbitControls::Create(context->camera, {.radius = 3.0f}));
 
-    context->loaders.Texture->LoadAsync(
+    context->texture_loader->LoadAsync(
         "assets/checker.tex",
         [this](auto result) {
             if (result) {

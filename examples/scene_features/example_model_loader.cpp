@@ -48,7 +48,7 @@ auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
         .yaw = DegToRad(15.0f)
     }));
 
-    context->loaders.Mesh->LoadAsync(
+    context->mesh_loader->LoadAsync(
         "assets/mushroom.msh",
         [this](auto result) {
             if (result) {
@@ -62,7 +62,7 @@ auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
         }
     );
 
-    context->loaders.Texture->LoadAsync(
+    context->texture_loader->LoadAsync(
         "assets/mushroms_Opacity_1002.tex",
         [this](auto result) {
             if (result) {

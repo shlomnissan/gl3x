@@ -30,7 +30,7 @@ namespace gleam {
  *
  * @code
  * auto MyNode::OnAttached(SharedContextPointer context) -> void override {
- *   context->loaders.Texture->LoadAsync(
+ *   context->texture_loader->LoadAsync(
  *     "assets/sprite.tex",
  *     [this](auto result) {
  *       if (result) {

@@ -35,7 +35,7 @@ class Camera;
  * class MyNode : public gleam::Node {
  * public:
  *   void OnAttached(SharedContextPointer context) override {
- *     context->loaders.Texture->LoadAsync(
+ *     context->texture_loader->LoadAsync(
  *       "assets/checker.tex",
  *       [this](auto result) {
  *         if (result) {
@@ -71,13 +71,11 @@ public:
     /// @brief Window height in logical units.
     int window_height;
 
-    struct {
-        /// @brief Texture loader instance.
-        std::shared_ptr<TextureLoader> Texture = TextureLoader::Create();
+    /// @brief Texture loader.
+    std::shared_ptr<TextureLoader> texture_loader = TextureLoader::Create();
 
-        /// @brief Mesh loader instance.
-        std::shared_ptr<MeshLoader> Mesh = MeshLoader::Create();
-    } loaders;
+    /// @brief Mesh loader.
+    std::shared_ptr<MeshLoader> mesh_loader = MeshLoader::Create();
 };
 
 }
