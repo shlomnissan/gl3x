@@ -4,11 +4,8 @@ const year = new Date().getFullYear();
 
 export default defineConfig({
   srcDir: 'pages',
-  title: 'Gleam',
+  title: 'GL3X',
   description: '3D Rendering in Modern C++',
-  head: [
-    ['link', { rel: 'stylesheet', href: 'https://use.typekit.net/twl6gwz.css' }]
-  ],
   cleanUrls: true,
   themeConfig: {
     logo: {

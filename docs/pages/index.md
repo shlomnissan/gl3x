@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "Gleam"
-  text: "A VitePress Site"
-  tagline: My great project tagline
+  name: GL3X
+  text: 3D Graphics for Modern C++
+  tagline: Focus on rendering, not boilerplate
   actions:
     - theme: brand
       text: Get Started
@@ -13,12 +13,15 @@ hero:
     - theme: alt
       text: Reference
       link: /reference/application
+    - theme: alt
+      text: GitHub
+      link: https://github.com/shlomnissan/gleam
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Clean and modern API
+    details: A clear, consistent design that makes building 3D applications in C++ straightforward and enjoyable.
+  - title: Native performance
+    details: Runs at native speed in C++, with consistent results across Windows, macOS, and Linux.
+  - title: Easy to start
+    details: The fastest way to get started with 3D graphics in C++, with simple examples and accessible resources.
 ---
