@@ -8,6 +8,14 @@ export default defineConfig({
   title: 'GL3X',
   description: '3D Rendering in Modern C++',
   cleanUrls: true,
+  head: [
+    ['link', {
+      rel: 'preload',
+      href: 'fonts/logo.woff2',
+      as: 'font',
+      type: 'font/woff2',
+    }]
+  ],
   themeConfig: {
     logo: {
       light: '/logo-light.svg',

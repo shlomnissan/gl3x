@@ -1,12 +1,26 @@
+@font-face {
+  font-family: "logo";
+  src: url("/logo.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --vp-font-family-heading: sans-serif;
+  --vp-font-family-heading: 'logo', sans-serif;
   --vp-home-hero-name-color: var(--vp-c-text-1);
 }
 
 .VPNavBarTitle {
   .title {
     font-family: var(--vp-font-family-heading);
+    font-size: 1.2rem;
+    letter-spacing: 0.04rem;
     font-weight: 800;
+
+    span {
+        padding-top: 0.4rem;
+    }
   }
 }
 
@@ -14,6 +28,7 @@
   .name {
     color: var(--vp-c-text-1);
     font-family: var(--vp-font-family-heading);
+    letter-spacing: 0.1rem;
     font-weight: 800;
   }
 
