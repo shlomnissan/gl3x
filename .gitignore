@@ -31,3 +31,4 @@ Icon
 node_modules
 docs/.vitepress/cache
 dics/.vitepress/dist
+__pycache__

@@ -12,7 +12,7 @@ hero:
       link: /guide
     - theme: alt
       text: Reference
-      link: /reference/application
+      link: /reference/core/application
     - theme: alt
       text: GitHub
       link: https://github.com/shlomnissan/gleam

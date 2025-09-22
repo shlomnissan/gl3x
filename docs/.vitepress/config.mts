@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import referenceSidebar from './auto-reference-sidebar'
 
 const year = new Date().getFullYear();
 
@@ -14,7 +15,7 @@ export default defineConfig({
     },
     nav: [
       { text: 'Guide', link: '/guide/', activeMatch: '^/guide/' },
-      { text: 'Reference', link: '/reference/application', activeMatch: '^/reference/' }
+      { text: 'Reference', link: '/reference/core/application', activeMatch: '^/reference/' }
     ],
     sidebar: {
       '/guide/': [
@@ -26,21 +27,14 @@ export default defineConfig({
           ]
         }
       ],
-      '/reference/': [
-        {
-            text: 'Core',
-            items: [
-                { text: 'Application', link: '/reference/application' }
-            ]
-        }
-      ]
+      '/reference/': referenceSidebar,
     },
     footer: {
       message: 'Released under the MIT License.',
       copyright: `Copyright © 2020–${year}`
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/shlomnissan/gleam' }
     ]
   }
 })
