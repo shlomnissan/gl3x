@@ -4,7 +4,7 @@ import type { DefaultTheme } from 'vitepress';
 const referenceSidebar: DefaultTheme.SidebarItem[] = [
   {
     "text": "Cameras",
-    "collapsed": false,
+    "collapsed": true,
     "items": [
       {
         "text": "Camera",
@@ -22,7 +22,7 @@ const referenceSidebar: DefaultTheme.SidebarItem[] = [
   },
   {
     "text": "Core",
-    "collapsed": false,
+    "collapsed": true,
     "items": [
       {
         "text": "Application",
@@ -44,7 +44,7 @@ const referenceSidebar: DefaultTheme.SidebarItem[] = [
   },
   {
     "text": "Events",
-    "collapsed": false,
+    "collapsed": true,
     "items": [
       {
         "text": "Event",
@@ -66,7 +66,7 @@ const referenceSidebar: DefaultTheme.SidebarItem[] = [
   },
   {
     "text": "Geometries",
-    "collapsed": false,
+    "collapsed": true,
     "items": [
       {
         "text": "BoxGeometry",
@@ -104,7 +104,7 @@ const referenceSidebar: DefaultTheme.SidebarItem[] = [
   },
   {
     "text": "Lights",
-    "collapsed": false,
+    "collapsed": true,
     "items": [
       {
         "text": "AmbientLight",
@@ -130,7 +130,7 @@ const referenceSidebar: DefaultTheme.SidebarItem[] = [
   },
   {
     "text": "Loaders",
-    "collapsed": false,
+    "collapsed": true,
     "items": [
       {
         "text": "Loader",
@@ -148,7 +148,7 @@ const referenceSidebar: DefaultTheme.SidebarItem[] = [
   },
   {
     "text": "Materials",
-    "collapsed": false,
+    "collapsed": true,
     "items": [
       {
         "text": "Material",
@@ -174,7 +174,7 @@ const referenceSidebar: DefaultTheme.SidebarItem[] = [
   },
   {
     "text": "Math",
-    "collapsed": false,
+    "collapsed": true,
     "items": [
       {
         "text": "Box3",
@@ -236,7 +236,7 @@ const referenceSidebar: DefaultTheme.SidebarItem[] = [
   },
   {
     "text": "Nodes",
-    "collapsed": false,
+    "collapsed": true,
     "items": [
       {
         "text": "Arrow",
@@ -298,7 +298,7 @@ const referenceSidebar: DefaultTheme.SidebarItem[] = [
   },
   {
     "text": "Textures",
-    "collapsed": false,
+    "collapsed": true,
     "items": [
       {
         "text": "Texture",
@@ -312,7 +312,7 @@ const referenceSidebar: DefaultTheme.SidebarItem[] = [
   },
   {
     "text": "Utilities",
-    "collapsed": false,
+    "collapsed": true,
     "items": [
       {
         "text": "FrameTimer",

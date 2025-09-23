@@ -39,7 +39,7 @@ def _build_sections(inv: Inventory) -> List[dict]:
             continue  # skip empty groups just in case
         sections.append({
             "text": group_label(gid),
-            "collapsed": False,
+            "collapsed": True,
             "items": items,
         })
     return sections
