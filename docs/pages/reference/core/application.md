@@ -47,6 +47,43 @@ Calling `Start()` initializes the runtime, constructs the user scene (and camera
 
 ## Constructor
 
+#### `Application()`
+
+Creates a new Application object.
+
+Initializes internal state but does not start the application loop.
+#### Parameters
+- `camera` Shared pointer to the new [Camera]().
+
 ## Attributes
 
+#### `Vector3 max {std::numeric_limits<float>::lowest()}`
+
+Maximum corner of the box.
+
+#### `Vector3 min {std::numeric_limits<float>::max()}`
+
+Maximum corner of the box.
+
 ## Functions
+
+#### `auto Update(float delta) -> bool`
+
+Per-frame update callback.
+
+This method must be implemented and is called every frame with the elapsed time since the last frame. Return false to exit the main loop.
+
+**Returns** `true` to continue running, `false` to exit the main loop.
+
+#### Parameters
+- `delta` Time in seconds since the last frame.
+
+#### `auto SetScene(std::shared_ptr<Scene> scene) -> void`
+
+Sets the active scene.
+
+#### Parameters
+- `scene` Shared pointer to the new [Scene]().
+
+## Source
+[include/gleam/core/application.hpp]()
