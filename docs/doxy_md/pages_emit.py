@@ -3,15 +3,10 @@ from __future__ import annotations
 from pathlib import Path
 from typing import List
 from .model import Inventory, slugify
-
-import pdb
+from .class_loader import build_class_doc
+from .class_render import render_class
 
 HEADER = "<!-- AUTO-GENERATED — do not edit. -->\n"
-
-def _class_markdown(title: str) -> str:
-    return (
-        f"# {title}"
-    )
 
 def _write_if_changed(path: Path, content: str) -> bool:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -20,7 +15,7 @@ def _write_if_changed(path: Path, content: str) -> bool:
     path.write_text(content, encoding="utf-8")
     return True
 
-def emit_class_pages(inv: Inventory, docs_root: Path) -> List[Path]:
+def emit_class_pages(inv: Inventory, docs_root: Path, xml_dir: Path) -> List[Path]:
     written: List[Path] = []
     out_root = docs_root / "pages" / "reference"
 
@@ -38,11 +33,7 @@ def emit_class_pages(inv: Inventory, docs_root: Path) -> List[Path]:
         gslug = group_slug[c.group_id]
         cslug = c.slug
         dest = out_root / gslug / f"{cslug}.md"
-
-        content = (
-            HEADER
-            + _class_markdown(c.display)
-        )
+        content = HEADER + render_class(build_class_doc(c.id, xml_dir))
 
         _write_if_changed(dest, content)
         written.append(dest)

@@ -1,2 +1,27 @@
 <!-- AUTO-GENERATED — do not edit. -->
 # Sprite
+
+
+Billboarded quad that always faces the active camera.
+Sprite is a flat, unit-sized quad oriented toward the camera at all times. It is usually textured (often with transparency) and exposes the minimal Renderable interface so it can be submitted to the renderer.
+
+Common use cases include particles, labels, icons, and world-space markers.
+
+```cpp
+auto MyNode::OnAttached(SharedContextPointer context) -> void override {
+  context->texture_loader->LoadAsync(
+    "assets/sprite.tex",
+    [this](auto result) {
+      if (result) {
+        auto mat = gleam::SpriteMaterial::Create();
+        mat->albedo_map = result.value();
+        auto sprite = Sprite::Create(mat);
+        sprite->SetScale(0.5f);
+        Add(sprite);
+      } else {
+        std::println(stderr, "{}", result.error());
+      }
+    }
+  );
+}
+```

@@ -27,7 +27,7 @@ def main() -> int:
     sidebar = emit_reference_sidebar_ts(inv, docs_root)
     print(f"✅ wrote sidebar: {sidebar}")
 
-    written = emit_class_pages(inv, docs_root)
+    written = emit_class_pages(inv, docs_root, xml_dir)
     print(f"✅ wrote {len(written)} class pages")
 
     return 0
