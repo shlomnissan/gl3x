@@ -7,8 +7,6 @@ Converts triangle-based geometry into wireframe-renderable geometry.
 
 This is commonly used for debugging purposes, such as visualizing mesh topology, bounding volumes, or silhouette edges.
 
-The source geometry must be triangle-based and contain valid index data.
-
 ```cpp
 auto original = gleam::BoxGeometry::Create();
 auto wireframe = std::make_shared<gleam::WireframeGeometry>(original.get());

@@ -9,8 +9,6 @@ You can convert standard image formats (e.g., PNG, JPG) into `.tex` files using 
 
 Explicit instantiation of this class is discouraged due to potential lifetime issues in the current architecture, particularly when used with asynchronous loading. Instead, access it through the Node::OnAttached hook, which provides a reference to the context that owns an instance of this class.
 
-Loaders use `std::expect` for error values. Always check that loading operations return a valid result, and handle the error otherwise.
-
 ```cpp
 auto MyNode::OnAttached(SharedContextPointer context) -> void override {
   context->loaders.Texture->LoadAsync(

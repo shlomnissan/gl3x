@@ -28,5 +28,3 @@ public:
 ```
 
 Only one scene can be attached to the application context at a time. Attaching a new scene using gleam::Application::SetScene replaces the current one.
-
-Only one scene can be attached to the application context at a time. Attaching a new scene using gleam::Application::SetScene replaces the current one.

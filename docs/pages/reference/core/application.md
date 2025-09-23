@@ -3,11 +3,9 @@
 
 
 The runtime entry point for defining and launching an app.
-The `Application` class is the runtime: it sets up the window, rendering context, a main loop, and calls your hooks. Subclass it and override `Configure`, `CreateScene`, and `Update` to define behavior.
+The Application class is the runtime: it sets up the window, rendering context, a main loop, and calls your hooks. Subclass it and override `Configure`, `CreateScene`, and `Update` to define behavior.
 
 This is the preferred way to initialize a new app. If you need complete control, you can also assemble a program manually (window, renderer, loop, etc.), but that is outside the scope of this runtime API.
-
-Typical usage:
 
 ```cpp
 class MyApp : public gleam::Application {

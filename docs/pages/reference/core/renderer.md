@@ -23,5 +23,3 @@ renderer.Render(scene.get(), camera.get());
 ```
 
 The renderer assumes a valid graphics context is current on the calling thread. When the window is resized, call `SetViewport()` to adjust the render area (or recreate with new parameters if you manage your own framebuffers).
-
-The renderer assumes a valid graphics context is current on the calling thread. When the window is resized, call `SetViewport()` to adjust the render area (or recreate with new parameters if you manage your own framebuffers).

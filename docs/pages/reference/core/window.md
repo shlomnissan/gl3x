@@ -22,5 +22,3 @@ if (!ok) {
 ```
 
 Preferred usage is through the `Application` runtime, which wires the window, renderer, and scene automatically. Use direct initialization when you need full control over the main loop.
-
-Preferred usage is through the `Application` runtime, which wires the window, renderer, and scene automatically. Use direct initialization when you need full control over the main loop.

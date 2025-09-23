@@ -74,6 +74,8 @@ def collect_inlines(node: ET.Element) -> str:
                 out.append("  \n")
             elif tag == "programlisting":
                 out.append(programlisting_to_md(child))
+            elif tag == "simplesect":
+                pass
             else:
                 out.append(collect_inlines(child))
 
