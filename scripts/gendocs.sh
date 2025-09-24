@@ -15,6 +15,7 @@ fi
 
 # Build the Doxygen target
 cmake --build "$BUILD_DIR" --target doxygen
+python3 -m tools.doxy_press.main build/docs/xml docs/
 
 # Verify output
 if [ -f "$DOCS_DIR/index.html" ]; then
