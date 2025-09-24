@@ -28,3 +28,7 @@ public:
 ```
 
 Only one scene can be attached to the application context at a time. Attaching a new scene using gleam::Application::SetScene replaces the current one.
+## Properties
+
+- `std::unique_ptr<Fog> fog`
+  - Fog settings applied to the entire scene.

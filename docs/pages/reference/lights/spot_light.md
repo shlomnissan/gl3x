@@ -21,3 +21,17 @@ auto spot_light = gleam::SpotLight::Create({
 ```
 
 When the target parameter is set to `nullptr` the light points to (0, 0, 0).
+## Properties
+
+- `float angle`
+  - Angle, in radians, of the spotlight's cone.
+
+- `Attenuation attenuation`
+  - Light attenuation properties.
+
+- `float penumbra`
+  - Penumbra value controlling the softness of the spotlight's edge.
+
+- `std::shared_ptr<Node> target`
+   - Default value: `nullptr`
+  - Node that the light is directed towards.

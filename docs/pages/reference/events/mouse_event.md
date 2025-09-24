@@ -22,3 +22,16 @@ public:
   }
 };
 ```
+## Properties
+
+- `MouseButton button`
+  - Mouse button involved in the event (if any).
+
+- `Vector2 position`
+  - Current cursor position in window coordinates.
+
+- `Vector2 scroll`
+  - Scroll delta since last event.
+
+- `MouseEvent::Type type`
+  - Mouse event type.

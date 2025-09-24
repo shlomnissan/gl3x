@@ -16,3 +16,7 @@ auto point_light = gleam::PointLight::Create({
   }
 });
 ```
+## Properties
+
+- `Attenuation attenuation`
+  - Light attenuation properties.

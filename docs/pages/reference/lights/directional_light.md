@@ -14,3 +14,7 @@ auto directional_light = gleam::DirectionalLight::Create({
 ```
 
 When the target parameter is set to `nullptr` the light points to (0, 0, 0).
+## Properties
+
+- `std::shared_ptr<Node> target`
+  - Node that the light is directed towards.

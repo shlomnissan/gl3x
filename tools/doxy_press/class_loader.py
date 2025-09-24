@@ -1,10 +1,57 @@
 from __future__ import annotations
 
 from pathlib import Path
-from .content_model import (ClassDoc)
-from .doxygen_markdown import element_text, render_description
+from .content_model import ClassDoc, VarDoc, TypeRef, TypePart
+from .doxygen_markdown import element_text, render_description, collect_inlines
 
+import re
 import xml.etree.ElementTree as ET
+
+def _bool_attr(e: ET.Element, name: str) -> bool:
+    return (e.get(name) or "").lower() in ("yes", "true", "1")
+
+def _parse_type(t: ET.Element | None) -> TypeRef:
+    tr = TypeRef()
+    if t is None: return tr
+    if t.text: tr.parts.append(TypePart(text=t.text))
+    for ch in list(t):
+        if ch.tag == "ref":
+            tr.parts.append(TypePart(text=(ch.text or "").strip(), refid=ch.get("refid")))
+        else:
+            tr.parts.append(TypePart(text="".join(ch.itertext())))
+        if ch.tail:
+            tr.parts.append(TypePart(text=ch.tail))
+    for p in tr.parts:
+        p.text = " ".join(p.text.split())
+    return tr
+
+def _initializer_display(init: ET.Element | None) -> str | None:
+    if init is None: return None
+
+    s = collect_inlines(init).strip()
+    s = re.sub(r'^\s*=\s*', '', s)
+
+    while True:
+        m = re.match(r'^\{\s*(.*)\s*\}$', s)
+        if not m:
+            break
+        s = m.group(1).strip()
+
+    s = re.sub(r'\(\s*\)', '()', s)
+    s = s.rstrip(';')
+    s = re.sub(r'\s+', ' ', s).strip()
+    return s or None
+
+def _parse_variable(m: ET.Element) -> VarDoc:
+    return VarDoc(
+        id=m.get("id",""),
+        name=element_text(m.find("name")).strip(),
+        prot=m.get("prot", "public"),
+        static=_bool_attr(m, "static"),
+        type=_parse_type(m.find("type")),
+        initializer=_initializer_display(m.find("initializer")),
+        brief=render_description(m.find("briefdescription")),
+    )
 
 def build_class_doc(refid: str, xml_dir: str | Path) -> ClassDoc:
     root = ET.parse(xml_dir / f"{refid}.xml").getroot()
@@ -14,7 +61,6 @@ def build_class_doc(refid: str, xml_dir: str | Path) -> ClassDoc:
 
     name = element_text(cdef.find("compoundname")).strip()
     display = name.split("::")[-1] if "::" in name else name
-
     doc = ClassDoc(
         id=refid,
         name=name,
@@ -22,5 +68,19 @@ def build_class_doc(refid: str, xml_dir: str | Path) -> ClassDoc:
         brief=render_description(cdef.find("briefdescription")),
         details=render_description(cdef.find("detaileddescription")),
     )
+
+    for sec in cdef.findall("sectiondef"):
+        for m in sec.findall("memberdef"):
+            if m.get("prot") != "public":
+                continue
+            kind = m.get("kind")
+
+            if kind == "variable":
+                doc.variables.append(_parse_variable(m))
+
+
+            # if kind == "function":
+            # if kind == "typedef":
+            # if kind == "enum":
 
     return doc

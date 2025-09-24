@@ -27,3 +27,8 @@ public:
   }
 }
 ```
+## Properties
+
+- `ResizePolicy resize_policy`
+   - Default value: `ResizePolicy::PixelSpace`
+  - The current resize policy for this camera.

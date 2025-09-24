@@ -306,7 +306,7 @@ const referenceSidebar: DefaultTheme.SidebarItem[] = [
       },
       {
         "text": "Texture2D",
-        "link": "/reference/textures/texture2_d"
+        "link": "/reference/textures/texture2d"
       }
     ]
   },

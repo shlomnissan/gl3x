@@ -24,3 +24,30 @@ public:
   }
 };
 ```
+## Properties
+
+- `float aspect_ratio`
+  - Aspect ratio of the render surface.
+
+- `Camera* camera`
+  - Current active camera.
+
+- `int framebuffer_height`
+  - Frambuffer height in physical pixels.
+
+- `int framebuffer_width`
+  - Framebuffer width in physical pixels.
+
+- `std::shared_ptr<MeshLoader> mesh_loader`
+   - Default value: `MeshLoader::Create()`
+  - Mesh loader.
+
+- `std::shared_ptr<TextureLoader> texture_loader`
+   - Default value: `TextureLoader::Create()`
+  - Texture loader.
+
+- `int window_height`
+  - Window height in logical units.
+
+- `int window_width`
+  - Window width in logical units.

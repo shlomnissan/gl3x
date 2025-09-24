@@ -8,3 +8,10 @@ This fog model applies a linear blend between no fog and full fog color based on
 ```cpp
 my_scene->fog = gleam::LinearFog::Create(0x444444, 2.0f, 6.0f);
 ```
+## Properties
+
+- `float far`
+  - Distance at which fog reaches full opacity.
+
+- `float near`
+  - Distance at which fog starts.

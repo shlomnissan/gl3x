@@ -12,3 +12,16 @@ material->albedo_map = texture;
 auto mesh = gleam::Mesh::Create(geometry, material);
 scene->Add(mesh);
 ```
+## Properties
+
+- `std::shared_ptr<Texture2D> albedo_map`
+   - Default value: `nullptr`
+  - Albedo (base color) map, optionally containing an alpha channel.
+
+- `std::shared_ptr<Texture2D> alpha_map`
+   - Default value: `nullptr`
+  - Alpha map that controls the opacity across the surface.
+
+- `Color color`
+   - Default value: `0xFFFFFF`
+  - Color of the material.

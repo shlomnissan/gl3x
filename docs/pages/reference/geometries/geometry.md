@@ -17,3 +17,12 @@ auto geometry = gleam::Geometry::Create({
 geometry->SetAttribute({GeometryAttributeType::Position, 3});
 Add(Mesh::Create(geometry, UnlitMaterial::Create(0xFF0133)));
 ```
+## Properties
+
+- `GeometryPrimitiveType primitive`
+   - Default value: `GeometryPrimitiveType::Triangles`
+  - Primitive type used for rendering.
+
+- `unsigned int renderer_id`
+   - Default value: `0`
+  - GPU renderer identifier. Used internally by the renderer.

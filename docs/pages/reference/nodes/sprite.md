@@ -25,3 +25,12 @@ auto MyNode::OnAttached(SharedContextPointer context) -> void override {
   );
 }
 ```
+## Properties
+
+- `Vector2 anchor`
+   - Default value: `0.5f, 0.5f`
+  - Normalized anchor point inside the sprite.
+
+- `float rotation`
+   - Default value: `0.0f`
+  - View-space rotation angle in radians applied to the sprite.

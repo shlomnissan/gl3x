@@ -18,3 +18,16 @@ auto MyScene::OnAttached(SharedContextPointer context) -> void override {
   ));
 }
 ```
+## Properties
+
+- `float orbit_speed`
+   - Default value: `3.5f`
+  - Rate at which the camera orbits around the target point.
+
+- `float pan_speed`
+   - Default value: `0.5f`
+  - Rate at which the camera pans around the target point.
+
+- `float zoom_speed`
+   - Default value: `50.0f`
+  - Rate at which the camera zooms in and out.

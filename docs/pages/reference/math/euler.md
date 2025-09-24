@@ -14,3 +14,16 @@ Represents 3D Euler angles with pitch, yaw, and roll components.
 This class supports construction from individual angles or a transformation matrix, and can convert back to a `Matrix4` representation for use in transformations.
 
 Note: Gimbal lock may occur when pitch approaches ±90°, limiting the reliability of angle reconstruction.
+## Properties
+
+- `float pitch`
+   - Default value: `0.0f`
+  - Rotation around the X-axis in radians.
+
+- `float roll`
+   - Default value: `0.0f`
+  - Rotation around the Z-axis in radians.
+
+- `float yaw`
+   - Default value: `0.0f`
+  - Rotation around the Y-axis in radians.

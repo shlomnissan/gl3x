@@ -8,7 +8,7 @@ import re
 
 _slug_safe = re.compile(r"[^a-z0-9\-]+")
 _camel_re1 = re.compile(r"(.)([A-Z][a-z]+)")
-_camel_re2 = re.compile(r"([a-z0-9])([A-Z])")
+_camel_re2 = re.compile(r"([a-z])([A-Z])")
 
 def _snake_slug(s: str) -> str:
     s = s.replace("::", "_")

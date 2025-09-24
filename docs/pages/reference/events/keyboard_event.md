@@ -18,3 +18,10 @@ public:
   }
 };
 ```
+## Properties
+
+- `Key key`
+  - Key code associated with the event.
+
+- `KeyboardEvent::Type type`
+  - Keyboard event type.

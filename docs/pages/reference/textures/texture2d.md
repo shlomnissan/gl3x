@@ -19,3 +19,13 @@ auto MyNode::OnAttached(SharedContextPointer context) -> void override {
   );
 }
 ```
+## Properties
+
+- `std::vector< uint8_t > data`
+  - Underlying texture data.
+
+- `unsigned height`
+  - Height in pixels.
+
+- `unsigned width`
+  - Width in pixels.
