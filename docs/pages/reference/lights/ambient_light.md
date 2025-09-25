@@ -11,3 +11,14 @@ auto ambient_light = gleam::AmbientLight::Create({
   .intensity = 0.3f
 });
 ```
+## Constructors
+
+### `AmbientLight()`
+Constructs an AmbientLight object.
+
+## Functions
+
+### `GetType()`
+  - Returns light type.
+### `Create()`
+  - Creates a shared pointer to an AmbientLight object.

@@ -18,6 +18,11 @@ auto MyScene::OnAttached(SharedContextPointer context) -> void override {
   ));
 }
 ```
+## Constructors
+
+### `OrbitControls()`
+Constructs a CameraOrbit object.
+
 ## Properties
 
 - `float orbit_speed`
@@ -31,3 +36,12 @@ auto MyScene::OnAttached(SharedContextPointer context) -> void override {
 - `float zoom_speed`
    - Default value: `50.0f`
   - Rate at which the camera zooms in and out.
+
+## Functions
+
+### `OnMouseEvent()`
+  - Mouse event handler.
+### `OnUpdate()`
+  - Updates the camera control each frame.
+### `Create()`
+  - Creates a shared pointer to a OrbitCamera object.

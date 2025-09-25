@@ -14,3 +14,12 @@ mesh->geometry = wireframe;
 ```
 
 The source geometry must be triangle-based and contain valid index data.
+## Constructors
+
+### `WireframeGeometry()`
+Constructs a WireframeGeometry object from an existing geometry.
+
+## Functions
+
+### `Create()`
+  - Creates a shared pointer to a WireframeGeometry object.

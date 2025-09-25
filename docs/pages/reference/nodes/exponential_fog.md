@@ -8,7 +8,19 @@ This fog model uses an exponential function based on view distance to simulate a
 ```cpp
 my_scene->fog = gleam::ExponentialFog::Create(0x888888, 0.15f);
 ```
+## Constructors
+
+### `ExponentialFog()`
+Constructs an ExponentialFog object.
+
 ## Properties
 
 - `float density`
   - Density factor controlling fog steepness.
+
+## Functions
+
+### `GetType()`
+  - Returns fog type.
+### `Create()`
+  - Creates a shared pointer to an ExponentialFog object.

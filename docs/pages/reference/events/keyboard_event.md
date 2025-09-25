@@ -25,3 +25,8 @@ public:
 
 - `KeyboardEvent::Type type`
   - Keyboard event type.
+
+## Functions
+
+### `GetType()`
+  - Returns event type.

@@ -47,3 +47,32 @@ int main() {
 ```
 
 Calling `Start()` initializes the runtime, constructs the user scene (and camera, if provided), then runs the main loop while invoking `Update()` each frame.
+## Constructors
+
+### `Application()`
+Constructs an Application instance.
+
+## Functions
+
+### `Configure()`
+  - Provides configuration parameters for the application.
+### `CreateCamera()`
+  - Creates the main camera.
+### `CreateScene()`
+  - Creates the root scene graph.
+### `GetCamera()`
+  - Returns the current camera pointer.
+### `GetContext()`
+  - Returns the active shared context.
+### `GetScene()`
+  - Returns the current scene pointer.
+### `operator=()`
+### `operator=()`
+### `SetCamera()`
+  - Sets the active camera.
+### `SetScene()`
+  - Sets the active scene.
+### `Start()`
+  - Starts the application loop.
+### `Update()`
+  - Per-frame update callback.

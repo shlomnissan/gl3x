@@ -16,7 +16,23 @@ auto point_light = gleam::PointLight::Create({
   }
 });
 ```
+## Constructors
+
+### `PointLight()`
+Constructs a PointLight object.
+
 ## Properties
 
 - `Attenuation attenuation`
   - Light attenuation properties.
+
+## Functions
+
+### `GetType()`
+  - Returns light type.
+### `OnUpdate()`
+  - Updates the light each frame.
+### `SetDebugMode()`
+  - Sets debug mode.
+### `Create()`
+  - Creates a shared pointer to an PointLight object.

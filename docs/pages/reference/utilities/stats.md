@@ -16,3 +16,16 @@ while (running) {
 ```
 
 This overlay requires ImGui support. If the engine is not compiled with `GLEAM_USE_IMGUI`, the `Draw()` method becomes a no-op.
+## Constructors
+
+### `Stats()`
+Constructs a Stats object.
+
+## Functions
+
+### `AfterRender()`
+  - Marks the end of a frame render.
+### `BeforeRender()`
+  - Marks the beginning of a frame render.
+### `Draw()`
+  - Draws the performance overlay.

@@ -17,3 +17,14 @@ auto geometry = gleam::ConeGeometry::Create({
 auto mesh = gleam::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
 my_scene->Add(mesh);
 ```
+## Constructors
+
+### `ConeGeometry()`
+Constructs a ConeGeometry object.
+
+## Functions
+
+### `Create()`
+  - Creates a shared pointer to a ConeGeometry object with default parameters.
+### `Create()`
+  - Creates a shared pointer to a ConeGeometry object.

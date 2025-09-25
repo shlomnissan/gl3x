@@ -10,3 +10,18 @@ This class supports containment and intersection tests with points, axis-aligned
 
 - `std::array<Plane, 6 > planes`
   - The six clipping planes of the frustum: left, right, top, bottom, near, far.
+
+## Functions
+
+### `ContainsPoint()`
+  - Checks whether a point is inside the frustum.
+### `Frustum()`
+  - Constructs a Frustum object.
+### `Frustum()`
+  - Constructs a Frustum object from a view-projection matrix.
+### `IntersectsWithBox3()`
+  - Checks whether an axis-aligned bounding box intersects the frustum.
+### `IntersectsWithSphere()`
+  - Checks whether a sphere intersects the frustum.
+### `SetWithViewProjection()`
+  - Updates the frustum using a new view-projection matrix.

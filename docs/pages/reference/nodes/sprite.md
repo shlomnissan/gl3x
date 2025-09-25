@@ -25,6 +25,11 @@ auto MyNode::OnAttached(SharedContextPointer context) -> void override {
   );
 }
 ```
+## Constructors
+
+### `Sprite()`
+Constructs a sprite with an optional material.
+
 ## Properties
 
 - `Vector2 anchor`
@@ -34,3 +39,14 @@ auto MyNode::OnAttached(SharedContextPointer context) -> void override {
 - `float rotation`
    - Default value: `0.0f`
   - View-space rotation angle in radians applied to the sprite.
+
+## Functions
+
+### `GetMaterial()`
+  - Returns the material associated with the sprite.
+### `GetNodeType()`
+  - Returns node type.
+### `SetMaterial()`
+  - Sets the material used to render the sprite.
+### `Create()`
+  - Creates a shared pointer to a Sprite object with material.

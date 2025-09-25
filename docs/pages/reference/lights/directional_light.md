@@ -14,7 +14,25 @@ auto directional_light = gleam::DirectionalLight::Create({
 ```
 
 When the target parameter is set to `nullptr` the light points to (0, 0, 0).
+## Constructors
+
+### `DirectionalLight()`
+Constructs a DirectionalLight object.
+
 ## Properties
 
 - `std::shared_ptr<Node> target`
   - Node that the light is directed towards.
+
+## Functions
+
+### `Direction()`
+  - Returns the direction vector of the light.
+### `GetType()`
+  - Returns light type.
+### `OnUpdate()`
+  - Updates the light each frame.
+### `SetDebugMode()`
+  - Sets debug mode.
+### `Create()`
+  - Creates a shared pointer to an DirectionalLight object.

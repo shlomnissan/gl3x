@@ -13,6 +13,12 @@ class TypePart:
     refid: Optional[str] = None # present when Doxygen <ref> appears inside <type>
 
 @dataclass(slots=True)
+class ParamDoc:
+    name: str
+    type: TypeRef
+    default: Optional[str] = None
+
+@dataclass(slots=True)
 class TypeRef:
     parts: List[TypePart] = field(default_factory=list)
 
@@ -30,6 +36,19 @@ class VarDoc:
     brief: List[DocParagraph] = field(default_factory=list)
 
 @dataclass(slots=True)
+class FunctionDoc:
+    id: str
+    name: str
+    prot: str
+    static: bool
+    virt: Optional[str]
+    return_type: TypeRef
+    signature: str
+    params: List[ParamDoc] = field(default_factory=list)
+    brief: List[DocParagraph] = field(default_factory=list)
+    details: List[DocParagraph] = field(default_factory=list)
+
+@dataclass(slots=True)
 class ClassDoc:
     id: str
     name: str
@@ -37,3 +56,5 @@ class ClassDoc:
     brief: List[DocParagraph] = field(default_factory=list)
     details: List[DocParagraph] = field(default_factory=list)
     variables: List[VarDoc] = field(default_factory=list)
+    functions: List[FunctionDoc] = field(default_factory=list)
+    constructors: List[FunctionDoc] = field(default_factory=list)

@@ -17,6 +17,11 @@ auto geometry = gleam::Geometry::Create({
 geometry->SetAttribute({GeometryAttributeType::Position, 3});
 Add(Mesh::Create(geometry, UnlitMaterial::Create(0xFF0133)));
 ```
+## Constructors
+
+### `Geometry()`
+Constructs a Geometry object with vertex and index data.
+
 ## Properties
 
 - `GeometryPrimitiveType primitive`
@@ -26,3 +31,30 @@ Add(Mesh::Create(geometry, UnlitMaterial::Create(0xFF0133)));
 - `unsigned int renderer_id`
    - Default value: `0`
   - GPU renderer identifier. Used internally by the renderer.
+
+## Functions
+
+### `Attributes()`
+  - Returns all defined vertex attributes.
+### `BoundingBox()`
+  - Returns the geometry's bounding box (computed on demand).
+### `BoundingSphere()`
+  - Returns the geometry's bounding sphere (computed on demand).
+### `HasAttribute()`
+  - Returns whether a given attribute type is present.
+### `IndexCount()`
+  - Returns the number of indices.
+### `IndexData()`
+  - Returns raw index data.
+### `SetAttribute()`
+  - Adds a vertex attribute.
+### `Stride()`
+  - Returns the vertex stride in floats (sum of all active attribute sizes).
+### `VertexCount()`
+  - Returns the number of vertices (size / stride).
+### `VertexData()`
+  - Returns raw vertex data.
+### `Create()`
+  - Creates a shared pointer to a Geometry object.
+### `Create()`
+  - Creates a shared pointer to a Geometry object with vertex and index data.

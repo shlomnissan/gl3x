@@ -25,3 +25,24 @@ Internally manages position, scale, rotation, and center of transformation. Lazi
 - `bool touched`
    - Default value: `true`
   - Indicates whether the transformation matrix needs to be recomputed.
+
+## Functions
+
+### `Get()`
+  - Returns the 3x3 transformation matrix.
+### `Rotate()`
+  - Applies a rotation delta to the current rotation.
+### `Scale()`
+  - Applies a scale to the current scale.
+### `SetCenter()`
+  - Sets the pivot point for rotation and scaling.
+### `SetPosition()`
+  - Sets the world position of the transform.
+### `SetRotation()`
+  - Sets the rotation angle of the transform.
+### `SetScale()`
+  - Sets the local scale of the transform.
+### `Transform2()`
+  - Constructs a Transform2 object with identity transform.
+### `Translate()`
+  - Applies a translation in local space.

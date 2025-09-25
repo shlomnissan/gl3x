@@ -9,3 +9,8 @@ Not intended for direct use.
 - `bool handled`
    - Default value: `false`
   - Indicates whether the event has been handled.
+
+## Functions
+
+### `GetType()`
+  - Returns event type.

@@ -20,3 +20,24 @@ Internally manages position, scale, and rotation in Euler angles. Lazily compute
 - `bool touched`
    - Default value: `true`
   - Indicates whether the transformation matrix needs to be recomputed.
+
+## Functions
+
+### `Get()`
+  - Returns the 4x4 transformation matrix.
+### `LookAt()`
+  - Sets the rotation such that the object looks at the given target.
+### `Rotate()`
+  - Applies a rotation around a specific axis.
+### `Scale()`
+  - Applies a scale to the current scale.
+### `SetPosition()`
+  - Sets the world position of the transform.
+### `SetRotation()`
+  - Sets the rotation of the transform.
+### `SetScale()`
+  - Sets the local scale of the transform.
+### `Transform3()`
+  - Constructs a Transform3 object with identity transform.
+### `Translate()`
+  - Applies a translation in local space.

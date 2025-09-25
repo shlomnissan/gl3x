@@ -8,7 +8,6 @@ def _para(s: str) -> str: return s.strip()
 def _first(paras): return _para(paras[0].md) if paras else ""
 
 def _join_paragraphs(paras: List[DocParagraph]) -> str:
-    # blank line between paragraphs;
     return ("\n\n".join(p.md.strip() for p in paras if p.md.strip())).strip()
 
 def render_class(doc: ClassDoc) -> str:
@@ -22,6 +21,14 @@ def render_class(doc: ClassDoc) -> str:
     if doc.details:
         lines.append(_join_paragraphs(doc.details))
 
+    if doc.constructors:
+        lines += ["## Constructors", ""]
+        for c in doc.constructors:
+            lines += [f"### `{c.name}()`"]
+            lines.append(_join_paragraphs(c.brief))
+            lines.append("")
+
+
     if doc.variables:
         lines += ["## Properties", ""]
         for v in doc.variables:
@@ -30,6 +37,14 @@ def render_class(doc: ClassDoc) -> str:
             if v.initializer: lines += [f"   - Default value: `{v.initializer}`"]
             if fb: lines += [f"  - {fb}"]
             lines.append("")
+
+    if doc.functions:
+        lines += ["## Functions", ""]
+        for f in doc.functions:
+            lines += [f"### `{f.name}()`"]
+            fb = _first(f.brief)
+            if fb: lines += [f"  - {fb}"]
+        lines.append("")
 
     out = "\n".join(lines).rstrip() + "\n"
 

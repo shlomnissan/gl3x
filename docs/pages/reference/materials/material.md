@@ -49,3 +49,10 @@ Not intended for direct use.
 - `bool wireframe`
    - Default value: `false`
   - Enables wireframe rendering.
+
+## Functions
+
+### `GetType()`
+  - Returns material type.
+### `TypeToString()`
+  - Converts material type enum value to string.

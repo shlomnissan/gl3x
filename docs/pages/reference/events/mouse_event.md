@@ -35,3 +35,8 @@ public:
 
 - `MouseEvent::Type type`
   - Mouse event type.
+
+## Functions
+
+### `GetType()`
+  - Returns event type.

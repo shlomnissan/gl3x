@@ -28,7 +28,23 @@ public:
 ```
 
 Only one scene can be attached to the application context at a time. Attaching a new scene using gleam::Application::SetScene replaces the current one.
+## Constructors
+
+### `Scene()`
+Constructs an Scene instance.
+
 ## Properties
 
 - `std::unique_ptr<Fog> fog`
   - Fog settings applied to the entire scene.
+
+## Functions
+
+### `Advance()`
+  - Advances the scene by one frame.
+### `GetNodeType()`
+  - Returns node type.
+### `SetContext()`
+  - Attaches a shared context to the scene.
+### `Create()`
+  - Creates a shared pointer to a Scene object.

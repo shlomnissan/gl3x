@@ -18,3 +18,14 @@ auto geometry = gleam::CylinderGeometry::Create({
 auto mesh = gleam::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
 my_scene->Add(mesh);
 ```
+## Constructors
+
+### `CylinderGeometry()`
+Constructs a CylinderGeometry object.
+
+## Functions
+
+### `Create()`
+  - Creates a shared pointer to a CylinderGeometry object with default parameters.
+### `Create()`
+  - Creates a shared pointer to a CylinderGeometry object.

@@ -25,3 +25,14 @@ This is useful for orbital camera rigs, sampling directions on a sphere, and con
 - `float theta`
    - Default value: `0.0f`
   - Polar angle (pitch) in radians.
+
+## Functions
+
+### `MakeSafe()`
+  - Clamps theta (polar) away from the poles.
+### `Spherical()`
+  - Default constructor.
+### `Spherical()`
+  - Constructs a spherical coordinate from radius, phi, and theta.
+### `ToVector3()`
+  - Converts spherical to Cartesian coordinates.

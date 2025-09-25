@@ -15,3 +15,12 @@ auto grid = gleam::Grid::Create({
 });
 scene->Add(grid);
 ```
+## Constructors
+
+### `Grid()`
+Constructs a Grid object.
+
+## Functions
+
+### `Create()`
+  - Creates a shared pointer to a Grid object.

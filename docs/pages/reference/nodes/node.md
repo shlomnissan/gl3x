@@ -8,6 +8,11 @@ Base class for all scene graph objects.
 Nodes can be organized in a tree structure, and transformations will propagate through the hierarchy. When attached to a scene, nodes gain access to the shared context and may perform initialization in `OnAttached(SharedContextPointer context)`.
 
 To define behavior, override virtual methods such as `OnUpdate()`, `OnKeyboardEvent()`, or `OnMouseEvent()`.
+## Constructors
+
+### `Node()`
+Constructs an Node instance.
+
 ## Properties
 
 - `bool frustum_culled`
@@ -24,3 +29,58 @@ To define behavior, override virtual methods such as `OnUpdate()`, `OnKeyboardEv
 - `Vector3 up`
    - Default value: `Vector3::Up()`
   - Local up direction (defaults to +Y).
+
+## Functions
+
+### `LookAt()`
+  - Rotates the node to face a given target position in world space.
+### `TranslateX()`
+  - Translates the node along the X axis in local space.
+### `TranslateY()`
+  - Translates the node along the Y axis in local space.
+### `TranslateZ()`
+  - Translates the node along the Z axis in local space.
+### `RotateX()`
+  - Rotates the node along the X axis in local space.
+### `RotateY()`
+  - Rotates the node along the Y axis in local space.
+### `RotateZ()`
+  - Rotates the node along the Z axis in local space.
+### `SetScale()`
+  - Scales the node non-uniformly in local space.
+### `OnUpdate()`
+  - Called every frame.
+### `OnAttached()`
+  - Called when the node becomes part of an attached scene.
+### `OnKeyboardEvent()`
+  - Called when a keyboard event is dispatched to this node.
+### `OnMouseEvent()`
+  - Called when a mouse event is dispatched to this node.
+### `Add()`
+  - Adds a child node to this node.
+### `Children()`
+  - Returns the list of child nodes.
+### `GetNodeType()`
+  - Returns node type.
+### `GetWorldPosition()`
+  - Returns the world-space position of this node.
+### `GetWorldTransform()`
+  - Returns the world transformation matrix of this node.
+### `IsChild()`
+  - Checks whether the given node is a direct child of this node.
+### `IsRenderable()`
+  - Returns true if the node is renderable.
+### `Parent()`
+  - Returns the parent node.
+### `Remove()`
+  - Removes a child node from this node.
+### `RemoveAllChildren()`
+  - Removes all children from this node.
+### `ShouldUpdateWorldTransform()`
+  - Determines whether the world transform should be recalculated.
+### `UpdateTransformHierarchy()`
+  - Recursively updates this node and all child world transforms.
+### `UpdateWorldTransform()`
+  - Updates this node’s world transform, ensuring parent transforms are current.
+### `Create()`
+  - Creates a shared pointer to a Node object.

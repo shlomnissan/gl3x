@@ -18,3 +18,14 @@ auto geometry = gleam::BoxGeometry::Create({
 auto mesh = gleam::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
 my_scene->Add(mesh);
 ```
+## Constructors
+
+### `BoxGeometry()`
+Constructs a BoxGeometry object.
+
+## Functions
+
+### `Create()`
+  - Creates a shared pointer to a BoxGeometry object with default parameters.
+### `Create()`
+  - Creates a shared pointer to a BoxGeometry object.

@@ -21,6 +21,11 @@ auto spot_light = gleam::SpotLight::Create({
 ```
 
 When the target parameter is set to `nullptr` the light points to (0, 0, 0).
+## Constructors
+
+### `SpotLight()`
+Constructs a SpotLight object.
+
 ## Properties
 
 - `float angle`
@@ -35,3 +40,16 @@ When the target parameter is set to `nullptr` the light points to (0, 0, 0).
 - `std::shared_ptr<Node> target`
    - Default value: `nullptr`
   - Node that the light is directed towards.
+
+## Functions
+
+### `Direction()`
+  - Returns the direction vector of the light.
+### `GetType()`
+  - Returns light type.
+### `OnUpdate()`
+  - Updates the light each frame.
+### `SetDebugMode()`
+  - Sets debug mode.
+### `Create()`
+  - Creates a shared pointer to a SpotLight object.

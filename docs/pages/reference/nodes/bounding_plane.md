@@ -12,3 +12,12 @@ auto plane = gleam::Plane {Vector3::Forward(), 0.0f};
 auto bounds = gleam::BoundingPlane::Create(plane, 2, 0xFF0000);
 scene->Add(bounds);
 ```
+## Constructors
+
+### `BoundingPlane()`
+Constructs a BoundingPlane object.
+
+## Functions
+
+### `Create()`
+  - Creates a shared pointer to a BoundingPlane object.

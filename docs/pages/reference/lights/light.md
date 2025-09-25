@@ -4,6 +4,11 @@
 
 Abstract base class for light types.
 Not intended for direct use.
+## Constructors
+
+### `Light()`
+Constructs a Light object.
+
 ## Properties
 
 - `Color color`
@@ -13,3 +18,12 @@ Not intended for direct use.
 - `float intensity`
    - Default value: `1.0f`
   - Light intensity.
+
+## Functions
+
+### `GetNodeType()`
+  - Returns node type.
+### `GetType()`
+  - Returns light type.
+### `SetDebugMode()`
+  - Sets debug mode.

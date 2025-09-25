@@ -15,3 +15,12 @@ auto bounds = gleam::BoundingSphere::Create(
 );
 scene->Add(bounds);
 ```
+## Constructors
+
+### `BoundingSphere()`
+Constructs a BoundingSphere object.
+
+## Functions
+
+### `Create()`
+  - Creates a shared pointer to a BoundingSphere object.

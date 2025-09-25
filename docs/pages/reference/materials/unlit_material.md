@@ -12,6 +12,11 @@ material->albedo_map = texture;
 auto mesh = gleam::Mesh::Create(geometry, material);
 scene->Add(mesh);
 ```
+## Constructors
+
+### `UnlitMaterial()`
+Constructs a UnlitMaterial object.
+
 ## Properties
 
 - `std::shared_ptr<Texture2D> albedo_map`
@@ -25,3 +30,10 @@ scene->Add(mesh);
 - `Color color`
    - Default value: `0xFFFFFF`
   - Color of the material.
+
+## Functions
+
+### `GetType()`
+  - Returns material type.
+### `Create()`
+  - Creates a shared pointer to a UnlitMaterial object.

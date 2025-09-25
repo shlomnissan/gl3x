@@ -15,3 +15,14 @@ auto geometry = gleam::SphereGeometry::Create({
 auto mesh = gleam::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
 my_scene->Add(mesh);
 ```
+## Constructors
+
+### `SphereGeometry()`
+Constructs a SphereGeometry object.
+
+## Functions
+
+### `Create()`
+  - Creates a shared pointer to a SphereGeometry object with default parameters.
+### `Create()`
+  - Creates a shared pointer to a SphereGeometry object.

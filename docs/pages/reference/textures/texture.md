@@ -9,3 +9,8 @@ Not intended for direct use.
 - `unsigned int renderer_id`
    - Default value: `0`
   - Renderer-specific identifier assigned by the graphics API.
+
+## Functions
+
+### `GetType()`
+  - Returns texture type.

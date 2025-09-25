@@ -25,3 +25,7 @@ auto MyNode::OnAttached(SharedContextPointer context) -> void override {
 ```
 
 Loaders use `std::expect` for error values. Always check that loading operations return a valid result, and handle the error otherwise.
+## Functions
+
+### `Create()`
+  - Creates a shared pointer to a TextureLoader object.

@@ -27,3 +27,16 @@ Note: Gimbal lock may occur when pitch approaches ±90°, limiting the reliabili
 - `float yaw`
    - Default value: `0.0f`
   - Rotation around the Y-axis in radians.
+
+## Functions
+
+### `Euler()`
+  - Constructs an Euler angles object.
+### `Euler()`
+  - Constructs an Euler angles object from a transformation matrix.
+### `Euler()`
+  - Constructs an Euler angles object from pitch, yaw, and roll.
+### `GetMatrix()`
+  - Converts the Euler angles into a 4×4 transformation matrix.
+### `IsEmpty()`
+  - Checks whether all angles are zero.

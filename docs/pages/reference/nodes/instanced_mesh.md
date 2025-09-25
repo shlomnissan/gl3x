@@ -35,3 +35,30 @@ Out-of-range indices are invalid and result in undefined behavior.Frustum cullin
 Out-of-range indices are invalid and result in undefined behavior.
 
 Frustum culling is performed once per draw call using a single bounding sphere that encloses all instances (cluster-level culling).
+## Constructors
+
+### `InstancedMesh()`
+Constructs an instanced mesh.
+
+## Functions
+
+### `BoundingBox()`
+  - Returns the instanced mesh cluster bounding box.
+### `BoundingSphere()`
+  - Returns the instanced mesh cluster bounding sphere.
+### `Count()`
+  - Returns the number of instances in this mesh.
+### `GetColorAt()`
+  - Returns the color assigned to a specific instance.
+### `GetNodeType()`
+  - Returns node type.
+### `GetTransformAt()`
+  - Returns the transform assigned to a specific instance.
+### `SetColorAt()`
+  - Sets the color for a specific instance.
+### `SetTransformAt()`
+  - Sets the model transform for a specific instance.
+### `SetTransformAt()`
+  - Sets the model transform for a specific instance from a Transform3.
+### `Create()`
+  - Creates a shared pointer to an InstancedMesh object.

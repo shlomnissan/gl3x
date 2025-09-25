@@ -14,3 +14,14 @@ while (running) {
   renderer.Render(&scene, &camera);
 }
 ```
+## Constructors
+
+### `FrameTimer()`
+Constructs a FrameTimer object.
+
+## Functions
+
+### `Start()`
+  - Starts the internal timer.
+### `Tick()`
+  - Returns the clamped time delta since the previous tick.

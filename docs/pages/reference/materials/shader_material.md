@@ -19,7 +19,19 @@ auto material = gleam::ShaderMaterial::Create({
 auto mesh = gleam::Mesh::Create(geometry, material);
 scene->Add(mesh);
 ```
+## Constructors
+
+### `ShaderMaterial()`
+Constructs a ShaderMaterial object.
+
 ## Properties
 
 - `std::unordered_map< std::string,UniformValue> uniforms`
   - Stores values for custom uniforms used by the shader.
+
+## Functions
+
+### `GetType()`
+  - Returns material type.
+### `Create()`
+  - Creates a shared pointer to a ShaderMaterial object.

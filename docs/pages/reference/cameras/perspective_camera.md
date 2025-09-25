@@ -25,3 +25,18 @@ public:
   }
 }
 ```
+## Constructors
+
+### `PerspectiveCamera()`
+Constructs an PerspectiveCamera object.
+
+## Functions
+
+### `GetType()`
+  - Returns camera type.
+### `Resize()`
+  - Updates the projection transform to match the new viewport size.
+### `SetLens()`
+  - Configures perspective projection parameters.
+### `Create()`
+  - Creates a shared pointer to an PerspectiveCamera object.

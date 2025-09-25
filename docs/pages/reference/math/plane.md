@@ -13,3 +13,16 @@ The plane equation is defined as: dot(normal, point) + distance = 0. Used in col
 - `Vector3 normal`
    - Default value: `Vector3::Up()`
   - The normal vector of the plane, pointing outward.
+
+## Functions
+
+### `DistanceToPoint()`
+  - Returns the signed distance from a point to the plane.
+### `DistanceToSphere()`
+  - Returns the signed distance from a sphere to the plane.
+### `Normalize()`
+  - Normalizes the plane equation.
+### `Plane()`
+  - Constructs a Plane with an upward normal and zero distance.
+### `Plane()`
+  - Constructs a Plane from a normal vector and distance.

@@ -16,3 +16,16 @@ auto arrow = gleam::Arrow::Create({
 });
 scene->Add(arrow);
 ```
+## Constructors
+
+### `Arrow()`
+Constructs an Arrow object.
+
+## Functions
+
+### `SetDirection()`
+  - Sets the direction of the arrow.
+### `SetOrigin()`
+  - Sets the origin of the arrow.
+### `Create()`
+  - Creates a shared pointer to an Arrow object.

@@ -14,6 +14,11 @@ material->albedo_map = texture;
 auto sprite = gleam::Sprite::Create(material);
 scene->Add(sprite);
 ```
+## Constructors
+
+### `SpriteMaterial()`
+Constructs a SpriteMaterial object.
+
 ## Properties
 
 - `std::shared_ptr<Texture2D> albedo_map`
@@ -27,3 +32,10 @@ scene->Add(sprite);
 - `Color color`
    - Default value: `0xFFFFFF`
   - Color of the material.
+
+## Functions
+
+### `GetType()`
+  - Returns material type.
+### `Create()`
+  - Creates a shared pointer to a SpriteMaterial object.

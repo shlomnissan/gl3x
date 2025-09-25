@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from .content_model import ClassDoc, VarDoc, TypeRef, TypePart
+from .content_model import ClassDoc, VarDoc, FunctionDoc, TypeRef, TypePart, ParamDoc
 from .doxygen_markdown import element_text, render_description, collect_inlines
 
 import re
@@ -53,6 +53,56 @@ def _parse_variable(m: ET.Element) -> VarDoc:
         brief=render_description(m.find("briefdescription")),
     )
 
+def _is_ctor(m: ET.Element, cname: str) -> bool:
+    func_name = element_text(m.find("name")).strip()
+    return_str = _parse_type(m.find("type")).as_text()
+    return func_name == cname or return_str == ""
+
+def _is_user_ctor(m: ET.Element, cname: str) -> bool:
+    if not _is_ctor(m, cname):
+        return False
+
+    name = m.findtext("name", "")
+    if name.startswith("~"):
+        return False
+
+    definition = m.findtext("definition", "") or ""
+    if "=default" in definition or "=delete" in definition:
+        return False
+
+    argsstring = m.findtext("argsstring", "") or ""
+    if "=default" in argsstring or "=delete" in argsstring:
+        return False
+
+    return True
+
+def _parse_function(m: ET.Element) -> FunctionDoc:
+    definition = element_text(m.find("definition"))
+    args = element_text(m.find("argsstring"))
+
+    params = []
+    for p in m.findall("param"):
+        params.append(
+            ParamDoc(
+                name=element_text(p.find("declname")).strip() or element_text(p.find("defname")).strip(),
+                type=_parse_type(p.find("type")),
+                default=(element_text(p.find("defval")).strip() or None),
+            )
+        )
+
+    return FunctionDoc(
+        id=m.get("id", ""),
+        name=element_text(m.find("name")).strip(),
+        prot=m.get("prot","public"),
+        static=_bool_attr(m, "static"),
+        virt=m.get("virt"),
+        return_type=_parse_type(m.find("type")),
+        signature=(definition + args).strip(),
+        params=params,
+        brief=render_description(m.find("briefdescription")),
+        details=render_description(m.find("detaileddescription")),
+    )
+
 def build_class_doc(refid: str, xml_dir: str | Path) -> ClassDoc:
     root = ET.parse(xml_dir / f"{refid}.xml").getroot()
     cdef = root.find("compounddef")
@@ -78,8 +128,13 @@ def build_class_doc(refid: str, xml_dir: str | Path) -> ClassDoc:
             if kind == "variable":
                 doc.variables.append(_parse_variable(m))
 
+            if kind == "function":
+                if _is_ctor(m, name):
+                    if _is_user_ctor(m, name):
+                        doc.constructors.append(_parse_function(m))
+                else:
+                    doc.functions.append(_parse_function(m))
 
-            # if kind == "function":
             # if kind == "typedef":
             # if kind == "enum":
 

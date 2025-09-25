@@ -27,8 +27,22 @@ public:
   }
 }
 ```
+## Constructors
+
+### `OrthographicCamera()`
+Constructs an OrthographicCamera object.
+
 ## Properties
 
 - `ResizePolicy resize_policy`
    - Default value: `ResizePolicy::PixelSpace`
   - The current resize policy for this camera.
+
+## Functions
+
+### `GetType()`
+  - Returns camera type.
+### `Resize()`
+  - Updates the projection transform to match the new viewport size.
+### `Create()`
+  - Creates a shared pointer to an OrthographicCamera object.

@@ -14,6 +14,11 @@ material->albedo_map = texture;
 auto mesh = gleam::Mesh::Create(geometry, material);
 scene->Add(mesh);
 ```
+## Constructors
+
+### `PhongMaterial()`
+Constructs a PhongMaterial object.
+
 ## Properties
 
 - `std::shared_ptr<Texture2D> albedo_map`
@@ -35,3 +40,10 @@ scene->Add(mesh);
 - `Color specular`
    - Default value: `0x111111`
   - Specular color of the material.
+
+## Functions
+
+### `GetType()`
+  - Returns material type.
+### `Create()`
+  - Creates a shared pointer to a PhongMaterial object.
