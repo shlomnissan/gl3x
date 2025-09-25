@@ -11,6 +11,17 @@
   --vp-home-hero-name-color: var(--vp-c-text-1);
 }
 
+.VPHomeHero .name::before {
+  content: "";
+  display: inline-block;
+  width: 1.55em;
+  height: 1.4em;
+  background: url('/logo_hero.svg') no-repeat center / contain;
+  vertical-align: middle;
+  margin-right: 0.15em;
+  margin-bottom: 0.15em;
+}
+
 .VPNavBarTitle {
   .title {
     font-family: var(--vp-font-family-heading);

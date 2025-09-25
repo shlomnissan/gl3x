@@ -39,7 +39,7 @@ export default defineConfig({
     },
     footer: {
       message: 'Released under the MIT License.',
-      copyright: `Copyright © 2020–${year}`
+      copyright: `Copyright © 2024–${year}`
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/shlomnissan/gleam' }
