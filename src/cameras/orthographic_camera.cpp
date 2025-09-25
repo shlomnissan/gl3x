@@ -28,7 +28,7 @@ auto make_orthographic_proj(const OrthographicCamera::Parameters& params) {
 }
 
 OrthographicCamera::OrthographicCamera(const Parameters& params) : params_(params) {
-    projection_transform = make_orthographic_proj(params_);
+    projection_matrix = make_orthographic_proj(params_);
 }
 
 auto OrthographicCamera::Resize(int width, int height) -> void {
@@ -70,7 +70,7 @@ auto OrthographicCamera::Resize(int width, int height) -> void {
         break;
     }};
 
-    projection_transform = make_orthographic_proj(params_);
+    projection_matrix = make_orthographic_proj(params_);
 }
 
 }

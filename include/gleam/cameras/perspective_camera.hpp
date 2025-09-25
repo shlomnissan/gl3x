@@ -94,15 +94,6 @@ public:
      */
     auto SetLens(float fov, float near, float far) -> void;
 
-    /**
-     * @brief Returns camera type.
-     *
-     * @return CameraType::PerspectiveCamera
-     */
-    [[nodiscard]] auto GetType() const -> CameraType override {
-        return CameraType::PerspectiveCamera;
-    }
-
 private:
     /// @cond INTERNAL
     Parameters params_;

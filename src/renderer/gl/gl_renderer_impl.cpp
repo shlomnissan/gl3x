@@ -37,7 +37,7 @@ auto Renderer::Impl::Initialize() -> std::expected<void, std::string> {
 }
 
 auto Renderer::Impl::RenderObjects(Scene* scene, Camera* camera) -> void {
-    camera_ubo_.Update(camera->projection_transform, camera->view_transform);
+    camera_ubo_.Update(camera->projection_matrix, camera->view_matrix);
 
     for (auto renderable : render_lists_->Opaque()) {
         RenderObject(renderable, scene, camera);
@@ -235,7 +235,7 @@ auto Renderer::Impl::Render(Scene* scene, Camera* camera) -> void {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     scene->UpdateTransformHierarchy();
-    camera->SetViewTransform();
+    camera->UpdateViewMatrix();
 
     render_lists_->ProcessScene(scene, camera);
     ProcessLights(camera);

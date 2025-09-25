@@ -27,19 +27,19 @@ auto make_perspective_proj(const PerspectiveCamera::Parameters& params) {
 }
 
 PerspectiveCamera::PerspectiveCamera(const Parameters& params) : params_(params) {
-    projection_transform = make_perspective_proj(params_);
+    projection_matrix = make_perspective_proj(params_);
 }
 
 auto PerspectiveCamera::Resize(int width, int height) -> void {
     params_.aspect = static_cast<float>(width) / static_cast<float>(height);
-    projection_transform = make_perspective_proj(params_);
+    projection_matrix = make_perspective_proj(params_);
 }
 
 auto PerspectiveCamera::SetLens(float fov, float near, float far) -> void {
     params_.fov = fov;
     params_.near = near;
     params_.far = far;
-    projection_transform = make_perspective_proj(params_);
+    projection_matrix = make_perspective_proj(params_);
 }
 
 }

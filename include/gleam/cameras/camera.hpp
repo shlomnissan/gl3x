@@ -17,98 +17,88 @@
 namespace gleam {
 
 /**
- * @brief Represents available camera types.
- * @ingroup CamerasGroup
- */
-enum class CameraType {
-    OrthographicCamera,
-    PerspectiveCamera
-};
-
-/**
  * @brief Abstract base class for camera types.
  *
- * Not intended for direct use.
+ * This class is not intended to be used directly. Use @ref PerspectiveCamera
+ * or @ref OrthographicCamera unless you are defining your own camera type,
+ * in which case it should inherit from this class.
  *
  * @ingroup CamerasGroup
  */
 class GLEAM_EXPORT Camera : public Node {
 public:
-    /// @brief Projection transform.
-    Matrix4 projection_transform;
+    /// @brief Projection matrix that maps camera-space coordinates to clip space.
+    Matrix4 projection_matrix { Matrix4::Identity() };
 
-    /// @brief View transform.
-    Matrix4 view_transform;
-
-    /**
-     * @brief Sets the view transform to the inverse of the node's world transform.
-     */
-    auto SetViewTransform() -> void;
+    /// @brief View matrix (inverse of the camera’s world transform) that maps world space to camera space.
+    Matrix4 view_matrix { Matrix4::Identity() };
 
     /**
-     * @brief Returns the cameras frustum.
-     */
-    auto GetFrustum() -> Frustum;
-
-    /**
-     * @brief Updates the projection transform to match the new viewport size.
+     * @brief Sets @ref view_matrix to the inverse of the camera's world transform.
      *
-     * @param width Viewport width in pixels.
+     * Called internally by the renderer before rendering a frame;
+     * manual calls are rarely necessary.
+     */
+    auto UpdateViewMatrix() -> void;
+
+    /**
+     * @brief Updates @ref projection_matrix to reflect the current viewport size.
+     *
+     * Must be implemented by derived cameras to apply the appropriate projection logic.
+     *
+     * @param width  Viewport width in pixels.
      * @param height Viewport height in pixels.
      */
     virtual auto Resize(int width, int height) -> void = 0;
 
     /**
-     * @brief Returns camera type.
+     * @brief Identifies this node as a camera.
      *
-     * @return CameraType
-     */
-    [[nodiscard]] virtual auto GetType() const -> CameraType = 0;
-
-    /**
-     * @brief Returns node type.
-     *
-     * @return NodeType::CameraNode
+     * Always returns @ref NodeType::CameraNode, allowing runtime checks
+     * to distinguish camera nodes from other node types.
      */
     [[nodiscard]] auto GetNodeType() const -> NodeType override {
         return NodeType::CameraNode;
     }
 
     /**
-     * @brief Rotates the camera to face a given target position in world space.
+     * @brief Computes a @ref Frustum from the combined projection and view matrices.
      *
-     * @param target Target world-space position to look at.
+     * Useful for applying frustum culling to renderable nodes.
+     */
+    [[nodiscard]] auto GetFrustum() -> Frustum;
+
+    /**
+     * @brief Overrides @ref Node::LookAt to orient the camera toward a world-space target.
+     *
+     * Accounts for the camera’s -Z viewing direction so the camera faces the given point.
+     *
+     * @param target World-space position for the camera to look at.
      */
     auto LookAt(const Vector3& target) -> void override;
 
     /**
-     * @brief Returns the camera's right axis in view space.
-     *
-     * @return Vector3
+     * @brief Camera right axis in world space.
      */
-    [[nodiscard]] auto ViewRight() const {
-        const auto& t = view_transform;
-        return Vector3 {t[0][0], t[1][0], t[2][0]};
+    [[nodiscard]] auto Right() -> Vector3 {
+        const auto& mat = GetWorldTransform();
+        return Vector3 { mat[0][0], mat[0][1], mat[0][2] };
     }
 
     /**
-     * @brief Returns the camera's up axis in view space.
-     *
-     * @return Vector3
+     * @brief Camera up axis in world space.
      */
-    [[nodiscard]] auto ViewUp() const {
-        const auto& t = view_transform;
-        return Vector3 {t[0][1], t[1][1], t[2][1]};
+    [[nodiscard]] auto Up() -> Vector3 {
+        const auto& mat = GetWorldTransform();
+        return Vector3 { mat[1][0], mat[1][1], mat[1][2] };
     }
 
     /**
-     * @brief Returns the camera's forward axis in view space.
-     *
-     * @return Vector3
+     * @brief Camera forward axis in world space.
      */
-    [[nodiscard]] auto ViewForward() const {
-        const auto& t = view_transform;
-        return Vector3 {t[0][2], t[1][2], t[2][2]};
+    [[nodiscard]] auto Forward() -> Vector3 {
+        const auto& mat = GetWorldTransform();
+        return Vector3 { -mat[2][0], -mat[2][1], -mat[2][2] };
     }
 };
 

@@ -100,15 +100,6 @@ public:
      */
     auto Resize(int width, int height) -> void override;
 
-    /**
-     * @brief Returns camera type.
-     *
-     * @return CameraType::OrthographicCamera
-     */
-    [[nodiscard]] auto GetType() const -> CameraType override {
-        return CameraType::OrthographicCamera;
-    }
-
 private:
     /// @cond INTERNAL
     Parameters params_;

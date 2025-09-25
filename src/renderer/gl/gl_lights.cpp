@@ -51,7 +51,7 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
                 ++directional;
                 auto src = static_cast<gleam::DirectionalLight*>(light);
                 auto src_dir = src->Direction();
-                auto dir = camera->view_transform * Vector4(src_dir.x, src_dir.y, src_dir.z, 0.0f);
+                auto dir = camera->view_matrix * Vector4(src_dir.x, src_dir.y, src_dir.z, 0.0f);
                 dst.position = Vector3::Zero();
                 dst.direction = Vector3(dir.x, dir.y, dir.z);
                 dst.cone_cos = 0.0f;
@@ -65,7 +65,7 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
                 ++point;
                 auto src = static_cast<gleam::PointLight*>(light);
                 auto world = src->GetWorldPosition();
-                auto pos = camera->view_transform *  Vector4(world.x, world.y, world.z, 1.0f);
+                auto pos = camera->view_matrix *  Vector4(world.x, world.y, world.z, 1.0f);
                 dst.position = Vector3(pos.x, pos.y, pos.z);
                 dst.direction = Vector3::Zero();
                 dst.cone_cos = 0.0f;
@@ -80,8 +80,8 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
                 auto src = static_cast<gleam::SpotLight*>(light);
                 auto src_dir = src->Direction();
                 auto world = src->GetWorldPosition();
-                auto dir = camera->view_transform * Vector4(src_dir.x, src_dir.y, src_dir.z, 0.0f);
-                auto pos = camera->view_transform * Vector4(world.x, world.y, world.z, 1.0f);
+                auto dir = camera->view_matrix * Vector4(src_dir.x, src_dir.y, src_dir.z, 0.0f);
+                auto pos = camera->view_matrix * Vector4(world.x, world.y, world.z, 1.0f);
                 dst.position = Vector3(pos.x, pos.y, pos.z);
                 dst.direction = Vector3(dir.x, dir.y, dir.z);
                 dst.cone_cos = math::Cos(src->angle);

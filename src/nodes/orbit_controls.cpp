@@ -41,8 +41,8 @@ struct OrbitControls::Impl {
 
         if (do_pan) {
             const auto speed = pan_speed * spherical.radius * delta;
-            const auto right = camera->ViewRight();
-            const auto up = camera->ViewUp();
+            const auto right = camera->Right();
+            const auto up = camera->Up();
             target -= (right * offset.x - up * offset.y) * speed;
         }
 

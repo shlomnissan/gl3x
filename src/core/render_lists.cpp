@@ -24,7 +24,7 @@ auto RenderLists::ProcessScene(Scene* scene, Camera* camera) -> void {
     }
 
     const auto c = camera->GetWorldPosition();
-    const auto f = camera->ViewForward();
+    const auto f = camera->Forward();
     const auto compare = [&](auto* renderable) {
         return Dot(renderable->GetWorldPosition() - c, f);
     };
