@@ -6,49 +6,53 @@ Abstract base class for material types.
 Not intended for direct use.
 ## Properties
 
-- `Blending blending`
-   - Default value: `Blending::Normal`
-  - Blending mode used for rendering this material.
+<div class="property-container">
 
-- `bool depth_test`
-   - Default value: `true`
-  - Enables depth testing.
+<div class="property">
+  <div class="definition"><span class="name">blending</span> <span class="type">Blending</span></div>
+  <div class="description">
+    Blending mode used for rendering this material.
+    <div class="default">Default: <span class="value">{Blending::Normal}</span></div>
+  </div>
+</div>
 
-- `bool flat_shaded`
-   - Default value: `false`
-  - Enables flat shading.
+<div class="property">
+  <div class="definition">
+  <span class="name">depth_test</span> <span class="type">bool</span></div>
+  <div class="description">
+    Enables depth testing.
+    <div class="default">Default: <span class="value">{true}</span></div>
+  </div>
+</div>
 
-- `bool fog`
-   - Default value: `true`
-  - Enables scene fog for this material.
+<div class="property">
+  <div class="definition">
+  <span class="name">flat_shaded</span> <span class="type">bool</span></div>
+  <div class="description">
+    Enables flat shading.
+    <div class="default">Default: <span class="value">{true}</span></div>
+  </div>
+</div>
 
-- `float opacity`
-   - Default value: `1.0f`
-  - Value in the range of `0.0` - `1.0` indicating how transparent the material is.
+<div class="property">
+  <div class="definition">
+  <span class="name">fog</span> <span class="type">bool</span></div>
+  <div class="description">
+    Enables scene fog for this material.
+    <div class="default">Default: <span class="value">{true}</span></div>
+  </div>
+</div>
 
-- `float polygon_offset_factor`
-   - Default value: `0.0f`
-  - Sets the polygon offset factor.
+<div class="property">
+  <div class="definition">
+  <span class="name">opacity</span> <span class="type">float</span></div>
+  <div class="description">
+    Value in the range of <code>0.0f</code> - <code>1.0f</code> indicating how the material is.
+    <div class="default">Default: <span class="value">{1.0f}</span></div>
+  </div>
+</div>
 
-- `float polygon_offset_units`
-   - Default value: `0.0f`
-  - Sets the polygon offset units.
-
-- `bool transparent`
-   - Default value: `false`
-  - Enables transparency.
-
-- `bool two_sided`
-   - Default value: `false`
-  - Enables rendering both front and back faces of polygons.
-
-- `bool visible`
-   - Default value: `true`
-  - Enables visibility.
-
-- `bool wireframe`
-   - Default value: `false`
-  - Enables wireframe rendering.
+</div>
 
 ## Functions
 

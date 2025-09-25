@@ -65,3 +65,29 @@
     }
   }
 }
+
+.property {
+  margin-bottom: 12px;
+}
+
+.property .definition,
+.property .description .default .value {
+  font-family: var(--vp-font-family-mono);
+}
+
+.property .definition {
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--vp-c-brand-1);
+  padding-bottom: 4px;
+}
+
+.property .definition .type,
+.property .definition a {
+  color: var(--vp-c-text-2);
+}
+
+.property .description .default {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+}
