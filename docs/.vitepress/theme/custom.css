@@ -58,28 +58,33 @@
 
 .main {
   .tagline {
-    padding-top: 0rem;
-
     @media (max-width: 640px) {
       font-size: 1rem;
     }
   }
 }
 
-.property {
-  margin-bottom: 12px;
+:where(.property, .function) {
+  margin: 0 0 8px;
 }
 
-.property .definition,
-.property .description .default .value {
+:where(.property, .function):last-child {
+  margin-bottom: 0;
+}
+
+:where(.property, .function) > .definition {
   font-family: var(--vp-font-family-mono);
+  font-weight: 500;
+  padding-bottom: 4px;
+}
+
+:where(.property, .function) .definition .name {
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
 }
 
 .property .definition {
-  font-weight: 500;
-  font-size: 18px;
   color: var(--vp-c-brand-1);
-  padding-bottom: 4px;
 }
 
 .property .definition .type,
@@ -90,4 +95,26 @@
 .property .description .default {
   font-size: 14px;
   color: var(--vp-c-text-2);
+}
+
+.function .description a {
+  font-weight: 400;
+}
+
+.function .param .param-type {
+  color: var(--vp-c-text-2);
+}
+
+ul.params {
+  font-size: 14px;
+  margin-top: 4px;
+  padding-left: 1.25em;
+}
+
+ul.params li {
+  margin-top: 0;
+}
+
+ul.params .param-name {
+  font-family: var(--vp-font-family-mono);
 }
