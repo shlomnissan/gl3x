@@ -35,8 +35,14 @@ Constructs an Scene instance.
 
 ## Properties
 
-- `std::unique_ptr<Fog> fog`
-  - Fog settings applied to the entire scene.
+<div class="property">
+  <div class="definition">
+    <span class="name">fog</span> <span class="type">std::unique_ptr&lt;Fog&gt;</span>
+  </div>
+  <div class="description">
+    Fog settings applied to the entire scene.
+  </div>
+</div>
 
 ## Functions
 

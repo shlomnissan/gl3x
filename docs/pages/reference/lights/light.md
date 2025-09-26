@@ -11,13 +11,23 @@ Constructs a Light object.
 
 ## Properties
 
-- `Color color`
-   - Default value: `0xffffff`
-  - Light color, represented as RGB values.
+<div class="property">
+  <div class="definition">
+    <span class="name">color</span> <span class="type">Color</span>
+  </div>
+  <div class="description">
+    Light color, represented as RGB values.
+  </div>
+</div>
 
-- `float intensity`
-   - Default value: `1.0f`
-  - Light intensity.
+<div class="property">
+  <div class="definition">
+    <span class="name">intensity</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Light intensity.
+  </div>
+</div>
 
 ## Functions
 

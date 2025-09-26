@@ -26,28 +26,74 @@ public:
 ```
 ## Properties
 
-- `float aspect_ratio`
-  - Aspect ratio of the render surface.
+<div class="property">
+  <div class="definition">
+    <span class="name">aspect_ratio</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Aspect ratio of the render surface.
+  </div>
+</div>
 
-- `Camera* camera`
-  - Current active camera.
+<div class="property">
+  <div class="definition">
+    <span class="name">camera</span> <span class="type">Camera*</span>
+  </div>
+  <div class="description">
+    Current active camera.
+  </div>
+</div>
 
-- `int framebuffer_height`
-  - Frambuffer height in physical pixels.
+<div class="property">
+  <div class="definition">
+    <span class="name">framebuffer_height</span> <span class="type">int</span>
+  </div>
+  <div class="description">
+    Frambuffer height in physical pixels.
+  </div>
+</div>
 
-- `int framebuffer_width`
-  - Framebuffer width in physical pixels.
+<div class="property">
+  <div class="definition">
+    <span class="name">framebuffer_width</span> <span class="type">int</span>
+  </div>
+  <div class="description">
+    Framebuffer width in physical pixels.
+  </div>
+</div>
 
-- `std::shared_ptr<MeshLoader> mesh_loader`
-   - Default value: `MeshLoader::Create()`
-  - Mesh loader.
+<div class="property">
+  <div class="definition">
+    <span class="name">mesh_loader</span> <span class="type">std::shared_ptr&lt;MeshLoader&gt;</span>
+  </div>
+  <div class="description">
+    Mesh loader.
+  </div>
+</div>
 
-- `std::shared_ptr<TextureLoader> texture_loader`
-   - Default value: `TextureLoader::Create()`
-  - Texture loader.
+<div class="property">
+  <div class="definition">
+    <span class="name">texture_loader</span> <span class="type">std::shared_ptr&lt;TextureLoader&gt;</span>
+  </div>
+  <div class="description">
+    Texture loader.
+  </div>
+</div>
 
-- `int window_height`
-  - Window height in logical units.
+<div class="property">
+  <div class="definition">
+    <span class="name">window_height</span> <span class="type">int</span>
+  </div>
+  <div class="description">
+    Window height in logical units.
+  </div>
+</div>
 
-- `int window_width`
-  - Window width in logical units.
+<div class="property">
+  <div class="definition">
+    <span class="name">window_width</span> <span class="type">int</span>
+  </div>
+  <div class="description">
+    Window width in logical units.
+  </div>
+</div>

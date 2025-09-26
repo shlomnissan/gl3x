@@ -26,8 +26,14 @@ Constructs a ShaderMaterial object.
 
 ## Properties
 
-- `std::unordered_map< std::string,UniformValue> uniforms`
-  - Stores values for custom uniforms used by the shader.
+<div class="property">
+  <div class="definition">
+    <span class="name">uniforms</span> <span class="type">std::unordered_map&lt; std::string,UniformValue&gt;</span>
+  </div>
+  <div class="description">
+    Stores values for custom uniforms used by the shader.
+  </div>
+</div>
 
 ## Functions
 

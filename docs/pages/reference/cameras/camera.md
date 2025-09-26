@@ -3,32 +3,42 @@
 
 
 Abstract base class for camera types.
-Not intended for direct use.
+This class is not intended to be used directly. Use PerspectiveCamera or OrthographicCamera unless you are defining your own camera type, in which case it should inherit from this class.
 ## Properties
 
-- `Matrix4 projection_transform`
-  - Projection transform.
+<div class="property">
+  <div class="definition">
+    <span class="name">projection_matrix</span> <span class="type">Matrix4</span>
+  </div>
+  <div class="description">
+    Projection matrix that maps camera-space coordinates to clip space.
+  </div>
+</div>
 
-- `Matrix4 view_transform`
-  - View transform.
+<div class="property">
+  <div class="definition">
+    <span class="name">view_matrix</span> <span class="type">Matrix4</span>
+  </div>
+  <div class="description">
+    View matrix (inverse of the camera’s world transform) that maps world space to camera space.
+  </div>
+</div>
 
 ## Functions
 
+### `Forward()`
+  - Camera forward axis in world space.
 ### `GetFrustum()`
-  - Returns the cameras frustum.
+  - Computes a Frustum from the combined projection and view matrices.
 ### `GetNodeType()`
-  - Returns node type.
-### `GetType()`
-  - Returns camera type.
+  - Identifies this node as a camera.
 ### `LookAt()`
-  - Rotates the camera to face a given target position in world space.
+  - Overrides Node::LookAt to orient the camera toward a world-space target.
 ### `Resize()`
-  - Updates the projection transform to match the new viewport size.
-### `SetViewTransform()`
-  - Sets the view transform to the inverse of the node's world transform.
-### `ViewForward()`
-  - Returns the camera's forward axis in view space.
-### `ViewRight()`
-  - Returns the camera's right axis in view space.
-### `ViewUp()`
-  - Returns the camera's up axis in view space.
+  - Updates projection_matrix to reflect the current viewport size.
+### `Right()`
+  - Camera right axis in world space.
+### `Up()`
+  - Camera up axis in world space.
+### `UpdateViewMatrix()`
+  - Sets view_matrix to the inverse of the camera's world transform.

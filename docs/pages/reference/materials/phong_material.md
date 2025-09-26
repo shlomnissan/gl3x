@@ -21,25 +21,50 @@ Constructs a PhongMaterial object.
 
 ## Properties
 
-- `std::shared_ptr<Texture2D> albedo_map`
-   - Default value: `nullptr`
-  - Albedo (base color) map, optionally containing an alpha channel.
+<div class="property">
+  <div class="definition">
+    <span class="name">albedo_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+  </div>
+  <div class="description">
+    Albedo (base color) map, optionally containing an alpha channel.
+  </div>
+</div>
 
-- `std::shared_ptr<Texture2D> alpha_map`
-   - Default value: `nullptr`
-  - Alpha map that controls the opacity across the surface.
+<div class="property">
+  <div class="definition">
+    <span class="name">alpha_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+  </div>
+  <div class="description">
+    Alpha map that controls the opacity across the surface.
+  </div>
+</div>
 
-- `Color color`
-   - Default value: `0xFFFFFF`
-  - Color of the material.
+<div class="property">
+  <div class="definition">
+    <span class="name">color</span> <span class="type">Color</span>
+  </div>
+  <div class="description">
+    Color of the material.
+  </div>
+</div>
 
-- `float shininess`
-   - Default value: `32.0f`
-  - How shiny the specular highlight is; a higher value gives a sharper highlight.
+<div class="property">
+  <div class="definition">
+    <span class="name">shininess</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    How shiny the specular highlight is; a higher value gives a sharper highlight.
+  </div>
+</div>
 
-- `Color specular`
-   - Default value: `0x111111`
-  - Specular color of the material.
+<div class="property">
+  <div class="definition">
+    <span class="name">specular</span> <span class="type">Color</span>
+  </div>
+  <div class="description">
+    Specular color of the material.
+  </div>
+</div>
 
 ## Functions
 

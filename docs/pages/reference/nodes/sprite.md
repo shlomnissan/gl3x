@@ -32,13 +32,23 @@ Constructs a sprite with an optional material.
 
 ## Properties
 
-- `Vector2 anchor`
-   - Default value: `0.5f, 0.5f`
-  - Normalized anchor point inside the sprite.
+<div class="property">
+  <div class="definition">
+    <span class="name">anchor</span> <span class="type">Vector2</span>
+  </div>
+  <div class="description">
+    Normalized anchor point inside the sprite.
+  </div>
+</div>
 
-- `float rotation`
-   - Default value: `0.0f`
-  - View-space rotation angle in radians applied to the sprite.
+<div class="property">
+  <div class="definition">
+    <span class="name">rotation</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    View-space rotation angle in radians applied to the sprite.
+  </div>
+</div>
 
 ## Functions
 

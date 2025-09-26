@@ -24,17 +24,41 @@ public:
 ```
 ## Properties
 
-- `MouseButton button`
-  - Mouse button involved in the event (if any).
+<div class="property">
+  <div class="definition">
+    <span class="name">button</span> <span class="type">MouseButton</span>
+  </div>
+  <div class="description">
+    Mouse button involved in the event (if any).
+  </div>
+</div>
 
-- `Vector2 position`
-  - Current cursor position in window coordinates.
+<div class="property">
+  <div class="definition">
+    <span class="name">position</span> <span class="type">Vector2</span>
+  </div>
+  <div class="description">
+    Current cursor position in window coordinates.
+  </div>
+</div>
 
-- `Vector2 scroll`
-  - Scroll delta since last event.
+<div class="property">
+  <div class="definition">
+    <span class="name">scroll</span> <span class="type">Vector2</span>
+  </div>
+  <div class="description">
+    Scroll delta since last event.
+  </div>
+</div>
 
-- `MouseEvent::Type type`
-  - Mouse event type.
+<div class="property">
+  <div class="definition">
+    <span class="name">type</span> <span class="type">MouseEvent::Type</span>
+  </div>
+  <div class="description">
+    Mouse event type.
+  </div>
+</div>
 
 ## Functions
 

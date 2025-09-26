@@ -6,13 +6,23 @@ A plane defined by a normal vector and a distance from the origin.
 The plane equation is defined as: dot(normal, point) + distance = 0. Used in collision tests, frustum culling, and geometry classification.
 ## Properties
 
-- `float distance`
-   - Default value: `0.0f`
-  - The signed distance from the origin to the plane along the normal.
+<div class="property">
+  <div class="definition">
+    <span class="name">distance</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    The signed distance from the origin to the plane along the normal.
+  </div>
+</div>
 
-- `Vector3 normal`
-   - Default value: `Vector3::Up()`
-  - The normal vector of the plane, pointing outward.
+<div class="property">
+  <div class="definition">
+    <span class="name">normal</span> <span class="type">Vector3</span>
+  </div>
+  <div class="description">
+    The normal vector of the plane, pointing outward.
+  </div>
+</div>
 
 ## Functions
 

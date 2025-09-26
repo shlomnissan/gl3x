@@ -6,25 +6,50 @@ A 2D transformation class supporting translation, scaling, and rotation.
 Internally manages position, scale, rotation, and center of transformation. Lazily computes the final transformation matrix when accessed.
 ## Properties
 
-- `Vector2 center`
-   - Default value: `0.0f, 0.0f`
-  - Pivot for rotation and scaling.
+<div class="property">
+  <div class="definition">
+    <span class="name">center</span> <span class="type">Vector2</span>
+  </div>
+  <div class="description">
+    Pivot for rotation and scaling.
+  </div>
+</div>
 
-- `Vector2 position`
-   - Default value: `0.0f, 0.0f`
-  - World-space translation.
+<div class="property">
+  <div class="definition">
+    <span class="name">position</span> <span class="type">Vector2</span>
+  </div>
+  <div class="description">
+    World-space translation.
+  </div>
+</div>
 
-- `float rotation`
-   - Default value: `0.0f`
-  - Rotation angle in radians.
+<div class="property">
+  <div class="definition">
+    <span class="name">rotation</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Rotation angle in radians.
+  </div>
+</div>
 
-- `Vector2 scale`
-   - Default value: `1.0f, 1.0f`
-  - Local scale.
+<div class="property">
+  <div class="definition">
+    <span class="name">scale</span> <span class="type">Vector2</span>
+  </div>
+  <div class="description">
+    Local scale.
+  </div>
+</div>
 
-- `bool touched`
-   - Default value: `true`
-  - Indicates whether the transformation matrix needs to be recomputed.
+<div class="property">
+  <div class="definition">
+    <span class="name">touched</span> <span class="type">bool</span>
+  </div>
+  <div class="description">
+    Indicates whether the transformation matrix needs to be recomputed.
+  </div>
+</div>
 
 ## Functions
 

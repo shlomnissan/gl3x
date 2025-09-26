@@ -8,8 +8,14 @@ A `Frustum` is used for view frustum culling by the renderer, enabling efficient
 This class supports containment and intersection tests with points, axis-aligned bounding boxes (AABB), and bounding spheres. All tests assume the frustum planes face inward.
 ## Properties
 
-- `std::array<Plane, 6 > planes`
-  - The six clipping planes of the frustum: left, right, top, bottom, near, far.
+<div class="property">
+  <div class="definition">
+    <span class="name">planes</span> <span class="type">std::array&lt;Plane, 6 &gt;</span>
+  </div>
+  <div class="description">
+    The six clipping planes of the frustum: left, right, top, bottom, near, far.
+  </div>
+</div>
 
 ## Functions
 

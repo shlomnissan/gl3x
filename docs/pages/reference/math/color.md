@@ -5,17 +5,32 @@
 Represents an RGB color with floating-point components.
 ## Properties
 
-- `float b`
-   - Default value: `1.0f`
-  - Blue channel [0.0, 1.0].
+<div class="property">
+  <div class="definition">
+    <span class="name">b</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Blue channel [0.0, 1.0].
+  </div>
+</div>
 
-- `float g`
-   - Default value: `1.0f`
-  - Green channel [0.0, 1.0].
+<div class="property">
+  <div class="definition">
+    <span class="name">g</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Green channel [0.0, 1.0].
+  </div>
+</div>
 
-- `float r`
-   - Default value: `1.0f`
-  - Red channel [0.0, 1.0].
+<div class="property">
+  <div class="definition">
+    <span class="name">r</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Red channel [0.0, 1.0].
+  </div>
+</div>
 
 ## Functions
 

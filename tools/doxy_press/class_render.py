@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from html import escape
 from typing import List
-from .content_model import ClassDoc, DocParagraph
+from .content_model import ClassDoc, VarDoc, FunctionDoc, DocParagraph, TypeRef
 
 def _para(s: str) -> str: return s.strip()
 
@@ -9,6 +10,39 @@ def _first(paras): return _para(paras[0].md) if paras else ""
 
 def _join_paragraphs(paras: List[DocParagraph]) -> str:
     return ("\n\n".join(p.md.strip() for p in paras if p.md.strip())).strip()
+
+def _inline_md_to_html(text: str) -> str:
+    # minimal: convert `code` to <code>, escape the rest
+    from html import escape as _esc
+    import re
+    parts = re.split(r"(`[^`]*`)", text)
+    html = []
+    for p in parts:
+        if p.startswith("`") and p.endswith("`"):
+            html.append(f"<code>{_esc(p[1:-1], quote=False)}</code>")
+        else:
+            html.append(_esc(p, quote=False))
+    return "".join(html)
+
+def _render_property(prop: VarDoc):
+    name_html = escape(prop.name, quote=False)
+    type_html = escape(prop.type.as_text(), quote=False)
+    desc_html = _inline_md_to_html(_join_paragraphs(prop.brief)) if prop.brief else ""
+
+    return (
+        f'<div class="property">\n'
+        f'  <div class="definition">\n'
+        f'    <span class="name">{name_html}</span> <span class="type">{type_html}</span>\n'
+        f'  </div>\n'
+        f'  <div class="description">\n'
+        f'    {desc_html}\n'
+        f'  </div>\n'
+        '</div>'
+    )
+
+def _render_function(func: FunctionDoc):
+
+    return
 
 def render_class(doc: ClassDoc) -> str:
     lines: List[str] = []
@@ -32,10 +66,7 @@ def render_class(doc: ClassDoc) -> str:
     if doc.variables:
         lines += ["## Properties", ""]
         for v in doc.variables:
-            lines += [f"- `{v.type.as_text()} {v.name}`"]
-            fb = _first(v.brief)
-            if v.initializer: lines += [f"   - Default value: `{v.initializer}`"]
-            if fb: lines += [f"  - {fb}"]
+            lines.append(_render_property(v))
             lines.append("")
 
     if doc.functions:

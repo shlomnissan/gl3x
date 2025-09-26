@@ -16,17 +16,32 @@ This class supports construction from individual angles or a transformation matr
 Note: Gimbal lock may occur when pitch approaches ±90°, limiting the reliability of angle reconstruction.
 ## Properties
 
-- `float pitch`
-   - Default value: `0.0f`
-  - Rotation around the X-axis in radians.
+<div class="property">
+  <div class="definition">
+    <span class="name">pitch</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Rotation around the X-axis in radians.
+  </div>
+</div>
 
-- `float roll`
-   - Default value: `0.0f`
-  - Rotation around the Z-axis in radians.
+<div class="property">
+  <div class="definition">
+    <span class="name">roll</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Rotation around the Z-axis in radians.
+  </div>
+</div>
 
-- `float yaw`
-   - Default value: `0.0f`
-  - Rotation around the Y-axis in radians.
+<div class="property">
+  <div class="definition">
+    <span class="name">yaw</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Rotation around the Y-axis in radians.
+  </div>
+</div>
 
 ## Functions
 

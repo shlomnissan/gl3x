@@ -6,9 +6,14 @@ Abstract base class for event types.
 Not intended for direct use.
 ## Properties
 
-- `bool handled`
-   - Default value: `false`
-  - Indicates whether the event has been handled.
+<div class="property">
+  <div class="definition">
+    <span class="name">handled</span> <span class="type">bool</span>
+  </div>
+  <div class="description">
+    Indicates whether the event has been handled.
+  </div>
+</div>
 
 ## Functions
 

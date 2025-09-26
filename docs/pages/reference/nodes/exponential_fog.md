@@ -15,8 +15,14 @@ Constructs an ExponentialFog object.
 
 ## Properties
 
-- `float density`
-  - Density factor controlling fog steepness.
+<div class="property">
+  <div class="definition">
+    <span class="name">density</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Density factor controlling fog steepness.
+  </div>
+</div>
 
 ## Functions
 

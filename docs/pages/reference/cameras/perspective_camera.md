@@ -32,8 +32,6 @@ Constructs an PerspectiveCamera object.
 
 ## Functions
 
-### `GetType()`
-  - Returns camera type.
 ### `Resize()`
   - Updates the projection transform to match the new viewport size.
 ### `SetLens()`

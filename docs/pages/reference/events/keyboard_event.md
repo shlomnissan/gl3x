@@ -20,11 +20,23 @@ public:
 ```
 ## Properties
 
-- `Key key`
-  - Key code associated with the event.
+<div class="property">
+  <div class="definition">
+    <span class="name">key</span> <span class="type">Key</span>
+  </div>
+  <div class="description">
+    Key code associated with the event.
+  </div>
+</div>
 
-- `KeyboardEvent::Type type`
-  - Keyboard event type.
+<div class="property">
+  <div class="definition">
+    <span class="name">type</span> <span class="type">KeyboardEvent::Type</span>
+  </div>
+  <div class="description">
+    Keyboard event type.
+  </div>
+</div>
 
 ## Functions
 

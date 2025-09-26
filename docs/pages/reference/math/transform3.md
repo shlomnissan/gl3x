@@ -6,20 +6,41 @@ A 3D transformation class supporting translation, scaling, and rotation.
 Internally manages position, scale, and rotation in Euler angles. Lazily computes the final transformation matrix when accessed.
 ## Properties
 
-- `Vector3 position`
-   - Default value: `0.0f`
-  - World-space translation.
+<div class="property">
+  <div class="definition">
+    <span class="name">position</span> <span class="type">Vector3</span>
+  </div>
+  <div class="description">
+    World-space translation.
+  </div>
+</div>
 
-- `Euler rotation`
-  - Euler rotation (pitch, yaw, roll).
+<div class="property">
+  <div class="definition">
+    <span class="name">rotation</span> <span class="type">Euler</span>
+  </div>
+  <div class="description">
+    Euler rotation (pitch, yaw, roll).
+  </div>
+</div>
 
-- `Vector3 scale`
-   - Default value: `1.0f`
-  - Local scale.
+<div class="property">
+  <div class="definition">
+    <span class="name">scale</span> <span class="type">Vector3</span>
+  </div>
+  <div class="description">
+    Local scale.
+  </div>
+</div>
 
-- `bool touched`
-   - Default value: `true`
-  - Indicates whether the transformation matrix needs to be recomputed.
+<div class="property">
+  <div class="definition">
+    <span class="name">touched</span> <span class="type">bool</span>
+  </div>
+  <div class="description">
+    Indicates whether the transformation matrix needs to be recomputed.
+  </div>
+</div>
 
 ## Functions
 

@@ -23,8 +23,14 @@ Constructs a PointLight object.
 
 ## Properties
 
-- `Attenuation attenuation`
-  - Light attenuation properties.
+<div class="property">
+  <div class="definition">
+    <span class="name">attenuation</span> <span class="type">Attenuation</span>
+  </div>
+  <div class="description">
+    Light attenuation properties.
+  </div>
+</div>
 
 ## Functions
 

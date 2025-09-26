@@ -14,17 +14,32 @@ Represents a point in 3D using spherical coordinates:`radius` is the distance fr
 This is useful for orbital camera rigs, sampling directions on a sphere, and converting to/from Cartesian coordinates.
 ## Properties
 
-- `float phi`
-   - Default value: `0.0f`
-  - Azimuth angle (yaw) in radians.
+<div class="property">
+  <div class="definition">
+    <span class="name">phi</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Azimuth angle (yaw) in radians.
+  </div>
+</div>
 
-- `float radius`
-   - Default value: `1.0f`
-  - Radial distance from the origin.
+<div class="property">
+  <div class="definition">
+    <span class="name">radius</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Radial distance from the origin.
+  </div>
+</div>
 
-- `float theta`
-   - Default value: `0.0f`
-  - Polar angle (pitch) in radians.
+<div class="property">
+  <div class="definition">
+    <span class="name">theta</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Polar angle (pitch) in radians.
+  </div>
+</div>
 
 ## Functions
 

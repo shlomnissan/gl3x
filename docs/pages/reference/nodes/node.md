@@ -15,20 +15,41 @@ Constructs an Node instance.
 
 ## Properties
 
-- `bool frustum_culled`
-   - Default value: `true`
-  - If true, the node is subject to frustum culling during rendering.
+<div class="property">
+  <div class="definition">
+    <span class="name">frustum_culled</span> <span class="type">bool</span>
+  </div>
+  <div class="description">
+    If true, the node is subject to frustum culling during rendering.
+  </div>
+</div>
 
-- `Transform3 transform`
-  - Local transformation.
+<div class="property">
+  <div class="definition">
+    <span class="name">transform</span> <span class="type">Transform3</span>
+  </div>
+  <div class="description">
+    Local transformation.
+  </div>
+</div>
 
-- `bool transform_auto_update`
-   - Default value: `true`
-  - If true, the local transform is automatically updated before rendering.
+<div class="property">
+  <div class="definition">
+    <span class="name">transform_auto_update</span> <span class="type">bool</span>
+  </div>
+  <div class="description">
+    If true, the local transform is automatically updated before rendering.
+  </div>
+</div>
 
-- `Vector3 up`
-   - Default value: `Vector3::Up()`
-  - Local up direction (defaults to +Y).
+<div class="property">
+  <div class="definition">
+    <span class="name">up</span> <span class="type">Vector3</span>
+  </div>
+  <div class="description">
+    Local up direction (defaults to +Y).
+  </div>
+</div>
 
 ## Functions
 

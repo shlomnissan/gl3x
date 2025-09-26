@@ -5,17 +5,41 @@
 A 4D vector class for mathematical operations.
 ## Properties
 
-- `float w`
-  - W component of the vector.
+<div class="property">
+  <div class="definition">
+    <span class="name">w</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    W component of the vector.
+  </div>
+</div>
 
-- `float x`
-  - X component of the vector.
+<div class="property">
+  <div class="definition">
+    <span class="name">x</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    X component of the vector.
+  </div>
+</div>
 
-- `float y`
-  - Y component of the vector.
+<div class="property">
+  <div class="definition">
+    <span class="name">y</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Y component of the vector.
+  </div>
+</div>
 
-- `float z`
-  - Z component of the vector.
+<div class="property">
+  <div class="definition">
+    <span class="name">z</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Z component of the vector.
+  </div>
+</div>
 
 ## Functions
 

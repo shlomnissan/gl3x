@@ -26,14 +26,32 @@ Constructs a Texture2D object.
 
 ## Properties
 
-- `std::vector< uint8_t > data`
-  - Underlying texture data.
+<div class="property">
+  <div class="definition">
+    <span class="name">data</span> <span class="type">std::vector&lt; uint8_t &gt;</span>
+  </div>
+  <div class="description">
+    Underlying texture data.
+  </div>
+</div>
 
-- `unsigned height`
-  - Height in pixels.
+<div class="property">
+  <div class="definition">
+    <span class="name">height</span> <span class="type">unsigned</span>
+  </div>
+  <div class="description">
+    Height in pixels.
+  </div>
+</div>
 
-- `unsigned width`
-  - Width in pixels.
+<div class="property">
+  <div class="definition">
+    <span class="name">width</span> <span class="type">unsigned</span>
+  </div>
+  <div class="description">
+    Width in pixels.
+  </div>
+</div>
 
 ## Functions
 

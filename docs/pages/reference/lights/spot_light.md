@@ -28,18 +28,41 @@ Constructs a SpotLight object.
 
 ## Properties
 
-- `float angle`
-  - Angle, in radians, of the spotlight's cone.
+<div class="property">
+  <div class="definition">
+    <span class="name">angle</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Angle, in radians, of the spotlight's cone.
+  </div>
+</div>
 
-- `Attenuation attenuation`
-  - Light attenuation properties.
+<div class="property">
+  <div class="definition">
+    <span class="name">attenuation</span> <span class="type">Attenuation</span>
+  </div>
+  <div class="description">
+    Light attenuation properties.
+  </div>
+</div>
 
-- `float penumbra`
-  - Penumbra value controlling the softness of the spotlight's edge.
+<div class="property">
+  <div class="definition">
+    <span class="name">penumbra</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Penumbra value controlling the softness of the spotlight's edge.
+  </div>
+</div>
 
-- `std::shared_ptr<Node> target`
-   - Default value: `nullptr`
-  - Node that the light is directed towards.
+<div class="property">
+  <div class="definition">
+    <span class="name">target</span> <span class="type">std::shared_ptr&lt;Node&gt;</span>
+  </div>
+  <div class="description">
+    Node that the light is directed towards.
+  </div>
+</div>
 
 ## Functions
 

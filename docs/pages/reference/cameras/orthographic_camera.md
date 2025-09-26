@@ -34,14 +34,17 @@ Constructs an OrthographicCamera object.
 
 ## Properties
 
-- `ResizePolicy resize_policy`
-   - Default value: `ResizePolicy::PixelSpace`
-  - The current resize policy for this camera.
+<div class="property">
+  <div class="definition">
+    <span class="name">resize_policy</span> <span class="type">ResizePolicy</span>
+  </div>
+  <div class="description">
+    The current resize policy for this camera.
+  </div>
+</div>
 
 ## Functions
 
-### `GetType()`
-  - Returns camera type.
 ### `Resize()`
   - Updates the projection transform to match the new viewport size.
 ### `Create()`

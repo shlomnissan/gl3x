@@ -7,7 +7,9 @@ Not intended for direct use.
 ## Properties
 
 <div class="property">
-  <div class="definition"><span class="name">blending</span> <span class="type">Blending</span></div>
+  <div class="definition">
+    <span class="name">blending</span> <span class="type">Blending</span>
+  </div>
   <div class="description">
     Blending mode used for rendering this material.
   </div>
@@ -22,30 +24,90 @@ Not intended for direct use.
   </div>
 </div>
 
+<div class="property">
+  <div class="definition">
+    <span class="name">flat_shaded</span> <span class="type">bool</span>
+  </div>
+  <div class="description">
+    Enables flat shading.
+  </div>
+</div>
+
+<div class="property">
+  <div class="definition">
+    <span class="name">fog</span> <span class="type">bool</span>
+  </div>
+  <div class="description">
+    Enables scene fog for this material.
+  </div>
+</div>
+
+<div class="property">
+  <div class="definition">
+    <span class="name">opacity</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Value in the range of <code>0.0</code> - <code>1.0</code> indicating how transparent the material is.
+  </div>
+</div>
+
+<div class="property">
+  <div class="definition">
+    <span class="name">polygon_offset_factor</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Sets the polygon offset factor.
+  </div>
+</div>
+
+<div class="property">
+  <div class="definition">
+    <span class="name">polygon_offset_units</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Sets the polygon offset units.
+  </div>
+</div>
+
+<div class="property">
+  <div class="definition">
+    <span class="name">transparent</span> <span class="type">bool</span>
+  </div>
+  <div class="description">
+    Enables transparency.
+  </div>
+</div>
+
+<div class="property">
+  <div class="definition">
+    <span class="name">two_sided</span> <span class="type">bool</span>
+  </div>
+  <div class="description">
+    Enables rendering both front and back faces of polygons.
+  </div>
+</div>
+
+<div class="property">
+  <div class="definition">
+    <span class="name">visible</span> <span class="type">bool</span>
+  </div>
+  <div class="description">
+    Enables visibility.
+  </div>
+</div>
+
+<div class="property">
+  <div class="definition">
+    <span class="name">wireframe</span> <span class="type">bool</span>
+  </div>
+  <div class="description">
+    Enables wireframe rendering.
+  </div>
+</div>
+
 ## Functions
 
-<div class="function">
-  <div class="definition">
-    <span class="name">GetType</span>(<span class="param"><span class="param-type">Vector3</span> <span class="param-name">target</span></span>, <span class="param"><span class="param-type">Vector3</span> <span class="param-name">position</span></span>) <span class="return">-> Vector3</span>
-  </div>
-  <div class="description">
-    Returns a Vector3 representing the world space direction in which the camera is looking. (Note: A camera looks down its local, negative z-axis).
-  </div>
-  <ul class="params">
-    <li><span class="param-name">target</span> - Node to orient the camera towards</li>
-    <li><span class="param-name">position</span> - Position of the camera node</li>
-  </ul>
-</div>
-
-<div class="function">
-  <div class="definition">
-    <span class="name">TypeToString</span>(<span class="param"><span class="param-type">Vector3</span> <span class="param-name">target</span></span>, <span class="param"><span class="param-type">Vector3</span> <span class="param-name">position</span></span>) <span class="return">-> void</span>
-  </div>
-  <div class="description">
-    Returns a Vector3 representing the world space direction in which the camera is looking. (Note: A camera looks down its local, negative z-axis).
-  </div>
-  <ul class="params">
-    <li><span class="param-name">target</span> - Node to orient the camera towards</li>
-    <li><span class="param-name">position</span> - Position of the camera node</li>
-  </ul>
-</div>
+### `GetType()`
+  - Returns material type.
+### `TypeToString()`
+  - Converts material type enum value to string.

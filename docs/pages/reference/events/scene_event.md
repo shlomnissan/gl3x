@@ -13,11 +13,23 @@ Constructs a SceneEvent.
 
 ## Properties
 
-- `std::shared_ptr<Node> node`
-  - Node that was added or removed.
+<div class="property">
+  <div class="definition">
+    <span class="name">node</span> <span class="type">std::shared_ptr&lt;Node&gt;</span>
+  </div>
+  <div class="description">
+    Node that was added or removed.
+  </div>
+</div>
 
-- `SceneEvent::Type type`
-  - Scene event type.
+<div class="property">
+  <div class="definition">
+    <span class="name">type</span> <span class="type">SceneEvent::Type</span>
+  </div>
+  <div class="description">
+    Scene event type.
+  </div>
+</div>
 
 ## Functions
 

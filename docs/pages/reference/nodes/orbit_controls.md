@@ -25,17 +25,32 @@ Constructs a CameraOrbit object.
 
 ## Properties
 
-- `float orbit_speed`
-   - Default value: `3.5f`
-  - Rate at which the camera orbits around the target point.
+<div class="property">
+  <div class="definition">
+    <span class="name">orbit_speed</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Rate at which the camera orbits around the target point.
+  </div>
+</div>
 
-- `float pan_speed`
-   - Default value: `0.5f`
-  - Rate at which the camera pans around the target point.
+<div class="property">
+  <div class="definition">
+    <span class="name">pan_speed</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Rate at which the camera pans around the target point.
+  </div>
+</div>
 
-- `float zoom_speed`
-   - Default value: `50.0f`
-  - Rate at which the camera zooms in and out.
+<div class="property">
+  <div class="definition">
+    <span class="name">zoom_speed</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Rate at which the camera zooms in and out.
+  </div>
+</div>
 
 ## Functions
 

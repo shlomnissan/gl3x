@@ -6,13 +6,23 @@ A bounding sphere defined by a center point and radius.
 Useful for fast intersection tests, frustum culling, and spatial bounds.
 ## Properties
 
-- `Vector3 center`
-   - Default value: `Vector3::Zero()`
-  - Center of the sphere in 3D space.
+<div class="property">
+  <div class="definition">
+    <span class="name">center</span> <span class="type">Vector3</span>
+  </div>
+  <div class="description">
+    Center of the sphere in 3D space.
+  </div>
+</div>
 
-- `float radius`
-   - Default value: `-1.0f`
-  - Radius of the sphere. A negative value indicates an empty sphere.
+<div class="property">
+  <div class="definition">
+    <span class="name">radius</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Radius of the sphere. A negative value indicates an empty sphere.
+  </div>
+</div>
 
 ## Functions
 

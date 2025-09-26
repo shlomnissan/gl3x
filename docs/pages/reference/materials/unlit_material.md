@@ -19,17 +19,32 @@ Constructs a UnlitMaterial object.
 
 ## Properties
 
-- `std::shared_ptr<Texture2D> albedo_map`
-   - Default value: `nullptr`
-  - Albedo (base color) map, optionally containing an alpha channel.
+<div class="property">
+  <div class="definition">
+    <span class="name">albedo_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+  </div>
+  <div class="description">
+    Albedo (base color) map, optionally containing an alpha channel.
+  </div>
+</div>
 
-- `std::shared_ptr<Texture2D> alpha_map`
-   - Default value: `nullptr`
-  - Alpha map that controls the opacity across the surface.
+<div class="property">
+  <div class="definition">
+    <span class="name">alpha_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+  </div>
+  <div class="description">
+    Alpha map that controls the opacity across the surface.
+  </div>
+</div>
 
-- `Color color`
-   - Default value: `0xFFFFFF`
-  - Color of the material.
+<div class="property">
+  <div class="definition">
+    <span class="name">color</span> <span class="type">Color</span>
+  </div>
+  <div class="description">
+    Color of the material.
+  </div>
+</div>
 
 ## Functions
 

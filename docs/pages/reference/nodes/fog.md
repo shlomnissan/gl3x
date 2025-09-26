@@ -11,8 +11,14 @@ Constructs a base Fog object.
 
 ## Properties
 
-- `Color color`
-  - Color of the fog.
+<div class="property">
+  <div class="definition">
+    <span class="name">color</span> <span class="type">Color</span>
+  </div>
+  <div class="description">
+    Color of the fog.
+  </div>
+</div>
 
 ## Functions
 

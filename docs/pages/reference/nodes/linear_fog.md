@@ -15,11 +15,23 @@ Constructs a LinearFog object.
 
 ## Properties
 
-- `float far`
-  - Distance at which fog reaches full opacity.
+<div class="property">
+  <div class="definition">
+    <span class="name">far</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Distance at which fog reaches full opacity.
+  </div>
+</div>
 
-- `float near`
-  - Distance at which fog starts.
+<div class="property">
+  <div class="definition">
+    <span class="name">near</span> <span class="type">float</span>
+  </div>
+  <div class="description">
+    Distance at which fog starts.
+  </div>
+</div>
 
 ## Functions
 

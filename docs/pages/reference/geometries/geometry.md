@@ -24,13 +24,23 @@ Constructs a Geometry object with vertex and index data.
 
 ## Properties
 
-- `GeometryPrimitiveType primitive`
-   - Default value: `GeometryPrimitiveType::Triangles`
-  - Primitive type used for rendering.
+<div class="property">
+  <div class="definition">
+    <span class="name">primitive</span> <span class="type">GeometryPrimitiveType</span>
+  </div>
+  <div class="description">
+    Primitive type used for rendering.
+  </div>
+</div>
 
-- `unsigned int renderer_id`
-   - Default value: `0`
-  - GPU renderer identifier. Used internally by the renderer.
+<div class="property">
+  <div class="definition">
+    <span class="name">renderer_id</span> <span class="type">unsigned int</span>
+  </div>
+  <div class="description">
+    GPU renderer identifier. Used internally by the renderer.
+  </div>
+</div>
 
 ## Functions
 
