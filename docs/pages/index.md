@@ -4,8 +4,7 @@ layout: home
 
 hero:
   name: GL3X
-  text: 3D Graphics for Modern C++
-  tagline: Focus on rendering, not boilerplate
+  tagline: Cross-Platform 3D Rendering Engine,<br/>Built for Performance in Modern C++
   actions:
     - theme: brand
       text: Get Started
@@ -18,10 +17,12 @@ hero:
       link: https://github.com/shlomnissan/gleam
 
 features:
-  - title: Clean and modern API
-    details: A clear, consistent design that makes building 3D applications in C++ straightforward and enjoyable.
-  - title: Native performance
-    details: Runs at native speed in C++, with consistent results across Windows, macOS, and Linux.
-  - title: Easy to start
-    details: The fastest way to get started with 3D graphics in C++, with simple examples and accessible resources.
+  - title: Clean and Modern API
+    details: A clear and consistent design that makes building 3D applications in C++ both straightforward and enjoyable.
+  - title: Native Performance
+    details: Runs at full native speed in C++, delivering reliable performance across Windows, macOS, and Linux.
+  - title: Actively Evolving
+    details: Continuously improving with modern C++ practices, new features, and ongoing performance enhancements.
+  - title: Easy to Start
+    details: Get up and running quickly with simple examples, minimal setup, and accessible learning resources & tooling.
 ---
