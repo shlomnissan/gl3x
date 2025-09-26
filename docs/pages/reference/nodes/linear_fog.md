@@ -17,7 +17,11 @@ Constructs a LinearFog object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">far</span> <span class="type">float</span>
+
+  ### <span class="name">far</span> <span class="type">float</span>
+  ```cpp
+  float far 
+  ```
   </div>
   <div class="description">
     Distance at which fog reaches full opacity.
@@ -26,7 +30,11 @@ Constructs a LinearFog object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">near</span> <span class="type">float</span>
+
+  ### <span class="name">near</span> <span class="type">float</span>
+  ```cpp
+  float near 
+  ```
   </div>
   <div class="description">
     Distance at which fog starts.

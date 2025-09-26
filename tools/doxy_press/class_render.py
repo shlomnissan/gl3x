@@ -25,17 +25,27 @@ def _inline_md_to_html(text: str) -> str:
     return "".join(html)
 
 def _render_property(prop: VarDoc):
-    name_html = escape(prop.name, quote=False)
-    type_html = escape(prop.type.as_text(), quote=False)
-    desc_html = _inline_md_to_html(_join_paragraphs(prop.brief)) if prop.brief else ""
+    name_str = prop.name
+    name_html = escape(name_str, quote=False)
+    type_str = prop.type.as_text()
+    type_html = escape(type_str, quote=False)
+    default_val = f'{{ {prop.initializer} }}' if prop.initializer else ""
+    desc = _inline_md_to_html(_join_paragraphs(prop.brief)) if prop.brief else ""
+
+    code_block = (
+        f'  ```cpp\n'
+        f'  {type_str} {name_str} {default_val}\n'
+        f'  ```\n'
+    )
 
     return (
         f'<div class="property">\n'
-        f'  <div class="definition">\n'
-        f'    <span class="name">{name_html}</span> <span class="type">{type_html}</span>\n'
+        f'  <div class="definition">\n\n'
+        f'  ### <span class="name">{name_html}</span> <span class="type">{type_html}</span>\n'
+        f'{code_block}'
         f'  </div>\n'
         f'  <div class="description">\n'
-        f'    {desc_html}\n'
+        f'    {desc}\n'
         f'  </div>\n'
         '</div>'
     )

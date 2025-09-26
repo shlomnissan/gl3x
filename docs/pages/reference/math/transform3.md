@@ -8,7 +8,11 @@ Internally manages position, scale, and rotation in Euler angles. Lazily compute
 
 <div class="property">
   <div class="definition">
-    <span class="name">position</span> <span class="type">Vector3</span>
+
+  ### <span class="name">position</span> <span class="type">Vector3</span>
+  ```cpp
+  Vector3 position { 0.0f }
+  ```
   </div>
   <div class="description">
     World-space translation.
@@ -17,7 +21,11 @@ Internally manages position, scale, and rotation in Euler angles. Lazily compute
 
 <div class="property">
   <div class="definition">
-    <span class="name">rotation</span> <span class="type">Euler</span>
+
+  ### <span class="name">rotation</span> <span class="type">Euler</span>
+  ```cpp
+  Euler rotation 
+  ```
   </div>
   <div class="description">
     Euler rotation (pitch, yaw, roll).
@@ -26,7 +34,11 @@ Internally manages position, scale, and rotation in Euler angles. Lazily compute
 
 <div class="property">
   <div class="definition">
-    <span class="name">scale</span> <span class="type">Vector3</span>
+
+  ### <span class="name">scale</span> <span class="type">Vector3</span>
+  ```cpp
+  Vector3 scale { 1.0f }
+  ```
   </div>
   <div class="description">
     Local scale.
@@ -35,7 +47,11 @@ Internally manages position, scale, and rotation in Euler angles. Lazily compute
 
 <div class="property">
   <div class="definition">
-    <span class="name">touched</span> <span class="type">bool</span>
+
+  ### <span class="name">touched</span> <span class="type">bool</span>
+  ```cpp
+  bool touched { true }
+  ```
   </div>
   <div class="description">
     Indicates whether the transformation matrix needs to be recomputed.

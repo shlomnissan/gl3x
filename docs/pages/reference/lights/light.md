@@ -13,7 +13,11 @@ Constructs a Light object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">color</span> <span class="type">Color</span>
+
+  ### <span class="name">color</span> <span class="type">Color</span>
+  ```cpp
+  Color color { 0xffffff }
+  ```
   </div>
   <div class="description">
     Light color, represented as RGB values.
@@ -22,7 +26,11 @@ Constructs a Light object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">intensity</span> <span class="type">float</span>
+
+  ### <span class="name">intensity</span> <span class="type">float</span>
+  ```cpp
+  float intensity { 1.0f }
+  ```
   </div>
   <div class="description">
     Light intensity.

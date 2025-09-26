@@ -7,7 +7,11 @@ Represents an RGB color with floating-point components.
 
 <div class="property">
   <div class="definition">
-    <span class="name">b</span> <span class="type">float</span>
+
+  ### <span class="name">b</span> <span class="type">float</span>
+  ```cpp
+  float b { 1.0f }
+  ```
   </div>
   <div class="description">
     Blue channel [0.0, 1.0].
@@ -16,7 +20,11 @@ Represents an RGB color with floating-point components.
 
 <div class="property">
   <div class="definition">
-    <span class="name">g</span> <span class="type">float</span>
+
+  ### <span class="name">g</span> <span class="type">float</span>
+  ```cpp
+  float g { 1.0f }
+  ```
   </div>
   <div class="description">
     Green channel [0.0, 1.0].
@@ -25,7 +33,11 @@ Represents an RGB color with floating-point components.
 
 <div class="property">
   <div class="definition">
-    <span class="name">r</span> <span class="type">float</span>
+
+  ### <span class="name">r</span> <span class="type">float</span>
+  ```cpp
+  float r { 1.0f }
+  ```
   </div>
   <div class="description">
     Red channel [0.0, 1.0].

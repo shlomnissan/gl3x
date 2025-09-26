@@ -26,7 +26,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">button</span> <span class="type">MouseButton</span>
+
+  ### <span class="name">button</span> <span class="type">MouseButton</span>
+  ```cpp
+  MouseButton button 
+  ```
   </div>
   <div class="description">
     Mouse button involved in the event (if any).
@@ -35,7 +39,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">position</span> <span class="type">Vector2</span>
+
+  ### <span class="name">position</span> <span class="type">Vector2</span>
+  ```cpp
+  Vector2 position 
+  ```
   </div>
   <div class="description">
     Current cursor position in window coordinates.
@@ -44,7 +52,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">scroll</span> <span class="type">Vector2</span>
+
+  ### <span class="name">scroll</span> <span class="type">Vector2</span>
+  ```cpp
+  Vector2 scroll 
+  ```
   </div>
   <div class="description">
     Scroll delta since last event.
@@ -53,7 +65,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">type</span> <span class="type">MouseEvent::Type</span>
+
+  ### <span class="name">type</span> <span class="type">MouseEvent::Type</span>
+  ```cpp
+  MouseEvent::Type type 
+  ```
   </div>
   <div class="description">
     Mouse event type.

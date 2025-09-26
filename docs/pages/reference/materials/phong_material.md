@@ -23,7 +23,11 @@ Constructs a PhongMaterial object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">albedo_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+
+  ### <span class="name">albedo_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+  ```cpp
+  std::shared_ptr<Texture2D> albedo_map { nullptr }
+  ```
   </div>
   <div class="description">
     Albedo (base color) map, optionally containing an alpha channel.
@@ -32,7 +36,11 @@ Constructs a PhongMaterial object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">alpha_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+
+  ### <span class="name">alpha_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+  ```cpp
+  std::shared_ptr<Texture2D> alpha_map { nullptr }
+  ```
   </div>
   <div class="description">
     Alpha map that controls the opacity across the surface.
@@ -41,7 +49,11 @@ Constructs a PhongMaterial object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">color</span> <span class="type">Color</span>
+
+  ### <span class="name">color</span> <span class="type">Color</span>
+  ```cpp
+  Color color { 0xFFFFFF }
+  ```
   </div>
   <div class="description">
     Color of the material.
@@ -50,7 +62,11 @@ Constructs a PhongMaterial object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">shininess</span> <span class="type">float</span>
+
+  ### <span class="name">shininess</span> <span class="type">float</span>
+  ```cpp
+  float shininess { 32.0f }
+  ```
   </div>
   <div class="description">
     How shiny the specular highlight is; a higher value gives a sharper highlight.
@@ -59,7 +75,11 @@ Constructs a PhongMaterial object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">specular</span> <span class="type">Color</span>
+
+  ### <span class="name">specular</span> <span class="type">Color</span>
+  ```cpp
+  Color specular { 0x111111 }
+  ```
   </div>
   <div class="description">
     Specular color of the material.

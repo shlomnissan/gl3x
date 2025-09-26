@@ -8,7 +8,11 @@ Internally manages position, scale, rotation, and center of transformation. Lazi
 
 <div class="property">
   <div class="definition">
-    <span class="name">center</span> <span class="type">Vector2</span>
+
+  ### <span class="name">center</span> <span class="type">Vector2</span>
+  ```cpp
+  Vector2 center { 0.0f, 0.0f }
+  ```
   </div>
   <div class="description">
     Pivot for rotation and scaling.
@@ -17,7 +21,11 @@ Internally manages position, scale, rotation, and center of transformation. Lazi
 
 <div class="property">
   <div class="definition">
-    <span class="name">position</span> <span class="type">Vector2</span>
+
+  ### <span class="name">position</span> <span class="type">Vector2</span>
+  ```cpp
+  Vector2 position { 0.0f, 0.0f }
+  ```
   </div>
   <div class="description">
     World-space translation.
@@ -26,7 +34,11 @@ Internally manages position, scale, rotation, and center of transformation. Lazi
 
 <div class="property">
   <div class="definition">
-    <span class="name">rotation</span> <span class="type">float</span>
+
+  ### <span class="name">rotation</span> <span class="type">float</span>
+  ```cpp
+  float rotation { 0.0f }
+  ```
   </div>
   <div class="description">
     Rotation angle in radians.
@@ -35,7 +47,11 @@ Internally manages position, scale, rotation, and center of transformation. Lazi
 
 <div class="property">
   <div class="definition">
-    <span class="name">scale</span> <span class="type">Vector2</span>
+
+  ### <span class="name">scale</span> <span class="type">Vector2</span>
+  ```cpp
+  Vector2 scale { 1.0f, 1.0f }
+  ```
   </div>
   <div class="description">
     Local scale.
@@ -44,7 +60,11 @@ Internally manages position, scale, rotation, and center of transformation. Lazi
 
 <div class="property">
   <div class="definition">
-    <span class="name">touched</span> <span class="type">bool</span>
+
+  ### <span class="name">touched</span> <span class="type">bool</span>
+  ```cpp
+  bool touched { true }
+  ```
   </div>
   <div class="description">
     Indicates whether the transformation matrix needs to be recomputed.

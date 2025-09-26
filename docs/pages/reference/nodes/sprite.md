@@ -34,7 +34,11 @@ Constructs a sprite with an optional material.
 
 <div class="property">
   <div class="definition">
-    <span class="name">anchor</span> <span class="type">Vector2</span>
+
+  ### <span class="name">anchor</span> <span class="type">Vector2</span>
+  ```cpp
+  Vector2 anchor { 0.5f, 0.5f }
+  ```
   </div>
   <div class="description">
     Normalized anchor point inside the sprite.
@@ -43,7 +47,11 @@ Constructs a sprite with an optional material.
 
 <div class="property">
   <div class="definition">
-    <span class="name">rotation</span> <span class="type">float</span>
+
+  ### <span class="name">rotation</span> <span class="type">float</span>
+  ```cpp
+  float rotation { 0.0f }
+  ```
   </div>
   <div class="description">
     View-space rotation angle in radians applied to the sprite.

@@ -8,7 +8,11 @@ Useful for fast intersection tests, frustum culling, and spatial bounds.
 
 <div class="property">
   <div class="definition">
-    <span class="name">center</span> <span class="type">Vector3</span>
+
+  ### <span class="name">center</span> <span class="type">Vector3</span>
+  ```cpp
+  Vector3 center { Vector3::Zero() }
+  ```
   </div>
   <div class="description">
     Center of the sphere in 3D space.
@@ -17,7 +21,11 @@ Useful for fast intersection tests, frustum culling, and spatial bounds.
 
 <div class="property">
   <div class="definition">
-    <span class="name">radius</span> <span class="type">float</span>
+
+  ### <span class="name">radius</span> <span class="type">float</span>
+  ```cpp
+  float radius { -1.0f }
+  ```
   </div>
   <div class="description">
     Radius of the sphere. A negative value indicates an empty sphere.

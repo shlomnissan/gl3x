@@ -16,7 +16,11 @@ This is useful for orbital camera rigs, sampling directions on a sphere, and con
 
 <div class="property">
   <div class="definition">
-    <span class="name">phi</span> <span class="type">float</span>
+
+  ### <span class="name">phi</span> <span class="type">float</span>
+  ```cpp
+  float phi { 0.0f }
+  ```
   </div>
   <div class="description">
     Azimuth angle (yaw) in radians.
@@ -25,7 +29,11 @@ This is useful for orbital camera rigs, sampling directions on a sphere, and con
 
 <div class="property">
   <div class="definition">
-    <span class="name">radius</span> <span class="type">float</span>
+
+  ### <span class="name">radius</span> <span class="type">float</span>
+  ```cpp
+  float radius { 1.0f }
+  ```
   </div>
   <div class="description">
     Radial distance from the origin.
@@ -34,7 +42,11 @@ This is useful for orbital camera rigs, sampling directions on a sphere, and con
 
 <div class="property">
   <div class="definition">
-    <span class="name">theta</span> <span class="type">float</span>
+
+  ### <span class="name">theta</span> <span class="type">float</span>
+  ```cpp
+  float theta { 0.0f }
+  ```
   </div>
   <div class="description">
     Polar angle (pitch) in radians.

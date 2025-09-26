@@ -8,7 +8,11 @@ The plane equation is defined as: dot(normal, point) + distance = 0. Used in col
 
 <div class="property">
   <div class="definition">
-    <span class="name">distance</span> <span class="type">float</span>
+
+  ### <span class="name">distance</span> <span class="type">float</span>
+  ```cpp
+  float distance { 0.0f }
+  ```
   </div>
   <div class="description">
     The signed distance from the origin to the plane along the normal.
@@ -17,7 +21,11 @@ The plane equation is defined as: dot(normal, point) + distance = 0. Used in col
 
 <div class="property">
   <div class="definition">
-    <span class="name">normal</span> <span class="type">Vector3</span>
+
+  ### <span class="name">normal</span> <span class="type">Vector3</span>
+  ```cpp
+  Vector3 normal { Vector3::Up() }
+  ```
   </div>
   <div class="description">
     The normal vector of the plane, pointing outward.

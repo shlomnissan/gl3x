@@ -28,10 +28,10 @@ namespace gleam {
 class GLEAM_EXPORT Camera : public Node {
 public:
     /// @brief Projection matrix that maps camera-space coordinates to clip space.
-    Matrix4 projection_matrix { Matrix4::Identity() };
+    Matrix4 projection_matrix {Matrix4::Identity()};
 
-    /// @brief View matrix (inverse of the camera’s world transform) that maps world space to camera space.
-    Matrix4 view_matrix { Matrix4::Identity() };
+    /// @brief View matrix that maps world space to camera space.
+    Matrix4 view_matrix {Matrix4::Identity()};
 
     /**
      * @brief Sets @ref view_matrix to the inverse of the camera's world transform.

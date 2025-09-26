@@ -25,7 +25,11 @@ Constructs a PointLight object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">attenuation</span> <span class="type">Attenuation</span>
+
+  ### <span class="name">attenuation</span> <span class="type">Attenuation</span>
+  ```cpp
+  Attenuation attenuation 
+  ```
   </div>
   <div class="description">
     Light attenuation properties.

@@ -7,7 +7,11 @@ A 3D vector class for mathematical operations.
 
 <div class="property">
   <div class="definition">
-    <span class="name">x</span> <span class="type">float</span>
+
+  ### <span class="name">x</span> <span class="type">float</span>
+  ```cpp
+  float x 
+  ```
   </div>
   <div class="description">
     X component of the vector.
@@ -16,7 +20,11 @@ A 3D vector class for mathematical operations.
 
 <div class="property">
   <div class="definition">
-    <span class="name">y</span> <span class="type">float</span>
+
+  ### <span class="name">y</span> <span class="type">float</span>
+  ```cpp
+  float y 
+  ```
   </div>
   <div class="description">
     Y component of the vector.
@@ -25,7 +33,11 @@ A 3D vector class for mathematical operations.
 
 <div class="property">
   <div class="definition">
-    <span class="name">z</span> <span class="type">float</span>
+
+  ### <span class="name">z</span> <span class="type">float</span>
+  ```cpp
+  float z 
+  ```
   </div>
   <div class="description">
     Z component of the vector.

@@ -27,7 +27,11 @@ Constructs a CameraOrbit object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">orbit_speed</span> <span class="type">float</span>
+
+  ### <span class="name">orbit_speed</span> <span class="type">float</span>
+  ```cpp
+  float orbit_speed { 3.5f }
+  ```
   </div>
   <div class="description">
     Rate at which the camera orbits around the target point.
@@ -36,7 +40,11 @@ Constructs a CameraOrbit object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">pan_speed</span> <span class="type">float</span>
+
+  ### <span class="name">pan_speed</span> <span class="type">float</span>
+  ```cpp
+  float pan_speed { 0.5f }
+  ```
   </div>
   <div class="description">
     Rate at which the camera pans around the target point.
@@ -45,7 +53,11 @@ Constructs a CameraOrbit object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">zoom_speed</span> <span class="type">float</span>
+
+  ### <span class="name">zoom_speed</span> <span class="type">float</span>
+  ```cpp
+  float zoom_speed { 50.0f }
+  ```
   </div>
   <div class="description">
     Rate at which the camera zooms in and out.

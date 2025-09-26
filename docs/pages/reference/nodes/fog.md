@@ -13,7 +13,11 @@ Constructs a base Fog object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">color</span> <span class="type">Color</span>
+
+  ### <span class="name">color</span> <span class="type">Color</span>
+  ```cpp
+  Color color 
+  ```
   </div>
   <div class="description">
     Color of the fog.

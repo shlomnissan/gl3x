@@ -28,7 +28,11 @@ Constructs a Texture2D object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">data</span> <span class="type">std::vector&lt; uint8_t &gt;</span>
+
+  ### <span class="name">data</span> <span class="type">std::vector&lt; uint8_t &gt;</span>
+  ```cpp
+  std::vector< uint8_t > data 
+  ```
   </div>
   <div class="description">
     Underlying texture data.
@@ -37,7 +41,11 @@ Constructs a Texture2D object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">height</span> <span class="type">unsigned</span>
+
+  ### <span class="name">height</span> <span class="type">unsigned</span>
+  ```cpp
+  unsigned height 
+  ```
   </div>
   <div class="description">
     Height in pixels.
@@ -46,7 +54,11 @@ Constructs a Texture2D object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">width</span> <span class="type">unsigned</span>
+
+  ### <span class="name">width</span> <span class="type">unsigned</span>
+  ```cpp
+  unsigned width 
+  ```
   </div>
   <div class="description">
     Width in pixels.

@@ -8,7 +8,11 @@ This class is not intended to be used directly. Use PerspectiveCamera or Orthogr
 
 <div class="property">
   <div class="definition">
-    <span class="name">projection_matrix</span> <span class="type">Matrix4</span>
+
+  ### <span class="name">projection_matrix</span> <span class="type">Matrix4</span>
+  ```cpp
+  Matrix4 projection_matrix { Matrix4::Identity() }
+  ```
   </div>
   <div class="description">
     Projection matrix that maps camera-space coordinates to clip space.
@@ -17,10 +21,14 @@ This class is not intended to be used directly. Use PerspectiveCamera or Orthogr
 
 <div class="property">
   <div class="definition">
-    <span class="name">view_matrix</span> <span class="type">Matrix4</span>
+
+  ### <span class="name">view_matrix</span> <span class="type">Matrix4</span>
+  ```cpp
+  Matrix4 view_matrix { Matrix4::Identity() }
+  ```
   </div>
   <div class="description">
-    View matrix (inverse of the camera’s world transform) that maps world space to camera space.
+    View matrix that maps world space to camera space.
   </div>
 </div>
 

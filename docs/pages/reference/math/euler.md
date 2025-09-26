@@ -18,7 +18,11 @@ Note: Gimbal lock may occur when pitch approaches ±90°, limiting the reliabili
 
 <div class="property">
   <div class="definition">
-    <span class="name">pitch</span> <span class="type">float</span>
+
+  ### <span class="name">pitch</span> <span class="type">float</span>
+  ```cpp
+  float pitch { 0.0f }
+  ```
   </div>
   <div class="description">
     Rotation around the X-axis in radians.
@@ -27,7 +31,11 @@ Note: Gimbal lock may occur when pitch approaches ±90°, limiting the reliabili
 
 <div class="property">
   <div class="definition">
-    <span class="name">roll</span> <span class="type">float</span>
+
+  ### <span class="name">roll</span> <span class="type">float</span>
+  ```cpp
+  float roll { 0.0f }
+  ```
   </div>
   <div class="description">
     Rotation around the Z-axis in radians.
@@ -36,7 +44,11 @@ Note: Gimbal lock may occur when pitch approaches ±90°, limiting the reliabili
 
 <div class="property">
   <div class="definition">
-    <span class="name">yaw</span> <span class="type">float</span>
+
+  ### <span class="name">yaw</span> <span class="type">float</span>
+  ```cpp
+  float yaw { 0.0f }
+  ```
   </div>
   <div class="description">
     Rotation around the Y-axis in radians.

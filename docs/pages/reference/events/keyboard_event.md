@@ -22,7 +22,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">key</span> <span class="type">Key</span>
+
+  ### <span class="name">key</span> <span class="type">Key</span>
+  ```cpp
+  Key key 
+  ```
   </div>
   <div class="description">
     Key code associated with the event.
@@ -31,7 +35,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">type</span> <span class="type">KeyboardEvent::Type</span>
+
+  ### <span class="name">type</span> <span class="type">KeyboardEvent::Type</span>
+  ```cpp
+  KeyboardEvent::Type type 
+  ```
   </div>
   <div class="description">
     Keyboard event type.

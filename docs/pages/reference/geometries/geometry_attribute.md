@@ -7,7 +7,11 @@ Represents a vertex attribute layout.
 
 <div class="property">
   <div class="definition">
-    <span class="name">item_size</span> <span class="type">unsigned int</span>
+
+  ### <span class="name">item_size</span> <span class="type">unsigned int</span>
+  ```cpp
+  unsigned int item_size { 0 }
+  ```
   </div>
   <div class="description">
     Number of components (e.g., 3 for Vector3).
@@ -16,7 +20,11 @@ Represents a vertex attribute layout.
 
 <div class="property">
   <div class="definition">
-    <span class="name">type</span> <span class="type">VertexAttributeType</span>
+
+  ### <span class="name">type</span> <span class="type">VertexAttributeType</span>
+  ```cpp
+  VertexAttributeType type { VertexAttributeType::None }
+  ```
   </div>
   <div class="description">
     Semantic type of the attribute.

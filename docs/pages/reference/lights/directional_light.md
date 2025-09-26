@@ -23,7 +23,11 @@ Constructs a DirectionalLight object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">target</span> <span class="type">std::shared_ptr&lt;Node&gt;</span>
+
+  ### <span class="name">target</span> <span class="type">std::shared_ptr&lt;Node&gt;</span>
+  ```cpp
+  std::shared_ptr<Node> target 
+  ```
   </div>
   <div class="description">
     Node that the light is directed towards.

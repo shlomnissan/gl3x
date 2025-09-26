@@ -8,7 +8,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">blending</span> <span class="type">Blending</span>
+
+  ### <span class="name">blending</span> <span class="type">Blending</span>
+  ```cpp
+  Blending blending { Blending::Normal }
+  ```
   </div>
   <div class="description">
     Blending mode used for rendering this material.
@@ -17,7 +21,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">depth_test</span> <span class="type">bool</span>
+
+  ### <span class="name">depth_test</span> <span class="type">bool</span>
+  ```cpp
+  bool depth_test { true }
+  ```
   </div>
   <div class="description">
     Enables depth testing.
@@ -26,7 +34,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">flat_shaded</span> <span class="type">bool</span>
+
+  ### <span class="name">flat_shaded</span> <span class="type">bool</span>
+  ```cpp
+  bool flat_shaded { false }
+  ```
   </div>
   <div class="description">
     Enables flat shading.
@@ -35,7 +47,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">fog</span> <span class="type">bool</span>
+
+  ### <span class="name">fog</span> <span class="type">bool</span>
+  ```cpp
+  bool fog { true }
+  ```
   </div>
   <div class="description">
     Enables scene fog for this material.
@@ -44,7 +60,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">opacity</span> <span class="type">float</span>
+
+  ### <span class="name">opacity</span> <span class="type">float</span>
+  ```cpp
+  float opacity { 1.0f }
+  ```
   </div>
   <div class="description">
     Value in the range of <code>0.0</code> - <code>1.0</code> indicating how transparent the material is.
@@ -53,7 +73,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">polygon_offset_factor</span> <span class="type">float</span>
+
+  ### <span class="name">polygon_offset_factor</span> <span class="type">float</span>
+  ```cpp
+  float polygon_offset_factor { 0.0f }
+  ```
   </div>
   <div class="description">
     Sets the polygon offset factor.
@@ -62,7 +86,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">polygon_offset_units</span> <span class="type">float</span>
+
+  ### <span class="name">polygon_offset_units</span> <span class="type">float</span>
+  ```cpp
+  float polygon_offset_units { 0.0f }
+  ```
   </div>
   <div class="description">
     Sets the polygon offset units.
@@ -71,7 +99,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">transparent</span> <span class="type">bool</span>
+
+  ### <span class="name">transparent</span> <span class="type">bool</span>
+  ```cpp
+  bool transparent { false }
+  ```
   </div>
   <div class="description">
     Enables transparency.
@@ -80,7 +112,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">two_sided</span> <span class="type">bool</span>
+
+  ### <span class="name">two_sided</span> <span class="type">bool</span>
+  ```cpp
+  bool two_sided { false }
+  ```
   </div>
   <div class="description">
     Enables rendering both front and back faces of polygons.
@@ -89,7 +125,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">visible</span> <span class="type">bool</span>
+
+  ### <span class="name">visible</span> <span class="type">bool</span>
+  ```cpp
+  bool visible { true }
+  ```
   </div>
   <div class="description">
     Enables visibility.
@@ -98,7 +138,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">wireframe</span> <span class="type">bool</span>
+
+  ### <span class="name">wireframe</span> <span class="type">bool</span>
+  ```cpp
+  bool wireframe { false }
+  ```
   </div>
   <div class="description">
     Enables wireframe rendering.

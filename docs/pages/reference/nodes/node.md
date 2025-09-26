@@ -17,7 +17,11 @@ Constructs an Node instance.
 
 <div class="property">
   <div class="definition">
-    <span class="name">frustum_culled</span> <span class="type">bool</span>
+
+  ### <span class="name">frustum_culled</span> <span class="type">bool</span>
+  ```cpp
+  bool frustum_culled { true }
+  ```
   </div>
   <div class="description">
     If true, the node is subject to frustum culling during rendering.
@@ -26,7 +30,11 @@ Constructs an Node instance.
 
 <div class="property">
   <div class="definition">
-    <span class="name">transform</span> <span class="type">Transform3</span>
+
+  ### <span class="name">transform</span> <span class="type">Transform3</span>
+  ```cpp
+  Transform3 transform 
+  ```
   </div>
   <div class="description">
     Local transformation.
@@ -35,7 +43,11 @@ Constructs an Node instance.
 
 <div class="property">
   <div class="definition">
-    <span class="name">transform_auto_update</span> <span class="type">bool</span>
+
+  ### <span class="name">transform_auto_update</span> <span class="type">bool</span>
+  ```cpp
+  bool transform_auto_update { true }
+  ```
   </div>
   <div class="description">
     If true, the local transform is automatically updated before rendering.
@@ -44,7 +56,11 @@ Constructs an Node instance.
 
 <div class="property">
   <div class="definition">
-    <span class="name">up</span> <span class="type">Vector3</span>
+
+  ### <span class="name">up</span> <span class="type">Vector3</span>
+  ```cpp
+  Vector3 up { Vector3::Up() }
+  ```
   </div>
   <div class="description">
     Local up direction (defaults to +Y).

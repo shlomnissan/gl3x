@@ -8,7 +8,11 @@ Axis-aligned bounding box defined by minimum and maximum corners.
 
 <div class="property">
   <div class="definition">
-    <span class="name">max</span> <span class="type">Vector3</span>
+
+  ### <span class="name">max</span> <span class="type">Vector3</span>
+  ```cpp
+  Vector3 max { std::numeric_limits<float>::lowest() }
+  ```
   </div>
   <div class="description">
     Maximum corner of the box.
@@ -17,7 +21,11 @@ Axis-aligned bounding box defined by minimum and maximum corners.
 
 <div class="property">
   <div class="definition">
-    <span class="name">min</span> <span class="type">Vector3</span>
+
+  ### <span class="name">min</span> <span class="type">Vector3</span>
+  ```cpp
+  Vector3 min { std::numeric_limits<float>::max() }
+  ```
   </div>
   <div class="description">
     Minimum corner of the box.

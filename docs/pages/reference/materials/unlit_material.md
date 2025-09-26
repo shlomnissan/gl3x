@@ -21,7 +21,11 @@ Constructs a UnlitMaterial object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">albedo_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+
+  ### <span class="name">albedo_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+  ```cpp
+  std::shared_ptr<Texture2D> albedo_map { nullptr }
+  ```
   </div>
   <div class="description">
     Albedo (base color) map, optionally containing an alpha channel.
@@ -30,7 +34,11 @@ Constructs a UnlitMaterial object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">alpha_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+
+  ### <span class="name">alpha_map</span> <span class="type">std::shared_ptr&lt;Texture2D&gt;</span>
+  ```cpp
+  std::shared_ptr<Texture2D> alpha_map { nullptr }
+  ```
   </div>
   <div class="description">
     Alpha map that controls the opacity across the surface.
@@ -39,7 +47,11 @@ Constructs a UnlitMaterial object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">color</span> <span class="type">Color</span>
+
+  ### <span class="name">color</span> <span class="type">Color</span>
+  ```cpp
+  Color color { 0xFFFFFF }
+  ```
   </div>
   <div class="description">
     Color of the material.

@@ -26,7 +26,11 @@ Constructs a Geometry object with vertex and index data.
 
 <div class="property">
   <div class="definition">
-    <span class="name">primitive</span> <span class="type">GeometryPrimitiveType</span>
+
+  ### <span class="name">primitive</span> <span class="type">GeometryPrimitiveType</span>
+  ```cpp
+  GeometryPrimitiveType primitive { GeometryPrimitiveType::Triangles }
+  ```
   </div>
   <div class="description">
     Primitive type used for rendering.
@@ -35,7 +39,11 @@ Constructs a Geometry object with vertex and index data.
 
 <div class="property">
   <div class="definition">
-    <span class="name">renderer_id</span> <span class="type">unsigned int</span>
+
+  ### <span class="name">renderer_id</span> <span class="type">unsigned int</span>
+  ```cpp
+  unsigned int renderer_id { 0 }
+  ```
   </div>
   <div class="description">
     GPU renderer identifier. Used internally by the renderer.

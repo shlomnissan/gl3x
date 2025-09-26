@@ -8,7 +8,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">handled</span> <span class="type">bool</span>
+
+  ### <span class="name">handled</span> <span class="type">bool</span>
+  ```cpp
+  bool handled { false }
+  ```
   </div>
   <div class="description">
     Indicates whether the event has been handled.

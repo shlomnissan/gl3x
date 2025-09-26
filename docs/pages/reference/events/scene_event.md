@@ -15,7 +15,11 @@ Constructs a SceneEvent.
 
 <div class="property">
   <div class="definition">
-    <span class="name">node</span> <span class="type">std::shared_ptr&lt;Node&gt;</span>
+
+  ### <span class="name">node</span> <span class="type">std::shared_ptr&lt;Node&gt;</span>
+  ```cpp
+  std::shared_ptr<Node> node 
+  ```
   </div>
   <div class="description">
     Node that was added or removed.
@@ -24,7 +28,11 @@ Constructs a SceneEvent.
 
 <div class="property">
   <div class="definition">
-    <span class="name">type</span> <span class="type">SceneEvent::Type</span>
+
+  ### <span class="name">type</span> <span class="type">SceneEvent::Type</span>
+  ```cpp
+  SceneEvent::Type type 
+  ```
   </div>
   <div class="description">
     Scene event type.

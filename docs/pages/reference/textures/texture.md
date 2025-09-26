@@ -8,7 +8,11 @@ Not intended for direct use.
 
 <div class="property">
   <div class="definition">
-    <span class="name">renderer_id</span> <span class="type">unsigned int</span>
+
+  ### <span class="name">renderer_id</span> <span class="type">unsigned int</span>
+  ```cpp
+  unsigned int renderer_id { 0 }
+  ```
   </div>
   <div class="description">
     Renderer-specific identifier assigned by the graphics API.

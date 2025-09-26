@@ -36,7 +36,11 @@ Constructs an OrthographicCamera object.
 
 <div class="property">
   <div class="definition">
-    <span class="name">resize_policy</span> <span class="type">ResizePolicy</span>
+
+  ### <span class="name">resize_policy</span> <span class="type">ResizePolicy</span>
+  ```cpp
+  ResizePolicy resize_policy { ResizePolicy::PixelSpace }
+  ```
   </div>
   <div class="description">
     The current resize policy for this camera.

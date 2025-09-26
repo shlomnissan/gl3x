@@ -78,9 +78,14 @@
   padding-bottom: 4px;
 }
 
-:where(.property, .function) .definition .name {
+:where(.property, .function) .definition h3 {
   font-weight: 600;
   color: var(--vp-c-brand-1);
+  font-size: var(--vp-font-size-base);
+
+  .type {
+    font-weight: 500;
+  }
 }
 
 .property .definition {

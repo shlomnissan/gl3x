@@ -28,7 +28,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">aspect_ratio</span> <span class="type">float</span>
+
+  ### <span class="name">aspect_ratio</span> <span class="type">float</span>
+  ```cpp
+  float aspect_ratio 
+  ```
   </div>
   <div class="description">
     Aspect ratio of the render surface.
@@ -37,7 +41,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">camera</span> <span class="type">Camera*</span>
+
+  ### <span class="name">camera</span> <span class="type">Camera*</span>
+  ```cpp
+  Camera* camera 
+  ```
   </div>
   <div class="description">
     Current active camera.
@@ -46,7 +54,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">framebuffer_height</span> <span class="type">int</span>
+
+  ### <span class="name">framebuffer_height</span> <span class="type">int</span>
+  ```cpp
+  int framebuffer_height 
+  ```
   </div>
   <div class="description">
     Frambuffer height in physical pixels.
@@ -55,7 +67,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">framebuffer_width</span> <span class="type">int</span>
+
+  ### <span class="name">framebuffer_width</span> <span class="type">int</span>
+  ```cpp
+  int framebuffer_width 
+  ```
   </div>
   <div class="description">
     Framebuffer width in physical pixels.
@@ -64,7 +80,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">mesh_loader</span> <span class="type">std::shared_ptr&lt;MeshLoader&gt;</span>
+
+  ### <span class="name">mesh_loader</span> <span class="type">std::shared_ptr&lt;MeshLoader&gt;</span>
+  ```cpp
+  std::shared_ptr<MeshLoader> mesh_loader { MeshLoader::Create() }
+  ```
   </div>
   <div class="description">
     Mesh loader.
@@ -73,7 +93,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">texture_loader</span> <span class="type">std::shared_ptr&lt;TextureLoader&gt;</span>
+
+  ### <span class="name">texture_loader</span> <span class="type">std::shared_ptr&lt;TextureLoader&gt;</span>
+  ```cpp
+  std::shared_ptr<TextureLoader> texture_loader { TextureLoader::Create() }
+  ```
   </div>
   <div class="description">
     Texture loader.
@@ -82,7 +106,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">window_height</span> <span class="type">int</span>
+
+  ### <span class="name">window_height</span> <span class="type">int</span>
+  ```cpp
+  int window_height 
+  ```
   </div>
   <div class="description">
     Window height in logical units.
@@ -91,7 +119,11 @@ public:
 
 <div class="property">
   <div class="definition">
-    <span class="name">window_width</span> <span class="type">int</span>
+
+  ### <span class="name">window_width</span> <span class="type">int</span>
+  ```cpp
+  int window_width 
+  ```
   </div>
   <div class="description">
     Window width in logical units.
