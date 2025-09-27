@@ -16,6 +16,7 @@ class TypePart:
 class ParamDoc:
     name: str
     type: TypeRef
+    desc: Optional[str] = None
     default: Optional[str] = None
 
 @dataclass(slots=True)

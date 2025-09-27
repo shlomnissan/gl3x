@@ -1,8 +1,16 @@
 from __future__ import annotations
 
 from pathlib import Path
-from .content_model import ClassDoc, VarDoc, FunctionDoc, TypeRef, TypePart, ParamDoc
+from typing import Dict
 from .doxygen_markdown import element_text, render_description, collect_inlines
+from .content_model import (
+    ClassDoc,
+    VarDoc,
+    FunctionDoc,
+    TypeRef,
+    TypePart,
+    ParamDoc
+)
 
 import re
 import xml.etree.ElementTree as ET
@@ -76,6 +84,29 @@ def _is_user_ctor(m: ET.Element, cname: str) -> bool:
 
     return True
 
+def _param_briefs_map(m: ET.Element) -> Dict[str, str]:
+    out: Dict[str, str] = {}
+
+    detailed = m.find("detaileddescription")
+    if detailed is None:
+        return out
+
+    for item in detailed.findall(".//parameterlist[@kind='param']/parameteritem"):
+        names = [
+            (n.text or "").strip()
+            for n in item.findall("./parameternamelist/parametername")
+        ]
+
+        pdesc_el = item.find("parameterdescription")
+        pdesc = render_description(pdesc_el) if pdesc_el is not None else []
+        brief = pdesc[0].md.strip() if pdesc else ""
+
+        for name in names:
+            if name:
+                out[name] = brief
+
+    return out
+
 def _parse_function(m: ET.Element) -> FunctionDoc:
     definition = element_text(m.find("definition"))
     args = element_text(m.find("argsstring"))
@@ -84,11 +115,17 @@ def _parse_function(m: ET.Element) -> FunctionDoc:
     for p in m.findall("param"):
         params.append(
             ParamDoc(
-                name=element_text(p.find("declname")).strip() or element_text(p.find("defname")).strip(),
+                name=element_text(p.find("declname")).strip()
+                   or element_text(p.find("defname")).strip(),
                 type=_parse_type(p.find("type")),
                 default=(element_text(p.find("defval")).strip() or None),
             )
         )
+
+    param_briefs = _param_briefs_map(m)
+    for p in params:
+        if p.name and p.name in param_briefs:
+            p.desc = param_briefs[p.name]
 
     return FunctionDoc(
         id=m.get("id", ""),
