@@ -52,15 +52,17 @@ Scene::Scene() : impl_(std::make_unique<Impl>()) {
     using enum EventType;
 
     impl_->event_listener = std::make_shared<EventListener>([&](Event* event) {
-        if (event->GetType() == EventType::Keyboard) {
-            OnKeyboardEvent(static_cast<KeyboardEvent*>(event));
+        auto type = event->GetType();
+
+        if (type == Keyboard || type == Mouse) {
+            if (type == Keyboard) OnKeyboardEvent(static_cast<KeyboardEvent*>(event));
+            if (type == Mouse) OnMouseEvent(static_cast<MouseEvent*>(event));
+            for (const auto& child : Children()) {
+                handle_input_event(child, event);
+            }
         }
 
-        if (event->GetType() == EventType::Mouse) {
-            OnMouseEvent(static_cast<MouseEvent*>(event));
-        }
-
-        if (event->GetType() == EventType::Scene) {
+        if (type == EventType::Scene) {
             auto e = static_cast<SceneEvent*>(event);
             if (e->type == SceneEvent::Type::NodeAdded && IsChild(e->node.get())) {
                 e->node->AttachRecursive(impl_->context);
