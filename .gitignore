@@ -30,5 +30,7 @@ Icon
 
 node_modules
 docs/.vitepress/cache
-dics/.vitepress/dist
+docs/.vitepress/dist
+docs/.vitepress/auto-reference-sidebar.ts
+docs/pages/reference/**
 __pycache__
