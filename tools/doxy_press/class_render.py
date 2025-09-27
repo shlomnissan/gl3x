@@ -47,12 +47,37 @@ def _render_property(prop: VarDoc):
         f'  <div class="description">\n'
         f'    {desc}\n'
         f'  </div>\n'
-        '</div>'
+        f'</div>'
     )
 
 def _render_function(func: FunctionDoc):
+    name_str = func.name
+    desc = _inline_md_to_html(_join_paragraphs(func.brief)) if func.brief else ""
+    ret = escape(func.return_type.as_text(), quote=False)
 
-    return
+    params_list = ""
+    if func.params:
+        params_list += f'<ul class="params">\n'
+        for param in func.params:
+            pname = param.name
+            pdesc = param.desc
+            params_list += f'<li><span class="param-name">{pname}</span> - {pdesc}</li>\n'
+        params_list += f'</ul>\n'
+
+    return (
+        f'<div class="function">\n'
+        f'  <div class="definition">\n\n'
+        f'### <span class="name">{name_str}()</span> <span class="type">{ret}</span>\n\n'
+        f'  </div>\n\n'
+        f'```cpp\n'
+        f'{func.signature}\n'
+        f'```\n'
+        f'  <div class="description">\n'
+        f'    {desc}\n'
+        f'  </div>\n'
+        f'  {params_list}'
+        f'</div>\n\n'
+    )
 
 def render_class(doc: ClassDoc) -> str:
     lines: List[str] = []
@@ -68,23 +93,19 @@ def render_class(doc: ClassDoc) -> str:
     if doc.constructors:
         lines += ["## Constructors", ""]
         for c in doc.constructors:
-            lines += [f"### `{c.name}()`"]
-            lines.append(_join_paragraphs(c.brief))
-            lines.append("")
-
+            lines.append(_render_function(c))
+        lines.append("")
 
     if doc.variables:
         lines += ["## Properties", ""]
         for v in doc.variables:
             lines.append(_render_property(v))
-            lines.append("")
+        lines.append("")
 
     if doc.functions:
         lines += ["## Functions", ""]
         for f in doc.functions:
-            lines += [f"### `{f.name}()`"]
-            fb = _first(f.brief)
-            if fb: lines += [f"  - {fb}"]
+            lines.append(_render_function(f))
         lines.append("")
 
     out = "\n".join(lines).rstrip() + "\n"

@@ -80,7 +80,6 @@
 
 :where(.property, .function) .definition h3 {
   font-weight: 600;
-  color: var(--vp-c-brand-1);
   font-size: var(--vp-font-size-base);
 
   .type {
@@ -88,8 +87,8 @@
   }
 }
 
-.property .definition {
-  color: var(--vp-c-brand-1);
+:where(.property, .function) .definition h3 .name {
+    color: var(--vp-c-brand-1);
 }
 
 .property .definition .type,
@@ -111,7 +110,6 @@
 }
 
 ul.params {
-  font-size: 14px;
   margin-top: 4px;
   padding-left: 1.25em;
 }
