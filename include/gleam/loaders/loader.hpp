@@ -31,7 +31,6 @@ using LoaderCallback = std::function<void(LoaderResult<T>)>;
  *
  * Not intended for direct use.
  *
- * @tparam Resource Resource type to be loaded, e.g., `Texture`, `Mesh`.
  * @ingroup LoadersGroup
  */
 template <typename Resource>

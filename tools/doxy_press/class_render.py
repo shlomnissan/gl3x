@@ -88,6 +88,7 @@ def render_class(doc: ClassDoc) -> str:
         lines.append(_join_paragraphs(doc.brief))
 
     if doc.details:
+        lines.append("")
         lines.append(_join_paragraphs(doc.details))
 
     if doc.constructors:
