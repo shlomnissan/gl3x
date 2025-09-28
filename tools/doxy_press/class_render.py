@@ -73,10 +73,10 @@ def _render_function(func: FunctionDoc):
         f'```cpp\n'
         f'{func.signature}\n'
         f'```\n'
+        f'  {params_list}\n'
         f'  <div class="description">\n'
         f'    {brief} {description}\n'
         f'  </div>\n'
-        f'  {params_list}'
         f'</div>\n\n'
     )
 
