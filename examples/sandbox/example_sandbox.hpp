@@ -17,8 +17,6 @@ public:
 
     auto OnAttached(SharedContextPointer context) -> void override;
 
-    auto OnUpdate(float delta) -> void override;
-
 private:
     std::shared_ptr<gleam::Node> model_;
 };

@@ -138,5 +138,5 @@ private:
 
     SceneChangeCallback scene_change_cb_;
 
-    int current_scene_ = 1;
+    int current_scene_ = 0;
 };

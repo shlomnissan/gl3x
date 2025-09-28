@@ -8,51 +8,44 @@
 #include "example_sandbox.hpp"
 
 #include <gleam/geometries.hpp>
+#include <gleam/lights.hpp>
 #include <gleam/materials.hpp>
-#include <gleam/nodes.hpp>
 #include <gleam/math.hpp>
 
 using namespace gleam;
 
 namespace {
 
-auto arrow = Arrow::Create({
-    .direction = {1.0f, 0.0f, 0.0f},
-    .origin = Vector3::Zero(),
-    .color = 0x59CD90,
-    .length = 1.0f
-});
-
-auto spherical = Spherical {1.0f, 0.0f, 0.0f};
+auto plane_geometry = PlaneGeometry::Create();
+auto plane_material = PhongMaterial::Create();
 
 }
 
 ExampleSandbox::ExampleSandbox() {
     show_context_menu_ = false;
 
-    const auto grid = Grid::Create({
-        .size = 4.0f,
-        .divisions = 16,
-        .color = 0x333333
-    });
+    auto point_light = PointLight::Create({0xFFFFFF, 1.0f});
+    point_light->transform.Translate({0.5f, 0.5f, 0.8f});
+    Add(point_light);
 
-    arrow->TranslateY(0.5f);
-    arrow->SetDirection(spherical.ToVector3());
-
-    Add(grid);
-    Add(arrow);
+    auto mesh = Mesh::Create(plane_geometry, plane_material);
+    mesh->SetScale(2.0f);
+    Add(mesh);
 }
 
 auto ExampleSandbox::OnAttached(SharedContextPointer context) -> void {
+    context->texture_loader->LoadAsync(
+        "assets/bricks_diffuse.tex",
+        [this](auto result) {
+            if (result) plane_material->albedo_map = result.value();
+        }
+    );
+
     Add(OrbitControls::Create(
         context->camera, {
-            .radius = 3.0f,
-            .pitch = math::pi_over_4
+            .radius = 4.0f,
+            .pitch = math::pi_over_6,
+            .yaw = math::pi_over_6
         })
     );
-}
-
-auto ExampleSandbox::OnUpdate(float delta) -> void {
-    spherical.phi += 1.0f * delta;
-    arrow->SetDirection(spherical.ToVector3());
 }
