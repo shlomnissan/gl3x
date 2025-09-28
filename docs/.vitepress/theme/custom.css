@@ -84,6 +84,7 @@
 
   .type {
     font-weight: 500;
+    font-size: 14px;
   }
 }
 
@@ -91,22 +92,12 @@
     color: var(--vp-c-brand-1);
 }
 
-.property .definition .type,
-.property .definition a {
-  color: var(--vp-c-text-2);
-}
-
 .property .description .default {
   font-size: 14px;
-  color: var(--vp-c-text-2);
 }
 
 .function .description a {
   font-weight: 400;
-}
-
-.function .param .param-type {
-  color: var(--vp-c-text-2);
 }
 
 ul.params {
