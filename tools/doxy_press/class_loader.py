@@ -84,6 +84,17 @@ def _is_user_ctor(m: ET.Element, cname: str) -> bool:
 
     return True
 
+def _is_user_func(m: ET.Element) -> bool:
+    definition = m.findtext("definition", "") or ""
+    if "=default" in definition or "=delete" in definition:
+        return False
+
+    argsstring = m.findtext("argsstring", "") or ""
+    if "=default" in argsstring or "=delete" in argsstring:
+        return False
+
+    return True
+
 def _param_briefs_map(m: ET.Element) -> Dict[str, str]:
     out: Dict[str, str] = {}
 
@@ -170,7 +181,8 @@ def build_class_doc(refid: str, xml_dir: str | Path) -> ClassDoc:
                     if _is_user_ctor(m, name):
                         doc.constructors.append(_parse_function(m))
                 else:
-                    doc.functions.append(_parse_function(m))
+                    if _is_user_func(m):
+                        doc.functions.append(_parse_function(m))
 
             # if kind == "typedef":
             # if kind == "enum":
