@@ -52,7 +52,8 @@ def _render_property(prop: VarDoc):
 
 def _render_function(func: FunctionDoc):
     name_str = func.name
-    desc = _inline_md_to_html(_join_paragraphs(func.brief)) if func.brief else ""
+    brief = _inline_md_to_html(_join_paragraphs(func.brief)) if func.brief else ""
+    description = _inline_md_to_html(_join_paragraphs(func.details)) if func.details else ""
     ret = escape(func.return_type.as_text(), quote=False)
 
     params_list = ""
@@ -61,7 +62,7 @@ def _render_function(func: FunctionDoc):
         for param in func.params:
             pname = param.name
             pdesc = param.desc
-            params_list += f'<li><span class="param-name">{pname}</span> - {pdesc}</li>\n'
+            params_list += f'<li><span class="param-name">{pname}</span> {pdesc}</li>\n'
         params_list += f'</ul>\n'
 
     return (
@@ -73,7 +74,7 @@ def _render_function(func: FunctionDoc):
         f'{func.signature}\n'
         f'```\n'
         f'  <div class="description">\n'
-        f'    {desc}\n'
+        f'    {brief} {description}\n'
         f'  </div>\n'
         f'  {params_list}'
         f'</div>\n\n'

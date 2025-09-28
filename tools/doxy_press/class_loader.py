@@ -109,7 +109,7 @@ def _param_briefs_map(m: ET.Element) -> Dict[str, str]:
         ]
 
         pdesc_el = item.find("parameterdescription")
-        pdesc = render_description(pdesc_el) if pdesc_el is not None else []
+        pdesc = render_description(pdesc_el, True) if pdesc_el is not None else []
         brief = pdesc[0].md.strip() if pdesc else ""
 
         for name in names:

@@ -86,16 +86,45 @@ def collect_inlines(node: ET.Element) -> str:
 
     return "".join(out).strip()
 
-def render_description(desc: Optional[ET.Element]) -> List[DocParagraph]:
+def _iter_nonparam_paras(root: ET.Element):
+    result: List[ET.Element] = []
+
+    def walk(n: ET.Element, in_param: bool = False):
+        tag = n.tag
+
+        if tag in ("parameterlist", "parameterdescription"):
+            in_param = True
+
+        if tag == "para":
+            # Skip <para> that *wraps* a parameterlist, or lives under one
+            if not in_param and n.find(".//parameterlist") is None:
+                result.append(n)
+            return  # don't descend further from this <para>
+
+        for child in n:
+            walk(child, in_param)
+
+    if root is not None:
+        walk(root, False)
+
+    return result
+
+def render_description(
+        desc: Optional[ET.Element],
+        include_params: bool = False
+) -> List[DocParagraph]:
     if desc is None:
         return []
 
     paras: List[DocParagraph] = []
 
-    # doxygen wraps text in <para> nodes inside brief/detailed description
-    for para in desc.findall(".//para"):
-        md = collect_inlines(para)
-        if md:
-            paras.append(DocParagraph(md=md))
+    if include_params:
+        for para in desc.findall(".//para"):
+            md = collect_inlines(para)
+            if md: paras.append(DocParagraph(md=md))
+    else:
+        for para in _iter_nonparam_paras(desc):
+            md = collect_inlines(para)
+            if md: paras.append(DocParagraph(md=md))
 
     return paras

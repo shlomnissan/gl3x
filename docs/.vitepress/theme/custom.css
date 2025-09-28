@@ -64,14 +64,6 @@
   }
 }
 
-:where(.property, .function) {
-  margin: 0 0 8px;
-}
-
-:where(.property, .function):last-child {
-  margin-bottom: 0;
-}
-
 :where(.property, .function) > .definition {
   font-family: var(--vp-font-family-mono);
   font-weight: 500;
@@ -101,7 +93,7 @@
 }
 
 ul.params {
-  margin-top: 4px;
+  margin: 8px 0 0 0;
   padding-left: 1.25em;
 }
 
@@ -111,4 +103,5 @@ ul.params li {
 
 ul.params .param-name {
   font-family: var(--vp-font-family-mono);
+  font-weight: 600;
 }
