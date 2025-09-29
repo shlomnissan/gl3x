@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Optional
 
+import re
+
 @dataclass(slots=True)
 class DocParagraph:
     md: str
@@ -24,7 +26,10 @@ class TypeRef:
     parts: List[TypePart] = field(default_factory=list)
 
     def as_text(self) -> str:
-        return "".join(p.text for p in self.parts).strip()
+        s = " ".join(p.text.strip() for p in self.parts if p.text and p.text.strip())
+        s = re.sub(r'\boverride\b', '', s)
+        s = re.sub(r'\s*=\s*0\b', '', s) # handles "=0" or "= 0"
+        return re.sub(r'\s+', ' ', s).strip()
 
 @dataclass(slots=True)
 class VarDoc:

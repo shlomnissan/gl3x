@@ -29,8 +29,14 @@ def _parse_type(t: ET.Element | None) -> TypeRef:
             tr.parts.append(TypePart(text="".join(ch.itertext())))
         if ch.tail:
             tr.parts.append(TypePart(text=ch.tail))
+
+    # normalize whitespace within each part
     for p in tr.parts:
         p.text = " ".join(p.text.split())
+
+    # noise filter: drop specifiers that sometimes leak into <type>
+    tr.parts = [p for p in tr.parts if p.text not in ("override", "=0")]
+
     return tr
 
 def _initializer_display(init: ET.Element | None) -> str | None:
