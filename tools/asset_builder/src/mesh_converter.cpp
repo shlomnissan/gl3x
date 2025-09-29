@@ -75,6 +75,10 @@ struct __vec3_t {
     };
 }
 
+[[nodiscard]] auto dot(const __vec3_t a, const __vec3_t b) {
+    return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
 auto stride(const tinyobj::attrib_t& attrib) {
     auto stride = 6u; // positions and normals are guaranteed
     if (!attrib.colors.empty()) stride += 3;
@@ -93,10 +97,13 @@ auto generate_normals(
     std::vector<unsigned>& index_data,
     unsigned int stride
 ) {
+    constexpr float eps = 1e-6f;
+    constexpr auto normal_offset = 3;
+
     for (auto i = 0; i < index_data.size(); i += 3) {
-        const auto i0 = index_data[i + 0];
-        const auto i1 = index_data[i + 1];
-        const auto i2 = index_data[i + 2];
+        auto i1 = index_data[i + 1];
+        auto i0 = index_data[i + 0];
+        auto i2 = index_data[i + 2];
 
         auto v0 = __vec3_t {
             vertex_data[i0 * stride + 0],
@@ -118,13 +125,32 @@ auto generate_normals(
 
         auto e0 = v1 - v0;
         auto e1 = v2 - v0;
-        const auto normal = cross(e0, e1).Normalize();
 
-        constexpr auto normal_offset = 3;
+        auto f = cross(e0, e1);
+        if (dot(f, f) <= eps * eps) {
+            continue;
+        }
+
         for (auto idx : {i0, i1, i2}) {
-            vertex_data[idx * stride + normal_offset + 0] += normal.x;
-            vertex_data[idx * stride + normal_offset + 1] += normal.y;
-            vertex_data[idx * stride + normal_offset + 2] += normal.z;
+            vertex_data[idx * stride + normal_offset + 0] += f.x;
+            vertex_data[idx * stride + normal_offset + 1] += f.y;
+            vertex_data[idx * stride + normal_offset + 2] += f.z;
+        }
+    }
+
+    auto vertex_count = vertex_data.size() / stride;
+    for (auto i = 0; i < vertex_count; ++i) {
+        auto n = __vec3_t {
+            vertex_data[i * stride + normal_offset + 0],
+            vertex_data[i * stride + normal_offset + 1],
+            vertex_data[i * stride + normal_offset + 2]
+        };
+
+        if (n.Length() > 0.0f) {
+            n.Normalize();
+            vertex_data[i * stride + normal_offset + 0] = n.x;
+            vertex_data[i * stride + normal_offset + 1] = n.y;
+            vertex_data[i * stride + normal_offset + 2] = n.z;
         }
     }
 }
