@@ -36,6 +36,7 @@ ProgramAttributes::ProgramAttributes(
         color = true;
         albedo_map = m->albedo_map != nullptr;
         alpha_map = m->alpha_map != nullptr;
+        normal_map = m->normal_map != nullptr;
     }
 
     if (type == MaterialType::ShaderMaterial) {
@@ -76,9 +77,10 @@ ProgramAttributes::ProgramAttributes(
     key |= (lights.spot & 0xF) << 15; // (0–15) → 4 bits
     key |= (albedo_map ? 1 : 0) << 19; // 1 bit
     key |= (alpha_map ? 1 : 0) << 20; // 1 bit
-    key |= (two_sided ? 1 : 0) << 21; // 1 bit
-    key |= (instancing ? 1 : 0) << 22; // 1 bit
-    key |= (vertex_color ? 1 : 0) << 23; // 1 bit
+    key |= (normal_map ? 1 : 0) << 21; // 1 bit
+    key |= (two_sided ? 1 : 0) << 22; // 1 bit
+    key |= (instancing ? 1 : 0) << 23; // 1 bit
+    key |= (vertex_color ? 1 : 0) << 24; // 1 bit
 }
 
 }

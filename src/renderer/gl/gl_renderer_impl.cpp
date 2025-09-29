@@ -169,6 +169,12 @@ auto Renderer::Impl::SetUniforms(
             textures_.Bind(m->alpha_map, map_type);
             program->SetUniform(Uniform::AlphaMap, &map_type);
         }
+
+        if (attrs->normal_map) {
+            auto map_type = GLTextureMapType::NormalMap;
+            textures_.Bind(m->normal_map, map_type);
+            program->SetUniform(Uniform::NormalMap, &map_type);
+        }
     }
 
     if (attrs->type == MaterialType::ShaderMaterial) {

@@ -98,6 +98,7 @@ auto ShaderLibrary::InjectAttributes(
     auto features = std::string {};
 
     if (attrs.alpha_map) features += "#define USE_ALPHA_MAP\n";
+    if (attrs.normal_map) features += "#define USE_NORMAL_MAP\n";
     if (attrs.color) features += "#define USE_COLOR\n";
     if (attrs.flat_shaded) features += "#define USE_FLAT_SHADED\n";
     if (attrs.fog) features += "#define USE_FOG\n";

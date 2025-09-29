@@ -53,6 +53,9 @@ public:
     /// @brief Alpha map that controls the opacity across the surface.
     std::shared_ptr<Texture2D> alpha_map = nullptr;
 
+    /// @brief Normal map that perturbs surface normals for detailed shading.
+    std::shared_ptr<Texture2D> normal_map = nullptr;
+
     /**
      * @brief Constructs a PhongMaterial object.
      *
