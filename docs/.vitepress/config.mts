@@ -9,12 +9,11 @@ export default defineConfig({
   description: '3D Rendering in Modern C++',
   cleanUrls: true,
   head: [
-    ['link', {
-      rel: 'preload',
-      href: 'fonts/logo.woff2',
-      as: 'font',
-      type: 'font/woff2',
-    }]
+    ['link', { rel: 'preload', href: 'logo.woff2', as: 'font', type: 'font/woff2', crossorigin: '' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg', media: '(prefers-color-scheme: light)' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon_white.svg', media: '(prefers-color-scheme: dark)' }],
+    ['link', { rel: 'icon', href: '/favicon.ico', media: '(prefers-color-scheme: light)' }],
+    ['link', { rel: 'icon', href: '/favicon_white.ico', media: '(prefers-color-scheme: dark)' }],
   ],
   themeConfig: {
     logo: {
