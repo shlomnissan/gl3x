@@ -1,10 +1,10 @@
-# Gleam
+# GL3X
 A fast real-time 3D rendering engine built with modern C++.
 
-![ubuntu-badge](https://github.com/shlomnissan/gleam/actions/workflows/ubuntu.yml/badge.svg)
-![windows-badge](https://github.com/shlomnissan/gleam/actions/workflows/windows.yml/badge.svg)
-![macos-badge](https://github.com/shlomnissan/gleam/actions/workflows/macos.yml/badge.svg)
-[![docs-badge](https://img.shields.io/badge/docs-online-blue.svg)](https://shlomnissan.github.io/gleam/)
+![ubuntu-badge](https://github.com/shlomnissan/gl3x/actions/workflows/ubuntu.yml/badge.svg)
+![windows-badge](https://github.com/shlomnissan/gl3x/actions/workflows/windows.yml/badge.svg)
+![macos-badge](https://github.com/shlomnissan/gl3x/actions/workflows/macos.yml/badge.svg)
+[![docs-badge](https://img.shields.io/badge/docs-online-blue.svg)](https://shlomnissan.github.io/gl3x/)
 
 ## Table of Contents
 - [Overview](#overview)
@@ -12,9 +12,9 @@ A fast real-time 3D rendering engine built with modern C++.
 - [Getting Started](#getting-started)
    - [Requirements](#requirements)
    - [Dependencies](#dependencies)
-   - [Building Gleam](#building-gleam)
+   - [Building GL3X](#building-gl3x)
    - [Installation and Usage](#installation-and-usage)
-- [Documentation](https://shlomnissan.github.io/gleam/)
+- [Documentation](https://shlomnissan.github.io/gl3x/)
 - [Asset Generation Pipeline](#asset-generation-pipeline)
 - [License](#license)
 
@@ -22,7 +22,7 @@ A fast real-time 3D rendering engine built with modern C++.
 
 ## Overview
 
-Gleam is a lightweight, high-performance 3D rendering engine written in modern C++. It follows a clean, scene-oriented architecture that provides fine-grained control over rendering, lighting, and assets through a minimal and expressive API. Built for native performance and modularity, Gleam is ideal for interactive tools, visualization applications, and real-time rendering workflows that don't need the weight of a full game engine.
+GL3X is a lightweight, high-performance 3D rendering engine written in modern C++. It follows a clean, scene-oriented architecture that provides fine-grained control over rendering, lighting, and assets through a minimal and expressive API. Built for native performance and modularity, GL3X is ideal for interactive tools, visualization applications, and real-time rendering workflows that don't need the weight of a full game engine.
 
 ## Features
 
@@ -39,11 +39,11 @@ Gleam is a lightweight, high-performance 3D rendering engine written in modern C
 
 ## Getting Started
 
-This section covers how to build Gleam, install it, and integrate it into your own project. Gleam is easy to consume: all dependencies are vendored, and no global packages are required.
+This section covers how to build GL3X, install it, and integrate it into your own project. GL3X is easy to consume: all dependencies are vendored, and no global packages are required.
 
 ### Requirements
 
-Gleam requires a C++23-compatible toolchain, CMake 3.20 or newer, and an OpenGL 4.1+ context. It is actively tested on:
+GL3X requires a C++23-compatible toolchain, CMake 3.20 or newer, and an OpenGL 4.1+ context. It is actively tested on:
 
 - ![Ubuntu](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/UBT.png) 24.04 and GCC 11.3.0
 - ![macOS](https://raw.githubusercontent.com/EgoistDeveloper/operating-system-logos/master/src/16x16/MAC.png) macOS 14 and Clang 15.0.0
@@ -51,7 +51,7 @@ Gleam requires a C++23-compatible toolchain, CMake 3.20 or newer, and an OpenGL 
 
 ### Dependencies
 
-Gleam vendors all required libraries directly into the repository. The only runtime dependencies are:
+GL3X vendors all required libraries directly into the repository. The only runtime dependencies are:
 
 | Dependency | Version  | Location        | Description |
 |------------|----------|----------------|-------------|
@@ -61,9 +61,9 @@ Gleam vendors all required libraries directly into the repository. The only runt
 
 Each dependency includes license information in its respective `vendor/` folder. Additional libraries may be used in asset tooling but are not part of the engine runtime.
 
-### Building Gleam
+### Building GL3X
 
-Gleam uses [CMake](https://cmake.org/download/) to configure and build the project. You can toggle build components using options or presets.
+GL3X uses [CMake](https://cmake.org/download/) to configure and build the project. You can toggle build components using options or presets.
 
 #### CMake Options
 
@@ -71,17 +71,17 @@ The following options control which components are built:
 
 | Option                 | Description                                              |
 |------------------------|----------------------------------------------------------|
-| `GLEAM_BUILD_DOCS`     | Build Doxygen documentation.                             |
-| `GLEAM_BUILD_EXAMPLES` | Build example applications.                              |
-| `GLEAM_BUILD_IMGUI`    | Enable ImGui support for debug UI/tools.                 |
-| `GLEAM_BUILD_TESTS`    | Build unit tests.                                        |
-| `GLEAM_BUILD_TOOLS`    | Build command-line tools.                                |
+| `GL3X_BUILD_DOCS`     | Build Doxygen documentation.                             |
+| `GL3X_BUILD_EXAMPLES` | Build example applications.                              |
+| `GL3X_BUILD_IMGUI`    | Enable ImGui support for debug UI/tools.                 |
+| `GL3X_BUILD_TESTS`    | Build unit tests.                                        |
+| `GL3X_BUILD_TOOLS`    | Build command-line tools.                                |
 
 Defaults are preset-dependent.
 
 #### CMake Presets
 
-To streamline the build process, Gleam provides a set of [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) with common configurations:
+To streamline the build process, GL3X provides a set of [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) with common configurations:
 
 - `dev-debug` – Debug build with all features enabled.
 - `dev-release` – Optimized build with tools and examples.
@@ -92,8 +92,8 @@ To streamline the build process, Gleam provides a set of [CMake presets](https:/
 
 ```bash
 # Clone the repository
-git clone --recursive https://github.com/shlomnissan/gleam.git
-cd gleam
+git clone --recursive https://github.com/shlomnissan/gl3x.git
+cd gl3x
 
 # Create output directory
 mkdir build
@@ -110,27 +110,27 @@ If examples are enabled, you can run them to verify that everything is working a
 
 ### Installation and Usage
 
-Gleam can be installed via the provided script and integrated into your project using CMake’s standard `find_package` and `target_link_libraries` pattern. Alternatively, you can link Gleam manually by including headers and linking the compiled library directly.
+GL3X can be installed via the provided script and integrated into your project using CMake’s standard `find_package` and `target_link_libraries` pattern. Alternatively, you can link GL3X manually by including headers and linking the compiled library directly.
 
 #### Install Script
 
 - macOS/Linux: `sudo scripts/install.sh`
 - Windows (PowerShell as Admin): `scripts\install.bat`
 
-The script uses the `install-release` preset on Unix. On MSVC, both `install-debug` and `install-release` are installed due to ABI differences. Elevated privileges are required in both cases. By default, Gleam is installed as a **shared library**. This enforces a clean API boundary and hides internal symbols using platform-specific visibility controls.
+The script uses the `install-release` preset on Unix. On MSVC, both `install-debug` and `install-release` are installed due to ABI differences. Elevated privileges are required in both cases. By default, GL3X is installed as a **shared library**. This enforces a clean API boundary and hides internal symbols using platform-specific visibility controls.
 
 #### CMake Integration
 
 ```cmake
-find_package(gleam REQUIRED)
-target_link_libraries(MyApp PRIVATE gleam::gleam)
+find_package(gl3x REQUIRED)
+target_link_libraries(MyApp PRIVATE gl3x::gl3x)
 ```
 
 CMake automatically selects the correct configuration (Debug/Release) based on your project settings.
 
 #### Platform Notes
 
-- Gleam disables RTTI by default. You can match this in your project:
+- GL3X disables RTTI by default. You can match this in your project:
   ```cmake
   target_compile_options(MyApp PRIVATE
     $<$<CXX_COMPILER_ID:GNU>:-fno-rtti>
@@ -139,12 +139,12 @@ CMake automatically selects the correct configuration (Debug/Release) based on y
     $<$<CXX_COMPILER_ID:MSVC>:/GR->
   )
   ```
-- On MSVC: You may need to copy the Gleam DLL next to your executable. Automate this with:
+- On MSVC: You may need to copy the GL3X DLL next to your executable. Automate this with:
   ```cmake
   if(WIN32)
     add_custom_command(TARGET MyApp POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy_if_different
-      $<TARGET_FILE:gleam::gleam>
+      $<TARGET_FILE:gl3x::gl3x>
       $<TARGET_FILE_DIR:MyApp>
     )
   endif()
@@ -152,7 +152,7 @@ CMake automatically selects the correct configuration (Debug/Release) based on y
 
 ## Asset Generation Pipeline
 
-Gleam does not parse raw assets at runtime. Instead, assets are preprocessed using asset_builder, a command-line tool built with `GLEAM_BUILD_TOOLS`. It converts raw asset formats into compact, runtime-ready formats.
+GL3X does not parse raw assets at runtime. Instead, assets are preprocessed using asset_builder, a command-line tool built with `GL3X_BUILD_TOOLS`. It converts raw asset formats into compact, runtime-ready formats.
 
 #### Supported Formats
 
@@ -170,7 +170,7 @@ asset_builder --input texture.png --output texture.tex
 
 #### Building `asset_builder`
 
-`asset_builder` is built by default with any CMake preset. If installed with Gleam, it will be available on the system `PATH` by default on Unix systems. On Windows, you may need to add it manually, for example: `$env:PATH += ";C:\path\to\gleam\bin"` in PowerShell.
+`asset_builder` is built by default with any CMake preset. If installed with GL3X, it will be available on the system `PATH` by default on Unix systems. On Windows, you may need to add it manually, for example: `$env:PATH += ";C:\path\to\gl3x\bin"` in PowerShell.
 
 ## License
 ```
