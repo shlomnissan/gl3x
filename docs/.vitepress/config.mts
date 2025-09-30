@@ -21,7 +21,6 @@ export default defineConfig({
       dark: '/logo-dark.svg'
     },
     nav: [
-      { text: 'Guide', link: '/guide/', activeMatch: '^/guide/' },
       { text: 'Reference', link: '/reference/core/application', activeMatch: '^/reference/' }
     ],
     sidebar: {
