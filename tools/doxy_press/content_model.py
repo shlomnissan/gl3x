@@ -55,6 +55,21 @@ class FunctionDoc:
     details: List[DocParagraph] = field(default_factory=list)
 
 @dataclass(slots=True)
+class EnumValueDoc:
+    name: str
+    brief: List[DocParagraph] = field(default_factory=list)
+
+@dataclass(slots=True)
+class EnumDoc:
+    id: str
+    name: str
+    display: str
+    scoped: bool
+    brief: List[DocParagraph] = field(default_factory=list)
+    details: List[DocParagraph] = field(default_factory=list)
+    values: List[EnumValueDoc] = field(default_factory=list)
+
+@dataclass(slots=True)
 class ClassDoc:
     id: str
     name: str
@@ -64,3 +79,4 @@ class ClassDoc:
     variables: List[VarDoc] = field(default_factory=list)
     functions: List[FunctionDoc] = field(default_factory=list)
     constructors: List[FunctionDoc] = field(default_factory=list)
+    enums: List[EnumDoc] = field(default_factory=list)

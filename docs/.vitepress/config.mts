@@ -21,7 +21,6 @@ export default defineConfig({
       dark: '/logo-dark.svg'
     },
     nav: [
-      { text: 'Reference', link: '/reference/core/application', activeMatch: '^/reference/' }
     ],
     sidebar: {
       '/guide/': [
@@ -40,7 +39,7 @@ export default defineConfig({
       copyright: `Copyright © 2024–${year}`
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/shlomnissan/gleam' }
+      { icon: 'github', link: 'https://github.com/shlomnissan/gl3x' }
     ]
   }
 })

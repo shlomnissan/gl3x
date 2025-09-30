@@ -11,7 +11,7 @@ hero:
       link: /reference/core/application
     - theme: alt
       text: GitHub
-      link: https://github.com/shlomnissan/gleam
+      link: https://github.com/shlomnissan/gl3x
 
 features:
   - title: Clean and Modern API

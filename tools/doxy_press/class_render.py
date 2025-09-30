@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from html import escape
 from typing import List
-from .content_model import ClassDoc, VarDoc, FunctionDoc, DocParagraph, TypeRef
+from .content_model import ClassDoc, EnumDoc, VarDoc, FunctionDoc, DocParagraph, TypeRef
 
 def _para(s: str) -> str: return s.strip()
 
@@ -39,7 +39,7 @@ def _render_property(prop: VarDoc):
     )
 
     return (
-        f'<div class="property">\n'
+        f'<div class="docblock">\n'
         f'  <div class="definition">\n\n'
         f'  ### <span class="name">{name_html}</span> <span class="type">{type_html}</span>\n'
         f'{code_block}'
@@ -49,6 +49,31 @@ def _render_property(prop: VarDoc):
         f'  </div>\n'
         f'</div>'
     )
+
+def _render_enum(enum: EnumDoc):
+    if len(enum.values) == 0: return
+
+    enum_values = f'|Value|Description|\n'
+    enum_values += f'|---|---|\n'
+    for value in enum.values:
+        brief = _inline_md_to_html(_join_paragraphs(value.brief)) if value.brief else ""
+        enum_values += f'| <span class="type">{value.name}</span> | {brief}\n'
+
+    brief = _inline_md_to_html(_join_paragraphs(enum.brief)) if enum.brief else ""
+    scoped = '<Badge type="info" text="scoped" />' if enum.scoped else ""
+
+    return (
+        f'<div class="docblock">\n'
+        f'  <div class="definition">\n\n'
+        f'### <span class="name">{enum.display}</span> {scoped}\n'
+        f'  </div>\n'
+        f'  <div class="description">\n'
+        f'    {brief}\n\n'
+        f'{enum_values}\n'
+        f'  </div>\n'
+        f'</div>\n\n'
+    )
+
 
 def _render_function(func: FunctionDoc):
     name_str = func.name
@@ -62,11 +87,11 @@ def _render_function(func: FunctionDoc):
         for param in func.params:
             pname = param.name
             pdesc = param.desc
-            params_list += f'<li><span class="param-name">{pname}</span> {pdesc}</li>\n'
+            params_list += f'<li><span class="name">{pname}</span> {pdesc}</li>\n'
         params_list += f'</ul>\n'
 
     return (
-        f'<div class="function">\n'
+        f'<div class="docblock">\n'
         f'  <div class="definition">\n\n'
         f'### <span class="name">{name_str}()</span> <span class="type">{ret}</span>\n\n'
         f'  </div>\n\n'
@@ -96,6 +121,12 @@ def render_class(doc: ClassDoc) -> str:
         lines += ["## Constructors", ""]
         for c in doc.constructors:
             lines.append(_render_function(c))
+        lines.append("")
+
+    if doc.enums:
+        lines += ["## Enumerations"]
+        for e in doc.enums:
+            lines.append(_render_enum(e))
         lines.append("")
 
     if doc.variables:

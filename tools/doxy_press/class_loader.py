@@ -5,6 +5,8 @@ from typing import Dict
 from .doxygen_markdown import element_text, render_description, collect_inlines
 from .content_model import (
     ClassDoc,
+    EnumDoc,
+    EnumValueDoc,
     VarDoc,
     FunctionDoc,
     TypeRef,
@@ -65,6 +67,30 @@ def _parse_variable(m: ET.Element) -> VarDoc:
         type=_parse_type(m.find("type")),
         initializer=_initializer_display(m.find("initializer")),
         brief=render_description(m.find("briefdescription")),
+    )
+
+def _parse_enum_value(m: ET.Element) -> EnumValueDoc:
+    return EnumValueDoc(
+        name=element_text(m.find("name")).strip(),
+        brief=render_description(m.find("briefdescription")),
+    )
+
+def _parse_enum(m: ET.Element) -> EnumDoc:
+    name = element_text(m.find("name")).strip()
+    display = name.split("::")[-1] if "::" in name else name
+
+    values = []
+    for v in m.findall("enumvalue"):
+        values.append(_parse_enum_value(v))
+
+    return EnumDoc(
+        id=m.get("id",""),
+        name=name,
+        display=display,
+        scoped=_bool_attr(m, "scoped") or _bool_attr(m, "strong"),
+        brief=render_description(m.find("briefdescription")),
+        details=render_description(m.find("detaileddescription")),
+        values=values,
     )
 
 def _is_ctor(m: ET.Element, cname: str) -> bool:
@@ -190,7 +216,7 @@ def build_class_doc(refid: str, xml_dir: str | Path) -> ClassDoc:
                     if _is_user_func(m):
                         doc.functions.append(_parse_function(m))
 
-            # if kind == "typedef":
-            # if kind == "enum":
+            if kind == "enum":
+                doc.enums.append(_parse_enum(m))
 
     return doc
