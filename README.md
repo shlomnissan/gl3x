@@ -1,5 +1,5 @@
 # GL3X
-A fast real-time 3D rendering engine built with modern C++.
+A fast cross-platform 3D rendering engine for modern C++.
 
 ![ubuntu-badge](https://github.com/shlomnissan/gl3x/actions/workflows/ubuntu.yml/badge.svg)
 ![windows-badge](https://github.com/shlomnissan/gl3x/actions/workflows/windows.yml/badge.svg)
@@ -174,17 +174,15 @@ asset_builder --input texture.png --output texture.tex
 
 ## License
 ```
-      ___           ___       ___           ___           ___
-     /\  \         /\__\     /\  \         /\  \         /\__\
-    /::\  \       /:/  /    /::\  \       /::\  \       /::|  |
-   /:/\:\  \     /:/  /    /:/\:\  \     /:/\:\  \     /:|:|  |
-  /:/  \:\  \   /:/  /    /::\~\:\  \   /::\~\:\  \   /:/|:|__|__
- /:/__/_\:\__\ /:/__/    /:/\:\ \:\__\ /:/\:\ \:\__\ /:/ |::::\__\
- \:\  /\ \/__/ \:\  \    \:\~\:\ \/__/ \/__\:\/:/  / \/__/~~/:/  /
-  \:\ \:\__\    \:\  \    \:\ \:\__\        \::/  /        /:/  /
-   \:\/:/  /     \:\  \    \:\ \/__/        /:/  /        /:/  /
-    \::/  /       \:\__\    \:\__\         /:/  /        /:/  /
-     \/__/         \/__/     \/__/         \/__/         \/__/
+ ________  ___      ________     ___    ___ 
+|\   ____\|\  \    |\_____  \   |\  \  /  /|
+\ \  \___|\ \  \   \|____|\ /_  \ \  \/  / /
+ \ \  \  __\ \  \        \|\  \  \ \    / / 
+  \ \  \|\  \ \  \____  __\_\  \  /     \/  
+   \ \_______\ \_______\\_______\/  /\   \  
+    \|_______|\|_______\|_______/__/ /\ __\ 
+                                |__|/ \|__|
+                                   
 
 Copyright (c) 2024–present Shlomi Nissan
 
