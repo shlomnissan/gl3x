@@ -9,24 +9,32 @@
 :root {
   --vp-font-family-heading: 'logo', sans-serif;
   --vp-home-hero-name-color: var(--vp-c-text-1);
+  --vp-c-brand-1: #3F50D4; /* used in text highlights, links */
+  --vp-c-brand-2: #3F50D4; /* hover: slightly darker for contrast */
+  --vp-c-brand-3: #4C5FFF; /* button background / main brand */
+}
+
+:root.dark {
+  --vp-c-brand-1: #7685FF; /* lighter for links/highlights */
+  --vp-c-brand-2: #5C6FFF; /* slightly darker hover */
+  --vp-c-brand-3: #4C5FFF; /* keep consistent button background */
 }
 
 .VPHomeHero .name::before {
   content: "";
   display: inline-block;
   width: 1.55em;
-  height: 1.4em;
+  height: 1.2em;
   background: url('/logo_hero.svg') no-repeat center / contain;
   vertical-align: middle;
-  margin-right: 0.15em;
   margin-bottom: 0.15em;
+  margin-left: -0.7rem;
 }
 
 .VPNavBarTitle {
   .title {
     font-family: var(--vp-font-family-heading);
-    font-size: 1.2rem;
-    letter-spacing: 0.04rem;
+    font-size: 1.35rem;
     font-weight: 800;
 
     span {
@@ -39,19 +47,15 @@
   .name {
     color: var(--vp-c-text-1);
     font-family: var(--vp-font-family-heading);
-    letter-spacing: 0.1rem;
     font-weight: 800;
-  }
-
-  .text {
-    font-size: 2.5rem;
+    font-size: 4rem;
 
     @media (max-width: 960px) {
-      font-size: 2rem;
+      font-size: 3.5rem;
     }
 
     @media (max-width: 640px) {
-      font-size: 1.5rem;
+      font-size: 2.8rem;
     }
   }
 }
