@@ -68,6 +68,22 @@
   }
 }
 
+.vp-doc table {
+  display: table;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 0px;
+}
+
+.vp-doc .table-wrapper {
+  margin-left: calc(-1 * var(--vp-layout-max-width) / 2 + 50%);
+  margin-right: calc(-1 * var(--vp-layout-max-width) / 2 + 50%);
+}
+
+.docblock {
+    margin-bottom: 24px;
+}
+
 .docblock .definition {
   font-family: var(--vp-font-family-mono);
   font-weight: 500;
@@ -77,6 +93,7 @@
 .docblock .definition h3 {
   font-size: var(--vp-font-size-base);
   font-weight: 500;
+  margin-top: 0px;
 }
 
 .docblock .definition h3 .name {
