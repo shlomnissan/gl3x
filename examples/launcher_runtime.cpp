@@ -11,7 +11,7 @@
 
 #include "examples.hpp"
 
-using namespace gleam;
+using namespace gl3x;
 
 class ExamplesApp : public Application {
 public:

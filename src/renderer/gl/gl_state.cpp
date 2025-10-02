@@ -9,7 +9,7 @@
 
 #include <glad/glad.h>
 
-namespace gleam {
+namespace gl3x {
 
 auto GLState::ProcessMaterial(const Material* material) -> void {
     SetBackfaceCulling(!material->two_sided);

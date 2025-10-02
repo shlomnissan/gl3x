@@ -13,7 +13,7 @@
 #include "gl3x/math/utilities.hpp"
 #include "gl3x/math/vector3.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief A plane defined by a normal vector and a distance from the origin.

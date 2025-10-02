@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-using namespace gleam;
+using namespace gl3x;
 
 auto main() -> int {
     auto window = Window {{
@@ -39,7 +39,7 @@ auto main() -> int {
     }
 
     auto camera = PerspectiveCamera::Create({
-        .fov = gleam::math::DegToRad(60.0f),
+        .fov = gl3x::math::DegToRad(60.0f),
         .aspect = window.AspectRatio(),
         .near = 0.1f,
         .far = 1000.0f

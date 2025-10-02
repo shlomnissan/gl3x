@@ -14,7 +14,7 @@
 
 #include <array>
 
-using namespace gleam;
+using namespace gl3x;
 
 namespace {
 

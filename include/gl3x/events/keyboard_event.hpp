@@ -11,7 +11,7 @@
 
 #include "gl3x/events/event.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 enum class Key;
 
@@ -23,11 +23,11 @@ enum class Key;
  * contains both the key involved and the type of interaction.
  *
  * @code
- * class MyNode : public gleam::Node {
+ * class MyNode : public gl3x::Node {
  * public:
- *   auto OnKeyboardEvent(gleam::KeyboardEvent* event) -> void override {
- *     if (event->type == gleam::KeyboardEvent::Type::Pressed) {
- *       if (event->key == gleam::Key::Sapce) {
+ *   auto OnKeyboardEvent(gl3x::KeyboardEvent* event) -> void override {
+ *     if (event->type == gl3x::KeyboardEvent::Type::Pressed) {
+ *       if (event->key == gl3x::Key::Sapce) {
  *         Jump();
  *         event->handled = true; // stop propagation
  *       }

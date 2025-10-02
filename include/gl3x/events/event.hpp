@@ -9,7 +9,7 @@
 
 #include "gl3x_export.h"
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents available event types.
@@ -39,8 +39,8 @@ struct GL3X_EXPORT Event {
      * to `true` if no other node should respond to the event.
      *
      * @code
-     * auto OnKeyboardEvent(gleam::KeyboardEvent* event) -> void override {
-     *   if (event->key == gleam::Key::Escape) {
+     * auto OnKeyboardEvent(gl3x::KeyboardEvent* event) -> void override {
+     *   if (event->key == gl3x::Key::Escape) {
      *     QuitApplication();
      *     event->handled = true; // Stop further propagation
      *   }

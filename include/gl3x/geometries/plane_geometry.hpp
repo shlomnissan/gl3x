@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Generates a flat 2D plane geometry assignable to any mesh.
@@ -23,14 +23,14 @@ namespace gleam {
  * and height segmentation for effects like displacement or tesselation.
  *
  * @code
- * auto geometry = gleam::PlaneGeometry::Create({
+ * auto geometry = gl3x::PlaneGeometry::Create({
  *     .width = 5.0f,
  *     .height = 3.0f,
  *     .width_segments = 2,
  *     .height_segments = 2
  * });
  *
- * auto mesh = gleam::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
+ * auto mesh = gl3x::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
  * my_scene->Add(mesh);
  * @endcode
  *

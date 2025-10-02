@@ -12,7 +12,7 @@
 #include "gl3x/materials/unlit_material.hpp"
 #include "gl3x/nodes/mesh.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 Arrow::Arrow(const Parameters& params) {
     const auto material = UnlitMaterial::Create(params.color);

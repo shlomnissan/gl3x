@@ -12,7 +12,7 @@
 #include "gl3x/math/matrix4.hpp"
 #include "gl3x/math/utilities.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents 3D Euler angles with pitch, yaw, and roll components.

@@ -12,7 +12,7 @@
 
 #include <cmath>
 
-using namespace gleam;
+using namespace gl3x;
 
 ExampleAnimatedTransform::ExampleAnimatedTransform() {
     show_context_menu_ = false;

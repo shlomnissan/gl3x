@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents a light that gets emitted in all directions equally.
@@ -21,7 +21,7 @@ namespace gleam {
  * This light cannot be used to cast shadows as it does not have a direction.
  *
  * @code
- * auto ambient_light = gleam::AmbientLight::Create({
+ * auto ambient_light = gl3x::AmbientLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 0.3f
  * });

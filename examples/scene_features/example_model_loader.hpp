@@ -24,9 +24,9 @@ public:
     auto OnUpdate(float delta) -> void override;
 
 private:
-    std::shared_ptr<gleam::Mesh> sphere_;
-    std::shared_ptr<gleam::Node> model_;
-    std::shared_ptr<gleam::Texture2D> alpha_map_;
+    std::shared_ptr<gl3x::Mesh> sphere_;
+    std::shared_ptr<gl3x::Node> model_;
+    std::shared_ptr<gl3x::Texture2D> alpha_map_;
 
     bool is_alpha_set {false};
 };

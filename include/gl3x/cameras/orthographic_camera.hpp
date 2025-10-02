@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents a camera that uses orthographic projection.
@@ -26,12 +26,12 @@ namespace gleam {
  * transformations from their parent objects, only one camera can be active at
  * a time. The active camera is managed by the application’s runtime object:
  * @code
- * class MyApp : public gleam::Application {
+ * class MyApp : public gl3x::Application {
  * public:
  *   auto Configure() -> void override {}
  *
  *   auto Setup() -> void override {
- *     SetCamera(gleam::OrthographicCamera::Create({
+ *     SetCamera(gl3x::OrthographicCamera::Create({
  *       .left = 0.0f,
  *       .right = 1024.0f,
  *       .top = 0.0f,

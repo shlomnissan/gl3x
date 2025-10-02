@@ -12,7 +12,7 @@
 #include <gl3x/materials.hpp>
 #include <gl3x/math.hpp>
 
-using namespace gleam;
+using namespace gl3x;
 
 namespace {
 

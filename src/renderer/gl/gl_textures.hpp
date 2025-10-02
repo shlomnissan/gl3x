@@ -17,7 +17,7 @@
 
 #include <glad/glad.h>
 
-namespace gleam {
+namespace gl3x {
 
 enum class GLTextureMapType {
     AlbedoMap = 0,

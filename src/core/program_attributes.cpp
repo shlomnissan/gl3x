@@ -19,7 +19,7 @@
 
 #include <cassert>
 
-namespace gleam {
+namespace gl3x {
 
 ProgramAttributes::ProgramAttributes(
     Renderable* renderable,

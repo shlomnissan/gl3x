@@ -16,7 +16,7 @@
 #include <string>
 #include <thread>
 
-namespace gleam {
+namespace gl3x {
 
 namespace fs = std::filesystem;
 

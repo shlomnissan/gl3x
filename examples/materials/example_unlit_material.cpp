@@ -15,7 +15,7 @@
 
 #include <print>
 
-using namespace gleam;
+using namespace gl3x;
 
 ExampleUnlitMaterial::ExampleUnlitMaterial() {
     auto geometry = BoxGeometry::Create();

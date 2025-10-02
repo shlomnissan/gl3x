@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Visual primitive representing a finite reference grid on the XZ plane.
@@ -27,7 +27,7 @@ namespace gleam {
  * Grid lines are evenly spaced based on the provided size and division count.
  *
  * @code
- * auto grid = gleam::Grid::Create({
+ * auto grid = gl3x::Grid::Create({
  *     .size = 4.0f,
  *     .divisions = 16,
  *     .color = 0x333333

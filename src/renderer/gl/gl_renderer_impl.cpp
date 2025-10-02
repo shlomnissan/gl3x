@@ -22,7 +22,7 @@
 
 #include <glad/glad.h>
 
-namespace gleam {
+namespace gl3x {
 
 Renderer::Impl::Impl(const Renderer::Parameters& params)
   : params_(params),

@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents a light that emits in a specific direction with a
@@ -25,10 +25,10 @@ namespace gleam {
  * illumination is limited to a defined region and falls off outside of it.
  *
  * @code
- * auto spot_light = gleam::SpotLight::Create({
+ * auto spot_light = gl3x::SpotLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 1.0f,
- *   .angle = gleam::math::DegToRad(10.0f),
+ *   .angle = gl3x::math::DegToRad(10.0f),
  *   .penumbra = 0.3f,
  *   .target = nullptr,
  *   .attenuation = {

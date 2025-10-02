@@ -7,7 +7,7 @@
 
 #include "gl3x/cameras/orthographic_camera.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 namespace {
 

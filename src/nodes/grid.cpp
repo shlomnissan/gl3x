@@ -12,7 +12,7 @@
 
 #include <vector>
 
-namespace gleam {
+namespace gl3x {
 
 Grid::Grid(const Parameters& params) {
     const auto center = params.divisions / 2;

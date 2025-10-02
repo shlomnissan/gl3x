@@ -11,7 +11,7 @@
 
 #include <print>
 
-using namespace gleam;
+using namespace gl3x;
 
 ExampleSprite::ExampleSprite() {
     show_context_menu_ = false;

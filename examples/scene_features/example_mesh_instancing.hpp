@@ -21,5 +21,5 @@ public:
     auto OnUpdate(float delta) -> void override;
 
 private:
-    std::shared_ptr<gleam::InstancedMesh> boxes_ {};
+    std::shared_ptr<gl3x::InstancedMesh> boxes_ {};
 };

@@ -26,7 +26,7 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<gleam::UnlitMaterial> material_;
-    std::shared_ptr<gleam::Mesh> mesh_;
-    std::shared_ptr<gleam::Texture2D> texture_;
+    std::shared_ptr<gl3x::UnlitMaterial> material_;
+    std::shared_ptr<gl3x::Mesh> mesh_;
+    std::shared_ptr<gl3x::Texture2D> texture_;
 };

@@ -16,7 +16,7 @@
 #include <optional>
 #include <string>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents available material types.

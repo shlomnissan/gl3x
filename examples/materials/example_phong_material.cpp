@@ -16,7 +16,7 @@
 
 #include <print>
 
-using namespace gleam;
+using namespace gl3x;
 
 ExamplePhongMaterial::ExamplePhongMaterial() {
     auto geometry = BoxGeometry::Create();

@@ -13,7 +13,7 @@
 #include <cassert>
 #include <span>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents an RGB color with floating-point components.

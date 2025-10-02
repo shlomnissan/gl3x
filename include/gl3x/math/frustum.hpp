@@ -17,7 +17,7 @@
 #include <algorithm>
 #include <array>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents a view frustum defined by six clipping planes.

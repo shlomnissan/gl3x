@@ -11,7 +11,7 @@
 
 #include <vector>
 
-namespace gleam {
+namespace gl3x {
 
 auto GLPrograms::GetProgram(const ProgramAttributes& attrs) -> GLProgram* {
     const auto& key = attrs.key;

@@ -16,7 +16,7 @@
 #include <memory>
 #include <string>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Forward renderer for drawing a scene from a given camera.
@@ -27,7 +27,7 @@ namespace gleam {
  *
  * Typical usage:
  * @code
- * gleam::Renderer renderer({
+ * gl3x::Renderer renderer({
  *   .framebuffer_width = window.FramebufferWidth(),
  *   .framebuffer_height = window.FramebufferHeight(),
  *   .clear_color = 0x444444

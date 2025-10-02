@@ -15,7 +15,7 @@
 #include <queue>
 #include <ranges>
 
-namespace gleam {
+namespace gl3x {
 
 struct Node::Impl {
     std::vector<std::shared_ptr<Node>> children;

@@ -13,7 +13,7 @@
 
 class PlaneGeometryTest : public ::testing::Test {
 protected:
-    gleam::PlaneGeometry plane_ {{
+    gl3x::PlaneGeometry plane_ {{
         .width = 1.0f,
         .height = 1.0f,
         .width_segments = 2,
@@ -48,7 +48,7 @@ TEST_F(PlaneGeometryTest, ConstructorInitializesName) {
 #pragma region Attributes
 
 TEST_F(PlaneGeometryTest, AttributesConfiguredCorrectly) {
-    using enum gleam::VertexAttributeType;
+    using enum gl3x::VertexAttributeType;
 
     const auto& attrs = plane_.Attributes();
 
@@ -66,19 +66,19 @@ TEST_F(PlaneGeometryTest, AttributesConfiguredCorrectly) {
 
 TEST(PlaneGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        gleam::PlaneGeometry({.width = 0.0f});
+        gl3x::PlaneGeometry({.width = 0.0f});
     }, ".*params.width > 0");
 
     EXPECT_DEATH({
-        gleam::PlaneGeometry({.height = 0.0f});
+        gl3x::PlaneGeometry({.height = 0.0f});
     }, ".*params.height > 0");
 
     EXPECT_DEATH({
-        gleam::PlaneGeometry({.width_segments = 0});
+        gl3x::PlaneGeometry({.width_segments = 0});
     }, ".*params.width_segments > 0");
 
     EXPECT_DEATH({
-        gleam::PlaneGeometry({ .height_segments = 0});
+        gl3x::PlaneGeometry({ .height_segments = 0});
     }, ".*params.height_segments > 0");
 }
 

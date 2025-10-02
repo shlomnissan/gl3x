@@ -11,7 +11,7 @@
 #include "gl3x/math/sphere.hpp"
 #include "gl3x/nodes/instanced_mesh.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 struct InstancedMesh::Impl {
     Box3 bounding_box {};

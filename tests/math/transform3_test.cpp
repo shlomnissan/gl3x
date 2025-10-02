@@ -14,7 +14,7 @@
 #pragma region Mutators
 
 TEST(Transform3, SetPosition) {
-    auto t1 = gleam::Transform3 {};
+    auto t1 = gl3x::Transform3 {};
     t1.SetPosition({2.0f, 1.0f, 3.0f});
 
     EXPECT_VEC3_EQ(t1.position, {2.0f, 1.0f, 3.0f});
@@ -26,7 +26,7 @@ TEST(Transform3, SetPosition) {
     });
 
     constexpr auto t2 = []() {
-        auto t = gleam::Transform3 {};
+        auto t = gl3x::Transform3 {};
         t.SetPosition({2.0f, 1.0f, 3.0f});
         return t;
     }();
@@ -37,7 +37,7 @@ TEST(Transform3, SetPosition) {
 }
 
 TEST(Transform3, SetScale) {
-    auto t1 = gleam::Transform3 {};
+    auto t1 = gl3x::Transform3 {};
     t1.SetScale({2.0f, 1.0f, 3.0f});
 
     EXPECT_VEC3_EQ(t1.scale, {2.0f, 1.0f, 3.0f});
@@ -49,7 +49,7 @@ TEST(Transform3, SetScale) {
     });
 
     constexpr auto t2 = []() {
-        auto t = gleam::Transform3 {};
+        auto t = gl3x::Transform3 {};
         t.SetScale({2.0f, 1.0f, 3.0f});
         return t;
     }();
@@ -60,21 +60,21 @@ TEST(Transform3, SetScale) {
 }
 
 TEST(Transform3, SetRotation) {
-    auto t1 = gleam::Transform3 {};
-    auto p = gleam::math::pi_over_2;
-    t1.SetRotation(gleam::Euler {p + 0.1f, p + 0.2f, p + 0.3f});
+    auto t1 = gl3x::Transform3 {};
+    auto p = gl3x::math::pi_over_2;
+    t1.SetRotation(gl3x::Euler {p + 0.1f, p + 0.2f, p + 0.3f});
 
     const auto rotation = t1.rotation;
     EXPECT_NEAR(rotation.pitch, p + 0.1f, 0.0001f);
     EXPECT_NEAR(rotation.yaw, p + 0.2f, 0.0001f);
     EXPECT_NEAR(rotation.roll, p + 0.3f, 0.0001f);
 
-    const auto cos_p = gleam::math::Cos(rotation.pitch);
-    const auto sin_p = gleam::math::Sin(rotation.pitch);
-    const auto cos_y = gleam::math::Cos(rotation.yaw);
-    const auto sin_y = gleam::math::Sin(rotation.yaw);
-    const auto cos_r = gleam::math::Cos(rotation.roll);
-    const auto sin_r = gleam::math::Sin(rotation.roll);
+    const auto cos_p = gl3x::math::Cos(rotation.pitch);
+    const auto sin_p = gl3x::math::Sin(rotation.pitch);
+    const auto cos_y = gl3x::math::Cos(rotation.yaw);
+    const auto sin_y = gl3x::math::Sin(rotation.yaw);
+    const auto cos_r = gl3x::math::Cos(rotation.roll);
+    const auto sin_r = gl3x::math::Sin(rotation.roll);
 
     EXPECT_MAT4_EQ(t1.Get(), {
         cos_r * cos_y - sin_r * sin_p * sin_y, -sin_r * cos_p, cos_r * sin_y + sin_r * sin_p * cos_y, 0.0f,
@@ -84,32 +84,32 @@ TEST(Transform3, SetRotation) {
     });
 
     constexpr auto t2 = []() {
-        auto t = gleam::Transform3 {};
-        auto p = gleam::math::pi_over_2;
-        t.SetRotation(gleam::Euler {p + 0.1f, p + 0.2f, p + 0.3f});
+        auto t = gl3x::Transform3 {};
+        auto p = gl3x::math::pi_over_2;
+        t.SetRotation(gl3x::Euler {p + 0.1f, p + 0.2f, p + 0.3f});
         return t;
     }();
 }
 
 TEST(Transform3, MultipleTransformations) {
-    auto t = gleam::Transform3 {};
+    auto t = gl3x::Transform3 {};
     t.SetPosition({2.0f, 1.0f, 3.0f});
     t.SetScale({2.0f, 1.0f, 3.0f});
-    t.SetRotation(gleam::Euler {
-        gleam::math::pi_over_2 + 0.1f,
-        gleam::math::pi_over_2 + 0.2f,
-        gleam::math::pi_over_2 + 0.3f
+    t.SetRotation(gl3x::Euler {
+        gl3x::math::pi_over_2 + 0.1f,
+        gl3x::math::pi_over_2 + 0.2f,
+        gl3x::math::pi_over_2 + 0.3f
     });
 
     const auto& rotation = t.rotation;
     const auto& position = t.position;
     const auto& scale = t.scale;
-    const auto cos_p = gleam::math::Cos(rotation.pitch);
-    const auto sin_p = gleam::math::Sin(rotation.pitch);
-    const auto cos_y = gleam::math::Cos(rotation.yaw);
-    const auto sin_y = gleam::math::Sin(rotation.yaw);
-    const auto cos_r = gleam::math::Cos(rotation.roll);
-    const auto sin_r = gleam::math::Sin(rotation.roll);
+    const auto cos_p = gl3x::math::Cos(rotation.pitch);
+    const auto sin_p = gl3x::math::Sin(rotation.pitch);
+    const auto cos_y = gl3x::math::Cos(rotation.yaw);
+    const auto sin_y = gl3x::math::Sin(rotation.yaw);
+    const auto cos_r = gl3x::math::Cos(rotation.roll);
+    const auto sin_r = gl3x::math::Sin(rotation.roll);
 
     EXPECT_MAT4_EQ(t.Get(), {
         scale.x * (cos_r * cos_y - sin_r * sin_p * sin_y),
@@ -136,7 +136,7 @@ TEST(Transform3, MultipleTransformations) {
 #pragma region Cumulative Transformations
 
 TEST(Transform3, Translate) {
-    auto t1 = gleam::Transform3 {};
+    auto t1 = gl3x::Transform3 {};
     t1.Translate({2.0f, 1.0f, 3.0f});
     t1.Translate({1.0f, 1.0f, 0.0f});
 
@@ -149,7 +149,7 @@ TEST(Transform3, Translate) {
     });
 
     constexpr auto t2 = []() {
-        auto t = gleam::Transform3 {};
+        auto t = gl3x::Transform3 {};
         t.Translate({2.0f, 1.0f, 3.0f});
         t.Translate({1.0f, 1.0f, 0.0f});
         return t;
@@ -161,7 +161,7 @@ TEST(Transform3, Translate) {
 }
 
 TEST(Transform3, Scale) {
-    auto t1 = gleam::Transform3 {};
+    auto t1 = gl3x::Transform3 {};
     t1.Scale({2.0f, 2.0f, 2.0f});
     t1.Scale({3.0f, 3.0f, 2.0f});
 
@@ -174,7 +174,7 @@ TEST(Transform3, Scale) {
     });
 
     constexpr auto t2 = []() {
-        auto t = gleam::Transform3 {};
+        auto t = gl3x::Transform3 {};
             t.Scale({2.0f, 2.0f, 2.0f});
             t.Scale({3.0f, 3.0f, 2.0f});
         return t;
@@ -186,12 +186,12 @@ TEST(Transform3, Scale) {
 }
 
 TEST(Transform3, RotateX) {
-    auto t = gleam::Transform3 {};
-    t.Rotate(gleam::Vector3::Right(), gleam::math::pi_over_2);
-    t.Rotate(gleam::Vector3::Right(), 0.1f);
+    auto t = gl3x::Transform3 {};
+    t.Rotate(gl3x::Vector3::Right(), gl3x::math::pi_over_2);
+    t.Rotate(gl3x::Vector3::Right(), 0.1f);
 
-    constexpr auto c = gleam::math::Cos(gleam::math::pi_over_2 + 0.1f);
-    constexpr auto s = gleam::math::Sin(gleam::math::pi_over_2 + 0.1f);
+    constexpr auto c = gl3x::math::Cos(gl3x::math::pi_over_2 + 0.1f);
+    constexpr auto s = gl3x::math::Sin(gl3x::math::pi_over_2 + 0.1f);
 
     EXPECT_MAT4_EQ(t.Get(), {
         1.0f, 0.0f, 0.0f, 0.0f,
@@ -201,9 +201,9 @@ TEST(Transform3, RotateX) {
     });
 
     constexpr auto m = []() {
-        auto t = gleam::Transform3 {};
-        t.Rotate(gleam::Vector3::Right(), gleam::math::pi_over_2);
-        t.Rotate(gleam::Vector3::Right(), 0.1f);
+        auto t = gl3x::Transform3 {};
+        t.Rotate(gl3x::Vector3::Right(), gl3x::math::pi_over_2);
+        t.Rotate(gl3x::Vector3::Right(), 0.1f);
         return t.Get();
     }();
 
@@ -214,12 +214,12 @@ TEST(Transform3, RotateX) {
 }
 
 TEST(Transform3, RotateY) {
-    auto t = gleam::Transform3 {};
-    t.Rotate(gleam::Vector3::Up(), gleam::math::pi_over_2);
-    t.Rotate(gleam::Vector3::Up(), 0.1f);
+    auto t = gl3x::Transform3 {};
+    t.Rotate(gl3x::Vector3::Up(), gl3x::math::pi_over_2);
+    t.Rotate(gl3x::Vector3::Up(), 0.1f);
 
-    constexpr auto c = gleam::math::Cos(gleam::math::pi_over_2 + 0.1f);
-    constexpr auto s = gleam::math::Sin(gleam::math::pi_over_2 + 0.1f);
+    constexpr auto c = gl3x::math::Cos(gl3x::math::pi_over_2 + 0.1f);
+    constexpr auto s = gl3x::math::Sin(gl3x::math::pi_over_2 + 0.1f);
 
     EXPECT_MAT4_EQ(t.Get(), {
         c, 0.0f, s, 0.0f,
@@ -229,9 +229,9 @@ TEST(Transform3, RotateY) {
     });
 
     constexpr auto m = []() {
-        auto t = gleam::Transform3 {};
-        t.Rotate(gleam::Vector3::Up(), gleam::math::pi_over_2);
-        t.Rotate(gleam::Vector3::Up(), 0.1f);
+        auto t = gl3x::Transform3 {};
+        t.Rotate(gl3x::Vector3::Up(), gl3x::math::pi_over_2);
+        t.Rotate(gl3x::Vector3::Up(), 0.1f);
         return t.Get();
     }();
 
@@ -242,12 +242,12 @@ TEST(Transform3, RotateY) {
 }
 
 TEST(Transform3, RotateZ) {
-    auto t = gleam::Transform3 {};
-    t.Rotate(gleam::Vector3::Forward(), gleam::math::pi_over_2);
-    t.Rotate(gleam::Vector3::Forward(), 0.1f);
+    auto t = gl3x::Transform3 {};
+    t.Rotate(gl3x::Vector3::Forward(), gl3x::math::pi_over_2);
+    t.Rotate(gl3x::Vector3::Forward(), 0.1f);
 
-    constexpr auto c = gleam::math::Cos(gleam::math::pi_over_2 + 0.1f);
-    constexpr auto s = gleam::math::Sin(gleam::math::pi_over_2 + 0.1f);
+    constexpr auto c = gl3x::math::Cos(gl3x::math::pi_over_2 + 0.1f);
+    constexpr auto s = gl3x::math::Sin(gl3x::math::pi_over_2 + 0.1f);
 
     EXPECT_MAT4_EQ(t.Get(), {
         c, -s, 0.0f, 0.0f,
@@ -257,9 +257,9 @@ TEST(Transform3, RotateZ) {
     });
 
     constexpr auto m = []() {
-        auto t = gleam::Transform3 {};
-        t.Rotate(gleam::Vector3::Forward(), gleam::math::pi_over_2);
-        t.Rotate(gleam::Vector3::Forward(), 0.1f);
+        auto t = gl3x::Transform3 {};
+        t.Rotate(gl3x::Vector3::Forward(), gl3x::math::pi_over_2);
+        t.Rotate(gl3x::Vector3::Forward(), 0.1f);
         return t.Get();
     }();
 
@@ -274,9 +274,9 @@ TEST(Transform3, RotateZ) {
 #pragma region Local-Space Translation
 
 TEST(Transform3, TranslateBeforeRotation) {
-    auto t = gleam::Transform3 {};
+    auto t = gl3x::Transform3 {};
     t.Translate({0.0f, 0.0f, 1.0f});
-    t.Rotate(gleam::Vector3::Up(), gleam::math::pi_over_2);
+    t.Rotate(gl3x::Vector3::Up(), gl3x::math::pi_over_2);
 
     EXPECT_MAT4_EQ(t.Get(), {
          0.0f, 0.0f, 1.0f, 0.0f,
@@ -286,9 +286,9 @@ TEST(Transform3, TranslateBeforeRotation) {
     });
 
     constexpr auto m = []() {
-        auto t = gleam::Transform3 {};
+        auto t = gl3x::Transform3 {};
         t.Translate({0.0f, 0.0f, 1.0f});
-        t.Rotate(gleam::Vector3::Up(), gleam::math::pi_over_2);
+        t.Rotate(gl3x::Vector3::Up(), gl3x::math::pi_over_2);
         return t.Get();
     }();
 
@@ -307,8 +307,8 @@ TEST(Transform3, TranslateBeforeRotation) {
 }
 
 TEST(Transform3, TranslateAfterRotation) {
-    auto t = gleam::Transform3 {};
-    t.Rotate(gleam::Vector3::Up(), gleam::math::pi_over_2);
+    auto t = gl3x::Transform3 {};
+    t.Rotate(gl3x::Vector3::Up(), gl3x::math::pi_over_2);
     t.Translate({0.0f, 0.0f, 1.0f});
 
     EXPECT_MAT4_EQ(t.Get(), {
@@ -319,8 +319,8 @@ TEST(Transform3, TranslateAfterRotation) {
     });
 
     constexpr auto m = []() {
-        auto t = gleam::Transform3 {};
-        t.Rotate(gleam::Vector3::Up(), gleam::math::pi_over_2);
+        auto t = gl3x::Transform3 {};
+        t.Rotate(gl3x::Vector3::Up(), gl3x::math::pi_over_2);
         t.Translate({0.0f, 0.0f, 1.0f});
         return t.Get();
     }();

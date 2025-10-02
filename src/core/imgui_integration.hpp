@@ -12,7 +12,7 @@
 #include <imgui/backends/imgui_impl_opengl3.h>
 #include <imgui/imgui.h>
 
-namespace gleam {
+namespace gl3x {
 
 auto imgui_initialize(GLFWwindow* window) {
     IMGUI_CHECKVERSION();

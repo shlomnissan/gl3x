@@ -18,5 +18,5 @@ public:
     auto OnAttached(SharedContextPointer context) -> void override;
 
 private:
-    std::shared_ptr<gleam::Node> model_;
+    std::shared_ptr<gl3x::Node> model_;
 };

@@ -23,6 +23,6 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<gleam::DirectionalLight> directional_light_;
-    std::shared_ptr<gleam::PhongMaterial> phong_material_;
+    std::shared_ptr<gl3x::DirectionalLight> directional_light_;
+    std::shared_ptr<gl3x::PhongMaterial> phong_material_;
 };

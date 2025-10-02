@@ -14,7 +14,7 @@
 #include <cstring>
 #include <fstream>
 
-namespace gleam {
+namespace gl3x {
 
 auto TextureLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Texture2D> {
     auto file = std::ifstream {path, std::ios::binary};

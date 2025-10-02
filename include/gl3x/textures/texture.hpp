@@ -12,7 +12,7 @@
 #include "gl3x/core/disposable.hpp"
 #include "gl3x/core/identity.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents available texture types.

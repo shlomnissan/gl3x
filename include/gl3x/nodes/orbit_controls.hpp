@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Interactive camera controller for orbiting around a target point.
@@ -28,7 +28,7 @@ namespace gleam {
  *
  * @code
  * auto MyScene::OnAttached(SharedContextPointer context) -> void override {
- *   Add(gleam::OrbitControls::Create(
+ *   Add(gl3x::OrbitControls::Create(
  *     context->camera, {
  *       .radius = 5.0f,
  *       .pitch = math::DegToRad(25.0f),

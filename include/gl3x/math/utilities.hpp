@@ -17,7 +17,7 @@
 #include <sstream>
 #include <string>
 
-namespace gleam::math {
+namespace gl3x::math {
 
 using Pair = struct { float x, y; };
 

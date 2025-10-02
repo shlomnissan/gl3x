@@ -12,7 +12,7 @@
 #include <string>
 #include <string_view>
 
-namespace gleam {
+namespace gl3x {
 
 /// @cond INTERNAL
 class Identity {

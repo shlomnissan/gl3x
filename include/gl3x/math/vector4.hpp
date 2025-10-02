@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <cassert>
 
-namespace gleam {
+namespace gl3x {
 
 class Vector4;
 auto constexpr Dot(const Vector4& a, const Vector4& b) -> float;
@@ -56,7 +56,7 @@ public:
     /**
      * @brief Returns a zero vector (0, 0, 0, 0).
      *
-     * @return gleam::Vector4
+     * @return gl3x::Vector4
      */
     [[nodiscard]] static constexpr auto Zero() { return Vector4 {0.0f}; }
 
@@ -158,7 +158,7 @@ public:
      * in this vector and the given vector @p v.
      *
      * @param v Vector to compare against.
-     * @return gleam::Vector4 Reference to this vector after modification.
+     * @return gl3x::Vector4 Reference to this vector after modification.
      */
     constexpr auto& Min(const Vector4& v) noexcept {
         x = std::min(x, v.x);
@@ -175,7 +175,7 @@ public:
      * in this vector and the given vector @p v.
      *
      * @param v Vector to compare against.
-     * @return gleam::Vector4 Reference to this vector after modification.
+     * @return gl3x::Vector4 Reference to this vector after modification.
      */
     constexpr auto& Max(const Vector4& v) noexcept {
         x = std::max(x, v.x);
@@ -190,7 +190,7 @@ public:
      *
      * If the length is zero, the vector is left unchanged.
      *
-     * @return gleam::Vector4 Reference to this vector.
+     * @return gl3x::Vector4 Reference to this vector.
      */
     constexpr auto& Normalize() {
         const auto len = Length();
@@ -252,7 +252,7 @@ private:
  * @param v1 Start vector.
  * @param v2 End vector.
  * @param f Interpolation factor [0, 1].
- * @return gleam::Vector4 Interpolated vector.
+ * @return gl3x::Vector4 Interpolated vector.
  */
 [[nodiscard]] inline constexpr auto Lerp(const Vector4& v1, const Vector4& v2, float f) {
     return v1 + (v2 - v1) * f;
@@ -263,7 +263,7 @@ private:
  * @relatesalso Vector4
  *
  * @param v Input vector.
- * @return gleam::Vector4 Normalized vector or zero if the input is zero-length.
+ * @return gl3x::Vector4 Normalized vector or zero if the input is zero-length.
  */
 [[nodiscard]] inline constexpr auto Normalize(const Vector4& v) {
     const auto len = v.Length();

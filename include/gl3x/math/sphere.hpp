@@ -15,7 +15,7 @@
 
 #include <algorithm>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief A bounding sphere defined by a center point and radius.

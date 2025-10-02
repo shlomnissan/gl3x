@@ -23,6 +23,6 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<gleam::PhongMaterial> phong_material_;
-    std::shared_ptr<gleam::PointLight> point_light_;
+    std::shared_ptr<gl3x::PhongMaterial> phong_material_;
+    std::shared_ptr<gl3x::PointLight> point_light_;
 };

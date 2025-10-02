@@ -12,7 +12,7 @@
 #include "gl3x/math/vector3.hpp"
 #include "gl3x/math/utilities.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Spherical coordinates (radius, phi, theta).
@@ -67,7 +67,7 @@ struct GL3X_EXPORT Spherical {
      * - `phi` (azimuth): 0 along +Z, increasing toward +X.
      * - `theta` (polar): 0 on the equator, +π/2 at +Y.
      *
-     * @return gleam::Vector3 Cartesian vector (x, y, z).
+     * @return gl3x::Vector3 Cartesian vector (x, y, z).
      *
      * @see MakeSafe
      */

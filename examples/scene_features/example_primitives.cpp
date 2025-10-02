@@ -12,8 +12,8 @@
 #include <gl3x/materials.hpp>
 #include <gl3x/lights.hpp>
 
-using namespace gleam;
-using namespace gleam::math;
+using namespace gl3x;
+using namespace gl3x::math;
 
 ExamplePrimitives::ExamplePrimitives() {
     InitializeParams();

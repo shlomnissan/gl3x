@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Root node and entry point for a scene graph.
@@ -28,14 +28,14 @@ namespace gleam {
  * or adding initial nodes. The scene must be provided to the application during startup:
  *
  * @code
- * class MyApp : public gleam::Application {
+ * class MyApp : public gl3x::Application {
  * public:
  *   auto Configure() -> void override {
  *     params.title = "My App";
  *   }
  *
- *   auto CreateScene() -> std::shared_ptr<gleam::Scene> override {
- *     auto scene = gleam::Scene::Create();
+ *   auto CreateScene() -> std::shared_ptr<gl3x::Scene> override {
+ *     auto scene = gl3x::Scene::Create();
  *     // Add nodes to the scene
  *     return scene;
  *   }
@@ -48,7 +48,7 @@ namespace gleam {
  * @endcode
  *
  * @note Only one scene can be attached to the application context at a time.
- * Attaching a new scene using gleam::Application::SetScene replaces the current one.
+ * Attaching a new scene using gl3x::Application::SetScene replaces the current one.
  *
  * @ingroup NodesGroup
  */
@@ -61,11 +61,11 @@ public:
      * atmospheric fading. This is typically done during scene setup.
      *
      * @code
-     * scene->fog = gleam::LinearFog::Create(0x444444, 2.0f, 6.0f);
+     * scene->fog = gl3x::LinearFog::Create(0x444444, 2.0f, 6.0f);
      * @endcode
      *
-     * @see gleam::LinearFog
-     * @see gleam::ExponentialFog
+     * @see gl3x::LinearFog
+     * @see gl3x::ExponentialFog
      */
     std::unique_ptr<Fog> fog;
 

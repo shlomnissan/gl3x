@@ -13,7 +13,7 @@
 
 #include <utility>
 
-namespace gleam {
+namespace gl3x {
 
 auto GLTextures::Bind(
     const std::shared_ptr<Texture>& texture,

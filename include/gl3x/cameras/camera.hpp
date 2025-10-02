@@ -14,7 +14,7 @@
 #include "gl3x/math/vector3.hpp"
 #include "gl3x/nodes/node.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Abstract base class for camera types.

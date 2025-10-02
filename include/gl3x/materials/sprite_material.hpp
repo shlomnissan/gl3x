@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents a material for 2D sprites.
@@ -30,10 +30,10 @@ namespace gleam {
  * overlays and screen-space elements.
  *
  * @code
- * auto material = gleam::SpriteMaterial::Create(0xFFFFFF);
+ * auto material = gl3x::SpriteMaterial::Create(0xFFFFFF);
  * material->albedo_map = texture;
  *
- * auto sprite = gleam::Sprite::Create(material);
+ * auto sprite = gl3x::Sprite::Create(material);
  * scene->Add(sprite);
  * @endcode
  *

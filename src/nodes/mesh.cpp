@@ -9,7 +9,7 @@
 
 #include "gl3x/geometries/wireframe_geometry.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 auto Mesh::SetGeometry(std::shared_ptr<Geometry> geometry) -> void {
     geometry_ = geometry;

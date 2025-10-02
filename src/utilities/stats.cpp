@@ -15,7 +15,7 @@
 #include <imgui/imgui.h>
 #endif
 
-namespace gleam {
+namespace gl3x {
 
 static const float kContainerWidth {250.0f};
 static const float kContainerHeight {215.0f};

@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents a material for surfaces that are not affected by lights.
@@ -25,10 +25,10 @@ namespace gleam {
  * or wireframes where shading is not desired.
  *
  * @code
- * auto material = gleam::UnlitMaterial::Create(0x049EF4);
+ * auto material = gl3x::UnlitMaterial::Create(0x049EF4);
  * material->albedo_map = texture;
  *
- * auto mesh = gleam::Mesh::Create(geometry, material);
+ * auto mesh = gl3x::Mesh::Create(geometry, material);
  * scene->Add(mesh);
  * @endcode
  *

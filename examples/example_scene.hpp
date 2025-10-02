@@ -10,7 +10,7 @@
 #include <gl3x/nodes.hpp>
 #include <gl3x/cameras.hpp>
 
-class ExampleScene : public gleam::Scene {
+class ExampleScene : public gl3x::Scene {
 public:
     bool show_context_menu_ {true};
 

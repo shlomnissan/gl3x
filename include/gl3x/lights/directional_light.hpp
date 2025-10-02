@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents a light that gets emitted in a specific direction.
@@ -25,7 +25,7 @@ namespace gleam {
  * considered to be infinite, and all light rays coming from it are parallel.
  *
  * @code
- * auto directional_light = gleam::DirectionalLight::Create({
+ * auto directional_light = gl3x::DirectionalLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 1.0f,
  *   .target = nullptr

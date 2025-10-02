@@ -10,7 +10,7 @@
 #include <ranges>
 #include <limits>
 
-namespace gleam {
+namespace gl3x {
 
 // Compare function for sorting meshes based on their z position.
 

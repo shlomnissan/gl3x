@@ -29,7 +29,7 @@
 
 #include <unordered_map>
 
-namespace gleam {
+namespace gl3x {
 
 auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std::vector<ShaderInfo> {
     if (attrs.type == MaterialType::PhongMaterial) {

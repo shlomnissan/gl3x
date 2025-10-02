@@ -16,7 +16,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Internal base for anything renderable.

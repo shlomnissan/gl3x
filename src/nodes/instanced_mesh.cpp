@@ -11,7 +11,7 @@
 
 #include <cassert>
 
-namespace gleam {
+namespace gl3x {
 
 InstancedMesh::InstancedMesh(
     std::shared_ptr<Geometry> geometry,

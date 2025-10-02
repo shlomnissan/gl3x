@@ -14,7 +14,7 @@
 #include <future>
 #include <thread>
 
-const auto mesh_loader = gleam::MeshLoader::Create();
+const auto mesh_loader = gl3x::MeshLoader::Create();
 
 #pragma region Helpers
 
@@ -33,11 +33,11 @@ auto RunAsyncTest(const std::string& file_path, Callback callback) {
     EXPECT_EQ(status, std::future_status::ready);
 }
 
-auto VerifyMesh(std::shared_ptr<gleam::Node> root) {
+auto VerifyMesh(std::shared_ptr<gl3x::Node> root) {
     EXPECT_NE(root, nullptr);
     EXPECT_EQ(root->Children().size(), 1);
 
-    if (auto mesh = static_cast<gleam::Mesh*>(root->Children()[0].get())) {
+    if (auto mesh = static_cast<gl3x::Mesh*>(root->Children()[0].get())) {
         auto geometry = mesh->GetGeometry();
         EXPECT_NE(geometry, nullptr);
         EXPECT_NE(geometry, nullptr);

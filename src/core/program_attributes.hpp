@@ -14,7 +14,7 @@
 #include <string_view>
 #include <utility>
 
-namespace gleam {
+namespace gl3x {
 
 struct ProgramAttributes {
     struct LightsCounter {

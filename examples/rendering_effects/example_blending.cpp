@@ -13,7 +13,7 @@
 #include <gl3x/lights.hpp>
 #include <gl3x/nodes.hpp>
 
-using namespace gleam;
+using namespace gl3x;
 
 ExampleBlending::ExampleBlending() {
     auto plane_geometry = PlaneGeometry::Create({.width = 2.0f, .height = 2.0f});

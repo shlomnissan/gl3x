@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents a material for shiny surfaces with specular highlights.
@@ -25,12 +25,12 @@ namespace gleam {
  * highlights and simulate light interaction.
  *
  * @code
- * auto material = gleam::PhongMaterial::Create(0x049EF4);
+ * auto material = gl3x::PhongMaterial::Create(0x049EF4);
  * material->specular = {0.3f, 0.3, 0.3f}
  * material->shininess = 32.0f;
  * material->albedo_map = texture;
  *
- * auto mesh = gleam::Mesh::Create(geometry, material);
+ * auto mesh = gl3x::Mesh::Create(geometry, material);
  * scene->Add(mesh);
  * @endcode
  *

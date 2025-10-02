@@ -17,7 +17,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Billboarded quad that always faces the active camera.
@@ -34,7 +34,7 @@ namespace gleam {
  *     "assets/sprite.tex",
  *     [this](auto result) {
  *       if (result) {
- *         auto mat = gleam::SpriteMaterial::Create();
+ *         auto mat = gl3x::SpriteMaterial::Create();
  *         mat->albedo_map = result.value();
  *         auto sprite = Sprite::Create(mat);
  *         sprite->SetScale(0.5f);

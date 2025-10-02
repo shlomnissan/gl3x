@@ -9,7 +9,7 @@
 
 #include "renderer/gl/gl_uniform_buffer.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 class GLCamera {
 public:

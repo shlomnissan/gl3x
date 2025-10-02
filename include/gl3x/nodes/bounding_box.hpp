@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Debug node that renders an axis-aligned bounding box.
@@ -28,8 +28,8 @@ namespace gleam {
  * lines in the specified color.
  *
  * @code
- * auto geometry = gleam::SphereGeometry::Create();
- * auto bounds = gleam::BoundingBox::Create(
+ * auto geometry = gl3x::SphereGeometry::Create();
+ * auto bounds = gl3x::BoundingBox::Create(
  *   geometry->BoundingBox(),
  *   0xFFFFFF
  * );

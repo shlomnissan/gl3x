@@ -11,7 +11,7 @@
 
 #include <memory>
 
-namespace GL3X_EXPORT gleam {
+namespace gl3x {
 
 /**
  * @brief Collects and visualizes runtime performance statistics.

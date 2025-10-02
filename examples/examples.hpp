@@ -59,7 +59,7 @@ namespace {
 
 }
 
-using SceneChangeCallback = std::function<void(std::shared_ptr<gleam::Scene>)>;
+using SceneChangeCallback = std::function<void(std::shared_ptr<gl3x::Scene>)>;
 
 class Examples {
 public:

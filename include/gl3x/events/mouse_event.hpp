@@ -12,7 +12,7 @@
 #include "gl3x/events/event.hpp"
 #include "gl3x/math/vector2.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 enum class MouseButton;
 
@@ -25,17 +25,17 @@ enum class MouseButton;
  * scroll delta, button state, and event type.
  *
  * @code
- * class MyNode : public gleam::Node {
+ * class MyNode : public gl3x::Node {
  * public:
- *   auto OnMouseEvent(gleam::MouseEvent* event) -> void override {
+ *   auto OnMouseEvent(gl3x::MouseEvent* event) -> void override {
  *     if (
- *       event->type == gleam::MouseEvent::Type::ButtonPressed &&
- *       event->button == gleam::MouseButton::Left
+ *       event->type == gl3x::MouseEvent::Type::ButtonPressed &&
+ *       event->button == gl3x::MouseButton::Left
  *     ) {
  *       Select();
  *     }
  *
- *     if (event->type == gleam::MouseEvent::Type::Moved) {
+ *     if (event->type == gl3x::MouseEvent::Type::Moved) {
  *       UpdateCursor(event->position);
  *     }
  *   }

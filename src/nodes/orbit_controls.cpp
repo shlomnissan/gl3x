@@ -11,7 +11,7 @@
 #include "gl3x/math/vector2.hpp"
 #include "gl3x/math/vector3.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 struct OrbitControls::Impl {
     Camera* camera;

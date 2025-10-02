@@ -16,7 +16,7 @@
 class EventDispatcherTest : public ::testing::Test {
 protected:
     void TearDown() override {
-        gleam::EventDispatcher::Get().RemoveEventListenersForEvent(testEvent);
+        gl3x::EventDispatcher::Get().RemoveEventListenersForEvent(testEvent);
     }
 
     std::string testEvent {"TestEvent"};
@@ -26,25 +26,25 @@ protected:
 
 TEST_F(EventDispatcherTest, AddEventListener) {
     auto calls = 0;
-    auto listener = std::make_shared<gleam::EventListener>(
-        [&calls](const gleam::Event*) { calls++; }
+    auto listener = std::make_shared<gl3x::EventListener>(
+        [&calls](const gl3x::Event*) { calls++; }
     );
 
-    gleam::EventDispatcher::Get().AddEventListener(testEvent, listener);
-    gleam::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<gleam::Event>());
+    gl3x::EventDispatcher::Get().AddEventListener(testEvent, listener);
+    gl3x::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<gl3x::Event>());
 
     EXPECT_EQ(calls, 1);
 }
 
 TEST_F(EventDispatcherTest, RemoveEventListener) {
     auto calls = 0;
-    auto listener = std::make_shared<gleam::EventListener>(
-        [&calls](const gleam::Event*) { calls++; }
+    auto listener = std::make_shared<gl3x::EventListener>(
+        [&calls](const gl3x::Event*) { calls++; }
     );
 
-    gleam::EventDispatcher::Get().AddEventListener(testEvent, listener);
-    gleam::EventDispatcher::Get().RemoveEventListener(testEvent, listener);
-    gleam::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<gleam::Event>());
+    gl3x::EventDispatcher::Get().AddEventListener(testEvent, listener);
+    gl3x::EventDispatcher::Get().RemoveEventListener(testEvent, listener);
+    gl3x::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<gl3x::Event>());
 
     EXPECT_EQ(calls, 0);
 }
@@ -55,12 +55,12 @@ TEST_F(EventDispatcherTest, RemoveEventListener) {
 
 TEST_F(EventDispatcherTest, DispatchToSingleListener) {
     auto calls = 0;
-    auto listener = std::make_shared<gleam::EventListener>(
-        [&calls](const gleam::Event*) { calls++; }
+    auto listener = std::make_shared<gl3x::EventListener>(
+        [&calls](const gl3x::Event*) { calls++; }
     );
 
-    gleam::EventDispatcher::Get().AddEventListener(testEvent, listener);
-    gleam::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<gleam::Event>());
+    gl3x::EventDispatcher::Get().AddEventListener(testEvent, listener);
+    gl3x::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<gl3x::Event>());
 
     EXPECT_EQ(calls, 1);
 }
@@ -68,17 +68,17 @@ TEST_F(EventDispatcherTest, DispatchToSingleListener) {
 TEST_F(EventDispatcherTest, DispatchToMultipleListeners) {
     auto calls = 0;
 
-    auto listener_1 = std::make_shared<gleam::EventListener>(
-        [&calls](const gleam::Event*) { calls++; }
+    auto listener_1 = std::make_shared<gl3x::EventListener>(
+        [&calls](const gl3x::Event*) { calls++; }
     );
 
-    auto listener_2 = std::make_shared<gleam::EventListener>(
-        [&calls](const gleam::Event*) { calls++; }
+    auto listener_2 = std::make_shared<gl3x::EventListener>(
+        [&calls](const gl3x::Event*) { calls++; }
     );
 
-    gleam::EventDispatcher::Get().AddEventListener(testEvent, listener_1);
-    gleam::EventDispatcher::Get().AddEventListener(testEvent, listener_2);
-    gleam::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<gleam::Event>());
+    gl3x::EventDispatcher::Get().AddEventListener(testEvent, listener_1);
+    gl3x::EventDispatcher::Get().AddEventListener(testEvent, listener_2);
+    gl3x::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<gl3x::Event>());
 
     EXPECT_EQ(calls, 2);
 }
@@ -90,11 +90,11 @@ TEST_F(EventDispatcherTest, DispatchToMultipleListeners) {
 TEST_F(EventDispatcherTest, DispatchWithExpiredListener) {
     testing::internal::CaptureStdout();
 
-    auto listener = std::make_shared<gleam::EventListener>([](const gleam::Event*) {});
-    gleam::EventDispatcher::Get().AddEventListener(testEvent, listener);
+    auto listener = std::make_shared<gl3x::EventListener>([](const gl3x::Event*) {});
+    gl3x::EventDispatcher::Get().AddEventListener(testEvent, listener);
     listener.reset();
 
-    gleam::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<gleam::Event>());
+    gl3x::EventDispatcher::Get().Dispatch(testEvent, std::make_unique<gl3x::Event>());
     auto output = testing::internal::GetCapturedStdout();
 
     EXPECT_THAT(output, ::testing::HasSubstr("Removed expired"));
@@ -103,8 +103,8 @@ TEST_F(EventDispatcherTest, DispatchWithExpiredListener) {
 TEST_F(EventDispatcherTest, RemoveNonExistentListener) {
     testing::internal::CaptureStdout();
 
-    auto listener = std::make_shared<gleam::EventListener>([](const gleam::Event*) {});
-    gleam::EventDispatcher::Get().RemoveEventListener("NonExistentEvent", listener);
+    auto listener = std::make_shared<gl3x::EventListener>([](const gl3x::Event*) {});
+    gl3x::EventDispatcher::Get().RemoveEventListener("NonExistentEvent", listener);
     auto output = testing::internal::GetCapturedStdout();
 
     EXPECT_THAT(output, ::testing::HasSubstr("Attempting to remove"));

@@ -20,7 +20,7 @@
 #include <optional>
 #include <utility>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents mapping between vertex attributes and locations.
@@ -73,7 +73,7 @@ struct GeometryAttribute {
  * configured with attribute metadata via `SetAttribute`.
  *
  * @code
- * auto geometry = gleam::Geometry::Create({
+ * auto geometry = gl3x::Geometry::Create({
  *   0.5f, -0.5f, 0.0f,
  *   0.0f,  0.5f, 0.0f,
  *  -0.5f, -0.5f, 0.0f,

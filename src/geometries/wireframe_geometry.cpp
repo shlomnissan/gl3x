@@ -14,7 +14,7 @@
 #include <cinttypes>
 #include <unordered_set>
 
-namespace gleam {
+namespace gl3x {
 
 WireframeGeometry::WireframeGeometry(const Geometry* geometry) :
     Geometry(geometry->VertexData(), {})

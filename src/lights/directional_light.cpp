@@ -10,7 +10,7 @@
 #include "gl3x/materials/unlit_material.hpp"
 #include "gl3x/nodes/mesh.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 static constexpr auto debug_mesh_size = 0.5f;
 

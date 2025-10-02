@@ -11,7 +11,7 @@
 
 #include "utilities/logger.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 auto Renderable::BoundingBox() -> Box3 {
     return GetGeometry()->BoundingBox();

@@ -7,7 +7,7 @@
 
 #include "gl3x/nodes/sprite.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 Sprite::Sprite(std::shared_ptr<SpriteMaterial> material)
   : geometry_(SharedGeometry()), material_(material) {

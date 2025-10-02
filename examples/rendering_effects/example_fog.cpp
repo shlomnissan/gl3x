@@ -15,7 +15,7 @@
 #include <gl3x/materials.hpp>
 #include <gl3x/nodes.hpp>
 
-using namespace gleam;
+using namespace gl3x;
 
 ExampleFog::ExampleFog() {
     auto geometry = BoxGeometry::Create();

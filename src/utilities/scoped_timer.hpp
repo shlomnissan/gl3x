@@ -12,7 +12,7 @@
 #include <string>
 #include <chrono>
 
-namespace gleam {
+namespace gl3x {
 
 class ScopedTimer {
 public:

@@ -12,7 +12,7 @@
 #include <chrono>
 #include <string>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Utility class for measuring elapsed time.

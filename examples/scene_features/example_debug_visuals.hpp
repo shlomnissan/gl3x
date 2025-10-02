@@ -27,12 +27,12 @@ public:
 private:
     std::string curr_visual_ {"arrows"};
 
-    gleam::Grid::Parameters grid_params_ {
+    gl3x::Grid::Parameters grid_params_ {
         .size = 4.0f,
         .divisions = 16,
-        .color = gleam::Color(0x333333)
+        .color = gl3x::Color(0x333333)
     };
 
-    std::shared_ptr<gleam::Node> arrows_;
-    std::shared_ptr<gleam::Grid> grid_;
+    std::shared_ptr<gl3x::Node> arrows_;
+    std::shared_ptr<gl3x::Grid> grid_;
 };

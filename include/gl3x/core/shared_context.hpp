@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 class Camera;
 
@@ -32,7 +32,7 @@ class Camera;
  * context, such as loading resources, accessing the active camera, etc.
  *
  * @code
- * class MyNode : public gleam::Node {
+ * class MyNode : public gl3x::Node {
  * public:
  *   void OnAttached(SharedContextPointer context) override {
  *     context->texture_loader->LoadAsync(
@@ -80,4 +80,4 @@ public:
 
 }
 
-using SharedContextPointer = const gleam::SharedContext*;
+using SharedContextPointer = const gl3x::SharedContext*;

@@ -9,7 +9,7 @@
 
 #include "core/window_impl.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 Window::Window(const Window::Parameters& params)
   : impl_(std::make_unique<Impl>(params)) {}

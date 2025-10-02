@@ -14,7 +14,7 @@
 #include <memory>
 #include <unordered_map>
 
-namespace gleam {
+namespace gl3x {
 
 class GLPrograms {
 public:

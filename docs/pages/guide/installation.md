@@ -137,7 +137,7 @@ Once installed, you can use Gleam in your own project with:
 
 ```cmake
 find_package(gleam REQUIRED)
-target_link_libraries(MyApp PRIVATE gleam::gleam)
+target_link_libraries(MyApp PRIVATE gl3x::gleam)
 ```
 
 CMake automatically selects the correct configuration (Debug or Release) based on your project’s build settings.
@@ -170,7 +170,7 @@ If you installed Gleam using the provided CMake install script, its headers and 
   if(WIN32)
     add_custom_command(TARGET MyApp POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy_if_different
-      $<TARGET_FILE:gleam::gleam>
+      $<TARGET_FILE:gl3x::gleam>
       $<TARGET_FILE_DIR:MyApp>
     )
   endif()

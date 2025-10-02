@@ -108,7 +108,7 @@ The script uses the `install-release` preset on Unix. On MSVC, both `install-deb
 
 ```cmake
 find_package(gleam REQUIRED)
-target_link_libraries(MyApp PRIVATE gleam::gleam)
+target_link_libraries(MyApp PRIVATE gl3x::gleam)
 ```
 
 CMake automatically selects the correct configuration (Debug/Release) based on your project settings.
@@ -129,7 +129,7 @@ CMake automatically selects the correct configuration (Debug/Release) based on y
   if(WIN32)
     add_custom_command(TARGET MyApp POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy_if_different
-      $<TARGET_FILE:gleam::gleam>
+      $<TARGET_FILE:gl3x::gleam>
       $<TARGET_FILE_DIR:MyApp>
     )
   endif()

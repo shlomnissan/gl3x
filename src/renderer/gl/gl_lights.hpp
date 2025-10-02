@@ -18,7 +18,7 @@
 #include <array>
 #include <cstdint>
 
-namespace gleam {
+namespace gl3x {
 
 class GLLights {
 public:

@@ -11,7 +11,7 @@
 
 #include <format>
 
-namespace gleam {
+namespace gl3x {
 
 using Clock = std::chrono::steady_clock;
 

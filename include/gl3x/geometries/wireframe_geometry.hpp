@@ -11,7 +11,7 @@
 
 #include "gl3x/geometries/geometry.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Converts triangle-based geometry into wireframe-renderable geometry.
@@ -27,8 +27,8 @@ namespace gleam {
  * @note The source geometry must be triangle-based and contain valid index data.
  *
  * @code
- * auto original = gleam::BoxGeometry::Create();
- * auto wireframe = std::make_shared<gleam::WireframeGeometry>(original.get());
+ * auto original = gl3x::BoxGeometry::Create();
+ * auto wireframe = std::make_shared<gl3x::WireframeGeometry>(original.get());
  * mesh->geometry = wireframe;
  * @endcode
  *

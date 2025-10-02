@@ -13,7 +13,7 @@
 
 class BoxGeometryTest : public ::testing::Test {
 protected:
-    gleam::BoxGeometry box_ {{
+    gl3x::BoxGeometry box_ {{
         .width = 1.0f,
         .height = 1.0f,
         .depth = 1.0f,
@@ -50,7 +50,7 @@ TEST_F(BoxGeometryTest, ConstructorInitializesName) {
 #pragma region Attributes
 
 TEST_F(BoxGeometryTest, AttributesConfiguredCorrectly) {
-    using enum gleam::VertexAttributeType;
+    using enum gl3x::VertexAttributeType;
 
     const auto& attrs = box_.Attributes();
 
@@ -68,27 +68,27 @@ TEST_F(BoxGeometryTest, AttributesConfiguredCorrectly) {
 
 TEST(BoxGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        gleam::BoxGeometry({.width = 0.0f});
+        gl3x::BoxGeometry({.width = 0.0f});
     }, ".*params.width > 0");
 
     EXPECT_DEATH({
-        gleam::BoxGeometry({.height = 0.0f});
+        gl3x::BoxGeometry({.height = 0.0f});
     }, ".*params.height > 0");
 
     EXPECT_DEATH({
-        gleam::BoxGeometry({.depth = 0.0f});
+        gl3x::BoxGeometry({.depth = 0.0f});
     }, ".*params.depth > 0");
 
     EXPECT_DEATH({
-        gleam::BoxGeometry({.width_segments = 0});
+        gl3x::BoxGeometry({.width_segments = 0});
     }, ".*params.width_segments > 0");
 
     EXPECT_DEATH({
-        gleam::BoxGeometry({.height_segments = 0});
+        gl3x::BoxGeometry({.height_segments = 0});
     }, ".*params.height_segments > 0");
 
     EXPECT_DEATH({
-        gleam::BoxGeometry({.depth_segments = 0});
+        gl3x::BoxGeometry({.depth_segments = 0});
     }, ".*params.depth_segments > 0");
 }
 

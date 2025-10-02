@@ -15,7 +15,7 @@
 #include <string>
 #include <string_view>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Parameters passed to resize callbacks.
@@ -48,7 +48,7 @@ using ResizeCallback = std::function<void(const ResizeParameters& params)>;
  *
  * Typical usage:
  * @code
- * gleam::Window window({
+ * gl3x::Window window({
  *   .title = "My App",
  *   .width = 1280,
  *   .height = 720,

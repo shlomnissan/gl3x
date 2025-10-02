@@ -17,7 +17,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace gleam {
+namespace gl3x {
 
 using EventListener = std::function<void(Event*)>;
 

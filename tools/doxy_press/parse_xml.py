@@ -51,7 +51,7 @@ def load_inventory(xml_root: str | Path):
         compounddef = c_root.find("compounddef")
         if compounddef is None:
             continue
-        fqname = _text(compounddef.find("compoundname")).strip()  # e.g., gleam::Camera
+        fqname = _text(compounddef.find("compoundname")).strip()  # e.g., gl3x::Camera
         display = fqname.split("::")[-1] if "::" in fqname else fqname
         cls = Class(
             id=cid,

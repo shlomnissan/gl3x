@@ -7,7 +7,7 @@
 
 #include "gl3x/cameras/camera.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 auto Camera::UpdateViewMatrix() -> void {
     if (ShouldUpdateWorldTransform()) {

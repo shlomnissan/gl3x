@@ -11,7 +11,7 @@
 
 #include <gl3x/geometries.hpp>
 
-using namespace gleam;
+using namespace gl3x;
 
 ExampleShaderMaterial::ExampleShaderMaterial() {
     fog = ExponentialFog::Create(0x444444, 0.3f);

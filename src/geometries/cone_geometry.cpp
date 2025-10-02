@@ -9,7 +9,7 @@
 
 #include <cassert>
 
-namespace gleam {
+namespace gl3x {
 
 ConeGeometry::ConeGeometry(const Parameters& params)
     : CylinderGeometry({

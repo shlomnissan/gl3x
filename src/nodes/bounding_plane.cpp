@@ -14,7 +14,7 @@
 
 #include <vector>
 
-namespace gleam {
+namespace gl3x {
 
 namespace {
 

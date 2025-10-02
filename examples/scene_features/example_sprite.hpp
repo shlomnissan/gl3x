@@ -22,5 +22,5 @@ public:
     auto OnUpdate(float delta) -> void override;
 
 private:
-    std::shared_ptr<gleam::Sprite> sprite_;
+    std::shared_ptr<gl3x::Sprite> sprite_;
 };

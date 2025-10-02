@@ -19,7 +19,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 class RenderLists;
 

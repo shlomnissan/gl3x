@@ -18,7 +18,7 @@
 #include <span>
 #include <vector>
 
-namespace gleam {
+namespace gl3x {
 
 class RenderLists {
 public:

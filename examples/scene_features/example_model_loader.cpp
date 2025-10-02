@@ -14,8 +14,8 @@
 
 #include <print>
 
-using namespace gleam;
-using namespace gleam::math;
+using namespace gl3x;
+using namespace gl3x::math;
 
 ExampleModelLoader::ExampleModelLoader() {
     show_context_menu_ = false;

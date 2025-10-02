@@ -13,7 +13,7 @@
 #include "gl3x/math/vector2.hpp"
 #include "gl3x/math/utilities.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief A 2D transformation class supporting translation, scaling, and rotation.

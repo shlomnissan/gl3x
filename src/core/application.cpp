@@ -20,7 +20,7 @@
 #include <expected>
 #include <string>
 
-namespace gleam {
+namespace gl3x {
 
 constexpr auto kMaxDelta = 0.1; // 100ms
 

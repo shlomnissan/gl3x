@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Visual debug primitive representing a 3D arrow.
@@ -27,7 +27,7 @@ namespace gleam {
  * The arrow can be positioned using `SetOrigin()` and oriented using `SetDirection()`.
  *
  * @code
- * auto arrow = gleam::Arrow::Create({
+ * auto arrow = gl3x::Arrow::Create({
  *   .direction = {1.0f, 0.0f, 0.0f},
  *   .origin = Vector3::Zero(),
  *   .color = 0xFF0000,

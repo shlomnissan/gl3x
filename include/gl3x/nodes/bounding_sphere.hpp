@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Debug node that renders a bounding sphere.
@@ -28,8 +28,8 @@ namespace gleam {
  * a wireframe in the specified color.
  *
  * @code
- * auto geometry = gleam::BoxGeometry::Create();
- * auto bounds = gleam::BoundingSphere::Create(
+ * auto geometry = gl3x::BoxGeometry::Create();
+ * auto bounds = gl3x::BoundingSphere::Create(
  *   geometry->BoundingSphere(),
  *   0xFF0000
  * );

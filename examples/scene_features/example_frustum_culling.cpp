@@ -11,7 +11,7 @@
 #include <gl3x/lights.hpp>
 #include <gl3x/materials.hpp>
 
-using namespace gleam;
+using namespace gl3x;
 
 ExampleFrustumCulling::ExampleFrustumCulling() {
     show_context_menu_ = false;

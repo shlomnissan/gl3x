@@ -12,7 +12,7 @@
 #include <gl3x/geometries.hpp>
 #include <gl3x/nodes.hpp>
 
-using namespace gleam;
+using namespace gl3x;
 
 ExampleSpotLight::ExampleSpotLight() {
     Add(Grid::Create({

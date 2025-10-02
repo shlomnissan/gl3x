@@ -14,7 +14,7 @@
 
 #include <array>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief A 3x3 matrix class for mathematical operations.

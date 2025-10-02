@@ -15,7 +15,7 @@
 #include <array>
 #include <limits>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Axis-aligned bounding box defined by minimum and maximum corners.
@@ -52,7 +52,7 @@ struct GL3X_EXPORT Box3 {
     /**
      * @brief Returns the center point of the box.
      *
-     * @return gleam::Vector3 Center of the box.
+     * @return gl3x::Vector3 Center of the box.
      */
     [[nodiscard]] constexpr auto Center() const { return (min + max) * 0.5f; }
 

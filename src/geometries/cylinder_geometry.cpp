@@ -12,7 +12,7 @@
 
 #include <cassert>
 
-namespace gleam {
+namespace gl3x {
 
 namespace {
 

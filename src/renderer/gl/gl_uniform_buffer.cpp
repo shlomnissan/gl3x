@@ -11,7 +11,7 @@
 
 #include <cstring>
 
-namespace gleam {
+namespace gl3x {
 
 GLUniformBuffer::GLUniformBuffer(std::string_view name, std::size_t size) :
     name_(name),

@@ -21,7 +21,7 @@
 #include <memory>
 #include <vector>
 
-namespace gleam {
+namespace gl3x {
 
 /**
  * @brief Represents available node types.

@@ -12,7 +12,7 @@
 #include <future>
 #include <thread>
 
-const auto texture_loader = gleam::TextureLoader::Create();
+const auto texture_loader = gl3x::TextureLoader::Create();
 
 #pragma region Helpers
 

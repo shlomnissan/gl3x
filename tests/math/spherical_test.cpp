@@ -16,17 +16,17 @@
 #pragma region Constructors
 
 TEST(Sphere, DefaultConstructor) {
-    constexpr auto phi = gleam::math::DegToRad(45.0f);
-    constexpr auto theta = gleam::math::DegToRad(90.0f);
-    constexpr auto s = gleam::Spherical {2.5f, phi, theta};
+    constexpr auto phi = gl3x::math::DegToRad(45.0f);
+    constexpr auto theta = gl3x::math::DegToRad(90.0f);
+    constexpr auto s = gl3x::Spherical {2.5f, phi, theta};
 
     EXPECT_FLOAT_EQ(s.radius, 2.5f);
-    EXPECT_FLOAT_EQ(s.phi, gleam::math::DegToRad(45.0f));
-    EXPECT_FLOAT_EQ(s.theta, gleam::math::DegToRad(90.0f));
+    EXPECT_FLOAT_EQ(s.phi, gl3x::math::DegToRad(45.0f));
+    EXPECT_FLOAT_EQ(s.theta, gl3x::math::DegToRad(90.0f));
 
     static_assert(s.radius == 2.5f);
-    static_assert(s.phi == gleam::math::DegToRad(45.0f));
-    static_assert(s.theta == gleam::math::DegToRad(90.0f));
+    static_assert(s.phi == gl3x::math::DegToRad(45.0f));
+    static_assert(s.theta == gl3x::math::DegToRad(90.0f));
 }
 
 #pragma endregion
@@ -34,60 +34,60 @@ TEST(Sphere, DefaultConstructor) {
 #pragma region MakeSafe
 
 TEST(Spherical, MakeSafeClampsLowerBound) {
-    constexpr auto phi = gleam::math::DegToRad(30.0f);
-    constexpr auto theta = gleam::math::pi_over_2 + gleam::math::eps;
+    constexpr auto phi = gl3x::math::DegToRad(30.0f);
+    constexpr auto theta = gl3x::math::pi_over_2 + gl3x::math::eps;
 
-    auto s = gleam::Spherical {2.0f, phi, theta};
+    auto s = gl3x::Spherical {2.0f, phi, theta};
     s.MakeSafe();
 
-    constexpr auto expected = gleam::math::pi_over_2 - gleam::math::eps;
+    constexpr auto expected = gl3x::math::pi_over_2 - gl3x::math::eps;
 
-    EXPECT_FLOAT_EQ(s.phi, gleam::math::DegToRad(30.0f));
+    EXPECT_FLOAT_EQ(s.phi, gl3x::math::DegToRad(30.0f));
     EXPECT_FLOAT_EQ(s.theta, expected);
     EXPECT_FLOAT_EQ(s.radius, 2.0f);
 
     static_assert([&]{
-        auto s = gleam::Spherical {2.0f, phi, theta};
+        auto s = gl3x::Spherical {2.0f, phi, theta};
         s.MakeSafe();
         return s.theta == expected;
     }());
 }
 
 TEST(Spherical, MakeSafeClampsUpperBound) {
-    constexpr auto phi = gleam::math::DegToRad(30.0f);
-    constexpr auto theta = -gleam::math::pi_over_2 - gleam::math::eps;
+    constexpr auto phi = gl3x::math::DegToRad(30.0f);
+    constexpr auto theta = -gl3x::math::pi_over_2 - gl3x::math::eps;
 
-    auto s = gleam::Spherical {2.0f, phi, theta};
+    auto s = gl3x::Spherical {2.0f, phi, theta};
     s.MakeSafe();
 
-    constexpr auto expected = -gleam::math::pi_over_2 + gleam::math::eps;
+    constexpr auto expected = -gl3x::math::pi_over_2 + gl3x::math::eps;
 
-    EXPECT_FLOAT_EQ(s.phi, gleam::math::DegToRad(30.0f));
+    EXPECT_FLOAT_EQ(s.phi, gl3x::math::DegToRad(30.0f));
     EXPECT_FLOAT_EQ(s.theta, expected);
     EXPECT_FLOAT_EQ(s.radius, 2.0f);
 
     static_assert([&]{
-        auto s = gleam::Spherical {2.0f, phi, theta};
+        auto s = gl3x::Spherical {2.0f, phi, theta};
         s.MakeSafe();
         return s.theta == expected;
     }());
 }
 
 TEST(Spherical, MakeSafeNoChangeWhenInRange) {
-    constexpr auto phi = gleam::math::DegToRad(30.0f);
-    constexpr auto theta = gleam::math::DegToRad(30.0f);
+    constexpr auto phi = gl3x::math::DegToRad(30.0f);
+    constexpr auto theta = gl3x::math::DegToRad(30.0f);
 
-    auto s = gleam::Spherical {2.0f, phi, theta};
+    auto s = gl3x::Spherical {2.0f, phi, theta};
     s.MakeSafe();
 
-    EXPECT_FLOAT_EQ(s.phi, gleam::math::DegToRad(30.0f));
-    EXPECT_FLOAT_EQ(s.theta, gleam::math::DegToRad(30.0f));
+    EXPECT_FLOAT_EQ(s.phi, gl3x::math::DegToRad(30.0f));
+    EXPECT_FLOAT_EQ(s.theta, gl3x::math::DegToRad(30.0f));
     EXPECT_FLOAT_EQ(s.radius, 2.0f);
 
     static_assert([&]{
-        auto s = gleam::Spherical {2.0f, phi, theta};
+        auto s = gl3x::Spherical {2.0f, phi, theta};
         s.MakeSafe();
-        return s.theta == gleam::math::DegToRad(30.0f);
+        return s.theta == gl3x::math::DegToRad(30.0f);
     }());
 }
 
@@ -96,14 +96,14 @@ TEST(Spherical, MakeSafeNoChangeWhenInRange) {
 #pragma region ToVector3
 
 TEST(Spherical, ToVector3Basic) {
-    constexpr auto phi = gleam::math::pi_over_4;
-    constexpr auto theta = gleam::math::pi_over_4;
-    constexpr auto s = gleam::Spherical {1.0f, phi, theta};
+    constexpr auto phi = gl3x::math::pi_over_4;
+    constexpr auto theta = gl3x::math::pi_over_4;
+    constexpr auto s = gl3x::Spherical {1.0f, phi, theta};
     constexpr auto v = s.ToVector3();
 
-    constexpr auto expect_x = gleam::math::Sin(phi) * gleam::math::Cos(theta);
-    constexpr auto expect_y = gleam::math::Sin(theta);
-    constexpr auto expect_z = gleam::math::Cos(phi) * gleam::math::Cos(theta);
+    constexpr auto expect_x = gl3x::math::Sin(phi) * gl3x::math::Cos(theta);
+    constexpr auto expect_y = gl3x::math::Sin(theta);
+    constexpr auto expect_z = gl3x::math::Cos(phi) * gl3x::math::Cos(theta);
 
     EXPECT_VEC3_EQ(v, {expect_x, expect_y, expect_z});
 
@@ -114,9 +114,9 @@ TEST(Spherical, ToVector3Basic) {
 
 TEST(Spherical, ToVector3NorthPoleIgnoresPhi) {
     // At the north pole (theta = +π/2), phi has no effect.
-    constexpr auto phi = gleam::math::pi_over_4;
-    constexpr auto theta = gleam::math::pi_over_2; // north pole
-    constexpr auto s = gleam::Spherical {3.0f, phi, theta};
+    constexpr auto phi = gl3x::math::pi_over_4;
+    constexpr auto theta = gl3x::math::pi_over_2; // north pole
+    constexpr auto s = gl3x::Spherical {3.0f, phi, theta};
     constexpr auto v = s.ToVector3();
 
     EXPECT_VEC3_EQ(v, {0.0f, 3.0f, 0.0f});
@@ -128,9 +128,9 @@ TEST(Spherical, ToVector3NorthPoleIgnoresPhi) {
 
 TEST(Spherical, ToVector3EquatorXDirection) {
     // On the equator (theta = 0) with phi = π/2 → +X
-    constexpr auto phi = gleam::math::pi_over_2;
+    constexpr auto phi = gl3x::math::pi_over_2;
     constexpr auto theta = 0.0f;
-    constexpr auto s = gleam::Spherical {3.0f, phi, theta};
+    constexpr auto s = gl3x::Spherical {3.0f, phi, theta};
     constexpr auto v = s.ToVector3();
 
     EXPECT_VEC3_EQ(v, {3.0f, 0.0f, 0.0f});
@@ -144,7 +144,7 @@ TEST(Spherical, ToVector3EquatorZDirection) {
     // On the equator (theta = 0) with phi = 0 → +Z.
     constexpr auto phi = 0.0f;
     constexpr auto theta = 0.0f;
-    constexpr auto s = gleam::Spherical {3.0f, phi, theta};
+    constexpr auto s = gl3x::Spherical {3.0f, phi, theta};
     constexpr auto v = s.ToVector3();
 
     EXPECT_VEC3_EQ(v, {0.0f, 0.0f, 3.0f});

@@ -14,7 +14,7 @@
 
 #include <gl3x/math/utilities.hpp>
 
-using namespace gleam;
+using namespace gl3x;
 
 #pragma region Degrees and Radians
 

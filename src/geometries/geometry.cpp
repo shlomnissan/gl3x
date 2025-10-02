@@ -15,7 +15,7 @@
 #include <cassert>
 #include <numeric>
 
-namespace gleam {
+namespace gl3x {
 
 auto Geometry::SetAttribute(const GeometryAttribute &attribute) -> void {
     using enum VertexAttributeType;

@@ -12,7 +12,7 @@
 #include "gl3x/math/utilities.hpp"
 #include "gl3x/nodes/mesh.hpp"
 
-namespace gleam {
+namespace gl3x {
 
 namespace {
 
