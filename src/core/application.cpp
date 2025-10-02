@@ -5,14 +5,14 @@
 ===========================================================================
 */
 
-#include "gleam/core/application.hpp"
+#include "gl3x/core/application.hpp"
 
-#include "gleam/cameras/perspective_camera.hpp"
-#include "gleam/core/renderer.hpp"
-#include "gleam/core/shared_context.hpp"
-#include "gleam/core/window.hpp"
-#include "gleam/utilities/frame_timer.hpp"
-#include "gleam/utilities/stats.hpp"
+#include "gl3x/cameras/perspective_camera.hpp"
+#include "gl3x/core/renderer.hpp"
+#include "gl3x/core/shared_context.hpp"
+#include "gl3x/core/window.hpp"
+#include "gl3x/utilities/frame_timer.hpp"
+#include "gl3x/utilities/stats.hpp"
 
 #include "utilities/logger.hpp"
 

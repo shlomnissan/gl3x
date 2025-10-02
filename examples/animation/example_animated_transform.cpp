@@ -7,8 +7,8 @@
 
 #include "example_animated_transform.hpp"
 
-#include <gleam/geometries.hpp>
-#include <gleam/lights.hpp>
+#include <gl3x/geometries.hpp>
+#include <gl3x/lights.hpp>
 
 #include <cmath>
 

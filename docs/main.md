@@ -56,11 +56,11 @@ The following options control which components are built:
 
 | Option                 | Description                                              |
 |------------------------|----------------------------------------------------------|
-| `GLEAM_BUILD_DOCS`     | Build Doxygen documentation.                             |
-| `GLEAM_BUILD_EXAMPLES` | Build example applications.                              |
-| `GLEAM_BUILD_IMGUI`    | Enable ImGui support for debug UI/tools.                 |
-| `GLEAM_BUILD_TESTS`    | Build unit tests.                                        |
-| `GLEAM_BUILD_TOOLS`    | Build command-line.                                      |
+| `GL3X_BUILD_DOCS`     | Build Doxygen documentation.                             |
+| `GL3X_BUILD_EXAMPLES` | Build example applications.                              |
+| `GL3X_BUILD_IMGUI`    | Enable ImGui support for debug UI/tools.                 |
+| `GL3X_BUILD_TESTS`    | Build unit tests.                                        |
+| `GL3X_BUILD_TOOLS`    | Build command-line.                                      |
 
 Defaults are preset-dependent.
 
@@ -137,7 +137,7 @@ CMake automatically selects the correct configuration (Debug/Release) based on y
 
 ## Asset Generation Pipeline
 
-Gleam does not parse raw assets at runtime. Instead, assets are preprocessed using asset_builder, a command-line tool built with `GLEAM_BUILD_TOOLS`. It converts raw asset formats into compact, runtime-ready formats.
+Gleam does not parse raw assets at runtime. Instead, assets are preprocessed using asset_builder, a command-line tool built with `GL3X_BUILD_TOOLS`. It converts raw asset formats into compact, runtime-ready formats.
 
 #### Supported Formats
 

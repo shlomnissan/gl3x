@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include <gleam/gleam.hpp>
+#include <gl3x/gl3x.hpp>
 
 #include "examples.hpp"
 

@@ -5,10 +5,10 @@
 ===========================================================================
 */
 
-#include "gleam/nodes/grid.hpp"
+#include "gl3x/nodes/grid.hpp"
 
-#include "gleam/materials/unlit_material.hpp"
-#include "gleam/nodes/mesh.hpp"
+#include "gl3x/materials/unlit_material.hpp"
+#include "gl3x/nodes/mesh.hpp"
 
 #include <vector>
 

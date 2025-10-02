@@ -8,8 +8,8 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <gleam/math/transform3.hpp>
-#include <gleam/math/utilities.hpp>
+#include <gl3x/math/transform3.hpp>
+#include <gl3x/math/utilities.hpp>
 
 #pragma region Mutators
 

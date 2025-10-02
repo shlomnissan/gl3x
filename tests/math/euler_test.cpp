@@ -8,10 +8,10 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <gleam/math/euler.hpp>
-#include <gleam/math/matrix4.hpp>
-#include <gleam/math/vector3.hpp>
-#include <gleam/math/utilities.hpp>
+#include <gl3x/math/euler.hpp>
+#include <gl3x/math/matrix4.hpp>
+#include <gl3x/math/vector3.hpp>
+#include <gl3x/math/utilities.hpp>
 
 #include <cassert>
 

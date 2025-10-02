@@ -8,9 +8,9 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <gleam/math/matrix4.hpp>
-#include <gleam/math/sphere.hpp>
-#include <gleam/math/vector3.hpp>
+#include <gl3x/math/matrix4.hpp>
+#include <gl3x/math/sphere.hpp>
+#include <gl3x/math/vector3.hpp>
 
 #include <cassert>
 

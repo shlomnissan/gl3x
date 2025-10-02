@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <gleam/nodes.hpp>
-#include <gleam/cameras.hpp>
+#include <gl3x/nodes.hpp>
+#include <gl3x/cameras.hpp>
 
 class ExampleScene : public gleam::Scene {
 public:

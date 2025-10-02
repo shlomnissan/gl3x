@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <gleam/loaders/texture_loader.hpp>
+#include <gl3x/loaders/texture_loader.hpp>
 
 #include <future>
 #include <thread>

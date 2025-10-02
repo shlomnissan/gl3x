@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/geometries/plane_geometry.hpp"
+#include "gl3x/geometries/plane_geometry.hpp"
 
 #include <cassert>
 

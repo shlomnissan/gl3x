@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <gleam/geometries.hpp>
-#include <gleam/nodes.hpp>
+#include <gl3x/geometries.hpp>
+#include <gl3x/nodes.hpp>
 
 #include <memory>
 #include <string>

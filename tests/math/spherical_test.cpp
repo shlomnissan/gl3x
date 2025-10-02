@@ -8,8 +8,8 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <gleam/math/spherical.hpp>
-#include <gleam/math/utilities.hpp>
+#include <gl3x/math/spherical.hpp>
+#include <gl3x/math/utilities.hpp>
 
 #include <cassert>
 

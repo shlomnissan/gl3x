@@ -8,9 +8,9 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <gleam/cameras/perspective_camera.hpp>
-#include <gleam/nodes/mesh.hpp>
-#include <gleam/nodes/node.hpp>
+#include <gl3x/cameras/perspective_camera.hpp>
+#include <gl3x/nodes/mesh.hpp>
+#include <gl3x/nodes/node.hpp>
 
 #pragma region Node Operations
 

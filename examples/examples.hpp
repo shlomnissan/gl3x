@@ -9,7 +9,7 @@
 
 #include <vector>
 
-#include <gleam/gleam.hpp>
+#include <gl3x/gl3x.hpp>
 #include <imgui/imgui.h>
 
 #include "ui_helpers.hpp"

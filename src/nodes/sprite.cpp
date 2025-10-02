@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/nodes/sprite.hpp"
+#include "gl3x/nodes/sprite.hpp"
 
 namespace gleam {
 

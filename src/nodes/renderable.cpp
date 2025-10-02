@@ -5,9 +5,9 @@
 ===========================================================================
 */
 
-#include "gleam/nodes/renderable.hpp"
+#include "gl3x/nodes/renderable.hpp"
 
-#include "gleam/nodes/mesh.hpp"
+#include "gl3x/nodes/mesh.hpp"
 
 #include "utilities/logger.hpp"
 

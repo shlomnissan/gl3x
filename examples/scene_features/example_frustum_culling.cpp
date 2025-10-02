@@ -7,9 +7,9 @@
 
 #include "example_frustum_culling.hpp"
 
-#include <gleam/geometries.hpp>
-#include <gleam/lights.hpp>
-#include <gleam/materials.hpp>
+#include <gl3x/geometries.hpp>
+#include <gl3x/lights.hpp>
+#include <gl3x/materials.hpp>
 
 using namespace gleam;
 

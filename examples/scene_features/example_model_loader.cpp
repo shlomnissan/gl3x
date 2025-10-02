@@ -9,8 +9,8 @@
 
 #include "ui_helpers.hpp"
 
-#include <gleam/lights.hpp>
-#include <gleam/materials.hpp>
+#include <gl3x/lights.hpp>
+#include <gl3x/materials.hpp>
 
 #include <print>
 

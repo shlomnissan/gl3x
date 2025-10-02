@@ -7,10 +7,10 @@
 
 #include "example_sandbox.hpp"
 
-#include <gleam/geometries.hpp>
-#include <gleam/lights.hpp>
-#include <gleam/materials.hpp>
-#include <gleam/math.hpp>
+#include <gl3x/geometries.hpp>
+#include <gl3x/lights.hpp>
+#include <gl3x/materials.hpp>
+#include <gl3x/math.hpp>
 
 using namespace gleam;
 

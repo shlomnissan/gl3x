@@ -11,7 +11,7 @@
 #include <cassert>
 #include <limits>
 
-#include <gleam/math/vector4.hpp>
+#include <gl3x/math/vector4.hpp>
 
 #pragma region Constructors
 

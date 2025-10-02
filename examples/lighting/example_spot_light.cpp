@@ -9,8 +9,8 @@
 
 #include "ui_helpers.hpp"
 
-#include <gleam/geometries.hpp>
-#include <gleam/nodes.hpp>
+#include <gl3x/geometries.hpp>
+#include <gl3x/nodes.hpp>
 
 using namespace gleam;
 

@@ -5,10 +5,10 @@
 ===========================================================================
 */
 
-#include "gleam/lights/directional_light.hpp"
+#include "gl3x/lights/directional_light.hpp"
 
-#include "gleam/materials/unlit_material.hpp"
-#include "gleam/nodes/mesh.hpp"
+#include "gl3x/materials/unlit_material.hpp"
+#include "gl3x/nodes/mesh.hpp"
 
 namespace gleam {
 

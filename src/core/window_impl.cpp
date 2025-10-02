@@ -7,8 +7,8 @@
 
 #include "core/window_impl.hpp"
 
-#include "gleam/events/keyboard_event.hpp"
-#include "gleam/events/mouse_event.hpp"
+#include "gl3x/events/keyboard_event.hpp"
+#include "gl3x/events/mouse_event.hpp"
 
 #include "events/event_dispatcher.hpp"
 #include "utilities/logger.hpp"
@@ -16,7 +16,7 @@
 #include <memory>
 #include <string>
 
-#ifdef GLEAM_USE_IMGUI
+#ifdef GL3X_USE_IMGUI
 #include "core/imgui_integration.hpp"
 #endif
 
@@ -87,7 +87,7 @@ auto Window::Impl::Initialize() -> std::expected<void, std::string> {
     glfwSetFramebufferSizeCallback(window_, glfw_framebuffer_size_callback);
     glfwSetWindowSizeCallback(window_, glfw_window_size_callback);
 
-#ifdef GLEAM_USE_IMGUI
+#ifdef GL3X_USE_IMGUI
     imgui_initialize(window_);
 #endif
 
@@ -110,13 +110,13 @@ auto Window::Impl::PollEvents() -> void {
 }
 
 auto Window::Impl::BeginUIFrame() -> void {
-#ifdef GLEAM_USE_IMGUI
+#ifdef GL3X_USE_IMGUI
     imgui_begin_frame();
 #endif
 }
 
 auto Window::Impl::EndUIFrame() -> void {
-#ifdef GLEAM_USE_IMGUI
+#ifdef GL3X_USE_IMGUI
     imgui_end_frame();
 #endif
 }
@@ -156,7 +156,7 @@ auto Window::Impl::LogContextInfo() const -> void {
 }
 
 Window::Impl::~Impl() {
-#ifdef GLEAM_USE_IMGUI
+#ifdef GL3X_USE_IMGUI
     imgui_shutdown();
 #endif
 
@@ -175,7 +175,7 @@ auto glfw_get_error() -> std::string {
 }
 
 auto glfw_key_callback(GLFWwindow*, int key, int scancode, int action, int mods) -> void {
-#ifdef GLEAM_USE_IMGUI
+#ifdef GL3X_USE_IMGUI
     if (imgui_wants_input()) return;
 #endif
 
@@ -208,7 +208,7 @@ auto glfw_cursor_pos_callback(GLFWwindow* window, double x, double y) -> void {
 }
 
 auto glfw_mouse_button_callback(GLFWwindow* window, int button, int action, int) -> void {
-#ifdef GLEAM_USE_IMGUI
+#ifdef GL3X_USE_IMGUI
     if (imgui_wants_input()) return;
 #endif
 
@@ -234,7 +234,7 @@ auto glfw_mouse_button_callback(GLFWwindow* window, int button, int action, int)
 }
 
 auto glfw_scroll_callback(GLFWwindow* window, double x, double y) -> void {
-#ifdef GLEAM_USE_IMGUI
+#ifdef GL3X_USE_IMGUI
     if (imgui_wants_input()) return;
 #endif
 

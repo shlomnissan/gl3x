@@ -33,7 +33,7 @@ foreach(TEST IN LISTS TEST_SOURCES)
 
     set(TEST_TARGET run_${NAME_NO_EXT})
     add_executable(${TEST_TARGET} test_helpers.hpp ${TEST})
-    target_link_libraries(${TEST_TARGET} PRIVATE GTest::gtest_main GTest::gmock gleam)
+    target_link_libraries(${TEST_TARGET} PRIVATE GTest::gtest_main GTest::gmock gl3x)
     add_test(${NAME_NO_EXT} ${TEST_TARGET})
 
     if (MSVC)

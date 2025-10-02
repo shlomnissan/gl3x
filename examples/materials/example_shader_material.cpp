@@ -9,7 +9,7 @@
 
 #include "ui_helpers.hpp"
 
-#include <gleam/geometries.hpp>
+#include <gl3x/geometries.hpp>
 
 using namespace gleam;
 

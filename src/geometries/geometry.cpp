@@ -5,9 +5,9 @@
 ===========================================================================
 */
 
-#include "gleam/geometries/geometry.hpp"
+#include "gl3x/geometries/geometry.hpp"
 
-#include "gleam/math/utilities.hpp"
+#include "gl3x/math/utilities.hpp"
 
 #include "utilities/logger.hpp"
 

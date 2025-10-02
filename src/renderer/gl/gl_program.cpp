@@ -8,7 +8,7 @@
 #include "renderer/gl/gl_program.hpp"
 
 #include "core/shader_library.hpp"
-#include "gleam/geometries/geometry.hpp"
+#include "gl3x/geometries/geometry.hpp"
 #include "utilities/logger.hpp"
 
 #include <utility>

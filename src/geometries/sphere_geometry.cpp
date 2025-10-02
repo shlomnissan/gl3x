@@ -5,10 +5,10 @@
 ===========================================================================
 */
 
-#include "gleam/geometries/sphere_geometry.hpp"
+#include "gl3x/geometries/sphere_geometry.hpp"
 
-#include "gleam/math/vector3.hpp"
-#include "gleam/math/utilities.hpp"
+#include "gl3x/math/vector3.hpp"
+#include "gl3x/math/utilities.hpp"
 
 #include <algorithm>
 #include <cassert>

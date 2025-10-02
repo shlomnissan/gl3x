@@ -1,6 +1,6 @@
 add_subdirectory("glad")
 add_subdirectory("glfw")
 
-if (GLEAM_BUILD_IMGUI)
+if (GL3X_BUILD_IMGUI)
     add_subdirectory("imgui")
 endif()

@@ -11,8 +11,8 @@
 
 #include <memory>
 
-#include <gleam/lights.hpp>
-#include <gleam/materials.hpp>
+#include <gl3x/lights.hpp>
+#include <gl3x/materials.hpp>
 
 class ExamplePointLight : public ExampleScene {
 public:

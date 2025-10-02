@@ -5,11 +5,11 @@
 ===========================================================================
 */
 
-#include "gleam/nodes/orbit_controls.hpp"
+#include "gl3x/nodes/orbit_controls.hpp"
 
-#include "gleam/math/spherical.hpp"
-#include "gleam/math/vector2.hpp"
-#include "gleam/math/vector3.hpp"
+#include "gl3x/math/spherical.hpp"
+#include "gl3x/math/vector2.hpp"
+#include "gl3x/math/vector3.hpp"
 
 namespace gleam {
 

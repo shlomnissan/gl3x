@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <gleam/geometries/box_geometry.hpp>
+#include <gl3x/geometries/box_geometry.hpp>
 
 #pragma region Fixtures
 

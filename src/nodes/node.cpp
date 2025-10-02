@@ -5,9 +5,9 @@
 ===========================================================================
 */
 
-#include "gleam/nodes/node.hpp"
+#include "gl3x/nodes/node.hpp"
 
-#include "gleam/cameras/camera.hpp"
+#include "gl3x/cameras/camera.hpp"
 
 #include "events/event_dispatcher.hpp"
 #include "utilities/logger.hpp"

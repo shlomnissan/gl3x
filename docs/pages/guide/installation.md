@@ -62,11 +62,11 @@ After installing the requirements, you’re ready to build the project. Gleam pr
 
 | Option                 | Description                                              |
 |------------------------|----------------------------------------------------------|
-| `GLEAM_BUILD_DOCS`     | Build Doxygen documentation.                             |
-| `GLEAM_BUILD_EXAMPLES` | Build example applications.                              |
-| `GLEAM_BUILD_IMGUI`    | Enable ImGui support for debug UI/tools.                 |
-| `GLEAM_BUILD_TESTS`    | Build unit tests.                                        |
-| `GLEAM_BUILD_TOOLS`    | Build command-line tools.                                |
+| `GL3X_BUILD_DOCS`     | Build Doxygen documentation.                             |
+| `GL3X_BUILD_EXAMPLES` | Build example applications.                              |
+| `GL3X_BUILD_IMGUI`    | Enable ImGui support for debug UI/tools.                 |
+| `GL3X_BUILD_TESTS`    | Build unit tests.                                        |
+| `GL3X_BUILD_TOOLS`    | Build command-line tools.                                |
 
 Default values depend on the selected preset.
 
@@ -107,7 +107,7 @@ If you built with examples enabled, try running them to make sure everything wor
 You can also configure the project manually by passing options directly to CMake:
 
 ```bash
-cmake .. -DCMAKE_BUILD_TYPE=Release -DGLEAM_BUILD_TESTS=OFF
+cmake .. -DCMAKE_BUILD_TYPE=Release -DGL3X_BUILD_TESTS=OFF
 cmake --build .
 ```
 This approach is useful if you want full control over which components are enabled, or if you’re not using the provided presets.

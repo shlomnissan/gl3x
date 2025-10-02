@@ -7,7 +7,7 @@
 
 #include "renderer/gl/gl_buffers.hpp"
 
-#include "gleam/math/vector4.hpp"
+#include "gl3x/math/vector4.hpp"
 
 #include "nodes/instanced_mesh_impl.hpp"
 #include "utilities/logger.hpp"

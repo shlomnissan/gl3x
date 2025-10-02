@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/cameras/orthographic_camera.hpp"
+#include "gl3x/cameras/orthographic_camera.hpp"
 
 namespace gleam {
 

@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <gleam/geometries/sphere_geometry.hpp>
+#include <gl3x/geometries/sphere_geometry.hpp>
 
 #pragma region Fixtures
 

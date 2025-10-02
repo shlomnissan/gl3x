@@ -5,10 +5,10 @@
 ===========================================================================
 */
 
-#include "gleam/geometries/cylinder_geometry.hpp"
+#include "gl3x/geometries/cylinder_geometry.hpp"
 
-#include "gleam/math/utilities.hpp"
-#include "gleam/math/vector3.hpp"
+#include "gl3x/math/utilities.hpp"
+#include "gl3x/math/vector3.hpp"
 
 #include <cassert>
 

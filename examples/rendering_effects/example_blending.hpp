@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <gleam/materials.hpp>
+#include <gl3x/materials.hpp>
 
 #include <array>
 #include <memory>

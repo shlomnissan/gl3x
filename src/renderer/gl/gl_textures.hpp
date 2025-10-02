@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "gleam/textures/texture.hpp"
+#include "gl3x/textures/texture.hpp"
 
 #include <array>
 #include <memory>

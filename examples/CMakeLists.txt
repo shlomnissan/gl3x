@@ -54,7 +54,7 @@ target_include_directories(${BINARY} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>
 )
 
-target_link_libraries(${BINARY} PRIVATE gleam)
+target_link_libraries(${BINARY} PRIVATE gl3x)
 
 add_custom_command(
     TARGET ${BINARY} POST_BUILD

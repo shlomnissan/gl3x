@@ -12,7 +12,7 @@
 #include <cassert>
 #include <regex>
 
-#include <gleam/math/utilities.hpp>
+#include <gl3x/math/utilities.hpp>
 
 using namespace gleam;
 

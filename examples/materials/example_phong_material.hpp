@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include <gleam/materials.hpp>
-#include <gleam/nodes.hpp>
-#include <gleam/textures.hpp>
+#include <gl3x/materials.hpp>
+#include <gl3x/nodes.hpp>
+#include <gl3x/textures.hpp>
 
 #include <memory>
 

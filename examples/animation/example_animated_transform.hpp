@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include <gleam/core.hpp>
-#include <gleam/materials.hpp>
-#include <gleam/math.hpp>
-#include <gleam/nodes.hpp>
+#include <gl3x/core.hpp>
+#include <gl3x/materials.hpp>
+#include <gl3x/math.hpp>
+#include <gl3x/nodes.hpp>
 
 #include "example_scene.hpp"
 

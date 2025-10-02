@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/nodes/scene.hpp"
+#include "gl3x/nodes/scene.hpp"
 
 #include "events/event_dispatcher.hpp"
 #include "utilities/logger.hpp"

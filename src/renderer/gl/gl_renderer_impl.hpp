@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "gleam/core/renderer.hpp"
-#include "gleam/nodes/renderable.hpp"
+#include "gl3x/core/renderer.hpp"
+#include "gl3x/nodes/renderable.hpp"
 
 #include "renderer/gl/gl_buffers.hpp"
 #include "renderer/gl/gl_camera.hpp"

@@ -5,9 +5,9 @@
 ===========================================================================
 */
 
-#include "gleam/nodes/mesh.hpp"
+#include "gl3x/nodes/mesh.hpp"
 
-#include "gleam/geometries/wireframe_geometry.hpp"
+#include "gl3x/geometries/wireframe_geometry.hpp"
 
 namespace gleam {
 

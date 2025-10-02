@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gleam/cameras/camera.hpp"
+#include "gl3x/cameras/camera.hpp"
 
 namespace gleam {
 

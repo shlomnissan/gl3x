@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "gleam/math/box3.hpp"
-#include "gleam/math/sphere.hpp"
-#include "gleam/nodes/instanced_mesh.hpp"
+#include "gl3x/math/box3.hpp"
+#include "gl3x/math/sphere.hpp"
+#include "gl3x/nodes/instanced_mesh.hpp"
 
 namespace gleam {
 

@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include <gleam/cameras.hpp>
-#include <gleam/geometries.hpp>
-#include <gleam/nodes.hpp>
+#include <gl3x/cameras.hpp>
+#include <gl3x/geometries.hpp>
+#include <gl3x/nodes.hpp>
 
 #include <memory>
 

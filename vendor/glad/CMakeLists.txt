@@ -17,4 +17,4 @@ set_target_properties(glad PROPERTIES
     POSITION_INDEPENDENT_CODE ON
 )
 
-install(TARGETS glad EXPORT gleam)
+install(TARGETS glad EXPORT gl3x)

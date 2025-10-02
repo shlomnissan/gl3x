@@ -6,11 +6,11 @@
       "binaryDir": "${sourceDir}/build/debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "GLEAM_BUILD_DOCS": "ON",
-        "GLEAM_BUILD_EXAMPLES": "ON",
-        "GLEAM_BUILD_IMGUI": "ON",
-        "GLEAM_BUILD_TESTS": "ON",
-        "GLEAM_BUILD_TOOLS": "ON",
+        "GL3X_BUILD_DOCS": "ON",
+        "GL3X_BUILD_EXAMPLES": "ON",
+        "GL3X_BUILD_IMGUI": "ON",
+        "GL3X_BUILD_TESTS": "ON",
+        "GL3X_BUILD_TOOLS": "ON",
         "BUILD_SHARED_LIBS": "OFF"
       }
     },
@@ -19,11 +19,11 @@
       "binaryDir": "${sourceDir}/build/release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "GLEAM_BUILD_DOCS": "ON",
-        "GLEAM_BUILD_EXAMPLES": "ON",
-        "GLEAM_BUILD_IMGUI": "ON",
-        "GLEAM_BUILD_TESTS": "ON",
-        "GLEAM_BUILD_TOOLS": "ON",
+        "GL3X_BUILD_DOCS": "ON",
+        "GL3X_BUILD_EXAMPLES": "ON",
+        "GL3X_BUILD_IMGUI": "ON",
+        "GL3X_BUILD_TESTS": "ON",
+        "GL3X_BUILD_TOOLS": "ON",
         "BUILD_SHARED_LIBS": "OFF"
       }
     },
@@ -32,11 +32,11 @@
       "binaryDir": "${sourceDir}/out/install-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "GLEAM_BUILD_DOCS": "OFF",
-        "GLEAM_BUILD_EXAMPLES": "OFF",
-        "GLEAM_BUILD_IMGUI": "ON",
-        "GLEAM_BUILD_TESTS": "OFF",
-        "GLEAM_BUILD_TOOLS": "ON",
+        "GL3X_BUILD_DOCS": "OFF",
+        "GL3X_BUILD_EXAMPLES": "OFF",
+        "GL3X_BUILD_IMGUI": "ON",
+        "GL3X_BUILD_TESTS": "OFF",
+        "GL3X_BUILD_TOOLS": "ON",
         "BUILD_SHARED_LIBS": "ON"
       }
     },
@@ -45,11 +45,11 @@
       "binaryDir": "${sourceDir}/out/install-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "GLEAM_BUILD_DOCS": "OFF",
-        "GLEAM_BUILD_EXAMPLES": "OFF",
-        "GLEAM_BUILD_IMGUI": "ON",
-        "GLEAM_BUILD_TESTS": "OFF",
-        "GLEAM_BUILD_TOOLS": "ON",
+        "GL3X_BUILD_DOCS": "OFF",
+        "GL3X_BUILD_EXAMPLES": "OFF",
+        "GL3X_BUILD_IMGUI": "ON",
+        "GL3X_BUILD_TESTS": "OFF",
+        "GL3X_BUILD_TOOLS": "ON",
         "BUILD_SHARED_LIBS": "ON"
       }
     }

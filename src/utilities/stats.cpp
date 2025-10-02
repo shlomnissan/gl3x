@@ -5,13 +5,13 @@
 ===========================================================================
 */
 
-#include "gleam/utilities/stats.hpp"
+#include "gl3x/utilities/stats.hpp"
 
-#include "gleam/utilities/timer.hpp"
+#include "gl3x/utilities/timer.hpp"
 
 #include "utilities/data_series.hpp"
 
-#ifdef GLEAM_USE_IMGUI
+#ifdef GL3X_USE_IMGUI
 #include <imgui/imgui.h>
 #endif
 
@@ -71,7 +71,7 @@ auto Stats::AfterRender(unsigned int n_objects) -> void {
 }
 
 auto Stats::Draw() const -> void {
-#ifdef GLEAM_USE_IMGUI
+#ifdef GL3X_USE_IMGUI
     const auto window_width = ImGui::GetIO().DisplaySize.x;
 
     ImGui::SetNextWindowSize({kContainerWidth, kContainerHeight});

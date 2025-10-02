@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "gleam/core/identity.hpp"
-#include "gleam/utilities/timer.hpp"
+#include "gl3x/core/identity.hpp"
+#include "gl3x/utilities/timer.hpp"
 
 #include <filesystem>
 #include <format>

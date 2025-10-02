@@ -7,12 +7,12 @@
 
 #pragma once
 
-#include "gleam/cameras/camera.hpp"
-#include "gleam/lights/light.hpp"
-#include "gleam/math/frustum.hpp"
-#include "gleam/nodes/node.hpp"
-#include "gleam/nodes/renderable.hpp"
-#include "gleam/nodes/scene.hpp"
+#include "gl3x/cameras/camera.hpp"
+#include "gl3x/lights/light.hpp"
+#include "gl3x/math/frustum.hpp"
+#include "gl3x/nodes/node.hpp"
+#include "gl3x/nodes/renderable.hpp"
+#include "gl3x/nodes/scene.hpp"
 
 #include <memory>
 #include <span>

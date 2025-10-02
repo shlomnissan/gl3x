@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <gleam/nodes.hpp>
+#include <gl3x/nodes.hpp>
 
 #include <memory>
 #include <string>

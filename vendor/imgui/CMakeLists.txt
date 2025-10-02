@@ -24,4 +24,4 @@ set_target_properties(imgui PROPERTIES
     POSITION_INDEPENDENT_CODE ON
 )
 
-install(TARGETS imgui EXPORT gleam)
+install(TARGETS imgui EXPORT gl3x)

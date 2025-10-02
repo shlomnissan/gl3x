@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <gleam/core.hpp>
-#include <gleam/nodes.hpp>
+#include <gl3x/core.hpp>
+#include <gl3x/nodes.hpp>
 
 #include "example_scene.hpp"
 

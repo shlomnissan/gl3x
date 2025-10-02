@@ -9,9 +9,9 @@
 
 #include "ui_helpers.hpp"
 
-#include <gleam/geometries.hpp>
-#include <gleam/loaders.hpp>
-#include <gleam/textures.hpp>
+#include <gl3x/geometries.hpp>
+#include <gl3x/loaders.hpp>
+#include <gl3x/textures.hpp>
 
 #include <print>
 

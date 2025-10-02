@@ -5,11 +5,11 @@
 ===========================================================================
 */
 
-#include "gleam/lights/point_light.hpp"
+#include "gl3x/lights/point_light.hpp"
 
-#include "gleam/geometries/sphere_geometry.hpp"
-#include "gleam/materials/unlit_material.hpp"
-#include "gleam/nodes/mesh.hpp"
+#include "gl3x/geometries/sphere_geometry.hpp"
+#include "gl3x/materials/unlit_material.hpp"
+#include "gl3x/nodes/mesh.hpp"
 
 namespace gleam {
 

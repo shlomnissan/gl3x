@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <gleam/math/plane.hpp>
+#include <gl3x/math/plane.hpp>
 
 #include <cassert>
 

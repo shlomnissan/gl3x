@@ -5,12 +5,12 @@
 ===========================================================================
 */
 
-#include "gleam/nodes/bounding_plane.hpp"
+#include "gl3x/nodes/bounding_plane.hpp"
 
-#include "gleam/geometries/geometry.hpp"
-#include "gleam/geometries/wireframe_geometry.hpp"
-#include "gleam/materials/unlit_material.hpp"
-#include "gleam/nodes/mesh.hpp"
+#include "gl3x/geometries/geometry.hpp"
+#include "gl3x/geometries/wireframe_geometry.hpp"
+#include "gl3x/materials/unlit_material.hpp"
+#include "gl3x/nodes/mesh.hpp"
 
 #include <vector>
 

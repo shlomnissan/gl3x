@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <gleam/math/matrix4.hpp>
+#include <gl3x/math/matrix4.hpp>
 
 #include <cassert>
 
