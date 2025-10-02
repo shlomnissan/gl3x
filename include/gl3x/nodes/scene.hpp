@@ -19,7 +19,7 @@ namespace gl3x {
 /**
  * @brief Root node and entry point for a scene graph.
  *
- * `Scene` is the top-level container for all nodes in a Gleam application. It acts as the
+ * `Scene` is the top-level container for all nodes in a GL3X application. It acts as the
  * root of the scene graph and is responsible for propagating update and input events
  * throughout the hierarchy. Each application has one active scene at a time, which is
  * managed by the `Application`.

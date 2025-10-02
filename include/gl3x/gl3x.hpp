@@ -1,7 +1,7 @@
 /*
 ===========================================================================
-    GLEAM ENGINE DEMOS https://gleamengine.org
-    Copyright © 2024 - Present, Shlomi Nissan
+  GL3X https://gl3x.org
+  Copyright © 2024 - Present, Shlomi Nissan
 ===========================================================================
 */
 

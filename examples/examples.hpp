@@ -75,7 +75,7 @@ public:
 
         ImGui::SetNextWindowSize({250, height - 20.0f});
         ImGui::SetNextWindowPos({10, 10});
-        ImGui::Begin("Gleam Engine", nullptr,
+        ImGui::Begin("GL3X", nullptr,
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove
         );
