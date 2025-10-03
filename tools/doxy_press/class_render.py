@@ -4,9 +4,13 @@ from html import escape
 from typing import List
 from .content_model import ClassDoc, EnumDoc, VarDoc, FunctionDoc, DocParagraph, TypeRef
 
-def _para(s: str) -> str: return s.strip()
-
-def _first(paras): return _para(paras[0].md) if paras else ""
+def _escape_md(name: str) -> str:
+    return (
+        name.replace("[", r"\[")
+            .replace("]", r"\]")
+            .replace("(", r"\(")
+            .replace(")", r"\)")
+    )
 
 def _join_paragraphs(paras: List[DocParagraph]) -> str:
     return ("\n\n".join(p.md.strip() for p in paras if p.md.strip())).strip()
@@ -76,7 +80,7 @@ def _render_enum(enum: EnumDoc):
 
 
 def _render_function(func: FunctionDoc):
-    name_str = func.name
+    name_str = _escape_md(func.name)
     brief = _inline_md_to_html(_join_paragraphs(func.brief)) if func.brief else ""
     description = _inline_md_to_html(_join_paragraphs(func.details)) if func.details else ""
     ret = escape(func.return_type.as_text(), quote=False)
