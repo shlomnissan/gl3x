@@ -112,6 +112,7 @@
 .docblock ul.params {
   margin: 8px 0 16px 0;
   list-style-type: none;
+  font-size: 14px;
   padding: 0;
 }
 
