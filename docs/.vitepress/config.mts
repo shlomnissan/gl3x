@@ -16,6 +16,9 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/favicon_white.ico', media: '(prefers-color-scheme: dark)' }],
   ],
   themeConfig: {
+    search: {
+      provider: 'local'
+    },
     logo: {
       light: '/logo-light.svg',
       dark: '/logo-dark.svg'
