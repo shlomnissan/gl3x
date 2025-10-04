@@ -191,10 +191,16 @@ def build_class_doc(refid: str, xml_dir: str | Path) -> ClassDoc:
 
     name = element_text(cdef.find("compoundname")).strip()
     display = name.split("::")[-1] if "::" in name else name
+
+    base_ids = []
+    for base in cdef.findall("basecompoundref"):
+        base_ids.append(base.get("refid"))
+
     doc = ClassDoc(
         id=refid,
         name=name,
         display=display,
+        base_ids=base_ids,
         brief=render_description(cdef.find("briefdescription")),
         details=render_description(cdef.find("detaileddescription")),
     )

@@ -74,6 +74,7 @@ class ClassDoc:
     id: str
     name: str
     display: str
+    base_ids: List[Optional[str]] = field(default_factory=list)
     brief: List[DocParagraph] = field(default_factory=list)
     details: List[DocParagraph] = field(default_factory=list)
     variables: List[VarDoc] = field(default_factory=list)
