@@ -194,7 +194,7 @@ def build_class_doc(refid: str, xml_dir: str | Path) -> ClassDoc:
 
     base_ids = []
     for base in cdef.findall("basecompoundref"):
-        base_ids.append(base.get("refid"))
+        if base.get("refid"): base_ids.append(base.get("refid"))
 
     doc = ClassDoc(
         id=refid,

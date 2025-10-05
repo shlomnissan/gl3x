@@ -33,7 +33,7 @@ def emit_class_pages(inv: Inventory, docs_root: Path, xml_dir: Path) -> List[Pat
         gslug = group_slug[c.group_id]
         cslug = c.slug
         dest = out_root / gslug / f"{cslug}.md"
-        content = HEADER + render_class(build_class_doc(c.id, xml_dir))
+        content = HEADER + render_class(inv, build_class_doc(c.id, xml_dir))
 
         _write_if_changed(dest, content)
         written.append(dest)

@@ -2,7 +2,14 @@ from __future__ import annotations
 
 from html import escape
 from typing import List
-from .content_model import ClassDoc, EnumDoc, VarDoc, FunctionDoc, DocParagraph, TypeRef
+from .model import Inventory, slugify
+from .content_model import (
+    ClassDoc,
+    EnumDoc,
+    VarDoc,
+    FunctionDoc,
+    DocParagraph,
+)
 
 def _escape_md(name: str) -> str:
     return (
@@ -109,7 +116,7 @@ def _render_function(func: FunctionDoc):
         f'</div>\n\n'
     )
 
-def render_class(doc: ClassDoc) -> str:
+def render_class(inv: Inventory, doc: ClassDoc) -> str:
     lines: List[str] = []
 
     lines.append(f"# {doc.display}\n\n")
@@ -120,6 +127,14 @@ def render_class(doc: ClassDoc) -> str:
     if doc.details:
         lines.append("")
         lines.append(_join_paragraphs(doc.details))
+
+    if len(doc.base_ids) > 0:
+        base = inv.classes[doc.base_ids[0]]
+        if base:
+            group = inv.groups[base.group_id]
+            lines.append("")
+            lines += [f'Derives from [{base.display}](/reference/{group.slug}/{base.slug}); ']
+            lines += [f'inherits all unlisted properties and methods.']
 
     if doc.constructors:
         lines += ["## Constructors", ""]
