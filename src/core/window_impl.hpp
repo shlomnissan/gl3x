@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "gl3x/core/window.hpp"
+#include "vglx/core/window.hpp"
 
 #include <expected>
 #include <string>

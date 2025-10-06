@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <gl3x/materials/material.hpp>
-#include <gl3x/math/color.hpp>
+#include <vglx/materials/material.hpp>
+#include <vglx/math/color.hpp>
 
 #include <memory>
 #include <unordered_map>

@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gl3x/geometries/cone_geometry.hpp"
+#include "vglx/geometries/cone_geometry.hpp"
 
 #include <cassert>
 

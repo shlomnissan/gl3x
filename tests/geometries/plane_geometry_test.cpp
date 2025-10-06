@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <gl3x/geometries/plane_geometry.hpp>
+#include <vglx/geometries/plane_geometry.hpp>
 
 #pragma region Fixtures
 

@@ -9,12 +9,12 @@
 
 #include <gtest/gtest.h>
 
-#include <gl3x/math/color.hpp>
-#include <gl3x/math/matrix3.hpp>
-#include <gl3x/math/matrix4.hpp>
-#include <gl3x/math/vector2.hpp>
-#include <gl3x/math/vector3.hpp>
-#include <gl3x/math/vector4.hpp>
+#include <vglx/math/color.hpp>
+#include <vglx/math/matrix3.hpp>
+#include <vglx/math/matrix4.hpp>
+#include <vglx/math/vector2.hpp>
+#include <vglx/math/vector3.hpp>
+#include <vglx/math/vector4.hpp>
 
 template <typename T>
 constexpr bool ApproxEqual(T a, T b, T eps = static_cast<T>(1e-4)) {

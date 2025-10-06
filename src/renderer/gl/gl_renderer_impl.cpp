@@ -7,14 +7,14 @@
 
 #include "renderer/gl/gl_renderer_impl.hpp"
 
-#include "gl3x/materials/phong_material.hpp"
-#include "gl3x/materials/shader_material.hpp"
-#include "gl3x/materials/sprite_material.hpp"
-#include "gl3x/materials/unlit_material.hpp"
-#include "gl3x/math/vector3.hpp"
-#include "gl3x/nodes/fog.hpp"
-#include "gl3x/nodes/instanced_mesh.hpp"
-#include "gl3x/nodes/sprite.hpp"
+#include "vglx/materials/phong_material.hpp"
+#include "vglx/materials/shader_material.hpp"
+#include "vglx/materials/sprite_material.hpp"
+#include "vglx/materials/unlit_material.hpp"
+#include "vglx/math/vector3.hpp"
+#include "vglx/nodes/fog.hpp"
+#include "vglx/nodes/instanced_mesh.hpp"
+#include "vglx/nodes/sprite.hpp"
 
 #include "core/program_attributes.hpp"
 #include "core/render_lists.hpp"

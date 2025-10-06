@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gl3x/utilities/timer.hpp"
+#include "vglx/utilities/timer.hpp"
 
 #include "utilities/logger.hpp"
 

@@ -5,14 +5,14 @@
 ===========================================================================
 */
 
-#include "gl3x/core/application.hpp"
+#include "vglx/core/application.hpp"
 
-#include "gl3x/cameras/perspective_camera.hpp"
-#include "gl3x/core/renderer.hpp"
-#include "gl3x/core/shared_context.hpp"
-#include "gl3x/core/window.hpp"
-#include "gl3x/utilities/frame_timer.hpp"
-#include "gl3x/utilities/stats.hpp"
+#include "vglx/cameras/perspective_camera.hpp"
+#include "vglx/core/renderer.hpp"
+#include "vglx/core/shared_context.hpp"
+#include "vglx/core/window.hpp"
+#include "vglx/utilities/frame_timer.hpp"
+#include "vglx/utilities/stats.hpp"
 
 #include "utilities/logger.hpp"
 

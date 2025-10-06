@@ -5,11 +5,11 @@
 ===========================================================================
 */
 
-#include "gl3x/nodes/orbit_controls.hpp"
+#include "vglx/nodes/orbit_controls.hpp"
 
-#include "gl3x/math/spherical.hpp"
-#include "gl3x/math/vector2.hpp"
-#include "gl3x/math/vector3.hpp"
+#include "vglx/math/spherical.hpp"
+#include "vglx/math/vector2.hpp"
+#include "vglx/math/vector3.hpp"
 
 namespace gl3x {
 

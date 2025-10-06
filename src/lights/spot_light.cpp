@@ -5,11 +5,11 @@
 ===========================================================================
 */
 
-#include "gl3x/lights/spot_light.hpp"
+#include "vglx/lights/spot_light.hpp"
 
-#include "gl3x/materials/unlit_material.hpp"
-#include "gl3x/math/utilities.hpp"
-#include "gl3x/nodes/mesh.hpp"
+#include "vglx/materials/unlit_material.hpp"
+#include "vglx/math/utilities.hpp"
+#include "vglx/nodes/mesh.hpp"
 
 #include <vector>
 

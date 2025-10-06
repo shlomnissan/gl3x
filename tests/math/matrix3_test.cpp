@@ -8,8 +8,8 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <gl3x/math/matrix3.hpp>
-#include <gl3x/math/matrix4.hpp>
+#include <vglx/math/matrix3.hpp>
+#include <vglx/math/matrix4.hpp>
 
 #include <cassert>
 

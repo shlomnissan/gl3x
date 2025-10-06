@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "gl3x/geometries/geometry.hpp"
-#include "gl3x/nodes/instanced_mesh.hpp"
+#include "vglx/geometries/geometry.hpp"
+#include "vglx/nodes/instanced_mesh.hpp"
 
 #include <array>
 #include <memory>

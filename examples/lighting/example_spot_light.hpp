@@ -11,8 +11,8 @@
 
 #include <memory>
 
-#include <gl3x/lights.hpp>
-#include <gl3x/materials.hpp>
+#include <vglx/lights.hpp>
+#include <vglx/materials.hpp>
 
 class ExampleSpotLight : public ExampleScene {
 public:

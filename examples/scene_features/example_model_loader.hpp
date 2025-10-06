@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include <gl3x/cameras.hpp>
-#include <gl3x/geometries.hpp>
-#include <gl3x/nodes.hpp>
+#include <vglx/cameras.hpp>
+#include <vglx/geometries.hpp>
+#include <vglx/nodes.hpp>
 
 #include <memory>
 

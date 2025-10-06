@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "gl3x/events/event.hpp"
+#include "vglx/events/event.hpp"
 
 #include "utilities/logger.hpp"
 

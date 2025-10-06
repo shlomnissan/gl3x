@@ -71,11 +71,11 @@ The following options control which components are built:
 
 | Option                 | Description                                              |
 |------------------------|----------------------------------------------------------|
-| `GL3X_BUILD_DOCS`     | Build Doxygen documentation.                             |
-| `GL3X_BUILD_EXAMPLES` | Build example applications.                              |
-| `GL3X_BUILD_IMGUI`    | Enable ImGui support for debug UI/tools.                 |
-| `GL3X_BUILD_TESTS`    | Build unit tests.                                        |
-| `GL3X_BUILD_TOOLS`    | Build command-line tools.                                |
+| `VGLX_BUILD_DOCS`     | Build Doxygen documentation.                             |
+| `VGLX_BUILD_EXAMPLES` | Build example applications.                              |
+| `VGLX_BUILD_IMGUI`    | Enable ImGui support for debug UI/tools.                 |
+| `VGLX_BUILD_TESTS`    | Build unit tests.                                        |
+| `VGLX_BUILD_TOOLS`    | Build command-line tools.                                |
 
 Defaults are preset-dependent.
 
@@ -152,7 +152,7 @@ CMake automatically selects the correct configuration (Debug/Release) based on y
 
 ## Asset Generation Pipeline
 
-GL3X does not parse raw assets at runtime. Instead, assets are preprocessed using asset_builder, a command-line tool built with `GL3X_BUILD_TOOLS`. It converts raw asset formats into compact, runtime-ready formats.
+GL3X does not parse raw assets at runtime. Instead, assets are preprocessed using asset_builder, a command-line tool built with `VGLX_BUILD_TOOLS`. It converts raw asset formats into compact, runtime-ready formats.
 
 #### Supported Formats
 
@@ -174,15 +174,15 @@ asset_builder --input texture.png --output texture.tex
 
 ## License
 ```
- ________  ___      ________     ___    ___ 
+ ________  ___      ________     ___    ___
 |\   ____\|\  \    |\_____  \   |\  \  /  /|
 \ \  \___|\ \  \   \|____|\ /_  \ \  \/  / /
- \ \  \  __\ \  \        \|\  \  \ \    / / 
-  \ \  \|\  \ \  \____  __\_\  \  /     \/  
-   \ \_______\ \_______\\_______\/  /\   \  
-    \|_______|\|_______\|_______/__/ /\ __\ 
+ \ \  \  __\ \  \        \|\  \  \ \    / /
+  \ \  \|\  \ \  \____  __\_\  \  /     \/
+   \ \_______\ \_______\\_______\/  /\   \
+    \|_______|\|_______\|_______/__/ /\ __\
                                 |__|/ \|__|
-                                   
+
 
 Copyright (c) 2024–present Shlomi Nissan
 

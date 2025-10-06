@@ -9,7 +9,7 @@
 
 #include "ui_helpers.hpp"
 
-#include <gl3x/geometries.hpp>
+#include <vglx/geometries.hpp>
 
 using namespace gl3x;
 

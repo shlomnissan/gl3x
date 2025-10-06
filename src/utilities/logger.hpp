@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "gl3x/core/identity.hpp"
-#include "gl3x/utilities/timer.hpp"
+#include "vglx/core/identity.hpp"
+#include "vglx/utilities/timer.hpp"
 
 #include <filesystem>
 #include <format>

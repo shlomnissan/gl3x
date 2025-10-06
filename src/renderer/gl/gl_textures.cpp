@@ -7,7 +7,7 @@
 
 #include "renderer/gl/gl_textures.hpp"
 
-#include "gl3x/textures/texture_2d.hpp"
+#include "vglx/textures/texture_2d.hpp"
 
 #include "utilities/logger.hpp"
 

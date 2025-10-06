@@ -7,10 +7,10 @@
 
 #include "renderer/gl/gl_lights.hpp"
 
-#include "gl3x/lights/directional_light.hpp"
-#include "gl3x/lights/point_light.hpp"
-#include "gl3x/lights/spot_light.hpp"
-#include "gl3x/math/utilities.hpp"
+#include "vglx/lights/directional_light.hpp"
+#include "vglx/lights/point_light.hpp"
+#include "vglx/lights/spot_light.hpp"
+#include "vglx/math/utilities.hpp"
 
 #include "utilities/logger.hpp"
 

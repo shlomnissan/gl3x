@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gl3x/cameras/camera.hpp"
+#include "vglx/cameras/camera.hpp"
 
 namespace gl3x {
 

@@ -30,7 +30,7 @@ target_include_directories(glfw PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-install(TARGETS glfw EXPORT gl3x)
+install(TARGETS glfw EXPORT vglx)
 
 # The time, thread and module code is shared between all backends on a given OS,
 # including the null backend, which still needs those bits to be functional

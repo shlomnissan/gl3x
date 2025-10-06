@@ -7,9 +7,9 @@
 
 #include <gtest/gtest.h>
 
-#include <gl3x/geometries/geometry.hpp>
-#include <gl3x/loaders/mesh_loader.hpp>
-#include <gl3x/nodes/mesh.hpp>
+#include <vglx/geometries/geometry.hpp>
+#include <vglx/loaders/mesh_loader.hpp>
+#include <vglx/nodes/mesh.hpp>
 
 #include <future>
 #include <thread>

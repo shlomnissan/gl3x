@@ -7,10 +7,10 @@
 
 #include "example_sandbox.hpp"
 
-#include <gl3x/geometries.hpp>
-#include <gl3x/lights.hpp>
-#include <gl3x/materials.hpp>
-#include <gl3x/math.hpp>
+#include <vglx/geometries.hpp>
+#include <vglx/lights.hpp>
+#include <vglx/materials.hpp>
+#include <vglx/math.hpp>
 
 using namespace gl3x;
 

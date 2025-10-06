@@ -5,8 +5,8 @@
 ===========================================================================
 */
 
-#include "gl3x/cameras/perspective_camera.hpp"
-#include "gl3x/math/utilities.hpp"
+#include "vglx/cameras/perspective_camera.hpp"
+#include "vglx/math/utilities.hpp"
 
 #include <cmath>
 

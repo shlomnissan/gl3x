@@ -10,7 +10,7 @@
 
 #include <cassert>
 
-#include <gl3x/math/color.hpp>
+#include <vglx/math/color.hpp>
 
 #pragma region Constructors
 

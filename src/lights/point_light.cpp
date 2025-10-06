@@ -5,11 +5,11 @@
 ===========================================================================
 */
 
-#include "gl3x/lights/point_light.hpp"
+#include "vglx/lights/point_light.hpp"
 
-#include "gl3x/geometries/sphere_geometry.hpp"
-#include "gl3x/materials/unlit_material.hpp"
-#include "gl3x/nodes/mesh.hpp"
+#include "vglx/geometries/sphere_geometry.hpp"
+#include "vglx/materials/unlit_material.hpp"
+#include "vglx/nodes/mesh.hpp"
 
 namespace gl3x {
 

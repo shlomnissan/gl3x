@@ -5,10 +5,10 @@
 ===========================================================================
 */
 
-#include "gl3x/lights/directional_light.hpp"
+#include "vglx/lights/directional_light.hpp"
 
-#include "gl3x/materials/unlit_material.hpp"
-#include "gl3x/nodes/mesh.hpp"
+#include "vglx/materials/unlit_material.hpp"
+#include "vglx/nodes/mesh.hpp"
 
 namespace gl3x {
 

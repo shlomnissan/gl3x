@@ -5,9 +5,9 @@
 ===========================================================================
 */
 
-#include "gl3x/nodes/node.hpp"
+#include "vglx/nodes/node.hpp"
 
-#include "gl3x/cameras/camera.hpp"
+#include "vglx/cameras/camera.hpp"
 
 #include "events/event_dispatcher.hpp"
 #include "utilities/logger.hpp"

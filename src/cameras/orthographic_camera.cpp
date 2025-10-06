@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gl3x/cameras/orthographic_camera.hpp"
+#include "vglx/cameras/orthographic_camera.hpp"
 
 namespace gl3x {
 

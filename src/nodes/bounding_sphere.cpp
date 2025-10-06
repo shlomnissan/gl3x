@@ -5,12 +5,12 @@
 ===========================================================================
 */
 
-#include "gl3x/nodes/bounding_sphere.hpp"
+#include "vglx/nodes/bounding_sphere.hpp"
 
-#include "gl3x/geometries/geometry.hpp"
-#include "gl3x/materials/unlit_material.hpp"
-#include "gl3x/math/utilities.hpp"
-#include "gl3x/nodes/mesh.hpp"
+#include "vglx/geometries/geometry.hpp"
+#include "vglx/materials/unlit_material.hpp"
+#include "vglx/math/utilities.hpp"
+#include "vglx/nodes/mesh.hpp"
 
 namespace gl3x {
 

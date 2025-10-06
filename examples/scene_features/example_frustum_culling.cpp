@@ -7,9 +7,9 @@
 
 #include "example_frustum_culling.hpp"
 
-#include <gl3x/geometries.hpp>
-#include <gl3x/lights.hpp>
-#include <gl3x/materials.hpp>
+#include <vglx/geometries.hpp>
+#include <vglx/lights.hpp>
+#include <vglx/materials.hpp>
 
 using namespace gl3x;
 

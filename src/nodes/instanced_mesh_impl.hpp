@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "gl3x/math/box3.hpp"
-#include "gl3x/math/sphere.hpp"
-#include "gl3x/nodes/instanced_mesh.hpp"
+#include "vglx/math/box3.hpp"
+#include "vglx/math/sphere.hpp"
+#include "vglx/nodes/instanced_mesh.hpp"
 
 namespace gl3x {
 

@@ -7,10 +7,10 @@
 
 #include "core/shader_library.hpp"
 
-#include "gl3x/materials/phong_material.hpp"
-#include "gl3x/materials/shader_material.hpp"
-#include "gl3x/materials/sprite_material.hpp"
-#include "gl3x/materials/unlit_material.hpp"
+#include "vglx/materials/phong_material.hpp"
+#include "vglx/materials/shader_material.hpp"
+#include "vglx/materials/sprite_material.hpp"
+#include "vglx/materials/unlit_material.hpp"
 
 #include "utilities/logger.hpp"
 

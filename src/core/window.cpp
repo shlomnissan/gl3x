@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gl3x/core/window.hpp"
+#include "vglx/core/window.hpp"
 
 #include "core/window_impl.hpp"
 

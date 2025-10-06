@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gl3x/nodes/instanced_mesh.hpp"
+#include "vglx/nodes/instanced_mesh.hpp"
 
 #include "nodes/instanced_mesh_impl.hpp"
 

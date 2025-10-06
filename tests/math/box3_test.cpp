@@ -11,9 +11,9 @@
 #include <cassert>
 #include <limits>
 
-#include <gl3x/math/box3.hpp>
-#include <gl3x/math/matrix4.hpp>
-#include <gl3x/math/vector3.hpp>
+#include <vglx/math/box3.hpp>
+#include <vglx/math/matrix4.hpp>
+#include <vglx/math/vector3.hpp>
 
 #pragma region Constructors
 

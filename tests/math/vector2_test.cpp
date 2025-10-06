@@ -10,7 +10,7 @@
 
 #include <cassert>
 
-#include <gl3x/math/vector2.hpp>
+#include <vglx/math/vector2.hpp>
 
 #pragma region Constructors
 

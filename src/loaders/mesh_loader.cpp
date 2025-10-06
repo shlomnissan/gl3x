@@ -5,15 +5,15 @@
 ===========================================================================
 */
 
-#include "gl3x/loaders/mesh_loader.hpp"
-#include "gl3x/loaders/texture_loader.hpp"
+#include "vglx/loaders/mesh_loader.hpp"
+#include "vglx/loaders/texture_loader.hpp"
 
-#include "gl3x/geometries/geometry.hpp"
-#include "gl3x/materials/phong_material.hpp"
-#include "gl3x/math/color.hpp"
-#include "gl3x/nodes/mesh.hpp"
-#include "gl3x/nodes/node.hpp"
-#include "gl3x/textures/texture_2d.hpp"
+#include "vglx/geometries/geometry.hpp"
+#include "vglx/materials/phong_material.hpp"
+#include "vglx/math/color.hpp"
+#include "vglx/nodes/mesh.hpp"
+#include "vglx/nodes/node.hpp"
+#include "vglx/textures/texture_2d.hpp"
 
 #include "utilities/file.hpp"
 

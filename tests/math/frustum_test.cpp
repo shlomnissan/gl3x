@@ -8,9 +8,9 @@
 #include <gtest/gtest.h>
 #include <test_helpers.hpp>
 
-#include <gl3x/math/frustum.hpp>
-#include <gl3x/cameras/orthographic_camera.hpp>
-#include <gl3x/cameras/perspective_camera.hpp>
+#include <vglx/math/frustum.hpp>
+#include <vglx/cameras/orthographic_camera.hpp>
+#include <vglx/cameras/perspective_camera.hpp>
 
 #pragma region Fixtures
 

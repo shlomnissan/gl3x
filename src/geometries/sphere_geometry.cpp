@@ -5,10 +5,10 @@
 ===========================================================================
 */
 
-#include "gl3x/geometries/sphere_geometry.hpp"
+#include "vglx/geometries/sphere_geometry.hpp"
 
-#include "gl3x/math/vector3.hpp"
-#include "gl3x/math/utilities.hpp"
+#include "vglx/math/vector3.hpp"
+#include "vglx/math/utilities.hpp"
 
 #include <algorithm>
 #include <cassert>

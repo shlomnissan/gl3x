@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gl3x/core/renderer.hpp"
+#include "vglx/core/renderer.hpp"
 
 #include "renderer/gl/gl_renderer_impl.hpp"
 

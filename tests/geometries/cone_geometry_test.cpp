@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <gl3x/geometries/cone_geometry.hpp>
+#include <vglx/geometries/cone_geometry.hpp>
 
 #pragma region Fixtures
 

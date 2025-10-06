@@ -5,12 +5,12 @@
 ===========================================================================
 */
 
-#include "gl3x/nodes/arrow.hpp"
+#include "vglx/nodes/arrow.hpp"
 
-#include "gl3x/geometries/cone_geometry.hpp"
-#include "gl3x/geometries/geometry.hpp"
-#include "gl3x/materials/unlit_material.hpp"
-#include "gl3x/nodes/mesh.hpp"
+#include "vglx/geometries/cone_geometry.hpp"
+#include "vglx/geometries/geometry.hpp"
+#include "vglx/materials/unlit_material.hpp"
+#include "vglx/nodes/mesh.hpp"
 
 namespace gl3x {
 

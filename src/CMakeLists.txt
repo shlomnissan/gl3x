@@ -1,4 +1,4 @@
-set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/gl3x)
+set(PUBLIC_HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/vglx)
 set(VENDOR_DIR ${CMAKE_SOURCE_DIR}/vendor)
 
 set(SOURCE_CODE
@@ -139,7 +139,7 @@ set(PUBLIC_HEADERS
 )
 
 set(HEADER_BUNDLES
-    "${PUBLIC_HEADERS_DIR}/gl3x.hpp"
+    "${PUBLIC_HEADERS_DIR}/vglx.hpp"
     "${PUBLIC_HEADERS_DIR}/cameras.hpp"
     "${PUBLIC_HEADERS_DIR}/core.hpp"
     "${PUBLIC_HEADERS_DIR}/events.hpp"
@@ -185,7 +185,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 target_link_libraries(${PROJECT_NAME} PRIVATE glad glfw)
 
-if (GL3X_BUILD_IMGUI)
+if (VGLX_BUILD_IMGUI)
     target_sources(
         ${PROJECT_NAME} PRIVATE
         "${VENDOR_DIR}/imgui/backends/imgui_impl_glfw.cpp"
@@ -193,13 +193,13 @@ if (GL3X_BUILD_IMGUI)
         "core/imgui_integration.hpp"
     )
     target_link_libraries(${PROJECT_NAME} PRIVATE imgui)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE GL3X_USE_IMGUI=1)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE VGLX_USE_IMGUI=1)
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     POSITION_INDEPENDENT_CODE ON
-    VERSION ${gl3x_VERSION_MAJOR}.${gl3x_VERSION_MINOR}.${gl3x_VERSION_PATCH}
-    SOVERSION ${gl3x_VERSION_MAJOR}
+    VERSION ${vglx_VERSION_MAJOR}.${vglx_VERSION_MINOR}.${vglx_VERSION_PATCH}
+    SOVERSION ${vglx_VERSION_MAJOR}
 )
 
 include(GenerateExportHeader)
@@ -210,7 +210,7 @@ include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-    VERSION ${gl3x_VERSION_MAJOR}.${gl3x_VERSION_MINOR}.${gl3x_VERSION_PATCH}
+    VERSION ${vglx_VERSION_MAJOR}.${vglx_VERSION_MINOR}.${vglx_VERSION_PATCH}
     COMPATIBILITY SameMajorVersion
 )
 
@@ -238,7 +238,7 @@ install(DIRECTORY "${PUBLIC_HEADERS_DIR}/"
 )
 
 install(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/gl3x_export.h"
+    "${CMAKE_CURRENT_BINARY_DIR}/vglx_export.h"
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
 )
 

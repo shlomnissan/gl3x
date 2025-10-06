@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <gl3x/geometries/geometry.hpp>
+#include <vglx/geometries/geometry.hpp>
 
 #include <vector>
 #include <utility>

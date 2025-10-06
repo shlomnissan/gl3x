@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <gl3x/geometries/cylinder_geometry.hpp>
+#include <vglx/geometries/cylinder_geometry.hpp>
 
 #pragma region Fixtures
 

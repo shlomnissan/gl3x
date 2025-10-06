@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gl3x/geometries/plane_geometry.hpp"
+#include "vglx/geometries/plane_geometry.hpp"
 
 #include <cassert>
 

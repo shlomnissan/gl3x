@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include <gl3x/gl3x.hpp>
+#include <vglx/vglx.hpp>
 
 #include "examples.hpp"
 

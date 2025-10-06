@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include <gl3x/core.hpp>
-#include <gl3x/materials.hpp>
-#include <gl3x/nodes.hpp>
-#include <gl3x/utilities.hpp>
+#include <vglx/core.hpp>
+#include <vglx/materials.hpp>
+#include <vglx/nodes.hpp>
+#include <vglx/utilities.hpp>
 
 #include <memory>
 

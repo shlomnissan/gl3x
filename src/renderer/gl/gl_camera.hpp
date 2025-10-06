@@ -5,7 +5,7 @@
 ===========================================================================
 */
 
-#include "gl3x/math/matrix4.hpp"
+#include "vglx/math/matrix4.hpp"
 
 #include "renderer/gl/gl_uniform_buffer.hpp"
 

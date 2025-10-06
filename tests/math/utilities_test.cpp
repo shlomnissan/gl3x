@@ -12,7 +12,7 @@
 #include <cassert>
 #include <regex>
 
-#include <gl3x/math/utilities.hpp>
+#include <vglx/math/utilities.hpp>
 
 using namespace gl3x;
 

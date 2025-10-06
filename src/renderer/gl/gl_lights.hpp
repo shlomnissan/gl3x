@@ -7,11 +7,11 @@
 
 #pragma once
 
-#include "gl3x/lights/light.hpp"
+#include "vglx/lights/light.hpp"
 
-#include "gl3x/cameras/camera.hpp"
-#include "gl3x/math/color.hpp"
-#include "gl3x/math/vector3.hpp"
+#include "vglx/cameras/camera.hpp"
+#include "vglx/math/color.hpp"
+#include "vglx/math/vector3.hpp"
 
 #include "renderer/gl/gl_uniform_buffer.hpp"
 

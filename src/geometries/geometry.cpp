@@ -5,9 +5,9 @@
 ===========================================================================
 */
 
-#include "gl3x/geometries/geometry.hpp"
+#include "vglx/geometries/geometry.hpp"
 
-#include "gl3x/math/utilities.hpp"
+#include "vglx/math/utilities.hpp"
 
 #include "utilities/logger.hpp"
 

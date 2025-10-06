@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "gl3x/core/renderer.hpp"
-#include "gl3x/nodes/renderable.hpp"
+#include "vglx/core/renderer.hpp"
+#include "vglx/nodes/renderable.hpp"
 
 #include "renderer/gl/gl_buffers.hpp"
 #include "renderer/gl/gl_camera.hpp"

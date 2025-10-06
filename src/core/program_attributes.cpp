@@ -7,13 +7,13 @@
 
 #include "core/program_attributes.hpp"
 
-#include "gl3x/lights/ambient_light.hpp"
-#include "gl3x/lights/directional_light.hpp"
-#include "gl3x/lights/point_light.hpp"
-#include "gl3x/materials/unlit_material.hpp"
-#include "gl3x/materials/phong_material.hpp"
-#include "gl3x/materials/shader_material.hpp"
-#include "gl3x/materials/sprite_material.hpp"
+#include "vglx/lights/ambient_light.hpp"
+#include "vglx/lights/directional_light.hpp"
+#include "vglx/lights/point_light.hpp"
+#include "vglx/materials/unlit_material.hpp"
+#include "vglx/materials/phong_material.hpp"
+#include "vglx/materials/shader_material.hpp"
+#include "vglx/materials/sprite_material.hpp"
 
 #include "utilities/logger.hpp"
 

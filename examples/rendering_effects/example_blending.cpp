@@ -9,9 +9,9 @@
 
 #include "ui_helpers.hpp"
 
-#include <gl3x/geometries.hpp>
-#include <gl3x/lights.hpp>
-#include <gl3x/nodes.hpp>
+#include <vglx/geometries.hpp>
+#include <vglx/lights.hpp>
+#include <vglx/nodes.hpp>
 
 using namespace gl3x;
 

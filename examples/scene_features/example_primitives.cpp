@@ -9,8 +9,8 @@
 
 #include "ui_helpers.hpp"
 
-#include <gl3x/materials.hpp>
-#include <gl3x/lights.hpp>
+#include <vglx/materials.hpp>
+#include <vglx/lights.hpp>
 
 using namespace gl3x;
 using namespace gl3x::math;
