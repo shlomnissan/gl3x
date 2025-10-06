@@ -5,6 +5,7 @@ from typing import List
 from .model import Inventory, slugify
 from .class_loader import build_class_doc
 from .class_render import render_class
+from .resolver import Resolver
 
 HEADER = "<!-- AUTO-GENERATED — do not edit. -->\n"
 
@@ -18,6 +19,7 @@ def _write_if_changed(path: Path, content: str) -> bool:
 def emit_class_pages(inv: Inventory, docs_root: Path, xml_dir: Path) -> List[Path]:
     written: List[Path] = []
     out_root = docs_root / "pages" / "reference"
+    resolver = Resolver(inv)
 
     group_slug = {
         gid: (g.slug or slugify(g.name))
@@ -33,7 +35,7 @@ def emit_class_pages(inv: Inventory, docs_root: Path, xml_dir: Path) -> List[Pat
         gslug = group_slug[c.group_id]
         cslug = c.slug
         dest = out_root / gslug / f"{cslug}.md"
-        content = HEADER + render_class(inv, build_class_doc(c.id, xml_dir))
+        content = HEADER + render_class(inv, build_class_doc(c.id, xml_dir, resolver))
 
         _write_if_changed(dest, content)
         written.append(dest)

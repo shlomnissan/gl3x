@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Dict
 from .doxygen_markdown import element_text, render_description, collect_inlines
+from .resolver import Resolver
 from .content_model import (
     ClassDoc,
     EnumDoc,
@@ -183,7 +184,7 @@ def _parse_function(m: ET.Element) -> FunctionDoc:
         details=render_description(m.find("detaileddescription")),
     )
 
-def build_class_doc(refid: str, xml_dir: str | Path) -> ClassDoc:
+def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver) -> ClassDoc:
     root = ET.parse(xml_dir / f"{refid}.xml").getroot()
     cdef = root.find("compounddef")
     if cdef is None:
@@ -201,8 +202,8 @@ def build_class_doc(refid: str, xml_dir: str | Path) -> ClassDoc:
         name=name,
         display=display,
         base_ids=base_ids,
-        brief=render_description(cdef.find("briefdescription")),
-        details=render_description(cdef.find("detaileddescription")),
+        brief=render_description(cdef.find("briefdescription"), None, resolver),
+        details=render_description(cdef.find("detaileddescription"), None, resolver),
     )
 
     for sec in cdef.findall("sectiondef"):

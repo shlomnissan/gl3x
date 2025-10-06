@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import List, Optional
 from .content_model import DocParagraph
+from .resolver import Resolver
 
 import xml.etree.ElementTree as ET
 
@@ -48,7 +49,7 @@ def programlisting_to_md(listing: ET.Element, fence_lang: str = "cpp") -> str:
     code = "\n".join(lines).rstrip("\n")
     return f"\n```{fence_lang}\n{code}\n```\n"
 
-def collect_inlines(node: ET.Element) -> str:
+def collect_inlines(node: ET.Element, resolver: Optional[Resolver] = None) -> str:
     out: List[str] = []
 
     def walk(n: ET.Element):
@@ -59,16 +60,18 @@ def collect_inlines(node: ET.Element) -> str:
             tag = child.tag
 
             if tag == "emphasis":
-                inner = collect_inlines(child)
+                inner = collect_inlines(child, resolver)
                 out.append(f"*{inner}*")
             elif tag == "bold":
-                inner = collect_inlines(child)
+                inner = collect_inlines(child, resolver)
                 out.append(f"**{inner}**")
             elif tag == "computeroutput":
-                inner = collect_inlines(child).replace("\n", " ")
+                inner = collect_inlines(child, resolver).replace("\n", " ")
                 out.append(f"`{inner}`")
             elif tag == "ref":
-                label = collect_inlines(child) or element_text(child)
+                label = resolver.class_link_md(child.get("refid")) if resolver else None
+                if not label:
+                    label = collect_inlines(child, resolver) or element_text(child)
                 out.append(label)
             elif tag == "linebreak":
                 out.append("  \n")
@@ -77,7 +80,7 @@ def collect_inlines(node: ET.Element) -> str:
             elif tag == "simplesect":
                 pass
             else:
-                out.append(collect_inlines(child))
+                out.append(collect_inlines(child, resolver))
 
             if child.tail:
                 out.append(child.tail)
@@ -111,7 +114,8 @@ def _iter_nonparam_paras(root: ET.Element):
 
 def render_description(
         desc: Optional[ET.Element],
-        include_params: bool = False
+        include_params: bool = False,
+        resolver: Optional[Resolver] = None
 ) -> List[DocParagraph]:
     if desc is None:
         return []
@@ -120,11 +124,11 @@ def render_description(
 
     if include_params:
         for para in desc.findall(".//para"):
-            md = collect_inlines(para)
+            md = collect_inlines(para, resolver)
             if md: paras.append(DocParagraph(md=md))
     else:
         for para in _iter_nonparam_paras(desc):
-            md = collect_inlines(para)
+            md = collect_inlines(para, resolver)
             if md: paras.append(DocParagraph(md=md))
 
     return paras

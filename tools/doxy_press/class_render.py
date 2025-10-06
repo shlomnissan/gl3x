@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from html import escape
 from typing import List
-from .model import Inventory, slugify
+from .model import Inventory
 from .content_model import (
     ClassDoc,
     EnumDoc,
