@@ -151,7 +151,7 @@ def _param_briefs_map(m: ET.Element) -> Dict[str, str]:
 
     return out
 
-def _parse_function(m: ET.Element) -> FunctionDoc:
+def _parse_function(m: ET.Element, resolver: Resolver) -> FunctionDoc:
     definition = element_text(m.find("definition"))
     args = element_text(m.find("argsstring"))
 
@@ -180,8 +180,8 @@ def _parse_function(m: ET.Element) -> FunctionDoc:
         return_type=_parse_type(m.find("type")),
         signature=(definition + args).strip(),
         params=params,
-        brief=render_description(m.find("briefdescription")),
-        details=render_description(m.find("detaileddescription")),
+        brief=render_description(m.find("briefdescription"), None, resolver),
+        details=render_description(m.find("detaileddescription"), None, resolver),
     )
 
 def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver) -> ClassDoc:
@@ -218,10 +218,10 @@ def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver) -> Clas
             if kind == "function":
                 if _is_ctor(m, name):
                     if _is_user_ctor(m, name):
-                        doc.constructors.append(_parse_function(m))
+                        doc.constructors.append(_parse_function(m, resolver))
                 else:
                     if _is_user_func(m):
-                        doc.functions.append(_parse_function(m))
+                        doc.functions.append(_parse_function(m, resolver))
 
             if kind == "enum":
                 doc.enums.append(_parse_enum(m))
