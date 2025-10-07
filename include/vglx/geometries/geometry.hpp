@@ -20,7 +20,7 @@
 #include <optional>
 #include <utility>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents mapping between vertex attributes and locations.
@@ -64,7 +64,7 @@ struct GeometryAttribute {
 /**
  * @brief Represents GPU-ready geometry data including vertex and index buffers.
  *
- * The `Geometry` class is the fundamental unit of renderable mesh data in GL3X.
+ * The `Geometry` class is the fundamental unit of renderable mesh data in VGLX.
  * It contains raw vertex data, optional indices, and layout metadata. Geometry
  * can be rendered using different primitive types (triangles, lines, etc.) and
  * may expose bounds such as bounding boxes and spheres for culling or physics.
@@ -73,7 +73,7 @@ struct GeometryAttribute {
  * configured with attribute metadata via `SetAttribute`.
  *
  * @code
- * auto geometry = gl3x::Geometry::Create({
+ * auto geometry = vglx::Geometry::Create({
  *   0.5f, -0.5f, 0.0f,
  *   0.0f,  0.5f, 0.0f,
  *  -0.5f, -0.5f, 0.0f,

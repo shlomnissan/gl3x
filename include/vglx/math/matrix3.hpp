@@ -14,7 +14,7 @@
 
 #include <array>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief A 3x3 matrix class for mathematical operations.

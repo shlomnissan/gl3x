@@ -13,7 +13,7 @@
 
 class SphereGeometryTest : public ::testing::Test {
 protected:
-    gl3x::SphereGeometry sphere_ {{
+    vglx::SphereGeometry sphere_ {{
         .width_segments = 3,
         .height_segments = 2,
     }};
@@ -46,7 +46,7 @@ TEST_F(SphereGeometryTest, ConstructorInitializesName) {
 #pragma region Attributes
 
 TEST_F(SphereGeometryTest, AttributesConfiguredCorrectly) {
-    using enum gl3x::VertexAttributeType;
+    using enum vglx::VertexAttributeType;
 
     const auto& attrs = sphere_.Attributes();
 
@@ -64,15 +64,15 @@ TEST_F(SphereGeometryTest, AttributesConfiguredCorrectly) {
 
 TEST(SphereGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        gl3x::SphereGeometry({.radius = 0.0f});
+        vglx::SphereGeometry({.radius = 0.0f});
     }, ".*params.radius > 0.0f");
 
     EXPECT_DEATH({
-        gl3x::SphereGeometry({.width_segments = 2});
+        vglx::SphereGeometry({.width_segments = 2});
     }, ".params.width_segments >= 3");
 
     EXPECT_DEATH({
-        gl3x::SphereGeometry({.height_segments = 1});
+        vglx::SphereGeometry({.height_segments = 1});
     }, ".params.height_segments >= 2");
 }
 

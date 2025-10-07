@@ -16,7 +16,7 @@
 #include <string>
 #include <thread>
 
-namespace gl3x {
+namespace vglx {
 
 namespace fs = std::filesystem;
 

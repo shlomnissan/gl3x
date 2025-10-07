@@ -24,15 +24,15 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    gl3x::BoxGeometry::Parameters box_params_;
-    gl3x::ConeGeometry::Parameters cone_params_;
-    gl3x::CylinderGeometry::Parameters cylinder_params_;
-    gl3x::PlaneGeometry::Parameters plane_params_;
-    gl3x::SphereGeometry::Parameters sphere_params_;
+    vglx::BoxGeometry::Parameters box_params_;
+    vglx::ConeGeometry::Parameters cone_params_;
+    vglx::CylinderGeometry::Parameters cylinder_params_;
+    vglx::PlaneGeometry::Parameters plane_params_;
+    vglx::SphereGeometry::Parameters sphere_params_;
 
     std::string curr_primitive_  {"box"};
-    std::shared_ptr<gl3x::Mesh> mesh_;
-    std::shared_ptr<gl3x::Mesh> wireframes_;
+    std::shared_ptr<vglx::Mesh> mesh_;
+    std::shared_ptr<vglx::Mesh> wireframes_;
 
     auto InitializeParams() -> void;
     auto BoxContextMenu(bool& dirty) -> void;

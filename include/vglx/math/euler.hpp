@@ -12,7 +12,7 @@
 #include "vglx/math/matrix4.hpp"
 #include "vglx/math/utilities.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents 3D Euler angles with pitch, yaw, and roll components.

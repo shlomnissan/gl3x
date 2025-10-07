@@ -12,7 +12,7 @@
 #include <string>
 #include <chrono>
 
-namespace gl3x {
+namespace vglx {
 
 class ScopedTimer {
 public:

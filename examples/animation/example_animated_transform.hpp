@@ -25,15 +25,15 @@ public:
     auto OnUpdate(float delta) -> void override;
 
 private:
-    std::shared_ptr<gl3x::Mesh> active_point_;
-    std::shared_ptr<gl3x::PhongMaterial> active_material_;
+    std::shared_ptr<vglx::Mesh> active_point_;
+    std::shared_ptr<vglx::PhongMaterial> active_material_;
 
-    gl3x::Vector3 start_pos_ {-1.5f, 0.0f, 0.0f};
-    gl3x::Vector3 end_pos_ {1.5f, 0.0f, 0.0f};
-    gl3x::Vector3 start_scale_ {1.0f};
-    gl3x::Vector3 end_scale_ {0.5f};
-    gl3x::Color start_color_ {0xFE4A49};
-    gl3x::Color end_color_ {0xFED766};
+    vglx::Vector3 start_pos_ {-1.5f, 0.0f, 0.0f};
+    vglx::Vector3 end_pos_ {1.5f, 0.0f, 0.0f};
+    vglx::Vector3 start_scale_ {1.0f};
+    vglx::Vector3 end_scale_ {0.5f};
+    vglx::Color start_color_ {0xFE4A49};
+    vglx::Color end_color_ {0xFED766};
 
     float elapsed_time_ {0.0f};
 };

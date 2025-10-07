@@ -9,7 +9,7 @@
 
 #include "core/window_impl.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 Window::Window(const Window::Parameters& params)
   : impl_(std::make_unique<Impl>(params)) {}

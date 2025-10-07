@@ -16,7 +16,7 @@
 #pragma region Mutators
 
 TEST(Transform2, SetPosition) {
-    auto t1 = gl3x::Transform2 {};
+    auto t1 = vglx::Transform2 {};
     t1.SetPosition({2.0f, 1.0f});
 
     EXPECT_VEC2_EQ(t1.position, {2.0f, 1.0f});
@@ -27,7 +27,7 @@ TEST(Transform2, SetPosition) {
     });
 
     constexpr auto t2 = []() {
-        auto t = gl3x::Transform2 {};
+        auto t = vglx::Transform2 {};
         t.SetPosition({2.0f, 1.0f});
         return t;
     }();
@@ -37,7 +37,7 @@ TEST(Transform2, SetPosition) {
 }
 
 TEST(Transform2, SetScale) {
-    auto t1 = gl3x::Transform2 {};
+    auto t1 = vglx::Transform2 {};
     t1.SetScale({2.0f, 1.0f});
 
     EXPECT_VEC2_EQ(t1.scale, {2.0f, 1.0f});
@@ -48,7 +48,7 @@ TEST(Transform2, SetScale) {
     });
 
     constexpr auto t2 = []() {
-        auto t = gl3x::Transform2 {};
+        auto t = vglx::Transform2 {};
         t.SetScale({2.0f, 1.0f});
         return t;
     }();
@@ -58,11 +58,11 @@ TEST(Transform2, SetScale) {
 }
 
 TEST(Transform2, SetRotation) {
-    auto t = gl3x::Transform2 {};
-    t.SetRotation(gl3x::math::pi_over_2);
+    auto t = vglx::Transform2 {};
+    t.SetRotation(vglx::math::pi_over_2);
 
-    constexpr auto c = gl3x::math::Cos(gl3x::math::pi_over_2);
-    constexpr auto s = gl3x::math::Sin(gl3x::math::pi_over_2);
+    constexpr auto c = vglx::math::Cos(vglx::math::pi_over_2);
+    constexpr auto s = vglx::math::Sin(vglx::math::pi_over_2);
 
     EXPECT_MAT3_EQ(t.Get(), {
         c, -s, 0.0f,
@@ -71,8 +71,8 @@ TEST(Transform2, SetRotation) {
     });
 
     constexpr auto m = []() {
-        auto t = gl3x::Transform2 {};
-        t.SetRotation(gl3x::math::pi_over_2);
+        auto t = vglx::Transform2 {};
+        t.SetRotation(vglx::math::pi_over_2);
         return t.Get();
     }();
 
@@ -83,19 +83,19 @@ TEST(Transform2, SetRotation) {
 }
 
 TEST(Transform2, MultipleTransformations) {
-    auto t = gl3x::Transform2 {};
+    auto t = vglx::Transform2 {};
     t.SetCenter({0.5f, 0.5f});
     t.SetPosition({2.0f, 3.0f});
     t.SetScale({2.0f, 2.0f});
-    t.SetRotation(gl3x::math::pi_over_2);
+    t.SetRotation(vglx::math::pi_over_2);
 
-    constexpr auto c = gl3x::math::Cos(gl3x::math::pi_over_2) * 2.0f;
-    constexpr auto s = gl3x::math::Sin(gl3x::math::pi_over_2) * 2.0f;
+    constexpr auto c = vglx::math::Cos(vglx::math::pi_over_2) * 2.0f;
+    constexpr auto s = vglx::math::Sin(vglx::math::pi_over_2) * 2.0f;
 
     EXPECT_VEC2_EQ(t.center, {0.5f, 0.5f});
     EXPECT_VEC2_EQ(t.position, {2.0f, 3.0f});
     EXPECT_VEC2_EQ(t.scale, {2.0f, 2.0f});
-    EXPECT_EQ(t.rotation, gl3x::math::pi_over_2);
+    EXPECT_EQ(t.rotation, vglx::math::pi_over_2);
     EXPECT_MAT3_EQ(t.Get(), {
         c, -s, 3.5f,
         s, c, 2.5f,
@@ -103,11 +103,11 @@ TEST(Transform2, MultipleTransformations) {
     });
 
     constexpr auto m = []() {
-        auto t = gl3x::Transform2 {};
+        auto t = vglx::Transform2 {};
         t.SetCenter({0.5f, 0.5f});
         t.SetPosition({2.0f, 3.0f});
         t.SetScale({2.0f, 2.0f});
-        t.SetRotation(gl3x::math::pi_over_2);
+        t.SetRotation(vglx::math::pi_over_2);
         return t.Get();
     }();
 
@@ -124,7 +124,7 @@ TEST(Transform2, MultipleTransformations) {
 #pragma region Cumulative Transformations
 
 TEST(Transform2, Translate) {
-    auto t1 = gl3x::Transform2 {};
+    auto t1 = vglx::Transform2 {};
     t1.Translate({2.0f, 1.0f});
 
     EXPECT_VEC2_EQ(t1.position, {2.0f, 1.0f});
@@ -135,7 +135,7 @@ TEST(Transform2, Translate) {
     });
 
     constexpr auto t2 = []() {
-        auto t = gl3x::Transform2 {};
+        auto t = vglx::Transform2 {};
         t.Translate({2.0f, 1.0f});
         return t;
     }();
@@ -145,7 +145,7 @@ TEST(Transform2, Translate) {
 }
 
 TEST(Transform2, Scale) {
-    auto t = gl3x::Transform2 {};
+    auto t = vglx::Transform2 {};
     t.Scale({2.0f, 1.0f});
 
     EXPECT_VEC2_EQ(t.scale, {2.0f, 1.0f});
@@ -156,7 +156,7 @@ TEST(Transform2, Scale) {
     });
 
     constexpr auto t2 = []() {
-        auto t = gl3x::Transform2 {};
+        auto t = vglx::Transform2 {};
         t.Scale({2.0f, 1.0f});
         return t;
     }();
@@ -166,11 +166,11 @@ TEST(Transform2, Scale) {
 }
 
 TEST(Transform2, Rotate) {
-    auto t = gl3x::Transform2 {};
-    t.Rotate(gl3x::math::pi_over_2);
+    auto t = vglx::Transform2 {};
+    t.Rotate(vglx::math::pi_over_2);
 
-    constexpr auto c = gl3x::math::Cos(gl3x::math::pi_over_2);
-    constexpr auto s = gl3x::math::Sin(gl3x::math::pi_over_2);
+    constexpr auto c = vglx::math::Cos(vglx::math::pi_over_2);
+    constexpr auto s = vglx::math::Sin(vglx::math::pi_over_2);
 
     EXPECT_MAT3_EQ(t.Get(), {
         c, -s, 0.0f,
@@ -179,8 +179,8 @@ TEST(Transform2, Rotate) {
     });
 
     constexpr auto m = []() {
-        auto t = gl3x::Transform2 {};
-        t.Rotate(gl3x::math::pi_over_2);
+        auto t = vglx::Transform2 {};
+        t.Rotate(vglx::math::pi_over_2);
         return t.Get();
     }();
 
@@ -191,19 +191,19 @@ TEST(Transform2, Rotate) {
 }
 
 TEST(Transform2, TransformationsWithOffset) {
-    auto t = gl3x::Transform2 {};
+    auto t = vglx::Transform2 {};
     t.SetCenter({0.5, 0.5f});
     t.Translate({2.0f, 3.0f});
     t.Scale({2.0f, 2.0f});
-    t.Rotate(gl3x::math::pi_over_2);
+    t.Rotate(vglx::math::pi_over_2);
 
-    constexpr auto c = gl3x::math::Cos(gl3x::math::pi_over_2) * 2.0f;
-    constexpr auto s = gl3x::math::Sin(gl3x::math::pi_over_2) * 2.0f;
+    constexpr auto c = vglx::math::Cos(vglx::math::pi_over_2) * 2.0f;
+    constexpr auto s = vglx::math::Sin(vglx::math::pi_over_2) * 2.0f;
 
     EXPECT_VEC2_EQ(t.center, {0.5f, 0.5f});
     EXPECT_VEC2_EQ(t.position, {2.0f, 3.0f});
     EXPECT_VEC2_EQ(t.scale, {2.0f, 2.0f});
-    EXPECT_EQ(t.rotation, gl3x::math::pi_over_2);
+    EXPECT_EQ(t.rotation, vglx::math::pi_over_2);
     EXPECT_MAT3_EQ(t.Get(), {
         c, -s, 3.5f,
         s, c, 2.5f,
@@ -211,11 +211,11 @@ TEST(Transform2, TransformationsWithOffset) {
     });
 
     constexpr auto m = []() {
-        auto t = gl3x::Transform2 {};
+        auto t = vglx::Transform2 {};
         t.SetCenter({0.5f, 0.5f});
         t.SetPosition({2.0f, 3.0f});
         t.SetScale({2.0f, 2.0f});
-        t.SetRotation(gl3x::math::pi_over_2);
+        t.SetRotation(vglx::math::pi_over_2);
         return t.Get();
     }();
 
@@ -232,12 +232,12 @@ TEST(Transform2, TransformationsWithOffset) {
 #pragma region Local-Space Translation
 
 TEST(Transform2, TranslateBeforeRotation) {
-    auto t = gl3x::Transform2 {};
+    auto t = vglx::Transform2 {};
     t.Translate({0.0f, 1.0f});
-    t.Rotate(gl3x::math::pi_over_2);
+    t.Rotate(vglx::math::pi_over_2);
 
-    constexpr auto c = gl3x::math::Cos(gl3x::math::pi_over_2);
-    constexpr auto s = gl3x::math::Sin(gl3x::math::pi_over_2);
+    constexpr auto c = vglx::math::Cos(vglx::math::pi_over_2);
+    constexpr auto s = vglx::math::Sin(vglx::math::pi_over_2);
 
     EXPECT_VEC2_EQ(t.position, {0.0f, 1.0f});
     EXPECT_MAT3_EQ(t.Get(), {
@@ -247,9 +247,9 @@ TEST(Transform2, TranslateBeforeRotation) {
     });
 
     constexpr auto m = []() {
-        auto t = gl3x::Transform2 {};
+        auto t = vglx::Transform2 {};
         t.Translate({0.0f, 1.0f});
-        t.Rotate(gl3x::math::pi_over_2);
+        t.Rotate(vglx::math::pi_over_2);
         return t.Get();
     }();
 
@@ -262,12 +262,12 @@ TEST(Transform2, TranslateBeforeRotation) {
 }
 
 TEST(Transform2, TranslateAfterRotation) {
-    auto t = gl3x::Transform2 {};
-    t.Rotate(gl3x::math::pi_over_2);
+    auto t = vglx::Transform2 {};
+    t.Rotate(vglx::math::pi_over_2);
     t.Translate({0.0f, 1.0f});
 
-    constexpr auto c = gl3x::math::Cos(gl3x::math::pi_over_2);
-    constexpr auto s = gl3x::math::Sin(gl3x::math::pi_over_2);
+    constexpr auto c = vglx::math::Cos(vglx::math::pi_over_2);
+    constexpr auto s = vglx::math::Sin(vglx::math::pi_over_2);
 
     EXPECT_VEC2_NEAR(t.position, {-1.0f, 0.0f}, 0.001f);
     EXPECT_MAT3_EQ(t.Get(), {
@@ -277,8 +277,8 @@ TEST(Transform2, TranslateAfterRotation) {
     });
 
     constexpr auto m = []() {
-        auto t = gl3x::Transform2 {};
-        t.Rotate(gl3x::math::pi_over_2);
+        auto t = vglx::Transform2 {};
+        t.Rotate(vglx::math::pi_over_2);
         t.Translate({0.0f, 1.0f});
         return t.Get();
     }();

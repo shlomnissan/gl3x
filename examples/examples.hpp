@@ -59,7 +59,7 @@ namespace {
 
 }
 
-using SceneChangeCallback = std::function<void(std::shared_ptr<gl3x::Scene>)>;
+using SceneChangeCallback = std::function<void(std::shared_ptr<vglx::Scene>)>;
 
 class Examples {
 public:
@@ -75,7 +75,7 @@ public:
 
         ImGui::SetNextWindowSize({250, height - 20.0f});
         ImGui::SetNextWindowPos({10, 10});
-        ImGui::Begin("GL3X", nullptr,
+        ImGui::Begin("VGLX", nullptr,
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove
         );

@@ -10,7 +10,7 @@
 
 #include <cmath>
 
-namespace gl3x {
+namespace vglx {
 
 namespace {
 

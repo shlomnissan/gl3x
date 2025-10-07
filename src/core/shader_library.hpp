@@ -12,7 +12,7 @@
 #include <string_view>
 #include <vector>
 
-namespace gl3x {
+namespace vglx {
 
 enum class ShaderType {
     kVertexShader,

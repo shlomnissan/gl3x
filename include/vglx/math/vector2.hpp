@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <cassert>
 
-namespace gl3x {
+namespace vglx {
 
 class Vector2;
 auto constexpr Dot(const Vector2& a, const Vector2& b) -> float;
@@ -52,21 +52,21 @@ public:
     /**
      * @brief Returns the unit vector pointing to the right (1, 0).
      *
-     * @return gl3x::Vector2
+     * @return vglx::Vector2
      */
     [[nodiscard]] static constexpr auto Right() { return Vector2 {1.0f, 0.0f}; }
 
     /**
      * @brief Returns the unit vector pointing upward (0, 1).
      *
-     * @return gl3x::Vector2
+     * @return vglx::Vector2
      */
     [[nodiscard]] static constexpr auto Up() { return Vector2 {0.0f, 1.0f}; }
 
     /**
      * @brief Returns a zero vector (0, 0).
      *
-     * @return gl3x::Vector2
+     * @return vglx::Vector2
      */
     [[nodiscard]] static constexpr auto Zero() { return Vector2 {0.0f}; }
 
@@ -156,7 +156,7 @@ public:
      * in this vector and the given vector @p v.
      *
      * @param v Vector to compare against.
-     * @return gl3x::Vector2 Reference to this vector after modification.
+     * @return vglx::Vector2 Reference to this vector after modification.
      */
     constexpr auto& Min(const Vector2& v) noexcept {
         x = std::min(x, v.x);
@@ -171,7 +171,7 @@ public:
      * in this vector and the given vector @p v.
      *
      * @param v Vector to compare against.
-     * @return gl3x::Vector2 Reference to this vector after modification.
+     * @return vglx::Vector2 Reference to this vector after modification.
      */
     constexpr auto& Max(const Vector2& v) noexcept {
         x = std::max(x, v.x);
@@ -184,7 +184,7 @@ public:
      *
      * If the length is zero, the vector is left unchanged.
      *
-     * @return gl3x::Vector2 Reference to this vector.
+     * @return vglx::Vector2 Reference to this vector.
      */
     constexpr auto& Normalize() {
         const auto len = Length();
@@ -246,7 +246,7 @@ private:
  * @param v1 Start vector.
  * @param v2 End vector.
  * @param f Interpolation factor [0, 1].
- * @return gl3x::Vector2 Interpolated vector.
+ * @return vglx::Vector2 Interpolated vector.
  */
 [[nodiscard]] inline constexpr auto Lerp(const Vector2& v1, const Vector2& v2, float f) {
     return v1 + (v2 - v1) * f;

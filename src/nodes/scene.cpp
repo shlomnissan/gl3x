@@ -10,7 +10,7 @@
 #include "events/event_dispatcher.hpp"
 #include "utilities/logger.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 namespace {
 

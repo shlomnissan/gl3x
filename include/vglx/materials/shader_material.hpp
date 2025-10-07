@@ -24,7 +24,7 @@
 #include <unordered_map>
 #include <variant>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Variant type for shader material uniform values.
@@ -41,7 +41,7 @@ using UniformValue = std::variant<int, float, Color, Matrix3, Matrix4, Vector2, 
  * requiring programmable control over the rendering pipeline.
  *
  * @code
- * auto material = gl3x::ShaderMaterial::Create({
+ * auto material = vglx::ShaderMaterial::Create({
  *   vertex_shader_str,
  *   fragment_shader_str,
  *   {
@@ -51,7 +51,7 @@ using UniformValue = std::variant<int, float, Color, Matrix3, Matrix4, Vector2, 
  *   }
  * });
  *
- * auto mesh = gl3x::Mesh::Create(geometry, material);
+ * auto mesh = vglx::Mesh::Create(geometry, material);
  * scene->Add(mesh);
  * @endcode
  *

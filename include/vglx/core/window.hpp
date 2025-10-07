@@ -15,7 +15,7 @@
 #include <string>
 #include <string_view>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Parameters passed to resize callbacks.
@@ -48,7 +48,7 @@ using ResizeCallback = std::function<void(const ResizeParameters& params)>;
  *
  * Typical usage:
  * @code
- * gl3x::Window window({
+ * vglx::Window window({
  *   .title = "My App",
  *   .width = 1280,
  *   .height = 720,

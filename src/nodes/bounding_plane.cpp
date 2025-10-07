@@ -14,7 +14,7 @@
 
 #include <vector>
 
-namespace gl3x {
+namespace vglx {
 
 namespace {
 

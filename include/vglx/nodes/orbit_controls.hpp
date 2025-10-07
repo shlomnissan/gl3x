@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Interactive camera controller for orbiting around a target point.
@@ -28,7 +28,7 @@ namespace gl3x {
  *
  * @code
  * auto MyScene::OnAttached(SharedContextPointer context) -> void override {
- *   Add(gl3x::OrbitControls::Create(
+ *   Add(vglx::OrbitControls::Create(
  *     context->camera, {
  *       .radius = 5.0f,
  *       .pitch = math::DegToRad(25.0f),

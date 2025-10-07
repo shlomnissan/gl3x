@@ -11,7 +11,7 @@
 
 #include <cstring>
 
-namespace gl3x {
+namespace vglx {
 
 GLUniformBuffer::GLUniformBuffer(std::string_view name, std::size_t size) :
     name_(name),

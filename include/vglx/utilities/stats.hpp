@@ -11,7 +11,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Collects and visualizes runtime performance statistics.

@@ -27,12 +27,12 @@ public:
 private:
     std::string curr_visual_ {"arrows"};
 
-    gl3x::Grid::Parameters grid_params_ {
+    vglx::Grid::Parameters grid_params_ {
         .size = 4.0f,
         .divisions = 16,
-        .color = gl3x::Color(0x333333)
+        .color = vglx::Color(0x333333)
     };
 
-    std::shared_ptr<gl3x::Node> arrows_;
-    std::shared_ptr<gl3x::Grid> grid_;
+    std::shared_ptr<vglx::Node> arrows_;
+    std::shared_ptr<vglx::Grid> grid_;
 };

@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 class Camera;
 
@@ -32,7 +32,7 @@ class Camera;
  * context, such as loading resources, accessing the active camera, etc.
  *
  * @code
- * class MyNode : public gl3x::Node {
+ * class MyNode : public vglx::Node {
  * public:
  *   void OnAttached(SharedContextPointer context) override {
  *     context->texture_loader->LoadAsync(
@@ -80,4 +80,4 @@ public:
 
 }
 
-using SharedContextPointer = const gl3x::SharedContext*;
+using SharedContextPointer = const vglx::SharedContext*;

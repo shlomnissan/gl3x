@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Generates a cylinder geometry assignable to any mesh.
@@ -23,7 +23,7 @@ namespace gl3x {
  * It can also be open-ended, excluding the caps.
  *
  * @code
- * auto geometry = gl3x::CylinderGeometry::Create({
+ * auto geometry = vglx::CylinderGeometry::Create({
  *     .radius_top = 0.8f,
  *     .radius_bottom = 1.0f,
  *     .height = 2.5f,
@@ -32,7 +32,7 @@ namespace gl3x {
  *     .open_ended = false
  * });
  *
- * auto mesh = gl3x::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
+ * auto mesh = vglx::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
  * my_scene->Add(mesh);
  * @endcode
  *

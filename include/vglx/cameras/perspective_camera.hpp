@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents a camera that uses perspective projection.
@@ -25,13 +25,13 @@ namespace gl3x {
  * transformations from their parent objects, only one camera can be active at
  * a time. The active camera is managed by the application’s runtime object:
  * @code
- * class MyApp : public gl3x::Application {
+ * class MyApp : public vglx::Application {
  * public:
  *   auto Configure() -> void override {}
  *
  *   auto Setup() -> void override {
- *     SetCamera(gl3x::PerspectiveCamera::Create({
- *       .fov = gl3x::math::DegToRad(60.0f),
+ *     SetCamera(vglx::PerspectiveCamera::Create({
+ *       .fov = vglx::math::DegToRad(60.0f),
  *       .aspect = Context()->Parameters().ratio,
  *       .near = 0.1f,
  *       .far = 1000.0f

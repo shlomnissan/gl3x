@@ -15,7 +15,7 @@
 #include <array>
 #include <limits>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Axis-aligned bounding box defined by minimum and maximum corners.
@@ -52,7 +52,7 @@ struct VGLX_EXPORT Box3 {
     /**
      * @brief Returns the center point of the box.
      *
-     * @return gl3x::Vector3 Center of the box.
+     * @return vglx::Vector3 Center of the box.
      */
     [[nodiscard]] constexpr auto Center() const { return (min + max) * 0.5f; }
 

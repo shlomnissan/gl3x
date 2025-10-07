@@ -10,7 +10,7 @@
 #include "vglx/materials/unlit_material.hpp"
 #include "vglx/nodes/mesh.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 static constexpr auto debug_mesh_size = 0.5f;
 

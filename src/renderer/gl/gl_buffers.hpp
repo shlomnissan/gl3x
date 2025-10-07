@@ -18,7 +18,7 @@
 
 #include <glad/glad.h>
 
-namespace gl3x {
+namespace vglx {
 
 class GLBuffers {
 public:

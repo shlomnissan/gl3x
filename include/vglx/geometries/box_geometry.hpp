@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Generates a box geometry assignable to any mesh.
@@ -25,7 +25,7 @@ namespace gl3x {
  * deformation effects.
  *
  * @code
- * auto geometry = gl3x::BoxGeometry::Create({
+ * auto geometry = vglx::BoxGeometry::Create({
  *   .width = 2.0f,
  *   .height = 1.0f,
  *   .depth = 3.0f,
@@ -34,7 +34,7 @@ namespace gl3x {
  *   .depth_segments = 2
  * });
  *
- * auto mesh = gl3x::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
+ * auto mesh = vglx::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
  * my_scene->Add(mesh);
  * @endcode
  *

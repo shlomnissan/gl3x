@@ -17,10 +17,10 @@
 
 #pragma region Helpers
 
-constexpr auto Rotate(float angle, const gl3x::Vector3& v) -> gl3x::Matrix4 {
+constexpr auto Rotate(float angle, const vglx::Vector3& v) -> vglx::Matrix4 {
     const auto a = angle;
-    const auto c = gl3x::math::Cos(a);
-    const auto s = gl3x::math::Sin(a);
+    const auto c = vglx::math::Cos(a);
+    const auto s = vglx::math::Sin(a);
     const auto axis = Normalize(v);
     const auto temp = (1.0f - c) * axis;
 
@@ -37,7 +37,7 @@ constexpr auto Rotate(float angle, const gl3x::Vector3& v) -> gl3x::Matrix4 {
 #pragma region Constructor
 
 TEST(Euler, ConstructorWithEulerAngles) {
-    constexpr auto e = gl3x::Euler {0.5f, 0.2f, 0.3f};
+    constexpr auto e = vglx::Euler {0.5f, 0.2f, 0.3f};
 
     EXPECT_FLOAT_EQ(e.pitch, 0.5f);
     EXPECT_FLOAT_EQ(e.yaw, 0.2f);
@@ -49,8 +49,8 @@ TEST(Euler, ConstructorWithEulerAngles) {
 }
 
 TEST(Euler, ConstructorWithMatrix) {
-    constexpr auto in = gl3x::Euler {0.5f, 0.2f, 0.3f};
-    constexpr auto out = gl3x::Euler {in.GetMatrix()};
+    constexpr auto in = vglx::Euler {0.5f, 0.2f, 0.3f};
+    constexpr auto out = vglx::Euler {in.GetMatrix()};
 
     EXPECT_NEAR(in.pitch, out.pitch, 1e-4);
     EXPECT_NEAR(in.yaw, out.yaw, 1e-4);
@@ -66,12 +66,12 @@ TEST(Euler, ConstructorWithMatrix) {
 #pragma region Get Matrix
 
 TEST(Euler, GetMatrixBasic) {
-    constexpr auto e = gl3x::Euler {0.5f, 0.2f, 0.3f};
+    constexpr auto e = vglx::Euler {0.5f, 0.2f, 0.3f};
     constexpr auto m = e.GetMatrix();
 
-    constexpr auto rotation_x = Rotate(e.pitch, gl3x::Vector3::Right());
-    constexpr auto rotation_y = Rotate(e.yaw, gl3x::Vector3::Up());
-    constexpr auto rotation_z = Rotate(e.roll, gl3x::Vector3::Forward());
+    constexpr auto rotation_x = Rotate(e.pitch, vglx::Vector3::Right());
+    constexpr auto rotation_y = Rotate(e.yaw, vglx::Vector3::Up());
+    constexpr auto rotation_z = Rotate(e.roll, vglx::Vector3::Forward());
 
     constexpr auto expected = rotation_z * rotation_x * rotation_y;
     EXPECT_MAT4_NEAR(m, expected, 1e-4);
@@ -99,13 +99,13 @@ TEST(Euler, GetMatrixBasic) {
 #pragma region Edge Cases
 
 TEST(Euler, ConstrucotrWithMatrixGimbalLock) {
-    constexpr auto pitch = gl3x::math::pi_over_2;
+    constexpr auto pitch = vglx::math::pi_over_2;
     constexpr auto yaw = 0.0f;
     constexpr auto roll = 0.0f;
 
-    constexpr auto e = gl3x::Euler {pitch, yaw, roll};
+    constexpr auto e = vglx::Euler {pitch, yaw, roll};
     constexpr auto m = e.GetMatrix();
-    constexpr auto output = gl3x::Euler {m};
+    constexpr auto output = vglx::Euler {m};
 
     // Check if the pitch is correctly identified as 90 degrees
     EXPECT_NEAR(output.pitch, pitch, 1e-4);
@@ -124,9 +124,9 @@ TEST(Euler, ConstrucotrWithMatrixGimbalLock) {
 #pragma region Equality Operator
 
 TEST(Euler, EqualityOperator) {
-    constexpr auto e1 = gl3x::Euler {0.5f, 0.2f, 0.0f};
-    constexpr auto e2 = gl3x::Euler {0.5f, 0.2f, 0.0f};
-    constexpr auto e3 = gl3x::Euler {0.1f, 0.2f, 0.0f};
+    constexpr auto e1 = vglx::Euler {0.5f, 0.2f, 0.0f};
+    constexpr auto e2 = vglx::Euler {0.5f, 0.2f, 0.0f};
+    constexpr auto e3 = vglx::Euler {0.1f, 0.2f, 0.0f};
 
     EXPECT_TRUE(e1 == e2);
     EXPECT_FALSE(e1 == e3);
@@ -136,9 +136,9 @@ TEST(Euler, EqualityOperator) {
 }
 
 TEST(Euler, InequalityOperator) {
-    constexpr auto e1 = gl3x::Euler {0.5f, 0.2f, 0.0f};
-    constexpr auto e2 = gl3x::Euler {0.5f, 0.2f, 0.0f};
-    constexpr auto e3 = gl3x::Euler {0.1f, 0.2f, 0.0f};
+    constexpr auto e1 = vglx::Euler {0.5f, 0.2f, 0.0f};
+    constexpr auto e2 = vglx::Euler {0.5f, 0.2f, 0.0f};
+    constexpr auto e3 = vglx::Euler {0.1f, 0.2f, 0.0f};
 
     EXPECT_FALSE(e1 != e2);
     EXPECT_TRUE(e1 != e3);
@@ -152,7 +152,7 @@ TEST(Euler, InequalityOperator) {
 #pragma region Empty
 
 TEST(Euler, IsEmptyReturnsTrue) {
-    constexpr auto e = gl3x::Euler {};
+    constexpr auto e = vglx::Euler {};
 
     EXPECT_TRUE(e.IsEmpty());
 
@@ -160,7 +160,7 @@ TEST(Euler, IsEmptyReturnsTrue) {
 }
 
 TEST(Euler, IsEmptyReturnsFalse) {
-    constexpr auto e = gl3x::Euler {0.5f, 0.2f, 0.0f};
+    constexpr auto e = vglx::Euler {0.5f, 0.2f, 0.0f};
 
     EXPECT_FALSE(e.IsEmpty());
 

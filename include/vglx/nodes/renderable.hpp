@@ -16,7 +16,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Internal base for anything renderable.

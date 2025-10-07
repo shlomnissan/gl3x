@@ -7,7 +7,7 @@
 
 #include "vglx/cameras/camera.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 auto Camera::UpdateViewMatrix() -> void {
     if (ShouldUpdateWorldTransform()) {

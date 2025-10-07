@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Generates a flat 2D plane geometry assignable to any mesh.
@@ -23,14 +23,14 @@ namespace gl3x {
  * and height segmentation for effects like displacement or tesselation.
  *
  * @code
- * auto geometry = gl3x::PlaneGeometry::Create({
+ * auto geometry = vglx::PlaneGeometry::Create({
  *     .width = 5.0f,
  *     .height = 3.0f,
  *     .width_segments = 2,
  *     .height_segments = 2
  * });
  *
- * auto mesh = gl3x::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
+ * auto mesh = vglx::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
  * my_scene->Add(mesh);
  * @endcode
  *

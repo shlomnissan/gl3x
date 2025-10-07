@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents a material for 2D sprites.
@@ -30,10 +30,10 @@ namespace gl3x {
  * overlays and screen-space elements.
  *
  * @code
- * auto material = gl3x::SpriteMaterial::Create(0xFFFFFF);
+ * auto material = vglx::SpriteMaterial::Create(0xFFFFFF);
  * material->albedo_map = texture;
  *
- * auto sprite = gl3x::Sprite::Create(material);
+ * auto sprite = vglx::Sprite::Create(material);
  * scene->Add(sprite);
  * @endcode
  *

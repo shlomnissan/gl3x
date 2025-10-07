@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <cassert>
 
-namespace gl3x {
+namespace vglx {
 
 class Vector3;
 auto constexpr Dot(const Vector3& a, const Vector3& b) -> float;
@@ -54,28 +54,28 @@ public:
     /**
      * @brief Returns the unit vector pointing forward (0, 0, 1).
      *
-     * @return gl3x::Vector3
+     * @return vglx::Vector3
      */
     [[nodiscard]] static constexpr auto Forward() { return Vector3 {0.0f, 0.0f, 1.0f}; }
 
     /**
      * @brief Returns the unit vector pointing to the right (1, 0, 0).
      *
-     * @return gl3x::Vector3
+     * @return vglx::Vector3
      */
     [[nodiscard]] static constexpr auto Right() { return Vector3 {1.0f, 0.0f, 0.0f}; }
 
     /**
      * @brief Returns the unit vector pointing upward (0, 1, 0).
      *
-     * @return gl3x::Vector3
+     * @return vglx::Vector3
      */
     [[nodiscard]] static constexpr auto Up() { return Vector3 {0.0f, 1.0f, 0.0f}; }
 
     /**
      * @brief Returns a zero vector (0, 0, 0).
      *
-     * @return gl3x::Vector3
+     * @return vglx::Vector3
      */
     [[nodiscard]] static constexpr auto Zero() { return Vector3 {0.0f}; }
 
@@ -171,7 +171,7 @@ public:
      * in this vector and the given vector @p v.
      *
      * @param v Vector to compare against.
-     * @return gl3x::Vector3 Reference to this vector after modification.
+     * @return vglx::Vector3 Reference to this vector after modification.
      */
     constexpr auto& Min(const Vector3& v) noexcept {
         x = std::min(x, v.x);
@@ -187,7 +187,7 @@ public:
      * in this vector and the given vector @p v.
      *
      * @param v Vector to compare against.
-     * @return gl3x::Vector3 Reference to this vector after modification.
+     * @return vglx::Vector3 Reference to this vector after modification.
      */
     constexpr auto& Max(const Vector3& v) noexcept {
         x = std::max(x, v.x);
@@ -201,7 +201,7 @@ public:
      *
      * If the length is zero, the vector is left unchanged.
      *
-     * @return gl3x::Vector3 Reference to this vector.
+     * @return vglx::Vector3 Reference to this vector.
      */
     constexpr auto& Normalize() {
         const auto len = Length();
@@ -250,7 +250,7 @@ private:
  *
  * @param a First vector.
  * @param b Second vector.
- * @return gl3x::Vector3 Cross product (a × b).
+ * @return vglx::Vector3 Cross product (a × b).
  */
 [[nodiscard]] inline constexpr auto Cross(const Vector3& a, const Vector3& b) {
     return Vector3 {
@@ -279,7 +279,7 @@ private:
  * @param v1 Start vector.
  * @param v2 End vector.
  * @param f Interpolation factor [0, 1].
- * @return gl3x::Vector3 Interpolated vector.
+ * @return vglx::Vector3 Interpolated vector.
  */
 [[nodiscard]] inline constexpr auto Lerp(const Vector3& v1, const Vector3& v2, float f) {
     return v1 + (v2 - v1) * f;
@@ -290,7 +290,7 @@ private:
  * @relatesalso Vector3
  *
  * @param v Input vector.
- * @return gl3x::Vector3 Normalized vector or zero if the input is zero-length.
+ * @return vglx::Vector3 Normalized vector or zero if the input is zero-length.
  */
 [[nodiscard]] inline constexpr auto Normalize(const Vector3& v) {
     const auto len = v.Length();

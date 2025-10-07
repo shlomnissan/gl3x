@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents available fog types.
@@ -64,7 +64,7 @@ struct Fog {
  * `fog` field at runtime.
  *
  * @code
- * my_scene->fog = gl3x::LinearFog::Create(0x444444, 2.0f, 6.0f);
+ * my_scene->fog = vglx::LinearFog::Create(0x444444, 2.0f, 6.0f);
  * @endcode
  *
  * @ingroup NodesGroup
@@ -115,7 +115,7 @@ struct LinearFog : public Fog {
  * `Scene`'s `fog` field at runtime.
  *
  * @code
- * my_scene->fog = gl3x::ExponentialFog::Create(0x888888, 0.15f);
+ * my_scene->fog = vglx::ExponentialFog::Create(0x888888, 0.15f);
  * @endcode
  *
  * @ingroup NodesGroup

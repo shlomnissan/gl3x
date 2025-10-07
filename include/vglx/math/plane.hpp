@@ -13,7 +13,7 @@
 #include "vglx/math/utilities.hpp"
 #include "vglx/math/vector3.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief A plane defined by a normal vector and a distance from the origin.

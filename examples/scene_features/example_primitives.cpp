@@ -12,8 +12,8 @@
 #include <vglx/materials.hpp>
 #include <vglx/lights.hpp>
 
-using namespace gl3x;
-using namespace gl3x::math;
+using namespace vglx;
+using namespace vglx::math;
 
 ExamplePrimitives::ExamplePrimitives() {
     InitializeParams();

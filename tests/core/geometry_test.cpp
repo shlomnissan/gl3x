@@ -12,12 +12,12 @@
 #include <vector>
 #include <utility>
 
-using enum gl3x::VertexAttributeType;
+using enum vglx::VertexAttributeType;
 
 #pragma region Constructors
 
 TEST(Geometry, DefaultConstruction) {
-    const auto geometry = gl3x::Geometry::Create();
+    const auto geometry = vglx::Geometry::Create();
     const auto attribs = geometry->Attributes();
 
     EXPECT_TRUE(geometry->VertexData().empty());
@@ -33,7 +33,7 @@ TEST(Geometry, DefaultConstruction) {
 TEST(Geometry, InitializeWithVertexAndIndexData) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
     const auto index_data = std::vector<unsigned int>{0, 1, 2};
-    const auto geometry = gl3x::Geometry::Create(vertex_data, index_data);
+    const auto geometry = vglx::Geometry::Create(vertex_data, index_data);
 
     EXPECT_EQ(geometry->VertexData().size(), 3);
     EXPECT_EQ(geometry->IndexData().size(), 3);
@@ -41,7 +41,7 @@ TEST(Geometry, InitializeWithVertexAndIndexData) {
 
 TEST(Geometry, InitializeWithVertexData) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
-    const auto geometry = gl3x::Geometry::Create(vertex_data);
+    const auto geometry = vglx::Geometry::Create(vertex_data);
 
     EXPECT_EQ(geometry->VertexData().size(), 3);
     EXPECT_TRUE(geometry->IndexData().empty());
@@ -53,13 +53,13 @@ TEST(Geometry, InitializeWithVertexData) {
 
 TEST(Geometry, AddAttribute) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
-    auto geometry = gl3x::Geometry::Create(vertex_data);
+    auto geometry = vglx::Geometry::Create(vertex_data);
 
     geometry->SetAttribute({.type = Position, .item_size = 3});
 
     const auto& attribs = geometry->Attributes();
 
-    auto idx = std::to_underlying(gl3x::VertexAttributeType::Position);
+    auto idx = std::to_underlying(vglx::VertexAttributeType::Position);
     EXPECT_EQ(attribs[idx].type, Position);
     EXPECT_EQ(attribs[idx].item_size, 3);
 }
@@ -69,7 +69,7 @@ TEST(Geometry, AddMultipleAttributes) {
         0.0f, 1.0f, 2.0f, 0.33f, 0.55f
     };
 
-    auto geometry = gl3x::Geometry::Create(vertex_data);
+    auto geometry = vglx::Geometry::Create(vertex_data);
     geometry->SetAttribute({.type = Position, .item_size = 3});
     geometry->SetAttribute({.type = UV, .item_size = 2});
 
@@ -84,7 +84,7 @@ TEST(Geometry, AddMultipleAttributes) {
 }
 
 TEST(Geometry, ReturnsTrueIfAttributeExists) {
-    auto geometry = gl3x::Geometry::Create({
+    auto geometry = vglx::Geometry::Create({
         0.0f, 1.0f, 2.0f
     });
 
@@ -94,7 +94,7 @@ TEST(Geometry, ReturnsTrueIfAttributeExists) {
 }
 
 TEST(Geometry, ReturnsFalseIfAttributeDoesNotExist) {
-    auto geometry = gl3x::Geometry::Create({
+    auto geometry = vglx::Geometry::Create({
         0.0f, 1.0f, 2.0f
     });
 
@@ -113,7 +113,7 @@ TEST(Geometry, Stride) {
         0.0f, 1.0f, 2.0f, 0.33f, 0.55f
     };
 
-    auto geometry = gl3x::Geometry::Create(vertex_data);
+    auto geometry = vglx::Geometry::Create(vertex_data);
     geometry->SetAttribute({.type = Position, .item_size = 3});
     geometry->SetAttribute({.type = UV, .item_size = 2});
 
@@ -127,7 +127,7 @@ TEST(Geometry, VertexCount) {
          0.0f,  0.5f, 0.0f
     };
 
-    auto geometry = gl3x::Geometry::Create(vertex_data);
+    auto geometry = vglx::Geometry::Create(vertex_data);
     geometry->SetAttribute({.type = Position, .item_size = 3});
 
     EXPECT_EQ(geometry->VertexCount(), 3);
@@ -139,7 +139,7 @@ TEST(Geometry, VertexCount) {
 
 TEST(Geometry, AddAttributeWithWrongItemSize) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
-    auto geometry = gl3x::Geometry::Create(vertex_data);
+    auto geometry = vglx::Geometry::Create(vertex_data);
 
     EXPECT_DEATH({
         geometry->SetAttribute({.type = Position, .item_size = 4});
@@ -160,7 +160,7 @@ TEST(Geometry, AddAttributeWithWrongItemSize) {
 
 TEST(Geometry, AddInternalAttributes) {
     const auto vertex_data = std::vector<float>{0.0f, 1.0f, 2.0f};
-    auto geometry = gl3x::Geometry::Create(vertex_data);
+    auto geometry = vglx::Geometry::Create(vertex_data);
 
     EXPECT_DEATH({
         geometry->SetAttribute({.type = InstanceColor, .item_size = 3});

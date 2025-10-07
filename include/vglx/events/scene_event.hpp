@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Event representing a change in the scene graph hierarchy.

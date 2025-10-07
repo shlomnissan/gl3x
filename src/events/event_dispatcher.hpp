@@ -17,7 +17,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace gl3x {
+namespace vglx {
 
 using EventListener = std::function<void(Event*)>;
 

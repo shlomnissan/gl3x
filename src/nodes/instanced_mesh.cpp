@@ -11,7 +11,7 @@
 
 #include <cassert>
 
-namespace gl3x {
+namespace vglx {
 
 InstancedMesh::InstancedMesh(
     std::shared_ptr<Geometry> geometry,

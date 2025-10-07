@@ -12,7 +12,7 @@
 #include "vglx/core/disposable.hpp"
 #include "vglx/core/identity.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents available texture types.

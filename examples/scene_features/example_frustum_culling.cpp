@@ -11,7 +11,7 @@
 #include <vglx/lights.hpp>
 #include <vglx/materials.hpp>
 
-using namespace gl3x;
+using namespace vglx;
 
 ExampleFrustumCulling::ExampleFrustumCulling() {
     show_context_menu_ = false;

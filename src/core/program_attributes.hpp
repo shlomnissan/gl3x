@@ -14,7 +14,7 @@
 #include <string_view>
 #include <utility>
 
-namespace gl3x {
+namespace vglx {
 
 struct ProgramAttributes {
     struct LightsCounter {

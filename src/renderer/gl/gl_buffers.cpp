@@ -15,7 +15,7 @@
 #include <cstdint>
 #include <utility>
 
-namespace gl3x {
+namespace vglx {
 
 namespace {
 

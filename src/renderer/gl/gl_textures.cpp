@@ -13,7 +13,7 @@
 
 #include <utility>
 
-namespace gl3x {
+namespace vglx {
 
 auto GLTextures::Bind(
     const std::shared_ptr<Texture>& texture,

@@ -11,7 +11,7 @@
 
 #include "vglx/events/event.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 enum class Key;
 
@@ -23,11 +23,11 @@ enum class Key;
  * contains both the key involved and the type of interaction.
  *
  * @code
- * class MyNode : public gl3x::Node {
+ * class MyNode : public vglx::Node {
  * public:
- *   auto OnKeyboardEvent(gl3x::KeyboardEvent* event) -> void override {
- *     if (event->type == gl3x::KeyboardEvent::Type::Pressed) {
- *       if (event->key == gl3x::Key::Sapce) {
+ *   auto OnKeyboardEvent(vglx::KeyboardEvent* event) -> void override {
+ *     if (event->type == vglx::KeyboardEvent::Type::Pressed) {
+ *       if (event->key == vglx::Key::Sapce) {
  *         Jump();
  *         event->handled = true; // stop propagation
  *       }

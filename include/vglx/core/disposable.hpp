@@ -10,7 +10,7 @@
 #include <functional>
 #include <vector>
 
-namespace gl3x {
+namespace vglx {
 
 /// @cond INTERNAL
 class Disposable {

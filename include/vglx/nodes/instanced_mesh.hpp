@@ -17,7 +17,7 @@
 #include <optional>
 #include <vector>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief A mesh node that renders many instances of the same geometry efficiently.
@@ -37,7 +37,7 @@ namespace gl3x {
  * const auto geometry = BoxGeometry::Create({1.0f, 1.0f, 1.0f});
  * const auto material = PhongMaterial::Create(0xFFFFFF);
  *
- * auto boxes = gl3x::InstancedMesh::Create(geometry, material, 2500);
+ * auto boxes = vglx::InstancedMesh::Create(geometry, material, 2500);
  *
  * for (auto i = 0; i < 50; ++i) {
  *      for (auto j = 0; j < 50; ++j) {

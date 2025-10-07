@@ -23,5 +23,5 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<gl3x::PhongMaterial> transparent_material_;
+    std::shared_ptr<vglx::PhongMaterial> transparent_material_;
 };

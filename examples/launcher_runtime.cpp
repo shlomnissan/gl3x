@@ -11,7 +11,7 @@
 
 #include "examples.hpp"
 
-using namespace gl3x;
+using namespace vglx;
 
 class ExamplesApp : public Application {
 public:

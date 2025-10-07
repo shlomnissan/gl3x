@@ -18,7 +18,7 @@
 #include <array>
 #include <cstdint>
 
-namespace gl3x {
+namespace vglx {
 
 class GLLights {
 public:

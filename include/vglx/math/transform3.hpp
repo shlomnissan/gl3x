@@ -14,7 +14,7 @@
 #include "vglx/math/utilities.hpp"
 #include "vglx/math/vector3.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief A 3D transformation class supporting translation, scaling, and rotation.

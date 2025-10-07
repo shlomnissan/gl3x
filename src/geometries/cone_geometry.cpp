@@ -9,7 +9,7 @@
 
 #include <cassert>
 
-namespace gl3x {
+namespace vglx {
 
 ConeGeometry::ConeGeometry(const Parameters& params)
     : CylinderGeometry({

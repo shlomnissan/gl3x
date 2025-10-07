@@ -13,7 +13,7 @@
 
 class CylinderGeometryTest : public ::testing::Test {
 protected:
-    gl3x::CylinderGeometry cylinder_ {{
+    vglx::CylinderGeometry cylinder_ {{
         .radius_top = 1.0f,
         .radius_bottom = 1.0f,
         .height = 1.0f,
@@ -53,7 +53,7 @@ TEST_F(CylinderGeometryTest, ConstructorInitializesName) {
 #pragma region Attributes
 
 TEST_F(CylinderGeometryTest, AttributesConfiguredCorrectly) {
-    using enum gl3x::VertexAttributeType;
+    using enum vglx::VertexAttributeType;
 
     const auto& attrs = cylinder_.Attributes();
 
@@ -71,15 +71,15 @@ TEST_F(CylinderGeometryTest, AttributesConfiguredCorrectly) {
 
 TEST(CylinderGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        gl3x::CylinderGeometry({.height = 0.0f});
+        vglx::CylinderGeometry({.height = 0.0f});
     }, ".*params.height > 0");
 
     EXPECT_DEATH({
-        gl3x::CylinderGeometry({.radial_segments = 0});
+        vglx::CylinderGeometry({.radial_segments = 0});
     }, ".*params.radial_segments > 0");
 
     EXPECT_DEATH({
-        gl3x::CylinderGeometry({.height_segments = 0});
+        vglx::CylinderGeometry({.height_segments = 0});
     }, ".*params.height_segments > 0");
 }
 

@@ -15,7 +15,7 @@
 #include <vglx/materials.hpp>
 #include <vglx/nodes.hpp>
 
-using namespace gl3x;
+using namespace vglx;
 
 ExampleFog::ExampleFog() {
     auto geometry = BoxGeometry::Create();

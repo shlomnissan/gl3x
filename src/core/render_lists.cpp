@@ -10,7 +10,7 @@
 #include <ranges>
 #include <limits>
 
-namespace gl3x {
+namespace vglx {
 
 // Compare function for sorting meshes based on their z position.
 

@@ -11,7 +11,7 @@
 #include "vglx/math/sphere.hpp"
 #include "vglx/nodes/instanced_mesh.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 struct InstancedMesh::Impl {
     Box3 bounding_box {};

@@ -17,17 +17,17 @@
 #pragma region Constructors
 
 TEST(Sphere, DefaultConstructor) {
-    constexpr auto sphere = gl3x::Sphere {};
+    constexpr auto sphere = vglx::Sphere {};
 
-    EXPECT_VEC3_EQ(sphere.center, gl3x::Vector3::Zero());
+    EXPECT_VEC3_EQ(sphere.center, vglx::Vector3::Zero());
     EXPECT_FLOAT_EQ(sphere.radius, -1.0f);
 
-    static_assert(sphere.center == gl3x::Vector3::Zero());
+    static_assert(sphere.center == vglx::Vector3::Zero());
     static_assert(sphere.radius == -1.0f);
 }
 
 TEST(Sphere, ConstructorParameterized) {
-    constexpr auto sphere = gl3x::Sphere {
+    constexpr auto sphere = vglx::Sphere {
         {1.0f, 1.0f, 1.0f},
         2.0f
     };
@@ -35,7 +35,7 @@ TEST(Sphere, ConstructorParameterized) {
     EXPECT_VEC3_EQ(sphere.center, {1.0f, 1.0f, 1.0f});
     EXPECT_FLOAT_EQ(sphere.radius, 2.0f);
 
-    static_assert(sphere.center == gl3x::Vector3 {1.0f, 1.0f, 1.0f});
+    static_assert(sphere.center == vglx::Vector3 {1.0f, 1.0f, 1.0f});
     static_assert(sphere.radius == 2.0f);
 }
 
@@ -44,27 +44,27 @@ TEST(Sphere, ConstructorParameterized) {
 #pragma region Empty State
 
 TEST(Sphere, Reset) {
-    auto s1 = gl3x::Sphere {1.0f, 2.0f};
+    auto s1 = vglx::Sphere {1.0f, 2.0f};
 
     s1.Reset();
 
     EXPECT_TRUE(s1.IsEmpty());
-    EXPECT_VEC3_EQ(s1.center, gl3x::Vector3::Zero());
+    EXPECT_VEC3_EQ(s1.center, vglx::Vector3::Zero());
     EXPECT_FLOAT_EQ(s1.radius, -1.0f);
 
     constexpr auto s2 = []() {
-        auto s = gl3x::Sphere {1.0f, 2.0f};
+        auto s = vglx::Sphere {1.0f, 2.0f};
         s.Reset();
         return s;
     }();
 
     static_assert(s2.IsEmpty());
-    static_assert(s2.center == gl3x::Vector3::Zero());
+    static_assert(s2.center == vglx::Vector3::Zero());
     static_assert(s2.radius == -1.0f);
 }
 
 TEST(Sphere, IsEmptyTrue) {
-    constexpr auto sphere = gl3x::Sphere {};
+    constexpr auto sphere = vglx::Sphere {};
 
     EXPECT_TRUE(sphere.IsEmpty());
 
@@ -72,7 +72,7 @@ TEST(Sphere, IsEmptyTrue) {
 }
 
 TEST(Sphere, IsEmptyFalse) {
-    constexpr auto sphere = gl3x::Sphere {1.0f, 1.0f};
+    constexpr auto sphere = vglx::Sphere {1.0f, 1.0f};
 
     EXPECT_FALSE(sphere.IsEmpty());
 
@@ -84,7 +84,7 @@ TEST(Sphere, IsEmptyFalse) {
 #pragma region Expand with Point
 
 TEST(Sphere, ExpandWithPointEmptySphere) {
-    auto s1 = gl3x::Sphere {};
+    auto s1 = vglx::Sphere {};
 
     s1.ExpandWithPoint({1.0f, 1.0f, 1.0f});
 
@@ -92,53 +92,53 @@ TEST(Sphere, ExpandWithPointEmptySphere) {
     EXPECT_FLOAT_EQ(s1.radius, 0.0f);
 
     constexpr auto s2 = []() {
-        auto s = gl3x::Sphere {};
+        auto s = vglx::Sphere {};
         s.ExpandWithPoint({1.0f, 1.0f, 1.0f});
         return s;
     }();
 
-    static_assert(s2.center == gl3x::Vector3 {1.0f, 1.0f, 1.0f});
+    static_assert(s2.center == vglx::Vector3 {1.0f, 1.0f, 1.0f});
     static_assert(s2.radius == 0.0f);
 }
 
 TEST(Sphere, ExpandWithPointInsideSphere) {
-    auto s1 = gl3x::Sphere {gl3x::Vector3::Zero(), 5.0f};
+    auto s1 = vglx::Sphere {vglx::Vector3::Zero(), 5.0f};
 
     s1.ExpandWithPoint({1.0f, 1.0f, 1.0f});
 
-    EXPECT_VEC3_EQ(s1.center, gl3x::Vector3::Zero());
+    EXPECT_VEC3_EQ(s1.center, vglx::Vector3::Zero());
     EXPECT_FLOAT_EQ(s1.radius, 5.0f);
 
     constexpr auto s2 = []() {
-        auto s = gl3x::Sphere {gl3x::Vector3::Zero(), 5.0f};
+        auto s = vglx::Sphere {vglx::Vector3::Zero(), 5.0f};
         s.ExpandWithPoint({1.0f, 1.0f, 1.0f});
         return s;
     }();
 
-    static_assert(s2.center == gl3x::Vector3::Zero());
+    static_assert(s2.center == vglx::Vector3::Zero());
     static_assert(s2.radius == 5.0f);
 }
 
 TEST(Sphere, ExpandWithPointOnSphereSurface) {
-    auto s1 = gl3x::Sphere {gl3x::Vector3::Zero(), 1.0f};
+    auto s1 = vglx::Sphere {vglx::Vector3::Zero(), 1.0f};
 
     s1.ExpandWithPoint({1.0f, 0.0f, 0.0f});
 
-    EXPECT_VEC3_EQ(s1.center, gl3x::Vector3::Zero());
+    EXPECT_VEC3_EQ(s1.center, vglx::Vector3::Zero());
     EXPECT_FLOAT_EQ(s1.radius, 1.0f);
 
     constexpr auto s2 = []() {
-        auto s = gl3x::Sphere {gl3x::Vector3::Zero(), 1.0f};
+        auto s = vglx::Sphere {vglx::Vector3::Zero(), 1.0f};
         s.ExpandWithPoint({1.0f, 0.0f, 0.0f});
         return s;
     }();
 
-    static_assert(s2.center == gl3x::Vector3::Zero());
+    static_assert(s2.center == vglx::Vector3::Zero());
     static_assert(s2.radius == 1.0f);
 }
 
 TEST(Sphere, ExpandWithPointOutsideSphere) {
-    auto s1 = gl3x::Sphere {gl3x::Vector3::Zero(), 1.0f};
+    auto s1 = vglx::Sphere {vglx::Vector3::Zero(), 1.0f};
 
     s1.ExpandWithPoint({2.0f, 0.0f, 0.0f});
 
@@ -146,7 +146,7 @@ TEST(Sphere, ExpandWithPointOutsideSphere) {
     EXPECT_NEAR(s1.radius, 1.5f, 1e-4);
 
     constexpr auto s2 = []() {
-        auto s = gl3x::Sphere {gl3x::Vector3::Zero(), 1.0f};
+        auto s = vglx::Sphere {vglx::Vector3::Zero(), 1.0f};
         s.ExpandWithPoint({2.0f, 0.0f, 0.0f});
         return s;
     }();
@@ -162,8 +162,8 @@ TEST(Sphere, ExpandWithPointOutsideSphere) {
 #pragma region Apply Transform
 
 TEST(Sphere, TransformWithIdentityMatrix) {
-    auto s1 = gl3x::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
-    constexpr auto transform = gl3x::Matrix4::Identity();
+    auto s1 = vglx::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+    constexpr auto transform = vglx::Matrix4::Identity();
 
     s1.ApplyTransform(transform);
 
@@ -171,18 +171,18 @@ TEST(Sphere, TransformWithIdentityMatrix) {
     EXPECT_NEAR(s1.radius, 4.0f, 1e-4);
 
     constexpr auto s2 = [&transform]() {
-        auto s = gl3x::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+        auto s = vglx::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
         s.ApplyTransform(transform);
         return s;
     }();
 
-    static_assert(s2.center == gl3x::Vector3 {1.0f, 2.0f, 3.0f});
+    static_assert(s2.center == vglx::Vector3 {1.0f, 2.0f, 3.0f});
     static_assert(ApproxEqual(s2.radius, 4.0f));
 }
 
 TEST(Sphere, TransformWithTranslation) {
-    auto s1 = gl3x::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
-    constexpr auto transform = gl3x::Matrix4 {
+    auto s1 = vglx::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+    constexpr auto transform = vglx::Matrix4 {
         1.0f, 0.0f, 0.0f, 2.0f,
         0.0f, 1.0f, 0.0f, 3.0f,
         0.0f, 0.0f, 1.0f, 4.0f,
@@ -195,18 +195,18 @@ TEST(Sphere, TransformWithTranslation) {
     EXPECT_NEAR(s1.radius, 4.0f, 1e-4);
 
     constexpr auto s2 = [&transform]() {
-        auto s = gl3x::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+        auto s = vglx::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
         s.ApplyTransform(transform);
         return s;
     }();
 
-    static_assert(s2.center == gl3x::Vector3 {3.0f, 5.0f, 7.0f});
+    static_assert(s2.center == vglx::Vector3 {3.0f, 5.0f, 7.0f});
     static_assert(ApproxEqual(s2.radius, 4.0f));
 }
 
 TEST(Sphere, TransformWithScale) {
-    auto s1 = gl3x::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
-    constexpr auto transform = gl3x::Matrix4 {
+    auto s1 = vglx::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+    constexpr auto transform = vglx::Matrix4 {
         2.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 2.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 2.0f, 0.0f,
@@ -219,20 +219,20 @@ TEST(Sphere, TransformWithScale) {
     EXPECT_NEAR(s1.radius, 8.0f, 1e-4);
 
     constexpr auto s2 = [&transform]() {
-        auto s = gl3x::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+        auto s = vglx::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
         s.ApplyTransform(transform);
         return s;
     }();
 
-    static_assert(s2.center == gl3x::Vector3 {2.0f, 4.0f, 6.0f});
+    static_assert(s2.center == vglx::Vector3 {2.0f, 4.0f, 6.0f});
     static_assert(ApproxEqual(s2.radius, 8.0f));
 }
 
 TEST(Sphere, TransformWithRotation) {
-    auto s1 = gl3x::Sphere {{1.0f, 0.0f, 0.0f}, 4.0f};
+    auto s1 = vglx::Sphere {{1.0f, 0.0f, 0.0f}, 4.0f};
 
     // Rotate 90 degrees around the z-axis
-    constexpr auto transform = gl3x::Matrix4 {
+    constexpr auto transform = vglx::Matrix4 {
         0.0f, -1.0f, 0.0f, 0.0f,
         1.0f,  0.0f, 0.0f, 0.0f,
         0.0f,  0.0f, 1.0f, 0.0f,
@@ -245,12 +245,12 @@ TEST(Sphere, TransformWithRotation) {
     EXPECT_NEAR(s1.radius, 4.0f, 1e-4);
 
     constexpr auto s2 = [&transform]() {
-        auto s = gl3x::Sphere {{1.0f, 0.0f, 0.0f}, 4.0f};
+        auto s = vglx::Sphere {{1.0f, 0.0f, 0.0f}, 4.0f};
         s.ApplyTransform(transform);
         return s;
     }();
 
-    static_assert(s2.center == gl3x::Vector3 {0.0f, 1.0f, 0.0f});
+    static_assert(s2.center == vglx::Vector3 {0.0f, 1.0f, 0.0f});
     static_assert(ApproxEqual(s2.radius, 4.0f));
 }
 
@@ -259,19 +259,19 @@ TEST(Sphere, TransformWithRotation) {
 #pragma region Translate
 
 TEST(Sphere, Translate) {
-    auto s1 = gl3x::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+    auto s1 = vglx::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
     s1.Translate({1.0f, 2.0f, 3.0f});
 
     EXPECT_VEC3_EQ(s1.center, {2.0f, 4.0f, 6.0f});
     EXPECT_FLOAT_EQ(s1.radius, 4.0f);
 
     constexpr auto s2 = []() {
-        auto s = gl3x::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
+        auto s = vglx::Sphere {{1.0f, 2.0f, 3.0f}, 4.0f};
         s.Translate({1.0f, 2.0f, 3.0f});
         return s;
     }();
 
-    static_assert(s2.center == gl3x::Vector3 {2.0f, 4.0f, 6.0f});
+    static_assert(s2.center == vglx::Vector3 {2.0f, 4.0f, 6.0f});
     static_assert(s2.radius == 4.0f);
 }
 
@@ -281,36 +281,36 @@ TEST(Sphere, Translate) {
 
 TEST(Sphere, UnionSphereEmpty) {
     constexpr auto s = []() {
-        auto s = gl3x::Sphere {};
-        s.Union(gl3x::Sphere {{1.0f, 1.0f, 1.0f}, 1.0f});
+        auto s = vglx::Sphere {};
+        s.Union(vglx::Sphere {{1.0f, 1.0f, 1.0f}, 1.0f});
         return s;
     }();
 
     EXPECT_VEC3_EQ(s.center, {1.0f, 1.0f, 1.0f});
     EXPECT_FLOAT_EQ(s.radius, 1.0f);
 
-    static_assert(s.center == gl3x::Vector3 {1.0f, 1.0f, 1.0f});
+    static_assert(s.center == vglx::Vector3 {1.0f, 1.0f, 1.0f});
     static_assert(s.radius == 1.0f);
 }
 
 TEST(Sphere, UnionOtherSphereEmpty) {
     constexpr auto s = []() {
-        auto s = gl3x::Sphere {{1.0f, 1.0f, 1.0f}, 1.0f};
-        s.Union(gl3x::Sphere {});
+        auto s = vglx::Sphere {{1.0f, 1.0f, 1.0f}, 1.0f};
+        s.Union(vglx::Sphere {});
         return s;
     }();
 
     EXPECT_VEC3_EQ(s.center, {1.0f, 1.0f, 1.0f});
     EXPECT_FLOAT_EQ(s.radius, 1.0f);
 
-    static_assert(s.center == gl3x::Vector3 {1.0f, 1.0f, 1.0f});
+    static_assert(s.center == vglx::Vector3 {1.0f, 1.0f, 1.0f});
     static_assert(s.radius == 1.0f);
 }
 
 TEST(Sphere, UnionCentersEqual) {
     constexpr auto s = []() {
-        auto s1 = gl3x::Sphere {{1.0f, 1.0f, 1.0f}, 2.0f};
-        auto s2 = gl3x::Sphere {{1.0f, 1.0f, 1.0f}, 3.0f};
+        auto s1 = vglx::Sphere {{1.0f, 1.0f, 1.0f}, 2.0f};
+        auto s2 = vglx::Sphere {{1.0f, 1.0f, 1.0f}, 3.0f};
         s1.Union(s2);
         return s1;
     }();
@@ -318,14 +318,14 @@ TEST(Sphere, UnionCentersEqual) {
     EXPECT_VEC3_EQ(s.center, {1.0f, 1.0f, 1.0f});
     EXPECT_FLOAT_EQ(s.radius, 3.0f);
 
-    static_assert(s.center == gl3x::Vector3 {1.0f, 1.0f, 1.0f});
+    static_assert(s.center == vglx::Vector3 {1.0f, 1.0f, 1.0f});
     static_assert(s.radius == 3.0f);
 }
 
 TEST(Sphere, UnionAxisAligned) {
     constexpr auto s = []() {
-        auto s1 = gl3x::Sphere {{0.0f, 0.0f, 0.0f}, 1.0f};
-        auto s2 = gl3x::Sphere {{3.0f, 0.0f, 0.0f}, 2.0f};
+        auto s1 = vglx::Sphere {{0.0f, 0.0f, 0.0f}, 1.0f};
+        auto s2 = vglx::Sphere {{3.0f, 0.0f, 0.0f}, 2.0f};
         s1.Union(s2);
         return s1;
     }();
@@ -333,14 +333,14 @@ TEST(Sphere, UnionAxisAligned) {
     EXPECT_VEC3_EQ(s.center, {2.0f, 0.0f, 0.0f});
     EXPECT_NEAR(s.radius, 3.0f, 1e-3f);
 
-    static_assert(s.center == gl3x::Vector3 {2.0f, 0.0f, 0.0f});
+    static_assert(s.center == vglx::Vector3 {2.0f, 0.0f, 0.0f});
     static_assert(ApproxEqual(s.radius, 3.0f, 1e-3f));
 }
 
 TEST(Sphere, UnionOffAxis) {
     constexpr auto s = []() {
-        auto s1 = gl3x::Sphere {{0.0f, 0.0f, 0.0f}, 1.0f};
-        auto s2 = gl3x::Sphere {{3.0f, 4.0f, 0.0f}, 1.0f};
+        auto s1 = vglx::Sphere {{0.0f, 0.0f, 0.0f}, 1.0f};
+        auto s2 = vglx::Sphere {{3.0f, 4.0f, 0.0f}, 1.0f};
         s1.Union(s2);
         return s1;
     }();

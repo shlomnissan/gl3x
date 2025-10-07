@@ -27,7 +27,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace gl3x {
+namespace vglx {
 
 namespace {
 

@@ -7,7 +7,7 @@
 
 #include "vglx/cameras/orthographic_camera.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 namespace {
 

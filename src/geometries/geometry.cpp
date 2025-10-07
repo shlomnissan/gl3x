@@ -15,7 +15,7 @@
 #include <cassert>
 #include <numeric>
 
-namespace gl3x {
+namespace vglx {
 
 auto Geometry::SetAttribute(const GeometryAttribute &attribute) -> void {
     using enum VertexAttributeType;

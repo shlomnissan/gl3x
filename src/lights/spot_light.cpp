@@ -13,7 +13,7 @@
 
 #include <vector>
 
-namespace gl3x {
+namespace vglx {
 
 struct SpotLight::Impl {
     std::shared_ptr<Mesh> cone;

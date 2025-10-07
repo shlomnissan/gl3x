@@ -10,7 +10,7 @@
 #include <vglx/nodes.hpp>
 #include <vglx/cameras.hpp>
 
-class ExampleScene : public gl3x::Scene {
+class ExampleScene : public vglx::Scene {
 public:
     bool show_context_menu_ {true};
 

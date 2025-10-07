@@ -9,7 +9,7 @@
 
 #include "vglx/geometries/wireframe_geometry.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 auto Mesh::SetGeometry(std::shared_ptr<Geometry> geometry) -> void {
     geometry_ = geometry;

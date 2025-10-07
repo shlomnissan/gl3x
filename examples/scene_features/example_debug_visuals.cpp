@@ -11,7 +11,7 @@
 
 #include <array>
 
-using namespace gl3x;
+using namespace vglx;
 
 ExampleDebugVisuals::ExampleDebugVisuals() {
     arrows_ = Node::Create();

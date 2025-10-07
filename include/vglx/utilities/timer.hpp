@@ -12,7 +12,7 @@
 #include <chrono>
 #include <string>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Utility class for measuring elapsed time.

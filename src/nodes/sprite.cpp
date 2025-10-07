@@ -7,7 +7,7 @@
 
 #include "vglx/nodes/sprite.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 Sprite::Sprite(std::shared_ptr<SpriteMaterial> material)
   : geometry_(SharedGeometry()), material_(material) {

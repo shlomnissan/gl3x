@@ -19,7 +19,7 @@
 
 #include <glad/glad.h>
 
-namespace gl3x {
+namespace vglx {
 
 // Forward declarations
 enum class ShaderType;

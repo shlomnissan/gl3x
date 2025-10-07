@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Visual primitive representing a finite reference grid on the XZ plane.
@@ -27,7 +27,7 @@ namespace gl3x {
  * Grid lines are evenly spaced based on the provided size and division count.
  *
  * @code
- * auto grid = gl3x::Grid::Create({
+ * auto grid = vglx::Grid::Create({
  *     .size = 4.0f,
  *     .divisions = 16,
  *     .color = 0x333333

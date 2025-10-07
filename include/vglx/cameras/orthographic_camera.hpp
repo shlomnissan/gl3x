@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents a camera that uses orthographic projection.
@@ -26,12 +26,12 @@ namespace gl3x {
  * transformations from their parent objects, only one camera can be active at
  * a time. The active camera is managed by the application’s runtime object:
  * @code
- * class MyApp : public gl3x::Application {
+ * class MyApp : public vglx::Application {
  * public:
  *   auto Configure() -> void override {}
  *
  *   auto Setup() -> void override {
- *     SetCamera(gl3x::OrthographicCamera::Create({
+ *     SetCamera(vglx::OrthographicCamera::Create({
  *       .left = 0.0f,
  *       .right = 1024.0f,
  *       .top = 0.0f,

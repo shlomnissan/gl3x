@@ -12,7 +12,7 @@
 #include <vglx/materials.hpp>
 #include <vglx/math.hpp>
 
-using namespace gl3x;
+using namespace vglx;
 
 namespace {
 

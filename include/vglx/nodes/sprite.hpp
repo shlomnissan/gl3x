@@ -17,7 +17,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Billboarded quad that always faces the active camera.
@@ -34,7 +34,7 @@ namespace gl3x {
  *     "assets/sprite.tex",
  *     [this](auto result) {
  *       if (result) {
- *         auto mat = gl3x::SpriteMaterial::Create();
+ *         auto mat = vglx::SpriteMaterial::Create();
  *         mat->albedo_map = result.value();
  *         auto sprite = Sprite::Create(mat);
  *         sprite->SetScale(0.5f);

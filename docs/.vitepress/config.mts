@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 
 export default defineConfig({
   srcDir: 'pages',
-  title: 'GL3X',
+  title: 'VGLX',
   description: '3D Rendering in Modern C++',
   cleanUrls: true,
   head: [
@@ -42,7 +42,7 @@ export default defineConfig({
       copyright: `Copyright © 2024–${year}`
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/shlomnissan/gl3x' }
+      { icon: 'github', link: 'https://github.com/shlomnissan/vglx' }
     ]
   }
 })

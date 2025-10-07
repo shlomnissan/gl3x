@@ -15,7 +15,7 @@
 #include <queue>
 #include <ranges>
 
-namespace gl3x {
+namespace vglx {
 
 struct Node::Impl {
     std::vector<std::shared_ptr<Node>> children;

@@ -18,7 +18,7 @@
 #include <span>
 #include <vector>
 
-namespace gl3x {
+namespace vglx {
 
 class RenderLists {
 public:

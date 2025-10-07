@@ -13,7 +13,7 @@
 
 class ConeGeometryTest : public ::testing::Test {
 protected:
-    gl3x::ConeGeometry cone_ {{
+    vglx::ConeGeometry cone_ {{
         .radius = 1.0f,
         .height = 1.0f,
         .radial_segments = 6,
@@ -50,7 +50,7 @@ TEST_F(ConeGeometryTest, ConstructorInitializesName) {
 #pragma endregion
 
 TEST_F(ConeGeometryTest, AttributesConfiguredCorrectly) {
-    using enum gl3x::VertexAttributeType;
+    using enum vglx::VertexAttributeType;
 
     const auto& attrs = cone_.Attributes();
 
@@ -68,15 +68,15 @@ TEST_F(ConeGeometryTest, AttributesConfiguredCorrectly) {
 
 TEST(ConeGeometry, DeathWhenParamsAreInvalid) {
     EXPECT_DEATH({
-        gl3x::ConeGeometry({.height = 0.0f});
+        vglx::ConeGeometry({.height = 0.0f});
     }, ".*params.height > 0");
 
     EXPECT_DEATH({
-        gl3x::ConeGeometry({.radial_segments = 0});
+        vglx::ConeGeometry({.radial_segments = 0});
     }, ".*params.radial_segments > 0");
 
     EXPECT_DEATH({
-        gl3x::ConeGeometry({.height_segments = 0});
+        vglx::ConeGeometry({.height_segments = 0});
     }, ".*params.height_segments > 0");
 }
 

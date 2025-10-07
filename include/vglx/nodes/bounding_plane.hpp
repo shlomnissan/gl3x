@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Debug node that renders a bounding plane.
@@ -28,8 +28,8 @@ namespace gl3x {
  * oriented using the plane’s normal vector, and scaled based on the specified size.
  *
  * @code
- * auto plane = gl3x::Plane {Vector3::Forward(), 0.0f};
- * auto bounds = gl3x::BoundingPlane::Create(plane, 2, 0xFF0000);
+ * auto plane = vglx::Plane {Vector3::Forward(), 0.0f};
+ * auto bounds = vglx::BoundingPlane::Create(plane, 2, 0xFF0000);
  * scene->Add(bounds);
  * @endcode
  *

@@ -16,7 +16,7 @@
 
 #include <print>
 
-using namespace gl3x;
+using namespace vglx;
 
 ExamplePhongMaterial::ExamplePhongMaterial() {
     auto geometry = BoxGeometry::Create();

@@ -12,7 +12,7 @@
 #include <vglx/geometries.hpp>
 #include <vglx/nodes.hpp>
 
-using namespace gl3x;
+using namespace vglx;
 
 ExamplePointLight::ExamplePointLight() {
     Add(Grid::Create({

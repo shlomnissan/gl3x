@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents a light that gets emitted from a single point in all directions.
@@ -21,7 +21,7 @@ namespace gl3x {
  * A common use case for this is to replicate the light emitted from a bare lightbulb.
  *
  * @code
- * auto point_light = gl3x::PointLight::Create({
+ * auto point_light = vglx::PointLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 1.0f,
  *   .attenuation = {

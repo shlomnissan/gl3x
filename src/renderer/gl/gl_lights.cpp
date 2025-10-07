@@ -16,7 +16,7 @@
 
 #include <algorithm>
 
-namespace gl3x {
+namespace vglx {
 
 auto GLLights::AddLight(Light* light, Camera* camera) -> void {
     using enum LightType;
@@ -49,7 +49,7 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
             case AmbientLight: /* noop */ break;
             case DirectionalLight: {
                 ++directional;
-                auto src = static_cast<gl3x::DirectionalLight*>(light);
+                auto src = static_cast<vglx::DirectionalLight*>(light);
                 auto src_dir = src->Direction();
                 auto dir = camera->view_matrix * Vector4(src_dir.x, src_dir.y, src_dir.z, 0.0f);
                 dst.position = Vector3::Zero();
@@ -63,7 +63,7 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
             break;
             case PointLight: {
                 ++point;
-                auto src = static_cast<gl3x::PointLight*>(light);
+                auto src = static_cast<vglx::PointLight*>(light);
                 auto world = src->GetWorldPosition();
                 auto pos = camera->view_matrix *  Vector4(world.x, world.y, world.z, 1.0f);
                 dst.position = Vector3(pos.x, pos.y, pos.z);
@@ -77,7 +77,7 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
             break;
             case SpotLight: {
                 ++spot;
-                auto src = static_cast<gl3x::SpotLight*>(light);
+                auto src = static_cast<vglx::SpotLight*>(light);
                 auto src_dir = src->Direction();
                 auto world = src->GetWorldPosition();
                 auto dir = camera->view_matrix * Vector4(src_dir.x, src_dir.y, src_dir.z, 0.0f);

@@ -12,7 +12,7 @@
 #include <string>
 #include <string_view>
 
-namespace gl3x {
+namespace vglx {
 
 /// @cond INTERNAL
 class Identity {

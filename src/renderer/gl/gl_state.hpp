@@ -13,7 +13,7 @@
 #include <memory>
 #include <unordered_map>
 
-namespace gl3x {
+namespace vglx {
 
 class GLState {
 public:

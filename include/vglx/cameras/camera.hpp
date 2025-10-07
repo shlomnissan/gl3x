@@ -14,7 +14,7 @@
 #include "vglx/math/vector3.hpp"
 #include "vglx/nodes/node.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Abstract base class for camera types.

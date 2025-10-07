@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Debug node that renders an axis-aligned bounding box.
@@ -28,8 +28,8 @@ namespace gl3x {
  * lines in the specified color.
  *
  * @code
- * auto geometry = gl3x::SphereGeometry::Create();
- * auto bounds = gl3x::BoundingBox::Create(
+ * auto geometry = vglx::SphereGeometry::Create();
+ * auto bounds = vglx::BoundingBox::Create(
  *   geometry->BoundingBox(),
  *   0xFFFFFF
  * );

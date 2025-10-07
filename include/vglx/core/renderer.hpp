@@ -16,7 +16,7 @@
 #include <memory>
 #include <string>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Forward renderer for drawing a scene from a given camera.
@@ -27,7 +27,7 @@ namespace gl3x {
  *
  * Typical usage:
  * @code
- * gl3x::Renderer renderer({
+ * vglx::Renderer renderer({
  *   .framebuffer_width = window.FramebufferWidth(),
  *   .framebuffer_height = window.FramebufferHeight(),
  *   .clear_color = 0x444444

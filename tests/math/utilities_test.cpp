@@ -14,7 +14,7 @@
 
 #include <vglx/math/utilities.hpp>
 
-using namespace gl3x;
+using namespace vglx;
 
 #pragma region Degrees and Radians
 

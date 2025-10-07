@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: GL3X
+  name: VGLX
   tagline: Cross-Platform 3D Rendering Engine,<br/>Built for Performance in Modern C++
   actions:
     - theme: brand
@@ -11,7 +11,7 @@ hero:
       link: /reference/core/application
     - theme: alt
       text: GitHub
-      link: https://github.com/shlomnissan/gl3x
+      link: https://github.com/shlomnissan/vglx
 
 features:
   - title: Clean and Modern API

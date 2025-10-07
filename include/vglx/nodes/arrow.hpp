@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Visual debug primitive representing a 3D arrow.
@@ -27,7 +27,7 @@ namespace gl3x {
  * The arrow can be positioned using `SetOrigin()` and oriented using `SetDirection()`.
  *
  * @code
- * auto arrow = gl3x::Arrow::Create({
+ * auto arrow = vglx::Arrow::Create({
  *   .direction = {1.0f, 0.0f, 0.0f},
  *   .origin = Vector3::Zero(),
  *   .color = 0xFF0000,

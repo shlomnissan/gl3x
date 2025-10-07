@@ -14,7 +14,7 @@
 
 #include <glad/glad.h>
 
-namespace gl3x {
+namespace vglx {
 
 enum class UniformBuffer {
     Camera,

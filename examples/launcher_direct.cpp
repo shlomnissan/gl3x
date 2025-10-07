@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-using namespace gl3x;
+using namespace vglx;
 
 auto main() -> int {
     auto window = Window {{
@@ -39,7 +39,7 @@ auto main() -> int {
     }
 
     auto camera = PerspectiveCamera::Create({
-        .fov = gl3x::math::DegToRad(60.0f),
+        .fov = vglx::math::DegToRad(60.0f),
         .aspect = window.AspectRatio(),
         .near = 0.1f,
         .far = 1000.0f

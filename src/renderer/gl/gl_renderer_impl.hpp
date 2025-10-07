@@ -19,7 +19,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 class RenderLists;
 

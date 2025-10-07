@@ -14,12 +14,12 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Root node and entry point for a scene graph.
  *
- * `Scene` is the top-level container for all nodes in a GL3X application. It acts as the
+ * `Scene` is the top-level container for all nodes in a VGLX application. It acts as the
  * root of the scene graph and is responsible for propagating update and input events
  * throughout the hierarchy. Each application has one active scene at a time, which is
  * managed by the `Application`.
@@ -28,14 +28,14 @@ namespace gl3x {
  * or adding initial nodes. The scene must be provided to the application during startup:
  *
  * @code
- * class MyApp : public gl3x::Application {
+ * class MyApp : public vglx::Application {
  * public:
  *   auto Configure() -> void override {
  *     params.title = "My App";
  *   }
  *
- *   auto CreateScene() -> std::shared_ptr<gl3x::Scene> override {
- *     auto scene = gl3x::Scene::Create();
+ *   auto CreateScene() -> std::shared_ptr<vglx::Scene> override {
+ *     auto scene = vglx::Scene::Create();
  *     // Add nodes to the scene
  *     return scene;
  *   }
@@ -48,7 +48,7 @@ namespace gl3x {
  * @endcode
  *
  * @note Only one scene can be attached to the application context at a time.
- * Attaching a new scene using gl3x::Application::SetScene replaces the current one.
+ * Attaching a new scene using vglx::Application::SetScene replaces the current one.
  *
  * @ingroup NodesGroup
  */
@@ -61,11 +61,11 @@ public:
      * atmospheric fading. This is typically done during scene setup.
      *
      * @code
-     * scene->fog = gl3x::LinearFog::Create(0x444444, 2.0f, 6.0f);
+     * scene->fog = vglx::LinearFog::Create(0x444444, 2.0f, 6.0f);
      * @endcode
      *
-     * @see gl3x::LinearFog
-     * @see gl3x::ExponentialFog
+     * @see vglx::LinearFog
+     * @see vglx::ExponentialFog
      */
     std::unique_ptr<Fog> fog;
 

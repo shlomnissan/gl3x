@@ -15,7 +15,7 @@
 
 #include <algorithm>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief A bounding sphere defined by a center point and radius.

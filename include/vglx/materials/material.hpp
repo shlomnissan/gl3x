@@ -16,7 +16,7 @@
 #include <optional>
 #include <string>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents available material types.

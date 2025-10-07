@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Renderable node that draws a Geometry with a Material.
@@ -26,9 +26,9 @@ namespace gl3x {
  * An optional wireframe geometry can be provided for debug rendering.
  *
  * @code
- * auto geometry = gl3x::BoxGeometry::Create();
- * auto material = gl3x::UnlitMaterial::Create(0x00FFAA);
- * auto mesh = gl3x::Mesh::Create(geometry, material);
+ * auto geometry = vglx::BoxGeometry::Create();
+ * auto material = vglx::UnlitMaterial::Create(0x00FFAA);
+ * auto mesh = vglx::Mesh::Create(geometry, material);
  * my_scene->Add(mesh);
  * @endcode
  *

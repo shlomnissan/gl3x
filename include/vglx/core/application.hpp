@@ -16,7 +16,7 @@
 #include <memory>
 #include <string>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief The runtime entry point for defining and launching an app.
@@ -32,7 +32,7 @@ namespace gl3x {
  * Typical usage:
  *
  * @code
- * class MyApp : public gl3x::Application {
+ * class MyApp : public vglx::Application {
  *  public:
  *   auto Configure() -> Application::Parameters override {
  *     return {
@@ -45,15 +45,15 @@ namespace gl3x {
  *     };
  *   }
  *
- *   auto CreateScene() -> std::shared_ptr<gl3x::Scene> override {
- *     auto scene = gl3x::Scene::Create();
+ *   auto CreateScene() -> std::shared_ptr<vglx::Scene> override {
+ *     auto scene = vglx::Scene::Create();
  *     // Add nodes to the scene...
  *     return scene;
  *   }
  *
  *   // Optional: override CreateCamera() to provide your own camera.
  *   // Returning nullptr creates a default perspective camera.
- *   // auto CreateCamera() -> std::shared_ptr<gl3x::Camera> override { ... }
+ *   // auto CreateCamera() -> std::shared_ptr<vglx::Camera> override { ... }
  *
  *   auto Update(float delta) -> bool override {
  *     // Per-frame logic. Return false to exit the main loop.

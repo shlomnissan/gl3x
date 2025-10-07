@@ -21,7 +21,7 @@
 #include <memory>
 #include <vector>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents available node types.

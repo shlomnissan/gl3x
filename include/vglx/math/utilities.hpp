@@ -17,7 +17,7 @@
 #include <sstream>
 #include <string>
 
-namespace gl3x::math {
+namespace vglx::math {
 
 using Pair = struct { float x, y; };
 

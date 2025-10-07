@@ -15,7 +15,7 @@
 #pragma region Constructors
 
 TEST(Matrix4, ConstructorDefault) {
-    constexpr auto m = gl3x::Matrix4 {};
+    constexpr auto m = vglx::Matrix4 {};
 
     EXPECT_MAT4_EQ(m, {
         0.0f, 0.0f, 0.0f, 0.0f,
@@ -24,7 +24,7 @@ TEST(Matrix4, ConstructorDefault) {
         0.0f, 0.0f, 0.0f, 0.0f
     });
 
-    static_assert(m == gl3x::Matrix4 {
+    static_assert(m == vglx::Matrix4 {
         0.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 0.0f,
@@ -33,7 +33,7 @@ TEST(Matrix4, ConstructorDefault) {
 }
 
 TEST(Matrix4, ConstructorSingleParameter) {
-    constexpr auto m = gl3x::Matrix4 {1.0f};
+    constexpr auto m = vglx::Matrix4 {1.0f};
 
     EXPECT_MAT4_EQ(m, {
         1.0f, 0.0f, 0.0f, 0.0f,
@@ -42,7 +42,7 @@ TEST(Matrix4, ConstructorSingleParameter) {
         0.0f, 0.0f, 0.0f, 1.0f
     });
 
-    static_assert(m == gl3x::Matrix4 {
+    static_assert(m == vglx::Matrix4 {
         1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,
@@ -51,7 +51,7 @@ TEST(Matrix4, ConstructorSingleParameter) {
 }
 
 TEST(Matrix4, ConstructorParameterized) {
-    constexpr auto m = gl3x::Matrix4 {
+    constexpr auto m = vglx::Matrix4 {
          1.0f,  2.0f,  3.0f,  4.0f,
          5.0f,  6.0f,  7.0f,  8.0f,
          9.0f, 10.0f, 11.0f, 12.0f,
@@ -65,7 +65,7 @@ TEST(Matrix4, ConstructorParameterized) {
         13.0f, 14.0f, 15.0f, 16.0f
     });
 
-    static_assert(m == gl3x::Matrix4 {
+    static_assert(m == vglx::Matrix4 {
          1.0f,  2.0f,  3.0f,  4.0f,
          5.0f,  6.0f,  7.0f,  8.0f,
          9.0f, 10.0f, 11.0f, 12.0f,
@@ -74,11 +74,11 @@ TEST(Matrix4, ConstructorParameterized) {
 }
 
 TEST(Matrix4, ConstructorVector) {
-    constexpr auto m = gl3x::Matrix4 {
-        gl3x::Vector4 {1.0f, 5.0f,  9.0f, 13.0f},
-        gl3x::Vector4 {2.0f, 6.0f, 10.0f, 14.0f},
-        gl3x::Vector4 {3.0f, 7.0f, 11.0f, 15.0f},
-        gl3x::Vector4 {4.0f, 8.0f, 12.0f, 16.0f}
+    constexpr auto m = vglx::Matrix4 {
+        vglx::Vector4 {1.0f, 5.0f,  9.0f, 13.0f},
+        vglx::Vector4 {2.0f, 6.0f, 10.0f, 14.0f},
+        vglx::Vector4 {3.0f, 7.0f, 11.0f, 15.0f},
+        vglx::Vector4 {4.0f, 8.0f, 12.0f, 16.0f}
     };
 
     EXPECT_MAT4_EQ(m, {
@@ -88,7 +88,7 @@ TEST(Matrix4, ConstructorVector) {
         13.0f, 14.0f, 15.0f, 16.0f
     });
 
-    static_assert(m == gl3x::Matrix4 {
+    static_assert(m == vglx::Matrix4 {
          1.0f,  2.0f,  3.0f,  4.0f,
          5.0f,  6.0f,  7.0f,  8.0f,
          9.0f, 10.0f, 11.0f, 12.0f,
@@ -101,13 +101,13 @@ TEST(Matrix4, ConstructorVector) {
 #pragma region Matrix Multiplication
 
 TEST(Matrix4, MultiplicationMatrix) {
-    constexpr auto m1 = gl3x::Matrix4 {
+    constexpr auto m1 = vglx::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    constexpr auto m2 = gl3x::Matrix4 {
+    constexpr auto m2 = vglx::Matrix4 {
         1.0f, 5.0f, 1.0f, 8.0f,
         2.0f, 1.0f, 3.0f, 1.0f,
         1.0f, 5.0f, 4.0f, 2.0f,
@@ -121,7 +121,7 @@ TEST(Matrix4, MultiplicationMatrix) {
         73.0f, 107.0f, 58.0f, 98.0f
     });
 
-    static_assert(m1 * m2 == gl3x::Matrix4 {
+    static_assert(m1 * m2 == vglx::Matrix4 {
         44.0f,  46.0f, 23.0f, 28.0f,
         96.0f, 114.0f, 59.0f, 84.0f,
         21.0f,  39.0f, 22.0f, 42.0f,
@@ -134,31 +134,31 @@ TEST(Matrix4, MultiplicationMatrix) {
 #pragma region Matrix-Vector Multiplication
 
 TEST(Matrix4, MultiplicationWithVector4) {
-    constexpr auto m = gl3x::Matrix4 {
+    constexpr auto m = vglx::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    constexpr auto v = gl3x::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
+    constexpr auto v = vglx::Vector4 {1.0f, 2.0f, 3.0f, 4.0f};
 
     EXPECT_VEC4_EQ(m * v, {30.0f, 70.0f, 20.0f, 60.0f});
 
-    static_assert(m * v == gl3x::Vector4 {30.0f, 70.0f, 20.0f, 60.0f});
+    static_assert(m * v == vglx::Vector4 {30.0f, 70.0f, 20.0f, 60.0f});
 }
 
 TEST(Matrix4, MultiplicationWithVector3) {
-    constexpr auto m = gl3x::Matrix4 {
+    constexpr auto m = vglx::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    constexpr auto v = gl3x::Vector3 {1.0f, 2.0f, 3.0f};
+    constexpr auto v = vglx::Vector3 {1.0f, 2.0f, 3.0f};
 
     EXPECT_VEC3_EQ(m * v, {18.0f, 46.0f, 17.0f});
 
-    static_assert(m * v == gl3x::Vector3 {18.0f, 46.0f, 17.0f});
+    static_assert(m * v == vglx::Vector3 {18.0f, 46.0f, 17.0f});
 }
 
 #pragma endregion
@@ -166,19 +166,19 @@ TEST(Matrix4, MultiplicationWithVector3) {
 #pragma region Equality Operator
 
 TEST(Matrix4, EqualityOperator) {
-    constexpr auto m1 = gl3x::Matrix4 {
+    constexpr auto m1 = vglx::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    constexpr auto m2 = gl3x::Matrix4 {
+    constexpr auto m2 = vglx::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    constexpr auto m3 = gl3x::Matrix4 {
+    constexpr auto m3 = vglx::Matrix4 {
         1.0f, 5.0f, 1.0f, 8.0f,
         2.0f, 1.0f, 3.0f, 1.0f,
         1.0f, 5.0f, 4.0f, 2.0f,
@@ -193,19 +193,19 @@ TEST(Matrix4, EqualityOperator) {
 }
 
 TEST(Matrix4, InequalityOperator) {
-    constexpr auto m1 = gl3x::Matrix4 {
+    constexpr auto m1 = vglx::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    constexpr auto m2 = gl3x::Matrix4 {
+    constexpr auto m2 = vglx::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
         8.0f, 7.0f, 6.0f, 5.0f,
     };
-    constexpr auto m3 = gl3x::Matrix4 {
+    constexpr auto m3 = vglx::Matrix4 {
         1.0f, 5.0f, 1.0f, 8.0f,
         2.0f, 1.0f, 3.0f, 1.0f,
         1.0f, 5.0f, 4.0f, 2.0f,
@@ -224,42 +224,42 @@ TEST(Matrix4, InequalityOperator) {
 #pragma region Determinant
 
 TEST(Matrix4, Determinant) {
-    constexpr auto m = gl3x::Matrix4 {
+    constexpr auto m = vglx::Matrix4 {
         4.0f, 7.0f, 2.0f, 1.0f,
         3.0f, 6.0f, 1.0f, 2.0f,
         2.0f, 5.0f, 3.0f, 3.0f,
         1.0f, 1.0f, 2.0f, 1.0f
     };
 
-    EXPECT_FLOAT_EQ(gl3x::Determinant(m), 18.0f);
+    EXPECT_FLOAT_EQ(vglx::Determinant(m), 18.0f);
 
-    static_assert(gl3x::Determinant(m) == 18.0f);
+    static_assert(vglx::Determinant(m) == 18.0f);
 }
 
 TEST(Matrix4, DeterminantNegative) {
-    constexpr auto m = gl3x::Matrix4 {
+    constexpr auto m = vglx::Matrix4 {
         2.0f, 4.0f, 1.0f, 3.0f,
         5.0f, 6.0f, 2.0f, 1.0f,
         3.0f, 1.0f, 4.0f, 2.0f,
         7.0f, 8.0f, 5.0f, 6.0f
     };
 
-    EXPECT_FLOAT_EQ(gl3x::Determinant(m), -30.0f);
+    EXPECT_FLOAT_EQ(vglx::Determinant(m), -30.0f);
 
-    static_assert(gl3x::Determinant(m) == -30.0f);
+    static_assert(vglx::Determinant(m) == -30.0f);
 }
 
 TEST(Matrix4, DeterminantZero) {
-    constexpr auto m = gl3x::Matrix4 {
+    constexpr auto m = vglx::Matrix4 {
          1.0f,  2.0f,  3.0f,  4.0f,
          5.0f,  6.0f,  7.0f,  8.0f,
          9.0f, 10.0f, 11.0f, 12.0f,
         13.0f, 14.0f, 15.0f, 16.0f
     };
 
-    EXPECT_FLOAT_EQ(gl3x::Determinant(m), 0.0f);
+    EXPECT_FLOAT_EQ(vglx::Determinant(m), 0.0f);
 
-    static_assert(gl3x::Determinant(m) == 0.0f);
+    static_assert(vglx::Determinant(m) == 0.0f);
 }
 
 #pragma endregion
@@ -267,14 +267,14 @@ TEST(Matrix4, DeterminantZero) {
 #pragma region Inverse
 
 TEST(Matrix4, Inverse) {
-    constexpr auto m = gl3x::Matrix4 {
+    constexpr auto m = vglx::Matrix4 {
         4.0f, 7.0f, 2.0f, 1.0f,
         3.0f, 6.0f, 1.0f, 2.0f,
         2.0f, 5.0f, 3.0f, 3.0f,
         1.0f, 1.0f, 2.0f, 1.0f
     };
 
-    constexpr auto inverse = gl3x::Inverse(m);
+    constexpr auto inverse = vglx::Inverse(m);
     EXPECT_MAT4_NEAR(inverse, {
        -0.33f,  1.00f, -1.00f,  1.33f,
         0.33f, -0.50f,  0.50f, -0.83f,
@@ -285,7 +285,7 @@ TEST(Matrix4, Inverse) {
     // M^{-1} * M = I
     EXPECT_MAT4_NEAR(
         inverse * m,
-        gl3x::Matrix4::Identity(),
+        vglx::Matrix4::Identity(),
         0.01f
     );
 
@@ -312,16 +312,16 @@ TEST(Matrix4, Inverse) {
 #pragma region Transpose
 
 TEST(Matrix4, TransposeIdentity) {
-    constexpr auto m = gl3x::Matrix4::Identity();
+    constexpr auto m = vglx::Matrix4::Identity();
 
-    EXPECT_MAT4_EQ(gl3x::Transpose(m), {
+    EXPECT_MAT4_EQ(vglx::Transpose(m), {
         1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 1.0f
     });
 
-    static_assert(gl3x::Transpose(m) == gl3x::Matrix4 {
+    static_assert(vglx::Transpose(m) == vglx::Matrix4 {
         1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,
@@ -330,21 +330,21 @@ TEST(Matrix4, TransposeIdentity) {
 }
 
 TEST(Matrix4, TransposeNonIdentity) {
-    constexpr auto m = gl3x::Matrix4 {
+    constexpr auto m = vglx::Matrix4 {
         1.0f,  2.0f,  3.0f,  4.0f,
         5.0f,  6.0f,  7.0f,  8.0f,
         9.0f, 10.0f, 11.0f, 12.0f,
        13.0f, 14.0f, 15.0f, 16.0f
     };
 
-    EXPECT_MAT4_EQ(gl3x::Transpose(m), {
+    EXPECT_MAT4_EQ(vglx::Transpose(m), {
         1.0f,  5.0f,  9.0f, 13.0f,
         2.0f,  6.0f, 10.0f, 14.0f,
         3.0f,  7.0f, 11.0f, 15.0f,
         4.0f,  8.0f, 12.0f, 16.0f
     });
 
-    static_assert(gl3x::Transpose(m) == gl3x::Matrix4 {
+    static_assert(vglx::Transpose(m) == vglx::Matrix4 {
         1.0f,  5.0f,  9.0f, 13.0f,
         2.0f,  6.0f, 10.0f, 14.0f,
         3.0f,  7.0f, 11.0f, 15.0f,
@@ -357,7 +357,7 @@ TEST(Matrix4, TransposeNonIdentity) {
 #pragma region Operators
 
 TEST(Matrix4, SubscriptOperatorReturnsColumnVectorConst) {
-    constexpr auto m = gl3x::Matrix4 {
+    constexpr auto m = vglx::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
@@ -369,14 +369,14 @@ TEST(Matrix4, SubscriptOperatorReturnsColumnVectorConst) {
     EXPECT_VEC4_EQ(m[2], {3.0f, 7.0f, 2.0f, 6.0f});
     EXPECT_VEC4_EQ(m[3], {4.0f, 8.0f, 1.0f, 5.0f});
 
-    static_assert(m[0] == gl3x::Vector4 {1.0f, 5.0f, 4.0f, 8.0f});
-    static_assert(m[1] == gl3x::Vector4 {2.0f, 6.0f, 3.0f, 7.0f});
-    static_assert(m[2] == gl3x::Vector4 {3.0f, 7.0f, 2.0f, 6.0f});
-    static_assert(m[3] == gl3x::Vector4 {4.0f, 8.0f, 1.0f, 5.0f});
+    static_assert(m[0] == vglx::Vector4 {1.0f, 5.0f, 4.0f, 8.0f});
+    static_assert(m[1] == vglx::Vector4 {2.0f, 6.0f, 3.0f, 7.0f});
+    static_assert(m[2] == vglx::Vector4 {3.0f, 7.0f, 2.0f, 6.0f});
+    static_assert(m[3] == vglx::Vector4 {4.0f, 8.0f, 1.0f, 5.0f});
 }
 
 TEST(Matrix4, SubscriptOperatorReturnsColumnVectorReference) {
-    auto m1 = gl3x::Matrix4 {
+    auto m1 = vglx::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,
@@ -402,7 +402,7 @@ TEST(Matrix4, SubscriptOperatorReturnsColumnVectorReference) {
 
     // Compile-time check
     constexpr auto m2 = []() {
-        auto m = gl3x::Matrix4 {
+        auto m = vglx::Matrix4 {
             1.0f, 2.0f, 3.0f, 4.0f,
             5.0f, 6.0f, 7.0f, 8.0f,
             4.0f, 3.0f, 2.0f, 1.0f,
@@ -422,7 +422,7 @@ TEST(Matrix4, SubscriptOperatorReturnsColumnVectorReference) {
         return m;
     }();
 
-    static_assert(m2 == gl3x::Matrix4 {
+    static_assert(m2 == vglx::Matrix4 {
         2.0f,  2.0f, 3.0f,  4.0f,
         5.0f, 12.0f, 7.0f,  8.0f,
         4.0f,  3.0f, 4.0f,  1.0f,
@@ -431,7 +431,7 @@ TEST(Matrix4, SubscriptOperatorReturnsColumnVectorReference) {
 }
 
 TEST(Matrix4, CallOperatorReturnsElementsRowMajor) {
-    constexpr auto m = gl3x::Matrix4 {
+    constexpr auto m = vglx::Matrix4 {
         1.0f, 2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f, 8.0f,
         4.0f, 3.0f, 2.0f, 1.0f,

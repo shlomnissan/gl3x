@@ -11,7 +11,7 @@
 
 #include "utilities/logger.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 auto Renderable::BoundingBox() -> Box3 {
     return GetGeometry()->BoundingBox();

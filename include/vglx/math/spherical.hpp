@@ -12,7 +12,7 @@
 #include "vglx/math/vector3.hpp"
 #include "vglx/math/utilities.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Spherical coordinates (radius, phi, theta).
@@ -67,7 +67,7 @@ struct VGLX_EXPORT Spherical {
      * - `phi` (azimuth): 0 along +Z, increasing toward +X.
      * - `theta` (polar): 0 on the equator, +π/2 at +Y.
      *
-     * @return gl3x::Vector3 Cartesian vector (x, y, z).
+     * @return vglx::Vector3 Cartesian vector (x, y, z).
      *
      * @see MakeSafe
      */

@@ -11,7 +11,7 @@
 
 #include <format>
 
-namespace gl3x {
+namespace vglx {
 
 using Clock = std::chrono::steady_clock;
 

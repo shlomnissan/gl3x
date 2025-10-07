@@ -11,7 +11,7 @@
 
 #include <print>
 
-using namespace gl3x;
+using namespace vglx;
 
 ExampleSprite::ExampleSprite() {
     show_context_menu_ = false;

@@ -11,7 +11,7 @@
 
 #include <vector>
 
-namespace gl3x {
+namespace vglx {
 
 auto GLPrograms::GetProgram(const ProgramAttributes& attrs) -> GLProgram* {
     const auto& key = attrs.key;

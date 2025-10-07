@@ -15,7 +15,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Debug node that renders a bounding sphere.
@@ -28,8 +28,8 @@ namespace gl3x {
  * a wireframe in the specified color.
  *
  * @code
- * auto geometry = gl3x::BoxGeometry::Create();
- * auto bounds = gl3x::BoundingSphere::Create(
+ * auto geometry = vglx::BoxGeometry::Create();
+ * auto bounds = vglx::BoundingSphere::Create(
  *   geometry->BoundingSphere(),
  *   0xFF0000
  * );

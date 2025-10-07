@@ -9,7 +9,7 @@
 
 #include "vglx_export.h"
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents available event types.
@@ -39,8 +39,8 @@ struct VGLX_EXPORT Event {
      * to `true` if no other node should respond to the event.
      *
      * @code
-     * auto OnKeyboardEvent(gl3x::KeyboardEvent* event) -> void override {
-     *   if (event->key == gl3x::Key::Escape) {
+     * auto OnKeyboardEvent(vglx::KeyboardEvent* event) -> void override {
+     *   if (event->key == vglx::Key::Escape) {
      *     QuitApplication();
      *     event->handled = true; // Stop further propagation
      *   }

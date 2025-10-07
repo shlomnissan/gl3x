@@ -15,8 +15,8 @@
 #pragma region Node Operations
 
 TEST(Node, AddChild) {
-    auto parent = gl3x::Node::Create();
-    auto child = gl3x::Node::Create();
+    auto parent = vglx::Node::Create();
+    auto child = vglx::Node::Create();
 
     parent->Add(child);
 
@@ -25,8 +25,8 @@ TEST(Node, AddChild) {
 }
 
 TEST(Node, RemoveChild) {
-    auto parent = gl3x::Node::Create();
-    auto child = gl3x::Node::Create();
+    auto parent = vglx::Node::Create();
+    auto child = vglx::Node::Create();
 
     parent->Add(child);
     parent->Remove(child);
@@ -35,9 +35,9 @@ TEST(Node, RemoveChild) {
 }
 
 TEST(Node, RemoveAllChildren) {
-    auto parent = gl3x::Node::Create();
-    auto child1 = gl3x::Node::Create();
-    auto child2 = gl3x::Node::Create();
+    auto parent = vglx::Node::Create();
+    auto child1 = vglx::Node::Create();
+    auto child2 = vglx::Node::Create();
 
     parent->Add(child1);
     parent->Add(child2);
@@ -51,9 +51,9 @@ TEST(Node, RemoveAllChildren) {
 #pragma region Hierarchy Queries
 
 TEST(Node, IsChild) {
-    auto node_1 = gl3x::Node::Create();
-    auto node_2 = gl3x::Node::Create();
-    auto node_3 = gl3x::Node::Create();
+    auto node_1 = vglx::Node::Create();
+    auto node_2 = vglx::Node::Create();
+    auto node_3 = vglx::Node::Create();
 
     node_1->Add(node_2);
     node_2->Add(node_3);
@@ -66,8 +66,8 @@ TEST(Node, IsChild) {
 }
 
 TEST(Node, IsChildAfterRemoval) {
-    auto parent = gl3x::Node::Create();
-    auto child = gl3x::Node::Create();
+    auto parent = vglx::Node::Create();
+    auto child = vglx::Node::Create();
 
     parent->Add(child);
     EXPECT_TRUE(parent->IsChild(child.get()));
@@ -77,12 +77,12 @@ TEST(Node, IsChildAfterRemoval) {
 }
 
 TEST(Node, IsChildSelf) {
-    auto node = gl3x::Node::Create();
+    auto node = vglx::Node::Create();
     EXPECT_FALSE(node->IsChild(node.get()));
 }
 
 TEST(Node, IsChildWithNullptr) {
-    auto node = gl3x::Node::Create();
+    auto node = vglx::Node::Create();
     EXPECT_FALSE(node->IsChild(nullptr));
 }
 
@@ -91,7 +91,7 @@ TEST(Node, IsChildWithNullptr) {
 #pragma region Update Transforms
 
 TEST(Node, UpdateTransformsWithoutParent) {
-    auto node = std::make_shared<gl3x::Node>();
+    auto node = std::make_shared<vglx::Node>();
     node->SetScale(2.0f);
 
     node->UpdateTransformHierarchy();
@@ -105,8 +105,8 @@ TEST(Node, UpdateTransformsWithoutParent) {
 }
 
 TEST(Node, UpdateTransformsWithParent) {
-    auto parent = gl3x::Node::Create();
-    auto child = gl3x::Node::Create();
+    auto parent = vglx::Node::Create();
+    auto child = vglx::Node::Create();
 
     parent->SetScale(2.0f);
     parent->Add(child);
@@ -122,8 +122,8 @@ TEST(Node, UpdateTransformsWithParent) {
 }
 
 TEST(Node, DisableTransformAutoUpdate) {
-    auto parent = gl3x::Node::Create();
-    auto child = gl3x::Node::Create();
+    auto parent = vglx::Node::Create();
+    auto child = vglx::Node::Create();
     child->transform_auto_update = false;
 
     parent->SetScale(2.0f);
@@ -146,8 +146,8 @@ TEST(Node, DisableTransformAutoUpdate) {
 }
 
 TEST(Node, MarkTransformedNodeAsUntouched) {
-    auto parent = gl3x::Node::Create();
-    auto child = gl3x::Node::Create();
+    auto parent = vglx::Node::Create();
+    auto child = vglx::Node::Create();
 
     parent->Add(child);
     parent->UpdateTransformHierarchy();
@@ -156,8 +156,8 @@ TEST(Node, MarkTransformedNodeAsUntouched) {
 }
 
 TEST(Node, MarkDetachedNodesAsTouched) {
-    auto parent = gl3x::Node::Create();
-    auto child = gl3x::Node::Create();
+    auto parent = vglx::Node::Create();
+    auto child = vglx::Node::Create();
 
     parent->Add(child);
     parent->UpdateTransformHierarchy();
@@ -172,7 +172,7 @@ TEST(Node, MarkDetachedNodesAsTouched) {
 #pragma region ShouldUpdate Checks
 
 TEST(Node, ShouldUpdateTransformWhenDirty) {
-    auto node = gl3x::Node::Create();
+    auto node = vglx::Node::Create();
     node->SetScale(0.5f);
 
     EXPECT_TRUE(node->ShouldUpdateWorldTransform());
@@ -183,9 +183,9 @@ TEST(Node, ShouldUpdateTransformWhenDirty) {
 #pragma region Edge Cases
 
 TEST(Node, AddChildWithExistingParent) {
-    auto parent1 = gl3x::Node::Create();
-    auto parent2 = gl3x::Node::Create();
-    auto child = gl3x::Node::Create();
+    auto parent1 = vglx::Node::Create();
+    auto parent2 = vglx::Node::Create();
+    auto child = vglx::Node::Create();
 
     parent1->Add(child);
     parent2->Add(child);
@@ -196,8 +196,8 @@ TEST(Node, AddChildWithExistingParent) {
 }
 
 TEST(Node, RemoveNonexistentChild) {
-    auto parent = gl3x::Node::Create();
-    auto child = gl3x::Node::Create();
+    auto parent = vglx::Node::Create();
+    auto child = vglx::Node::Create();
 
     parent->Remove(child);
 

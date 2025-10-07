@@ -22,7 +22,7 @@
 
 #include <glad/glad.h>
 
-namespace gl3x {
+namespace vglx {
 
 Renderer::Impl::Impl(const Renderer::Parameters& params)
   : params_(params),

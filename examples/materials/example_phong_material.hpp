@@ -26,7 +26,7 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<gl3x::PhongMaterial> material_;
-    std::shared_ptr<gl3x::Mesh> mesh_;
-    std::shared_ptr<gl3x::Texture2D> texture_;
+    std::shared_ptr<vglx::PhongMaterial> material_;
+    std::shared_ptr<vglx::Mesh> mesh_;
+    std::shared_ptr<vglx::Texture2D> texture_;
 };

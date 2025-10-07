@@ -12,7 +12,7 @@
 #include "vglx/math/utilities.hpp"
 #include "vglx/nodes/mesh.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 namespace {
 

@@ -15,7 +15,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-namespace gl3x {
+namespace vglx {
 
 class Window::Impl {
 public:

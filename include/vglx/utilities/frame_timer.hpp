@@ -13,7 +13,7 @@
 
 #include <algorithm>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Frame-oriented helper for computing clamped delta time.
@@ -26,7 +26,7 @@ namespace gl3x {
  *
  * Typical usage:
  * @code
- * gl3x::FrameTimer clock(true); // auto-start
+ * vglx::FrameTimer clock(true); // auto-start
  * while (running) {
  *   const float dt = clock.Tick(); // seconds (float), clamped
  *   scene.Advance(dt);

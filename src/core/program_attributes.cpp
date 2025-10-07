@@ -19,7 +19,7 @@
 
 #include <cassert>
 
-namespace gl3x {
+namespace vglx {
 
 ProgramAttributes::ProgramAttributes(
     Renderable* renderable,

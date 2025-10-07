@@ -23,6 +23,6 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    std::shared_ptr<gl3x::PhongMaterial> phong_material_;
-    std::shared_ptr<gl3x::SpotLight> spot_light_;
+    std::shared_ptr<vglx::PhongMaterial> phong_material_;
+    std::shared_ptr<vglx::SpotLight> spot_light_;
 };

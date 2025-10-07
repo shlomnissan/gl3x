@@ -11,7 +11,7 @@
 #include "vglx/math/vector2.hpp"
 #include "vglx/math/vector3.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 struct OrbitControls::Impl {
     Camera* camera;

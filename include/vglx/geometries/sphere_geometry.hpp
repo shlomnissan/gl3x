@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Generates a sphere geometry assignable to any mesh.
@@ -25,13 +25,13 @@ namespace gl3x {
  * or decorative primitives.
  *
  * @code
- * auto geometry = gl3x::SphereGeometry::Create({
+ * auto geometry = vglx::SphereGeometry::Create({
  *     .radius = 1.5f,
  *     .width_segments = 48,
  *     .height_segments = 24
  * });
  *
- * auto mesh = gl3x::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
+ * auto mesh = vglx::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
  * my_scene->Add(mesh);
  * @endcode
  *

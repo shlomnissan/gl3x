@@ -12,7 +12,7 @@
 
 #include <vector>
 
-namespace gl3x {
+namespace vglx {
 
 Grid::Grid(const Parameters& params) {
     const auto center = params.divisions / 2;

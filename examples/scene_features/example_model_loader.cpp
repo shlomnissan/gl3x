@@ -14,8 +14,8 @@
 
 #include <print>
 
-using namespace gl3x;
-using namespace gl3x::math;
+using namespace vglx;
+using namespace vglx::math;
 
 ExampleModelLoader::ExampleModelLoader() {
     show_context_menu_ = false;

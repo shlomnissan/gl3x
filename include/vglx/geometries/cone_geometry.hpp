@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Generates a cone geometry assignable to any mesh.
@@ -24,7 +24,7 @@ namespace gl3x {
  * optionally exclude the bottom cap (open-ended).
  *
  * @code
- * auto geometry = gl3x::ConeGeometry::Create({
+ * auto geometry = vglx::ConeGeometry::Create({
  *   .radius = 0.5f,
  *   .height = 2.0f,
  *   .radial_segments = 32,
@@ -32,7 +32,7 @@ namespace gl3x {
  *   .open_ended = false
  * });
  *
- * auto mesh = gl3x::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
+ * auto mesh = vglx::Mesh::Create(geometry, UnlitMaterial::Create(0x049EF4));
  * my_scene->Add(mesh);
  * @endcode
  *

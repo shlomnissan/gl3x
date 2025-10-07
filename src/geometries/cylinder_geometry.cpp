@@ -12,7 +12,7 @@
 
 #include <cassert>
 
-namespace gl3x {
+namespace vglx {
 
 namespace {
 

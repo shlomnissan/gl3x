@@ -11,7 +11,7 @@
 
 #include <vglx/geometries.hpp>
 
-using namespace gl3x;
+using namespace vglx;
 
 ExampleShaderMaterial::ExampleShaderMaterial() {
     fog = ExponentialFog::Create(0x444444, 0.3f);

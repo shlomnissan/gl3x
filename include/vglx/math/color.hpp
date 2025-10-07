@@ -13,7 +13,7 @@
 #include <cassert>
 #include <span>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents an RGB color with floating-point components.

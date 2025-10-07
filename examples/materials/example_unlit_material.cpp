@@ -15,7 +15,7 @@
 
 #include <print>
 
-using namespace gl3x;
+using namespace vglx;
 
 ExampleUnlitMaterial::ExampleUnlitMaterial() {
     auto geometry = BoxGeometry::Create();

@@ -27,8 +27,8 @@ public:
     auto ContextMenu() -> void override;
 
 private:
-    gl3x::Timer timer_ {true};
+    vglx::Timer timer_ {true};
 
-    std::shared_ptr<gl3x::ShaderMaterial> material_;
-    std::shared_ptr<gl3x::Mesh> mesh_;
+    std::shared_ptr<vglx::ShaderMaterial> material_;
+    std::shared_ptr<vglx::Mesh> mesh_;
 };

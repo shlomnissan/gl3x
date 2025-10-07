@@ -13,7 +13,7 @@
 #include <vglx/lights.hpp>
 #include <vglx/nodes.hpp>
 
-using namespace gl3x;
+using namespace vglx;
 
 ExampleBlending::ExampleBlending() {
     auto plane_geometry = PlaneGeometry::Create({.width = 2.0f, .height = 2.0f});

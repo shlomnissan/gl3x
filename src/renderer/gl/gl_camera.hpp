@@ -9,7 +9,7 @@
 
 #include "renderer/gl/gl_uniform_buffer.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 class GLCamera {
 public:

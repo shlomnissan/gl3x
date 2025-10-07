@@ -20,7 +20,7 @@
 #include <expected>
 #include <string>
 
-namespace gl3x {
+namespace vglx {
 
 constexpr auto kMaxDelta = 0.1; // 100ms
 

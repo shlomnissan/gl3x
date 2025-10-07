@@ -18,7 +18,7 @@ using namespace std::string_literals;
 
 TEST(Logger, LogInfo) {
     testing::internal::CaptureStdout();
-    gl3x::Logger::Log(gl3x::LogLevel::Info, "info");
+    vglx::Logger::Log(vglx::LogLevel::Info, "info");
     auto output = testing::internal::GetCapturedStdout();
 
     EXPECT_THAT(output, ::testing::HasSubstr("\x1B[1;34m[Info]\x1B[0m: info"));
@@ -26,7 +26,7 @@ TEST(Logger, LogInfo) {
 
 TEST(Logger, LogWarning) {
     testing::internal::CaptureStdout();
-    gl3x::Logger::Log(gl3x::LogLevel::Warning, "warning");
+    vglx::Logger::Log(vglx::LogLevel::Warning, "warning");
     auto output = testing::internal::GetCapturedStdout();
 
     EXPECT_THAT(output, ::testing::HasSubstr("\x1B[1;33m[Warning]\x1B[0m: warning"));
@@ -34,7 +34,7 @@ TEST(Logger, LogWarning) {
 
 TEST(Logger, LogError) {
     testing::internal::CaptureStderr();
-    gl3x::Logger::Log(gl3x::LogLevel::Error, "error");
+    vglx::Logger::Log(vglx::LogLevel::Error, "error");
     auto output = testing::internal::GetCapturedStderr();
 
     EXPECT_THAT(output, ::testing::HasSubstr("\x1B[1;31m[Error]\x1B[0m: error"));
@@ -42,7 +42,7 @@ TEST(Logger, LogError) {
 
 TEST(Logger, LogDebug) {
     testing::internal::CaptureStdout();
-    gl3x::Logger::Log(gl3x::LogLevel::Debug, "debug");
+    vglx::Logger::Log(vglx::LogLevel::Debug, "debug");
     auto output = testing::internal::GetCapturedStdout();
 
     EXPECT_THAT(output, ::testing::HasSubstr("\x1B[1;35m[Debug]\x1B[0m: debug"));
@@ -56,7 +56,7 @@ TEST(Logger, StringFormatting) {
     testing::internal::CaptureStdout();
 
     auto version = "OpenGL ES 3.2 NVIDIA 560.94 initialized"s;
-    gl3x::Logger::Log(gl3x::LogLevel::Info, "version {}", version);
+    vglx::Logger::Log(vglx::LogLevel::Info, "version {}", version);
 
     auto output = testing::internal::GetCapturedStdout();
     EXPECT_THAT(output, ::testing::HasSubstr(

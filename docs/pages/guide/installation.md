@@ -1,14 +1,14 @@
 # Installation
 
-This guide walks you through installing GL3X so you can start using it right away.
+This guide walks you through installing VGLX so you can start using it right away.
 
 ::: details Quick Start
-If you just want to build and run GL3X quickly, you can use the following commands:
+If you just want to build and run VGLX quickly, you can use the following commands:
 
 ```bash
 # Clone the repository
-git clone --recursive https://github.com/shlomnissan/gl3x.git
-cd gl3x && mkdir build && cd build
+git clone --recursive https://github.com/shlomnissan/vglx.git
+cd vglx && mkdir build && cd build
 
 # Configure with the debug preset
 cmake .. --preset dev-debug --config Debug
@@ -20,7 +20,7 @@ cmake --build . --config Debug
 
 ## Requirements
 
-Before building GL3X, make sure your system meets the following requirements:
+Before building VGLX, make sure your system meets the following requirements:
 - **C++ compiler** with support for **C++23**
   - GCC 11+, Clang 14+, or MSVC 2022 recommended
 - **CMake** version **3.20 or later**
@@ -28,7 +28,7 @@ Before building GL3X, make sure your system meets the following requirements:
 
 ## Using CMake
 
-GL3X depends on [CMake](https://cmake.org/) version 3.20 or later for configuration, building, and installation. You’ll also use CMake to integrate GL3X into your own applications.
+VGLX depends on [CMake](https://cmake.org/) version 3.20 or later for configuration, building, and installation. You’ll also use CMake to integrate VGLX into your own applications.
 
 Before continuing, make sure CMake is installed on your system:
 
@@ -54,9 +54,9 @@ You should see the installed version number, which must be **3.20 or higher**.
 > [!NOTE]
 > If your package manager provides an older version, install from source or use a prebuilt release from [cmake.org](https://cmake.org/)
 
-## Building GL3X
+## Building VGLX
 
-After installing the requirements, you’re ready to build the project. GL3X provides both CMake options to toggle features and CMake presets to streamline common configurations.
+After installing the requirements, you’re ready to build the project. VGLX provides both CMake options to toggle features and CMake presets to streamline common configurations.
 
 ### Options
 
@@ -72,7 +72,7 @@ Default values depend on the selected preset.
 
 ### Presets
 
-For convenience, GL3X includes presets with common build configurations:
+For convenience, VGLX includes presets with common build configurations:
 - **dev-debug** — Debug build with all features enabled
 - **dev-release** — Optimized build with tools and examples
 - **install-debug** — Debug build prepared for installation (used by MSVC)
@@ -82,8 +82,8 @@ For convenience, GL3X includes presets with common build configurations:
 
 ```bash
 # Clone the repository
-git clone --recursive https://github.com/shlomnissan/gl3x.git
-cd gl3x
+git clone --recursive https://github.com/shlomnissan/vglx.git
+cd vglx
 
 # Create a build directory
 mkdir build
@@ -97,7 +97,7 @@ cmake --build . --config Debug
 ```
 If you built with examples enabled, try running them to make sure everything works. You should see the examples application launch.
 
-![Examples application screenshot](/examples-screenshot.png "Examples running with GL3X")
+![Examples application screenshot](/examples-screenshot.png "Examples running with VGLX")
 
 > [!TIP]
 > If everything built correctly, the examples application window should appear.
@@ -112,9 +112,9 @@ cmake --build .
 ```
 This approach is useful if you want full control over which components are enabled, or if you’re not using the provided presets.
 
-## Installing GL3X
+## Installing VGLX
 
-Once you’ve built GL3X, you can install it system-wide and integrate it into your own projects. Installation can be done using the provided scripts, after which GL3X is discoverable through CMake’s standard `find_package` and `target_link_libraries` workflow. If you prefer, you can also integrate GL3X manually by adding its headers and linking the compiled library directly.
+Once you’ve built VGLX, you can install it system-wide and integrate it into your own projects. Installation can be done using the provided scripts, after which VGLX is discoverable through CMake’s standard `find_package` and `target_link_libraries` workflow. If you prefer, you can also integrate VGLX manually by adding its headers and linking the compiled library directly.
 
 ### Install scripts
 Run the install script for your platform:
@@ -129,33 +129,33 @@ Run the install script for your platform:
 
 On Unix systems, the script uses the `install-release` preset. On MSVC, both `install-debug` and `install-release` are installed to handle ABI differences. Elevated privileges are required in both cases.
 
-By default, GL3X installs as a shared library, which enforces a clean API boundary and hides internal symbols using platform-specific visibility controls.
+By default, VGLX installs as a shared library, which enforces a clean API boundary and hides internal symbols using platform-specific visibility controls.
 
-## Using GL3X in your project
+## Using VGLX in your project
 
-Once installed, you can use GL3X in your own project with:
+Once installed, you can use VGLX in your own project with:
 
 ```cmake
-find_package(gl3x REQUIRED)
-target_link_libraries(MyApp PRIVATE gl3x::gl3x)
+find_package(vglx REQUIRED)
+target_link_libraries(MyApp PRIVATE vglx::vglx)
 ```
 
 CMake automatically selects the correct configuration (Debug or Release) based on your project’s build settings.
 
 ### Manual integration (without CMake)
 
-You can also integrate GL3X manually if you compile your projects from the command line (or outside of CMake). For example, using **g++**:
+You can also integrate VGLX manually if you compile your projects from the command line (or outside of CMake). For example, using **g++**:
 
 ```bash
-g++ -std=c++23 -O2 main.cpp -o MyApp -lgl3x
+g++ -std=c++23 -O2 main.cpp -o MyApp -lvglx
 ```
 
-If you installed GL3X using the provided CMake install script, its headers and libraries are already placed on your system paths, so no extra `-I` or `-L` flags are required.
+If you installed VGLX using the provided CMake install script, its headers and libraries are already placed on your system paths, so no extra `-I` or `-L` flags are required.
 
 ## Platform Notes
 
 - **RTTI**
-  GL3X disables [RTTI](https://en.cppreference.com/w/cpp/utility/rtti.html) by default. To match this setting in your CMake project, add:
+  VGLX disables [RTTI](https://en.cppreference.com/w/cpp/utility/rtti.html) by default. To match this setting in your CMake project, add:
   ```cmake
   target_compile_options(MyApp PRIVATE
     $<$<CXX_COMPILER_ID:GNU>:-fno-rtti>
@@ -165,12 +165,12 @@ If you installed GL3X using the provided CMake install script, its headers and l
   )
   ```
 - **Windows DLLs**
-  On MSVC, you may need to copy the GL3X DLL next to your executable. Automate this with:
+  On MSVC, you may need to copy the VGLX DLL next to your executable. Automate this with:
   ```cmake
   if(WIN32)
     add_custom_command(TARGET MyApp POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy_if_different
-      $<TARGET_FILE:gl3x::gl3x>
+      $<TARGET_FILE:vglx::vglx>
       $<TARGET_FILE_DIR:MyApp>
     )
   endif()

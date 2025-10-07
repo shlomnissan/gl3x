@@ -14,7 +14,7 @@
 
 #include <array>
 
-using namespace gl3x;
+using namespace vglx;
 
 namespace {
 

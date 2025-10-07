@@ -13,7 +13,7 @@
 
 #include <memory>
 
-namespace gl3x {
+namespace vglx {
 
 /**
  * @brief Represents a light that gets emitted in all directions equally.
@@ -21,7 +21,7 @@ namespace gl3x {
  * This light cannot be used to cast shadows as it does not have a direction.
  *
  * @code
- * auto ambient_light = gl3x::AmbientLight::Create({
+ * auto ambient_light = vglx::AmbientLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 0.3f
  * });

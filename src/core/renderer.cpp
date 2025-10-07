@@ -9,7 +9,7 @@
 
 #include "renderer/gl/gl_renderer_impl.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 Renderer::Renderer(const Renderer::Parameters& params)
     : impl_(std::make_unique<Impl>(params)) {}

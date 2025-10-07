@@ -14,7 +14,7 @@
 #include <cinttypes>
 #include <unordered_set>
 
-namespace gl3x {
+namespace vglx {
 
 WireframeGeometry::WireframeGeometry(const Geometry* geometry) :
     Geometry(geometry->VertexData(), {})

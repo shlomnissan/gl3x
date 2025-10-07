@@ -21,7 +21,7 @@ constexpr bool ApproxEqual(T a, T b, T eps = static_cast<T>(1e-4)) {
     return (a - b < eps) && (b - a < eps);
 }
 
-auto EXPECT_MAT3_EQ(const gl3x::Matrix3& a, const gl3x::Matrix3& b) -> void {
+auto EXPECT_MAT3_EQ(const vglx::Matrix3& a, const vglx::Matrix3& b) -> void {
     EXPECT_FLOAT_EQ(a(0, 0), b(0, 0));
     EXPECT_FLOAT_EQ(a(0, 1), b(0, 1));
     EXPECT_FLOAT_EQ(a(0, 2), b(0, 2));
@@ -35,7 +35,7 @@ auto EXPECT_MAT3_EQ(const gl3x::Matrix3& a, const gl3x::Matrix3& b) -> void {
     EXPECT_FLOAT_EQ(a(2, 2), b(2, 2));
 }
 
-auto EXPECT_MAT3_NEAR(const gl3x::Matrix3& a, const gl3x::Matrix3& b, float v) -> void {
+auto EXPECT_MAT3_NEAR(const vglx::Matrix3& a, const vglx::Matrix3& b, float v) -> void {
     EXPECT_NEAR(a(0, 0), b(0, 0), v);
     EXPECT_NEAR(a(0, 1), b(0, 1), v);
     EXPECT_NEAR(a(0, 2), b(0, 2), v);
@@ -49,7 +49,7 @@ auto EXPECT_MAT3_NEAR(const gl3x::Matrix3& a, const gl3x::Matrix3& b, float v) -
     EXPECT_NEAR(a(2, 2), b(2, 2), v);
 }
 
-auto EXPECT_MAT4_EQ(const gl3x::Matrix4& a, const gl3x::Matrix4& b) -> void {
+auto EXPECT_MAT4_EQ(const vglx::Matrix4& a, const vglx::Matrix4& b) -> void {
     EXPECT_FLOAT_EQ(a(0, 0), b(0, 0));
     EXPECT_FLOAT_EQ(a(0, 1), b(0, 1));
     EXPECT_FLOAT_EQ(a(0, 2), b(0, 2));
@@ -71,7 +71,7 @@ auto EXPECT_MAT4_EQ(const gl3x::Matrix4& a, const gl3x::Matrix4& b) -> void {
     EXPECT_FLOAT_EQ(a(3, 3), b(3, 3));
 }
 
-auto EXPECT_MAT4_NEAR(const gl3x::Matrix4& a, const gl3x::Matrix4& b, float v) -> void {
+auto EXPECT_MAT4_NEAR(const vglx::Matrix4& a, const vglx::Matrix4& b, float v) -> void {
     EXPECT_NEAR(a(0, 0), b(0, 0), v);
     EXPECT_NEAR(a(0, 1), b(0, 1), v);
     EXPECT_NEAR(a(0, 2), b(0, 2), v);
@@ -93,48 +93,48 @@ auto EXPECT_MAT4_NEAR(const gl3x::Matrix4& a, const gl3x::Matrix4& b, float v) -
     EXPECT_NEAR(a(3, 3), b(3, 3), v);
 }
 
-auto EXPECT_COLOR_EQ(const gl3x::Color& a, const gl3x::Color& b) -> void {
+auto EXPECT_COLOR_EQ(const vglx::Color& a, const vglx::Color& b) -> void {
     EXPECT_FLOAT_EQ(a.r, b.r);
     EXPECT_FLOAT_EQ(a.g, b.g);
     EXPECT_FLOAT_EQ(a.b, b.b);
 }
 
-auto EXPECT_COLOR_NEAR(const gl3x::Color& a, const gl3x::Color& b, float v) -> void {
+auto EXPECT_COLOR_NEAR(const vglx::Color& a, const vglx::Color& b, float v) -> void {
     EXPECT_NEAR(a.r, b.r, v);
     EXPECT_NEAR(a.g, b.g, v);
     EXPECT_NEAR(a.b, b.b, v);
 }
 
-auto EXPECT_VEC2_EQ(const gl3x::Vector2& a, const gl3x::Vector2& b) -> void {
+auto EXPECT_VEC2_EQ(const vglx::Vector2& a, const vglx::Vector2& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);
 }
 
-auto EXPECT_VEC2_NEAR(const gl3x::Vector2& a, const gl3x::Vector2& b, float v) -> void {
+auto EXPECT_VEC2_NEAR(const vglx::Vector2& a, const vglx::Vector2& b, float v) -> void {
     EXPECT_NEAR(a.x, b.x, v);
     EXPECT_NEAR(a.y, b.y, v);
 }
 
-auto EXPECT_VEC3_EQ(const gl3x::Vector3& a, const gl3x::Vector3& b) -> void {
+auto EXPECT_VEC3_EQ(const vglx::Vector3& a, const vglx::Vector3& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);
     EXPECT_EQ(a.z, b.z);
 }
 
-auto EXPECT_VEC3_NEAR(const gl3x::Vector3& a, const gl3x::Vector3& b, float v) -> void {
+auto EXPECT_VEC3_NEAR(const vglx::Vector3& a, const vglx::Vector3& b, float v) -> void {
     EXPECT_NEAR(a.x, b.x, v);
     EXPECT_NEAR(a.y, b.y, v);
     EXPECT_NEAR(a.z, b.z, v);
 }
 
-auto EXPECT_VEC4_EQ(const gl3x::Vector4& a, const gl3x::Vector4& b) -> void {
+auto EXPECT_VEC4_EQ(const vglx::Vector4& a, const vglx::Vector4& b) -> void {
     EXPECT_EQ(a.x, b.x);
     EXPECT_EQ(a.y, b.y);
     EXPECT_EQ(a.z, b.z);
     EXPECT_EQ(a.w, b.w);
 }
 
-auto EXPECT_VEC4_NEAR(const gl3x::Vector4& a, const gl3x::Vector4& b, float v) -> void {
+auto EXPECT_VEC4_NEAR(const vglx::Vector4& a, const vglx::Vector4& b, float v) -> void {
     EXPECT_NEAR(a.x, b.x, v);
     EXPECT_NEAR(a.y, b.y, v);
     EXPECT_NEAR(a.z, b.z, v);

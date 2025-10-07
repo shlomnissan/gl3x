@@ -12,7 +12,7 @@
 #include "vglx/materials/unlit_material.hpp"
 #include "vglx/nodes/mesh.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 Arrow::Arrow(const Parameters& params) {
     const auto material = UnlitMaterial::Create(params.color);

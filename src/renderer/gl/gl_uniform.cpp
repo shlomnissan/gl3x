@@ -9,7 +9,7 @@
 
 #include "utilities/logger.hpp"
 
-namespace gl3x {
+namespace vglx {
 
 namespace {
 
