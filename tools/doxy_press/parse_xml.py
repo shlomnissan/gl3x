@@ -4,10 +4,17 @@ from pathlib import Path
 from typing import List, Optional, Dict
 from .model import Inventory, Group, Class, slugify
 
-import xml.etree.ElementTree as ET
+import hashlib, re, xml.etree.ElementTree as ET
 
 def _text(elem: Optional[ET.Element], default: str = "") -> str:
     return elem.text if elem is not None and elem.text is not None else default
+
+def _anchor(kind: str, name: str, args: str | None) -> str:
+    if kind == "function":
+        sig = f"{name}{args or ''}"
+        h = hashlib.sha1(sig.encode("utf-8")).hexdigest()[:8]
+        return f"{slugify(name)}_{h}"
+    return slugify(name)
 
 def load_inventory(xml_root: str | Path):
     xml_root = Path(xml_root)
@@ -60,6 +67,13 @@ def load_inventory(xml_root: str | Path):
             group_id=None,  # set below
         )
         inv.classes[cls.id] = cls
+        for m in compounddef.findall(".//memberdef"):
+            mid = m.get("id");
+            kind = m.get("kind", "")
+            if not mid: continue
+            name = (m.findtext("name") or "").strip()
+            args = (m.findtext("argsstring") or "").strip() or None
+            inv.members[mid] = (cid, _anchor(kind, name, args))
 
     # map classes to groups using groups innerclass lists
     refid_to_group: Dict[str, str] = {}

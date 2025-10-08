@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, Optional, List
+from typing import Dict, Optional, List, Tuple
 
 import hashlib
 import re
@@ -49,6 +49,7 @@ class Group:
 class Inventory:
     groups: Dict[str, Group] = field(default_factory=dict)
     classes: Dict[str, Class] = field(default_factory=dict)
+    members: Dict[str, Tuple[str, str]] = field(default_factory=dict)
 
     def assign_class_slugs(self) -> None:
         grouped: Dict[str, List[Class]] = {}
