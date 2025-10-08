@@ -81,13 +81,33 @@
 }
 
 .docblock {
-    margin-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+.docblock-class {
+  padding-top: 16px;
+}
+
+.docblock .custom-block {
+  padding-top: 8px;
+}
+
+.docblock .custom-block-title {
+  display: none;
+}
+
+.description a {
+  color: var(--vp-c-text-1);
+  font-weight: 400;
+}
+
+.description a:hover {
+  color: var(--vp-c-text-1);
 }
 
 .docblock .definition {
   font-family: var(--vp-font-family-mono);
   font-weight: 500;
-  padding-bottom: 4px;
 }
 
 .docblock .definition h3 {
@@ -109,14 +129,14 @@
   font-family: var(--vp-font-family-mono);
 }
 
-.docblock ul.params {
-  margin: 8px 0 16px 0;
-  list-style-type: none;
-  font-size: 14px;
-  padding: 0;
+.docblock .params table {
+  table-layout: fixed;
 }
 
-.docblock ul.params li .name {
+.docblock .params table th:first-child {
+  width: 25%;
+}
+
+.docblock .params .name {
   font-family: var(--vp-font-family-mono);
-  font-weight: 600;
 }

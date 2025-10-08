@@ -94,12 +94,13 @@ def _render_function(func: FunctionDoc):
 
     params_list = ""
     if func.params:
-        params_list += f'<ul class="params">\n'
+        params_list += f'<div class="params">\n\n'
+        params_list += f'|Parameter|Description|\n|---|---|\n'
         for param in func.params:
             pname = param.name
             pdesc = param.desc
-            params_list += f'<li><span class="name">{pname}</span> {pdesc}</li>\n'
-        params_list += f'</ul>\n'
+            params_list += f'|<span class="name">{pname}</span>|{pdesc}|\n'
+        params_list += f'</div>\n'
 
     return (
         f'<div class="docblock">\n'
@@ -120,7 +121,7 @@ def render_class(inv: Inventory, doc: ClassDoc) -> str:
     lines: List[str] = []
 
     lines.append(f"# {doc.display}\n\n")
-
+    lines.append(f'<div class="docblock docblock-class"><div class="description">')
     if doc.brief:
         lines.append(_join_paragraphs(doc.brief))
 
@@ -133,8 +134,12 @@ def render_class(inv: Inventory, doc: ClassDoc) -> str:
         if base:
             group = inv.groups[base.group_id]
             lines.append("")
+            lines += [f'::: info\n']
             lines += [f'Derives from [{base.display}](/reference/{group.slug}/{base.slug}); ']
             lines += [f'inherits all unlisted properties and methods.']
+            lines += [f':::\n']
+
+    lines.append(f'</div></div>\n\n')
 
     if doc.constructors:
         lines += ["## Constructors", ""]
