@@ -10,7 +10,7 @@ _slug_safe = re.compile(r"[^a-z0-9\-]+")
 _camel_re1 = re.compile(r"(.)([A-Z][a-z]+)")
 _camel_re2 = re.compile(r"([a-z])([A-Z])")
 
-def _snake_slug(s: str) -> str:
+def snake_slug(s: str) -> str:
     s = s.replace("::", "_")
     s = _camel_re1.sub(r"\1_\2", s)
     s = _camel_re2.sub(r"\1_\2", s)
@@ -19,9 +19,6 @@ def _snake_slug(s: str) -> str:
     s = re.sub(r"_+", "_", s).strip("_")
     return (s or "x").lower()
 
-def _short_hash(s: str, n: int = 6) -> str:
-    return hashlib.sha1(s.encode("utf-8")).hexdigest()[:n]
-
 def slugify(s: str) -> str:
     s = s.strip().lower()
     s = s.replace("::", "-")
@@ -29,6 +26,9 @@ def slugify(s: str) -> str:
     s = _slug_safe.sub("-", s)
     s = re.sub(r"-{2,}", "-", s).strip("-")
     return s or "x"
+
+def _short_hash(s: str, n: int = 6) -> str:
+    return hashlib.sha1(s.encode("utf-8")).hexdigest()[:n]
 
 @dataclass
 class Class:
@@ -60,7 +60,7 @@ class Inventory:
         for gid, cls_list in grouped.items():
             used = set()
             for c in sorted(cls_list, key=lambda x: (x.display.lower(), x.name.lower())):
-                base = _snake_slug(c.display)
+                base = snake_slug(c.display)
                 slug = base
                 if slug in used:
                     ns_hint = ""

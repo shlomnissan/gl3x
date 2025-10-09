@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import List, Optional, Dict
-from .model import Inventory, Group, Class, slugify
+from .model import Inventory, Group, Class, snake_slug
 
-import hashlib, re, xml.etree.ElementTree as ET
+import hashlib, xml.etree.ElementTree as ET
 
 def _text(elem: Optional[ET.Element], default: str = "") -> str:
     return elem.text if elem is not None and elem.text is not None else default
@@ -13,8 +13,8 @@ def _anchor(kind: str, name: str, args: str | None) -> str:
     if kind == "function":
         sig = f"{name}{args or ''}"
         h = hashlib.sha1(sig.encode("utf-8")).hexdigest()[:8]
-        return f"{slugify(name)}_{h}"
-    return slugify(name)
+        return f"{kind}_{snake_slug(name)}_{h}"
+    return f'{kind}_{snake_slug(name)}'
 
 def load_inventory(xml_root: str | Path):
     xml_root = Path(xml_root)
@@ -43,7 +43,7 @@ def load_inventory(xml_root: str | Path):
         group = Group(
             id=gid,
             name=g_name.strip(),
-            slug=slugify(g_name.strip()),
+            slug=snake_slug(g_name.strip()),
             class_ids=[],
         )
         for inner in compounddef.findall("innerclass"):
