@@ -24,17 +24,18 @@
   content: "";
   display: inline-block;
   width: 1.55em;
-  height: 1.2em;
+  height: 1.45em;
   background: url('/logo_hero.svg') no-repeat center / contain;
   vertical-align: middle;
   margin-bottom: 0.15em;
+  margin-right: 0.6rem;
   margin-left: -0.7rem;
 }
 
 .VPNavBarTitle {
   .title {
     font-family: var(--vp-font-family-heading);
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 800;
 
     span {
@@ -48,7 +49,7 @@
     color: var(--vp-c-text-1);
     font-family: var(--vp-font-family-heading);
     font-weight: 800;
-    font-size: 4rem;
+    font-size: 3.8rem;
 
     @media (max-width: 960px) {
       font-size: 3.5rem;
