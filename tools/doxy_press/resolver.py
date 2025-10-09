@@ -14,16 +14,18 @@ class Resolver:
             for class_id in group.class_ids:
                 c = inv.classes.get(class_id)
                 if c: dict[c.id] = f"{self.base}{group_slug}/{c.slug}"
-        self._class_url = dict
 
-    def class_url(self, refid: str) -> Optional[str]:
-       return self._class_url.get(refid)
+        for member in inv.members:
+            member_idx = inv.members.get(member)
+            base_url = dict.get(member_idx[0])
+            if base_url:
+                dict[member] = f'{base_url}#{member_idx[1]}'
 
-    def class_display(self, refid: str) -> Optional[str]:
-        c = self.inv.classes.get(refid)
-        return c.display if c else None
+        self._refid_to_url = dict
 
-    def class_link_md(self, refid: str) -> Optional[str]:
-        display = self.class_display(refid)
-        url = self.class_url(refid)
-        return f"[{display}]({url})" if display and url else None
+    def refid_url(self, refid: str) -> Optional[str]:
+       return self._refid_to_url.get(refid)
+
+    def refid_link_md(self, refid: str, label: str) -> Optional[str]:
+        url = self.refid_url(refid)
+        return f"[{label}]({url})" if label and url else label

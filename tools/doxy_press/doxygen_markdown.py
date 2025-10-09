@@ -69,10 +69,9 @@ def collect_inlines(node: ET.Element, resolver: Optional[Resolver] = None) -> st
                 inner = collect_inlines(child, resolver).replace("\n", " ")
                 out.append(f"`{inner}`")
             elif tag == "ref":
-                label = resolver.class_link_md(child.get("refid")) if resolver else None
-                if not label:
-                    label = collect_inlines(child, resolver) or element_text(child)
-                out.append(label)
+                label = collect_inlines(child, resolver) or element_text(child)
+                resolved_label = resolver.refid_link_md(child.get("refid"), label) if resolver else label
+                out.append(resolved_label)
             elif tag == "linebreak":
                 out.append("  \n")
             elif tag == "programlisting":

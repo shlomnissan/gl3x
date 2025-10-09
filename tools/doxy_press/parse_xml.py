@@ -10,11 +10,13 @@ def _text(elem: Optional[ET.Element], default: str = "") -> str:
     return elem.text if elem is not None and elem.text is not None else default
 
 def _anchor(kind: str, name: str, args: str | None) -> str:
+    slug = f'{kind}_{snake_slug(name)}'
     if kind == "function":
         sig = f"{name}{args or ''}"
         h = hashlib.sha1(sig.encode("utf-8")).hexdigest()[:8]
-        return f"{kind}_{snake_slug(name)}_{h}"
-    return f'{kind}_{snake_slug(name)}'
+        slug = f"{kind}_{snake_slug(name)}_{h}"
+
+    return slug.replace("_", "-")
 
 def load_inventory(xml_root: str | Path):
     xml_root = Path(xml_root)
