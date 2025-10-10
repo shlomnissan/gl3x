@@ -91,10 +91,10 @@ public:
     /**
      * @brief Returns node type.
      *
-     * @return NodeType::InstancedMeshNode
+     * @return Node::Type::InstancedMesh
      */
-    [[nodiscard]] auto GetNodeType() const -> NodeType override {
-        return NodeType::InstancedMeshNode;
+    [[nodiscard]] auto GetNodeType() const -> Node::Type override {
+        return Node::Type::InstancedMesh;
     }
 
     /**

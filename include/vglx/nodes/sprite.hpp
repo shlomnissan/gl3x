@@ -92,10 +92,10 @@ public:
     /**
      * @brief Returns node type.
      *
-     * @return NodeType::SpriteNode
+     * @return Node::Type::Sprite
      */
-    [[nodiscard]] auto GetNodeType() const -> NodeType override {
-        return NodeType::SpriteNode;
+    [[nodiscard]] auto GetNodeType() const -> Node::Type override {
+        return Node::Type::Sprite;
     }
 
     /// @cond INTERNAL

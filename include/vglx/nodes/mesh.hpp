@@ -62,10 +62,10 @@ public:
     /**
      * @brief Returns node type.
      *
-     * @return NodeType::MeshNode
+     * @return Node::Type::Mesh
      */
-    [[nodiscard]] auto GetNodeType() const -> NodeType override {
-        return NodeType::MeshNode;
+    [[nodiscard]] auto GetNodeType() const -> Node::Type override {
+        return Node::Type::Mesh;
     }
 
     /**

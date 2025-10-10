@@ -61,7 +61,7 @@ ProgramAttributes::ProgramAttributes(
 
     flat_shaded = material->flat_shaded;
     fog = material->fog && scene->fog != nullptr;
-    instancing = renderable->GetNodeType() == NodeType::InstancedMeshNode;
+    instancing = renderable->GetNodeType() == Node::Type::InstancedMesh;
     num_lights = lights.directional + lights.point + lights.spot;
     two_sided = material->two_sided;
     vertex_color = geometry->HasAttribute(VertexAttributeType::Color);

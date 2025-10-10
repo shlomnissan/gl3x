@@ -24,24 +24,9 @@
 namespace vglx {
 
 /**
- * @brief Represents available node types.
- * @ingroup NodesGroup
- */
-enum class NodeType {
-    CameraNode,
-    DefaultNode,
-    InstancedMeshNode,
-    LightNode,
-    MeshNode,
-    RenderableNode,
-    SceneNode,
-    SpriteNode
-};
-
-/**
  * @brief Base class for all scene graph objects.
  *
- * `Node` represents a transformable object that can be placed within a scene
+ * Node represents a transformable object that can be placed within a scene
  * graph hierarchy. Nodes support local and world transforms, parent-child
  * relationships, and can respond to events and updates. All renderable,
  * light-emitting, and camera entities in the engine inherit from this class.
@@ -49,15 +34,34 @@ enum class NodeType {
  * Nodes can be organized in a tree structure, and transformations will
  * propagate through the hierarchy. When attached to a scene, nodes gain
  * access to the shared context and may perform initialization in
- * `OnAttached(SharedContextPointer context)`.
+ * @ref OnAttached.
  *
- * To define behavior, override virtual methods such as `OnUpdate()`,
- * `OnKeyboardEvent()`, or `OnMouseEvent()`.
+ * To define behavior, override virtual methods such as @ref OnUpdate,
+ * @ref OnKeyboardEvent, or @ref OnMouseEvent.
  *
  * @ingroup NodesGroup
  */
 class VGLX_EXPORT Node : public Identity {
 public:
+    /**
+     * @brief Enumerates all node types.
+     *
+     * Each node subclass identifies its type through @ref Node::GetNodeType,
+     * allowing runtime checks and scene traversal logic to distinguish
+     * between different kinds of nodes. The engine uses these identifiers
+     * internally for tasks such as culling, rendering, and event dispatch.
+     */
+    enum class Type {
+        Camera, ///< Perspective or orthographic camera.
+        Default, ///< Generic node without special behavior.
+        InstancedMesh, ///< Node containing instanced geometry.
+        Light, ///< Light source (directional, point, or spot).
+        Mesh, ///< Single mesh with an associated material.
+        Renderable, ///< Any node that can be rendered to the screen.
+        Scene, ///< Root of a scene hierarchy.
+        Sprite ///< Billboarded sprite.
+    };
+
     /// @brief Local transformation.
     Transform3 transform;
 
@@ -150,10 +154,10 @@ public:
     /**
      * @brief Returns node type.
      *
-     * @return NodeType::DefaultNode
+     * @return Node::Type::Default
      */
-    [[nodiscard]] virtual auto GetNodeType() const -> NodeType {
-        return NodeType::DefaultNode;
+    [[nodiscard]] virtual auto GetNodeType() const -> Node::Type {
+        return Node::Type::Default;
     }
 
     /**

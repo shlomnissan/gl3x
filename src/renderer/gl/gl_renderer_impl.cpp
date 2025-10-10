@@ -93,13 +93,13 @@ auto Renderer::Impl::RenderObject(Renderable* renderable, Scene* scene, Camera* 
     const auto index_size = geometry->IndexData().size();
     const auto vertex_size = geometry->VertexCount();
 
-    if (renderable->GetNodeType() != NodeType::InstancedMeshNode) {
+    if (renderable->GetNodeType() != Node::Type::InstancedMesh) {
         index_size
             ? glDrawElements(primitive, index_size, GL_UNSIGNED_INT, nullptr)
             : glDrawArrays(primitive, 0, vertex_size);
     }
 
-    if (renderable->GetNodeType() == NodeType::InstancedMeshNode) {
+    if (renderable->GetNodeType() == Node::Type::InstancedMesh) {
         const auto instanced = static_cast<InstancedMesh*>(renderable);
         const auto count = instanced->Count();
         buffers_.BindInstancedMesh(instanced);

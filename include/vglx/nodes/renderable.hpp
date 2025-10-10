@@ -38,8 +38,8 @@ public:
 
     [[nodiscard]] virtual auto BoundingSphere() -> Sphere;
 
-    [[nodiscard]] auto GetNodeType() const -> NodeType override {
-        return NodeType::RenderableNode;
+    [[nodiscard]] auto GetNodeType() const -> Node::Type override {
+        return Node::Type::Renderable;
     }
 
     [[nodiscard]] auto IsRenderable() const -> bool override { return true; }

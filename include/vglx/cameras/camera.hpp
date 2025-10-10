@@ -54,11 +54,11 @@ public:
     /**
      * @brief Identifies this node as a camera.
      *
-     * Always returns @ref NodeType::CameraNode, allowing runtime checks
+     * Always returns @ref Node::Type "Node::Type::Camera", allowing runtime checks
      * to distinguish camera nodes from other node types.
      */
-    [[nodiscard]] auto GetNodeType() const -> NodeType override {
-        return NodeType::CameraNode;
+    [[nodiscard]] auto GetNodeType() const -> Node::Type override {
+        return Node::Type::Camera;
     }
 
     /**

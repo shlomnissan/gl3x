@@ -52,7 +52,7 @@ auto RenderLists::ProcessNode(Node* node, const Frustum& frustum) -> void {
             : opaque_.emplace_back(renderable);
     }
 
-    if (type == NodeType::LightNode) {
+    if (type == Node::Type::Light) {
         lights_.emplace_back(static_cast<Light*>(node));
     }
 

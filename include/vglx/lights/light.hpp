@@ -72,10 +72,10 @@ public:
     /**
      * @brief Returns node type.
      *
-     * @return NodeType::LightNode
+     * @return Node::Type::Light
      */
-    [[nodiscard]] auto GetNodeType() const -> NodeType override {
-        return NodeType::LightNode;
+    [[nodiscard]] auto GetNodeType() const -> Node::Type override {
+        return Node::Type::Light;
     }
 
     /**

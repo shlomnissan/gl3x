@@ -99,6 +99,8 @@
 
 .description a {
   color: var(--vp-c-text-1);
+  font-family: var(--vp-font-family-mono);
+  font-size: 15px;
   font-weight: 400;
 }
 
@@ -135,11 +137,11 @@
   font-family: var(--vp-font-family-mono);
 }
 
-.docblock .params table {
+.docblock table {
   table-layout: fixed;
 }
 
-.docblock .params table th:first-child {
+.docblock table th:first-child {
   width: 25%;
 }
 

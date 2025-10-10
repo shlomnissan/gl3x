@@ -110,10 +110,10 @@ public:
     /**
      * @brief Returns node type.
      *
-     * @return NodeType::SceneNode
+     * @return Node::Type::Scene
      */
-    [[nodiscard]] auto GetNodeType() const -> NodeType override {
-        return NodeType::SceneNode;
+    [[nodiscard]] auto GetNodeType() const -> Node::Type override {
+        return Node::Type::Scene;
     }
 
     /**
