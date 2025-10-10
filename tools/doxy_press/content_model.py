@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import List, Optional
+from .resolver import Resolver
 
 import re
 
@@ -25,11 +26,25 @@ class ParamDoc:
 class TypeRef:
     parts: List[TypePart] = field(default_factory=list)
 
-    def as_text(self) -> str:
-        s = " ".join(p.text.strip() for p in self.parts if p.text and p.text.strip())
+    def _clean_text(self, s: str) -> str:
         s = re.sub(r'\boverride\b', '', s)
-        s = re.sub(r'\s*=\s*0\b', '', s) # handles "=0" or "= 0"
+        s = re.sub(r'\s*=\s*0\b', '', s)
         return re.sub(r'\s+', ' ', s).strip()
+
+    def as_text(self) -> str:
+        s = "".join(p.text.strip() for p in self.parts if p.text and p.text.strip())
+        return self._clean_text(s)
+
+    def as_resolved_text(self, resolver: Resolver) -> str:
+        s = ""
+        for part in self.parts:
+            label = self._clean_text(part.text)
+            if not label: continue
+            if (part.refid):
+                s += resolver.refid_link_with_label(part.refid, label)
+            else:
+                s += label
+        return s
 
 @dataclass(slots=True)
 class VarDoc:

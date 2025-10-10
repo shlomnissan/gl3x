@@ -40,21 +40,21 @@ def _render_property(prop: VarDoc, resolver: Resolver):
     name_str = prop.name
     name_html = escape(name_str, quote=False)
     anchor = resolver.member_anchor(prop.id)
-    type_str = prop.type.as_text()
-    type_html = escape(type_str, quote=False)
+    type_raw = prop.type.as_text()
+    type_resolved = escape(prop.type.as_resolved_text(resolver), quote=False)
     default_val = f'{{ {prop.initializer} }}' if prop.initializer else ""
     desc = _inline_md_to_html(_join_paragraphs(prop.brief)) if prop.brief else ""
 
     code_block = (
         f'  ```cpp\n'
-        f'  {type_str} {name_str} {default_val}\n'
+        f'  {type_raw} {name_str} {default_val}\n'
         f'  ```\n'
     )
 
     return (
         f'<div class="docblock">\n'
         f'  <div class="definition">\n\n'
-        f'  ### <span class="name">{name_html}</span> <span class="type">{type_html}</span> {anchor}\n'
+        f'  ### <span class="name">{name_html}</span> <span class="type">{type_resolved}</span> {anchor}\n'
         f'{code_block}'
         f'  </div>\n'
         f'  <div class="description">\n\n'
@@ -93,7 +93,7 @@ def _render_function(func: FunctionDoc, resolver: Resolver):
     anchor = resolver.member_anchor(func.id)
     brief = _inline_md_to_html(_join_paragraphs(func.brief)) if func.brief else ""
     description = _inline_md_to_html(_join_paragraphs(func.details)) if func.details else ""
-    ret = escape(func.return_type.as_text(), quote=False)
+    type_resolved = escape(func.return_type.as_resolved_text(resolver), quote=False)
 
     params_list = ""
     if func.params:
@@ -108,7 +108,7 @@ def _render_function(func: FunctionDoc, resolver: Resolver):
     return (
         f'<div class="docblock">\n'
         f'  <div class="definition">\n\n'
-        f'### <span class="name">{name_str}()</span> <span class="type">{ret}</span> {anchor}\n\n'
+        f'### <span class="name">{name_str}()</span> <span class="type">{type_resolved}</span> {anchor}\n\n'
         f'  </div>\n\n'
         f'```cpp\n'
         f'{func.signature}\n'

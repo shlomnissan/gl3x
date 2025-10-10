@@ -124,10 +124,11 @@
 
 .docblock .definition h3 .type {
   font-size: 14px;
+  color: var(--vp-c-text-3)
 }
 
 .docblock .definition h3 .type a {
-  color: var(--vp-c-text-1);
+  color: var(--vp-c-text-3);
 }
 
 .docblock .description .type {
