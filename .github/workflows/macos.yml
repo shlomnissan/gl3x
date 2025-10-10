@@ -3,13 +3,16 @@ on: [push]
 jobs:
   build:
     runs-on: macos-latest
+    permissions:
+      id-token: write
+      pages: write
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
         run: |
           brew update
           brew install ninja
-          brew install doxygen graphviz
+          brew install doxygen
       - name: Configure
         shell: bash
         run: cmake -B ${{github.workspace}}/build --preset="dev-debug" -G "Ninja"

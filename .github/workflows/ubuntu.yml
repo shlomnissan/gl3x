@@ -3,15 +3,12 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      pages: write
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
         run: |
           sudo apt-get -yq update
-          sudo apt-get install -yq cmake ninja-build libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config doxygen graphviz g++-14
+          sudo apt-get install -yq cmake ninja-build libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config g++-14
           gcc --version
       - name: Configure
         shell: bash
