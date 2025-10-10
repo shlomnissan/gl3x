@@ -126,6 +126,10 @@
   font-size: 14px;
 }
 
+.docblock .definition h3 .type a {
+  color: var(--vp-c-text-1);
+}
+
 .docblock .description .type {
   font-family: var(--vp-font-family-mono);
 }
