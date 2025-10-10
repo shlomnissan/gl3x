@@ -3,6 +3,7 @@ from __future__ import annotations
 from html import escape
 from typing import List
 from .model import Inventory
+from .resolver import Resolver
 from .content_model import (
     ClassDoc,
     EnumDoc,
@@ -35,14 +36,10 @@ def _inline_md_to_html(text: str) -> str:
             html.append(_esc(p, quote=False))
     return "".join(html)
 
-def _get_anchor(id: str, inv: Inventory):
-    member_idx = inv.members[id]
-    return f'{{#{member_idx[1]}}}' if member_idx else ""
-
-def _render_property(prop: VarDoc, inv: Inventory):
+def _render_property(prop: VarDoc, resolver: Resolver):
     name_str = prop.name
     name_html = escape(name_str, quote=False)
-    anchor = _get_anchor(prop.id, inv)
+    anchor = resolver.member_anchor(prop.id)
     type_str = prop.type.as_text()
     type_html = escape(type_str, quote=False)
     default_val = f'{{ {prop.initializer} }}' if prop.initializer else ""
@@ -66,7 +63,7 @@ def _render_property(prop: VarDoc, inv: Inventory):
         f'</div>'
     )
 
-def _render_enum(enum: EnumDoc, inv: Inventory):
+def _render_enum(enum: EnumDoc, resolver: Resolver):
     if len(enum.values) == 0: return
 
     enum_values = f'|Value|Description|\n'
@@ -75,7 +72,7 @@ def _render_enum(enum: EnumDoc, inv: Inventory):
         brief = _inline_md_to_html(_join_paragraphs(value.brief)) if value.brief else ""
         enum_values += f'| <span class="type">{value.name}</span> | {brief}\n'
 
-    anchor = _get_anchor(enum.id, inv)
+    anchor = resolver.member_anchor(enum.id)
     brief = _inline_md_to_html(_join_paragraphs(enum.brief)) if enum.brief else ""
     scoped = '<Badge type="info" text="scoped" />' if enum.scoped else ""
 
@@ -91,9 +88,9 @@ def _render_enum(enum: EnumDoc, inv: Inventory):
         f'</div>\n\n'
     )
 
-def _render_function(func: FunctionDoc, inv: Inventory):
+def _render_function(func: FunctionDoc, resolver: Resolver):
     name_str = _escape_md(func.name)
-    anchor = _get_anchor(func.id, inv)
+    anchor = resolver.member_anchor(func.id)
     brief = _inline_md_to_html(_join_paragraphs(func.brief)) if func.brief else ""
     description = _inline_md_to_html(_join_paragraphs(func.details)) if func.details else ""
     ret = escape(func.return_type.as_text(), quote=False)
@@ -123,7 +120,7 @@ def _render_function(func: FunctionDoc, inv: Inventory):
         f'</div>\n\n'
     )
 
-def render_class(inv: Inventory, doc: ClassDoc) -> str:
+def render_class(doc: ClassDoc, resolver: Resolver) -> str:
     lines: List[str] = []
 
     lines.append(f"# {doc.display}\n\n")
@@ -136,13 +133,11 @@ def render_class(inv: Inventory, doc: ClassDoc) -> str:
         lines.append(_join_paragraphs(doc.details))
 
     if len(doc.base_ids) > 0:
-        base = inv.classes[doc.base_ids[0]]
-        if base:
-            group = inv.groups[base.group_id]
+        link = resolver.refid_link_with_class_name(doc.base_ids[0])
+        if link:
             lines.append("")
             lines += [f'::: info']
-            lines += [f'Derives from [{base.display}](/reference/{group.slug}/{base.slug}); ']
-            lines += [f'inherits all unlisted properties and methods.']
+            lines += [f'Derives from {link} and inherits all public properties and methods.']
             lines += [f':::\n']
 
     lines.append(f'</div></div>\n\n')
@@ -150,25 +145,25 @@ def render_class(inv: Inventory, doc: ClassDoc) -> str:
     if doc.constructors:
         lines += ["## Constructors", ""]
         for c in doc.constructors:
-            lines.append(_render_function(c, inv))
+            lines.append(_render_function(c, resolver))
         lines.append("")
 
     if doc.enums:
         lines += ["## Enumerations"]
         for e in doc.enums:
-            lines.append(_render_enum(e, inv))
+            lines.append(_render_enum(e, resolver))
         lines.append("")
 
     if doc.variables:
         lines += ["## Properties", ""]
         for v in doc.variables:
-            lines.append(_render_property(v, inv))
+            lines.append(_render_property(v, resolver))
         lines.append("")
 
     if doc.functions:
         lines += ["## Functions", ""]
         for f in doc.functions:
-            lines.append(_render_function(f, inv))
+            lines.append(_render_function(f, resolver))
         lines.append("")
 
     out = "\n".join(lines).rstrip() + "\n"

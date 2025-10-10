@@ -26,6 +26,14 @@ class Resolver:
     def refid_url(self, refid: str) -> Optional[str]:
        return self._refid_to_url.get(refid)
 
-    def refid_link_md(self, refid: str, label: str) -> Optional[str]:
+    def refid_link_with_class_name(self, refid: str) -> Optional[str]:
+        c = self.inv.classes.get(refid)
+        return self.refid_link_with_label(refid, c.display)
+
+    def refid_link_with_label(self, refid: str, label: str) -> Optional[str]:
         url = self.refid_url(refid)
         return f"[{label}]({url})" if label and url else label
+
+    def member_anchor(self, refid: str) -> Optional[str]:
+        idx = self.inv.members[refid]
+        return f'{{#{idx[1]}}}' if idx and len(idx) > 1 else ""

@@ -70,7 +70,7 @@ def collect_inlines(node: ET.Element, resolver: Optional[Resolver] = None) -> st
                 out.append(f"`{inner}`")
             elif tag == "ref":
                 label = collect_inlines(child, resolver) or element_text(child)
-                resolved_label = resolver.refid_link_md(child.get("refid"), label) if resolver else label
+                resolved_label = resolver.refid_link_with_label(child.get("refid"), label) if resolver else label
                 out.append(resolved_label)
             elif tag == "linebreak":
                 out.append("  \n")
