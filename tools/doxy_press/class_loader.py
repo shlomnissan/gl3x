@@ -147,7 +147,7 @@ def _param_briefs_map(m: ET.Element) -> Dict[str, str]:
 
         for name in names:
             if name:
-                out[name] = brief[0].lower() + brief[1:]
+                out[name] = brief
 
     return out
 
