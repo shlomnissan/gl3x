@@ -15,8 +15,14 @@ from .content_model import (
     ParamDoc
 )
 
-import re
-import xml.etree.ElementTree as ET
+import re, xml.etree.ElementTree as ET
+
+def _remove_first_qualification(s) -> str:
+    parts = s.split("::", 1)
+    return parts[1] if len(parts) == 2 else s
+
+def _remove_all_qualifications(s) -> str:
+    return s.split("::")[-1] if "::" in s else s
 
 def _bool_attr(e: ET.Element, name: str) -> bool:
     return (e.get(name) or "").lower() in ("yes", "true", "1")
@@ -25,7 +31,7 @@ def _parse_type(t: ET.Element | None) -> TypeRef:
     tr = TypeRef()
     if t is None: return tr
     if t.text: tr.parts.append(TypePart(text=t.text))
-    for ch in list(t):
+    for ch in t:
         if ch.tag == "ref":
             tr.parts.append(TypePart(text=(ch.text or "").strip(), refid=ch.get("refid")))
         else:
@@ -77,8 +83,8 @@ def _parse_enum_value(m: ET.Element) -> EnumValueDoc:
     )
 
 def _parse_enum(m: ET.Element) -> EnumDoc:
-    name = element_text(m.find("name")).strip()
-    display = name.split("::")[-1] if "::" in name else name
+    name = _remove_first_qualification(element_text(m.find("qualifiedname")).strip())
+    display = _remove_all_qualifications(name)
 
     values = []
     for v in m.findall("enumvalue"):
@@ -191,7 +197,7 @@ def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver) -> Clas
         raise FileNotFoundError(f"compounddef not found in {refid}.xml")
 
     name = element_text(cdef.find("compoundname")).strip()
-    display = name.split("::")[-1] if "::" in name else name
+    display = _remove_all_qualifications(name)
 
     base_ids = []
     for base in cdef.findall("basecompoundref"):

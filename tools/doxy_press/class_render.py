@@ -66,20 +66,20 @@ def _render_property(prop: VarDoc, resolver: Resolver):
 def _render_enum(enum: EnumDoc, resolver: Resolver):
     if len(enum.values) == 0: return
 
-    enum_values = f'|Value|Description|\n'
-    enum_values += f'|---|---|\n'
+    enum_values = '|Value|Description|\n'
+    enum_values += '|---|---|\n'
     for value in enum.values:
         brief = _inline_md_to_html(_join_paragraphs(value.brief)) if value.brief else ""
         enum_values += f'| <span class="type">{value.name}</span> | {brief}\n'
 
     anchor = resolver.member_anchor(enum.id)
     brief = _inline_md_to_html(_join_paragraphs(enum.brief)) if enum.brief else ""
-    scoped = '<Badge type="info" text="scoped" />' if enum.scoped else ""
+    scoped = '<Badge type="info" text="scoped enum" />' if enum.scoped else ""
 
     return (
         f'<div class="docblock">\n'
         f'  <div class="definition">\n\n'
-        f'### <span class="name">{enum.display}</span> {scoped} {anchor}\n'
+        f'### <span class="name">{enum.name}</span> {scoped} {anchor}\n'
         f'  </div>\n'
         f'  <div class="description">\n\n'
         f'{brief}\n\n'
@@ -143,13 +143,13 @@ def render_class(doc: ClassDoc, resolver: Resolver) -> str:
     lines.append(f'</div></div>\n\n')
 
     if doc.constructors:
-        lines += ["## Constructors", ""]
+        lines += ["## Construction", ""]
         for c in doc.constructors:
             lines.append(_render_function(c, resolver))
         lines.append("")
 
     if doc.enums:
-        lines += ["## Enumerations"]
+        lines += ["## Types"]
         for e in doc.enums:
             lines.append(_render_enum(e, resolver))
         lines.append("")
