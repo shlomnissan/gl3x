@@ -66,8 +66,8 @@ namespace vglx {
  * }
  * @endcode
  *
- * Calling `Start()` initializes the runtime, constructs the user scene (and
- * camera, if provided), then runs the main loop while invoking `Update()`
+ * Calling @ref Start initializes the runtime, constructs the user scene (and
+ * camera, if provided), then runs the main loop while invoking @ref Update
  * each frame.
  *
  * @ingroup CoreGroup
@@ -116,8 +116,6 @@ public:
      * Override this method to customize window settings, clear color,
      * antialiasing, vsync, and other runtime options before the
      * application starts.
-     *
-     * @return Parameters struct containing application configuration.
      */
     virtual auto Configure() -> Parameters {
         return Parameters {};
@@ -128,8 +126,6 @@ public:
      *
      * This method must be implemented by the user and returns the primary
      * scene used for rendering and updates.
-     *
-     * @return std::shared_ptr<Scene>
      */
     virtual auto CreateScene() -> std::shared_ptr<Scene> = 0;
 
@@ -138,8 +134,6 @@ public:
      *
      * This method can be optionally overridden. If null is returned, a default
      * perspective camera will be created automatically.
-     *
-     * @return std::shared_ptr<Camera>
      */
     virtual auto CreateCamera() -> std::shared_ptr<Camera> { return nullptr; }
 
@@ -150,12 +144,11 @@ public:
      * elapsed time since the last frame. Return `false` to exit the main loop.
      *
      * @param delta Time in seconds since the last frame.
-     * @return `true` to continue running, `false` to exit the main loop.
      */
     virtual auto Update(float delta) -> bool = 0;
 
     /**
-     * @brief Returns the active shared context.
+     * @brief Returns a pointer to current active shared context.
      *
      * The shared context holds runtime parameters (e.g., window size,
      * framebuffer size, aspect ratio, active camera) and provides access to
@@ -163,24 +156,17 @@ public:
      * startup and is guaranteed to remain valid for the lifetime of the
      * application.
      *
-     * @return Pointer to the current SharedContext instance. The pointer is
-     * owned by the application and must not be deleted by the caller.
-     *
      * @see SharedContext
      */
     [[nodiscard]] auto GetContext() const -> SharedContextPointer;
 
     /**
      * @brief Returns the current scene pointer.
-     *
-     * @return Scene*
      */
     [[nodiscard]] auto GetScene() const -> Scene*;
 
     /**
      * @brief Returns the current camera pointer.
-     *
-     * @return Camera*
      */
     [[nodiscard]] auto GetCamera() const -> Camera*;
 
@@ -198,10 +184,7 @@ public:
      */
     auto SetCamera(std::shared_ptr<Camera> camera) -> void;
 
-    /**
-     * @brief Destructor.
-     */
-    virtual ~Application();
+    virtual ~Application() noexcept;
 
 private:
     /// @cond INTERNAL

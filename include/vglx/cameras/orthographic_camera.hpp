@@ -25,6 +25,7 @@ namespace vglx {
  * Although multiple cameras can be added to the scene graph and inherit
  * transformations from their parent objects, only one camera can be active at
  * a time. The active camera is managed by the application’s runtime object:
+ *
  * @code
  * class MyApp : public vglx::Application {
  * public:
@@ -76,17 +77,17 @@ public:
    /**
      * @brief Constructs an OrthographicCamera object.
      *
-     * @param params OrthographicCamera::Parameters
+     * @param params @ref OrthographicCamera::Parameters
      */
     explicit OrthographicCamera(const Parameters& params);
 
     /**
-     * @brief Creates a shared pointer to an OrthographicCamera object.
+     * @brief Creates a shared pointer to @ref OrthographicCamera object.
      *
-     * @param params OrthographicCamera::Parameters
-     * @return std::shared_ptr<OrthographicCamera>
+     * @param params @ref OrthographicCamera::Parameters
      */
-    [[nodiscard]] static auto Create(const Parameters& params) {
+    [[nodiscard]] static auto
+    Create(const Parameters& params) -> std::shared_ptr<OrthographicCamera> {
         return std::make_shared<OrthographicCamera>(params);
     }
 

@@ -42,8 +42,8 @@ using ResizeCallback = std::function<void(const ResizeParameters& params)>;
 /**
  * @brief Cross-platform application window.
  *
- * The `Window` class creates the OS window and manages the framebuffer.
- * It is typically managed by the `Application` runtime, but can also be
+ * The Window class creates the OS window and manages the framebuffer.
+ * It is typically managed by the @ref Application runtime, but can also be
  * constructed directly for manual initialization flows.
  *
  * Typical usage:
@@ -62,7 +62,7 @@ using ResizeCallback = std::function<void(const ResizeParameters& params)>;
  * }
  * @endcode
  *
- * @note Preferred usage is through the `Application` runtime, which wires the
+ * @note Preferred usage is through the @ref Application runtime, which wires the
  * window, renderer, and scene automatically. Use direct initialization when you
  * need full control over the main loop.
  *
@@ -74,7 +74,7 @@ public:
     class Impl;
     /// @endcond
 
-    /// @brief Construction parameters for `Window`.
+    /// @brief Construction parameters for @ref Window.
     struct Parameters {
         std::string title; ///< Window title string.
         int width; ///< Client-area width in pixels.
@@ -86,7 +86,7 @@ public:
     /**
      * @brief Constructs a window object with the given parameters.
      *
-     * The window resources are not created until `Initialize()` is called.
+     * The window resources are not created until @ref Initialize is called.
      *
      * @param params Window::Parameters
      */
@@ -102,9 +102,6 @@ public:
 
     /**
      * @brief Initializes the underlying OS window and graphics context.
-     *
-     * @return `std::expected<void, std::string>` empty on success, or an
-     * error message on failure.
      */
     [[nodiscard]] auto Initialize() -> std::expected<void, std::string>;
 
@@ -119,18 +116,16 @@ public:
     /**
      * @brief Marks the beginning of a new UI frame.
      *
-     * Call this once per frame before issuing any UI commands.
-     *
-     * @note If no UI system is active, this is a no-op.
+     * Call this once per frame before issuing any UI commands. If no UI system
+     * is active, this is a no-op.
      */
     auto BeginUIFrame() -> void;
 
     /**
      * @brief Marks the end of the current UI frame.
      *
-     * Call this once per frame after all UI commands have been issued.
-     *
-     * @note If no UI system is active, this is a no-op.
+     * Call this once per frame after all UI commands have been issued. If no
+     * UI system is active, this is a no-op.
      */
     auto EndUIFrame() -> void;
 
@@ -145,7 +140,7 @@ public:
     /**
      * @brief Requests that the window be closed.
      *
-     * Sets the internal close flag so that `ShouldClose()` returns true.
+     * Sets the internal close flag so that @ref ShouldClose returns true.
      * This allows the application to exit the main loop gracefully.
      */
     auto RequestClose() -> void;
@@ -154,23 +149,21 @@ public:
      * @brief Returns whether the window has been flagged for closing.
      *
      * This flag is set when the user requests the window to close through
-     * the operating system or when `RequestClose()` is called.
-     *
-     * @return `true` if the window should close, `false` otherwise.
+     * the operating system or when @ref RequestClose is called.
      */
     auto ShouldClose() -> bool;
 
     /**
      * @brief Returns the current framebuffer width in pixels.
      *
-     * On HiDPI displays this may differ from `Width()`.
+     * On HiDPI displays this may differ from @ref Width.
      */
     [[nodiscard]] auto FramebufferWidth() const -> int;
 
     /**
      * @brief Returns the current framebuffer height in pixels.
      *
-     * On HiDPI displays this may differ from `Height()`.
+     * On HiDPI displays this may differ from @ref Height.
      */
     [[nodiscard]] auto FramebufferHeight() const -> int;
 
@@ -204,24 +197,11 @@ public:
      * displays. The callback receives both logical window sizes and the
      * framebuffer sizes in physical pixels.
      *
-     * Typical uses:
-     *  - Update the graphics viewport with framebuffer sizes.
-     *  - Recompute camera projection with logical window sizes.
-     *
      * @param cb A function to invoke on resize with the new sizes.
-     *
-     * @note Only one resize callback is stored. Registering a new callback
-     * replaces the previous one.
-     *
-     * @note The callback is invoked on the main thread, typically during
-     * @ref PollEvents() processing.
      */
     auto OnResize(ResizeCallback callback) -> void;
 
-    /**
-     * @brief Releases window resources.
-     */
-    ~Window() noexcept;
+    virtual ~Window() noexcept;
 
 private:
     /// @cond INTERNAL

@@ -21,9 +21,9 @@ namespace vglx {
 /**
  * @brief Forward renderer for drawing a scene from a given camera.
  *
- * The `Renderer` owns GPU state and draw logic for rendering a `Scene` with a
- * specified `Camera`. It is typically constructed and driven by the
- * `Application` runtime, but can also be used directly in manual setups.
+ * The @ref Renderer owns GPU state and draw logic for rendering a @ref Scene with a
+ * specified @ref Camera. It is typically constructed and driven by the
+ * @ref Application runtime, but can also be used directly in manual setups.
  *
  * Typical usage:
  * @code
@@ -43,7 +43,7 @@ namespace vglx {
  * @endcode
  *
  * @note The renderer assumes a valid graphics context is current on the
- * calling thread. When the window is resized, call `SetViewport()` to adjust
+ * calling thread. When the window is resized, call @ref SetViewport to adjust
  * the render area (or recreate with new parameters if you manage your own
  * framebuffers).
  *
@@ -51,7 +51,7 @@ namespace vglx {
  */
 class VGLX_EXPORT Renderer {
 public:
-    /// @brief Construction parameters for `Renderer`.
+    /// @brief Construction parameters for @ref Renderer.
     struct Parameters {
         int framebuffer_width; ///< Current framebuffer width in pixels.
         int framebuffer_height; ///< Current framebuffer height in pixels.
@@ -61,9 +61,9 @@ public:
     /**
      * @brief Constructs a renderer object with the given parameters.
      *
-     * GPU resources are not created until `Initialize()` is called.
+     * GPU resources are not created until @ref Initialize is called.
      *
-     * @param params Renderer::Parameters
+     * @param params @ref Renderer::Parameters
      */
     explicit Renderer(const Renderer::Parameters& params);
 
@@ -77,9 +77,6 @@ public:
 
     /**
      * @brief Initializes GPU state and allocates required resources.
-     *
-     * @return `std::expected<void, std::string>` empty on success, or an
-     * error message on failure.
      */
     [[nodiscard]] auto Initialize() -> std::expected<void, std::string>;
 
@@ -89,7 +86,7 @@ public:
      * The scene is expected to be in a consistent state for rendering.
      * If you are using the runtime path, this is handled automatically.
      * In direct initialization flows, call your per-frame update routine
-     * (e.g., `scene->Advance(dt)`) prior to rendering.
+     * (e.g., @ref Scene::Advance) prior to rendering.
      *
      * @param scene Pointer to the scene to render (must be non-null).
      * @param camera Pointer to the active camera (must be non-null).
@@ -127,10 +124,7 @@ public:
      */
     [[nodiscard]] auto RenderedObjectsPerFrame() const -> size_t;
 
-    /**
-     * @brief Releases renderer resources.
-     */
-    ~Renderer() noexcept;
+    virtual ~Renderer() noexcept;
 
 private:
     /// @cond INTERNAL

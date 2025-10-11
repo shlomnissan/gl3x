@@ -59,17 +59,17 @@ public:
     /**
      * @brief Constructs an PerspectiveCamera object.
      *
-     * @param params PerspectiveCamera::Parameters
+     * @param params @ref PerspectiveCamera::Parameters
      */
     explicit PerspectiveCamera(const Parameters& params);
 
     /**
-     * @brief Creates a shared pointer to an PerspectiveCamera object.
+     * @brief Creates a shared pointer to @ref PerspectiveCamera object.
      *
-     * @param params PerspectiveCamera::Parameters
-     * @return std::shared_ptr<PerspectiveCamera>
+     * @param params @ref PerspectiveCamera::Parameters
      */
-    [[nodiscard]] static auto Create(const Parameters& params) {
+    [[nodiscard]] static auto
+    Create(const Parameters& params) -> std::shared_ptr<PerspectiveCamera> {
         return std::make_shared<PerspectiveCamera>(params);
     }
 
