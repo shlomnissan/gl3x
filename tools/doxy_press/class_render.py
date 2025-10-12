@@ -105,10 +105,15 @@ def _render_function(func: FunctionDoc, resolver: Resolver):
             params_list += f'|<span class="name">{pname}</span>|{pdesc}|\n'
         params_list += f'</div>\n'
 
+    badge = ""
+    if func.virt in ("virtual", "pure-virtual"):
+        label = "pure virtual" if func.virt == "pure-virtual" else "virtual"
+        badge = f'<Badge type="info" text="{label}" />'
+
     return (
         f'<div class="docblock">\n'
         f'  <div class="definition">\n\n'
-        f'### <span class="name">{name_str}()</span> <span class="type">{type_resolved}</span> {anchor}\n\n'
+        f'### <span class="name">{name_str}()</span> <span class="type">{type_resolved}</span> {badge} {anchor}\n\n'
         f'  </div>\n\n'
         f'```cpp\n'
         f'{func.signature}\n'
@@ -136,16 +141,23 @@ def render_class(doc: ClassDoc, resolver: Resolver) -> str:
         link = resolver.refid_link_with_class_name(doc.base_ids[0])
         if link:
             lines.append("")
-            lines += [f'::: info']
+            lines += ["::: info"]
             lines += [f'Derives from {link} and inherits all public properties and methods.']
-            lines += [f':::\n']
+            lines += [":::\n"]
 
-    lines.append(f'</div></div>\n\n')
+    lines.append("</div></div>\n\n")
 
-    if doc.constructors:
+    if doc.constructors or doc.factories:
         lines += ["## Construction", ""]
-        for c in doc.constructors:
-            lines.append(_render_function(c, resolver))
+        if doc.constructors:
+            lines += ["### Constructors", "<br/>"]
+            for c in doc.constructors:
+                lines.append(_render_function(c, resolver))
+        if doc.factories:
+            lines += ["### Factories <Badge type='info' text='preferred' />", "<br/>"]
+            for f in doc.factories:
+                lines.append(_render_function(f, resolver))
+
         lines.append("")
 
     if doc.enums:

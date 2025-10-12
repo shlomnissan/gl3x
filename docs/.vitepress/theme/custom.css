@@ -69,6 +69,10 @@
   }
 }
 
+.VPBadge {
+   font-family: var(--vp-font-family-mono);
+}
+
 .vp-doc table {
   display: table;
   width: 100%;

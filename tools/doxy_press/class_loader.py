@@ -161,11 +161,16 @@ def _parse_function(m: ET.Element, resolver: Resolver) -> FunctionDoc:
         if p.name and p.name in param_briefs:
             p.desc = param_briefs[p.name]
 
+    name = element_text(m.find("name"))
+    is_static = _bool_attr(m, "static")
+    if is_static:
+        name = _remove_first_qualification(element_text(m.find("qualifiedname")))
+
     return FunctionDoc(
         id=m.get("id", ""),
-        name=element_text(m.find("name")),
+        name=name,
         prot=m.get("prot","public"),
-        static=_bool_attr(m, "static"),
+        static=is_static,
         virt=m.get("virt"),
         return_type=_parse_type(m.find("type")),
         signature=(definition + args).strip(),
