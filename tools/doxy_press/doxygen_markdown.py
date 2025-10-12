@@ -7,7 +7,7 @@ from .resolver import Resolver
 import xml.etree.ElementTree as ET
 
 def element_text(elem: Optional[ET.Element]) -> str:
-    return (elem.text or "") if elem is not None else ""
+    return (elem.text or "").strip() if elem is not None else ""
 
 def programlisting_to_md(listing: ET.Element, fence_lang: str = "cpp") -> str:
     lines: list[str] = []

@@ -17,6 +17,24 @@ from .content_model import (
 
 import re, xml.etree.ElementTree as ET
 
+def _is_default_or_deleted(m: ET.Element) -> bool:
+    definition = m.findtext("definition", "") or ""
+    if "=default" in definition or "=delete" in definition: return True
+    argsstring = m.findtext("argsstring", "") or ""
+    if "=default" in argsstring or "=delete" in argsstring: return True
+    return False
+
+def _is_constructor(m: ET.Element, cname: str, name: str) -> bool:
+    ret = _parse_type(m.find("type")).as_text()
+    return name == _remove_all_qualifications(cname) and ret == ""
+
+def _is_factory(m: ET.Element, name: str) -> bool:
+    is_static = _bool_attr(m, "static")
+    return name == "Create" and is_static
+
+def _is_destructor(name: str) -> bool:
+    return name.startswith("~")
+
 def _remove_first_qualification(s) -> str:
     parts = s.split("::", 1)
     return parts[1] if len(parts) == 2 else s
@@ -68,7 +86,7 @@ def _initializer_display(init: ET.Element | None) -> str | None:
 def _parse_variable(m: ET.Element) -> VarDoc:
     return VarDoc(
         id=m.get("id",""),
-        name=element_text(m.find("name")).strip(),
+        name=element_text(m.find("name")),
         prot=m.get("prot", "public"),
         static=_bool_attr(m, "static"),
         type=_parse_type(m.find("type")),
@@ -78,7 +96,7 @@ def _parse_variable(m: ET.Element) -> VarDoc:
 
 def _parse_enum_value(m: ET.Element) -> EnumValueDoc:
     return EnumValueDoc(
-        name=element_text(m.find("name")).strip(),
+        name=element_text(m.find("name")),
         brief=render_description(m.find("briefdescription")),
     )
 
@@ -99,40 +117,6 @@ def _parse_enum(m: ET.Element) -> EnumDoc:
         details=render_description(m.find("detaileddescription")),
         values=values,
     )
-
-def _is_ctor(m: ET.Element, cname: str) -> bool:
-    func_name = element_text(m.find("name")).strip()
-    return_str = _parse_type(m.find("type")).as_text()
-    return func_name == cname or return_str == ""
-
-def _is_user_ctor(m: ET.Element, cname: str) -> bool:
-    if not _is_ctor(m, cname):
-        return False
-
-    name = m.findtext("name", "")
-    if name.startswith("~"):
-        return False
-
-    definition = m.findtext("definition", "") or ""
-    if "=default" in definition or "=delete" in definition:
-        return False
-
-    argsstring = m.findtext("argsstring", "") or ""
-    if "=default" in argsstring or "=delete" in argsstring:
-        return False
-
-    return True
-
-def _is_user_func(m: ET.Element) -> bool:
-    definition = m.findtext("definition", "") or ""
-    if "=default" in definition or "=delete" in definition:
-        return False
-
-    argsstring = m.findtext("argsstring", "") or ""
-    if "=default" in argsstring or "=delete" in argsstring:
-        return False
-
-    return True
 
 def _param_briefs_map(m: ET.Element) -> Dict[str, str]:
     out: Dict[str, str] = {}
@@ -179,7 +163,7 @@ def _parse_function(m: ET.Element, resolver: Resolver) -> FunctionDoc:
 
     return FunctionDoc(
         id=m.get("id", ""),
-        name=element_text(m.find("name")).strip(),
+        name=element_text(m.find("name")),
         prot=m.get("prot","public"),
         static=_bool_attr(m, "static"),
         virt=m.get("virt"),
@@ -216,18 +200,23 @@ def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver) -> Clas
         for m in sec.findall("memberdef"):
             if m.get("prot") != "public":
                 continue
+
             kind = m.get("kind")
 
             if kind == "variable":
                 doc.variables.append(_parse_variable(m))
 
             if kind == "function":
-                if _is_ctor(m, name):
-                    if _is_user_ctor(m, name):
-                        doc.constructors.append(_parse_function(m, resolver))
+                func_name = element_text(m.find("name"))
+                if _is_default_or_deleted(m) or _is_destructor(func_name):
+                    continue
+
+                if _is_constructor(m, name, func_name):
+                    doc.constructors.append(_parse_function(m, resolver))
+                elif _is_factory(m, func_name):
+                    doc.factories.append(_parse_function(m, resolver))
                 else:
-                    if _is_user_func(m):
-                        doc.functions.append(_parse_function(m, resolver))
+                    doc.functions.append(_parse_function(m, resolver))
 
             if kind == "enum":
                 doc.enums.append(_parse_enum(m))
