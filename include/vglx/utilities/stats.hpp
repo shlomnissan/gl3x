@@ -16,8 +16,8 @@ namespace vglx {
 /**
  * @brief Collects and visualizes runtime performance statistics.
  *
- * The `Stats` class tracks frames per second, frame time, and the number
- * of rendered objects per frame. It is used by the runtime when show_stats
+ * The Stats class tracks frames per second, frame time, and the number
+ * of rendered objects per frame. It is used by the runtime when @ref Application "show_stats"
  * is set to true to provide an on-screen performance overlay during development
  * and debugging.
  *
@@ -32,7 +32,7 @@ namespace vglx {
  * @endcode
  *
  * @note This overlay requires ImGui support. If the engine is not compiled with
- * `VGLX_USE_IMGUI`, the `Draw()` method becomes a no-op.
+ * `VGLX_USE_IMGUI`, the @ref Draw method becomes a no-op.
  *
  * @ingroup UtilitiesGroup
  */
@@ -68,9 +68,6 @@ public:
      */
     auto Draw() const -> void;
 
-    /**
-     * @brief Destructor.
-     */
     ~Stats();
 
 private:

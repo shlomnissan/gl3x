@@ -17,7 +17,7 @@ namespace vglx {
 /**
  * @brief Utility class for measuring elapsed time.
  *
- * The `Timer` class provides a simple mechanism for tracking time intervals
+ * The Timer class provides a simple mechanism for tracking time intervals
  * using a steady clock. Typical usage includes measuring frame time, profiling
  * sections of code, or retrieving a human-readable timestamp string.
  *
@@ -39,15 +39,11 @@ public:
 
     /**
      * @brief Returns the elapsed time in milliseconds since the timer started.
-     *
-     * @return double
      */
     [[nodiscard]] auto GetElapsedMilliseconds() const -> double;
 
     /**
      * @brief Returns the elapsed time in seconds since the timer started.
-     *
-     * @return double
      */
     [[nodiscard]] auto GetElapsedSeconds() const -> double;
 
@@ -56,8 +52,6 @@ public:
      *
      * The result is formatted as `YYYY-MM-DD HH:MM:SS` using the system's
      * local timezone.
-     *
-     * @return Formatted string representing the current local time.
      */
     [[nodiscard]] static auto GetTimestamp() -> std::string;
 

@@ -18,10 +18,10 @@ namespace vglx {
 /**
  * @brief Frame-oriented helper for computing clamped delta time.
  *
- * `FrameTimer` builds on top of `Timer` to provide a simple, per-frame
- * timestep (`dt`) suitable for driving simulations and animations.
- * Each call to `Tick()` returns the elapsed time since the previous call,
- * clamped by `max_delta` to guard against stalls (e.g., window drags,
+ * FrameTimer builds on top of @ref Timer to provide a simple, per-frame
+ * timestep suitable for driving simulations and animations.
+ * Each call to @ref Tick returns the elapsed time since the previous call,
+ * clamped by @ref Tick "max_delta" to guard against stalls (e.g., window drags,
  * breakpoints).
  *
  * Typical usage:
@@ -41,7 +41,7 @@ public:
     /**
      * @brief Constructs a FrameTimer object.
      *
-     * @param auto_start If true, the timer starts immediately upon construction.
+     * @param auto_start If true, timer starts immediately upon construction.
      */
     explicit FrameTimer(bool auto_start) : timer_(auto_start) {
         if (auto_start) last_ = timer_.GetElapsedSeconds();
@@ -51,7 +51,7 @@ public:
      * @brief Starts the internal timer.
      *
      * Also initializes the internal reference time so the next call to
-     * `Tick()` returns the true frame delta.
+     * @ref Tick returns the true frame delta.
      */
     auto Start() -> void {
         timer_.Start();
@@ -61,12 +61,10 @@ public:
      /**
      * @brief Returns the clamped time delta since the previous tick.
      *
-     * Computes the elapsed seconds since the previous `Tick()` (or since
-     * `Start()` if this is the first tick) and clamps it to `max_delta`.
+     * Computes the elapsed seconds since the previous @ref Tick (or since
+     * @ref Start if this is the first tick) and clamps it to `max_delta`.
      *
      * @param max_delta Maximum allowed delta in seconds (default: 0.1s).
-     *
-     * @return float
      */
     [[nodiscard]] auto Tick(double max_delta = 0.1) -> float {
         const auto now = timer_.GetElapsedSeconds();
