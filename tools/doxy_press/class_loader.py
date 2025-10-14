@@ -185,7 +185,7 @@ def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver) -> Clas
     if cdef is None:
         raise FileNotFoundError(f"compounddef not found in {refid}.xml")
 
-    name = element_text(cdef.find("compoundname")).strip()
+    name = _remove_first_qualification(element_text(cdef.find("compoundname")).strip())
     display = _remove_all_qualifications(name)
 
     base_ids = []
@@ -200,6 +200,10 @@ def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver) -> Clas
         brief=render_description(cdef.find("briefdescription"), None, resolver),
         details=render_description(cdef.find("detaileddescription"), None, resolver),
     )
+
+    for inner in cdef.findall("innerclass"):
+        inner_refid = inner.get("refid")
+        doc.inner_classes.append(build_class_doc(inner_refid, xml_dir, resolver))
 
     for sec in cdef.findall("sectiondef"):
         for m in sec.findall("memberdef"):

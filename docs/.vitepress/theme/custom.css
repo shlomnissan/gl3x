@@ -80,9 +80,15 @@
   margin-bottom: 0px;
 }
 
-.vp-doc .table-wrapper {
-  margin-left: calc(-1 * var(--vp-layout-max-width) / 2 + 50%);
-  margin-right: calc(-1 * var(--vp-layout-max-width) / 2 + 50%);
+.vp-doc .inner-class table {
+  width: 100%;
+  table-layout: auto; /* content-based layout */
+  border-collapse: collapse;
+}
+
+.vp-doc .inner-class table th:not(:last-child),
+.vp-doc .inner-class table td:not(:last-child) {
+  width: 1%;
 }
 
 .docblock {

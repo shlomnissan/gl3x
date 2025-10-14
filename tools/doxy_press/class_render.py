@@ -74,16 +74,44 @@ def _render_enum(enum: EnumDoc, resolver: Resolver):
 
     anchor = resolver.member_anchor(enum.id)
     brief = _inline_md_to_html(_join_paragraphs(enum.brief)) if enum.brief else ""
-    scoped = '<Badge type="info" text="scoped enum" />' if enum.scoped else ""
+    tag = "scoped enum" if enum.scoped else "enum"
+    badge = f'<Badge type="info" text="{tag}" />'
 
     return (
         f'<div class="docblock">\n'
         f'  <div class="definition">\n\n'
-        f'### <span class="name">{enum.name}</span> {scoped} {anchor}\n'
+        f'### <span class="name">{enum.name}</span> {badge} {anchor}\n'
         f'  </div>\n'
         f'  <div class="description">\n\n'
         f'{brief}\n\n'
         f'{enum_values}\n'
+        f'  </div>\n'
+        f'</div>\n\n'
+    )
+
+def _render_inner_class(inner_class: ClassDoc, resolver: Resolver):
+    member_values = '|Name|Type|Description|\n'
+    member_values += '|---|---|---|\n'
+    for var in inner_class.variables:
+        brief = _inline_md_to_html(_join_paragraphs(var.brief)) if var.brief else ""
+        vtype = escape(var.type.as_resolved_text(resolver), quote=False)
+        member_values += f'| <span class="type">{var.name}</span> '
+        member_values += f'| <span class="type">{vtype}</span> '
+        member_values += f'| {brief}\n'
+
+    brief = _inline_md_to_html(_join_paragraphs(inner_class.brief)) if inner_class.brief else ""
+    badge = '<Badge type="info" text="struct" />'
+
+    # TODO: compute anchor
+
+    return (
+        f'<div class="docblock inner-class">\n'
+        f'  <div class="definition">\n\n'
+        f'### <span class="name">{inner_class.name}</span> {badge}\n'
+        f'  </div>\n'
+        f'  <div class="description">\n\n'
+        f'{brief}\n\n'
+        f'{member_values}\n'
         f'  </div>\n'
         f'</div>\n\n'
     )
@@ -160,10 +188,14 @@ def render_class(doc: ClassDoc, resolver: Resolver) -> str:
 
         lines.append("")
 
-    if doc.enums:
+    if doc.enums or doc.inner_classes:
         lines += ["## Types"]
-        for e in doc.enums:
-            lines.append(_render_enum(e, resolver))
+        if doc.enums:
+            for e in doc.enums:
+                lines.append(_render_enum(e, resolver))
+        if doc.inner_classes:
+            for c in doc.inner_classes:
+                lines.append(_render_inner_class(c, resolver))
         lines.append("")
 
     if doc.variables:

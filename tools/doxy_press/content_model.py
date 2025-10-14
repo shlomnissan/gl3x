@@ -97,3 +97,4 @@ class ClassDoc:
     constructors: List[FunctionDoc] = field(default_factory=list)
     factories: List[FunctionDoc] = field(default_factory=list)
     enums: List[EnumDoc] = field(default_factory=list)
+    inner_classes: List[ClassDoc] = field(default_factory=list)
