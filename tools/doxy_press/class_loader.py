@@ -112,7 +112,7 @@ def _parse_enum(m: ET.Element) -> EnumDoc:
         values=values,
     )
 
-def _param_briefs_map(m: ET.Element) -> Dict[str, str]:
+def _param_briefs_map(m: ET.Element, resolver: Resolver) -> Dict[str, str]:
     out: Dict[str, str] = {}
 
     detailed = m.find("detaileddescription")
@@ -126,7 +126,7 @@ def _param_briefs_map(m: ET.Element) -> Dict[str, str]:
         ]
 
         pdesc_el = item.find("parameterdescription")
-        pdesc = render_description(pdesc_el, True) if pdesc_el is not None else []
+        pdesc = render_description(pdesc_el, True, resolver) if pdesc_el is not None else []
         brief = pdesc[0].md.strip() if pdesc else ""
 
         for name in names:
@@ -150,7 +150,7 @@ def _parse_function(m: ET.Element, resolver: Resolver) -> FunctionDoc:
             )
         )
 
-    param_briefs = _param_briefs_map(m)
+    param_briefs = _param_briefs_map(m, resolver)
     for p in params:
         if p.name and p.name in param_briefs:
             p.desc = param_briefs[p.name]

@@ -80,6 +80,15 @@
   margin-bottom: 0px;
 }
 
+.vp-doc table a {
+  color: var(--vp-c-text-1);
+  font-weight: 400;
+}
+
+.vp-doc table a:hover {
+  color: var(--vp-c-text-1);
+}
+
 .vp-doc .inner-class table {
   width: 100%;
   table-layout: auto; /* content-based layout */
@@ -109,7 +118,6 @@
 
 .description a {
   color: var(--vp-c-text-1);
-  font-family: var(--vp-font-family-mono);
   font-size: 15px;
   font-weight: 400;
 }
