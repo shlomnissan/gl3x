@@ -101,13 +101,12 @@ def _render_inner_class(inner_class: ClassDoc, resolver: Resolver):
 
     brief = _inline_md_to_html(_join_paragraphs(inner_class.brief)) if inner_class.brief else ""
     badge = '<Badge type="info" text="struct" />'
-
-    # TODO: compute anchor
+    anchor = resolver.member_anchor(inner_class.id)
 
     return (
         f'<div class="docblock inner-class">\n'
         f'  <div class="definition">\n\n'
-        f'### <span class="name">{inner_class.name}</span> {badge}\n'
+        f'### <span class="name">{inner_class.name}</span> {badge} {anchor}\n'
         f'  </div>\n'
         f'  <div class="description">\n\n'
         f'{brief}\n\n'

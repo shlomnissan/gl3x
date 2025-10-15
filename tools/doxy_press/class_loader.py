@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Dict
 from .doxygen_markdown import element_text, render_description, collect_inlines
 from .resolver import Resolver
+from .model import remove_all_qualifications, remove_first_qualification
 from .content_model import (
     ClassDoc,
     EnumDoc,
@@ -26,7 +27,7 @@ def _is_default_or_deleted(m: ET.Element) -> bool:
 
 def _is_constructor(m: ET.Element, cname: str, name: str) -> bool:
     ret = _parse_type(m.find("type")).as_text()
-    return name == _remove_all_qualifications(cname) and ret == ""
+    return name == remove_all_qualifications(cname) and ret == ""
 
 def _is_factory(m: ET.Element, name: str) -> bool:
     is_static = _bool_attr(m, "static")
@@ -34,13 +35,6 @@ def _is_factory(m: ET.Element, name: str) -> bool:
 
 def _is_destructor(name: str) -> bool:
     return name.startswith("~")
-
-def _remove_first_qualification(s) -> str:
-    parts = s.split("::", 1)
-    return parts[1] if len(parts) == 2 else s
-
-def _remove_all_qualifications(s) -> str:
-    return s.split("::")[-1] if "::" in s else s
 
 def _bool_attr(e: ET.Element, name: str) -> bool:
     return (e.get(name) or "").lower() in ("yes", "true", "1")
@@ -101,8 +95,8 @@ def _parse_enum_value(m: ET.Element) -> EnumValueDoc:
     )
 
 def _parse_enum(m: ET.Element) -> EnumDoc:
-    name = _remove_first_qualification(element_text(m.find("qualifiedname")).strip())
-    display = _remove_all_qualifications(name)
+    name = remove_first_qualification(element_text(m.find("qualifiedname")).strip())
+    display = remove_all_qualifications(name)
 
     values = []
     for v in m.findall("enumvalue"):
@@ -164,7 +158,7 @@ def _parse_function(m: ET.Element, resolver: Resolver) -> FunctionDoc:
     name = element_text(m.find("name"))
     is_static = _bool_attr(m, "static")
     if is_static:
-        name = _remove_first_qualification(element_text(m.find("qualifiedname")))
+        name = remove_first_qualification(element_text(m.find("qualifiedname")))
 
     return FunctionDoc(
         id=m.get("id", ""),
@@ -185,8 +179,8 @@ def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver) -> Clas
     if cdef is None:
         raise FileNotFoundError(f"compounddef not found in {refid}.xml")
 
-    name = _remove_first_qualification(element_text(cdef.find("compoundname")).strip())
-    display = _remove_all_qualifications(name)
+    name = remove_first_qualification(element_text(cdef.find("compoundname")).strip())
+    display = remove_all_qualifications(name)
 
     base_ids = []
     for base in cdef.findall("basecompoundref"):

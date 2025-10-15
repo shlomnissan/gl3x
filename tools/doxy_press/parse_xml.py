@@ -2,7 +2,14 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import List, Optional, Dict
-from .model import Inventory, Group, Class, snake_slug
+from .model import (
+    Inventory,
+    Group,
+    Class,
+    snake_slug,
+    remove_all_qualifications,
+    remove_first_qualification
+)
 
 import hashlib, xml.etree.ElementTree as ET
 
@@ -60,8 +67,8 @@ def load_inventory(xml_root: str | Path):
         compounddef = c_root.find("compounddef")
         if compounddef is None:
             continue
-        fqname = _text(compounddef.find("compoundname")).strip()  # e.g., vglx::Camera
-        display = fqname.split("::")[-1] if "::" in fqname else fqname
+        fqname = remove_first_qualification(_text(compounddef.find("compoundname")))
+        display = remove_all_qualifications(fqname)
         cls = Class(
             id=cid,
             name=fqname,
@@ -76,6 +83,17 @@ def load_inventory(xml_root: str | Path):
             name = (m.findtext("name") or "").strip()
             args = (m.findtext("argsstring") or "").strip() or None
             inv.members[mid] = (cid, _anchor(kind, name, args))
+
+    # store inner structs as members
+    for cid in class_refids:
+        c_root = ET.parse(xml_root / f"{cid}.xml").getroot()
+        compounddef = c_root.find("compounddef")
+        if compounddef is None:
+            continue
+        for m in compounddef.findall("innerclass"):
+            mid = m.get("refid")
+            name = inv.classes.get(mid).name
+            inv.members[mid] = (cid, _anchor("struct", name, None))
 
     # map classes to groups using groups innerclass lists
     refid_to_group: Dict[str, str] = {}

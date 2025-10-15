@@ -8,20 +8,20 @@ class Resolver:
         self.inv = inv
         self.base = base.rstrip("/") + "/"
 
-        dict: Dict[str, str] = {}
+        m: Dict[str, str] = {}
         for group in inv.groups.values():
             group_slug = group.slug or slugify(group.name)
             for class_id in group.class_ids:
                 c = inv.classes.get(class_id)
-                if c: dict[c.id] = f"{self.base}{group_slug}/{c.slug}"
+                if c: m[c.id] = f"{self.base}{group_slug}/{c.slug}"
 
         for member in inv.members:
-            member_idx = inv.members.get(member)
-            base_url = dict.get(member_idx[0])
+            member_values = inv.members.get(member)
+            base_url = m.get(member_values[0])
             if base_url:
-                dict[member] = f'{base_url}#{member_idx[1]}'
+                m[member] = f'{base_url}#{member_values[1]}'
 
-        self._refid_to_url = dict
+        self._refid_to_url = m
 
     def refid_url(self, refid: str) -> Optional[str]:
        return self._refid_to_url.get(refid)

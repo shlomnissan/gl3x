@@ -30,6 +30,13 @@ def slugify(s: str) -> str:
 def _short_hash(s: str, n: int = 6) -> str:
     return hashlib.sha1(s.encode("utf-8")).hexdigest()[:n]
 
+def remove_first_qualification(s) -> str:
+    parts = s.split("::", 1)
+    return parts[1] if len(parts) == 2 else s
+
+def remove_all_qualifications(s) -> str:
+    return s.split("::")[-1] if "::" in s else s
+
 @dataclass
 class Class:
     id: str
