@@ -70,7 +70,7 @@
 }
 
 .VPBadge {
-   font-family: var(--vp-font-family-mono);
+  font-family: var(--vp-font-family-mono);
 }
 
 .vp-doc table {
@@ -87,17 +87,6 @@
 
 .vp-doc table a:hover {
   color: var(--vp-c-text-1);
-}
-
-.vp-doc .inner-class table {
-  width: 100%;
-  table-layout: auto; /* content-based layout */
-  border-collapse: collapse;
-}
-
-.vp-doc .inner-class table th:not(:last-child),
-.vp-doc .inner-class table td:not(:last-child) {
-  width: 1%;
 }
 
 .docblock {
@@ -155,12 +144,28 @@
   font-family: var(--vp-font-family-mono);
 }
 
-.docblock table {
-  table-layout: fixed;
+.docblock .description .inner-type,
+.docblock .description .inner-type a,
+.docblock .description .inner-type a:hover {
+  font-size: 13px;
+  font-family: var(--vp-font-family-mono);
+  color: var(--vp-c-text-3);
 }
 
-.docblock table th:first-child {
-  width: 25%;
+.docblock table {
+  width: 100%;
+  table-layout: auto; /* allow intrinsic sizing */
+}
+
+.docblock table :is(th:first-child, td:first-child) {
+  white-space: nowrap;
+  width: 1%;
+  max-width: 40%;
+}
+
+.docblock table :is(th:nth-child(2), td:nth-child(2)) {
+  width: 99%;
+  overflow-wrap: anywhere;
 }
 
 .docblock .params .name {

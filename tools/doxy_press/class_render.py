@@ -89,13 +89,13 @@ def _render_enum(enum: EnumDoc, resolver: Resolver):
     )
 
 def _render_inner_class(inner_class: ClassDoc, resolver: Resolver):
-    member_values = '|Name|Type|Description|\n'
-    member_values += '|---|---|---|\n'
+    member_values = '|Member|Description|\n'
+    member_values += '|---|---|\n'
     for var in inner_class.variables:
         brief = _inline_md_to_html(_join_paragraphs(var.brief)) if var.brief else ""
         vtype = escape(var.type.as_resolved_text(resolver), quote=False)
-        member_values += f'| <span class="type">{var.name}</span> '
-        member_values += f'| <span class="type">{vtype}</span> '
+        member_values += f'| <span class="type">{var.name}</span>'
+        member_values += f' <span class="inner-type">{vtype}</span>'
         member_values += f'| {brief}\n'
 
     brief = _inline_md_to_html(_join_paragraphs(inner_class.brief)) if inner_class.brief else ""
