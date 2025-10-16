@@ -167,7 +167,3 @@
   width: 99%;
   overflow-wrap: anywhere;
 }
-
-.docblock .params .name {
-  font-family: var(--vp-font-family-mono);
-}

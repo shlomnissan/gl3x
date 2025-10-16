@@ -123,13 +123,11 @@ def _render_function(func: FunctionDoc, resolver: Resolver):
 
     params_list = ""
     if func.params:
-        params_list += f'<div class="params">\n\n'
         params_list += f'|Parameter|Description|\n|---|---|\n'
         for param in func.params:
             pname = param.name
             pdesc = param.desc
-            params_list += f'|<span class="name">{pname}</span>|{pdesc}|\n'
-        params_list += f'</div>\n'
+            params_list += f'|<span class="type">{pname}</span>|{pdesc}|\n'
 
     badge = ""
     if func.virt in ("virtual", "pure-virtual"):
@@ -144,8 +142,8 @@ def _render_function(func: FunctionDoc, resolver: Resolver):
         f'```cpp\n'
         f'{func.signature}\n'
         f'```\n'
-        f'  {params_list}\n'
         f'  <div class="description">\n\n'
+        f'{params_list}\n'
         f'{brief} {description}\n'
         f'  </div>\n'
         f'</div>\n\n'

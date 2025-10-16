@@ -99,8 +99,6 @@ public:
      * Calculates and returns the normalized direction in which the spotlight
      * is pointing. The direction is determined based on the light's position
      * and its target node.
-     *
-     * @return Vector3
      */
     [[nodiscard]] auto Direction() -> Vector3;
 
