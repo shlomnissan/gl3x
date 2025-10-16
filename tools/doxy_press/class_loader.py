@@ -78,6 +78,9 @@ def _initializer_display(init: ET.Element | None) -> str | None:
     return s or None
 
 def _parse_variable(m: ET.Element) -> VarDoc:
+    loc = m.find("location")
+    line = int(loc.get("line"))
+
     return VarDoc(
         id=m.get("id",""),
         name=element_text(m.find("name")),
@@ -86,6 +89,7 @@ def _parse_variable(m: ET.Element) -> VarDoc:
         type=_parse_type(m.find("type")),
         initializer=_initializer_display(m.find("initializer")),
         brief=render_description(m.find("briefdescription")),
+        line=line
     )
 
 def _parse_enum_value(m: ET.Element) -> EnumValueDoc:
@@ -169,11 +173,11 @@ def _parse_function(m: ET.Element, resolver: Resolver) -> FunctionDoc:
         return_type=_parse_type(m.find("type")),
         signature=(definition + args).strip(),
         params=params,
-        brief=render_description(m.find("briefdescription"), None, resolver),
-        details=render_description(m.find("detaileddescription"), None, resolver),
+        brief=render_description(m.find("briefdescription"), False, resolver),
+        details=render_description(m.find("detaileddescription"), False, resolver),
     )
 
-def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver) -> ClassDoc:
+def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver, inner_class: bool = False) -> ClassDoc:
     root = ET.parse(xml_dir / f"{refid}.xml").getroot()
     cdef = root.find("compounddef")
     if cdef is None:
@@ -191,13 +195,13 @@ def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver) -> Clas
         name=name,
         display=display,
         base_ids=base_ids,
-        brief=render_description(cdef.find("briefdescription"), None, resolver),
-        details=render_description(cdef.find("detaileddescription"), None, resolver),
+        brief=render_description(cdef.find("briefdescription"), False, resolver),
+        details=render_description(cdef.find("detaileddescription"), False, resolver),
     )
 
     for inner in cdef.findall("innerclass"):
         inner_refid = inner.get("refid")
-        doc.inner_classes.append(build_class_doc(inner_refid, xml_dir, resolver))
+        doc.inner_classes.append(build_class_doc(inner_refid, xml_dir, resolver, True))
 
     for sec in cdef.findall("sectiondef"):
         for m in sec.findall("memberdef"):
@@ -223,5 +227,8 @@ def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver) -> Clas
 
             if kind == "enum":
                 doc.enums.append(_parse_enum(m))
+
+    if inner_class:
+        doc.variables.sort(key=lambda v: v.line)
 
     return doc

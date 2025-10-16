@@ -55,6 +55,7 @@ class VarDoc:
     type: TypeRef
     initializer: Optional[str] = None
     brief: List[DocParagraph] = field(default_factory=list)
+    line: Optional[int] = 0
 
 @dataclass(slots=True)
 class FunctionDoc:

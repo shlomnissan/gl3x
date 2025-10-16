@@ -19,7 +19,7 @@ def programlisting_to_md(listing: ET.Element, fence_lang: str = "cpp") -> str:
             if n.text:
                 pieces.append(n.text)
 
-            for child in list(n):
+            for child in n:
                 tag = child.tag
 
                 if tag == "sp":
@@ -29,7 +29,7 @@ def programlisting_to_md(listing: ET.Element, fence_lang: str = "cpp") -> str:
                 elif tag == "ref":
                     if child.text:
                         pieces.append(child.text)
-                    for g in list(child):
+                    for g in child:
                         walk(g)
                 elif tag == "linebreak":
                     pieces.append("\n")
@@ -56,9 +56,8 @@ def collect_inlines(node: ET.Element, resolver: Optional[Resolver] = None) -> st
         if n.text:
             out.append(n.text)
 
-        for child in list(n):
+        for child in n:
             tag = child.tag
-
             if tag == "emphasis":
                 inner = collect_inlines(child, resolver)
                 out.append(f"*{inner}*")
@@ -76,8 +75,6 @@ def collect_inlines(node: ET.Element, resolver: Optional[Resolver] = None) -> st
                 out.append("  \n")
             elif tag == "programlisting":
                 out.append(programlisting_to_md(child))
-            elif tag == "simplesect":
-                pass
             else:
                 out.append(collect_inlines(child, resolver))
 
