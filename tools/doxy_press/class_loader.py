@@ -9,10 +9,11 @@ from .content_model import (
     ClassDoc,
     EnumDoc,
     EnumValueDoc,
-    VarDoc,
     FunctionDoc,
-    TypeRef,
+    TypeDefDoc,
     TypePart,
+    TypeRef,
+    VarDoc,
     ParamDoc
 )
 
@@ -114,6 +115,17 @@ def _parse_enum(m: ET.Element) -> EnumDoc:
         brief=render_description(m.find("briefdescription")),
         details=render_description(m.find("detaileddescription")),
         values=values,
+    )
+
+def _parse_typedef(m: ET.Element, resolver: Resolver) -> TypeDefDoc:
+    return TypeDefDoc(
+        id=m.get("id", ""),
+        name=remove_first_qualification(element_text(m.find("qualifiedname"))),
+        display=element_text(m.find("name")),
+        definition=element_text(m.find("definition")),
+        type=_parse_type(m.find("type")),
+        brief=render_description(m.find("briefdescription"), False, resolver),
+        details=render_description(m.find("detaileddescription"), False, resolver),
     )
 
 def _param_briefs_map(m: ET.Element, resolver: Resolver) -> Dict[str, str]:
@@ -227,6 +239,9 @@ def build_class_doc(refid: str, xml_dir: str | Path, resolver: Resolver, inner_c
 
             if kind == "enum":
                 doc.enums.append(_parse_enum(m))
+
+            if kind == "typedef":
+                doc.typedefs.append(_parse_typedef(m, resolver))
 
     if inner_class:
         doc.variables.sort(key=lambda v: v.line)

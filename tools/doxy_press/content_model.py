@@ -58,6 +58,16 @@ class VarDoc:
     line: Optional[int] = 0
 
 @dataclass(slots=True)
+class TypeDefDoc:
+    id: str
+    name: str
+    display: str
+    definition: str
+    type: TypeRef
+    brief: List[DocParagraph] = field(default_factory=list)
+    details: List[DocParagraph] = field(default_factory=list)
+
+@dataclass(slots=True)
 class FunctionDoc:
     id: str
     name: str
@@ -99,3 +109,4 @@ class ClassDoc:
     factories: List[FunctionDoc] = field(default_factory=list)
     enums: List[EnumDoc] = field(default_factory=list)
     inner_classes: List[ClassDoc] = field(default_factory=list)
+    typedefs: List[TypeDefDoc] = field(default_factory=list)

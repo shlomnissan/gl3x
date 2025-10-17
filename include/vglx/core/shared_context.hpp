@@ -78,6 +78,15 @@ public:
     std::shared_ptr<MeshLoader> mesh_loader = MeshLoader::Create();
 };
 
-}
-
+/**
+ * @brief Alias for a unique pointer to a SharedContext instance.
+ *
+ * This typedef simplifies ownership semantics for the shared context,
+ * ensuring a single owner at any given time. Use this when returning
+ * or storing the main rendering context instance.
+ *
+ * @related SharedContext
+ */
 using SharedContextPointer = const vglx::SharedContext*;
+
+}
