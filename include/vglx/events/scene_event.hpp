@@ -31,7 +31,6 @@ namespace vglx {
 struct VGLX_EXPORT SceneEvent : public Event {
     /**
      * @brief Represents scene modification type.
-     * @ingroup EventsGroup
      */
     enum class Type {
         NodeAdded, ///< Node was added to the scene.

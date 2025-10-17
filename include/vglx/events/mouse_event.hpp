@@ -47,7 +47,6 @@ enum class MouseButton;
 struct VGLX_EXPORT MouseEvent : public Event {
     /**
      * @brief Represents mouse interaction type.
-     * @ingroup EventsGroup
      */
     enum class Type {
         Moved, ///< Cursor moved.

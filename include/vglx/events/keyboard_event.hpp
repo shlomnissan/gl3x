@@ -41,7 +41,6 @@ enum class Key;
 struct VGLX_EXPORT KeyboardEvent : public Event {
     /**
      * @brief Represents keyboard interaction type.
-     * @ingroup EventsGroup
      */
     enum class Type {
         Pressed, ///< Key was pressed down.
