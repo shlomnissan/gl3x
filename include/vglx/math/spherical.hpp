@@ -55,9 +55,8 @@ struct VGLX_EXPORT Spherical {
      * (e.g. cross products for basis vectors) can break down.
      */
     constexpr auto MakeSafe() {
-        const float lo = -math::pi_over_2 + math::eps;
-        const float hi = math::pi_over_2 - math::eps;
-        theta = math::Clamp(theta, lo, hi);
+        const float limit = math::pi_over_2 - math::eps;
+        theta = math::Clamp(theta, -limit, limit);
     }
 
     /**
