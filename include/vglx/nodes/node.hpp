@@ -258,7 +258,7 @@ public:
      * guaranteed to be initialized and available. Use this hook to perform
      * resource loading or event registration that depends on application state.
      *
-     * @param context Pointer to the shared context (const).
+     * @param context Pointer to the shared context.
      */
     virtual auto OnAttached(SharedContextPointer context) -> void { /* No-op by default */ }
 

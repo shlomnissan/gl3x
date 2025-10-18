@@ -89,7 +89,8 @@ def _render_enum(enum: EnumDoc, resolver: Resolver):
         f'</div>\n\n'
     )
 
-def _render_typedef(typedef: TypeDefDoc, _: Resolver):
+def _render_typedef(typedef: TypeDefDoc, resolver: Resolver):
+    anchor = resolver.member_anchor(typedef.id)
     badge = '<Badge type="info" text="typedef" />'
     brief = _inline_md_to_html(_join_paragraphs(typedef.brief))
     description = _inline_md_to_html(_join_paragraphs(typedef.details))
@@ -97,7 +98,7 @@ def _render_typedef(typedef: TypeDefDoc, _: Resolver):
     return (
         f'<div class="docblock inner-class">\n'
         f'<div class="definition">\n\n'
-        f'### <span class="name">{typedef.display}</span> {badge}\n'
+        f'### <span class="name">{typedef.display}</span> {badge} {anchor}\n'
         f'</div>\n\n'
         f'```cpp\n{typedef.definition}\n```\n'
         f'<div class="description">\n\n'
