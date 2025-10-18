@@ -5,10 +5,11 @@ from typing import List
 from .resolver import Resolver
 from .content_model import (
     ClassDoc,
-    EnumDoc,
-    VarDoc,
-    FunctionDoc,
     DocParagraph,
+    EnumDoc,
+    FunctionDoc,
+    TypeDefDoc,
+    VarDoc,
 )
 
 def _escape_md(name: str) -> str:
@@ -85,6 +86,24 @@ def _render_enum(enum: EnumDoc, resolver: Resolver):
         f'{brief}\n\n'
         f'{enum_values}\n'
         f'  </div>\n'
+        f'</div>\n\n'
+    )
+
+def _render_typedef(typedef: TypeDefDoc, _: Resolver):
+    badge = '<Badge type="info" text="typedef" />'
+    brief = _inline_md_to_html(_join_paragraphs(typedef.brief))
+    description = _inline_md_to_html(_join_paragraphs(typedef.details))
+
+    return (
+        f'<div class="docblock inner-class">\n'
+        f'<div class="definition">\n\n'
+        f'### <span class="name">{typedef.display}</span> {badge}\n'
+        f'</div>\n\n'
+        f'```cpp\n{typedef.definition}\n```\n'
+        f'<div class="description">\n\n'
+        f'{brief}\n\n'
+        f'{description}\n\n'
+        f'</div>\n'
         f'</div>\n\n'
     )
 
@@ -184,7 +203,7 @@ def render_class(doc: ClassDoc, resolver: Resolver) -> str:
 
         lines.append("")
 
-    if doc.enums or doc.inner_classes:
+    if doc.enums or doc.inner_classes or doc.typedefs:
         lines += ["## Types"]
         if doc.enums:
             for e in doc.enums:
@@ -192,6 +211,9 @@ def render_class(doc: ClassDoc, resolver: Resolver) -> str:
         if doc.inner_classes:
             for c in doc.inner_classes:
                 lines.append(_render_inner_class(c, resolver))
+        if doc.typedefs:
+            for t in doc.typedefs:
+                lines.append(_render_typedef(t, resolver))
         lines.append("")
 
     if doc.variables:
