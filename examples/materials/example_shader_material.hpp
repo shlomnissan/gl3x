@@ -20,7 +20,7 @@ class ExampleShaderMaterial : public ExampleScene {
 public:
     ExampleShaderMaterial();
 
-    auto OnAttached(SharedContextPointer context) -> void override;
+    auto OnAttached(vglx::SharedContextPointer context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
 

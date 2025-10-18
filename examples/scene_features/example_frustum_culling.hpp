@@ -18,7 +18,7 @@ class ExampleFrustumCulling : public ExampleScene {
 public:
     ExampleFrustumCulling();
 
-    auto OnAttached(SharedContextPointer context) -> void override;
+    auto OnAttached(vglx::SharedContextPointer context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
 

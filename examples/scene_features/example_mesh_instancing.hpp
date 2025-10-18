@@ -16,7 +16,7 @@ class ExampleMeshInstancing : public ExampleScene {
 public:
     ExampleMeshInstancing();
 
-    auto OnAttached(SharedContextPointer context) -> void override;
+    auto OnAttached(vglx::SharedContextPointer context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
 

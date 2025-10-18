@@ -20,7 +20,7 @@ class ExampleAnimatedTransform : public ExampleScene {
 public:
     ExampleAnimatedTransform();
 
-    auto OnAttached(SharedContextPointer context) -> void override;
+    auto OnAttached(vglx::SharedContextPointer context) -> void override;
 
     auto OnUpdate(float delta) -> void override;
 

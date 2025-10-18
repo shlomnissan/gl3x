@@ -134,7 +134,7 @@ public:
     }
 
 private:
-    SharedContextPointer context_ {nullptr};
+    vglx::SharedContextPointer context_ {nullptr};
 
     SceneChangeCallback scene_change_cb_;
 

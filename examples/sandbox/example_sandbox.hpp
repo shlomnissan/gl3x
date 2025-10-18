@@ -15,7 +15,7 @@ class ExampleSandbox : public ExampleScene {
 public:
     ExampleSandbox();
 
-    auto OnAttached(SharedContextPointer context) -> void override;
+    auto OnAttached(vglx::SharedContextPointer context) -> void override;
 
 private:
     std::shared_ptr<vglx::Node> model_;
