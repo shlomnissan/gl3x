@@ -30,12 +30,14 @@ namespace vglx {
  *   auto Configure() -> void override {}
  *
  *   auto Setup() -> void override {
- *     SetCamera(vglx::PerspectiveCamera::Create({
- *       .fov = vglx::math::DegToRad(60.0f),
- *       .aspect = Context()->Parameters().ratio,
- *       .near = 0.1f,
- *       .far = 1000.0f
- *     }));
+ *     SetCamera(
+ *       vglx::PerspectiveCamera::Create({
+ *         .fov = vglx::math::DegToRad(60.0f),
+ *         .aspect = Context()->Parameters().ratio,
+ *         .near = 0.1f,
+ *         .far = 1000.0f
+ *       })
+ *     );
  *   }
  *
  *   auto Update(float delta) -> bool override {
@@ -57,16 +59,18 @@ public:
     };
 
     /**
-     * @brief Constructs an PerspectiveCamera object.
+     * @brief Constructs a PerspectiveCamera object.
      *
-     * @param params @ref PerspectiveCamera::Parameters
+     * @param params @ref PerspectiveCamera::Parameters "Initialization parameters"
+     * for constructing the camera.
      */
     explicit PerspectiveCamera(const Parameters& params);
 
     /**
-     * @brief Creates a shared pointer to @ref PerspectiveCamera object.
+     * @brief Creates a shared instance of @ref PerspectiveCamera.
      *
-     * @param params @ref PerspectiveCamera::Parameters
+     * @param params @ref PerspectiveCamera::Parameters "Initialization parameters"
+     * for constructing the camera.
      */
     [[nodiscard]] static auto
     Create(const Parameters& params) -> std::shared_ptr<PerspectiveCamera> {

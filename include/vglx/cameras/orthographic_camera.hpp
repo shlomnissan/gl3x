@@ -32,14 +32,16 @@ namespace vglx {
  *   auto Configure() -> void override {}
  *
  *   auto Setup() -> void override {
- *     SetCamera(vglx::OrthographicCamera::Create({
- *       .left = 0.0f,
- *       .right = 1024.0f,
- *       .top = 0.0f,
- *       .bottom = 768.0f,
- *       .near = 0.1f,
- *       .far = 100.0f
- *     }));
+ *     SetCamera(
+ *       vglx::OrthographicCamera::Create({
+ *         .left = 0.0f,
+ *         .right = 1024.0f,
+ *         .top = 0.0f,
+ *         .bottom = 768.0f,
+ *         .near = 0.1f,
+ *         .far = 100.0f
+ *       })
+ *     );
  *   }
  *
  *   auto Update(float delta) -> bool override {
@@ -77,14 +79,18 @@ public:
    /**
      * @brief Constructs an OrthographicCamera object.
      *
-     * @param params @ref OrthographicCamera::Parameters
+     * @param params @ref OrthographicCamera::Parameters "Initialization parameters"
+     * for constructing the camera.
      */
     explicit OrthographicCamera(const Parameters& params);
 
     /**
-     * @brief Creates a shared pointer to @ref OrthographicCamera object.
+     * @brief Creates a shared instance of @ref OrthographicCamera.
      *
-     * @param params @ref OrthographicCamera::Parameters
+     * @param params @ref OrthographicCamera::Parameters "Initialization parameters"
+     * for constructing the camera.
+     *
+
      */
     [[nodiscard]] static auto
     Create(const Parameters& params) -> std::shared_ptr<OrthographicCamera> {

@@ -20,7 +20,7 @@ namespace vglx {
  * @brief Abstract base class for camera types.
  *
  * This class is not intended to be used directly. Use @ref PerspectiveCamera
- * or @ref OrthographicCamera unless you are defining your own camera type,
+ * or @ref OrthographicCamera unless you are defining your own camera,
  * in which case it should inherit from this class.
  *
  * @ingroup CamerasGroup

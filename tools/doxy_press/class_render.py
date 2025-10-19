@@ -23,19 +23,6 @@ def _escape_md(name: str) -> str:
 def _join_paragraphs(paras: List[DocParagraph]) -> str:
     return ("\n\n".join(p.md.strip() for p in paras if p.md.strip())).strip()
 
-def _inline_md_to_html(text: str) -> str:
-    # minimal: convert `code` to <code>, escape the rest
-    from html import escape as _esc
-    import re
-    parts = re.split(r"(`[^`]*`)", text)
-    html = []
-    for p in parts:
-        if p.startswith("`") and p.endswith("`"):
-            html.append(f"<code>{_esc(p[1:-1], quote=False)}</code>")
-        else:
-            html.append(_esc(p, quote=False))
-    return "".join(html)
-
 def _render_property(prop: VarDoc, resolver: Resolver):
     name_str = prop.name
     name_html = escape(name_str, quote=False)
@@ -43,7 +30,7 @@ def _render_property(prop: VarDoc, resolver: Resolver):
     type_raw = prop.type.as_text()
     type_resolved = escape(prop.type.as_resolved_text(resolver), quote=False)
     default_val = f'{{ {prop.initializer} }}' if prop.initializer else ""
-    desc = _inline_md_to_html(_join_paragraphs(prop.brief)) if prop.brief else ""
+    desc = _join_paragraphs(prop.brief)
 
     code_block = (
         f'  ```cpp\n'
@@ -69,11 +56,11 @@ def _render_enum(enum: EnumDoc, resolver: Resolver):
     enum_values = '|Value|Description|\n'
     enum_values += '|---|---|\n'
     for value in enum.values:
-        brief = _inline_md_to_html(_join_paragraphs(value.brief)) if value.brief else ""
+        brief = _join_paragraphs(value.brief)
         enum_values += f'| <span class="type">{value.name}</span> | {brief}\n'
 
     anchor = resolver.member_anchor(enum.id)
-    brief = _inline_md_to_html(_join_paragraphs(enum.brief)) if enum.brief else ""
+    brief = _join_paragraphs(enum.brief)
     tag = "scoped enum" if enum.scoped else "enum"
     badge = f'<Badge type="info" text="{tag}" />'
 
@@ -92,8 +79,8 @@ def _render_enum(enum: EnumDoc, resolver: Resolver):
 def _render_typedef(typedef: TypeDefDoc, resolver: Resolver):
     anchor = resolver.member_anchor(typedef.id)
     badge = '<Badge type="info" text="typedef" />'
-    brief = _inline_md_to_html(_join_paragraphs(typedef.brief))
-    description = _inline_md_to_html(_join_paragraphs(typedef.details))
+    brief = _join_paragraphs(typedef.brief)
+    description = _join_paragraphs(typedef.details)
 
     return (
         f'<div class="docblock inner-class">\n'
@@ -112,13 +99,13 @@ def _render_inner_class(inner_class: ClassDoc, resolver: Resolver):
     member_values = '|Member|Description|\n'
     member_values += '|---|---|\n'
     for var in inner_class.variables:
-        brief = _inline_md_to_html(_join_paragraphs(var.brief)) if var.brief else ""
+        brief = _join_paragraphs(var.brief)
         vtype = escape(var.type.as_resolved_text(resolver), quote=False)
         member_values += f'| <span class="type">{var.name}</span>'
         member_values += f' <span class="inner-type">{vtype}</span>'
         member_values += f'| {brief}\n'
 
-    brief = _inline_md_to_html(_join_paragraphs(inner_class.brief)) if inner_class.brief else ""
+    brief = _join_paragraphs(inner_class.brief)
     badge = '<Badge type="info" text="struct" />'
     anchor = resolver.member_anchor(inner_class.id)
 
@@ -137,8 +124,8 @@ def _render_inner_class(inner_class: ClassDoc, resolver: Resolver):
 def _render_function(func: FunctionDoc, resolver: Resolver):
     name_str = _escape_md(func.name)
     anchor = resolver.member_anchor(func.id)
-    brief = _inline_md_to_html(_join_paragraphs(func.brief)) if func.brief else ""
-    description = _inline_md_to_html(_join_paragraphs(func.details)) if func.details else ""
+    brief = _join_paragraphs(func.brief) if func.brief else ""
+    description = _join_paragraphs(func.details) if func.details else ""
     type_resolved = escape(func.return_type.as_resolved_text(resolver), quote=False)
 
     params_list = ""
@@ -198,7 +185,7 @@ def render_class(doc: ClassDoc, resolver: Resolver) -> str:
             for c in doc.constructors:
                 lines.append(_render_function(c, resolver))
         if doc.factories:
-            lines += ["### Factories <Badge type='info' text='preferred' />", "<br/>"]
+            lines += ["### Factories <Badge type='warning' text='preferred' />", "<br/>"]
             for f in doc.factories:
                 lines.append(_render_function(f, resolver))
 
