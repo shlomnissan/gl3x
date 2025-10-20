@@ -156,7 +156,7 @@ public:
      * startup and is guaranteed to remain valid for the lifetime of the
      * application.
      *
-     * @see SharedContext
+     * @return SharedContext::SharedContextPointer
      */
     [[nodiscard]] auto GetContext() const -> SharedContextPointer;
 

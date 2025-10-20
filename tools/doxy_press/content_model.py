@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Optional
 from .resolver import Resolver
+from .model import remove_all_qualifications
 
 import re
 
@@ -41,6 +42,7 @@ class TypeRef:
             label = self._clean_text(part.text)
             if not label: continue
             if (part.refid):
+                label = remove_all_qualifications(label)
                 s += resolver.refid_link_with_label(part.refid, label)
             else:
                 s += label

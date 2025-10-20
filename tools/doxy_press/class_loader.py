@@ -176,13 +176,15 @@ def _parse_function(m: ET.Element, resolver: Resolver) -> FunctionDoc:
     if is_static:
         name = remove_first_qualification(element_text(m.find("qualifiedname")))
 
+    return_type = m.find(".//simplesect[@kind='return']/para") or m.find("type")
+
     return FunctionDoc(
         id=m.get("id", ""),
         name=name,
         prot=m.get("prot","public"),
         static=is_static,
         virt=m.get("virt"),
-        return_type=_parse_type(m.find("type")),
+        return_type=_parse_type(return_type),
         signature=(definition + args).strip(),
         params=params,
         brief=render_description(m.find("briefdescription"), False, resolver),
