@@ -1,4 +1,5 @@
 from __future__ import annotations
+from .generate.sidebar_emit import emit_sidebar
 from .parse.inventory_loader import load_inventory
 from pathlib import Path
 
@@ -14,11 +15,15 @@ def main():
 
     args = parser.parse_args()
     xml_dir = Path(args.xml_dir)
+    root_dir = Path(args.root_dir)
 
     if not (xml_dir / "index.xml").exists():
         parser.error(f"{xml_dir}/index.xml not found")
 
-    _inventory = load_inventory(xml_dir)
+    inventory = load_inventory(xml_dir)
+
+    sidebar = emit_sidebar(inventory, root_dir)
+    print(f"✅ wrote sidebar: {sidebar}")
 
     return 0
 

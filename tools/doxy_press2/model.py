@@ -6,9 +6,9 @@ from typing import Dict, Optional, List, Tuple
 class Class:
     id: str
     name: str
+    display: str
     slug: str
-    group_id: Optional[str] = None
-    inner_class_ids: List[str] = field(default_factory=list)
+    group_id: str
 
 @dataclass
 class Group:
@@ -21,5 +21,4 @@ class Group:
 class Inventory:
     groups: Dict[str, Group] = field(default_factory=dict)
     classes: Dict[str, Class] = field(default_factory=dict)
-    members: Dict[str, Tuple[str, str]] = field(default_factory=dict)
     class_to_group: Dict[str, str] = field(default_factory=dict)
