@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ..model import Inventory
-from ..strings import slugify
+from ..parse.xml_utilities import write_if_changed
 from pathlib import Path
 from typing import Dict, List
 
@@ -48,12 +48,13 @@ def emit_sidebar(inventory: Inventory, root_dir: Path):
     sections = _build_sections(inventory)
 
     json_text = json.dumps(sections, ensure_ascii=False, indent=2)
-    output_text = (
+    content = (
         "// AUTO-GENERATED — do not edit.\n"
         "import type { DefaultTheme } from 'vitepress';\n\n"
         f"const referenceSidebar: DefaultTheme.SidebarItem[] = {json_text};\n\n"
         "export default referenceSidebar;\n"
     )
-    output_path.write_text(output_text, encoding="utf-8")
+
+    write_if_changed(output_path, content)
 
     return output_path

@@ -1,5 +1,6 @@
 from __future__ import annotations
 from .generate.sidebar_emit import emit_sidebar
+from .generate.pages_emit import emit_class_pages
 from .parse.inventory_loader import load_inventory
 from pathlib import Path
 
@@ -24,6 +25,9 @@ def main():
 
     sidebar = emit_sidebar(inventory, root_dir)
     print(f"✅ wrote sidebar: {sidebar}")
+
+    written = emit_class_pages(inventory, xml_dir, root_dir)
+    print(f"✅ wrote {len(written)} class pages")
 
     return 0
 
