@@ -11,15 +11,17 @@
 :root {
   --vp-font-family-heading: 'logo', sans-serif;
   --vp-home-hero-name-color: var(--vp-c-text-1);
-  --vp-c-brand-1: #3F50D4; /* used in text highlights, links */
-  --vp-c-brand-2: #3F50D4; /* hover: slightly darker for contrast */
-  --vp-c-brand-3: #4C5FFF; /* button background / main brand */
+  --vp-c-brand-1: #0FA0F0;
+  --vp-c-brand-2: #0B8CD6;
+  --vp-c-brand-3: #2AB6FF;
+  --vp-c-brand-soft: #E3F3FF;
 }
 
 :root.dark {
-  --vp-c-brand-1: #7685FF; /* lighter for links/highlights */
-  --vp-c-brand-2: #5C6FFF; /* slightly darker hover */
-  --vp-c-brand-3: #4C5FFF; /* keep consistent button background */
+  --vp-c-brand-1: #6CCBFF;
+  --vp-c-brand-2: #4DBBFF;
+  --vp-c-brand-3: #26AEFF;
+  --vp-c-brand-soft: #0C2A3A;
 }
 
 .VPHomeHero .name::before {
@@ -27,7 +29,9 @@
   display: inline-block;
   width: 1.55em;
   height: 1.45em;
-  background: url('/logo_hero.svg') no-repeat center / contain;
+  -webkit-mask: url('/logo_flat.svg') no-repeat center / contain;
+  background-color: var(--vp-c-text-1);
+  mask: url('/logo_flat.svg') no-repeat center / contain;
   vertical-align: middle;
   margin-bottom: 0.15em;
   margin-right: 0.6rem;
