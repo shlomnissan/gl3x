@@ -75,7 +75,11 @@ namespace vglx {
 class VGLX_EXPORT Application {
 public:
     /**
-     * @brief Configuration parameters for the application context.
+     * @brief Parameters for constructing an application object.
+     *
+     * These values are not passed directly to the constructor. To override
+     * the defaults, implement the @ref Configure function and return an
+     * instance with customized settings.
      */
     struct Parameters {
         std::string title {"Application"}; ///< Window title.
@@ -88,7 +92,7 @@ public:
     };
 
     /**
-     * @brief Constructs an Application instance.
+     * @brief Constructs an Application object.
      *
      * Initializes internal state but does not start the application loop.
      */
@@ -184,7 +188,7 @@ public:
      */
     auto SetCamera(std::shared_ptr<Camera> camera) -> void;
 
-    virtual ~Application() noexcept;
+    virtual ~Application();
 
 private:
     /// @cond INTERNAL

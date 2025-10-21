@@ -46,7 +46,6 @@ using ResizeCallback = std::function<void(const ResizeParameters& params)>;
  * It is typically managed by the @ref Application runtime, but can also be
  * constructed directly for manual initialization flows.
  *
- * Typical usage:
  * @code
  * vglx::Window window({
  *   .title = "My App",
@@ -74,7 +73,7 @@ public:
     class Impl;
     /// @endcond
 
-    /// @brief Construction parameters for @ref Window.
+    /// @brief Parameters for constructing a window object.
     struct Parameters {
         std::string title; ///< Window title string.
         int width; ///< Client-area width in pixels.
@@ -84,11 +83,12 @@ public:
     };
 
     /**
-     * @brief Constructs a window object with the given parameters.
+     * @brief Constructs a Window object.
      *
-     * The window resources are not created until @ref Initialize is called.
+     * Resources are not created until @ref Initialize is called.
      *
-     * @param params Window::Parameters
+     * @param params @ref Window::Parameters "Initialization parameters"
+     * for constructing the window.
      */
     explicit Window(const Window::Parameters& params);
 
@@ -201,7 +201,7 @@ public:
      */
     auto OnResize(ResizeCallback callback) -> void;
 
-    virtual ~Window() noexcept;
+    virtual ~Window();
 
 private:
     /// @cond INTERNAL

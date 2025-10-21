@@ -25,7 +25,6 @@ namespace vglx {
  * specified @ref Camera. It is typically constructed and driven by the
  * @ref Application runtime, but can also be used directly in manual setups.
  *
- * Typical usage:
  * @code
  * vglx::Renderer renderer({
  *   .framebuffer_width = window.FramebufferWidth(),
@@ -51,7 +50,7 @@ namespace vglx {
  */
 class VGLX_EXPORT Renderer {
 public:
-    /// @brief Construction parameters for @ref Renderer.
+    /// @brief Parameters for constructing a Renderer object.
     struct Parameters {
         int framebuffer_width; ///< Current framebuffer width in pixels.
         int framebuffer_height; ///< Current framebuffer height in pixels.
@@ -59,11 +58,12 @@ public:
     };
 
     /**
-     * @brief Constructs a renderer object with the given parameters.
+     * @brief Constructs a Renderer object.
      *
      * GPU resources are not created until @ref Initialize is called.
      *
-     * @param params @ref Renderer::Parameters
+     * @param params @ref Renderer::Parameters "Initialization parameters"
+     * for constructing the renderer.
      */
     explicit Renderer(const Renderer::Parameters& params);
 
@@ -96,8 +96,13 @@ public:
     /**
      * @brief Sets the active viewport rectangle in pixels.
      *
-     * Call this when the framebuffer size changes or when rendering to a
-     * sub-rectangle of the target.
+     * Adjusts the area of the framebuffer that subsequent draw calls will target.
+     * This should be called whenever the window or framebuffer size changes, or
+     * when rendering to a specific sub-region of the target surface.
+     *
+     * When using the runtime-managed rendering path, the viewport is updated
+     * automatically. In manual initialization flows, you are responsible for
+     * calling this method whenever the framebuffer dimensions change.
      *
      * @param x Left pixel of the viewport.
      * @param y Bottom pixel of the viewport.
@@ -124,7 +129,7 @@ public:
      */
     [[nodiscard]] auto RenderedObjectsPerFrame() const -> size_t;
 
-    virtual ~Renderer() noexcept;
+    virtual ~Renderer();
 
 private:
     /// @cond INTERNAL

@@ -101,7 +101,7 @@ public:
         return Vector3 { -mat[2][0], -mat[2][1], -mat[2][2] };
     }
 
-    virtual ~Camera() noexcept = default;
+    virtual ~Camera() = default;
 };
 
 }

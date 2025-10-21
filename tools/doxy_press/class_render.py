@@ -106,6 +106,7 @@ def _render_inner_class(inner_class: ClassDoc, resolver: Resolver):
         member_values += f'| {brief}\n'
 
     brief = _join_paragraphs(inner_class.brief)
+    details = _join_paragraphs(inner_class.details)
     badge = '<Badge type="info" text="struct" />'
     anchor = resolver.member_anchor(inner_class.id)
 
@@ -115,7 +116,7 @@ def _render_inner_class(inner_class: ClassDoc, resolver: Resolver):
         f'### <span class="name">{inner_class.name}</span> {badge} {anchor}\n'
         f'  </div>\n'
         f'  <div class="description">\n\n'
-        f'{brief}\n\n'
+        f'{brief} \n\n {details}\n\n'
         f'{member_values}\n'
         f'  </div>\n'
         f'</div>\n\n'
