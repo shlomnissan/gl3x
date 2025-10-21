@@ -1,5 +1,5 @@
 from __future__ import annotations
-from ..model import Inventory, Group, Class
+from ..model import Inventory, Group, Class, Member
 from ..strings import slugify, remove_qualifications
 from .xml_utilities import element_text
 from pathlib import Path
@@ -40,11 +40,41 @@ def _load_classes(inventory: Inventory, class_ids: List[str], xml_root: Path):
             id = cid,
             name = name,
             display = remove_qualifications(name),
-            group_id = inventory.class_to_group.get(cid, "__ungrouped__"),
+            group_id = inventory.class_to_group.get(cid),
             slug = slugify(remove_qualifications(name))
         )
 
+        _load_class_members(inventory, el)
+
         inventory.classes[cls.id] = cls
+
+def _load_class_members(inventory: Inventory, el: ET.Element):
+    cid = el.get("refid")
+
+    for inner_class in el.findall("innerclass"):
+        mid = inner_class.get("refid")
+        if mid is None: continue
+
+        inventory.members[mid] = Member(
+            id = mid,
+            parent_id = cid,
+            name = element_text(inner_class),
+            kind = "struct",
+            args = None
+        )
+
+    for member in el.findall(".//memberdef"):
+        mid = member.get("id")
+        if mid is None: continue
+
+        args = member.findtext("argsstring")
+        inventory.members[mid] = Member(
+            id = mid,
+            parent_id = cid,
+            name = member.findtext("name").strip(),
+            kind = member.get("kind"),
+            args = args.strip() if args else None
+        )
 
 def load_inventory(xml_root: Path):
     inventory = Inventory()
