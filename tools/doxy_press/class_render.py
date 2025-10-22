@@ -31,6 +31,7 @@ def _render_property(prop: VarDoc, resolver: Resolver):
     type_resolved = escape(prop.type.as_resolved_text(resolver), quote=False)
     default_val = f'{{ {prop.initializer} }}' if prop.initializer else ""
     desc = _join_paragraphs(prop.brief)
+    details = _join_paragraphs(prop.details)
 
     code_block = (
         f'  ```cpp\n'
@@ -45,7 +46,7 @@ def _render_property(prop: VarDoc, resolver: Resolver):
         f'{code_block}'
         f'  </div>\n'
         f'  <div class="description">\n\n'
-        f'{desc}\n'
+        f'{desc} {details}\n'
         f'  </div>\n'
         f'</div>'
     )
@@ -161,7 +162,7 @@ def render_class(doc: ClassDoc, resolver: Resolver) -> str:
     lines: List[str] = []
 
     lines.append(f"# {doc.display}\n\n")
-    lines.append(f'<div class="docblock docblock-class"><div class="description">')
+    lines.append(f'<div class="docblock docblock-class"><div class="description">\n')
     if doc.brief:
         lines.append(_join_paragraphs(doc.brief))
 

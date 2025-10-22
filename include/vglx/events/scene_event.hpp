@@ -54,10 +54,10 @@ struct VGLX_EXPORT SceneEvent : public Event {
     /**
      * @brief Returns event type.
      *
-     * @return EventType::Scene
+     * @return Event::Type::Scene
      */
-    auto GetType() const -> EventType override {
-        return EventType::Scene;
+    auto GetType() const -> Event::Type override {
+        return Event::Type::Scene;
     }
 };
 

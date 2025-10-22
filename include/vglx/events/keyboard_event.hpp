@@ -18,8 +18,8 @@ enum class Key;
 /**
  * @brief Event representing a keyboard key press or release.
  *
- * `KeyboardEvent` is dispatched when a key is pressed or released. Nodes can
- * handle this event by overriding the `OnKeyboardEvent()` method. The event
+ * @ref KeyboardEvent is dispatched when a key is pressed or released. Nodes can
+ * handle this event by overriding the @ref Node::OnKeyboardEvent method. The event
  * contains both the key involved and the type of interaction.
  *
  * @code
@@ -56,10 +56,10 @@ struct VGLX_EXPORT KeyboardEvent : public Event {
     /**
      * @brief Returns event type.
      *
-     * @return EventType::Keyboard
+     * @return Event::Type::Keyboard
      */
-    auto GetType() const -> EventType override {
-        return EventType::Keyboard;
+    auto GetType() const -> Event::Type override {
+        return Event::Type::Keyboard;
     }
 };
 

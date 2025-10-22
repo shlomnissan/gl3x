@@ -12,55 +12,51 @@
 namespace vglx {
 
 /**
- * @brief Represents available event types.
- * @ingroup EventsGroup
- */
-enum class EventType {
-    Keyboard,
-    Mouse,
-    Scene,
-    Window,
-    Undefined
-};
-
-/**
- * @brief Abstract base class for event types.
+ * @brief Base type for all event objects.
  *
- * Not intended for direct use.
+ * The @ref Event struct defines the core interface for all event types.
+ * Derived event types extend this interface with additional data specific
+ * to their category.
+ *
+ * Events are typically dispatched through the @ref Node hierarchy, where nodes
+ * can override event handlers and optionally mark events as handled.
  *
  * @ingroup EventsGroup
  */
 struct VGLX_EXPORT Event {
+    /**
+     * @brief Enumerates all event types.
+     *
+     * Each event subclass identifies its type through @ref Event::GetType,
+     * allowing runtime checks to distinguish between different kinds of events.
+     */
+    enum class Type {
+        Keyboard, ///< Event triggered by keyboard input.
+        Mouse, ///< Event triggered by mouse input.
+        Scene, ///< Event related to scene updates or lifecycle.
+        Window, ///< Event related to window actions or resizing.
+        Undefined ///< Fallback for undefined or uninitialized event types.
+    };
+
     /**
      * @brief Indicates whether the event has been handled.
      *
      * When set to `true`, this flag prevents the event from propagating
      * further to other nodes in the scene graph. Handlers should set this
      * to `true` if no other node should respond to the event.
-     *
-     * @code
-     * auto OnKeyboardEvent(vglx::KeyboardEvent* event) -> void override {
-     *   if (event->key == vglx::Key::Escape) {
-     *     QuitApplication();
-     *     event->handled = true; // Stop further propagation
-     *   }
-     * }
-     * @endcode
      */
     bool handled {false};
 
     /**
-     * @brief Returns event type.
+     * @brief Returns the @ref Event::Type "default event" type.
      *
-     * @return EventType::Undefined
+     * Derived classes should override this to return their corresponding
+     * event type.
      */
-    [[nodiscard]] virtual auto GetType() const -> EventType {
-        return EventType::Undefined;
+    [[nodiscard]] virtual auto GetType() const -> Event::Type {
+        return Event::Type::Undefined;
     }
 
-    /**
-     * @brief Destructor.
-     */
     virtual ~Event() = default;
 };
 

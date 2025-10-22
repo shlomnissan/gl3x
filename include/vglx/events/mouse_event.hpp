@@ -70,10 +70,10 @@ struct VGLX_EXPORT MouseEvent : public Event {
     /**
      * @brief Returns event type.
      *
-     * @return EventType::Mouse
+     * @return Event::Type::Mouse
      */
-    auto GetType() const -> EventType override {
-        return EventType::Mouse;
+    auto GetType() const -> Event::Type override {
+        return Event::Type::Mouse;
     }
 };
 

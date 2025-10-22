@@ -24,7 +24,7 @@ auto handle_node_updates(std::weak_ptr<Node> node, float delta) -> void {
 }
 
 auto handle_input_event(std::weak_ptr<Node> node, Event* event) -> void {
-    using enum EventType;
+    using enum Event::Type;
 
     // Events are propagated from the bottom of the scene graph to the top.
     // This allows nodes at the bottom of the graph to mark events as handled
@@ -49,7 +49,7 @@ struct Scene::Impl {
 };
 
 Scene::Scene() : impl_(std::make_unique<Impl>()) {
-    using enum EventType;
+    using enum Event::Type;
 
     impl_->event_listener = std::make_shared<EventListener>([&](Event* event) {
         auto type = event->GetType();
@@ -62,7 +62,7 @@ Scene::Scene() : impl_(std::make_unique<Impl>()) {
             }
         }
 
-        if (type == EventType::Scene) {
+        if (type == Event::Type::Scene) {
             auto e = static_cast<SceneEvent*>(event);
             if (e->type == SceneEvent::Type::NodeAdded && IsChild(e->node.get())) {
                 e->node->AttachRecursive(impl_->context);

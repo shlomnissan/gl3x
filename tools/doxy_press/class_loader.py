@@ -90,6 +90,7 @@ def _parse_variable(m: ET.Element) -> VarDoc:
         type=_parse_type(m.find("type")),
         initializer=_initializer_display(m.find("initializer")),
         brief=render_description(m.find("briefdescription")),
+        details=render_description(m.find("detaileddescription")),
         line=line
     )
 
