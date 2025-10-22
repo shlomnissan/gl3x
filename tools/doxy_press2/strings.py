@@ -12,5 +12,9 @@ def slugify(s: str) -> str:
     s = re.sub(r"_+", "_", s).strip("_")
     return (s or "x").lower()
 
+def remove_first_qualification(s) -> str:
+    parts = s.split("::", 1)
+    return parts[1] if len(parts) == 2 else s
+
 def remove_qualifications(s) -> str:
     return s.split("::")[-1] if "::" in s else s

@@ -31,3 +31,17 @@ class Inventory:
     classes: Dict[str, Class] = field(default_factory=dict)
     members: Dict[str, Member] = field(default_factory=dict)
     class_to_group: Dict[str, str] = field(default_factory=dict)
+
+@dataclass
+class Description:
+    brief: str
+    details: str
+
+@dataclass
+class ClassDoc:
+    id: str
+    name: str
+    display: str
+    base_class_id: Optional[str]
+    brief: str
+    details: str

@@ -2,6 +2,7 @@ from __future__ import annotations
 from ..model import Inventory
 from ..parse.class_loader import load_class
 from ..parse.xml_utilities import write_if_changed
+from ..render.class_page import render_class
 from pathlib import Path
 from typing import List
 
@@ -18,7 +19,7 @@ def emit_class_pages(inventory: Inventory, xml_dir: Path, root_dir: Path):
         output_path = output_dir / group_slug / f"{class_slug}.md"
         content = ""
 
-        load_class(cls.id, xml_dir)
+        content = render_class(load_class(inventory, cls.id, xml_dir))
         write_if_changed(output_path, content)
 
     return written
