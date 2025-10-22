@@ -5,7 +5,15 @@ from .xml_utilities import element_text
 from pathlib import Path
 from typing import  List
 
-import xml.etree.ElementTree as ET
+import hashlib, xml.etree.ElementTree as ET
+
+def _member_slug(name: str, kind: str, args: str | None):
+    slug = f"{kind}_{slugify(name)}"
+    if kind == "function" and args:
+        signature = f"{name}_{args}"
+        h = hashlib.sha1(signature.encode("utf-8")).hexdigest()[:8]
+        slug = slug = f"{kind}_{slugify(name)}_{h}"
+    return slug.replace("_", "-")
 
 def _load_groups(inventory: Inventory, group_ids: List[str], xml_root: Path):
     for gid in group_ids:
@@ -55,25 +63,28 @@ def _load_class_members(inventory: Inventory, el: ET.Element):
         mid = inner_class.get("refid")
         if mid is None: continue
 
+        name = element_text(inner_class)
+        kind = "struct"
         inventory.members[mid] = Member(
             id = mid,
             parent_id = cid,
-            name = element_text(inner_class),
-            kind = "struct",
-            args = None
+            name = name,
+            kind = kind,
+            slug = _member_slug(name, kind, None)
         )
 
     for member in el.findall(".//memberdef"):
         mid = member.get("id")
         if mid is None: continue
 
-        args = member.findtext("argsstring")
+        name = member.findtext("name").strip()
+        kind = member.get("kind")
         inventory.members[mid] = Member(
             id = mid,
             parent_id = cid,
-            name = member.findtext("name").strip(),
-            kind = member.get("kind"),
-            args = args.strip() if args else None
+            name = name,
+            kind = kind,
+            slug = _member_slug(name, kind, member.findtext("argsstring"))
         )
 
 def load_inventory(xml_root: Path):

@@ -23,7 +23,7 @@ class Member:
     parent_id: str
     name: str
     kind: str
-    args: Optional[str]
+    slug: str
 
 @dataclass
 class Inventory:
