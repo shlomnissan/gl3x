@@ -1,10 +1,11 @@
 from __future__ import annotations
+from ..resolver import Resolver
 from .xml_utilities import element_text
-from typing import List
+from typing import Optional, List
 
 import xml.etree.ElementTree as ET
 
-def _read_pieces(el: ET.Element, strip: bool = True):
+def _read_pieces(el: ET.Element, resolver: Optional[Resolver], strip: bool = True):
     output: List[str] = []
 
     def walk(node: ET.Element):
@@ -14,7 +15,11 @@ def _read_pieces(el: ET.Element, strip: bool = True):
         for child in node:
             tag = child.tag
             if tag == "ref":
-                output.append(element_text(child))
+                label = _read_pieces(child, resolver) or element_text(child)
+                if resolver:
+                    child_id = child.get("refid")
+                    label = resolver.id_to_url_with_label(child_id, label)
+                output.append(label)
             elif tag == "linebreak":
                 output.append("  \n")
             elif tag == "sp":
@@ -24,7 +29,7 @@ def _read_pieces(el: ET.Element, strip: bool = True):
             elif tag == "simplesect":
                 continue
             else:
-                output.append(_read_pieces(child, strip))
+                output.append(_read_pieces(child, resolver, strip))
 
             if child.tail:
                 output.append(child.tail)
@@ -35,11 +40,11 @@ def _read_pieces(el: ET.Element, strip: bool = True):
 def _read_program_listing(listing: ET.Element, lang: str = "cpp"):
     lines: List[str] = []
     for line in listing.findall("codeline"):
-        lines.append(_read_pieces(line, False))
+        lines.append(_read_pieces(line, None, False))
     return f"\n```{lang}\n{("\n".join(lines).rstrip("\n"))}\n```\n"
 
-def get_description(el: ET.Element):
-    brief = _read_pieces(el.find("briefdescription"))
-    details = _read_pieces(el.find("detaileddescription"))
+def get_description(el: ET.Element, resolver: Resolver):
+    brief = _read_pieces(el.find("briefdescription"), resolver)
+    details = _read_pieces(el.find("detaileddescription"), resolver)
 
     return [brief, details]

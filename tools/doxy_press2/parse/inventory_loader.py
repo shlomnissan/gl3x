@@ -57,7 +57,7 @@ def _load_classes(inventory: Inventory, class_ids: List[str], xml_root: Path):
         inventory.classes[cls.id] = cls
 
 def _load_class_members(inventory: Inventory, el: ET.Element):
-    cid = el.get("refid")
+    cid = el.get("id")
 
     for inner_class in el.findall("innerclass"):
         mid = inner_class.get("refid")
