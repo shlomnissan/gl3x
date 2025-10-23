@@ -1,7 +1,6 @@
 from __future__ import annotations
 from ..model import Type, VarDoc
-from ..parse.xml_utilities import element_text
-from ..parse.description_parser import get_description
+from ..parse.xml_utilities import element_text, read_pieces
 from ..resolver import Resolver
 
 import xml.etree.ElementTree as ET
@@ -20,8 +19,13 @@ def _initializer(el: ET.Element):
 
     return ""
 
+def parse_description(el: ET.Element, resolver: Resolver):
+    brief = read_pieces(el.find("briefdescription"), resolver)
+    details = read_pieces(el.find("detaileddescription"), resolver)
+    return [brief, details]
+
 def parse_variable(el: ET.Element, resolver: Resolver):
-    [brief, details] = get_description(el, resolver)
+    [brief, details] = parse_description(el, resolver)
     location = el.find("location")
     return VarDoc (
         id = el.get("id"),

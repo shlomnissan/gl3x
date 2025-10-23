@@ -1,7 +1,7 @@
 from __future__ import annotations
 from ..model import Inventory, ClassDoc
-from ..parse.description_parser import get_description
 from ..parse.parse_pieces import (
+    parse_description,
     parse_variable
 )
 from ..resolver import Resolver
@@ -21,7 +21,7 @@ def load_class(inventory: Inventory, id: str, xml_dir: Path, resolver: Resolver,
         base_class_id = base.get("refid")
         if base_class_id: break
 
-    [brief, details] = get_description(el, resolver)
+    [brief, details] = parse_description(el, resolver)
 
     class_doc = ClassDoc(
         id = id,
