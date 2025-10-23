@@ -38,6 +38,21 @@ class Description:
     details: str
 
 @dataclass
+class Type:
+    id: Optional[str]
+    label: str
+
+@dataclass
+class VarDoc:
+    id: str
+    name: str
+    type: Type
+    init_value: Optional[str]
+    brief: str
+    details: str
+    line: int
+
+@dataclass
 class ClassDoc:
     id: str
     name: str
@@ -45,3 +60,5 @@ class ClassDoc:
     base_class_id: Optional[str]
     brief: str
     details: str
+    inner_classes: List[ClassDoc] = field(default_factory=list)
+    variables: List[VarDoc] = field(default_factory=list)

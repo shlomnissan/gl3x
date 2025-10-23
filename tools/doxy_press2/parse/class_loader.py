@@ -1,12 +1,15 @@
 from __future__ import annotations
 from ..model import Inventory, ClassDoc
 from ..parse.description_parser import get_description
+from ..parse.parse_pieces import (
+    parse_variable
+)
 from ..resolver import Resolver
 from pathlib import Path
 
 import xml.etree.ElementTree as ET
 
-def load_class(inventory: Inventory, id: str, xml_dir: Path, resolver: Resolver):
+def load_class(inventory: Inventory, id: str, xml_dir: Path, resolver: Resolver, sort_variables = False):
     root = ET.parse(xml_dir / f"{id}.xml").getroot()
     el = root.find("compounddef")
     if el is None:
@@ -28,5 +31,28 @@ def load_class(inventory: Inventory, id: str, xml_dir: Path, resolver: Resolver)
         brief = brief,
         details = details
     )
+
+    for inner_class in el.findall("innerclass"):
+        inner_class_id = inner_class.get("refid")
+        if inner_class_id:
+            class_doc.inner_classes.append(
+                load_class(
+                    inventory,
+                    inner_class_id,
+                    xml_dir,
+                    resolver,
+                    True
+                )
+            )
+
+    for section in el.findall("sectiondef"):
+        for member in section.findall("memberdef"):
+            # skip non-public members
+            if member.get("prot") != "public":
+                continue
+
+            kind = member.get("kind")
+            if kind == "variable":
+                class_doc.variables.append(parse_variable(member, resolver))
 
     return class_doc
