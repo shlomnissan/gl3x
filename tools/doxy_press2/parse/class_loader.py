@@ -55,4 +55,7 @@ def load_class(inventory: Inventory, id: str, xml_dir: Path, resolver: Resolver,
             if kind == "variable":
                 class_doc.variables.append(parse_variable(member, resolver))
 
+    if sort_variables:
+        class_doc.variables.sort(key=lambda v: v.line)
+
     return class_doc

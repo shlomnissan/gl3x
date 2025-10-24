@@ -33,3 +33,8 @@ class Resolver:
     def class_id_to_url(self, id: str):
         cls = self.inventory.classes.get(id)
         return self.id_to_url_with_label(id, cls.display) if cls else None
+
+    def member_id_to_anchor(self, id: str):
+        member = self.inventory.members.get(id)
+        if member is None: return ""
+        return f"{{#{member.slug}}}"
