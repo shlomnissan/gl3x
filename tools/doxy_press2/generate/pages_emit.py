@@ -23,5 +23,6 @@ def emit_class_pages(inventory: Inventory, xml_dir: Path, root_dir: Path):
         content = render_class(class_doc, resolver)
 
         write_if_changed(output_path, content)
+        written.append(output_path)
 
     return written

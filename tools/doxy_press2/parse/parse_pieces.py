@@ -1,23 +1,40 @@
 from __future__ import annotations
-from ..model import Type, VarDoc
+from ..model import Type, TypePart, VarDoc
 from ..parse.xml_utilities import element_text, read_pieces
 from ..resolver import Resolver
 
-import xml.etree.ElementTree as ET
+import re, xml.etree.ElementTree as ET
 
 def _parse_type(el: ET.Element):
-    if el is None: return
+    output = Type()
+    if el is None: return output
 
-    # TODO: implement parse type
+    if el.text:
+        output.parts.append(TypePart(text = el.text.strip()))
 
-    return Type("", "")
+    for child in el:
+        if child.tag == "ref":
+            text = element_text(child)
+            cid = child.get("refid")
+            output.parts.append(TypePart(text = text, id = cid))
+        if child.tail:
+            output.parts.append(TypePart(text = child.tail))
+
+    return output
 
 def _initializer(el: ET.Element):
     if el is None: return
 
-    # TODO: implement initializer
+    output = read_pieces(el, None)
+    match = re.match(r'^\{\s*(.*)\s*\}$', output)
+    if match:
+        output = match.group(1).strip() or ""
 
-    return ""
+    output = re.sub(r'^\s*=\s*', '', output)
+    if output == "" or output == "{}":
+        return None
+
+    return output
 
 def parse_description(el: ET.Element, resolver: Resolver):
     brief = read_pieces(el.find("briefdescription"), resolver)

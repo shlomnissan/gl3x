@@ -38,9 +38,13 @@ class Description:
     details: str
 
 @dataclass
+class TypePart:
+    text: str
+    id: Optional[str] = None
+
+@dataclass
 class Type:
-    id: Optional[str]
-    label: str
+    parts: List[TypePart] = field(default_factory=list)
 
 @dataclass
 class VarDoc:

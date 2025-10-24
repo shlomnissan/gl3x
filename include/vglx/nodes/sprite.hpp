@@ -68,7 +68,7 @@ public:
      * The sprite's world-space position corresponds to this anchor point.
      * Rotation is applied around this pivot.
      */
-    Vector2 anchor = {0.5f, 0.5f};
+    Vector2 anchor = Vector2 {0.5f, 0.5f};
 
     /**
      * @brief Constructs a sprite with an optional material.
