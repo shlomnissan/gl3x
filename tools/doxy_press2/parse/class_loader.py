@@ -3,13 +3,32 @@ from ..model import Inventory, ClassDoc
 from ..parse.parse_pieces import (
     parse_description,
     parse_enum,
+    parse_function,
     parse_typedef,
     parse_variable,
 )
 from ..resolver import Resolver
+from .xml_utilities import element_text, bool_attr
 from pathlib import Path
 
 import xml.etree.ElementTree as ET
+
+def _is_default_or_deleted(el: ET.Element):
+    definition = el.findtext("definition", "") or ""
+    if "=default" in definition or "=delete" in definition: return True
+    argsstring = el.findtext("argsstring", "") or ""
+    if "=default" in argsstring or "=delete" in argsstring: return True
+    return False
+
+def _is_destructor(el: ET.Element):
+    element_text(el.find("name")).startswith("~")
+
+def _is_constructor(el: ET.Element):
+    parts = element_text(el.find("qualifiedname")).split("::")
+    return len(parts) > 1 and parts[-1] == parts[-2]
+
+def _is_factory(el: ET.Element):
+    return bool_attr(el, "static") and element_text(el.find("name")) == "Create"
 
 def load_class(inventory: Inventory, id: str, xml_dir: Path, resolver: Resolver, sort_variables = False):
     root = ET.parse(xml_dir / f"{id}.xml").getroot()
@@ -60,6 +79,15 @@ def load_class(inventory: Inventory, id: str, xml_dir: Path, resolver: Resolver,
                 class_doc.enums.append(parse_enum(member, resolver))
             if kind == "typedef":
                 class_doc.typedefs.append(parse_typedef(member, resolver))
+            if kind == "function":
+                if _is_default_or_deleted(member) or _is_destructor(member):
+                    continue
+                if _is_constructor(member):
+                    class_doc.constructors.append(parse_function(member, resolver))
+                elif _is_factory(member):
+                    class_doc.factories.append(parse_function(member, resolver))
+                else:
+                    class_doc.functions.append(parse_function(member, resolver))
 
     if sort_variables:
         class_doc.variables.sort(key=lambda v: v.line)

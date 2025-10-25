@@ -2,6 +2,7 @@ from __future__ import annotations
 from ..model import (
     ClassDoc,
     EnumDoc,
+    FunctionDoc,
     Type,
     TypedefDoc,
     VarDoc,
@@ -31,8 +32,27 @@ def render_variable(v: VarDoc, resolver: Resolver):
         f"{resolver.member_id_to_anchor(v.id)}\n"
         f"</div>"
         f"<div class=\"description\">\n\n"
-        f"{v.brief}\n\n {v.details}\n"
+        f"{v.brief} {v.details}\n"
         f"```cpp\n{_t_str(v.type)} {v.name} {{{v.init_value}}}\n```\n"
+        f"</div>"
+        f"</div>"
+    )
+
+def render_function(f: FunctionDoc, resolver: Resolver):
+    badge = ""
+    if f.virtual in ("virtual", "pure-virtual"):
+        badge = _badge("pure virtual" if f.virtual == "pure-virtual" else "virtual", "info")
+
+    return (
+        f"<div class=\"docblock\">"
+        f"<div class=\"definition\">\n\n"
+        f"### <span class=\"name\">{escape(f.name)}()</span> "
+        f"<span class=\"type\">{_t_resolved(f.type, resolver)}</span> "
+        f"{badge}"
+        f"{resolver.member_id_to_anchor(f.id)}\n"
+        f"</div>"
+        f"<div class=\"description\">\n\n"
+        f"{f.brief} {f.details}\n"
         f"</div>"
         f"</div>"
     )

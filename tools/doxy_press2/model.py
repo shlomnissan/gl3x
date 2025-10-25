@@ -75,6 +75,16 @@ class TypedefDoc:
     details: str
 
 @dataclass
+class FunctionDoc:
+    id: str
+    name: str
+    definition: str
+    type: Type
+    virtual: bool
+    brief: str
+    details: str
+
+@dataclass
 class ClassDoc:
     id: str
     name: str
@@ -83,6 +93,9 @@ class ClassDoc:
     brief: str
     details: str
     inner_classes: List[ClassDoc] = field(default_factory=list)
+    constructors: List[FunctionDoc] = field(default_factory=list)
+    factories: List[FunctionDoc] = field(default_factory=list)
+    functions: List[FunctionDoc] = field(default_factory=list)
     variables: List[VarDoc] = field(default_factory=list)
     enums: List[EnumDoc] = field(default_factory=list)
     typedefs: List[TypedefDoc] = field(default_factory=list)

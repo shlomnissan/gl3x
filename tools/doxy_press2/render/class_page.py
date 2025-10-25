@@ -2,6 +2,7 @@ from __future__ import annotations
 from ..model import ClassDoc
 from ..render.render_pieces import (
     render_enum,
+    render_function,
     render_inner_class,
     render_typedef,
     render_variable,
@@ -31,6 +32,17 @@ def render_class(c: ClassDoc, resolver: Resolver):
 
     lines += [_render_class_header(c, resolver)]
 
+    if c.constructors or c.factories:
+        lines += ["## Construction\n"]
+        if c.constructors:
+            lines += ["### Constructors", "<br/>"]
+            for cs in c.constructors:
+                lines += [render_function(cs, resolver), "\n"]
+        if c.factories:
+            lines += ["### Factories <Badge type='warning' text='preferred' />", "<br/>"]
+            for f in c.factories:
+                lines += [render_function(f, resolver), "\n"]
+
     if c.enums or c.inner_classes or c.typedefs:
         lines += ["## Types\n"]
         for enum_doc in c.enums:
@@ -43,6 +55,11 @@ def render_class(c: ClassDoc, resolver: Resolver):
     if c.variables:
         lines += ["## Properties\n"]
         for var_doc in c.variables:
-            lines += [render_variable(var_doc, resolver)]
+            lines += [render_variable(var_doc, resolver), "\n"]
+
+    if c.functions:
+        lines += ["## Functions\n"]
+        for func_doc in c.functions:
+            lines += [render_function(func_doc, resolver), "\n"]
 
     return "\n".join(lines)

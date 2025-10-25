@@ -1,12 +1,14 @@
 from __future__ import annotations
 from ..model import (
     EnumDoc,
+    FunctionDoc,
     Type,
     TypePart,
     TypedefDoc,
     VarDoc,
 )
 from ..parse.xml_utilities import element_text, read_pieces, bool_attr
+from ..strings import remove_first_qualification
 from ..resolver import Resolver
 from typing import Dict
 
@@ -17,7 +19,7 @@ def _parse_type(el: ET.Element):
     if el is None: return output
 
     if el.text:
-        output.parts.append(TypePart(text = el.text.strip()))
+        output.parts.append(TypePart(text = element_text(el)))
 
     for child in el:
         if child.tag == "ref":
@@ -25,7 +27,10 @@ def _parse_type(el: ET.Element):
             cid = child.get("refid")
             output.parts.append(TypePart(text = text, id = cid))
         if child.tail:
-            output.parts.append(TypePart(text = child.tail))
+            output.parts.append(TypePart(text = child.tail.strip()))
+
+    # noise filter: drop specifiers
+    output.parts = [p for p in output.parts if p.text not in ("override", "=0")]
 
     return output
 
@@ -61,13 +66,30 @@ def parse_variable(el: ET.Element, resolver: Resolver):
         line = location.get("line")
     )
 
+def parse_function(el: ET.Element, resolver: Resolver):
+    [brief, details] = parse_description(el, resolver)
+    name = element_text(el.find("name"))
+    ret_type = el.find(".//simplesect[@kind='return']/para") or el.find("type")
+    if bool_attr(el, "static"):
+        name = remove_first_qualification(element_text(el.find("qualifiedname")))
+
+    return FunctionDoc(
+        id = el.get("id"),
+        name = name,
+        definition = el.find("definition").text + element_text(el.find("argsstring")),
+        type = _parse_type(ret_type),
+        virtual = el.get("virt"),
+        brief = brief,
+        details = details
+    )
+
 def parse_enum(el: ET.Element, resolver: Resolver):
     [brief, details] = parse_description(el, resolver)
 
     values: Dict[str, str] = {}
     for v in el.findall("enumvalue"):
         name = element_text(v.find("name"))
-        vbrief = read_pieces(el.find("briefdescription"), resolver)
+        vbrief = read_pieces(v.find("briefdescription"), resolver)
         values[name] = vbrief
 
     return EnumDoc(
