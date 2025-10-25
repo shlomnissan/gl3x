@@ -16,6 +16,9 @@ def element_text(el: ET.Element, default: str = "") -> str:
         return default
     return el.text.strip()
 
+def bool_attr(el: ET.Element, name: str):
+    return (el.get(name) or "").lower() in ("yes", "true", "1")
+
 def write_if_changed(path: Path, content: str) -> bool:
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists() and path.read_text(encoding="utf-8") == content:

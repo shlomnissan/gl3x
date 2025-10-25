@@ -1,7 +1,14 @@
 from __future__ import annotations
-from ..model import Type, TypePart, VarDoc
-from ..parse.xml_utilities import element_text, read_pieces
+from ..model import (
+    EnumDoc,
+    Type,
+    TypePart,
+    TypedefDoc,
+    VarDoc,
+)
+from ..parse.xml_utilities import element_text, read_pieces, bool_attr
 from ..resolver import Resolver
+from typing import Dict
 
 import re, xml.etree.ElementTree as ET
 
@@ -52,4 +59,33 @@ def parse_variable(el: ET.Element, resolver: Resolver):
         brief = brief,
         details = details,
         line = location.get("line")
+    )
+
+def parse_enum(el: ET.Element, resolver: Resolver):
+    [brief, details] = parse_description(el, resolver)
+
+    values: Dict[str, str] = {}
+    for v in el.findall("enumvalue"):
+        name = element_text(v.find("name"))
+        vbrief = read_pieces(el.find("briefdescription"), resolver)
+        values[name] = vbrief
+
+    return EnumDoc(
+        id = el.get("id"),
+        name = element_text(el.find("name")),
+        scoped = bool_attr(el, "scoped"),
+        brief = brief,
+        details = details,
+        values = values
+    )
+
+def parse_typedef(el: ET.Element, resolver: Resolver):
+    [brief, details] = parse_description(el, resolver)
+    return TypedefDoc(
+        id = el.get("id"),
+        name = element_text(el.find("name")),
+        definition = element_text(el.find("definition")),
+        type = _parse_type(el.find("type")),
+        brief = brief,
+        details = details
     )

@@ -1,7 +1,8 @@
 from __future__ import annotations
 from ..model import ClassDoc
 from ..render.render_pieces import (
-    render_variable
+    render_typedef,
+    render_variable,
 )
 from ..resolver import Resolver
 from typing import List
@@ -27,6 +28,12 @@ def render_class(c: ClassDoc, resolver: Resolver):
     lines: List[str] = []
 
     lines += [_render_class_header(c, resolver)]
+
+    if c.enums or c.inner_classes or c.typedefs:
+        lines += ["## Types\n"]
+        for typedef_doc in c.typedefs:
+            lines += [render_typedef(typedef_doc, resolver)]
+            lines += "\n"
 
     if c.variables:
         lines += ["## Properties\n"]

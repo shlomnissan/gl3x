@@ -57,6 +57,24 @@ class VarDoc:
     line: int
 
 @dataclass
+class EnumDoc:
+    id: str
+    name: str
+    scoped: bool
+    brief: str
+    details: str
+    values: Dict[str, str] = field(default_factory=dict)
+
+@dataclass
+class TypedefDoc:
+    id: str
+    name: str
+    definition: str
+    type: Type
+    brief: str
+    details: str
+
+@dataclass
 class ClassDoc:
     id: str
     name: str
@@ -66,3 +84,5 @@ class ClassDoc:
     details: str
     inner_classes: List[ClassDoc] = field(default_factory=list)
     variables: List[VarDoc] = field(default_factory=list)
+    enums: List[EnumDoc] = field(default_factory=list)
+    typedefs: List[TypedefDoc] = field(default_factory=list)

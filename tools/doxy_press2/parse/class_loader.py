@@ -2,7 +2,9 @@ from __future__ import annotations
 from ..model import Inventory, ClassDoc
 from ..parse.parse_pieces import (
     parse_description,
-    parse_variable
+    parse_enum,
+    parse_typedef,
+    parse_variable,
 )
 from ..resolver import Resolver
 from pathlib import Path
@@ -54,6 +56,10 @@ def load_class(inventory: Inventory, id: str, xml_dir: Path, resolver: Resolver,
             kind = member.get("kind")
             if kind == "variable":
                 class_doc.variables.append(parse_variable(member, resolver))
+            if kind == "enum":
+                class_doc.enums.append(parse_enum(member, resolver))
+            if kind == "typedef":
+                class_doc.typedefs.append(parse_typedef(member, resolver))
 
     if sort_variables:
         class_doc.variables.sort(key=lambda v: v.line)
