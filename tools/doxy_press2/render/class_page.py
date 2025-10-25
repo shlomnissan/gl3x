@@ -1,6 +1,8 @@
 from __future__ import annotations
 from ..model import ClassDoc
 from ..render.render_pieces import (
+    render_enum,
+    render_inner_class,
     render_typedef,
     render_variable,
 )
@@ -31,9 +33,12 @@ def render_class(c: ClassDoc, resolver: Resolver):
 
     if c.enums or c.inner_classes or c.typedefs:
         lines += ["## Types\n"]
+        for enum_doc in c.enums:
+            lines += [render_enum(enum_doc, resolver), "\n"]
+        for class_doc in c.inner_classes:
+            lines += [render_inner_class(class_doc, resolver), "\n"]
         for typedef_doc in c.typedefs:
-            lines += [render_typedef(typedef_doc, resolver)]
-            lines += "\n"
+            lines += [render_typedef(typedef_doc, resolver), "\n"]
 
     if c.variables:
         lines += ["## Properties\n"]

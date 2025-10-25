@@ -1,10 +1,13 @@
 from __future__ import annotations
 from ..model import (
+    ClassDoc,
+    EnumDoc,
     Type,
     TypedefDoc,
     VarDoc,
 )
 from ..resolver import Resolver
+from ..strings import remove_first_qualification
 from html import escape
 
 def _t_resolved(t: Type, resolver: Resolver):
@@ -30,6 +33,49 @@ def render_variable(v: VarDoc, resolver: Resolver):
         f"<div class=\"description\">\n\n"
         f"{v.brief}\n\n {v.details}\n"
         f"```cpp\n{_t_str(v.type)} {v.name} {{{v.init_value}}}\n```\n"
+        f"</div>"
+        f"</div>"
+    )
+
+def render_enum(e: EnumDoc, resolver: Resolver):
+    badge = "scoped enum" if e.scoped else "enum"
+    qualified_name = remove_first_qualification(e.name)
+    table = "|Value|Description|\n|---|---|\n"
+    for val, desc in e.values.items():
+        table += f"| <span class=\"type\">{val}</span> | {desc}\n"
+
+    return (
+        f"<div class=\"docblock\">"
+        f"<div class=\"definition\">\n\n"
+        f"### <span class=\"name\">{qualified_name}</span> "
+        f"{_badge(badge, "info")}"
+        f"{resolver.member_id_to_anchor(e.id)}\n"
+        f"</div>"
+        f"<div class=\"description\">\n\n"
+        f"{e.brief}\n\n {e.details}\n"
+        f"{table}"
+        f"</div>"
+        f"</div>"
+    )
+
+def render_inner_class(c: ClassDoc, resolver: Resolver):
+    qualified_name = remove_first_qualification(c.name)
+    table = "|Parameter|Description|\n|---|---|\n"
+    for v in c.variables:
+        table += f"<span class=\"type\">{v.name}</span> "
+        table += f"<span class=\"inner-type\">{_t_resolved(v.type, resolver)}</span> "
+        table += f"| {v.brief}\n"
+
+    return (
+        f"<div class=\"docblock\">"
+        f"<div class=\"definition\">\n\n"
+        f"### <span class=\"name\">{qualified_name}</span> "
+        f"{_badge("struct", "info")}"
+        f"{resolver.member_id_to_anchor(c.id)}\n"
+        f"</div>"
+        f"<div class=\"description\">\n\n"
+        f"{c.brief}\n\n {c.details}\n"
+        f"{table}"
         f"</div>"
         f"</div>"
     )
