@@ -1,39 +1,40 @@
 from __future__ import annotations
-
-from typing import Optional, Dict
-from .model import Inventory, slugify
+from .model import Inventory
+from typing import Dict
 
 class Resolver:
-    def __init__(self, inv: Inventory, base: str = "/reference/"):
-        self.inv = inv
+    def __init__(self, inventory: Inventory, base: str = "/reference/"):
+        self.inventory = inventory
         self.base = base.rstrip("/") + "/"
 
-        m: Dict[str, str] = {}
-        for group in inv.groups.values():
-            group_slug = group.slug or slugify(group.name)
+        id_to_url: Dict[str, str] = {}
+
+        for group in self.inventory.groups.values():
+            group_slug = group.slug
             for class_id in group.class_ids:
-                c = inv.classes.get(class_id)
-                if c: m[c.id] = f"{self.base}{group_slug}/{c.slug}"
+                cls = inventory.classes.get(class_id)
+                id_to_url[cls.id] = f"{self.base}{group_slug}/{cls.slug}"
 
-        for member in inv.members:
-            member_values = inv.members.get(member)
-            base_url = m.get(member_values[0])
-            if base_url:
-                m[member] = f'{base_url}#{member_values[1]}'
+        for member in self.inventory.members.values():
+            parent_class = inventory.classes.get(member.parent_id)
+            if parent_class is not None:
+                class_url = id_to_url.get(parent_class.id)
+                id_to_url[member.id] = f"{class_url}#{member.slug}"
 
-        self._refid_to_url = m
+        self._id_to_url = id_to_url
 
-    def refid_url(self, refid: str) -> Optional[str]:
-       return self._refid_to_url.get(refid)
+    def id_to_url(self, id: str):
+       return self._id_to_url.get(id)
 
-    def refid_link_with_class_name(self, refid: str) -> Optional[str]:
-        c = self.inv.classes.get(refid)
-        return self.refid_link_with_label(refid, c.display)
-
-    def refid_link_with_label(self, refid: str, label: str) -> Optional[str]:
-        url = self.refid_url(refid)
+    def id_to_url_with_label(self, id: str, label: str):
+        url = self._id_to_url.get(id)
         return f"[{label}]({url})" if label and url else label
 
-    def member_anchor(self, refid: str) -> Optional[str]:
-        idx = self.inv.members[refid]
-        return f'{{#{idx[1]}}}' if idx and len(idx) > 1 else ""
+    def class_id_to_url(self, id: str):
+        cls = self.inventory.classes.get(id)
+        return self.id_to_url_with_label(id, cls.display) if cls else None
+
+    def member_id_to_anchor(self, id: str):
+        member = self.inventory.members.get(id)
+        if member is None: return ""
+        return f"{{#{member.slug}}}"

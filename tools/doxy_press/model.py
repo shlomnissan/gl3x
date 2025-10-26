@@ -1,49 +1,14 @@
 from __future__ import annotations
-
 from dataclasses import dataclass, field
-from typing import Dict, Optional, List, Tuple
-
-import hashlib
-import re
-
-_slug_safe = re.compile(r"[^a-z0-9\-]+")
-_camel_re1 = re.compile(r"(.)([A-Z][a-z]+)")
-_camel_re2 = re.compile(r"([a-z])([A-Z])")
-
-def snake_slug(s: str) -> str:
-    s = s.replace("::", "_")
-    s = _camel_re1.sub(r"\1_\2", s)
-    s = _camel_re2.sub(r"\1_\2", s)
-    s = re.sub(r"[\s\-]+", "_", s)
-    s = re.sub(r"\W+", "_", s, flags=re.ASCII)
-    s = re.sub(r"_+", "_", s).strip("_")
-    return (s or "x").lower()
-
-def slugify(s: str) -> str:
-    s = s.strip().lower()
-    s = s.replace("::", "-")
-    s = re.sub(r"\s+", "-", s)
-    s = _slug_safe.sub("-", s)
-    s = re.sub(r"-{2,}", "-", s).strip("-")
-    return s or "x"
-
-def _short_hash(s: str, n: int = 6) -> str:
-    return hashlib.sha1(s.encode("utf-8")).hexdigest()[:n]
-
-def remove_first_qualification(s) -> str:
-    parts = s.split("::", 1)
-    return parts[1] if len(parts) == 2 else s
-
-def remove_all_qualifications(s) -> str:
-    return s.split("::")[-1] if "::" in s else s
+from typing import Dict, Optional, List
 
 @dataclass
 class Class:
     id: str
     name: str
     display: str
-    group_id: Optional[str] = None
-    slug: str = ""
+    slug: str
+    group_id: Optional[str]
 
 @dataclass
 class Group:
@@ -53,29 +18,92 @@ class Group:
     class_ids: List[str] = field(default_factory=list)
 
 @dataclass
+class Member:
+    id: str
+    parent_id: str
+    name: str
+    kind: str
+    slug: str
+
+@dataclass
 class Inventory:
     groups: Dict[str, Group] = field(default_factory=dict)
     classes: Dict[str, Class] = field(default_factory=dict)
-    members: Dict[str, Tuple[str, str]] = field(default_factory=dict)
+    members: Dict[str, Member] = field(default_factory=dict)
+    class_to_group: Dict[str, str] = field(default_factory=dict)
 
-    def assign_class_slugs(self) -> None:
-        grouped: Dict[str, List[Class]] = {}
-        for c in self.classes.values():
-            gid = c.group_id or "_ungrouped"
-            grouped.setdefault(gid, []).append(c)
+@dataclass
+class Description:
+    brief: str
+    details: str
 
-        for gid, cls_list in grouped.items():
-            used = set()
-            for c in sorted(cls_list, key=lambda x: (x.display.lower(), x.name.lower())):
-                base = snake_slug(c.display)
-                slug = base
-                if slug in used:
-                    ns_hint = ""
-                    if "::" in c.name:
-                        ns_hint = c.name.split("::")[-2]
-                        ns_hint = slugify(ns_hint)
-                        slug = f"{base}_{ns_hint}"
-                if slug in used:
-                    slug = f"{base}-{_short_hash(c.name)}"
-                c.slug = slug
-                used.add(slug)
+@dataclass
+class TypePart:
+    text: str
+    id: Optional[str] = None
+
+@dataclass
+class Type:
+    parts: List[TypePart] = field(default_factory=list)
+
+@dataclass
+class VarDoc:
+    id: str
+    name: str
+    type: Type
+    init_value: Optional[str]
+    brief: str
+    details: str
+    line: int
+
+@dataclass
+class EnumDoc:
+    id: str
+    name: str
+    scoped: bool
+    brief: str
+    details: str
+    values: Dict[str, str] = field(default_factory=dict)
+
+@dataclass
+class TypedefDoc:
+    id: str
+    name: str
+    definition: str
+    type: Type
+    brief: str
+    details: str
+
+@dataclass
+class ParamDoc:
+    name: str
+    type: Type
+    brief: str
+    init_value: str
+
+@dataclass
+class FunctionDoc:
+    id: str
+    name: str
+    definition: str
+    type: Type
+    virtual: bool
+    brief: str
+    details: str
+    params: List[ParamDoc] = field(default_factory=list)
+
+@dataclass
+class ClassDoc:
+    id: str
+    name: str
+    display: str
+    base_class_id: Optional[str]
+    brief: str
+    details: str
+    inner_classes: List[ClassDoc] = field(default_factory=list)
+    constructors: List[FunctionDoc] = field(default_factory=list)
+    factories: List[FunctionDoc] = field(default_factory=list)
+    functions: List[FunctionDoc] = field(default_factory=list)
+    variables: List[VarDoc] = field(default_factory=list)
+    enums: List[EnumDoc] = field(default_factory=list)
+    typedefs: List[TypedefDoc] = field(default_factory=list)

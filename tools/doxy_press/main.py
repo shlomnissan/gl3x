@@ -1,33 +1,32 @@
 from __future__ import annotations
-
+from .generate.sidebar_emit import emit_sidebar
+from .generate.pages_emit import emit_class_pages
+from .parse.inventory_loader import load_inventory
 from pathlib import Path
-from .parse_xml import load_inventory
-from .sidebar_emit import emit_reference_sidebar_ts
-from .pages_emit import emit_class_pages
 
 import argparse
 
-def main() -> int:
+def main():
     parser = argparse.ArgumentParser(
-        prog="python -m docs.doxymd.main",
+        prog="python -m docs.doxy_press.main",
         description="Generate VitePress markdown from Doxygen XML",
     )
     parser.add_argument("xml_dir", help="Path to Doxygen XML root (e.g., build/docs/xml)")
-    parser.add_argument("docs_root", help="Path to docs root (directory containing .vitepress/)")
+    parser.add_argument("root_dir", help="Path to docs root (directory containing .vitepress/)")
 
     args = parser.parse_args()
     xml_dir = Path(args.xml_dir)
-    docs_root = Path(args.docs_root)
+    root_dir = Path(args.root_dir)
 
     if not (xml_dir / "index.xml").exists():
         parser.error(f"{xml_dir}/index.xml not found")
 
-    inv = load_inventory(xml_dir)
+    inventory = load_inventory(xml_dir)
 
-    sidebar = emit_reference_sidebar_ts(inv, docs_root)
+    sidebar = emit_sidebar(inventory, root_dir)
     print(f"✅ wrote sidebar: {sidebar}")
 
-    written = emit_class_pages(inv, docs_root, xml_dir)
+    written = emit_class_pages(inventory, xml_dir, root_dir)
     print(f"✅ wrote {len(written)} class pages")
 
     return 0
