@@ -11,14 +11,21 @@ from ..resolver import Resolver
 from ..strings import remove_first_qualification
 from html import escape
 
+import re
+
+def _t_clean(s: str):
+    s = re.sub(r'\boverride\b', '', s)
+    s = re.sub(r'\s*=\s*0\b', '', s)
+    return re.sub(r'\s+', ' ', s).strip()
+
 def _t_resolved(t: Type, resolver: Resolver):
     output = ""
     for p in t.parts:
         output += resolver.id_to_url_with_label(p.id, p.text) if p.id else p.text
-    return output
+    return _t_clean(output)
 
 def _t_str(t: Type):
-    return "".join(p.text.strip() for p in t.parts)
+    return _t_clean("".join(p.text.strip() for p in t.parts))
 
 def _badge(s: str, t: str):
     return f"<Badge type=\"{t}\" text=\"{s}\" />"

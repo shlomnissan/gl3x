@@ -21,7 +21,7 @@ def _is_default_or_deleted(el: ET.Element):
     return False
 
 def _is_destructor(el: ET.Element):
-    element_text(el.find("name")).startswith("~")
+    return element_text(el.find("name")).startswith("~")
 
 def _is_constructor(el: ET.Element):
     parts = element_text(el.find("qualifiedname")).split("::")

@@ -101,10 +101,13 @@ def parse_function(el: ET.Element, resolver: Resolver):
             )
         )
 
+    definition = el.find("definition").text + element_text(el.find("argsstring"))
+    definition = re.sub(r'<\s*(.*?)\s*>', lambda m: f"<{re.sub(r'\s+', '', m.group(1))}>", definition)
+
     return FunctionDoc(
         id = el.get("id"),
         name = name,
-        definition = el.find("definition").text + element_text(el.find("argsstring")),
+        definition = definition,
         type = _parse_type(ret_type),
         virtual = el.get("virt"),
         brief = brief,

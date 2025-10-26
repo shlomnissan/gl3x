@@ -100,7 +100,7 @@ public:
     /**
      * @brief Updates the projection transform to match the new viewport size.
      *
-     * @note The behavior depends on the current resize policy.
+     * The behavior depends on the current resize policy.
      *
      * @param width Viewport width in pixels.
      * @param height Viewport height in pixels.

@@ -47,7 +47,7 @@ def read_pieces(el: ET.Element, resolver: Optional[Resolver], strip: bool = True
                 output.append(" ")
             elif tag == "programlisting":
                 output.append(_read_program_listing(child))
-            elif tag == "simplesect":
+            elif tag == "simplesect" or tag == "parameteritem":
                 continue
             else:
                 output.append(read_pieces(child, resolver, strip))
