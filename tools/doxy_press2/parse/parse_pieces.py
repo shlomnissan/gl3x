@@ -2,6 +2,7 @@ from __future__ import annotations
 from ..model import (
     EnumDoc,
     FunctionDoc,
+    ParamDoc,
     Type,
     TypePart,
     TypedefDoc,
@@ -48,6 +49,20 @@ def _initializer(el: ET.Element):
 
     return output
 
+def _function_param_brief_map(el: ET.Element, resolver: Resolver):
+    output: Dict[str, str] = {}
+
+    details = el.find("detaileddescription")
+    if details is None:
+        return output
+
+    for param in details.findall(".//parameterlist[@kind='param']/parameteritem"):
+        name = element_text(param.find("./parameternamelist/parametername"))
+        brief = read_pieces(param.find("parameterdescription"), resolver)
+        output[name] = brief
+
+    return output
+
 def parse_description(el: ET.Element, resolver: Resolver):
     brief = read_pieces(el.find("briefdescription"), resolver)
     details = read_pieces(el.find("detaileddescription"), resolver)
@@ -73,6 +88,19 @@ def parse_function(el: ET.Element, resolver: Resolver):
     if bool_attr(el, "static"):
         name = remove_first_qualification(element_text(el.find("qualifiedname")))
 
+    params = []
+    param_to_brief = _function_param_brief_map(el, resolver)
+    for param in el.findall("param"):
+        pname = element_text(param.find("declname"))
+        params.append(
+            ParamDoc(
+                name = pname,
+                type = _parse_type(param.find("type")),
+                brief = param_to_brief.get(pname) or "",
+                init_value = element_text(param.find("defval"))
+            )
+        )
+
     return FunctionDoc(
         id = el.get("id"),
         name = name,
@@ -80,7 +108,8 @@ def parse_function(el: ET.Element, resolver: Resolver):
         type = _parse_type(ret_type),
         virtual = el.get("virt"),
         brief = brief,
-        details = details
+        details = details,
+        params = params
     )
 
 def parse_enum(el: ET.Element, resolver: Resolver):

@@ -75,6 +75,13 @@ class TypedefDoc:
     details: str
 
 @dataclass
+class ParamDoc:
+    name: str
+    type: Type
+    brief: str
+    init_value: str
+
+@dataclass
 class FunctionDoc:
     id: str
     name: str
@@ -83,6 +90,7 @@ class FunctionDoc:
     virtual: bool
     brief: str
     details: str
+    params: List[ParamDoc] = field(default_factory=list)
 
 @dataclass
 class ClassDoc:

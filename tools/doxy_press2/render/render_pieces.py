@@ -39,6 +39,13 @@ def render_variable(v: VarDoc, resolver: Resolver):
     )
 
 def render_function(f: FunctionDoc, resolver: Resolver):
+    table = ""
+    if f.params:
+        table = "|Parameter|Description|\n|---|---|\n"
+        for p in f.params:
+            table += f"<span class=\"type\">{p.name}</span> "
+            table += f"| {p.brief}\n"
+
     badge = ""
     if f.virtual in ("virtual", "pure-virtual"):
         badge = _badge("pure virtual" if f.virtual == "pure-virtual" else "virtual", "info")
@@ -53,6 +60,8 @@ def render_function(f: FunctionDoc, resolver: Resolver):
         f"</div>"
         f"<div class=\"description\">\n\n"
         f"{f.brief} {f.details}\n"
+        f"```cpp\n{f.definition}\n```\n"
+        f"{table}"
         f"</div>"
         f"</div>"
     )
