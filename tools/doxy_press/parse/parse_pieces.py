@@ -63,6 +63,22 @@ def _function_param_brief_map(el: ET.Element, resolver: Resolver):
 
     return output
 
+def _function_definition(el: ET.Element):
+    s = el.find("definition").text + element_text(el.find("argsstring"))
+    # remove spaces inside angle brackets (e.g. < T > → <T>)
+    s = re.sub(r'<\s*(.*?)\s*>', lambda m: f"<{re.sub(r'\s+', '', m.group(1))}>", s)
+    # remove the first non-std qualifier (e.g. vglx::Foo → Foo)
+    s = re.sub(r'\b(?!std\b)(\w+)::', '', s, count=1)
+    # remove space between type and pointer/reference (e.g. Camera * → Camera*)
+    s = re.sub(r'\b(\w+)\s+([*&])', r'\1\2', s)
+    # move '=0' from after return type to the end of the declaration
+    s = re.sub(
+        r'(?P<ret>[\w:<>*&\s]+?)=0\s+(?P<name>\w+::\w+\s*\([^)]*\))',
+        lambda m: f"{m.group('ret').rstrip()} {m.group('name')} = 0",
+        s,
+    )
+    return s
+
 def parse_description(el: ET.Element, resolver: Resolver):
     brief = read_pieces(el.find("briefdescription"), resolver)
     details = read_pieces(el.find("detaileddescription"), resolver)
@@ -101,13 +117,10 @@ def parse_function(el: ET.Element, resolver: Resolver):
             )
         )
 
-    definition = el.find("definition").text + element_text(el.find("argsstring"))
-    definition = re.sub(r'<\s*(.*?)\s*>', lambda m: f"<{re.sub(r'\s+', '', m.group(1))}>", definition)
-
     return FunctionDoc(
         id = el.get("id"),
         name = name,
-        definition = definition,
+        definition = _function_definition(el),
         type = _parse_type(ret_type),
         virtual = el.get("virt"),
         brief = brief,

@@ -64,7 +64,7 @@ public:
     /**
      * @brief Computes a @ref Frustum from the combined projection and view matrices.
      *
-     * Useful for applying frustum culling to renderable nodes.
+     * Used for applying frustum culling to renderable nodes.
      */
     [[nodiscard]] auto GetFrustum() -> Frustum;
 
