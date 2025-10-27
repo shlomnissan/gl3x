@@ -27,3 +27,8 @@ def tighten_template_spaces(s: str):
         return f"<{inner}>"
 
     return re.sub(r'<\s*(.*?)\s*>', clean, s)
+
+def escape_angle_brackets(s: str) -> str:
+    s = re.sub(r'(?<!\\)<', r'\\<', s)
+    s = re.sub(r'(?<!\\)>', r'\\>', s)
+    return s

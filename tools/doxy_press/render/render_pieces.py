@@ -8,15 +8,22 @@ from ..model import (
     VarDoc,
 )
 from ..resolver import Resolver
-from ..strings import remove_first_qualification, tighten_template_spaces
+from ..strings import (
+    escape_angle_brackets,
+    remove_first_qualification,
+    tighten_template_spaces,
+)
 from html import escape
 
 import re
+
+
 
 def _t_clean(s: str):
     s = re.sub(r'\boverride\b', '', s)
     s = re.sub(r'\s*=\s*0\b', '', s)
     s = tighten_template_spaces(s)
+    s = escape_angle_brackets(s)
     return re.sub(r'\s+', ' ', s).strip()
 
 def _t_resolved(t: Type, resolver: Resolver):
