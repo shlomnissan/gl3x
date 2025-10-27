@@ -13,11 +13,14 @@ from pathlib import Path
 
 import xml.etree.ElementTree as ET
 
-def _is_default_or_deleted(el: ET.Element):
+def _is_default_or_deleted_or_undocumented(el: ET.Element, resolver: Resolver):
     definition = el.findtext("definition", "") or ""
     if "=default" in definition or "=delete" in definition: return True
     argsstring = el.findtext("argsstring", "") or ""
     if "=default" in argsstring or "=delete" in argsstring: return True
+    if _is_constructor(el):
+        [brief, details] = parse_description(el, resolver)
+        if brief == "" and details == "": return True
     return False
 
 def _is_destructor(el: ET.Element):
@@ -80,7 +83,7 @@ def load_class(inventory: Inventory, id: str, xml_dir: Path, resolver: Resolver,
             if kind == "typedef":
                 class_doc.typedefs.append(parse_typedef(member, resolver))
             if kind == "function":
-                if _is_default_or_deleted(member) or _is_destructor(member):
+                if _is_default_or_deleted_or_undocumented(member, resolver) or _is_destructor(member):
                     continue
                 if _is_constructor(member):
                     class_doc.constructors.append(parse_function(member, resolver))

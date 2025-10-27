@@ -9,7 +9,7 @@ from ..model import (
     VarDoc,
 )
 from ..parse.xml_utilities import element_text, read_pieces, bool_attr
-from ..strings import remove_first_qualification
+from ..strings import remove_first_qualification, tighten_template_spaces
 from ..resolver import Resolver
 from typing import Dict
 
@@ -65,12 +65,12 @@ def _function_param_brief_map(el: ET.Element, resolver: Resolver):
 
 def _function_definition(el: ET.Element):
     s = el.find("definition").text + element_text(el.find("argsstring"))
-    # remove spaces inside angle brackets (e.g. < T > → <T>)
-    s = re.sub(r'<\s*(.*?)\s*>', lambda m: f"<{re.sub(r'\s+', '', m.group(1))}>", s)
+    s = tighten_template_spaces(s)
     # remove the first non-std qualifier (e.g. vglx::Foo → Foo)
     s = re.sub(r'\b(?!std\b)(\w+)::', '', s, count=1)
     # remove space between type and pointer/reference (e.g. Camera * → Camera*)
     s = re.sub(r'\b(\w+)\s+([*&])', r'\1\2', s)
+    s = re.sub(r'([*&])(\S)', r'\1 \2', s)
     # move '=0' from after return type to the end of the declaration
     s = re.sub(
         r'(?P<ret>[\w:<>*&\s]+?)=0\s+(?P<name>\w+::\w+\s*\([^)]*\))',

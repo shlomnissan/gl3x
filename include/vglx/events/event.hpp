@@ -14,7 +14,7 @@ namespace vglx {
 /**
  * @brief Base type for all event objects.
  *
- * The @ref Event struct defines the core interface for all event types.
+ * The Event struct defines the core interface for all event types.
  * Derived event types extend this interface with additional data specific
  * to their category.
  *

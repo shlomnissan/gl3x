@@ -19,9 +19,9 @@
 namespace vglx {
 
 /**
- * @brief Forward renderer for drawing a scene from a given camera.
+ * @brief Renderer object for drawing a scene from a given camera.
  *
- * The @ref Renderer owns GPU state and draw logic for rendering a @ref Scene with a
+ * The renderer owns GPU state and draw logic for rendering a @ref Scene with a
  * specified @ref Camera. It is typically constructed and driven by the
  * @ref Application runtime, but can also be used directly in manual setups.
  *
@@ -50,7 +50,7 @@ namespace vglx {
  */
 class VGLX_EXPORT Renderer {
 public:
-    /// @brief Parameters for constructing a Renderer object.
+    /// @brief Parameters for constructing a @ref Renderer object.
     struct Parameters {
         int framebuffer_width; ///< Current framebuffer width in pixels.
         int framebuffer_height; ///< Current framebuffer height in pixels.
@@ -58,7 +58,7 @@ public:
     };
 
     /**
-     * @brief Constructs a Renderer object.
+     * @brief Constructs a renderer.
      *
      * GPU resources are not created until @ref Initialize is called.
      *
@@ -85,11 +85,11 @@ public:
      *
      * The scene is expected to be in a consistent state for rendering.
      * If you are using the runtime path, this is handled automatically.
-     * In direct initialization flows, call your per-frame update routine
-     * (e.g., @ref Scene::Advance) prior to rendering.
+     * In direct initialization flows, call tye per-frame update routine
+     * @ref Scene::Advance prior to rendering.
      *
-     * @param scene Pointer to the scene to render (must be non-null).
-     * @param camera Pointer to the active camera (must be non-null).
+     * @param scene Pointer to the scene to render.
+     * @param camera Pointer to the active camera.
      */
     auto Render(Scene* scene, Camera* camera) -> void;
 

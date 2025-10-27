@@ -50,7 +50,7 @@ namespace vglx {
  */
 class VGLX_EXPORT PerspectiveCamera : public Camera {
 public:
-    /// @brief Parameters for constructing an PerspectiveCamera object.
+    /// @brief Parameters for constructing a @ref PerspectiveCamera object.
     struct Parameters {
         float fov; ///< Vertical field of view in radians.
         float aspect; ///< Aspect ratio.
@@ -59,7 +59,7 @@ public:
     };
 
     /**
-     * @brief Constructs a PerspectiveCamera object.
+     * @brief Constructs a perspective camera.
      *
      * @param params @ref PerspectiveCamera::Parameters "Initialization parameters"
      * for constructing the camera.

@@ -21,13 +21,12 @@ namespace vglx {
 /**
  * @brief The runtime entry point for defining and launching an app.
  *
- * The Application class is the runtime: it sets up the window,
- * rendering context, a main loop, and calls your hooks. Subclass it and
- * override @ref Configure, @ref CreateScene, and @ref Update to define behavior.
+ * The runtime sets up the window, rendering context, a main loop, and calls
+ * your hooks. Subclass it and override @ref Configure, @ref CreateScene, and
+ * @ref Update to define behavior.
  *
  * This is the preferred way to initialize a new app. If you need
- * complete control, you can also assemble a program manually (window,
- * renderer, loop, etc.), but that is outside the scope of this runtime API.
+ * complete control, you can also assemble a program manually.
  *
  * @code
  * class MyApp : public vglx::Application {
@@ -66,16 +65,15 @@ namespace vglx {
  * }
  * @endcode
  *
- * Calling @ref Start initializes the runtime, constructs the user scene (and
- * camera, if provided), then runs the main loop while invoking @ref Update
- * each frame.
+ * Calling @ref Start initializes the runtime, sets the active user scene and
+ * camera, then runs the main loop while invoking @ref Update each frame.
  *
  * @ingroup CoreGroup
  */
 class VGLX_EXPORT Application {
 public:
     /**
-     * @brief Parameters for constructing an application object.
+     * @brief Parameters for configuring an application object.
      *
      * These values are not passed directly to the constructor. To override
      * the defaults, implement the @ref Configure function and return an
@@ -91,11 +89,6 @@ public:
         bool show_stats {false}; ///< Show stats UI overlay.
     };
 
-    /**
-     * @brief Constructs an Application object.
-     *
-     * Initializes internal state but does not start the application loop.
-     */
     Application();
 
     // Non-copyable
@@ -115,7 +108,7 @@ public:
     auto Start() -> void;
 
     /**
-     * @brief Provides configuration parameters for the application.
+     * @brief Provides @ref Application::Parameters "configuration parameters" for the application.
      *
      * Override this method to customize window settings, clear color,
      * antialiasing, vsync, and other runtime options before the
@@ -128,7 +121,7 @@ public:
     /**
      * @brief Creates the root scene graph.
      *
-     * This method must be implemented by the user and returns the primary
+     * This method **must be implemented** by the user and returns the primary
      * scene used for rendering and updates.
      */
     virtual auto CreateScene() -> std::shared_ptr<Scene> = 0;
@@ -137,24 +130,25 @@ public:
      * @brief Creates the main camera.
      *
      * This method can be optionally overridden. If null is returned, a default
-     * perspective camera will be created automatically.
+     * @ref PerspectiveCamera "perspective camera" will be created automatically.
      */
     virtual auto CreateCamera() -> std::shared_ptr<Camera> { return nullptr; }
 
     /**
      * @brief Per-frame update callback.
      *
-     * This method must be implemented and is called every frame with the
-     * elapsed time since the last frame. Return `false` to exit the main loop.
+     * This method **must be implemented** and is called every frame with the
+     * elapsed time since the last frame. Return `false` to exit the main loop
+     * and close the application.
      *
      * @param delta Time in seconds since the last frame.
      */
     virtual auto Update(float delta) -> bool = 0;
 
     /**
-     * @brief Returns a pointer to current active shared context.
+     * @brief Returns a pointer to current active @ref SharedContext "shared context".
      *
-     * The shared context holds runtime parameters (e.g., window size,
+     * The shared context holds runtime properties (e.g., window size,
      * framebuffer size, aspect ratio, active camera) and provides access to
      * built-in resource loaders. It is created internally during application
      * startup and is guaranteed to remain valid for the lifetime of the

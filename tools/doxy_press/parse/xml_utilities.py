@@ -54,6 +54,7 @@ def read_pieces(el: ET.Element, resolver: Optional[Resolver], strip: bool = True
 
             if child.tail:
                 output.append(child.tail)
+                if child.tag == "para": output.append("\n")
 
     walk(el)
     return "".join(output).strip() if strip else "".join(output)

@@ -54,7 +54,7 @@ namespace vglx {
  */
 class VGLX_EXPORT OrthographicCamera : public Camera {
 public:
-    /// @brief Parameters for constructing an OrthographicCamera object.
+    /// @brief Parameters for constructing an @ref OrthographicCamera object.
     struct Parameters {
         float left; ///< Left clipping plane.
         float right; ///< Right clipping plane.
@@ -77,7 +77,7 @@ public:
     ResizePolicy resize_policy = ResizePolicy::PixelSpace;
 
    /**
-     * @brief Constructs an OrthographicCamera object.
+     * @brief Constructs an orthographic camera.
      *
      * @param params @ref OrthographicCamera::Parameters "Initialization parameters"
      * for constructing the camera.
