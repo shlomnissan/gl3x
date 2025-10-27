@@ -79,6 +79,14 @@ def _function_definition(el: ET.Element):
     )
     return s
 
+def _function_name_md_escape(name: str) -> str:
+    return (
+        name.replace("[", r"\[")
+            .replace("]", r"\]")
+            .replace("(", r"\(")
+            .replace(")", r"\)")
+    )
+
 def parse_description(el: ET.Element, resolver: Resolver):
     brief = read_pieces(el.find("briefdescription"), resolver)
     details = read_pieces(el.find("detaileddescription"), resolver)
@@ -119,7 +127,7 @@ def parse_function(el: ET.Element, resolver: Resolver):
 
     return FunctionDoc(
         id = el.get("id"),
-        name = name,
+        name = _function_name_md_escape(name),
         definition = _function_definition(el),
         type = _parse_type(ret_type),
         virtual = el.get("virt"),
