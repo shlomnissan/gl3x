@@ -17,20 +17,17 @@ from html import escape
 
 import re
 
-
-
 def _t_clean(s: str):
     s = re.sub(r'\boverride\b', '', s)
     s = re.sub(r'\s*=\s*0\b', '', s)
     s = tighten_template_spaces(s)
-    s = escape_angle_brackets(s)
     return re.sub(r'\s+', ' ', s).strip()
 
 def _t_resolved(t: Type, resolver: Resolver):
     output = ""
     for p in t.parts:
         output += resolver.id_to_url_with_label(p.id, p.text) if p.id else p.text
-    return _t_clean(output)
+    return escape_angle_brackets(_t_clean(output))
 
 def _t_str(t: Type):
     return _t_clean("".join(p.text.strip() for p in t.parts))
