@@ -18,18 +18,19 @@ namespace vglx {
 class Camera;
 
 /**
- * @brief Provides access to shared parameters and services.
+ * @brief Provides access to shared runtime parameters and services.
  *
- * The SharedContext class encapsulates common runtime parameters and
- * services that are shared across the scene graph. This context is created
- * internally within the runtime and made available to nodes once they are
- * added to the active scene.
+ * The shared context encapsulates common runtime state and services accessible
+ * throughout the scene graph. It is constructed and propagated automatically
+ * by the runtime, which also keeps its values synchronized as rendering
+ * parameters change — such as window size, framebuffer dimensions, or the
+ * active camera.
  *
- * Access to the shared context is provided through the
- * @ref Node::OnAttached callback, which is invoked when the node becomes part
- * of an active scene hierarchy. Override this method in your node class to
- * perform initialization that depends on the context, such as loading
- * resources, accessing the active camera, etc.
+ * Nodes can access the shared context via the @ref Node::OnAttached
+ * callback, which is invoked when the node joins an active scene hierarchy.
+ * Override this method in your node subclass to perform initialization
+ * that depends on the context — such as loading resources, querying the
+ * active camera, or accessing other global services.
  *
  * @code
  * class MyNode : public vglx::Node {
@@ -38,11 +39,7 @@ class Camera;
  *     context->texture_loader->LoadAsync(
  *       "assets/checker.tex",
  *       [this](auto result) {
- *         if (result) {
- *           texture_ = result.value();
- *         } else {
- *           std::println(stderr, "{}", result.error());
- *         }
+ *         if (result) texture_ = result.value();
  *       }
  *     );
  *   }
@@ -53,33 +50,71 @@ class Camera;
  */
 class VGLX_EXPORT SharedContext {
 public:
-    /// @brief Current active camera.
+    /**
+     * @brief Pointer to the active camera.
+     *
+     * Commonly used by scene nodes to query camera parameters or implement
+     * camera controls.
+     */
     Camera* camera;
 
-    /// @brief Aspect ratio of the render surface.
+    /**
+     * @brief Aspect ratio of the render surface.
+     *
+     * Computed as framebuffer width divided by height. Used for projection and
+     * viewport setup.
+     */
     float aspect_ratio;
 
-    /// @brief Framebuffer width in physical pixels.
+    /**
+     * @brief Framebuffer width in physical pixels.
+     *
+     * Reflects the true pixel width of the render target. May differ from
+     * window width on high-DPI displays.
+     */
     int framebuffer_width;
 
-    /// @brief Frambuffer height in physical pixels.
+    /**
+     * @brief Framebuffer height in physical pixels.
+     *
+     * Reflects the true pixel height of the render target.
+     */
     int framebuffer_height;
 
-    /// @brief Window width in logical units.
+    /**
+     * @brief Window width in logical units.
+     *
+     * Represents window dimensions in OS coordinate space. Differs from
+     * framebuffer size on high-DPI displays.
+     */
     int window_width;
 
-    /// @brief Window height in logical units.
+    /**
+     * @brief Window height in logical units.
+     *
+     * Represents window dimensions in OS coordinate space.
+     */
     int window_height;
 
-    /// @brief Texture loader.
+    /**
+     * @brief Shared texture loader.
+     *
+     * Handles loading and caching of image assets, targeting the engine's
+     * custom `.tex` format.
+     */
     std::shared_ptr<TextureLoader> texture_loader = TextureLoader::Create();
 
-    /// @brief Mesh loader.
+    /**
+     * @brief Shared texture loader.
+     *
+     * Handles loading and caching of mesh assets, targeting the engine's
+     * custom `.msh` format.
+     */
     std::shared_ptr<MeshLoader> mesh_loader = MeshLoader::Create();
 };
 
 /**
- * @brief Alias for a unique pointer to a SharedContext instance.
+ * @brief Alias for a unique pointer to a @ref SharedContext instance.
  *
  * This typedef simplifies ownership semantics for the shared context,
  * ensuring a single owner at any given time. Use this when returning
