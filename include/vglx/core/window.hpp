@@ -40,17 +40,18 @@ struct ResizeParameters {
 using ResizeCallback = std::function<void(const ResizeParameters& params)>;
 
 /**
- * @brief Cross-platform application window.
+ * @brief Represents a cross-platform application window.
  *
- * The Window class creates the OS window and manages the framebuffer.
- * It is typically managed by the @ref Application runtime, but can also be
- * constructed directly for manual initialization flows.
+ * This class creates and manages the operating system window, the
+ * graphics context, and propagates input events from the OS. It is
+ * typically constructed and controlled by the @ref Application runtime,
+ * but can also be used directly in manual setups.
  *
  * @code
  * vglx::Window window({
  *   .title = "My App",
- *   .width = 1280,
- *   .height = 720,
+ *   .width = 1920,
+ *   .height = 1080,
  *   .antialiasing = 4,
  *   .vsync = true
  * });
@@ -61,10 +62,6 @@ using ResizeCallback = std::function<void(const ResizeParameters& params)>;
  * }
  * @endcode
  *
- * @note Preferred usage is through the @ref Application runtime, which wires the
- * window, renderer, and scene automatically. Use direct initialization when you
- * need full control over the main loop.
- *
  * @ingroup CoreGroup
  */
 class VGLX_EXPORT Window {
@@ -73,17 +70,17 @@ public:
     class Impl;
     /// @endcond
 
-    /// @brief Parameters for constructing a window object.
+    /// @brief Parameters for constructing a Window object.
     struct Parameters {
-        std::string title; ///< Window title string.
+        std::string title; ///< Window title.
         int width; ///< Client-area width in pixels.
         int height; ///< Client-area height in pixels.
-        int antialiasing; ///< Multisample anti-aliasing sample count.
+        int antialiasing; ///< Anti-aliasing sample count.
         bool vsync; ///< Enable or disable vertical sync.
     };
 
     /**
-     * @brief Constructs a Window object.
+     * @brief Constructs a window.
      *
      * Resources are not created until @ref Initialize is called.
      *
@@ -109,31 +106,31 @@ public:
      * @brief Processes pending window and input events.
      *
      * Polls the operating system for events such as input, window resize,
-     * or close requests. Must be called regularly to keep the window responsive.
+     * or close requests. Must be called at the top of the main loop to keep
+     * the application responsive.
      */
     auto PollEvents() -> void;
 
     /**
      * @brief Marks the beginning of a new UI frame.
      *
-     * Call this once per frame before issuing any UI commands. If no UI system
-     * is active, this is a no-op.
+     * Must be called before issuing any UI commands. If no UI system is
+     * active, this is a no-op.
      */
     auto BeginUIFrame() -> void;
 
     /**
      * @brief Marks the end of the current UI frame.
      *
-     * Call this once per frame after all UI commands have been issued. If no
-     * UI system is active, this is a no-op.
+     * Must be called after all UI commands have been issued. If no UI system
+     * is active, this is a no-op.
      */
     auto EndUIFrame() -> void;
 
     /**
      * @brief Swaps the front and back buffers.
      *
-     * Presents the rendered frame to the display. Should be called once per
-     * frame after rendering and UI submission.
+     * Presents the rendered frame to the display.
      */
     auto SwapBuffers() -> void;
 
@@ -156,14 +153,14 @@ public:
     /**
      * @brief Returns the current framebuffer width in pixels.
      *
-     * On HiDPI displays this may differ from @ref Width.
+     * On high-DPI displays this may differ from @ref Width.
      */
     [[nodiscard]] auto FramebufferWidth() const -> int;
 
     /**
      * @brief Returns the current framebuffer height in pixels.
      *
-     * On HiDPI displays this may differ from @ref Height.
+     * On high-DPI displays this may differ from @ref Height.
      */
     [[nodiscard]] auto FramebufferHeight() const -> int;
 
@@ -178,12 +175,12 @@ public:
     [[nodiscard]] auto Height() const -> int;
 
     /**
-     * @brief Returns the logical aspect ratio (width / height).
+     * @brief Returns the aspect ratio (width / height).
      */
     [[nodiscard]] auto AspectRatio() const -> float;
 
     /**
-     * @brief Updates the window title string.
+     * @brief Updates the window title.
      *
      * @param title UTF-8 string to display in the window title bar.
      */
@@ -193,11 +190,11 @@ public:
      * @brief Registers a callback to be invoked when the window is resized.
      *
      * The callback is executed whenever the client-area dimensions change,
-     * including user drag-resizes and OS-driven scaling changes on HiDPI
+     * including user drag-resizes and OS-driven scaling changes on high-DPI
      * displays. The callback receives both logical window sizes and the
      * framebuffer sizes in physical pixels.
      *
-     * @param cb A function to invoke on resize with the new sizes.
+     * @param callback A function to invoke on resize with the new sizes.
      */
     auto OnResize(ResizeCallback callback) -> void;
 
