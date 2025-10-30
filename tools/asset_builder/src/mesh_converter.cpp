@@ -24,7 +24,6 @@ namespace fs = std::filesystem;
 
 struct VertexKey {
     int pos_idx;
-    int norm_idx;
     int uv_idx;
     auto operator<=>(const VertexKey&) const = default;
 };
@@ -32,9 +31,8 @@ struct VertexKey {
 struct VertexKeyHash {
     auto operator()(const VertexKey& key) const {
         auto h1 = std::hash<int>{}(key.pos_idx);
-        auto h2 = std::hash<int>{}(key.norm_idx);
-        auto h3 = std::hash<int>{}(key.uv_idx);
-        return h1 ^ (h2 << 1) ^ (h3 << 2);
+        auto h2 = std::hash<int>{}(key.uv_idx);
+        return h1 ^ (h2 << 1);
     }
 };
 
@@ -79,10 +77,10 @@ struct __vec3_t {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-auto stride(const tinyobj::attrib_t& attrib) {
+auto stride(bool has_colors, bool has_uvs) {
     auto stride = 6u; // positions and normals are guaranteed
-    if (!attrib.colors.empty()) stride += 3;
-    if (!attrib.texcoords.empty()) stride += 2;
+    if (has_colors) stride += 3;
+    if (has_uvs) stride += 2;
     return stride;
 }
 
@@ -222,16 +220,22 @@ auto parse_shapes(
         auto vertex_data = std::vector<float> {};
         auto index_data = std::vector<unsigned> {};
 
+        bool has_colors = !attrib.colors.empty();
+        bool has_uvs = false;
+        for (auto& idx : mesh.indices) {
+            if (idx.texcoord_index >= 0) has_uvs = true;
+        }
+
         for (auto i = 0u; i < mesh.indices.size(); ++i) {
             const auto idx = mesh.indices[i];
-            VertexKey key = {idx.vertex_index, idx.normal_index, idx.texcoord_index};
+            VertexKey key = {idx.vertex_index, idx.texcoord_index};
 
             if (seen_vertices.contains(key)) {
                 index_data.push_back(seen_vertices[key]);
                 continue;
             }
 
-            seen_vertices[key] = static_cast<unsigned>(vertex_data.size() / stride(attrib));
+            seen_vertices[key] = static_cast<unsigned>(vertex_data.size() / stride(has_colors, has_uvs));
             index_data.push_back(seen_vertices[key]);
 
             vertex_data.insert(vertex_data.end(), {
@@ -240,40 +244,32 @@ auto parse_shapes(
                 attrib.vertices[3 * idx.vertex_index + 2]
             });
 
-            if (idx.normal_index >= 0) {
-                vertex_data.insert(vertex_data.end(), {
-                    attrib.normals[3 * idx.normal_index + 0],
-                    attrib.normals[3 * idx.normal_index + 1],
-                    attrib.normals[3 * idx.normal_index + 2]
-                });
-            } else {
-                // if no normals are provided, insert a placeholder.
-                // these temporary values will be replaced in post-processing.
-                vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f});
+            // placeholder for normals, always generated dynamically
+            vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f});
+
+            if (has_uvs) {
+                if (idx.texcoord_index >= 0) {
+                    vertex_data.insert(vertex_data.end(), {
+                        attrib.texcoords[2 * idx.texcoord_index + 0],
+                        attrib.texcoords[2 * idx.texcoord_index + 1]
+                    });
+                } else {
+                    vertex_data.insert(vertex_data.end(), {0.0f, 0.0f});
+                }
             }
 
-            if (attrib.colors.size()) {
+            if (has_colors) {
                 vertex_data.insert(vertex_data.end(), {
                     attrib.colors[3 * idx.vertex_index + 0],
                     attrib.colors[3 * idx.vertex_index + 1],
                     attrib.colors[3 * idx.vertex_index + 2]
                 });
             }
-
-            if (idx.texcoord_index >= 0) {
-                vertex_data.insert(vertex_data.end(), {
-                    attrib.texcoords[2 * idx.texcoord_index + 0],
-                    attrib.texcoords[2 * idx.texcoord_index + 1]
-                });
-            }
         }
 
-        if (attrib.normals.empty()) {
-            generate_normals(vertex_data, index_data, stride(attrib));
-        }
+        generate_normals(vertex_data, index_data, stride(has_colors, has_uvs));
 
         auto msh_entry = MeshEntryHeader {};
-
         copy_fixed_size_str(
             msh_entry.name,
             shape.name.empty() ? "default:Mesh" : shape.name
@@ -281,14 +277,14 @@ auto parse_shapes(
 
         msh_entry.vertex_count = static_cast<uint32_t>(seen_vertices.size());
         msh_entry.index_count = static_cast<uint32_t>(index_data.size());
-        msh_entry.vertex_stride = stride(attrib);
+        msh_entry.vertex_stride = stride(has_colors, has_uvs);
         msh_entry.material_index = mesh.material_ids.front();
         msh_entry.vertex_data_size = static_cast<uint64_t>(vertex_data.size() * sizeof(float));
         msh_entry.index_data_size = static_cast<uint64_t>(index_data.size() * sizeof(unsigned));
         msh_entry.vertex_flags = VertexAttributeFlags::Positions | VertexAttributeFlags::Normals;
 
-        if (!attrib.colors.empty()) msh_entry.vertex_flags |= VertexAttributeFlags::Colors;
-        if (!attrib.texcoords.empty()) msh_entry.vertex_flags |= VertexAttributeFlags::UVs;
+        if (has_colors) msh_entry.vertex_flags |= VertexAttributeFlags::Colors;
+        if (has_uvs) msh_entry.vertex_flags |= VertexAttributeFlags::UVs;
 
         out_stream.write(reinterpret_cast<const char*>(&msh_entry), sizeof(msh_entry));
         out_stream.write(reinterpret_cast<const char*>(vertex_data.data()), vertex_data.size() * sizeof(float));
