@@ -15,20 +15,20 @@
 namespace vglx {
 
 /**
- * @brief Utility class for measuring elapsed time.
+ * @brief Utility timer for measuring elapsed time.
  *
- * The Timer class provides a simple mechanism for tracking time intervals
- * using a steady clock. Typical usage includes measuring frame time, profiling
- * sections of code, or retrieving a human-readable timestamp string.
+ * This class provides a simple mechanism for tracking time intervals using a
+ * steady clock. Typical usage includes measuring frame time, profiling sections
+ * of code, or retrieving a human-readable timestamp string.
  *
  * @ingroup UtilitiesGroup
  */
 class VGLX_EXPORT Timer {
 public:
     /**
-     * @brief Constructs a Timer object.
+     * @brief Constructs a timer.
      *
-     * @param auto_start If true, the timer starts immediately upon construction.
+     * @param auto_start Starts timer immediately upon construction.
      */
     explicit Timer(bool auto_start);
 

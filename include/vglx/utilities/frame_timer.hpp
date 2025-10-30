@@ -16,19 +16,17 @@
 namespace vglx {
 
 /**
- * @brief Frame-oriented helper for computing clamped delta time.
+ * @brief Frame-oriented timer for computing clamped delta time.
  *
- * FrameTimer builds on top of @ref Timer to provide a simple, per-frame
- * timestep suitable for driving simulations and animations.
- * Each call to @ref Tick returns the elapsed time since the previous call,
- * clamped by @ref Tick "max_delta" to guard against stalls (e.g., window drags,
- * breakpoints).
+ * The frame timer builds on top of @ref Timer to provide a simple, per-frame
+ * timestep suitable for driving simulations and animations. Each call to
+ * @ref Tick returns the elapsed time since the previous call, clamped by
+ * @ref Tick "max_delta" to guard against stalls (e.g., window drags, breakpoints).
  *
- * Typical usage:
  * @code
- * vglx::FrameTimer clock(true); // auto-start
+ * auto frame_timer = vglx::FrameTimer {true}; // auto-start
  * while (running) {
- *   const float dt = clock.Tick(); // seconds (float), clamped
+ *   const auto dt = frame_timer.Tick();
  *   scene.Advance(dt);
  *   renderer.Render(&scene, &camera);
  * }
@@ -39,11 +37,11 @@ namespace vglx {
 class VGLX_EXPORT FrameTimer {
 public:
     /**
-     * @brief Constructs a FrameTimer object.
+     * @brief Constructs a frame timer.
      *
-     * @param auto_start If true, timer starts immediately upon construction.
+     * @param auto_start Starts timer immediately upon construction.
      */
-    explicit FrameTimer(bool auto_start) : timer_(auto_start) {
+    explicit FrameTimer(bool auto_start) : timer_ {auto_start} {
         if (auto_start) last_ = timer_.GetElapsedSeconds();
     }
 
@@ -64,7 +62,7 @@ public:
      * Computes the elapsed seconds since the previous @ref Tick (or since
      * @ref Start if this is the first tick) and clamps it to `max_delta`.
      *
-     * @param max_delta Maximum allowed delta in seconds (default: 0.1s).
+     * @param max_delta Maximum allowed delta in seconds.
      */
     [[nodiscard]] auto Tick(double max_delta = 0.1) -> float {
         const auto now = timer_.GetElapsedSeconds();

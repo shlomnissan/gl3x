@@ -16,12 +16,11 @@ namespace vglx {
 /**
  * @brief Collects and visualizes runtime performance statistics.
  *
- * The Stats class tracks frames per second, frame time, and the number
- * of rendered objects per frame. It is used by the runtime when @ref Application "show_stats"
- * is set to true to provide an on-screen performance overlay during development
- * and debugging.
+ * This class tracks frames per second, frame time, and the number of rendered
+ * objects per frame. It is used by the runtime when @ref Application
+ * "show_stats" is set to true to provide an on-screen performance overlay
+ * during development and debugging.
  *
- * Typical usage inside the main loop:
  * @code
  * while (running) {
  *   stats.BeforeRender();
@@ -31,15 +30,16 @@ namespace vglx {
  * }
  * @endcode
  *
- * @note This overlay requires ImGui support. If the engine is not compiled with
- * `VGLX_USE_IMGUI`, the @ref Draw method becomes a no-op.
+ * This overlay currently requires [ImGui](https://github.com/ocornut/imgui) support.
+ * If the engine is not compiled with `VGLX_USE_IMGUI`, the @ref Draw method
+ * becomes a no-op.
  *
  * @ingroup UtilitiesGroup
  */
 class Stats {
 public:
     /**
-     * @brief Constructs a Stats object.
+     * @brief Constructs a stats object.
      */
     Stats();
 
@@ -54,7 +54,9 @@ public:
     /**
      * @brief Marks the end of a frame render.
      *
-     * Updates frame time and records the number of rendered objects.
+     * Updates frame time and records the number of rendered objects. The number
+     * of objects can be retrieved from the
+     * @ref Renderer::RenderedObjectsPerFrame "renderer".
      *
      * @param n_objects Number of objects rendered in the frame.
      */
