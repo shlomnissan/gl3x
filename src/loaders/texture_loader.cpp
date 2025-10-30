@@ -5,11 +5,10 @@
 ===========================================================================
 */
 
+#include "vglx/asset_format.hpp"
 #include "vglx/loaders/texture_loader.hpp"
 
 #include "utilities/file.hpp"
-
-#include "asset_builder/include/types.hpp"
 
 #include <cstring>
 #include <fstream>

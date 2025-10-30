@@ -69,13 +69,13 @@ VGLX uses [CMake](https://cmake.org/download/) to configure and build the projec
 
 The following options control which components are built:
 
-| Option                 | Description                                              |
-|------------------------|----------------------------------------------------------|
-| `VGLX_BUILD_DOCS`     | Build Doxygen documentation.                             |
-| `VGLX_BUILD_EXAMPLES` | Build example applications.                              |
-| `VGLX_BUILD_IMGUI`    | Enable ImGui support for debug UI/tools.                 |
-| `VGLX_BUILD_TESTS`    | Build unit tests.                                        |
-| `VGLX_BUILD_TOOLS`    | Build command-line tools.                                |
+| Option                      | Description                                              |
+|-----------------------------|----------------------------------------------------------|
+| `VGLX_BUILD_DOCS`           | Build Doxygen documentation.                             |
+| `VGLX_BUILD_EXAMPLES`       | Build example applications.                              |
+| `VGLX_BUILD_IMGUI`          | Enable ImGui support for debug UI/tools.                 |
+| `VGLX_BUILD_TESTS`          | Build unit tests.                                        |
+| `VGLX_BUILD_ASSET_BUILDER`  | Build asset builder CLI tool                             |
 
 Defaults are preset-dependent.
 
@@ -152,7 +152,7 @@ CMake automatically selects the correct configuration (Debug/Release) based on y
 
 ## Asset Generation Pipeline
 
-VGLX does not parse raw assets at runtime. Instead, assets are preprocessed using asset_builder, a command-line tool built with `VGLX_BUILD_TOOLS`. It converts raw asset formats into compact, runtime-ready formats.
+VGLX does not parse raw assets at runtime. Instead, assets are preprocessed using asset_builder, a command-line tool built with `VGLX_BUILD_ASSET_BUILDER`. It converts raw asset formats into compact, runtime-ready formats.
 
 #### Supported Formats
 

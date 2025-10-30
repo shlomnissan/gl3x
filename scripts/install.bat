@@ -11,6 +11,7 @@ rmdir /s /q out\install-debug 2>nul
 
 :: Install release build
 echo Building Release (install-release)
+
 cmake --preset install-release
 if errorlevel 1 goto :error
 
@@ -22,6 +23,7 @@ if errorlevel 1 goto :error
 
 :: Install debug build
 echo Building Debug (install-debug)
+
 cmake --preset install-debug
 if errorlevel 1 goto :error
 

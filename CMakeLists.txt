@@ -10,11 +10,11 @@ set(CMAKE_VISIBILITY_INLINE_HIDDEN ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-option(VGLX_BUILD_DOCS "Build API documentation using Doxygen" ON)
+option(VGLX_BUILD_ASSET_BUILDER "Build asset builder CLI tools for asset importing" OFF)
+option(VGLX_BUILD_DOCS "Build API documentation using Doxygen" OFF)
 option(VGLX_BUILD_EXAMPLES "Build example application" ON)
 option(VGLX_BUILD_IMGUI "Build and integrate ImGui from the vendored source" ON)
 option(VGLX_BUILD_TESTS "Build unit tests and test infrastructure using GTest" ON)
-option(VGLX_BUILD_TOOLS "Build additional CLI tools used for asset processing" ON)
 
 add_subdirectory("vendor")
 add_subdirectory("src")
@@ -28,7 +28,7 @@ if (VGLX_BUILD_EXAMPLES)
     add_subdirectory("examples")
 endif()
 
-if (VGLX_BUILD_TOOLS)
+if (VGLX_BUILD_ASSET_BUILDER)
     add_subdirectory("tools/asset_builder")
 endif()
 

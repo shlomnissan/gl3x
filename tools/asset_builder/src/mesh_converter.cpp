@@ -7,9 +7,10 @@
 
 #define TINYOBJLOADER_IMPLEMENTATION
 
+#include "vglx/asset_format.hpp"
+
 #include "mesh_converter.hpp"
 #include "texture_converter.hpp"
-#include "types.hpp"
 
 #include <cmath>
 #include <filesystem>

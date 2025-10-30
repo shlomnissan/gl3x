@@ -10,7 +10,7 @@ echo "Generating Doxygen documentation"
 # Ensure build directory exists and CMake is configured
 if [ ! -f "$BUILD_DIR/Makefile" ] && [ ! -f "$BUILD_DIR/build.ninja" ]; then
     echo "Configuring CMake"
-    cmake -S . -B "$BUILD_DIR"
+    cmake -S . -B "$BUILD_DIR" -D VGLX_BUILD_DOCS=ON
 fi
 
 # Build the Doxygen target

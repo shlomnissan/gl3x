@@ -5,9 +5,9 @@
 ===========================================================================
 */
 
+#include "vglx/asset_format.hpp"
 #include "vglx/loaders/mesh_loader.hpp"
 #include "vglx/loaders/texture_loader.hpp"
-
 #include "vglx/geometries/geometry.hpp"
 #include "vglx/materials/phong_material.hpp"
 #include "vglx/math/color.hpp"
@@ -16,8 +16,6 @@
 #include "vglx/textures/texture_2d.hpp"
 
 #include "utilities/file.hpp"
-
-#include "asset_builder/include/types.hpp"
 
 #include <cstring>
 #include <fstream>

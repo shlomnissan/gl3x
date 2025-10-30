@@ -7,8 +7,9 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 
+#include "vglx/asset_format.hpp"
+
 #include "texture_converter.hpp"
-#include "types.hpp"
 
 #include <cstdint>
 #include <cstring>
