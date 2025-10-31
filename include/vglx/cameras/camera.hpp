@@ -52,10 +52,7 @@ public:
     virtual auto Resize(int width, int height) -> void = 0;
 
     /**
-     * @brief Identifies this node as a camera.
-     *
-     * Always returns @ref Node::Type "Node::Type::Camera", allowing runtime checks
-     * to distinguish camera nodes from other node types.
+     * @brief Identifies this node as @ref Node::Type "Node::Type::Camera".
      */
     [[nodiscard]] auto GetNodeType() const -> Node::Type override {
         return Node::Type::Camera;

@@ -16,11 +16,17 @@ namespace vglx {
 enum class Key;
 
 /**
- * @brief Event representing a keyboard key press or release.
+ * @brief Represents a keyboard input event.
  *
- * @ref KeyboardEvent is dispatched when a key is pressed or released. Nodes can
- * handle this event by overriding the @ref Node::OnKeyboardEvent method. The event
- * contains both the key involved and the type of interaction.
+ * A keyboard event is dispatched when a key is pressed or released. It extends
+ * the base @ref Event with data specific to keyboard input: the @ref
+ * KeyboardEvent::type "interaction type" and the
+ * @ref KeyboardEvent::key "key code".
+ *
+ * Events are dispatched through the @ref Scene hierarchy where
+ * nodes can override the @ref Node::OnKeyboardEvent handler and optionally
+ * mark the event as @ref Event::handled "handled". When "handled"
+ * is set to `true`, the event stops propagating to other nodes.
  *
  * @code
  * class MyNode : public vglx::Node {
@@ -28,7 +34,7 @@ enum class Key;
  *   auto OnKeyboardEvent(vglx::KeyboardEvent* event) -> void override {
  *     if (event->type == vglx::KeyboardEvent::Type::Pressed) {
  *       if (event->key == vglx::Key::Sapce) {
- *         Jump();
+ *         // do something...
  *         event->handled = true; // stop propagation
  *       }
  *     }
@@ -40,33 +46,37 @@ enum class Key;
  */
 struct VGLX_EXPORT KeyboardEvent : public Event {
     /**
-     * @brief Represents keyboard interaction type.
+     * @brief Enumerates all keyboard event types.
+     *
+     * Distinguishes between an initial press and a release. Engines that
+     * support key-repeat should surface repeat behavior at a higher layer,
+     * leaving this enum to represent the physical transitions only.
      */
     enum class Type {
-        Pressed, ///< Key was pressed down.
-        Released ///< Key was released.
+        Pressed, ///< Key transitioned to the down state.
+        Released ///< Key transitioned to the up state.
     };
 
-    /// @brief Keyboard event type.
+    /// @brief The interaction @ref KeyboardEvent::Type "type" for this event.
     KeyboardEvent::Type type;
 
-    /// @brief Key code associated with the event.
+    /**
+     * @brief Key code associated with the event.
+     *
+     * Identifies which key triggered the event using the key enumeration.
+     * The full list of supported keys is not included in this documentation;
+     * refer to the source code for details.
+     */
     Key key;
 
     /**
-     * @brief Returns event type.
-     *
-     * @return Event::Type::Keyboard
+     * @brief Identifies this event as @ref Event::Type "Event::Type::Keyboard".
      */
     auto GetType() const -> Event::Type override {
         return Event::Type::Keyboard;
     }
 };
 
-/**
- * @brief Represents keyboard keys.
- * @ingroup EventsGroup
- */
 enum class Key {
     None,
     Space,

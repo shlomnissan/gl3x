@@ -12,13 +12,12 @@
 namespace vglx {
 
 /**
- * @brief Base type for all event objects.
+ * @brief Base class for all event objects.
  *
- * The Event struct defines the core interface for all event types.
- * Derived event types extend this interface with additional data specific
- * to their category.
+ * This class defines the core interface for all event types. Derived event
+ * types extend this interface with additional data specific to their category.
  *
- * Events are typically dispatched through the @ref Node hierarchy, where nodes
+ * Events are typically dispatched through the @ref Scene hierarchy, where nodes
  * can override event handlers and optionally mark events as handled.
  *
  * @ingroup EventsGroup
@@ -34,7 +33,6 @@ struct VGLX_EXPORT Event {
         Keyboard, ///< Event triggered by keyboard input.
         Mouse, ///< Event triggered by mouse input.
         Scene, ///< Event related to scene updates or lifecycle.
-        Window, ///< Event related to window actions or resizing.
         Undefined ///< Fallback for undefined or uninitialized event types.
     };
 
