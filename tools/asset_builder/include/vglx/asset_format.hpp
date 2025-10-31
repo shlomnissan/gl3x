@@ -17,7 +17,8 @@ enum VertexAttributeFlags : uint32_t {
     Positions = 1 << 0,
     Normals = 1 << 1,
     UVs = 1 << 2,
-    Colors = 1 << 3,
+    Tangents = 1 << 3,
+    Colors = 1 << 4,
 };
 
 #pragma pack(push, 1)

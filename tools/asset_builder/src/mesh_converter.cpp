@@ -12,8 +12,10 @@
 #include "mesh_converter.hpp"
 #include "texture_converter.hpp"
 
+#include <cinttypes>
 #include <cmath>
 #include <filesystem>
+#include <optional>
 #include <print>
 #include <string_view>
 #include <unordered_map>
@@ -22,6 +24,7 @@
 #include "tiny_obj_loader.hpp"
 
 namespace fs = std::filesystem;
+namespace {
 
 struct VertexKey {
     int pos_idx;
@@ -39,7 +42,49 @@ struct VertexKeyHash {
 
 using VertexMap = std::unordered_map<VertexKey, unsigned, VertexKeyHash>;
 
-namespace {
+struct ShapeVertexLayout {
+    uint32_t stride {0};
+    uint32_t position_offset {0};
+    uint32_t normal_offset {0};
+
+    std::optional<uint32_t> uv_offset;
+    std::optional<uint32_t> color_offset;
+    std::optional<uint32_t> tangent_offset;
+
+    bool has_uvs {false};
+    bool has_tangents {false};
+    bool has_colors {false};
+};
+
+auto make_layout(bool has_uvs, bool has_colors) {
+    auto output = ShapeVertexLayout {};
+    auto offset = uint32_t {0};
+
+    output.has_uvs = has_uvs;
+    output.has_tangents = false; // disable
+    output.has_colors = has_colors;
+
+    output.position_offset = offset;
+    offset += 3;
+    output.normal_offset = offset;
+    offset += 3;
+
+    if (output.has_uvs) {
+        output.uv_offset = offset;
+        offset += 2;
+    }
+    if (output.has_tangents) {
+        output.tangent_offset = offset;
+        offset += 3;
+    }
+    if (output.has_colors) {
+        output.color_offset = offset;
+        offset += 3;
+    }
+
+    output.stride = offset;
+    return output;
+}
 
 struct __vec3_t {
     float x;
@@ -78,13 +123,6 @@ struct __vec3_t {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-auto stride(bool has_colors, bool has_uvs) {
-    auto stride = 6u; // positions and normals are guaranteed
-    if (has_colors) stride += 3;
-    if (has_uvs) stride += 2;
-    return stride;
-}
-
 template<size_t N>
 auto copy_fixed_size_str(char (&dst)[N], const std::string_view src) {
     std::memset(dst, 0, N);
@@ -94,7 +132,7 @@ auto copy_fixed_size_str(char (&dst)[N], const std::string_view src) {
 auto generate_normals(
     std::vector<float>& vertex_data,
     std::vector<unsigned>& index_data,
-    unsigned int stride
+    const ShapeVertexLayout& layout
 ) {
     constexpr float eps = 1e-6f;
     constexpr auto normal_offset = 3;
@@ -105,53 +143,60 @@ auto generate_normals(
         auto i2 = index_data[i + 2];
 
         auto v0 = __vec3_t {
-            vertex_data[i0 * stride + 0],
-            vertex_data[i0 * stride + 1],
-            vertex_data[i0 * stride + 2]
+            vertex_data[i0 * layout.stride + 0],
+            vertex_data[i0 * layout.stride + 1],
+            vertex_data[i0 * layout.stride + 2]
         };
 
         auto v1 = __vec3_t {
-            vertex_data[i1 * stride + 0],
-            vertex_data[i1 * stride + 1],
-            vertex_data[i1 * stride + 2],
+            vertex_data[i1 * layout.stride + 0],
+            vertex_data[i1 * layout.stride + 1],
+            vertex_data[i1 * layout.stride + 2],
         };
 
         auto v2 = __vec3_t {
-            vertex_data[i2 * stride + 0],
-            vertex_data[i2 * stride + 1],
-            vertex_data[i2 * stride + 2],
+            vertex_data[i2 * layout.stride + 0],
+            vertex_data[i2 * layout.stride + 1],
+            vertex_data[i2 * layout.stride + 2],
         };
 
         auto e0 = v1 - v0;
         auto e1 = v2 - v0;
-
         auto f = cross(e0, e1);
         if (dot(f, f) <= eps * eps) {
             continue;
         }
 
         for (auto idx : {i0, i1, i2}) {
-            vertex_data[idx * stride + normal_offset + 0] += f.x;
-            vertex_data[idx * stride + normal_offset + 1] += f.y;
-            vertex_data[idx * stride + normal_offset + 2] += f.z;
+            vertex_data[idx * layout.stride + normal_offset + 0] += f.x;
+            vertex_data[idx * layout.stride + normal_offset + 1] += f.y;
+            vertex_data[idx * layout.stride + normal_offset + 2] += f.z;
         }
     }
 
-    auto vertex_count = vertex_data.size() / stride;
+    auto vertex_count = vertex_data.size() / layout.stride;
     for (auto i = 0; i < vertex_count; ++i) {
         auto n = __vec3_t {
-            vertex_data[i * stride + normal_offset + 0],
-            vertex_data[i * stride + normal_offset + 1],
-            vertex_data[i * stride + normal_offset + 2]
+            vertex_data[i * layout.stride + normal_offset + 0],
+            vertex_data[i * layout.stride + normal_offset + 1],
+            vertex_data[i * layout.stride + normal_offset + 2]
         };
 
         if (n.Length() > 0.0f) {
             n.Normalize();
-            vertex_data[i * stride + normal_offset + 0] = n.x;
-            vertex_data[i * stride + normal_offset + 1] = n.y;
-            vertex_data[i * stride + normal_offset + 2] = n.z;
+            vertex_data[i * layout.stride + normal_offset + 0] = n.x;
+            vertex_data[i * layout.stride + normal_offset + 1] = n.y;
+            vertex_data[i * layout.stride + normal_offset + 2] = n.z;
         }
     }
+}
+
+auto generate_tangents(
+    std::vector<float>& vertex_data,
+    std::vector<unsigned>& index_data,
+    const ShapeVertexLayout& layout
+) {
+    // TODO: implement
 }
 
 auto convert_texture(
@@ -221,11 +266,13 @@ auto parse_shapes(
         auto vertex_data = std::vector<float> {};
         auto index_data = std::vector<unsigned> {};
 
-        bool has_colors = !attrib.colors.empty();
-        bool has_uvs = false;
+        auto has_colors = !attrib.colors.empty();
+        auto has_uvs = false;
         for (auto& idx : mesh.indices) {
             if (idx.texcoord_index >= 0) has_uvs = true;
         }
+
+        auto layout = make_layout(has_uvs, has_colors);
 
         for (auto i = 0u; i < mesh.indices.size(); ++i) {
             const auto idx = mesh.indices[i];
@@ -236,7 +283,7 @@ auto parse_shapes(
                 continue;
             }
 
-            seen_vertices[key] = static_cast<unsigned>(vertex_data.size() / stride(has_colors, has_uvs));
+            seen_vertices[key] = static_cast<unsigned>(vertex_data.size() / layout.stride);
             index_data.push_back(seen_vertices[key]);
 
             vertex_data.insert(vertex_data.end(), {
@@ -248,7 +295,7 @@ auto parse_shapes(
             // placeholder for normals, always generated dynamically
             vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f});
 
-            if (has_uvs) {
+            if (layout.has_uvs) {
                 if (idx.texcoord_index >= 0) {
                     vertex_data.insert(vertex_data.end(), {
                         attrib.texcoords[2 * idx.texcoord_index + 0],
@@ -259,7 +306,12 @@ auto parse_shapes(
                 }
             }
 
-            if (has_colors) {
+            if (layout.has_tangents) {
+                // placeholder for tangents, always generated dynamically
+                vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f});
+            }
+
+            if (layout.has_colors) {
                 vertex_data.insert(vertex_data.end(), {
                     attrib.colors[3 * idx.vertex_index + 0],
                     attrib.colors[3 * idx.vertex_index + 1],
@@ -268,7 +320,7 @@ auto parse_shapes(
             }
         }
 
-        generate_normals(vertex_data, index_data, stride(has_colors, has_uvs));
+        generate_normals(vertex_data, index_data, layout);
 
         auto msh_entry = MeshEntryHeader {};
         copy_fixed_size_str(
@@ -278,14 +330,15 @@ auto parse_shapes(
 
         msh_entry.vertex_count = static_cast<uint32_t>(seen_vertices.size());
         msh_entry.index_count = static_cast<uint32_t>(index_data.size());
-        msh_entry.vertex_stride = stride(has_colors, has_uvs);
+        msh_entry.vertex_stride = layout.stride;
         msh_entry.material_index = mesh.material_ids.front();
         msh_entry.vertex_data_size = static_cast<uint64_t>(vertex_data.size() * sizeof(float));
         msh_entry.index_data_size = static_cast<uint64_t>(index_data.size() * sizeof(unsigned));
         msh_entry.vertex_flags = VertexAttributeFlags::Positions | VertexAttributeFlags::Normals;
 
-        if (has_colors) msh_entry.vertex_flags |= VertexAttributeFlags::Colors;
-        if (has_uvs) msh_entry.vertex_flags |= VertexAttributeFlags::UVs;
+        if (layout.has_uvs) msh_entry.vertex_flags |= VertexAttributeFlags::UVs;
+        if (layout.has_tangents) msh_entry.vertex_flags |= VertexAttributeFlags::Tangents;
+        if (layout.has_colors) msh_entry.vertex_flags |= VertexAttributeFlags::Colors;
 
         out_stream.write(reinterpret_cast<const char*>(&msh_entry), sizeof(msh_entry));
         out_stream.write(reinterpret_cast<const char*>(vertex_data.data()), vertex_data.size() * sizeof(float));
