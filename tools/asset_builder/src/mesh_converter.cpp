@@ -65,7 +65,7 @@ auto make_layout(bool has_uvs, bool has_colors) {
     auto offset = uint32_t {0};
 
     output.has_uvs = has_uvs;
-    output.has_tangents = false; // disable
+    output.has_tangents = has_uvs;
     output.has_colors = has_colors;
 
     output.position_offset = offset;
@@ -111,6 +111,10 @@ struct __vec3_t {
         return *this;
     }
 
+    [[nodiscard]] friend auto operator*(float n, const __vec3_t v) {
+        return __vec3_t {v.x * n, v.y * n, v.z * n};
+    }
+
     [[nodiscard]] friend auto operator-(const __vec3_t a, const __vec3_t b) {
         return __vec3_t {a.x - b.x, a.y - b.y, a.z - b.z};
     }
@@ -154,56 +158,60 @@ auto generate_normals(
     std::vector<unsigned>& index_data,
     const ShapeVertexLayout& layout
 ) {
+    auto pos_offset = layout.position_offset;
+    auto norm_offset = layout.normal_offset;
+
     for (size_t i = 0; i < index_data.size(); i += 3) {
         auto i0 = index_data[i + 0];
         auto i1 = index_data[i + 1];
         auto i2 = index_data[i + 2];
 
         auto v0 = __vec3_t {
-            vertex_data[i0 * layout.stride + 0],
-            vertex_data[i0 * layout.stride + 1],
-            vertex_data[i0 * layout.stride + 2]
+            vertex_data[i0 * layout.stride + pos_offset + 0],
+            vertex_data[i0 * layout.stride + pos_offset + 1],
+            vertex_data[i0 * layout.stride + pos_offset + 2]
         };
 
         auto v1 = __vec3_t {
-            vertex_data[i1 * layout.stride + 0],
-            vertex_data[i1 * layout.stride + 1],
-            vertex_data[i1 * layout.stride + 2],
+            vertex_data[i1 * layout.stride + pos_offset + 0],
+            vertex_data[i1 * layout.stride + pos_offset + 1],
+            vertex_data[i1 * layout.stride + pos_offset + 2],
         };
 
         auto v2 = __vec3_t {
-            vertex_data[i2 * layout.stride + 0],
-            vertex_data[i2 * layout.stride + 1],
-            vertex_data[i2 * layout.stride + 2],
+            vertex_data[i2 * layout.stride + pos_offset + 0],
+            vertex_data[i2 * layout.stride + pos_offset + 1],
+            vertex_data[i2 * layout.stride + pos_offset + 2],
         };
 
         auto e0 = v1 - v0;
         auto e1 = v2 - v0;
         auto f = cross(e0, e1);
         if (dot(f, f) <= eps * eps) {
+            // degenerate triangle → skip this face
             continue;
         }
 
         for (auto idx : {i0, i1, i2}) {
-            vertex_data[idx * layout.stride + layout.normal_offset + 0] += f.x;
-            vertex_data[idx * layout.stride + layout.normal_offset + 1] += f.y;
-            vertex_data[idx * layout.stride + layout.normal_offset + 2] += f.z;
+            vertex_data[idx * layout.stride + norm_offset + 0] += f.x;
+            vertex_data[idx * layout.stride + norm_offset + 1] += f.y;
+            vertex_data[idx * layout.stride + norm_offset + 2] += f.z;
         }
     }
 
     auto vertex_count = vertex_data.size() / layout.stride;
     for (size_t i = 0; i < vertex_count; ++i) {
         auto n = __vec3_t {
-            vertex_data[i * layout.stride + layout.normal_offset + 0],
-            vertex_data[i * layout.stride + layout.normal_offset + 1],
-            vertex_data[i * layout.stride + layout.normal_offset + 2]
+            vertex_data[i * layout.stride + norm_offset + 0],
+            vertex_data[i * layout.stride + norm_offset + 1],
+            vertex_data[i * layout.stride + norm_offset + 2]
         };
 
         if (n.Length() > 0.0f) {
             n.Normalize();
-            vertex_data[i * layout.stride + layout.normal_offset + 0] = n.x;
-            vertex_data[i * layout.stride + layout.normal_offset + 1] = n.y;
-            vertex_data[i * layout.stride + layout.normal_offset + 2] = n.z;
+            vertex_data[i * layout.stride + norm_offset + 0] = n.x;
+            vertex_data[i * layout.stride + norm_offset + 1] = n.y;
+            vertex_data[i * layout.stride + norm_offset + 2] = n.z;
         }
     }
 }
@@ -213,8 +221,17 @@ auto generate_tangents(
     std::vector<unsigned>& index_data,
     const ShapeVertexLayout& layout
 ) {
+    assert(layout.has_uvs && layout.has_tangents);
+    assert(layout.uv_offset && layout.tangent_offset);
+
+    auto pos_offset = layout.position_offset;
+    auto norm_offset = layout.normal_offset;
+    auto uv_offset = layout.uv_offset.value();
+    auto tan_offset = layout.tangent_offset.value();
+
     auto vertex_count = vertex_data.size() / layout.stride;
-    std::vector<__vec3_t> tangents(vertex_count * 2);
+    std::vector<__vec3_t> t_accum(vertex_count);
+    std::vector<__vec3_t> b_accum(vertex_count);
 
     for (size_t i = 0; i < index_data.size(); i += 3) {
         auto i0 = index_data[i + 0];
@@ -222,42 +239,48 @@ auto generate_tangents(
         auto i2 = index_data[i + 2];
 
         auto v0 = __vec3_t {
-            vertex_data[i0 * layout.stride + 0],
-            vertex_data[i0 * layout.stride + 1],
-            vertex_data[i0 * layout.stride + 2]
+            vertex_data[i0 * layout.stride + pos_offset + 0],
+            vertex_data[i0 * layout.stride + pos_offset + 1],
+            vertex_data[i0 * layout.stride + pos_offset + 2]
         };
 
         auto v1 = __vec3_t {
-            vertex_data[i1 * layout.stride + 0],
-            vertex_data[i1 * layout.stride + 1],
-            vertex_data[i1 * layout.stride + 2],
+            vertex_data[i1 * layout.stride + pos_offset + 0],
+            vertex_data[i1 * layout.stride + pos_offset + 1],
+            vertex_data[i1 * layout.stride + pos_offset + 2],
         };
 
         auto v2 = __vec3_t {
-            vertex_data[i2 * layout.stride + 0],
-            vertex_data[i2 * layout.stride + 1],
-            vertex_data[i2 * layout.stride + 2],
+            vertex_data[i2 * layout.stride + pos_offset + 0],
+            vertex_data[i2 * layout.stride + pos_offset + 1],
+            vertex_data[i2 * layout.stride + pos_offset + 2],
         };
 
         auto w0 = __vec2_t {
-            vertex_data[i0 * layout.stride + layout.uv_offset.value() + 0],
-            vertex_data[i0 * layout.stride + layout.uv_offset.value() + 1]
+            vertex_data[i0 * layout.stride + uv_offset + 0],
+            vertex_data[i0 * layout.stride + uv_offset + 1]
         };
 
         auto w1 = __vec2_t {
-            vertex_data[i1 * layout.stride + layout.uv_offset.value() + 0],
-            vertex_data[i1 * layout.stride + layout.uv_offset.value() + 1]
+            vertex_data[i1 * layout.stride + uv_offset + 0],
+            vertex_data[i1 * layout.stride + uv_offset + 1]
         };
 
         auto w2 = __vec2_t {
-            vertex_data[i2 * layout.stride + layout.uv_offset.value() + 0],
-            vertex_data[i2 * layout.stride + layout.uv_offset.value() + 1]
+            vertex_data[i2 * layout.stride + uv_offset + 0],
+            vertex_data[i2 * layout.stride + uv_offset + 1]
         };
 
         auto e0 = v1 - v0;
         auto e1 = v2 - v0;
         auto uv0 = w1 - w0;
         auto uv1 = w2 - w0;
+
+        auto f = cross(e0, e1);
+        if (dot(f, f) <= eps * eps) {
+            // degenerate triangle → skip this face
+            continue;
+        }
 
         auto det = (uv0.u * uv1.v - uv1.u * uv0.v);
         if (std::fabs(det) < eps) {
@@ -278,15 +301,33 @@ auto generate_tangents(
             (e1.z * uv0.u - e0.z * uv1.u) * r
         };
 
-        tangents[i0] += tangent;
-        tangents[i1] += tangent;
-        tangents[i2] += tangent;
-        tangents[vertex_count + i0] += bitangent;
-        tangents[vertex_count + i1] += bitangent;
-        tangents[vertex_count + i2] += bitangent;
+        t_accum[i0] += tangent;
+        t_accum[i1] += tangent;
+        t_accum[i2] += tangent;
+
+        b_accum[i0] += bitangent;
+        b_accum[i1] += bitangent;
+        b_accum[i2] += bitangent;
     }
 
-    // TODO: orthonrmalize and assign tangents to vertex data
+    for (size_t i = 0; i < vertex_count; ++i) {
+        auto n = __vec3_t {
+            vertex_data[i * layout.stride + norm_offset + 0],
+            vertex_data[i * layout.stride + norm_offset + 1],
+            vertex_data[i * layout.stride + norm_offset + 2]
+        };
+
+        auto t = t_accum[i];
+        auto b = b_accum[i];
+
+        t = (t - dot(n, t) * n).Normalize();
+        auto s = dot(cross(n, t), b) >= 0 ? 1.0f : -1.0f;
+
+        vertex_data[i * layout.stride + tan_offset + 0] = t.x;
+        vertex_data[i * layout.stride + tan_offset + 1] = t.y;
+        vertex_data[i * layout.stride + tan_offset + 2] = t.z;
+        vertex_data[i * layout.stride + tan_offset + 3] = s;
+    }
 }
 
 auto convert_texture(
@@ -383,7 +424,7 @@ auto parse_shapes(
             });
 
             // placeholder for normals, always generated dynamically
-            vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f, 0.0f});
+            vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f});
 
             if (layout.has_uvs) {
                 if (idx.texcoord_index >= 0) {
@@ -398,7 +439,7 @@ auto parse_shapes(
 
             if (layout.has_tangents) {
                 // placeholder for tangents, always generated dynamically
-                vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f});
+                vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f, 0.0f});
             }
 
             if (layout.has_colors) {
