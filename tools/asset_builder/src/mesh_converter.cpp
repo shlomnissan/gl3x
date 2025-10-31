@@ -12,6 +12,7 @@
 #include "mesh_converter.hpp"
 #include "texture_converter.hpp"
 
+#include <cassert>
 #include <cinttypes>
 #include <cmath>
 #include <filesystem>
@@ -24,7 +25,10 @@
 #include "tiny_obj_loader.hpp"
 
 namespace fs = std::filesystem;
+
 namespace {
+
+constexpr auto eps = 1e-8f;
 
 struct VertexKey {
     int pos_idx;
@@ -75,7 +79,7 @@ auto make_layout(bool has_uvs, bool has_colors) {
     }
     if (output.has_tangents) {
         output.tangent_offset = offset;
-        offset += 3;
+        offset += 4;
     }
     if (output.has_colors) {
         output.color_offset = offset;
@@ -86,10 +90,26 @@ auto make_layout(bool has_uvs, bool has_colors) {
     return output;
 }
 
+struct __vec2_t {
+    float u {0};
+    float v {0};
+
+    [[nodiscard]] friend auto operator-(const __vec2_t a, const __vec2_t b) {
+        return __vec2_t {a.u - b.u, a.v - b.v};
+    }
+};
+
 struct __vec3_t {
-    float x;
-    float y;
-    float z;
+    float x {0};
+    float y {0};
+    float z {0};
+
+    auto& operator+=(const __vec3_t& rhs) {
+        this->x += rhs.x;
+        this->y += rhs.y;
+        this->z += rhs.z;
+        return *this;
+    }
 
     [[nodiscard]] friend auto operator-(const __vec3_t a, const __vec3_t b) {
         return __vec3_t {a.x - b.x, a.y - b.y, a.z - b.z};
@@ -134,12 +154,9 @@ auto generate_normals(
     std::vector<unsigned>& index_data,
     const ShapeVertexLayout& layout
 ) {
-    constexpr float eps = 1e-6f;
-    constexpr auto normal_offset = 3;
-
-    for (auto i = 0; i < index_data.size(); i += 3) {
-        auto i1 = index_data[i + 1];
+    for (size_t i = 0; i < index_data.size(); i += 3) {
         auto i0 = index_data[i + 0];
+        auto i1 = index_data[i + 1];
         auto i2 = index_data[i + 2];
 
         auto v0 = __vec3_t {
@@ -168,25 +185,25 @@ auto generate_normals(
         }
 
         for (auto idx : {i0, i1, i2}) {
-            vertex_data[idx * layout.stride + normal_offset + 0] += f.x;
-            vertex_data[idx * layout.stride + normal_offset + 1] += f.y;
-            vertex_data[idx * layout.stride + normal_offset + 2] += f.z;
+            vertex_data[idx * layout.stride + layout.normal_offset + 0] += f.x;
+            vertex_data[idx * layout.stride + layout.normal_offset + 1] += f.y;
+            vertex_data[idx * layout.stride + layout.normal_offset + 2] += f.z;
         }
     }
 
     auto vertex_count = vertex_data.size() / layout.stride;
-    for (auto i = 0; i < vertex_count; ++i) {
+    for (size_t i = 0; i < vertex_count; ++i) {
         auto n = __vec3_t {
-            vertex_data[i * layout.stride + normal_offset + 0],
-            vertex_data[i * layout.stride + normal_offset + 1],
-            vertex_data[i * layout.stride + normal_offset + 2]
+            vertex_data[i * layout.stride + layout.normal_offset + 0],
+            vertex_data[i * layout.stride + layout.normal_offset + 1],
+            vertex_data[i * layout.stride + layout.normal_offset + 2]
         };
 
         if (n.Length() > 0.0f) {
             n.Normalize();
-            vertex_data[i * layout.stride + normal_offset + 0] = n.x;
-            vertex_data[i * layout.stride + normal_offset + 1] = n.y;
-            vertex_data[i * layout.stride + normal_offset + 2] = n.z;
+            vertex_data[i * layout.stride + layout.normal_offset + 0] = n.x;
+            vertex_data[i * layout.stride + layout.normal_offset + 1] = n.y;
+            vertex_data[i * layout.stride + layout.normal_offset + 2] = n.z;
         }
     }
 }
@@ -196,7 +213,80 @@ auto generate_tangents(
     std::vector<unsigned>& index_data,
     const ShapeVertexLayout& layout
 ) {
-    // TODO: implement
+    auto vertex_count = vertex_data.size() / layout.stride;
+    std::vector<__vec3_t> tangents(vertex_count * 2);
+
+    for (size_t i = 0; i < index_data.size(); i += 3) {
+        auto i0 = index_data[i + 0];
+        auto i1 = index_data[i + 1];
+        auto i2 = index_data[i + 2];
+
+        auto v0 = __vec3_t {
+            vertex_data[i0 * layout.stride + 0],
+            vertex_data[i0 * layout.stride + 1],
+            vertex_data[i0 * layout.stride + 2]
+        };
+
+        auto v1 = __vec3_t {
+            vertex_data[i1 * layout.stride + 0],
+            vertex_data[i1 * layout.stride + 1],
+            vertex_data[i1 * layout.stride + 2],
+        };
+
+        auto v2 = __vec3_t {
+            vertex_data[i2 * layout.stride + 0],
+            vertex_data[i2 * layout.stride + 1],
+            vertex_data[i2 * layout.stride + 2],
+        };
+
+        auto w0 = __vec2_t {
+            vertex_data[i0 * layout.stride + layout.uv_offset.value() + 0],
+            vertex_data[i0 * layout.stride + layout.uv_offset.value() + 1]
+        };
+
+        auto w1 = __vec2_t {
+            vertex_data[i1 * layout.stride + layout.uv_offset.value() + 0],
+            vertex_data[i1 * layout.stride + layout.uv_offset.value() + 1]
+        };
+
+        auto w2 = __vec2_t {
+            vertex_data[i2 * layout.stride + layout.uv_offset.value() + 0],
+            vertex_data[i2 * layout.stride + layout.uv_offset.value() + 1]
+        };
+
+        auto e0 = v1 - v0;
+        auto e1 = v2 - v0;
+        auto uv0 = w1 - w0;
+        auto uv1 = w2 - w0;
+
+        auto det = (uv0.u * uv1.v - uv1.u * uv0.v);
+        if (std::fabs(det) < eps) {
+            // degenerate UV triangle → skip this face
+            continue;
+        }
+        auto r = 1.0f / det;
+
+        const auto tangent = __vec3_t {
+            (e0.x * uv1.v - e1.x * uv0.v) * r,
+            (e0.y * uv1.v - e1.y * uv0.v) * r,
+            (e0.z * uv1.v - e1.z * uv0.v) * r
+        };
+
+        const auto bitangent = __vec3_t {
+            (e1.x * uv0.u - e0.x * uv1.u) * r,
+            (e1.y * uv0.u - e0.y * uv1.u) * r,
+            (e1.z * uv0.u - e0.z * uv1.u) * r
+        };
+
+        tangents[i0] += tangent;
+        tangents[i1] += tangent;
+        tangents[i2] += tangent;
+        tangents[vertex_count + i0] += bitangent;
+        tangents[vertex_count + i1] += bitangent;
+        tangents[vertex_count + i2] += bitangent;
+    }
+
+    // TODO: orthonrmalize and assign tangents to vertex data
 }
 
 auto convert_texture(
@@ -293,7 +383,7 @@ auto parse_shapes(
             });
 
             // placeholder for normals, always generated dynamically
-            vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f});
+            vertex_data.insert(vertex_data.end(), {0.0f, 0.0f, 0.0f, 0.0f});
 
             if (layout.has_uvs) {
                 if (idx.texcoord_index >= 0) {
@@ -321,6 +411,9 @@ auto parse_shapes(
         }
 
         generate_normals(vertex_data, index_data, layout);
+        if (layout.has_tangents) {
+            generate_tangents(vertex_data, index_data, layout);
+        }
 
         auto msh_entry = MeshEntryHeader {};
         copy_fixed_size_str(
