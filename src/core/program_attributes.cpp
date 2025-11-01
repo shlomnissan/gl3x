@@ -81,6 +81,7 @@ ProgramAttributes::ProgramAttributes(
     key |= (two_sided ? 1 : 0) << 22; // 1 bit
     key |= (instancing ? 1 : 0) << 23; // 1 bit
     key |= (vertex_color ? 1 : 0) << 24; // 1 bit
+    key |= (tangent ? 1 : 0) << 25; // 1 bit
 }
 
 }
