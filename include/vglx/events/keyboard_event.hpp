@@ -20,12 +20,11 @@ enum class Key;
  *
  * A keyboard event is dispatched when a key is pressed or released. It extends
  * the base @ref Event with data specific to keyboard input: the @ref
- * KeyboardEvent::type "interaction type" and the
- * @ref KeyboardEvent::key "key code".
+ * KeyboardEvent::Type "interaction type" and the @ref KeyboardEvent::key "key code".
  *
  * Events are dispatched through the @ref Scene hierarchy where
  * nodes can override the @ref Node::OnKeyboardEvent handler and optionally
- * mark the event as @ref Event::handled "handled". When "handled"
+ * mark the event as @ref Event::handled "handled". When handled
  * is set to `true`, the event stops propagating to other nodes.
  *
  * @code
@@ -64,8 +63,7 @@ struct VGLX_EXPORT KeyboardEvent : public Event {
      * @brief Key code associated with the event.
      *
      * Identifies which key triggered the event using the key enumeration.
-     * The full list of supported keys is not included in this documentation;
-     * refer to the source code for details.
+     * Refer to the source code for enum details.
      */
     Key key;
 
