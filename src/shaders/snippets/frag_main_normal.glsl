@@ -17,8 +17,8 @@ Instead, use the generated normal variable for lighting calculations.
     vec3 normal = normalize(v_Normal);
 
     #ifdef USE_NORMAL_MAPPING
-        normal = texture(u_NormalMap, v_TexCoord).rgb;
-        normal = normalize(v_TBN * (normal * 2.0 - 1.0));
+        vec3 normal_tan = texture(u_NormalMap, v_TexCoord).rgb  * 2.0 - 1.0;
+        normal = normalize(v_TBN * normal_tan);
     #endif
 
     #ifdef USE_TWO_SIDED
