@@ -17,44 +17,52 @@
 namespace vglx {
 
 /**
- * @brief Event representing a change in the scene graph hierarchy.
+ * @brief Represents a scene hierarchy change event.
  *
- * `SceneEvent` is dispatched when a node is added to or removed from the
- * active scene. It contains a reference to the affected node and the type
- * of change.
+ * A scene event is dispatched when a node is added to or removed from the
+ * active scene. It extends the base @ref Event with data specific to scene
+ * changes: the @ref SceneEvent::Type "change type" and the affected
+ * @ref SceneEvent::node "node reference".
  *
- * @note This event type is currently used internally by the active scene
- * object to track hierarchy changes and **cannot be handled by individual nodes**.
+ * This event type is used internally by the active @ref Scene to
+ * track hierarchy changes and cannot be handled directly by individual
+ * nodes.
  *
  * @ingroup EventsGroup
  */
 struct VGLX_EXPORT SceneEvent : public Event {
     /**
-     * @brief Represents scene modification type.
+     * @brief Enumerates all scene change types.
+     *
+     * Distinguishes between node additions and removals within the active
+     * scene graph.
      */
     enum class Type {
         NodeAdded, ///< Node was added to the scene.
         NodeRemoved ///< Node was removed from the scene.
     };
 
-    /// @brief Node that was added or removed.
+    /**
+     * @brief The node that was added or removed.
+     *
+     * Holds a shared reference to the affected node at the time the event
+     * was generated.
+     */
     std::shared_ptr<Node> node;
 
-    /// @brief Scene event type.
+    /// @brief The @ref SceneEvent::Type "type" of this event.
     SceneEvent::Type type;
 
     /**
-     * @brief Constructs a SceneEvent.
+     * @brief Constructs a scene event.
      *
-     * @param type Type of scene change.
-     * @param node Node that was affected.
+     * @param type The @ref SceneEvent::Type "type" of scene change.
+     * @param node The @ref Node "node" that was affected.
      */
     SceneEvent(Type type, std::shared_ptr<Node> node) : type(type), node(node) {}
 
     /**
-     * @brief Returns event type.
-     *
-     * @return Event::Type::Scene
+     * @brief Identifies this event as @ref Event::Type "Event::Type::Scene".
      */
     auto GetType() const -> Event::Type override {
         return Event::Type::Scene;
