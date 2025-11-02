@@ -103,8 +103,7 @@ auto ShaderLibrary::InjectAttributes(
     if (attrs.flat_shaded) features += "#define USE_FLAT_SHADED\n";
     if (attrs.fog) features += "#define USE_FOG\n";
     if (attrs.instancing) features += "#define USE_INSTANCING\n";
-    if (attrs.normal_map) features += "#define USE_NORMAL_MAP\n";
-    if (attrs.tangent) features += "#define USE_TANGENT\n";
+    if (attrs.normal_map && attrs.tangent) features += "#define USE_NORMAL_MAPPING\n";
     if (attrs.two_sided) features += "#define USE_TWO_SIDED\n";
     if (attrs.vertex_color) features += "#define USE_VERTEX_COLOR\n";
 

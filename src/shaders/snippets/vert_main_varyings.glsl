@@ -24,3 +24,9 @@ v_TexCoord = (u_TextureTransform * vec3(a_TexCoord, 1.0)).xy;
 v_Normal = normalize(normal_matrix * a_Normal);
 v_ViewDir = normalize(-v_Position.xyz);
 v_ViewDepth = -v_Position.z;
+
+#ifdef USE_NORMAL_MAPPING
+    vec3 tangent = normalize(mat3(model_view) * a_Tangent.xyz);
+    vec3 bitangent = normalize(cross(v_Normal, tangent)) * a_Tangent.w;
+    v_TBN = mat3(tangent, bitangent, v_Normal);
+#endif

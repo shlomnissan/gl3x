@@ -65,6 +65,7 @@ ProgramAttributes::ProgramAttributes(
     num_lights = lights.directional + lights.point + lights.spot;
     two_sided = material->two_sided;
     vertex_color = geometry->HasAttribute(VertexAttributeType::Color);
+    tangent = geometry->HasAttribute(VertexAttributeType::Tangent);
 
     static_assert(std::to_underlying(MaterialType::Length) <= 15);
 
