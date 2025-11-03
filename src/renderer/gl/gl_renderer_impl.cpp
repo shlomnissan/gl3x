@@ -130,6 +130,20 @@ auto Renderer::Impl::SetUniforms(
     program->SetUniform(Uniform::Opacity, &material->opacity);
     program->SetUniform(Uniform::Resolution, &resolution);
 
+    const auto bind_texture = [&](GLTextureMapType type, std::shared_ptr<Texture2D> tex) {
+        textures_.Bind(tex, type);
+        const auto& transform = tex->GetTransform();
+        program->SetUniform(Uniform::TextureTransform, &transform);
+        switch(type) {
+            case GLTextureMapType::AlbedoMap:
+                program->SetUniform(Uniform::AlbedoMap, &type);
+            case GLTextureMapType::AlphaMap:
+                program->SetUniform(Uniform::AlphaMap, &type);
+            case GLTextureMapType::NormalMap:
+                program->SetUniform(Uniform::NormalMap, &type);
+        }
+    };
+
     if (auto fog = scene->fog.get()) {
         auto type = fog->GetType();
         program->SetUniform(Uniform::FogType, &type);
@@ -156,25 +170,12 @@ auto Renderer::Impl::SetUniforms(
             program->SetUniform(Uniform::MaterialShininess, &m->shininess);
         }
 
-        if (attrs->albedo_map) {
-            auto map_type = GLTextureMapType::AlbedoMap;
-            textures_.Bind(m->albedo_map, map_type);
-            const auto& transform = m->albedo_map->GetTransform();
-            program->SetUniform(Uniform::AlbedoMap, &map_type);
-            program->SetUniform(Uniform::TextureTransform, &transform);
-        }
-
-        if (attrs->alpha_map) {
-            auto map_type = GLTextureMapType::AlphaMap;
-            textures_.Bind(m->alpha_map, map_type);
-            program->SetUniform(Uniform::AlphaMap, &map_type);
-        }
-
-        if (attrs->normal_map) {
-            auto map_type = GLTextureMapType::NormalMap;
-            textures_.Bind(m->normal_map, map_type);
-            program->SetUniform(Uniform::NormalMap, &map_type);
-        }
+        if (attrs->albedo_map)
+            bind_texture(GLTextureMapType::AlbedoMap, m->albedo_map);
+        if (attrs->alpha_map)
+            bind_texture(GLTextureMapType::AlphaMap, m->alpha_map);
+        if (attrs->normal_map)
+            bind_texture(GLTextureMapType::NormalMap, m->normal_map);
     }
 
     if (attrs->type == MaterialType::ShaderMaterial) {
@@ -192,38 +193,20 @@ auto Renderer::Impl::SetUniforms(
         program->SetUniform(Uniform::Color, &m->color);
         program->SetUniform(Uniform::Rotation, &r->rotation);
 
-        if (attrs->albedo_map) {
-            auto map_type = GLTextureMapType::AlbedoMap;
-            textures_.Bind(m->albedo_map, map_type);
-            const auto& transform = m->albedo_map->GetTransform();
-            program->SetUniform(Uniform::AlbedoMap, &map_type);
-            program->SetUniform(Uniform::TextureTransform, &transform);
-        }
-
-        if (attrs->alpha_map) {
-            auto map_type = GLTextureMapType::AlphaMap;
-            textures_.Bind(m->alpha_map, map_type);
-            program->SetUniform(Uniform::AlphaMap, &map_type);
-        }
+        if (attrs->albedo_map)
+            bind_texture(GLTextureMapType::AlbedoMap, m->albedo_map);
+        if (attrs->alpha_map)
+            bind_texture(GLTextureMapType::AlphaMap, m->alpha_map);
     }
 
     if (attrs->type == MaterialType::UnlitMaterial) {
         auto m = static_cast<UnlitMaterial*>(material);
         program->SetUniform(Uniform::Color, &m->color);
 
-        if (attrs->albedo_map) {
-            auto map_type = GLTextureMapType::AlbedoMap;
-            textures_.Bind(m->albedo_map, map_type);
-            const auto& transform = m->albedo_map->GetTransform();
-            program->SetUniform(Uniform::AlbedoMap, &map_type);
-            program->SetUniform(Uniform::TextureTransform, &transform);
-        }
-
-        if (attrs->alpha_map) {
-            auto map_type = GLTextureMapType::AlphaMap;
-            textures_.Bind(m->alpha_map, map_type);
-            program->SetUniform(Uniform::AlphaMap, &map_type);
-        }
+        if (attrs->albedo_map)
+            bind_texture(GLTextureMapType::AlbedoMap, m->albedo_map);
+        if (attrs->alpha_map)
+            bind_texture(GLTextureMapType::AlphaMap, m->alpha_map);
     }
 }
 
