@@ -10,7 +10,6 @@
 #include "ui_helpers.hpp"
 
 #include <vglx/lights.hpp>
-#include <vglx/materials.hpp>
 
 #include <print>
 
@@ -18,7 +17,7 @@ using namespace vglx;
 using namespace vglx::math;
 
 ExampleModelLoader::ExampleModelLoader() {
-    show_context_menu_ = false;
+    show_context_menu_ = true;
 
     sphere_ = Mesh::Create(
         SphereGeometry::Create({.radius = 5.0f}),
@@ -49,13 +48,16 @@ auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
     }));
 
     context->mesh_loader->LoadAsync(
-        "assets/mushroom.msh",
+        "assets/lps_head.msh",
         [this](auto result) {
             if (result) {
                 model_ = result.value();
-                model_->SetScale(0.005f);
-                model_->TranslateY(-0.4f);
+                model_->RotateY(math::pi_over_2);
                 sphere_->Add(model_);
+
+                auto mesh = static_cast<Mesh*>(model_->Children().front().get());
+                material_ = static_cast<PhongMaterial*>(mesh->GetMaterial().get());
+                albedo_map_ = material_->albedo_map;
             } else {
                 std::println(stderr, "{}", result.error());
             }
@@ -63,10 +65,10 @@ auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
     );
 
     context->texture_loader->LoadAsync(
-        "assets/mushroms_Opacity_1002.tex",
+        "assets/lps_head_normals.tex",
         [this](auto result) {
             if (result) {
-                alpha_map_ = result.value();
+                normal_map_ = result.value();
             } else {
                 std::println(stderr, "{}", result.error());
             }
@@ -75,13 +77,15 @@ auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
 }
 
 auto ExampleModelLoader::OnUpdate(float delta) -> void {
-    if (!is_alpha_set && alpha_map_ != nullptr && model_ != nullptr) {
-        auto x = static_cast<Mesh*>(model_->Children()[10].get());
-        auto m = static_cast<PhongMaterial*>(x->GetMaterial().get());
-        m->alpha_map = alpha_map_;
-        m->transparent = true;
-        is_alpha_set = true;
+    if (normal_map_ != nullptr && material_ != nullptr) {
+        material_->albedo_map = show_albedo_map_ ? albedo_map_ : nullptr;
+        material_->normal_map = show_normal_map_ ? normal_map_ : nullptr;
     }
-
     sphere_->RotateY(0.1f * delta);
+}
+
+auto ExampleModelLoader::ContextMenu() -> void {
+    auto _ = false;
+    UICheckbox("albedo_map", show_albedo_map_, _);
+    UICheckbox("normal_map", show_normal_map_, _);
 }
