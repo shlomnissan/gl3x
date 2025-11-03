@@ -59,10 +59,10 @@ public:
     /**
      * @brief Returns light type.
      *
-     * @return LightType::Ambient
+     * @return Light::Type::Ambient
      */
-    [[nodiscard]] auto GetType() const -> LightType override {
-        return LightType::AmbientLight;
+    [[nodiscard]] auto GetType() const -> Light::Type override {
+        return Light::Type::AmbientLight;
     }
 };
 

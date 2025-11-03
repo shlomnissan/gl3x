@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import referenceSidebar from './auto-reference-sidebar'
+import mathjax3 from 'markdown-it-mathjax3'
 
 const year = new Date().getFullYear();
 
@@ -8,6 +9,11 @@ export default defineConfig({
   title: 'VGLX',
   description: '3D Rendering in Modern C++',
   cleanUrls: true,
+  markdown: {
+    config: (md) => {
+        md.use(mathjax3)
+    }
+  },
   head: [
     ['link', { rel: 'preload', href: 'logo.woff2', as: 'font', type: 'font/woff2', crossorigin: '' }],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg', media: '(prefers-color-scheme: light)' }],

@@ -19,7 +19,7 @@
 namespace vglx {
 
 auto GLLights::AddLight(Light* light, Camera* camera) -> void {
-    using enum LightType;
+    using enum Light::Type;
 
     if (idx_ >= kMaxLights) {
         Logger::Log(
