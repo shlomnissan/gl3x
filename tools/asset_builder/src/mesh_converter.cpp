@@ -505,7 +505,7 @@ auto convert_mesh(
 
     auto header = MeshHeader {};
     std::memcpy(header.magic, "MES0", 4);
-    header.version = 1;
+    header.version = VGLX_MSH_VER;
     header.header_size = sizeof(MeshHeader);
     header.material_count = static_cast<uint32_t>(materials.size());
     header.mesh_count = static_cast<uint32_t>(shapes.size());

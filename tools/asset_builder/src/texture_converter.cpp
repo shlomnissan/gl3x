@@ -33,7 +33,7 @@ auto convert_texture(
 
     auto header = TextureHeader {};
     std::memcpy(header.magic, "TEX0", 4);
-    header.version = 1;
+    header.version = VGLX_TEX_VER;
     header.header_size = sizeof(TextureHeader);
     header.width = static_cast<uint32_t>(width);
     header.height = static_cast<uint32_t>(height);

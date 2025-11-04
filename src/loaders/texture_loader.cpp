@@ -15,6 +15,24 @@
 
 namespace vglx {
 
+namespace {
+
+auto load_texture_v1(const fs::path& path, std::ifstream& file, const TextureHeader& h) {
+    auto data = std::vector<uint8_t>(h.pixel_data_size);
+    read_binary(file, data, h.pixel_data_size);
+
+    auto texture = std::make_shared<Texture2D>(Texture2D::Parameters {
+        .width = h.width,
+        .height = h.height,
+        .data = std::move(data)
+    });
+
+    texture->SetName(path.filename().string());
+    return texture;
+}
+
+}
+
 auto TextureLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Texture2D> {
     auto file = std::ifstream {path, std::ios::binary};
     auto path_s = path.string();
@@ -22,28 +40,16 @@ auto TextureLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Texture
         return std::unexpected("Unable to open file '" + path_s + "'");
     }
 
-    auto header = TextureHeader {};
-    read_binary(file, header);
-    if (std::memcmp(header.magic, "TEX0", 4) != 0) {
+    auto texture_header = TextureHeader {};
+    read_binary(file, texture_header);
+    if (std::memcmp(texture_header.magic, "TEX0", 4) != 0) {
         return std::unexpected("Invalid texture file '" + path_s + "'");
     }
 
-    if (header.version != 1 || header.header_size != sizeof(TextureHeader)) {
-        return std::unexpected("Unsupported texture version in file '" + path_s + "'");
+    switch(texture_header.version) {
+        case 1: return load_texture_v1(path, file, texture_header);
+        default: return std::unexpected("Unsupported texture version in file '" + path_s + "'");
     }
-
-    auto data = std::vector<uint8_t>(header.pixel_data_size);
-    read_binary(file, data, header.pixel_data_size);
-
-    auto texture = std::make_shared<Texture2D>(Texture2D::Parameters {
-        .width = header.width,
-        .height = header.height,
-        .data = std::move(data)
-    });
-
-    texture->SetName(path.filename().string());
-
-    return texture;
 }
 
 }
