@@ -20,7 +20,6 @@
 #include <cstring>
 #include <fstream>
 #include <memory>
-#include <span>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -29,37 +28,96 @@ namespace vglx {
 
 namespace {
 
-auto load_materials(const fs::path& path, uint32_t material_count, std::ifstream& file) {
-    auto output = std::vector<std::shared_ptr<Material>> {};
+auto make_phong_from_header(MaterialEntryHeader& h, const std::shared_ptr<Texture2D>& diffuse) {
+    auto material = PhongMaterial::Create();
+    material->color = Color {h.diffuse};
+    material->specular = Color {h.specular};
+    material->shininess = h.shininess;
+
+    if (diffuse) {
+        material->color = 0xFFFFFF;
+        material->albedo_map = diffuse;
+    }
+
+    return material;
+}
+
+auto configure_geometry_attributes(const MeshEntryHeader& h, const std::shared_ptr<Geometry>& geometry) {
+    geometry->SetAttribute({.type = VertexAttributeType::Position, .item_size = 3});
+    geometry->SetAttribute({.type = VertexAttributeType::Normal, .item_size = 3});
+
+    if (h.vertex_flags & VertexAttributeFlags::UVs) {
+        geometry->SetAttribute({.type = VertexAttributeType::UV, .item_size = 2});
+    }
+    if (h.vertex_flags & VertexAttributeFlags::Tangents) {
+        geometry->SetAttribute({.type = VertexAttributeType::Tangent, .item_size = 4});
+    }
+    if (h.vertex_flags & VertexAttributeFlags::Colors) {
+        geometry->SetAttribute({.type = VertexAttributeType::Color, .item_size = 3});
+    }
+}
+
+auto load_materials_v1(const fs::path& path, std::ifstream& file, const MeshHeader& mesh_header) {
     auto texture_loader = TextureLoader::Create();
     auto textures = std::unordered_map<std::string, std::shared_ptr<Texture2D>> {};
+    auto materials = std::vector<std::shared_ptr<Material>> {};
+    materials.reserve(mesh_header.material_count);
 
-    for (auto i = 0; i < material_count; ++i) {
+    for (auto i = 0; i < mesh_header.material_count; ++i) {
         auto material_header = MaterialEntryHeader {};
         read_binary(file, material_header);
 
-        auto tex = std::string {material_header.texture};
-        if (!tex.empty()) {
-            if (!textures.contains(tex)) {
-                const auto tex_path = path.parent_path().string() + "/" + tex;
-                const auto result = texture_loader->Load(tex_path);
-                if (result) textures[tex] = result.value();
+        std::shared_ptr<Texture2D> diffuse_texture;
+        auto texture_file = std::string {material_header.texture};
+        if (!texture_file.empty()) {
+            if (auto it = textures.find(texture_file); it != textures.end()) {
+                diffuse_texture = it->second;
+            } else {
+                const auto texture_path = path.parent_path().string() + "/" + texture_file;
+                const auto result = texture_loader->Load(texture_path);
+                if (result) {
+                    diffuse_texture = result.value();
+                    textures.emplace(texture_file, diffuse_texture);
+                }
             }
         }
+        materials.emplace_back(make_phong_from_header(material_header, diffuse_texture));
+    }
+    return materials;
+}
 
-        auto mat = PhongMaterial::Create();
-        mat->color = Color {material_header.diffuse};
-        mat->specular = Color {material_header.specular};
-        mat->shininess = material_header.shininess;
-        if (textures.contains(tex)) {
-            mat->color = 0xFFFFFF;
-            mat->albedo_map = textures[tex];
+auto load_mesh_v1(const fs::path& path, std::ifstream& file, const MeshHeader& mesh_header) -> LoaderResult<Node> {
+    auto materials = load_materials_v1(path, file, mesh_header);
+    auto root = Node::Create();
+
+    for (auto i = 0; i < mesh_header.mesh_count; ++i) {
+        auto geometry_header = MeshEntryHeader {};
+        read_binary(file, geometry_header);
+
+        if (geometry_header.vertex_count == 0 || geometry_header.index_count == 0) {
+            return std::unexpected("Mesh entry has zero vertices or indices");
         }
 
-        output.emplace_back(mat);
+        auto vertex_data = std::vector<float>(geometry_header.vertex_count * geometry_header.vertex_stride);
+        read_binary(file, vertex_data, geometry_header.vertex_data_size);
+
+        auto index_data = std::vector<unsigned int>(geometry_header.index_count);
+        read_binary(file, index_data, geometry_header.index_data_size);
+
+        auto geometry = Geometry::Create(vertex_data, index_data);
+        geometry->SetName(geometry_header.name);
+
+        configure_geometry_attributes(geometry_header, geometry);
+
+        auto mat_index = geometry_header.material_index;
+        if (mat_index != -1 && mat_index < materials.size()) {
+            root->Add(Mesh::Create(geometry, materials[mat_index]));
+        } else {
+            root->Add(Mesh::Create(geometry, PhongMaterial::Create()));
+        }
     }
 
-    return output;
+    return root;
 }
 
 } // unnamed namespace
@@ -77,52 +135,10 @@ auto MeshLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Node> {
         return std::unexpected("Invalid mesh file '" + path_s + "'");
     }
 
-    if (mesh_header.version != 1 || mesh_header.header_size != sizeof(MeshHeader)) {
-        return std::unexpected("Unsupported mesh version in file '" + path_s + "'");
-    }
-
-    auto materials = load_materials(path, mesh_header.material_count, file);
-    auto root = Node::Create();
-
-    for (auto i = 0; i < mesh_header.mesh_count; ++i) {
-        auto geometry_header = MeshEntryHeader {};
-        read_binary(file, geometry_header);
-
-        if (geometry_header.vertex_count == 0 || geometry_header.index_count == 0) {
-            return std::unexpected("Mesh entry has zero vertices or indices in file '" + path_s + "'");
-        }
-
-        auto vertex_data = std::vector<float>(geometry_header.vertex_count * geometry_header.vertex_stride);
-        read_binary(file, vertex_data, geometry_header.vertex_data_size);
-
-        auto index_data = std::vector<unsigned int>(geometry_header.index_count);
-        read_binary(file, index_data, geometry_header.index_data_size);
-
-        auto geometry = Geometry::Create(vertex_data, index_data);
-        geometry->SetName(geometry_header.name);
-
-        geometry->SetAttribute({.type = VertexAttributeType::Position, .item_size = 3});
-        geometry->SetAttribute({.type = VertexAttributeType::Normal, .item_size = 3});
-        if (geometry_header.vertex_flags & VertexAttributeFlags::UVs) {
-            geometry->SetAttribute({.type = VertexAttributeType::UV, .item_size = 2});
-        }
-        if (geometry_header.vertex_flags & VertexAttributeFlags::Tangents) {
-            geometry->SetAttribute({.type = VertexAttributeType::Tangent, .item_size = 4});
-        }
-        if (geometry_header.vertex_flags & VertexAttributeFlags::Colors) {
-            geometry->SetAttribute({.type = VertexAttributeType::Color, .item_size = 3});
-        }
-
-
-        auto mat_index = geometry_header.material_index;
-        if (mat_index != -1 && mat_index < materials.size()) {
-            root->Add(Mesh::Create(geometry, materials[mat_index]));
-        } else {
-            root->Add(Mesh::Create(geometry, PhongMaterial::Create()));
-        }
-    }
-
-    return root;
+    switch (mesh_header.version) {
+        case 1: return load_mesh_v1(path, file, mesh_header);
+        default: return std::unexpected("Unsupported mesh version");
+    };
 }
 
 }
