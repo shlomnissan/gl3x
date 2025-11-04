@@ -92,8 +92,7 @@ public:
      *
 
      */
-    [[nodiscard]] static auto
-    Create(const Parameters& params) -> std::shared_ptr<OrthographicCamera> {
+    [[nodiscard]] static auto Create(const Parameters& params) -> std::shared_ptr<OrthographicCamera> {
         return std::make_shared<OrthographicCamera>(params);
     }
 

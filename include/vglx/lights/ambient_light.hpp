@@ -16,12 +16,17 @@
 namespace vglx {
 
 /**
- * @brief Represents a light that gets emitted in all directions equally.
+ * @brief Represents a light that emits evenly in all directions.
  *
- * This light cannot be used to cast shadows as it does not have a direction.
+ * An ambient light contributes a constant illumination to all objects in the
+ * scene, regardless of their position or orientation. It does not have a
+ * defined direction and therefore cannot cast shadows.
+ *
+ * Ambient lighting is typically used to simulate indirect or global
+ * illumination and to prevent completely unlit regions in the scene.
  *
  * @code
- * auto ambient_light = vglx::AmbientLight::Create({
+ * auto ambient = vglx::AmbientLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 0.3f
  * });
@@ -31,35 +36,34 @@ namespace vglx {
  */
 class VGLX_EXPORT AmbientLight : public Light {
 public:
-    /// @brief Parameters for constructing an AmbientLight object.
+    /// @brief Parameters for constructing an @ref AmbientLight object.
     struct Parameters {
         Color color; ///< Light color.
-        float intensity; ///< Light intensity.
+        float intensity; ///< Light intensity multiplier.
     };
 
     /**
-     * @brief Constructs an AmbientLight object.
+     * @brief Constructs an ambient light.
      *
-     * @param params AmbientLight::Parameters
+     * @param params @ref AmbientLight::Parameters "Initialization parameters"
+     * for constructing the light.
      */
     explicit AmbientLight(const Parameters& params) : Light(params.color, params.intensity) {
         SetName("ambient light");
     }
 
     /**
-     * @brief Creates a shared pointer to an AmbientLight object.
+     * @brief Creates a shared instance of @ref AmbientLight.
      *
-     * @param params AmbientLight::Parameters
-     * @return std::shared_ptr<AmbientLight>
+     * @param params @ref AmbientLight::Parameters "Initialization parameters"
+     * for constructing the light.
      */
     [[nodiscard]] static auto Create(const Parameters& params) {
         return std::make_shared<AmbientLight>(params);
     }
 
     /**
-     * @brief Returns light type.
-     *
-     * @return Light::Type::Ambient
+     * @brief Identifies this light as @ref Light::Type "Light::Type::AmbientLight".
      */
     [[nodiscard]] auto GetType() const -> Light::Type override {
         return Light::Type::AmbientLight;
