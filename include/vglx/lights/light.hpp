@@ -31,10 +31,10 @@ public:
      * @brief Enumerates all supported light types.
      */
     enum class Type {
-        AmbientLight, ///< Non-directional constant light.
-        DirectionalLight, ///< Infinitely distant light with parallel rays.
-        PointLight, ///< Omnidirectional light emitting from a single point.
-        SpotLight ///< Light emitting in a cone from a single point.
+        Ambient, ///< Non-directional constant light.
+        Directional, ///< Infinitely distant light with parallel rays.
+        Point, ///< Omnidirectional light emitting from a single point.
+        Spot ///< Light emitting in a cone from a single point.
     };
 
     /**

@@ -87,10 +87,10 @@ public:
     /**
      * @brief Returns light type.
      *
-     * @return Light::Type::SpotLight
+     * @return Light::Type::Spot
      */
     [[nodiscard]] auto GetType() const -> Light::Type override {
-        return Light::Type::SpotLight;
+        return Light::Type::Spot;
     }
 
     /**

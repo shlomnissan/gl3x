@@ -30,7 +30,7 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
         return;
     }
 
-    if (light->GetType() == AmbientLight) {
+    if (light->GetType() == Ambient) {
         if (ambient >= 1) {
             Logger::Log(
                 LogLevel::Error,
@@ -46,8 +46,8 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
         dst.color = light->color * light->intensity;
 
         switch(light->GetType()) {
-            case AmbientLight: /* noop */ break;
-            case DirectionalLight: {
+            case Ambient: /* noop */ break;
+            case Directional: {
                 ++directional;
                 auto src = static_cast<vglx::DirectionalLight*>(light);
                 auto src_dir = src->Direction();
@@ -61,7 +61,7 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
                 dst.quadratic = 0.0f;
             }
             break;
-            case PointLight: {
+            case Point: {
                 ++point;
                 auto src = static_cast<vglx::PointLight*>(light);
                 auto world = src->GetWorldPosition();
@@ -75,7 +75,7 @@ auto GLLights::AddLight(Light* light, Camera* camera) -> void {
                 dst.quadratic = src->attenuation.quadratic;
             }
             break;
-            case SpotLight: {
+            case Spot: {
                 ++spot;
                 auto src = static_cast<vglx::SpotLight*>(light);
                 auto src_dir = src->Direction();

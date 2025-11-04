@@ -63,10 +63,10 @@ public:
     }
 
     /**
-     * @brief Identifies this light as @ref Light::Type "Light::Type::AmbientLight".
+     * @brief Identifies this light as @ref Light::Type "Light::Type::Ambient".
      */
     [[nodiscard]] auto GetType() const -> Light::Type override {
-        return Light::Type::AmbientLight;
+        return Light::Type::Ambient;
     }
 };
 

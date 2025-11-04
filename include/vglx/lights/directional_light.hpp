@@ -68,10 +68,10 @@ public:
     /**
      * @brief Returns light type.
      *
-     * @return Light::Type::DirectionalLight
+     * @return Light::Type::Directional
      */
     auto GetType() const -> Light::Type override {
-        return Light::Type::DirectionalLight;
+        return Light::Type::Directional;
     }
 
     /**
