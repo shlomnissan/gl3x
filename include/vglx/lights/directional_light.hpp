@@ -17,92 +17,93 @@
 namespace vglx {
 
 /**
- * @brief Represents a light that gets emitted in a specific direction.
+ * @brief Represents a light that emits in a single direction.
  *
- * This light will behave as though it is infinitely far away and the rays
- * produced from it are all parallel. The common use case for this is to
- * simulate daylight; the sun is far enough away that its position can be
- * considered to be infinite, and all light rays coming from it are parallel.
+ * A directional light simulates an infinitely distant light source, such as
+ * sunlight. All light rays are considered parallel, and the light has no
+ * position in space, only direction. This makes it ideal for large-scale
+ * illumination like outdoor or scene-wide lighting.
+ *
+ * When the @ref DirectionalLight::Parameters "target" parameter is
+ * set to `nullptr`, the light will point toward the world origin.
  *
  * @code
- * auto directional_light = vglx::DirectionalLight::Create({
+ * auto directional = vglx::DirectionalLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 1.0f,
  *   .target = nullptr
  * });
  * @endcode
  *
- * When the target parameter is set to `nullptr` the light points to (0, 0, 0).
- *
  * @ingroup LightsGroup
  */
 class VGLX_EXPORT DirectionalLight : public Light {
 public:
-    /// @brief Parameters for constructing a DirectionalLight object.
+    /// @brief Parameters for constructing a @ref DirectionalLight object.
     struct Parameters {
         Color color; ///< Light color.
-        float intensity; ///< Light intensity.
-        std::shared_ptr<Node> target; ///< Light target position.
+        float intensity; ///< Light intensity multiplier.
+        std::shared_ptr<Node> target; ///< Node the light is directed toward.
     };
 
-    /// @brief Node that the light is directed towards.
+    /// @brief Node that the light is oriented toward.
     std::shared_ptr<Node> target;
 
     /**
-     * @brief Constructs a DirectionalLight object.
+     * @brief Constructs a directional light.
      *
-     * @param params DirectionalLight::Parameters
+     * @param params @ref DirectionalLight::Parameters "Initialization parameters"
+     * for constructing the light.
      */
     explicit DirectionalLight(const Parameters& params);
 
     /**
-     * @brief Creates a shared pointer to an DirectionalLight object.
+     * @brief Creates a shared instance of @ref DirectionalLight.
      *
-     * @param params DirectionalLight::Parameters
-     * @return std::shared_ptr<DirectionalLight>
+     * @param params @ref DirectionalLight::Parameters "Initialization parameters"
+     * for constructing the light.
      */
     [[nodiscard]] static auto Create(const Parameters& params) {
         return std::make_shared<DirectionalLight>(params);
     }
 
     /**
-     * @brief Returns light type.
-     *
-     * @return Light::Type::Directional
+     * @brief Identifies this light as @ref Light::Type "Light::Type::DirectionalLight".
      */
     auto GetType() const -> Light::Type override {
         return Light::Type::Directional;
     }
 
     /**
-     * @brief Returns the direction vector of the light.
+     * @brief Returns the normalized direction vector of the light.
      *
-     * Calculates and returns the normalized direction in which the directional
-     * light is pointing. The direction is determined based on the light's
-     * position and its target node.
-     *
-     * @return Vector3
+     * The direction is derived from the light’s position and its
+     * @ref DirectionalLight::target "target" node. If no target is set,
+     * the light will point toward the origin.
      */
     [[nodiscard]] auto Direction() -> Vector3;
 
     /**
-     * @brief Sets debug mode.
+     * @brief Enables or disables debug visualization for this light.
      *
-     * @param is_debug_mode True to enable debug mode, false to disable.
+     * When enabled, the renderer will visualize the light’s direction
+     * using a line and a unit plane facing the target.
+     *
+     * @param is_debug_mode `true` to enable debug mode; `false` to disable.
      */
     auto SetDebugMode(bool is_debug_mode) -> void override;
 
     /**
-     * @brief Updates the light each frame.
+     * @brief Called once per frame to update the light state.
      *
-     * @param delta Time in seconds since the last update.
+     * Currently used to generate or dispose of debug geometry when
+     * debug mode is enabled.
+     *
+     * @param delta Time in seconds since the last frame.
      */
     auto OnUpdate(float delta) -> void override;
 
-    /**
-     * @brief Destructor.
-     */
-    ~DirectionalLight() override;
+    ~DirectionalLight();
 
 private:
     /// @cond INTERNAL
