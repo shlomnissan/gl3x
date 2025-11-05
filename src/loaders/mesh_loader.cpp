@@ -57,7 +57,7 @@ auto configure_geometry_attributes(const MeshEntryHeader& h, const std::shared_p
     }
 }
 
-auto load_materials_v1(const fs::path& path, std::ifstream& file, const MeshHeader& mesh_header) {
+auto load_materials(const fs::path& path, std::ifstream& file, const MeshHeader& mesh_header) {
     auto texture_loader = TextureLoader::Create();
     auto textures = std::unordered_map<std::string, std::shared_ptr<Texture2D>> {};
     auto materials = std::vector<std::shared_ptr<Material>> {};
@@ -86,8 +86,8 @@ auto load_materials_v1(const fs::path& path, std::ifstream& file, const MeshHead
     return materials;
 }
 
-auto load_mesh_v1(const fs::path& path, std::ifstream& file, const MeshHeader& mesh_header) -> LoaderResult<Node> {
-    auto materials = load_materials_v1(path, file, mesh_header);
+auto load_mesh(const fs::path& path, std::ifstream& file, const MeshHeader& mesh_header) -> LoaderResult<Node> {
+    auto materials = load_materials(path, file, mesh_header);
     auto root = Node::Create();
 
     for (auto i = 0; i < mesh_header.mesh_count; ++i) {
@@ -109,9 +109,9 @@ auto load_mesh_v1(const fs::path& path, std::ifstream& file, const MeshHeader& m
 
         configure_geometry_attributes(geometry_header, geometry);
 
-        auto mat_index = geometry_header.material_index;
-        if (mat_index != -1 && mat_index < materials.size()) {
-            root->Add(Mesh::Create(geometry, materials[mat_index]));
+        auto material_idx = geometry_header.material_index;
+        if (material_idx < materials.size()) {
+            root->Add(Mesh::Create(geometry, materials[material_idx]));
         } else {
             root->Add(Mesh::Create(geometry, PhongMaterial::Create()));
         }
@@ -136,7 +136,7 @@ auto MeshLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Node> {
     }
 
     switch (mesh_header.version) {
-        case 1: return load_mesh_v1(path, file, mesh_header);
+        case 1: return load_mesh(path, file, mesh_header);
         default: return std::unexpected("Unsupported mesh version");
     };
 }

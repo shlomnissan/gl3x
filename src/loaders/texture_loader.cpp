@@ -17,7 +17,7 @@ namespace vglx {
 
 namespace {
 
-auto load_texture_v1(const fs::path& path, std::ifstream& file, const TextureHeader& h) {
+auto load_texture(const fs::path& path, std::ifstream& file, const TextureHeader& h) {
     auto data = std::vector<uint8_t>(h.pixel_data_size);
     read_binary(file, data, h.pixel_data_size);
 
@@ -47,7 +47,7 @@ auto TextureLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Texture
     }
 
     switch(texture_header.version) {
-        case 1: return load_texture_v1(path, file, texture_header);
+        case 1: return load_texture(path, file, texture_header);
         default: return std::unexpected("Unsupported texture version in file '" + path_s + "'");
     }
 }

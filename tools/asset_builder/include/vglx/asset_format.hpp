@@ -9,8 +9,8 @@
 
 #include <cstdint>
 
-#define VGLX_TEX_VER 1;
-#define VGLX_MSH_VER 1;
+#define VGLX_TEX_VER 1
+#define VGLX_MSH_VER 1
 
 enum TextureFormat : uint32_t {
     RGBA8 = 0
