@@ -36,6 +36,10 @@ def _badge(s: str, t: str):
     return f"<Badge type=\"{t}\" text=\"{s}\" />"
 
 def render_variable(v: VarDoc, resolver: Resolver):
+    init_value = "{}"
+    if v.init_value:
+        init_value = f"{{{v.init_value}}}"
+
     return (
         f"<div class=\"docblock\">"
         f"<div class=\"definition\">\n\n"
@@ -45,7 +49,7 @@ def render_variable(v: VarDoc, resolver: Resolver):
         f"</div>"
         f"<div class=\"description\">\n\n"
         f"{v.brief} {v.details}\n"
-        f"```cpp\n{_t_str(v.type)} {v.name} {{{v.init_value}}}\n```\n"
+        f"```cpp\n{_t_str(v.type)} {v.name} {init_value};\n```\n"
         f"</div>"
         f"</div>"
     )
@@ -72,7 +76,7 @@ def render_function(f: FunctionDoc, resolver: Resolver):
         f"</div>"
         f"<div class=\"description\">\n\n"
         f"{f.brief} {f.details}\n"
-        f"```cpp\n{f.definition}\n```\n"
+        f"```cpp\n{f.definition};\n```\n"
         f"{table}"
         f"</div>"
         f"</div>"
