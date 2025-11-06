@@ -363,7 +363,7 @@ auto parse_materials(
     std::ofstream& out_stream
 ) {
     for (const auto& material : materials) {
-        auto mat_entry = MaterialEntryHeader {};
+        auto mat_entry = MaterialRecord {};
 
         if (!material.diffuse_texname.empty()) {
             copy_fixed_size_str(
@@ -456,7 +456,7 @@ auto parse_shapes(
             generate_tangents(vertex_data, index_data, layout);
         }
 
-        auto msh_entry = MeshEntryHeader {};
+        auto msh_entry = MeshRecord {};
         copy_fixed_size_str(
             msh_entry.name,
             shape.name.empty() ? "default:Mesh" : shape.name
@@ -468,11 +468,11 @@ auto parse_shapes(
         msh_entry.material_index = mesh.material_ids.front();
         msh_entry.vertex_data_size = static_cast<uint64_t>(vertex_data.size() * sizeof(float));
         msh_entry.index_data_size = static_cast<uint64_t>(index_data.size() * sizeof(unsigned));
-        msh_entry.vertex_flags = VertexAttributeFlags::Positions | VertexAttributeFlags::Normals;
+        msh_entry.vertex_flags = VertexAttr_HasPosition | VertexAttr_HasNormal;
 
-        if (layout.has_uvs) msh_entry.vertex_flags |= VertexAttributeFlags::UVs;
-        if (layout.has_tangents) msh_entry.vertex_flags |= VertexAttributeFlags::Tangents;
-        if (layout.has_colors) msh_entry.vertex_flags |= VertexAttributeFlags::Colors;
+        if (layout.has_uvs) msh_entry.vertex_flags |= VertexAttr_HasUV;
+        if (layout.has_tangents) msh_entry.vertex_flags |= VertexAttr_HasTangent;
+        if (layout.has_colors) msh_entry.vertex_flags |= VertexAttr_HasColor;
 
         out_stream.write(reinterpret_cast<const char*>(&msh_entry), sizeof(msh_entry));
         out_stream.write(reinterpret_cast<const char*>(vertex_data.data()), vertex_data.size() * sizeof(float));
@@ -504,7 +504,7 @@ auto convert_mesh(
     auto& materials = reader.GetMaterials();
 
     auto header = MeshHeader {};
-    std::memcpy(header.magic, "MES0", 4);
+    std::memcpy(header.magic, "MSH0", 4);
     header.version = VGLX_MSH_VER;
     header.header_size = sizeof(MeshHeader);
     header.material_count = static_cast<uint32_t>(materials.size());

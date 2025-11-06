@@ -13,25 +13,26 @@
 #define VGLX_MSH_VER 1
 
 enum TextureFormat : uint32_t {
-    RGBA8 = 0
+    TextureFormat_RGBA8 = 0
 };
 
 enum VertexAttributeFlags : uint32_t {
-    Positions = 1 << 0,
-    Normals = 1 << 1,
-    UVs = 1 << 2,
-    Tangents = 1 << 3,
-    Colors = 1 << 4,
+    VertexAttr_None         = 0,
+    VertexAttr_HasPosition  = 1 << 0,
+    VertexAttr_HasNormal    = 1 << 1,
+    VertexAttr_HasUV        = 1 << 2,
+    VertexAttr_HasTangent   = 1 << 3,
+    VertexAttr_HasColor     = 1 << 4,
 };
 
 #pragma pack(push, 1)
 struct TextureHeader {
-    char magic[4];
+    char magic[4]; // "TEX0"
     uint32_t version;
     uint32_t header_size;
     uint32_t width;
     uint32_t height;
-    uint32_t format;
+    uint32_t format; // TextureFormat
     uint32_t mip_levels;
     uint64_t pixel_data_size;
 };
@@ -39,7 +40,7 @@ struct TextureHeader {
 
 #pragma pack(push, 1)
 struct MeshHeader {
-    char magic[4] = {};
+    char magic[4] = {}; // "MSH0"
     uint32_t version;
     uint32_t header_size;
     uint32_t material_count;
@@ -48,7 +49,7 @@ struct MeshHeader {
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct MaterialEntryHeader {
+struct MaterialRecord {
     char name[64] = {};
     char texture[128] = {};
     float ambient[3];
@@ -59,7 +60,7 @@ struct MaterialEntryHeader {
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct MeshEntryHeader {
+struct MeshRecord {
     char name[64] = {};
     uint32_t vertex_count;
     uint32_t index_count;
@@ -67,6 +68,6 @@ struct MeshEntryHeader {
     uint32_t material_index;
     uint64_t vertex_data_size;
     uint64_t index_data_size;
-    uint32_t vertex_flags;
+    uint32_t vertex_flags; // VertexAttributeFlags
 };
 #pragma pack(pop)

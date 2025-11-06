@@ -28,7 +28,7 @@ namespace vglx {
 
 namespace {
 
-auto make_phong_from_header(MaterialEntryHeader& h, const std::shared_ptr<Texture2D>& diffuse) {
+auto make_phong_from_header(MaterialRecord& h, const std::shared_ptr<Texture2D>& diffuse) {
     auto material = PhongMaterial::Create();
     material->color = Color {h.diffuse};
     material->specular = Color {h.specular};
@@ -42,17 +42,17 @@ auto make_phong_from_header(MaterialEntryHeader& h, const std::shared_ptr<Textur
     return material;
 }
 
-auto configure_geometry_attributes(const MeshEntryHeader& h, const std::shared_ptr<Geometry>& geometry) {
+auto configure_geometry_attributes(const MeshRecord& h, const std::shared_ptr<Geometry>& geometry) {
     geometry->SetAttribute({.type = VertexAttributeType::Position, .item_size = 3});
     geometry->SetAttribute({.type = VertexAttributeType::Normal, .item_size = 3});
 
-    if (h.vertex_flags & VertexAttributeFlags::UVs) {
+    if (h.vertex_flags & VertexAttributeFlags::VertexAttr_HasUV) {
         geometry->SetAttribute({.type = VertexAttributeType::UV, .item_size = 2});
     }
-    if (h.vertex_flags & VertexAttributeFlags::Tangents) {
+    if (h.vertex_flags & VertexAttributeFlags::VertexAttr_HasTangent) {
         geometry->SetAttribute({.type = VertexAttributeType::Tangent, .item_size = 4});
     }
-    if (h.vertex_flags & VertexAttributeFlags::Colors) {
+    if (h.vertex_flags & VertexAttributeFlags::VertexAttr_HasColor) {
         geometry->SetAttribute({.type = VertexAttributeType::Color, .item_size = 3});
     }
 }
@@ -64,7 +64,7 @@ auto load_materials(const fs::path& path, std::ifstream& file, const MeshHeader&
     materials.reserve(mesh_header.material_count);
 
     for (auto i = 0; i < mesh_header.material_count; ++i) {
-        auto material_header = MaterialEntryHeader {};
+        auto material_header = MaterialRecord {};
         read_binary(file, material_header);
 
         std::shared_ptr<Texture2D> diffuse_texture;
@@ -91,7 +91,7 @@ auto load_mesh(const fs::path& path, std::ifstream& file, const MeshHeader& mesh
     auto root = Node::Create();
 
     for (auto i = 0; i < mesh_header.mesh_count; ++i) {
-        auto geometry_header = MeshEntryHeader {};
+        auto geometry_header = MeshRecord {};
         read_binary(file, geometry_header);
 
         if (geometry_header.vertex_count == 0 || geometry_header.index_count == 0) {
@@ -131,7 +131,10 @@ auto MeshLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Node> {
 
     auto mesh_header = MeshHeader {};
     read_binary(file, mesh_header);
-    if (std::memcmp(mesh_header.magic, "MES0", 4) != 0) {
+    if (
+        std::memcmp(mesh_header.magic, "MSH0", 4) != 0 &&
+        std::memcmp(mesh_header.magic, "MES0", 4) != 0
+    ) {
         return std::unexpected("Invalid mesh file '" + path_s + "'");
     }
 

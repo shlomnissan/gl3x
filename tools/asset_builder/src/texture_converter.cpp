@@ -37,7 +37,7 @@ auto convert_texture(
     header.header_size = sizeof(TextureHeader);
     header.width = static_cast<uint32_t>(width);
     header.height = static_cast<uint32_t>(height);
-    header.format = static_cast<uint32_t>(TextureFormat::RGBA8);
+    header.format = static_cast<uint32_t>(TextureFormat::TextureFormat_RGBA8);
     header.mip_levels = 1;
     header.pixel_data_size = static_cast<uint64_t>(width) * height * 4;
 
