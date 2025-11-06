@@ -46,10 +46,11 @@ auto TextureLoader::LoadImpl(const fs::path& path) const -> LoaderResult<Texture
         return std::unexpected("Invalid texture file '" + path_s + "'");
     }
 
-    switch(texture_header.version) {
-        case 1: return load_texture(path, file, texture_header);
-        default: return std::unexpected("Unsupported texture version in file '" + path_s + "'");
+    if (texture_header.version != VGLX_TEX_VER) {
+        std::unexpected("Unsupported texture version in file '" + path_s + "'");
     }
+
+    return load_texture(path, file, texture_header);
 }
 
 }

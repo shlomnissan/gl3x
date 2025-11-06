@@ -10,10 +10,10 @@
 #include <cstdint>
 
 #define VGLX_TEX_VER 1
-#define VGLX_MSH_VER 1
+#define VGLX_MSH_VER 2
 
 enum TextureFormat : uint32_t {
-    TextureFormat_RGBA8 = 0
+    TextureFormat_RGBA8 = 0,
 };
 
 enum VertexAttributeFlags : uint32_t {
@@ -23,6 +23,11 @@ enum VertexAttributeFlags : uint32_t {
     VertexAttr_HasUV        = 1 << 2,
     VertexAttr_HasTangent   = 1 << 3,
     VertexAttr_HasColor     = 1 << 4,
+};
+
+enum MaterialTextureMapType : uint32_t {
+    MaterialTexMapType_Diffuse  = 0,
+    MaterialTexMapType_Normal   = 1,
 };
 
 #pragma pack(push, 1)
@@ -49,9 +54,16 @@ struct MeshHeader {
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+struct MaterialTextureMapRecord {
+    char filename[128] = {};
+    uint32_t type; // MaterialTextureMapType
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
 struct MaterialRecord {
     char name[64] = {};
-    char texture[128] = {};
+    uint32_t texture_count;
     float ambient[3];
     float diffuse[3];
     float specular[3];

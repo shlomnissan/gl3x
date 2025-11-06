@@ -363,26 +363,35 @@ auto parse_materials(
     std::ofstream& out_stream
 ) {
     for (const auto& material : materials) {
-        auto mat_entry = MaterialRecord {};
-
-        if (!material.diffuse_texname.empty()) {
-            copy_fixed_size_str(
-                mat_entry.texture,
-                convert_texture(material.diffuse_texname, mesh_input_path)
-            );
-        }
-
+        auto material_record = MaterialRecord {};
         copy_fixed_size_str(
-            mat_entry.name,
+            material_record.name,
             material.name.empty() ? "default:Material" : material.name
         );
 
-        std::memcpy(mat_entry.ambient, material.ambient, sizeof(material.ambient));
-        std::memcpy(mat_entry.diffuse, material.diffuse, sizeof(material.diffuse));
-        std::memcpy(mat_entry.specular, material.specular, sizeof(material.specular));
-        mat_entry.shininess = material.shininess;
+        std::memcpy(material_record.ambient, material.ambient, sizeof(material.ambient));
+        std::memcpy(material_record.diffuse, material.diffuse, sizeof(material.diffuse));
+        std::memcpy(material_record.specular, material.specular, sizeof(material.specular));
+        material_record.shininess = material.shininess;
+        material_record.texture_count = 0;
 
-        out_stream.write(reinterpret_cast<const char*>(&mat_entry), sizeof(mat_entry));
+        auto texture_records = std::vector<MaterialTextureMapRecord> {};
+        if (!material.diffuse_texname.empty()) {
+            auto texture_record = MaterialTextureMapRecord {};
+            copy_fixed_size_str(
+                texture_record.filename,
+                convert_texture(material.diffuse_texname, mesh_input_path)
+            );
+            texture_record.type = MaterialTexMapType_Diffuse;
+            texture_records.emplace_back(texture_record);
+        }
+
+        material_record.texture_count = texture_records.size();
+        out_stream.write(reinterpret_cast<const char*>(&material_record), sizeof(material_record));
+
+        for (const auto& texture_record : texture_records) {
+            out_stream.write(reinterpret_cast<const char*>(&texture_record), sizeof(texture_record));
+        }
     }
 }
 
@@ -456,25 +465,25 @@ auto parse_shapes(
             generate_tangents(vertex_data, index_data, layout);
         }
 
-        auto msh_entry = MeshRecord {};
+        auto mesh_record = MeshRecord {};
         copy_fixed_size_str(
-            msh_entry.name,
+            mesh_record.name,
             shape.name.empty() ? "default:Mesh" : shape.name
         );
 
-        msh_entry.vertex_count = static_cast<uint32_t>(seen_vertices.size());
-        msh_entry.index_count = static_cast<uint32_t>(index_data.size());
-        msh_entry.vertex_stride = layout.stride;
-        msh_entry.material_index = mesh.material_ids.front();
-        msh_entry.vertex_data_size = static_cast<uint64_t>(vertex_data.size() * sizeof(float));
-        msh_entry.index_data_size = static_cast<uint64_t>(index_data.size() * sizeof(unsigned));
-        msh_entry.vertex_flags = VertexAttr_HasPosition | VertexAttr_HasNormal;
+        mesh_record.vertex_count = static_cast<uint32_t>(seen_vertices.size());
+        mesh_record.index_count = static_cast<uint32_t>(index_data.size());
+        mesh_record.vertex_stride = layout.stride;
+        mesh_record.material_index = mesh.material_ids.front();
+        mesh_record.vertex_data_size = static_cast<uint64_t>(vertex_data.size() * sizeof(float));
+        mesh_record.index_data_size = static_cast<uint64_t>(index_data.size() * sizeof(unsigned));
+        mesh_record.vertex_flags = VertexAttr_HasPosition | VertexAttr_HasNormal;
 
-        if (layout.has_uvs) msh_entry.vertex_flags |= VertexAttr_HasUV;
-        if (layout.has_tangents) msh_entry.vertex_flags |= VertexAttr_HasTangent;
-        if (layout.has_colors) msh_entry.vertex_flags |= VertexAttr_HasColor;
+        if (layout.has_uvs) mesh_record.vertex_flags |= VertexAttr_HasUV;
+        if (layout.has_tangents) mesh_record.vertex_flags |= VertexAttr_HasTangent;
+        if (layout.has_colors) mesh_record.vertex_flags |= VertexAttr_HasColor;
 
-        out_stream.write(reinterpret_cast<const char*>(&msh_entry), sizeof(msh_entry));
+        out_stream.write(reinterpret_cast<const char*>(&mesh_record), sizeof(mesh_record));
         out_stream.write(reinterpret_cast<const char*>(vertex_data.data()), vertex_data.size() * sizeof(float));
         out_stream.write(reinterpret_cast<const char*>(index_data.data()), index_data.size() * sizeof(unsigned));
     }
