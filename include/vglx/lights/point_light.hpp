@@ -16,12 +16,14 @@
 namespace vglx {
 
 /**
- * @brief Represents a light that gets emitted from a single point in all directions.
+ * @brief Represents a light that emits from a single point in all directions.
  *
- * A common use case for this is to replicate the light emitted from a bare lightbulb.
+ * A point light simulates a localized light source such as a bare lightbulb.
+ * Intensity falls off with distance according to the configured attenuation
+ * parameters.
  *
  * @code
- * auto point_light = vglx::PointLight::Create({
+ * auto point = vglx::PointLight::Create({
  *   .color = 0xFFFFFF,
  *   .intensity = 1.0f,
  *   .attenuation = {
@@ -36,60 +38,62 @@ namespace vglx {
  */
 class VGLX_EXPORT PointLight : public Light {
 public:
-    /// @brief Parameters for constructing a PointLight object.
+    /// @brief Parameters for constructing a @ref PointLight object.
     struct Parameters {
         Color color; ///< Light color.
-        float intensity; ///< Light intensity.
-        Attenuation attenuation; ///< Light attenuation properties.
+        float intensity; ///< Light intensity multiplier.
+        Attenuation attenuation; ///< Light attenuation parameters.
     };
 
-    /// @brief Light attenuation properties.
+    /// @brief Attenuation parameters controlling distance-based falloff.
     Attenuation attenuation;
 
     /**
-     * @brief Constructs a PointLight object.
+     * @brief Constructs a point light.
      *
-     * @param params PointLight::Parameters
+     * @param params @ref PointLight::Parameters "Initialization parameters"
+     * for constructing the light.
      */
     PointLight(const Parameters& params);
 
     /**
-     * @brief Creates a shared pointer to an PointLight object.
+     * @brief Creates a shared instance of @ref PointLight.
      *
-     * @param params PointLight::Parameters
-     * @return std::shared_ptr<PointLight>
+     * @param params @ref PointLight::Parameters "Initialization parameters"
+     * for constructing the light.
      */
     [[nodiscard]] static auto Create(const Parameters& params) {
         return std::make_shared<PointLight>(params);
     }
 
     /**
-     * @brief Returns light type.
-     *
-     * @return Light::Type::Point
+     * @brief Identifies this light as @ref Light::Type "Light::Type::Point".
      */
     [[nodiscard]] auto GetType() const -> Light::Type override {
         return Light::Type::Point;
     }
 
     /**
-     * @brief Sets debug mode.
+     * @brief Enables or disables debug visualization for this light.
      *
-     * @param is_debug_mode True to enable debug mode, false to disable.
+     * When enabled, the renderer will visualize the light’s location
+     * using a spherical line geometry.
+     *
+     * @param is_debug_mode `true` to enable debug mode; `false` to disable.
      */
     auto SetDebugMode(bool is_debug_mode) -> void override;
 
     /**
-     * @brief Updates the light each frame.
+     * @brief Called once per frame to update the light state.
      *
-     * @param delta Time in seconds since the last update.
+     * Currently used to update the debug geometry when debug mode
+     * is enabled.
+     *
+     * @param delta Time in seconds since the last frame.
      */
     auto OnUpdate(float delta) -> void override;
 
-    /**
-     * @brief Destructor.
-     */
-    ~PointLight() override;
+    ~PointLight();
 
 private:
     /// @cond INTERNAL

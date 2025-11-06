@@ -96,8 +96,8 @@ public:
     /**
      * @brief Called once per frame to update the light state.
      *
-     * Currently used to generate or dispose of debug geometry when
-     * debug mode is enabled.
+     * Currently used to update the debug geometry when debug mode
+     * is enabled.
      *
      * @param delta Time in seconds since the last frame.
      */
