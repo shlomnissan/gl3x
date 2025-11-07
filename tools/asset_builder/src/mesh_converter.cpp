@@ -331,35 +331,50 @@ auto generate_tangents(
 }
 
 auto convert_texture(
-    const std::string& texture,
-    const fs::path& mesh_input_path
-) -> std::string {
-    auto tex_path = fs::path {texture};
-    auto tex_input = tex_path;
+    const std::string& tex_name,
+    const fs::path& input_path
+) -> std::expected<std::string, std::string> {
+    auto tex_init_path = fs::path {tex_name};
+    auto tex_full_path = tex_init_path;
 
-    if (!fs::exists(tex_path)) {
-        auto dir = mesh_input_path.parent_path();
-        tex_input = dir.append(texture);
-        if (!fs::exists(tex_input)) {
-            std::println(stderr, "Failed to load texture {}", tex_input.string());
-            return "";
+    if (!fs::exists(tex_init_path)) {
+        tex_full_path = input_path.parent_path() / tex_name;
+        if (!fs::exists(tex_full_path)) {
+            return std::unexpected("Failed to load texture " + tex_full_path.string());
         }
     }
 
-    auto tex_output = tex_input;
+    auto tex_output = tex_full_path;
     tex_output.replace_extension(".tex");
-    if (auto result = ::convert_texture(tex_input, tex_output); !result) {
-        std::println(stderr, "{}", result.error());
-        return "";
+    if (auto result = ::convert_texture(tex_full_path, tex_output); !result) {
+        return std::unexpected(result.error());
     }
 
     std::println("Generated texture {}", tex_output.string());
-    return tex_path.replace_extension(".tex").string();
+
+    // always return filenames relative to the asset
+    return tex_init_path.replace_extension(".tex").string();
+}
+
+auto parse_texture(
+    const std::string& tex_name,
+    MaterialTextureMapType tex_type,
+    const fs::path& input_path
+) -> std::expected<MaterialTextureMapRecord, std::string> {
+    auto tex_converted_path = convert_texture(tex_name, input_path);
+    if (!tex_converted_path) {
+        return std::unexpected(tex_converted_path.error());
+    }
+
+    auto texture_record = MaterialTextureMapRecord {};
+    copy_fixed_size_str(texture_record.filename, tex_converted_path.value());
+    texture_record.type = tex_type;
+    return texture_record;
 }
 
 auto parse_materials(
     const std::vector<tinyobj::material_t> &materials,
-    const fs::path& mesh_input_path,
+    const fs::path& input_path,
     std::ofstream& out_stream
 ) {
     for (const auto& material : materials) {
@@ -376,19 +391,17 @@ auto parse_materials(
         material_record.texture_count = 0;
 
         auto texture_records = std::vector<MaterialTextureMapRecord> {};
-        if (!material.diffuse_texname.empty()) {
-            auto texture_record = MaterialTextureMapRecord {};
-            copy_fixed_size_str(
-                texture_record.filename,
-                convert_texture(material.diffuse_texname, mesh_input_path)
-            );
-            texture_record.type = MaterialTexMapType_Diffuse;
-            texture_records.emplace_back(texture_record);
+        if (auto tex_name = material.diffuse_texname; !tex_name.empty()) {
+            auto tex_record = parse_texture(tex_name, MaterialTextureMapType_Diffuse, input_path);
+            if (tex_record) {
+                texture_records.emplace_back(tex_record.value());
+                material_record.texture_count++;
+            } else {
+                std::println(stderr, "{}", tex_record.error());
+            }
         }
 
-        material_record.texture_count = texture_records.size();
         out_stream.write(reinterpret_cast<const char*>(&material_record), sizeof(material_record));
-
         for (const auto& texture_record : texture_records) {
             out_stream.write(reinterpret_cast<const char*>(&texture_record), sizeof(texture_record));
         }

@@ -79,12 +79,12 @@ auto load_materials(const fs::path& path, std::ifstream& file, const MeshHeader&
                 }
             }
 
-            if (texture && texture_record.type == MaterialTexMapType_Diffuse) {
+            if (texture && texture_record.type == MaterialTextureMapType_Diffuse) {
                 material->color = 0xFFFFFF;
                 material->albedo_map = texture;
             }
 
-            if (texture && texture_record.type == MaterialTexMapType_Normal) {
+            if (texture && texture_record.type == MaterialTextureMapType_Normal) {
                 material->normal_map = texture;
             }
         }
