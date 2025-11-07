@@ -93,7 +93,7 @@ public:
      */
     auto OnUpdate(float delta) -> void override;
 
-    ~PointLight();
+    ~PointLight() override;
 
 private:
     /// @cond INTERNAL

@@ -103,7 +103,7 @@ public:
      */
     auto OnUpdate(float delta) -> void override;
 
-    ~DirectionalLight();
+    ~DirectionalLight() override;
 
 private:
     /// @cond INTERNAL
