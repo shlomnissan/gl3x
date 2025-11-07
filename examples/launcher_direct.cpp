@@ -18,7 +18,7 @@ auto main() -> int {
         .title = "Examples (Direct Initialization)",
         .width = 1024,
         .height = 768,
-        .antialiasing = 0,
+        .antialiasing = 4,
         .vsync = false
     }};
     auto init_window = window.Initialize();

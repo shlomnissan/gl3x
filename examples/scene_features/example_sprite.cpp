@@ -30,7 +30,7 @@ auto ExampleSprite::OnAttached(SharedContextPointer context) -> void {
     }));
 
     context->texture_loader->LoadAsync(
-        "assets/sprite.tex",
+        "assets/sprite/sprite.tex",
         [this](auto result) {
             if (result) {
                 auto material = SpriteMaterial::Create();

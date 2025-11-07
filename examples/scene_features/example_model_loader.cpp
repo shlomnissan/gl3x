@@ -48,7 +48,7 @@ auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
     }));
 
     context->mesh_loader->LoadAsync(
-        "assets/lps_head.msh",
+        "assets/lps_head/lps_head.msh",
         [this](auto result) {
             if (result) {
                 model_ = result.value();
@@ -58,17 +58,7 @@ auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
                 auto mesh = static_cast<Mesh*>(model_->Children().front().get());
                 material_ = static_cast<PhongMaterial*>(mesh->GetMaterial().get());
                 albedo_map_ = material_->albedo_map;
-            } else {
-                std::println(stderr, "{}", result.error());
-            }
-        }
-    );
-
-    context->texture_loader->LoadAsync(
-        "assets/lps_head_normals.tex",
-        [this](auto result) {
-            if (result) {
-                normal_map_ = result.value();
+                normal_map_ = material_->normal_map;
             } else {
                 std::println(stderr, "{}", result.error());
             }
@@ -77,9 +67,11 @@ auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
 }
 
 auto ExampleModelLoader::OnUpdate(float delta) -> void {
-    if (normal_map_ != nullptr && material_ != nullptr) {
-        material_->albedo_map = show_albedo_map_ ? albedo_map_ : nullptr;
+    if (normal_map_ != nullptr) {
         material_->normal_map = show_normal_map_ ? normal_map_ : nullptr;
+    }
+    if (albedo_map_ != nullptr) {
+        material_->albedo_map = show_albedo_map_ ? albedo_map_ : nullptr;
     }
     sphere_->RotateY(0.1f * delta);
 }
