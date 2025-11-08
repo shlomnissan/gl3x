@@ -15,6 +15,7 @@
 #include "vglx/nodes/node.hpp"
 #include "vglx/textures/texture_2d.hpp"
 
+#include "utilities/logger.hpp"
 #include "utilities/file.hpp"
 
 #include <cstring>
@@ -63,9 +64,7 @@ auto load_materials(const fs::path& path, std::ifstream& file, const MeshHeader&
             read_binary(file, texture_record);
 
             const auto filename = std::string {texture_record.filename};
-            if (filename.empty()) {
-                continue;
-            }
+            if (filename.empty()) continue;
 
             auto texture = std::shared_ptr<Texture2D> {};
             if (auto it = textures.find(filename); it != textures.end()) {
@@ -76,16 +75,33 @@ auto load_materials(const fs::path& path, std::ifstream& file, const MeshHeader&
                 if (result) {
                     texture = result.value();
                     textures.emplace(filename, texture);
+                } else {
+                    Logger::Log(LogLevel::Error, "{}", result.error());
                 }
             }
 
-            if (texture && texture_record.type == MaterialTextureMapType_Diffuse) {
-                material->color = 0xFFFFFF;
-                material->albedo_map = texture;
-            }
+            if (texture == nullptr) continue;
 
-            if (texture && texture_record.type == MaterialTextureMapType_Normal) {
-                material->normal_map = texture;
+            switch (texture_record.type) {
+                case MaterialTextureMapType_Diffuse:
+                    material->color = 0xFFFFFF;
+                    material->albedo_map = texture;
+                break;
+                case MaterialTextureMapType_Alpha:
+                    material->alpha_map = texture;
+                break;
+                case MaterialTextureMapType_Normal:
+                    material->normal_map = texture;
+                break;
+                case MaterialTextureMapType_Specular:
+                    // TODO: implement
+                break;
+                default:
+                    Logger::Log(
+                        LogLevel::Error,
+                        "Unsupported texture type {}",
+                        texture_record.type
+                    );
             }
         }
 

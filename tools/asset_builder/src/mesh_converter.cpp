@@ -12,6 +12,7 @@
 #include "mesh_converter.hpp"
 #include "texture_converter.hpp"
 
+#include <array>
 #include <cassert>
 #include <cinttypes>
 #include <cmath>
@@ -391,13 +392,22 @@ auto parse_materials(
         material_record.texture_count = 0;
 
         auto texture_records = std::vector<MaterialTextureMapRecord> {};
-        if (auto tex_name = material.diffuse_texname; !tex_name.empty()) {
-            auto tex_record = parse_texture(tex_name, MaterialTextureMapType_Diffuse, input_path);
-            if (tex_record) {
-                texture_records.emplace_back(tex_record.value());
-                material_record.texture_count++;
-            } else {
-                std::println(stderr, "{}", tex_record.error());
+        auto available_textures = std::array<std::pair<std::string, MaterialTextureMapType>, 4> {{
+            {material.diffuse_texname, MaterialTextureMapType_Diffuse},
+            {material.alpha_texname, MaterialTextureMapType_Alpha},
+            {material.normal_texname, MaterialTextureMapType_Normal},
+            {material.specular_texname, MaterialTextureMapType_Specular},
+        }};
+
+        for (const auto& [tex_name, tex_type] : available_textures) {
+            if (!tex_name.empty()) {
+                auto tex_record = parse_texture(tex_name, tex_type, input_path);
+                if (tex_record) {
+                    texture_records.emplace_back(tex_record.value());
+                    material_record.texture_count++;
+                } else {
+                    std::println(stderr, "{}", tex_record.error());
+                }
             }
         }
 

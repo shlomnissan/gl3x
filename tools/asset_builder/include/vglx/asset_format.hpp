@@ -27,7 +27,9 @@ enum VertexAttributeFlags : uint32_t {
 
 enum MaterialTextureMapType : uint32_t {
     MaterialTextureMapType_Diffuse  = 0,
-    MaterialTextureMapType_Normal   = 1,
+    MaterialTextureMapType_Alpha    = 1,
+    MaterialTextureMapType_Normal   = 2,
+    MaterialTextureMapType_Specular = 3,
 };
 
 #pragma pack(push, 1)
