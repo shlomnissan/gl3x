@@ -82,8 +82,8 @@ public:
      *
      * @return TextureType::Texture2D
      */
-    [[nodiscard]] auto GetType() const -> TextureType override {
-        return TextureType::Texture2D;
+    [[nodiscard]] auto GetType() const -> Texture::Type override {
+        return Texture::Type::Texture2D;
     }
 
     /**
