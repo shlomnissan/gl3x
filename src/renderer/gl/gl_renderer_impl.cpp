@@ -141,6 +141,8 @@ auto Renderer::Impl::SetUniforms(
                 program->SetUniform(Uniform::AlphaMap, &type);
             case GLTextureMapType::NormalMap:
                 program->SetUniform(Uniform::NormalMap, &type);
+            case GLTextureMapType::SpecularMap:
+                program->SetUniform(Uniform::SpecularMap, &type);
         }
     };
 
@@ -176,6 +178,8 @@ auto Renderer::Impl::SetUniforms(
             bind_texture(GLTextureMapType::AlphaMap, m->alpha_map);
         if (attrs->normal_map)
             bind_texture(GLTextureMapType::NormalMap, m->normal_map);
+        if (attrs->specular_map)
+            bind_texture(GLTextureMapType::SpecularMap, m->specular_map);
     }
 
     if (attrs->type == MaterialType::ShaderMaterial) {

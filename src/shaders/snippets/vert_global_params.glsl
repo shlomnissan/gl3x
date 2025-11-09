@@ -34,7 +34,7 @@ in vec2 a_TexCoord;
     out vec3 v_Color;
 #endif
 
-#ifdef USE_NORMAL_MAPPING
+#ifdef USE_NORMAL_MAP
     in vec4 a_Tangent;
     out mat3 v_TBN;
 #endif

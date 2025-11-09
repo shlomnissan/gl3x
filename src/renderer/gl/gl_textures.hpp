@@ -22,7 +22,8 @@ namespace vglx {
 enum class GLTextureMapType {
     AlbedoMap = 0,
     AlphaMap = 1,
-    NormalMap = 2
+    NormalMap = 2,
+    SpecularMap = 3,
 };
 
 class GLTextures {

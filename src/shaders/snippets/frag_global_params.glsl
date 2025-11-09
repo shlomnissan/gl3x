@@ -10,9 +10,10 @@ output color, varyings, and uniforms accessible within the fragment shader.
 @varying vec4 v_Position - Fragment position in view space
 @uniform vec3 u_Color - Base color of the fragment
 @uniform float u_Opacity - Fragment opacity
-@uniform sampler2D u_AlbedoMap - Base color texture map
+@uniform sampler2D u_AlbedoMap - Albedo texture map
 @uniform sampler2D u_AlphaMap - Opacity texture map
 @uniform sampler2D u_NormalMap - Normals texture map
+@uniform sampler2D u_SpecularMap - Specular texture map
 
 */
 
@@ -26,7 +27,7 @@ layout (location = 0) out vec4 v_FragColor;
     in vec3 v_Color;
 #endif
 
-#ifdef USE_NORMAL_MAPPING
+#ifdef USE_NORMAL_MAP
     in mat3 v_TBN;
 #endif
 
@@ -41,3 +42,4 @@ uniform vec3 u_Color;
 uniform sampler2D u_AlbedoMap;
 uniform sampler2D u_AlphaMap;
 uniform sampler2D u_NormalMap;
+uniform sampler2D u_SpecularMap;

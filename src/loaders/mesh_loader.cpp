@@ -94,7 +94,7 @@ auto load_materials(const fs::path& path, std::ifstream& file, const MeshHeader&
                     material->normal_map = texture;
                 break;
                 case MaterialTextureMapType_Specular:
-                    // TODO: implement
+                    material->specular_map = texture;
                 break;
                 default:
                     Logger::Log(

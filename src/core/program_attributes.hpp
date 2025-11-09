@@ -33,16 +33,18 @@ struct ProgramAttributes {
 
     uint8_t num_lights {0};
 
-    bool albedo_map {false};
-    bool alpha_map {false};
     bool color {false};
     bool flat_shaded {false};
     bool fog {false};
     bool instancing {false};
-    bool normal_map {false};
     bool tangent {false};
     bool two_sided {false};
     bool vertex_color {false};
+
+    bool albedo_map {false};
+    bool alpha_map {false};
+    bool normal_map {false};
+    bool specular_map {false};
 
     ProgramAttributes(
         Renderable* renderable,

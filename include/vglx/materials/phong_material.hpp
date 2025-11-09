@@ -56,6 +56,9 @@ public:
     /// @brief Normal map that perturbs surface normals for detailed shading.
     std::shared_ptr<Texture2D> normal_map = nullptr;
 
+    /// @brief Specular map that modulates the intensity of specular highlights.
+    std::shared_ptr<Texture2D> specular_map = nullptr;
+
     /**
      * @brief Constructs a PhongMaterial object.
      *

@@ -37,6 +37,7 @@ ProgramAttributes::ProgramAttributes(
         albedo_map = m->albedo_map != nullptr;
         alpha_map = m->alpha_map != nullptr;
         normal_map = m->normal_map != nullptr;
+        specular_map = m->specular_map != nullptr;
     }
 
     if (type == MaterialType::ShaderMaterial) {
@@ -83,6 +84,7 @@ ProgramAttributes::ProgramAttributes(
     key |= (instancing ? 1 : 0) << 23; // 1 bit
     key |= (vertex_color ? 1 : 0) << 24; // 1 bit
     key |= (tangent ? 1 : 0) << 25; // 1 bit
+    key |= (specular_map ? 1 : 0) << 26; // 1 bit
 }
 
 }
