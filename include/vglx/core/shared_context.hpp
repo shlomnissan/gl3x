@@ -33,17 +33,18 @@ class Camera;
  * active camera, or accessing other global services.
  *
  * @code
- * class MyNode : public vglx::Node {
- * public:
- *   void OnAttached(SharedContextPointer context) override {
- *     context->texture_loader->LoadAsync(
- *       "assets/checker.tex",
- *       [this](auto result) {
- *         if (result) texture_ = result.value();
+  * auto MyNode::OnAttached(SharedContextPointer context) -> void {
+ *   context->texture_loader->LoadAsync(
+ *     "assets/my_texture.tex",
+ *     [this](auto result) {
+ *       if (result) {
+ *         texture_ = result.value();
+ *       } else {
+ *         std::println(stderr, "{}", result.error());
  *       }
- *     );
- *   }
- * };
+ *     }
+ *   );
+ * }
  * @endcode
  *
  * @ingroup CoreGroup

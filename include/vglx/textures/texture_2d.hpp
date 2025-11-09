@@ -17,13 +17,14 @@
 namespace vglx {
 
 /**
- * @brief Represents a 2D texture that can be attached to materials.
+ * @brief Represents a two-dimensional texture.
  *
- * While you can instantiate a Texture2D object directly, it is recommended to
- * use the texture loader object to create texture instances:
+ * A 2D texture stores image data that can be sampled by materials during
+ * rendering. Textures are typically created through the engine’s
+ * @ref TextureLoader "texture loader" rather than instantiated directly.
  *
  * @code
- * auto MyNode::OnAttached(SharedContextPointer context) -> void override {
+ * auto MyNode::OnAttached(SharedContextPointer context) -> void {
  *   context->texture_loader->LoadAsync(
  *     "assets/my_texture.tex",
  *     [this](auto result) {
@@ -41,26 +42,29 @@ namespace vglx {
  */
 class VGLX_EXPORT Texture2D : public Texture {
 public:
-    /// @brief Width in pixels.
+    /// @brief Texture width in pixels.
     unsigned width;
 
-    /// @brief Height in pixels.
+    /// @brief Texture height in pixels.
     unsigned height;
 
-    /// @brief Underlying texture data.
-    std::vector<uint8_t> data {};
+    /// @brief Raw texture pixel data.
+    std::vector<uint8_t> data;
 
-    /// @brief Parameters for constructing a texture2D object.
+    /**
+     * @brief Parameters for constructing a @ref Texture2D object.
+     */
     struct Parameters {
         unsigned width; ///< Width in pixels.
         unsigned height; ///< Height in pixels.
-        std::vector<uint8_t> data; ///< Underlying texture data.
+        std::vector<uint8_t> data; ///< Raw texture pixel data.
     };
 
     /**
-     * @brief Constructs a Texture2D object.
+     * @brief Constructs a 2D texture.
      *
-     * @param params Texture2D::Parameters
+     * @param params @ref Texture2D::Parameters "Initialization parameters"
+     * for constructing the texture.
      */
     explicit Texture2D(const Parameters& params) :
         width(params.width),
@@ -68,63 +72,62 @@ public:
         data(std::move(params.data)) {}
 
     /**
-     * @brief Creates a shared pointer to a Texture2D object.
+     * @brief Creates a shared instance of @ref Texture2D.
      *
-     * @param params Texture2D::Parameters
-     * @return std::shared_ptr<Texture2D>
+     * @param params @ref Texture2D::Parameters "Initialization parameters"
+     * for constructing the texture.
      */
     [[nodiscard]] static auto Create(const Parameters& params) {
         return std::make_shared<Texture2D>(params);
     }
 
     /**
-     * @brief Returns texture type.
-     *
-     * @return TextureType::Texture2D
+     * @brief Identifies this texture as @ref Texture::Type "Texture::Type::Texture2D".
      */
     [[nodiscard]] auto GetType() const -> Texture::Type override {
         return Texture::Type::Texture2D;
     }
 
     /**
-     * @brief Returns the transformation matrix for UV mapping.
+     * @brief Returns the UV transformation matrix.
      *
-     * @return Matrix3
+     * The transform can be modified through translation, scaling, or rotation
+     * using the provided helper methods. This affects how the texture is
+     * sampled during rendering.
      */
-    [[nodiscard]] auto GetTransform() {
+    [[nodiscard]] auto GetTransform() -> Matrix3 {
         return transform_.Get();
     }
 
     /**
-     * @brief Sets texture offset on the X-axis.
+     * @brief Applies a translation offset along the X-axis.
      *
      * @param value Offset value in pixels.
      */
     auto OffsetX(float value) { transform_.Translate({value, 0.0f}); }
 
     /**
-     * @brief Sets texture offset on the Y-axis.
+     * @brief Applies a translation offset along the Y-axis.
      *
      * @param value Offset value in pixels.
      */
     auto OffsetY(float value) { transform_.Translate({0.0f, value}); }
 
     /**
-     * @brief Sets uniform scale.
+     * @brief Applies a uniform scale to the texture coordinates.
      *
-     * @param value Scale value.
+     * @param value Scale factor.
      */
     auto Scale(float value) { transform_.Scale({value, value}); }
 
     /**
-     * @brief Sets rotation angle.
+     * @brief Applies a rotation to the texture coordinates.
      *
      * @param angle Rotation angle in radians.
      */
     auto Rotate(float angle) { transform_.Rotate(angle); }
 
 private:
-    /// @brief UV transformation matrix.
     Transform2 transform_;
 };
 
