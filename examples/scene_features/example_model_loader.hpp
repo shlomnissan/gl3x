@@ -32,9 +32,11 @@ private:
     std::shared_ptr<vglx::Node> model_;
     std::shared_ptr<vglx::Texture2D> albedo_map_;
     std::shared_ptr<vglx::Texture2D> normal_map_;
+    std::shared_ptr<vglx::Texture2D> specular_map_;
 
     vglx::PhongMaterial* material_ {nullptr};
 
     bool show_albedo_map_ {true};
     bool show_normal_map_ {true};
+    bool show_specular_map_ {true};
 };

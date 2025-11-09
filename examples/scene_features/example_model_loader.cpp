@@ -59,6 +59,7 @@ auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
                 material_ = static_cast<PhongMaterial*>(mesh->GetMaterial().get());
                 albedo_map_ = material_->albedo_map;
                 normal_map_ = material_->normal_map;
+                specular_map_ = material_->specular_map;
             } else {
                 std::println(stderr, "{}", result.error());
             }
@@ -67,12 +68,16 @@ auto ExampleModelLoader::OnAttached(SharedContextPointer context) -> void {
 }
 
 auto ExampleModelLoader::OnUpdate(float delta) -> void {
-    if (normal_map_ != nullptr) {
-        material_->normal_map = show_normal_map_ ? normal_map_ : nullptr;
-    }
-    if (albedo_map_ != nullptr) {
+    if (albedo_map_ != nullptr && !!material_->albedo_map != show_albedo_map_) {
         material_->albedo_map = show_albedo_map_ ? albedo_map_ : nullptr;
     }
+    if (normal_map_ != nullptr && !!material_->normal_map != show_normal_map_) {
+        material_->normal_map = show_normal_map_ ? normal_map_ : nullptr;
+    }
+    if (specular_map_ != nullptr && !!material_->specular_map != show_specular_map_) {
+        material_->specular_map = show_specular_map_ ? specular_map_ : nullptr;
+    }
+
     sphere_->RotateY(0.1f * delta);
 }
 
@@ -80,4 +85,5 @@ auto ExampleModelLoader::ContextMenu() -> void {
     auto _ = false;
     UICheckbox("albedo_map", show_albedo_map_, _);
     UICheckbox("normal_map", show_normal_map_, _);
+    UICheckbox("specular_map", show_specular_map_, _);
 }
