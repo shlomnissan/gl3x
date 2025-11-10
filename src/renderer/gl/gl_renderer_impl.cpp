@@ -163,7 +163,7 @@ auto Renderer::Impl::SetUniforms(
         }
     }
 
-    if (attrs->type == MaterialType::PhongMaterial) {
+    if (attrs->type == Material::Type::PhongMaterial) {
         auto m = static_cast<PhongMaterial*>(material);
         if (lights_.HasLights()) {
             program->SetUniform(Uniform::AmbientLight, &lights_.ambient_light);
@@ -182,14 +182,14 @@ auto Renderer::Impl::SetUniforms(
             bind_texture(GLTextureMapType::SpecularMap, m->specular_map);
     }
 
-    if (attrs->type == MaterialType::ShaderMaterial) {
+    if (attrs->type == Material::Type::ShaderMaterial) {
         auto m = static_cast<ShaderMaterial*>(material);
         for (const auto& [name, value] : m->uniforms) {
             program->SetUnknownUniform(name, &value);
         }
     }
 
-    if (attrs->type == MaterialType::SpriteMaterial) {
+    if (attrs->type == Material::Type::SpriteMaterial) {
         auto m = static_cast<SpriteMaterial*>(material);
         auto r = static_cast<Sprite*>(renderable);
 
@@ -203,7 +203,7 @@ auto Renderer::Impl::SetUniforms(
             bind_texture(GLTextureMapType::AlphaMap, m->alpha_map);
     }
 
-    if (attrs->type == MaterialType::UnlitMaterial) {
+    if (attrs->type == Material::Type::UnlitMaterial) {
         auto m = static_cast<UnlitMaterial*>(material);
         program->SetUniform(Uniform::Color, &m->color);
 

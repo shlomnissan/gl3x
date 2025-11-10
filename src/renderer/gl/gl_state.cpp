@@ -15,7 +15,7 @@ auto GLState::ProcessMaterial(const Material* material) -> void {
     SetBackfaceCulling(!material->two_sided);
     SetDepthTest(material->depth_test);
     SetPolygonOffset(material->polygon_offset_factor, material->polygon_offset_units);
-    SetBlending(!material->transparent ? Blending::None : material->blending);
+    SetBlending(!material->transparent ? Material::Blending::None : material->blending);
 }
 
 auto GLState::Enable(int token) -> void {
@@ -67,26 +67,26 @@ auto GLState::SetPolygonOffset(float factor, float units) -> void {
     }
 }
 
-auto GLState::SetBlending(Blending blending) -> void {
+auto GLState::SetBlending(Material::Blending blending) -> void {
     if (curr_blending_ != blending) {
-        if (blending == Blending::None) {
+        if (blending == Material::Blending::None) {
             Disable(GL_BLEND);
         } else {
             Enable(GL_BLEND);
             switch (blending) {
-            case Blending::Normal:
+            case Material::Blending::Normal:
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                 break;
-            case Blending::Additive:
+            case Material::Blending::Additive:
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE);
                 break;
-            case Blending::Subtractive:
+            case Material::Blending::Subtractive:
                 glBlendFunc(GL_ZERO, GL_ONE_MINUS_SRC_COLOR);
                 break;
-            case Blending::Multiply:
+            case Material::Blending::Multiply:
                 glBlendFunc(GL_ZERO, GL_SRC_COLOR);
                 break;
-            case Blending::None:
+            case Material::Blending::None:
                 break;
             }
         }
@@ -110,7 +110,7 @@ auto GLState::Reset() -> void {
 
     features_.clear();
 
-    curr_blending_ = Blending::None;
+    curr_blending_ = Material::Blending::None;
     curr_depth_mask_ = false;
     curr_wireframe_mode_ = false;
     curr_program_ = 0;

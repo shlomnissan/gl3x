@@ -31,7 +31,7 @@ ProgramAttributes::ProgramAttributes(
 
     type = material->GetType();
 
-    if (type == MaterialType::PhongMaterial) {
+    if (type == Material::Type::PhongMaterial) {
         auto m = static_cast<const PhongMaterial*>(material);
         color = true;
         albedo_map = m->albedo_map != nullptr;
@@ -40,20 +40,20 @@ ProgramAttributes::ProgramAttributes(
         specular_map = m->specular_map != nullptr;
     }
 
-    if (type == MaterialType::ShaderMaterial) {
+    if (type == Material::Type::ShaderMaterial) {
         auto m = static_cast<const ShaderMaterial*>(material);
         vertex_shader = m->vertex_shader_;
         fragment_shader = m->fragment_shader_;
     }
 
-    if (type == MaterialType::SpriteMaterial) {
+    if (type == Material::Type::SpriteMaterial) {
         auto m = static_cast<const SpriteMaterial*>(material);
         color = true;
         albedo_map = m->albedo_map != nullptr;
         alpha_map = m->alpha_map != nullptr;
     }
 
-    if (type == MaterialType::UnlitMaterial) {
+    if (type == Material::Type::UnlitMaterial) {
         auto m = static_cast<const UnlitMaterial*>(material);
         color = true;
         albedo_map = m->albedo_map != nullptr;
@@ -68,7 +68,7 @@ ProgramAttributes::ProgramAttributes(
     vertex_color = geometry->HasAttribute(VertexAttributeType::Color);
     tangent = geometry->HasAttribute(VertexAttributeType::Tangent);
 
-    static_assert(std::to_underlying(MaterialType::Length) <= 15);
+    static_assert(std::to_underlying(Material::Type::Length) <= 15);
 
     key |= (std::to_underlying(type) & 0xF); // (0–15) → 4 bits
     key |= (color ? 1 : 0)  << 4; // 1 bit

@@ -65,10 +65,10 @@ public:
     /**
      * @brief Returns material type.
      *
-     * @return MaterialType::UnlitMaterial
+     * @return Material::MaterialType::UnlitMaterial
      */
-    auto GetType() const -> MaterialType override {
-        return MaterialType::UnlitMaterial;
+    auto GetType() const -> Type override {
+        return Material::Type::UnlitMaterial;
     }
 };
 

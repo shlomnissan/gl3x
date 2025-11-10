@@ -72,10 +72,10 @@ public:
     /**
      * @brief Returns material type.
      *
-     * @return MaterialType::SpriteMaterial
+     * @return Material::MaterialType::SpriteMaterial
      */
-    auto GetType() const -> MaterialType override {
-        return MaterialType::SpriteMaterial;
+    auto GetType() const -> Type override {
+        return Material::Type::SpriteMaterial;
     }
 };
 

@@ -79,10 +79,10 @@ public:
     /**
      * @brief Returns material type.
      *
-     * @return MaterialType::PhongMaterial
+     * @return Material::MaterialType::PhongMaterial
      */
-    auto GetType() const -> MaterialType override {
-        return MaterialType::PhongMaterial;
+    auto GetType() const -> Type override {
+        return Material::Type::PhongMaterial;
     }
 };
 

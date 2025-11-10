@@ -19,30 +19,6 @@
 namespace vglx {
 
 /**
- * @brief Represents available material types.
- * @ingroup MaterialsGroup
- */
-enum class MaterialType {
-    PhongMaterial,
-    ShaderMaterial,
-    SpriteMaterial,
-    UnlitMaterial,
-    Length,
-};
-
-/**
- * @brief Represents available blending modes.
- * @ingroup MaterialsGroup
- */
-enum class Blending {
-    None,
-    Normal,
-    Additive,
-    Subtractive,
-    Multiply
-};
-
-/**
  * @brief Abstract base class for material types.
  *
  * Not intended for direct use.
@@ -51,6 +27,22 @@ enum class Blending {
  */
 class VGLX_EXPORT Material : public Identity {
 public:
+    enum class Type {
+        PhongMaterial,
+        ShaderMaterial,
+        SpriteMaterial,
+        UnlitMaterial,
+        Length,
+    };
+
+    enum class Blending {
+        None,
+        Normal,
+        Additive,
+        Subtractive,
+        Multiply
+    };
+
     /// @brief Value in the range of `0.0` - `1.0` indicating how transparent the material is.
     float opacity {1.0f};
 
@@ -82,14 +74,14 @@ public:
     bool visible {true};
 
     /// @brief Blending mode used for rendering this material.
-    Blending blending {Blending::Normal};
+    Blending blending {Material::Blending::Normal};
 
     /**
      * @brief Returns material type.
      *
      * @return MaterialType
      */
-    [[nodiscard]] virtual auto GetType() const -> MaterialType = 0;
+    [[nodiscard]] virtual auto GetType() const -> Type = 0;
 
     /**
      * @brief Converts material type enum value to string.
@@ -97,15 +89,15 @@ public:
      * @param type MaterialType enum value.
      * @return String representation of material type.
      */
-    [[nodiscard]] inline static auto TypeToString(MaterialType type) {
+    [[nodiscard]] inline static auto TypeToString(Type type) {
         switch(type) {
-            case MaterialType::PhongMaterial:
+            case Material::Type::PhongMaterial:
                 return "phong_material";
-            case MaterialType::ShaderMaterial:
+            case Material::Type::ShaderMaterial:
                 return "shader_material";
-            case MaterialType::SpriteMaterial:
+            case Material::Type::SpriteMaterial:
                 return "sprite_material";
-            case MaterialType::UnlitMaterial:
+            case Material::Type::UnlitMaterial:
                 return "unlit_material";
             default:
                 return "unkonwn";

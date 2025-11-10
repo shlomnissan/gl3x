@@ -53,12 +53,12 @@ auto Renderable::CanRender(Renderable* r) -> bool {
         return false;
     }
 
-    if (node_type == Node::Type::Sprite && mat_type != MaterialType::SpriteMaterial) {
+    if (node_type == Node::Type::Sprite && mat_type != Material::Type::SpriteMaterial) {
         Logger::Log(level, "Skipped sprite with non-sprite material {}", *r);
         return false;
     }
 
-    if (mat_type == MaterialType::SpriteMaterial && node_type != Node::Type::Sprite) {
+    if (mat_type == Material::Type::SpriteMaterial && node_type != Node::Type::Sprite) {
         Logger::Log(level, "Skipped non-sprite node with sprite material {}", *r);
         return false;
     }

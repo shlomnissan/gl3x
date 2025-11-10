@@ -32,7 +32,7 @@ public:
 private:
     std::unordered_map<int, bool> features_;
 
-    Blending curr_blending_ {Blending::None};
+    Material::Blending curr_blending_ {Material::Blending::None};
 
     Color curr_clear_color_ {0.0f, 0.0f, 0.0f};
 
@@ -52,7 +52,7 @@ private:
 
     auto SetPolygonOffset(float factor, float units) -> void;
 
-    auto SetBlending(Blending blending) -> void;
+    auto SetBlending(Material::Blending blending) -> void;
 };
 
 }

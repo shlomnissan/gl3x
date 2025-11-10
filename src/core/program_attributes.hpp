@@ -25,7 +25,7 @@ struct ProgramAttributes {
 
     std::size_t key {0};
 
-    MaterialType type;
+    Material::Type type;
 
     // Used to store shader source code for shader materials
     std::string_view vertex_shader;

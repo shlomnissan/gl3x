@@ -98,10 +98,10 @@ public:
     /**
      * @brief Returns material type.
      *
-     * @return MaterialType::ShaderMaterial
+     * @return Material::MaterialType::ShaderMaterial
      */
-    auto GetType() const -> MaterialType override {
-        return MaterialType::ShaderMaterial;
+    auto GetType() const -> Type override {
+        return Material::Type::ShaderMaterial;
     }
 
 private:

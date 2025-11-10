@@ -32,7 +32,7 @@
 namespace vglx {
 
 auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std::vector<ShaderInfo> {
-    if (attrs.type == MaterialType::PhongMaterial) {
+    if (attrs.type == Material::Type::PhongMaterial) {
         return {{
             ShaderType::kVertexShader,
             ProcessShader(attrs, _SHADER_phong_material_vert)
@@ -42,7 +42,7 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std
         }};
     }
 
-    if (attrs.type == MaterialType::ShaderMaterial) {
+    if (attrs.type == Material::Type::ShaderMaterial) {
         return {{
             ShaderType::kVertexShader,
             ProcessShader(attrs, attrs.vertex_shader)
@@ -52,7 +52,7 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std
         }};
     }
 
-    if (attrs.type == MaterialType::SpriteMaterial) {
+    if (attrs.type == Material::Type::SpriteMaterial) {
         return {{
             ShaderType::kVertexShader,
             ProcessShader(attrs, _SHADER_sprite_material_vert)
@@ -62,7 +62,7 @@ auto ShaderLibrary::GetShaderSource(const ProgramAttributes& attrs) const -> std
         }};
     }
 
-    if (attrs.type == MaterialType::UnlitMaterial) {
+    if (attrs.type == Material::Type::UnlitMaterial) {
         return {{
             ShaderType::kVertexShader,
             ProcessShader(attrs, _SHADER_unlit_material_vert)

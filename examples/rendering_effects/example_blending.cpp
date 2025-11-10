@@ -64,7 +64,7 @@ auto ExampleBlending::ContextMenu() -> void {
 
     UIDropDown("mode", blending_modes, curr_blend_mode,
       [this](std::string_view str) {
-        using enum Blending;
+        using enum Material::Blending;
         curr_blend_mode = str;
         if (str == "none") transparent_material_->blending = None;
         if (str == "normal") transparent_material_->blending = Normal;
