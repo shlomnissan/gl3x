@@ -147,7 +147,7 @@ def parse_enum(el: ET.Element, resolver: Resolver):
 
     return EnumDoc(
         id = el.get("id"),
-        name = element_text(el.find("name")),
+        name = element_text(el.find("qualifiedname")),
         scoped = bool_attr(el, "scoped"),
         brief = brief,
         details = details,

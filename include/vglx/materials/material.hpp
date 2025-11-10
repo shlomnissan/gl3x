@@ -21,35 +21,49 @@ namespace vglx {
 /**
  * @brief Abstract base class for material types.
  *
- * Not intended for direct use.
+ * This class is not intended to be used directly. Use one of the concrete
+ * material types such as @ref PhongMaterial, @ref UnlitMaterial,
+ * @ref ShaderMaterial, or derive your own material implementation from
+ * this class.
  *
  * @ingroup MaterialsGroup
  */
 class VGLX_EXPORT Material : public Identity {
 public:
+    /**
+     * @brief Enumerates all supported material types.
+     */
     enum class Type {
-        PhongMaterial,
-        ShaderMaterial,
-        SpriteMaterial,
-        UnlitMaterial,
-        Length,
+        PhongMaterial, ///< Implements the Blinn–Phong lighting model.
+        ShaderMaterial, ///< Uses a custom shader program for rendering.
+        SpriteMaterial, ///< Specialized material for 2D sprites and billboards.
+        UnlitMaterial, ///< Renders without lighting; color appears as-is.
+        Length, ///< Sentinel value representing the number of material types.
     };
 
+    /**
+     * @brief Enumerates blending modes used for compositing this material.
+     */
     enum class Blending {
-        None,
-        Normal,
-        Additive,
-        Subtractive,
-        Multiply
+        None, ///< No blending (default) fragments overwrite existing pixels.
+        Normal, ///< Standard alpha blending.
+        Additive, ///< Adds fragment color to the framebuffer color.
+        Subtractive, ///< Subtracts fragment color from the framebuffer color.
+        Multiply ///< Multiplies fragment color by the framebuffer color.
     };
 
-    /// @brief Value in the range of `0.0` - `1.0` indicating how transparent the material is.
+    /**
+     * @brief Value in the range $[0.0, 1.0]$ indicating how transparent the material is.
+     *
+     * For opacity to have an effect, @ref Material::transparent "transparency"
+     * must be enabled.
+     */
     float opacity {1.0f};
 
-    /// @brief Sets the polygon offset factor.
+    /// @brief Polygon offset factor used to mitigate z-fighting.
     float polygon_offset_factor {0.0f};
 
-    /// @brief Sets the polygon offset units.
+    /// @brief Polygon offset units used to mitigate z-fighting.
     float polygon_offset_units {0.0f};
 
     /// @brief Enables scene fog for this material.
@@ -64,32 +78,31 @@ public:
     /// @brief Enables wireframe rendering.
     bool wireframe {false};
 
-    /// @brief Enables transparency.
+    /// @brief Enables transparency for this material.
     bool transparent {false};
 
     /// @brief Enables flat shading.
     bool flat_shaded {false};
 
-    /// @brief Enables visibility.
+    /// @brief Controls whether this material is visible when rendering.
     bool visible {true};
 
-    /// @brief Blending mode used for rendering this material.
-    Blending blending {Material::Blending::Normal};
+    /// @brief @ref Blending mode used when rendering this material.
+    Blending blending {Blending::Normal};
 
     /**
-     * @brief Returns material type.
-     *
-     * @return MaterialType
+     * @brief Identifies the concrete @ref Material::Type "Material::Type" of this material.
      */
     [[nodiscard]] virtual auto GetType() const -> Type = 0;
 
     /**
-     * @brief Converts material type enum value to string.
+     * @brief Converts a material @ref Material::Type "type" value to a string.
      *
-     * @param type MaterialType enum value.
-     * @return String representation of material type.
+     * Primarily intended for debugging and logging.
+     *
+     * @param type Material type enum value.
      */
-    [[nodiscard]] inline static auto TypeToString(Type type) {
+    [[nodiscard]] inline static auto TypeToString(Type type) -> std::string {
         switch(type) {
             case Material::Type::PhongMaterial:
                 return "phong_material";
@@ -104,9 +117,6 @@ public:
         }
     }
 
-    /**
-     * @brief Default virtual destructor.
-     */
     virtual ~Material() = default;
 };
 
