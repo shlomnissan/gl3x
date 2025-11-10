@@ -385,12 +385,21 @@ auto parse_materials(
             material.name.empty() ? "default:Material" : material.name
         );
 
-        std::memcpy(material_record.ambient, material.ambient, sizeof(material.ambient));
-        std::memcpy(material_record.diffuse, material.diffuse, sizeof(material.diffuse));
-        std::memcpy(material_record.specular, material.specular, sizeof(material.specular));
-        material_record.shininess = material.shininess;
-        material_record.texture_count = 0;
+        std::memcpy(material_record.ambient, material.ambient, sizeof(material_record.ambient));
+        std::memcpy(material_record.diffuse, material.diffuse, sizeof(material_record.diffuse));
 
+        // If a specular map exists but Ks is black, use a small default (0.1)
+        // so highlights aren’t completely suppressed when the map drives specular.
+        auto& specular = material.specular;
+        const auto has_spec_map = !material.specular_texname.empty();
+        const auto spec_color_zero = specular[0] == 0.0f;
+        const auto& src = (has_spec_map && spec_color_zero)
+            ? std::array {0.1f, 0.1f, 0.1f}
+            : std::array {specular[0], specular[1], specular[2]};
+        std::memcpy(material_record.specular, src.data(), sizeof(material_record.specular));
+        material_record.shininess = material.shininess;
+
+        material_record.texture_count = 0;
         auto texture_records = std::vector<MaterialTextureMapRecord> {};
         auto available_textures = std::array<std::pair<std::string, MaterialTextureMapType>, 4> {{
             {material.diffuse_texname, MaterialTextureMapType_Diffuse},
