@@ -52,6 +52,7 @@ auto VerifyMesh(std::shared_ptr<vglx::Node> root) {
 
 TEST(MeshLoader, LoadMeshSynchronous) {
     auto result = mesh_loader->Load("assets/plane.msh");
+    EXPECT_TRUE(result);
     VerifyMesh(result.value());
 }
 
