@@ -42,8 +42,10 @@ auto GLTextures::GenerateTexture(Texture* texture) const -> GLuint {
     // Currently, the engine only supports 2D textures.
     auto texture_2d = static_cast<Texture2D*>(texture);
 
-    // Safe defaults for arbitrary row strides
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glPixelStorei(
+        GL_UNPACK_ALIGNMENT,
+        std::to_underlying(texture->row_alignment)
+    );
 
     glTexImage2D(
         GL_TEXTURE_2D,

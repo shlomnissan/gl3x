@@ -33,12 +33,32 @@ public:
     };
 
     /**
+     * @brief Specifies the byte alignment of each row in source texture data.
+     *
+     * Determines how pixel rows are aligned in memory when uploading texture
+     * data to the GPU. The alignment value must match the source image’s
+     * row stride to ensure correct decoding and avoid visual artifacts.
+     *
+     * Textures generated through the asset builder pipeline are encoded as
+     * RGBA8 with 4-byte row alignment by default.
+     */
+    enum class RowAlignment : std::uint8_t {
+        OneByte = 1, ///< 1-byte alignment (tightly packed).
+        TwoBytes = 2, ///< 2-byte alignment.
+        FourBytes = 4, ///< 4-byte alignment (default).
+        EightBytes = 8 ///< 8-byte alignment
+    };
+
+    /**
      * @brief Renderer-specific texture handle.
      *
      * Typically corresponds to the underlying graphics API object identifier,
      * for example, an OpenGL texture ID.
      */
     unsigned int renderer_id = 0;
+
+    /// @brief Current row alignment used when uploading texture data.
+    RowAlignment row_alignment = RowAlignment::FourBytes;
 
     /**
      * @brief Identifies the concrete @ref Texture::Type "texture type".

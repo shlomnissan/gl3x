@@ -26,7 +26,6 @@ ExampleSandbox::ExampleSandbox() {
 
     auto point_light = PointLight::Create({0xFFFFFF, 1.0f});
     point_light->transform.Translate({0.5f, 0.5f, 0.8f});
-    point_light->SetDebugMode(true);
     Add(point_light);
 
     auto mesh = Mesh::Create(plane_geometry, plane_material);
@@ -36,16 +35,11 @@ ExampleSandbox::ExampleSandbox() {
 
 auto ExampleSandbox::OnAttached(SharedContextPointer context) -> void {
     context->texture_loader->LoadAsync(
-        "assets/bricks_diffuse.tex",
+        "assets/checker/checker.tex",
         [this](auto result) {
-            if (result) plane_material->albedo_map = result.value();
-        }
-    );
-
-    context->texture_loader->LoadAsync(
-        "assets/bricks_normals.tex",
-        [this](auto result) {
-            if (result) plane_material->normal_map = result.value();
+            if (result) {
+                plane_material->albedo_map = result.value();
+            }
         }
     );
 
