@@ -18,16 +18,20 @@
 namespace vglx {
 
 /**
- * @brief Represents a material for shiny surfaces with specular highlights.
+ * @brief Implements the Blinn–Phong shading model for glossy surfaces.
  *
- * This material implements the Blinn-Phong model for calculating reflectance.
- * It is suitable for rendering glossy or metallic surfaces that require
- * highlights and simulate light interaction.
+ * This material implements a classic [Blinn–Phong lighting model](https://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_reflection_model)
+ * with diffuse and specular reflection. It is intended for standard
+ * lit geometry that requires view-dependent highlights, such as polished
+ * surfaces or simple metals.
+ *
+ * It supports a base color, specular color, shininess exponent, and optional
+ * texture maps for albedo, alpha, normals, and specular intensity.
  *
  * @code
  * auto material = vglx::PhongMaterial::Create(0x049EF4);
- * material->specular = {0.3f, 0.3, 0.3f}
- * material->shininess = 32.0f;
+ * material->specular = 0x333333;
+ * material->shininess = 64.0f;
  * material->albedo_map = texture;
  *
  * auto mesh = vglx::Mesh::Create(geometry, material);
@@ -38,48 +42,46 @@ namespace vglx {
  */
 class VGLX_EXPORT PhongMaterial : public Material {
 public:
-    /// @brief Color of the material.
+    /// @brief Base surface color used for diffuse reflection.
     Color color = 0xFFFFFF;
 
-    /// @brief Specular color of the material.
+    /// @brief Specular color controlling the tint of specular highlights.
     Color specular = 0x111111;
 
-    /// @brief How shiny the specular highlight is; a higher value gives a sharper highlight.
+    /// @brief Controls the glossiness of highlights; higher values yield sharper specular peaks.
     float shininess = 32.0f;
 
-    /// @brief Albedo (base color) map, optionally containing an alpha channel.
+    /// @brief Albedo (diffuse) map defining base color and optional alpha channel.
     std::shared_ptr<Texture2D> albedo_map = nullptr;
 
-    /// @brief Alpha map that controls the opacity across the surface.
+    /// @brief Alpha map defining per-pixel opacity.
     std::shared_ptr<Texture2D> alpha_map = nullptr;
 
-    /// @brief Normal map that perturbs surface normals for detailed shading.
+    /// @brief Normal map for per-pixel surface detail and lighting variation.
     std::shared_ptr<Texture2D> normal_map = nullptr;
 
-    /// @brief Specular map that modulates the intensity of specular highlights.
+    /// @brief Specular map scaling the intensity of specular highlights.
     std::shared_ptr<Texture2D> specular_map = nullptr;
 
     /**
-     * @brief Constructs a PhongMaterial object.
+     * @brief Constructs a Phong material with a given base color.
      *
-     * @param color Color of the material.
+     * @param color Base diffuse color of the material.
      */
     explicit PhongMaterial(const Color& color) : color(color) {}
 
     /**
-     * @brief Creates a shared pointer to a PhongMaterial object.
+     * @brief Creates a shared instance of @ref PhongMaterial.
      *
-     * @param color Color of the material.
-     * @return std::shared_ptr<PhongMaterial>
+     * @param color Base diffuse color of the material.
      */
     [[nodiscard]] static auto Create(const Color& color = 0xFFFFFF) {
         return std::make_shared<PhongMaterial>(color);
     }
 
     /**
-     * @brief Returns material type.
-     *
-     * @return Material::MaterialType::PhongMaterial
+     * @brief Identifies this material as
+     * @ref Material::Type "Material::Type::PhongMaterial".
      */
     auto GetType() const -> Type override {
         return Material::Type::PhongMaterial;
