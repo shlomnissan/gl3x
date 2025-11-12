@@ -20,6 +20,7 @@ export default defineConfig({
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon_white.svg', media: '(prefers-color-scheme: dark)' }],
     ['link', { rel: 'icon', href: '/favicon.ico', media: '(prefers-color-scheme: light)' }],
     ['link', { rel: 'icon', href: '/favicon_white.ico', media: '(prefers-color-scheme: dark)' }],
+    ['script', { defer: '', src: 'https://cloud.umami.is/script.js', 'data-website-id': 'aaaf1cfd-b988-46e3-9517-213509176d49'}]
   ],
   themeConfig: {
     search: {
