@@ -198,9 +198,7 @@ auto Renderer::Impl::SetUniforms(
         program->SetUniform(Uniform::Rotation, &r->rotation);
 
         if (attrs->albedo_map)
-            bind_texture(GLTextureMapType::AlbedoMap, m->albedo_map);
-        if (attrs->alpha_map)
-            bind_texture(GLTextureMapType::AlphaMap, m->alpha_map);
+            bind_texture(GLTextureMapType::AlbedoMap, m->texture);
     }
 
     if (attrs->type == Material::Type::UnlitMaterial) {

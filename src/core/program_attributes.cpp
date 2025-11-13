@@ -49,8 +49,7 @@ ProgramAttributes::ProgramAttributes(
     if (type == Material::Type::SpriteMaterial) {
         auto m = static_cast<const SpriteMaterial*>(material);
         color = true;
-        albedo_map = m->albedo_map != nullptr;
-        alpha_map = m->alpha_map != nullptr;
+        albedo_map = m->texture != nullptr;
     }
 
     if (type == Material::Type::UnlitMaterial) {

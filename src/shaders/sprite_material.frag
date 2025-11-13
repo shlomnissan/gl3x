@@ -26,11 +26,6 @@ void main() {
         opacity *= texture(u_AlbedoMap, v_TexCoord).a;
     #endif
 
-    #ifdef USE_ALPHA_MAP
-        vec4 alpha_sample = texture(u_AlphaMap, v_TexCoord);
-        opacity *= alpha_sample.r;
-    #endif
-
     #ifdef USE_FOG
         applyFog(output_color, v_ViewDepth);
     #endif

@@ -38,7 +38,7 @@ namespace vglx {
  *
  * @code
  * auto material = vglx::ShaderMaterial::Create({
- *   .vertex_shader   = vert_source,
+ *   .vertex_shader = vert_source,
  *   .fragment_shader = frag_source,
  *   .uniforms = {
  *     {"u_Time", 0.0f},

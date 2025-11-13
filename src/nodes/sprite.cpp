@@ -12,7 +12,7 @@ namespace vglx {
 Sprite::Sprite(std::shared_ptr<SpriteMaterial> material)
   : geometry_(SharedGeometry()), material_(material) {
     if (material_ == nullptr) {
-        material_ = SpriteMaterial::Create(0xFFFFFF);
+        material_ = SpriteMaterial::Create(nullptr);
     }
 }
 

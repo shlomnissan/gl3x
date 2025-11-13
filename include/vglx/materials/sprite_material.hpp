@@ -18,22 +18,17 @@
 namespace vglx {
 
 /**
- * @brief Represents a material for 2D sprites.
+ * @brief Lightweight material for textured 2D sprites and billboards.
  *
- * `SpriteMaterial` is a lightweight material optimized for rendering
- * camera-facing quads such as UI elements, particles, or font glyphs.
- * It supports a solid color, an optional albedo map, and an optional
- * alpha map for per-pixel transparency.
- *
- * Unlike physically-based or Phong materials, `SpriteMaterial` is
- * rendered without lighting by default, making it efficient for 2D
- * overlays and screen-space elements.
+ * Designed for camera-facing quads such as UI elements, particles, and glyphs.
+ * Renders without lighting (unlit) and uses an RGBA texture with an optional
+ * tint color. Transparency is enabled by default and driven by the texture's
+ * alpha channel.
  *
  * @code
- * auto material = vglx::SpriteMaterial::Create(0xFFFFFF);
- * material->albedo_map = texture;
- *
+ * auto material = vglx::SpriteMaterial::Create(texture, 0xFFFFFF);
  * auto sprite = vglx::Sprite::Create(material);
+ *
  * scene->Add(sprite);
  * @endcode
  *
@@ -41,38 +36,44 @@ namespace vglx {
  */
 class VGLX_EXPORT SpriteMaterial : public Material {
 public:
-    /// @brief Color of the material.
-    Color color = 0xFFFFFF;
+    /// @brief Base tint color applied multiplicatively to the sprite texture.
+    Color color;
 
-    /// @brief Albedo (base color) map, optionally containing an alpha channel.
-    std::shared_ptr<Texture2D> albedo_map = nullptr;
-
-    /// @brief Alpha map that controls the opacity across the surface.
-    std::shared_ptr<Texture2D> alpha_map = nullptr;
+    /// @brief Sprite texture sampled in RGBA; alpha controls transparency.
+    std::shared_ptr<Texture2D> texture;
 
     /**
-     * @brief Constructs a SpriteMaterial object.
+     * @brief Constructs a sprite material.
      *
-     * @param color Color of the material.
+     * Transparency is enabled by default and uses the alpha channel of the
+     * provided texture.
+     *
+     * @param texture Sprite texture to sample for color and alpha.
+     * @param color Base tint color applied to the texture.
      */
-    explicit SpriteMaterial(const Color& color): color(color) {
+    SpriteMaterial(
+        std::shared_ptr<Texture2D> texture,
+        const Color& color = 0xFFFFFF
+    ) : color(color), texture(std::move(texture)) {
         transparent = true;
     }
 
     /**
-     * @brief Creates a shared pointer to a SpriteMaterial object.
+     * @brief Creates a shared instance of @ref SpriteMaterial.
      *
-     * @param color Color of the material.
-     * @return std::shared_ptr<SpriteMaterial>
+     * @param texture Sprite texture to sample for color and alpha.
+     * @param color Base tint color applied to the texture.
      */
-    [[nodiscard]] static auto Create(const Color& color = 0xFFFFFF) {
-        return std::make_shared<SpriteMaterial>(color);
+    [[nodiscard]] static auto Create(
+        std::shared_ptr<Texture2D> texture,
+        const Color& color = 0xFFFFFF
+    ) {
+        return std::make_shared<SpriteMaterial>(std::move(texture), color);
     }
 
     /**
-     * @brief Returns material type.
-     *
-     * @return Material::MaterialType::SpriteMaterial
+     * @brief Identifies this material as
+     * @ref Material::Type "Material::Type::SpriteMaterial".
      */
     auto GetType() const -> Type override {
         return Material::Type::SpriteMaterial;

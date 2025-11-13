@@ -33,8 +33,7 @@ auto ExampleSprite::OnAttached(SharedContextPointer context) -> void {
         "assets/sprite/sprite.tex",
         [this](auto result) {
             if (result) {
-                auto material = SpriteMaterial::Create();
-                material->albedo_map = result.value();
+                auto material = SpriteMaterial::Create(result.value());
                 sprite_ = Sprite::Create(material);
                 sprite_->SetScale(0.15f);
                 sprite_->TranslateY(1.0f);

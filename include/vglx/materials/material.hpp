@@ -10,10 +10,7 @@
 #include "vglx_export.h"
 
 #include "vglx/core/identity.hpp"
-#include "vglx/math/color.hpp"
 
-#include <memory>
-#include <optional>
 #include <string>
 
 namespace vglx {
