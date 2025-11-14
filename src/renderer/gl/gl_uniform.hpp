@@ -52,6 +52,7 @@ enum class Uniform {
     Resolution,
     Rotation,
     SpecularMap,
+    TextureMap,
     TextureTransform,
     KnownUniformsLength,
 };
@@ -78,6 +79,7 @@ constexpr auto get_uniform_loc(std::string_view str) {
     if (str == "u_Rotation") return static_cast<int>(Rotation);
     if (str == "u_SpecularMap") return static_cast<int>(SpecularMap);
     if (str == "u_TextureTransform") return static_cast<int>(TextureTransform);
+    if (str == "u_TextureMap") return static_cast<int>(TextureMap);
     return -1;
 }
 

@@ -45,6 +45,7 @@ struct ProgramAttributes {
     bool alpha_map {false};
     bool normal_map {false};
     bool specular_map {false};
+    bool texture_map {false};
 
     ProgramAttributes(
         Renderable* renderable,

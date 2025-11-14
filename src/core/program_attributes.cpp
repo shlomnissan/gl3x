@@ -49,7 +49,7 @@ ProgramAttributes::ProgramAttributes(
     if (type == Material::Type::SpriteMaterial) {
         auto m = static_cast<const SpriteMaterial*>(material);
         color = true;
-        albedo_map = m->texture != nullptr;
+        texture_map = m->texture_map != nullptr;
     }
 
     if (type == Material::Type::UnlitMaterial) {
@@ -84,6 +84,7 @@ ProgramAttributes::ProgramAttributes(
     key |= (vertex_color ? 1 : 0) << 24; // 1 bit
     key |= (tangent ? 1 : 0) << 25; // 1 bit
     key |= (specular_map ? 1 : 0) << 26; // 1 bit
+    key |= (texture_map ? 1 : 0) << 27; // 1 bit
 }
 
 }

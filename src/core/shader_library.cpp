@@ -108,6 +108,7 @@ auto ShaderLibrary::InjectAttributes(
     if (attrs.alpha_map) features += "#define USE_ALPHA_MAP\n";
     if (attrs.specular_map) features += "#define USE_SPECULAR_MAP\n";
     if (attrs.normal_map && attrs.tangent) features += "#define USE_NORMAL_MAP\n";
+    if (attrs.texture_map) features += "#define USE_TEXTURE_MAP\n";
 
     const auto lights = attrs.num_lights;
     features += "#define NUM_LIGHTS " + std::to_string(lights) + '\n';

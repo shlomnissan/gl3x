@@ -137,12 +137,21 @@ auto Renderer::Impl::SetUniforms(
         switch(type) {
             case GLTextureMapType::AlbedoMap:
                 program->SetUniform(Uniform::AlbedoMap, &type);
+                break;
             case GLTextureMapType::AlphaMap:
                 program->SetUniform(Uniform::AlphaMap, &type);
+                break;
             case GLTextureMapType::NormalMap:
                 program->SetUniform(Uniform::NormalMap, &type);
+                break;
             case GLTextureMapType::SpecularMap:
                 program->SetUniform(Uniform::SpecularMap, &type);
+                break;
+            case GLTextureMapType::TextureMap:
+                program->SetUniform(Uniform::TextureMap, &type);
+                break;
+            default:
+                Logger::Log(LogLevel::Error, "Unable to bind unknown texture map type");
         }
     };
 
@@ -197,8 +206,8 @@ auto Renderer::Impl::SetUniforms(
         program->SetUniform(Uniform::Color, &m->color);
         program->SetUniform(Uniform::Rotation, &r->rotation);
 
-        if (attrs->albedo_map)
-            bind_texture(GLTextureMapType::AlbedoMap, m->texture);
+        if (attrs->texture_map)
+            bind_texture(GLTextureMapType::TextureMap, m->texture_map);
     }
 
     if (attrs->type == Material::Type::UnlitMaterial) {

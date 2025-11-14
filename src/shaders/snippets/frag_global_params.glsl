@@ -14,6 +14,7 @@ output color, varyings, and uniforms accessible within the fragment shader.
 @uniform sampler2D u_AlphaMap - Opacity texture map
 @uniform sampler2D u_NormalMap - Normals texture map
 @uniform sampler2D u_SpecularMap - Specular texture map
+@uniform sampler2D u_TextureMap - Color texture map
 
 */
 
@@ -43,3 +44,4 @@ uniform sampler2D u_AlbedoMap;
 uniform sampler2D u_AlphaMap;
 uniform sampler2D u_NormalMap;
 uniform sampler2D u_SpecularMap;
+uniform sampler2D u_TextureMap;

@@ -21,9 +21,9 @@ void main() {
         output_color *= v_Color;
     #endif
 
-    #ifdef USE_ALBEDO_MAP
-        output_color *= texture(u_AlbedoMap, v_TexCoord).rgb;
-        opacity *= texture(u_AlbedoMap, v_TexCoord).a;
+    #ifdef USE_TEXTURE_MAP
+        output_color *= texture(u_TextureMap, v_TexCoord).rgb;
+        opacity *= texture(u_TextureMap, v_TexCoord).a;
     #endif
 
     #ifdef USE_FOG

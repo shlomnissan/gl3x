@@ -26,7 +26,7 @@ namespace vglx {
  * alpha channel.
  *
  * @code
- * auto material = vglx::SpriteMaterial::Create(texture, 0xFFFFFF);
+ * auto material = vglx::SpriteMaterial::Create(texture_map, 0xFFFFFF);
  * auto sprite = vglx::Sprite::Create(material);
  *
  * scene->Add(sprite);
@@ -40,7 +40,7 @@ public:
     Color color;
 
     /// @brief Sprite texture sampled in RGBA; alpha controls transparency.
-    std::shared_ptr<Texture2D> texture;
+    std::shared_ptr<Texture2D> texture_map;
 
     /**
      * @brief Constructs a sprite material.
@@ -48,27 +48,27 @@ public:
      * Transparency is enabled by default and uses the alpha channel of the
      * provided texture.
      *
-     * @param texture Sprite texture to sample for color and alpha.
+     * @param texture_map Sprite texture to sample for color and alpha.
      * @param color Base tint color applied to the texture.
      */
     SpriteMaterial(
-        std::shared_ptr<Texture2D> texture,
+        std::shared_ptr<Texture2D> texture_map,
         const Color& color = 0xFFFFFF
-    ) : color(color), texture(std::move(texture)) {
+    ) : color(color), texture_map(std::move(texture_map)) {
         transparent = true;
     }
 
     /**
      * @brief Creates a shared instance of @ref SpriteMaterial.
      *
-     * @param texture Sprite texture to sample for color and alpha.
+     * @param texture_map Sprite texture to sample for color and alpha.
      * @param color Base tint color applied to the texture.
      */
     [[nodiscard]] static auto Create(
-        std::shared_ptr<Texture2D> texture,
+        std::shared_ptr<Texture2D> texture_map,
         const Color& color = 0xFFFFFF
     ) {
-        return std::make_shared<SpriteMaterial>(std::move(texture), color);
+        return std::make_shared<SpriteMaterial>(std::move(texture_map), color);
     }
 
     /**
