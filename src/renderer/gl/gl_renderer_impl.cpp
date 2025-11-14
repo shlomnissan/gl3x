@@ -214,8 +214,8 @@ auto Renderer::Impl::SetUniforms(
         auto m = static_cast<UnlitMaterial*>(material);
         program->SetUniform(Uniform::Color, &m->color);
 
-        if (attrs->albedo_map)
-            bind_texture(GLTextureMapType::AlbedoMap, m->albedo_map);
+        if (attrs->texture_map)
+            bind_texture(GLTextureMapType::TextureMap, m->texture_map);
         if (attrs->alpha_map)
             bind_texture(GLTextureMapType::AlphaMap, m->alpha_map);
     }

@@ -26,7 +26,7 @@ namespace vglx {
  * alpha channel.
  *
  * @code
- * auto material = vglx::SpriteMaterial::Create(texture_map, 0xFFFFFF);
+ * auto material = vglx::SpriteMaterial::Create(texture, 0xFFFFFF);
  * auto sprite = vglx::Sprite::Create(material);
  *
  * scene->Add(sprite);

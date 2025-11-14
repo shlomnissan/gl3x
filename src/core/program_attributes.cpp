@@ -55,7 +55,7 @@ ProgramAttributes::ProgramAttributes(
     if (type == Material::Type::UnlitMaterial) {
         auto m = static_cast<const UnlitMaterial*>(material);
         color = true;
-        albedo_map = m->albedo_map != nullptr;
+        texture_map = m->texture_map != nullptr;
         alpha_map = m->alpha_map != nullptr;
     }
 
