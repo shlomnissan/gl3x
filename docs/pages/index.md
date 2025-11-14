@@ -7,6 +7,9 @@ hero:
   tagline: Cross-Platform 3D Rendering Engine,<br/>Built for Performance in Modern C++
   actions:
     - theme: brand
+      text: Manual
+      link: /manual
+    - theme: alt
       text: Reference
       link: /reference/core/application
     - theme: alt

@@ -31,15 +31,18 @@ export default defineConfig({
       dark: '/logo-dark.svg'
     },
     nav: [
+      { text: 'Manual', link: '/manual/' },
+      { text: 'Reference', link: '/reference/core/application' },
     ],
     sidebar: {
-      '/guide/': [
+      '/manual/': [
         {
-          text: 'Get Started',
+          text: 'Getting Started',
           items: [
-            { text: 'Introduction', link: '/guide/' },
+            { text: 'Introduction', link: '/manual/' },
           ]
-        }
+        },
+        { text: 'Reference', link: '/reference/core/application' }
       ],
       '/reference/': referenceSidebar,
     },
