@@ -40,6 +40,7 @@ export default defineConfig({
           text: 'Getting Started',
           items: [
             { text: 'Introduction', link: '/manual/' },
+            { text: 'Installation', link: '/manual/installation' }
           ]
         },
         { text: 'Reference', link: '/reference/core/application' }
