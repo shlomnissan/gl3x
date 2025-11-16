@@ -75,7 +75,7 @@ def render_function(f: FunctionDoc, resolver: Resolver):
         f"{resolver.member_id_to_anchor(f.id)}\n"
         f"</div>"
         f"<div class=\"description\">\n\n"
-        f"{f.brief} {f.details}\n"
+        f"{f.brief}\n\n {f.details}\n"
         f"```cpp\n{f.definition};\n```\n"
         f"{table}"
         f"</div>"

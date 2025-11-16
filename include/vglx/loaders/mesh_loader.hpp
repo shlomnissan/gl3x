@@ -20,29 +20,40 @@ class Node;
 
 namespace fs = std::filesystem;
 
+/**
+ * @brief Callback type for receiving loaded mesh nodes.
+ *
+ * @related MeshLoader
+ */
 using MeshCallback = std::function<void(std::shared_ptr<Node>)>;
 
 /**
- * @brief Loads mesh data from engine-optimized `.msh` files.
+ * @brief Loads mesh data from engine-optimized files.
  *
- * This class implements the abstract Loader interface to load Mesh objects
- * from the file system, specifically targeting the engine's custom `.msh` format,
- * which encapsulates optimized mesh data along with associated materials.
- * It supports both synchronous and asynchronous loading through the base Loader API.
+ * MeshLoader is a concrete @ref Loader implementation that reads the
+ * engine's custom `.msh` format from disk and constructs a node hierarchy
+ * containing one or more static mesh objects and their associated materials.
+ * It exposes both synchronous and asynchronous loading through the base
+ * class API.
  *
- * This class returns an Node object, which serves as a group container
- * encapsulating one or more static Mesh objects.
+ * The returned resource is a @ref Node that acts as a group container for all
+ * meshes encoded within the `.msh` file. This node can be attached directly to
+ * the scene graph or inserted under an existing node.
  *
- * You can convert common 3D model formats (e.g., OBJ, FBX) into `.msh` files using the
- * `asset_builder` - a command-line tool located in the tools directory.
+ * You can convert common 3D model formats (for example OBJ or glTF) into `.msh`
+ * files using the `asset_builder` tool located in the engine's `tools`
+ * directory. The `.msh` format stores geometry, materials, and metadata in a
+ * compact layout optimized for fast loading at runtime.
+ * See [Importing Assets](/manual/importing_assets) to learn more.
  *
- * Explicit instantiation of this class is discouraged due to potential
- * lifetime issues in the current architecture, particularly when used with
- * asynchronous loading. Instead, access it through the Node::OnAttached hook,
- * which provides a reference to the context that owns an instance of this class.
+ * Explicit instantiation of this class is discouraged due to lifetime concerns
+ * in the current architecture, particularly when used with asynchronous
+ * loading. Instead, obtain a reference to the loader through
+ * @ref Node::OnAttached, which provides access to the owning context and its
+ * loader instances.
  *
- * @note Loaders use `std::expect` for error values. Always check that loading
- * operations return a valid result, and handle the error otherwise.
+ * @note Loaders use `std::expected` for error values. Always check the result
+ * of loading operations and handle failure cases appropriately.
  *
  * @code
  * auto MyNode::OnAttached(SharedContextPointer context) -> void override {
@@ -64,29 +75,23 @@ using MeshCallback = std::function<void(std::shared_ptr<Node>)>;
 class VGLX_EXPORT MeshLoader : public Loader<Node> {
 public:
     /**
-     * @brief Creates a shared pointer to a MeshLoader object.
+     * @brief Creates a shared instance of @ref MeshLoader.
      *
-     * @return std::shared_ptr<MeshLoader>
+     * The constructor is private to ensure the loader is always owned by a
+     * `std\::shared_ptr`. This is required because the base @ref Loader class
+     * inherits from `std\::enable_shared_from_this`, which relies on the loader
+     * being managed by a shared pointer for safe use during asynchronous loading.
      */
     [[nodiscard]] static auto Create() -> std::shared_ptr<MeshLoader> {
         return std::shared_ptr<MeshLoader>(new MeshLoader());
     }
 
 private:
-    /**
-     * @brief Constructs a MeshLoader object.
-     *
-     * **Marked private** to enforce creation through the `Create()` factory method.
-     */
+    /// @cond INTERNAL
     MeshLoader() = default;
 
-    /**
-     * @brief Loads mesh data from engine-optimized `.msh` files.
-     *
-     * @param path File system path to the mesh file.
-     * @return LoaderResult<Node>
-     */
     [[nodiscard]] auto LoadImpl(const fs::path& path) const -> LoaderResult<Node> override;
+    /// @endcond
 };
 
 }
