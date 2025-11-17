@@ -1,9 +1,7 @@
 # Installation
 
-This page covers how to build VGLX, install it, and use it in your own project. The goal is to keep things simple. All dependencies are included in the repository, and you do not need to install anything system-wide beyond a compiler, CMake and an OpenGL driver.
-
+This page covers how to build VGLX, install it, and use it in your own project. The goal is to keep the setup simple. All dependencies are included in the repository, and you do not need anything system-wide beyond a C++ compiler, CMake and an OpenGL driver.
 ## Requirements
-
 
 VGLX builds with a C++23-capable toolchain, [CMake](https://cmake.org/) 3.20 or newer, and an OpenGL 4.1+ context. It is regularly tested on the major platforms:
 
@@ -17,7 +15,7 @@ VGLX builds with a C++23-capable toolchain, [CMake](https://cmake.org/) 3.20 or 
 
 #### Dependencies
 
-VGLX vendors everything it needs directly into the repository. There is no package manager setup and no extra system installs. The only runtime pieces are:
+VGLX vendors all of its dependencies directly inside the repository. Nothing is downloaded at build time, and no external package managers are required. The runtime pieces are:
 
 | Dependency | Version  | Location        | Description |
 |------------|----------|----------------|-------------|
@@ -26,16 +24,83 @@ VGLX vendors everything it needs directly into the repository. There is no packa
 | [ImGui](https://github.com/ocornut/imgui)  | 1.92.1   | `vendor/imgui` | **Optional** immediate-mode UI library for in-engine tools and examples. |
 
 Each dependency includes its license inside the `vendor/` directory.
-
 ## VGLX Installer
 
-#### Verify Installation
+The easiest way to install VGLX is using the Python installer included in the repository. It guides you through the process, builds the engine using the right presets for your system and can optionally install the asset builder CLI.
 
-## Build Instructions
+```bash
+# clone the repository
+git clone https://github.com/shlomnissan/vglx.git
+cd vglx
 
-VGLX uses CMake for configuration. You can build it however you prefer, but the presets included with the project make things easier.
+# run the installer
+python3 -m tools.vglx_installer.main
+```
 
-A few common CMake presets are provided:
+The installer checks for a working version of CMake, detects your compiler and asks for an installation prefix. If you plan to import optimized textures or models, enable the asset builder installation when prompted. The asset builder converts textures and meshes into GPU-friendly formats used by the engine. See [Importing Assets](/guide/importing_assets) to learn more.
+
+At the end of the process the installer runs a small demo application to verify that everything is working correctly.
+
+If you encounter issues, see the [Getting Help](#getting-help) section below.
+## Creating a New Project
+
+The quickest way to get started is cloning the starter template:
+
+```bash
+ git clone https://github.com/shlomnissan/vglx-starter.git
+```
+
+It includes a simple application wired to VGLX using CMake. You can build and run it immediately. If you prefer starting from scratch, you have two options:
+
+##### 1. Using CMake
+
+If your project uses CMake, the recommended way to integrate VGLX is through `find_package`:
+
+```cmake
+find_package(vglx REQUIRED)
+target_link_libraries(MyApp PRIVATE vglx::vglx)
+```
+
+CMake automatically picks the correct build configuration (Debug or Release) based on your project settings.
+
+VGLX disables RTTI by default. Your project needs to match that:
+
+```cmake
+target_compile_options(MyApp PRIVATE
+  $<$<CXX_COMPILER_ID:GNU>:-fno-rtti>
+  $<$<CXX_COMPILER_ID:Clang>:-fno-rtti>
+  $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti>
+  $<$<CXX_COMPILER_ID:MSVC>:/GR->
+)
+```
+
+On Windows you may need to copy the VGLX DLL next to your application. You can automate this with:
+
+```cmake
+if(WIN32)
+  add_custom_command(TARGET MyApp POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    $<TARGET_FILE:vglx::vglx>
+    $<TARGET_FILE_DIR:MyApp>
+  )
+endif()
+```
+
+##### 2. Compile Directly
+
+You can also link VGLX manually if you prefer using your compiler without CMake. The exact command depends on your platform and compiler. A minimal Linux example using `g++` might look like:
+
+```bash
+g++ main.cpp -o MyApp \
+  -I/usr/local/include \
+  -L/usr/local/lib -lvglx \
+  -fno-rtti
+```
+
+Adjust include paths, library paths and RTTI settings to match your system and compiler.
+## Build From Source
+
+The project includes several presets that streamline the process:
 - `dev-debug` – Debug build with everything enabled
 - `dev-release` – Optimized build with examples and tools
 - `install-debug` – Debug install target (MSVC)
@@ -43,7 +108,7 @@ A few common CMake presets are provided:
 
 ```bash [bash]
 # clone the repository
-git clone --recursive https://github.com/shlomnissan/vglx.git
+git clone https://github.com/shlomnissan/vglx.git
 cd vglx
 
 # optional but recommended
@@ -58,14 +123,51 @@ cmake --build . --config Debug
 ```
 #### Configuration Options
 
-VGLX includes several optional build components. If you want to customize what gets built, you can enable or disable features using CMake options:
+VGLX includes optional build components. You can enable or disable them using standard CMake flags:
 
-| Option                      | Description                                              |
-|-----------------------------|----------------------------------------------------------|
-| `VGLX_BUILD_DOCS`           | Build Doxygen documentation.                             |
-| `VGLX_BUILD_EXAMPLES`       | Build example applications.                              |
-| `VGLX_BUILD_IMGUI`          | Enable ImGui support for debug UI/tools.                 |
-| `VGLX_BUILD_TESTS`          | Build unit tests.                                        |
-| `VGLX_BUILD_ASSET_BUILDER`  | Build asset builder CLI tool                             |
+| Option                     | Description                              |
+| -------------------------- | ---------------------------------------- |
+| `VGLX_BUILD_DOCS`          | Build Doxygen documentation.             |
+| `VGLX_BUILD_EXAMPLES`      | Build example applications.              |
+| `VGLX_BUILD_IMGUI`         | Enable ImGui support for debug UI/tools. |
+| `VGLX_BUILD_TESTS`         | Build unit tests.                        |
+| `VGLX_BUILD_ASSET_BUILDER` | Build asset builder CLI tool             |
 
-VGLX builds and installs as a shared library by default which keeps the API boundary clean and prevents leaking internal symbols. If you want to build a static library use the built-in CMake option `BUILD_SHARED_LIBS=OFF`.
+Release presets build a shared library by default. If you prefer a static build, use:
+
+```cmake
+-DBUILD_SHARED_LIBS=OFF
+```
+#### Verifying Build
+
+If examples are enabled (default in debug presets), two executables will appear:
+`example_launcher_direct` and `example_launcher_runtime`.
+Both run the same sandbox environment and help confirm that everything is set up correctly.
+#### Manual Installation
+
+If you want full control over the installation process, you can use CMake directly:
+
+```bash
+git clone https://github.com/shlomnissan/vglx.git
+cd vglx
+
+mkdir release
+cd release
+
+cmake .. --preset install-release --config Release
+cmake --build . --config Release
+cmake --install .
+```
+
+On Windows you may need to install both Debug and Release configurations due to ABI differences.
+## Getting Help
+
+If you run into issues, please [open an issue on GitHub](https://github.com/shlomnissan/vglx/issues). If possible include:
+
+```text
+- Your OS and compiler version
+- CMake command you ran
+- Installer or compiler logs
+```
+
+If you discover a fix, you are encouraged to open a PR with updates to this document so the whole community benefits.

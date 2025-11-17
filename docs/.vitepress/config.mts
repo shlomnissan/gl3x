@@ -41,7 +41,6 @@ export default defineConfig({
           items: [
             { text: 'Introduction', link: '/manual/' },
             { text: 'Installation', link: '/manual/installation' },
-            { text: 'Importing Assets', link: '/manual/importing_assets' }
           ]
         },
         { text: 'Reference', link: '/reference/core/application' }
