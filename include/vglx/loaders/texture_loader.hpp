@@ -19,30 +19,39 @@ namespace vglx {
 
 namespace fs = std::filesystem;
 
+/**
+ * @brief Callback type for receiving loaded textures.
+ *
+ * @related TextureLoader
+ */
 using TextureCallback = std::function<void(std::shared_ptr<Texture2D>)>;
 
 /**
- * @brief Loads 2D textures from engine-optimized `.tex` files.
+ * @brief Loads 2D textures from engine-optimized files.
  *
- * This class implements the abstract Loader interface to load Texture2D
- * resources from the file system, specifically targeting the engine's custom
- * `.tex` format. It supports both synchronous and asynchronous loading through
- * the base Loader API.
+ * TextureLoader is a concrete @ref Loader implementation that reads the
+ * engine's custom `.tex` format from disk and constructs @ref Texture2D
+ * resources. It exposes both synchronous and asynchronous loading through the
+ * base class API.
  *
- * You can convert standard image formats (e.g., PNG, JPG) into `.tex` files using the
- * `asset_builder` - a command-line tool located in the tools directory.
+ * You can convert standard image formats (for example PNG or JPG) into `.tex`
+ * files using the `asset_builder` tool located in the engine's `tools`
+ * directory. The `.tex` format stores texture data and metadata in a layout
+ * optimized for fast loading at runtime.
+ * See [Importing Assets](/manual/importing_assets) to learn more.
  *
- * Explicit instantiation of this class is discouraged due to potential
- * lifetime issues in the current architecture, particularly when used with
- * asynchronous loading. Instead, access it through the Node::OnAttached hook,
- * which provides a reference to the context that owns an instance of this class.
+ * Explicit instantiation of this class is discouraged due to lifetime concerns
+ * in the current architecture, particularly when used with asynchronous
+ * loading. Instead, obtain a reference to the loader through
+ * @ref Node::OnAttached, which provides access to the owning context and its
+ * loader instances.
  *
- * @note Loaders use `std::expect` for error values. Always check that loading
- * operations return a valid result, and handle the error otherwise.
+ * @note Loaders use `std::expected` for error values. Always check the result
+ * of loading operations and handle failure cases appropriately.
  *
  * @code
  * auto MyNode::OnAttached(SharedContextPointer context) -> void override {
- *   context->loaders.Texture->LoadAsync(
+ *   context->texture_loader->LoadAsync(
  *     "assets/my_texture.tex",
  *     [this](auto result) {
  *       if (result) {
@@ -50,7 +59,7 @@ using TextureCallback = std::function<void(std::shared_ptr<Texture2D>)>;
  *       } else {
  *         std::println(stderr, "{}", result.error());
  *       }
- *      }
+ *     }
  *   );
  * }
  * @endcode
@@ -60,29 +69,23 @@ using TextureCallback = std::function<void(std::shared_ptr<Texture2D>)>;
 class VGLX_EXPORT TextureLoader : public Loader<Texture2D> {
 public:
     /**
-     * @brief Creates a shared pointer to a TextureLoader object.
+     * @brief Creates a shared instance of @ref TextureLoader.
      *
-     * @return std::shared_ptr<TextureLoader>
+     * The constructor is private to ensure the loader is always owned by a
+     * `std\::shared_ptr`. This is required because the base @ref Loader class
+     * inherits from `std\::enable_shared_from_this`, which relies on the loader
+     * being managed by a shared pointer for safe use during asynchronous loading.
      */
     [[nodiscard]] static auto Create() -> std::shared_ptr<TextureLoader> {
         return std::shared_ptr<TextureLoader>(new TextureLoader());
     }
 
 private:
-    /**
-     * @brief Constructs a TextureLoader object.
-     *
-     * **Marked private** to enforce creation through the `Create()` factory method.
-     */
+    /// @cond INTERNAL
     TextureLoader() = default;
 
-    /**
-     * @brief Loads 2D textures from engine-optimized `.tex` files.
-     *
-     * @param path File system path to the image file.
-     * @return LoaderResult<Texture2D>
-     */
     [[nodiscard]] auto LoadImpl(const fs::path& path) const -> LoaderResult<Texture2D> override;
+    /// @endcond
 };
 
 }
