@@ -20,9 +20,13 @@ namespace vglx {
 /**
  * @brief Axis-aligned bounding box defined by minimum and maximum corners.
  *
- * `Box3` represents a 3D volume bounded by two corners: `min` and `max`. It is
- * used for spatial queries, frustum culling, and bounding volume computations.
- * All operations assume the box is axis-aligned and defined in local space.
+ * Box3 represents a 3D region bounded by two corners: @ref min and @ref max.
+ * It is used for spatial queries, culling tests, intersection checks, and
+ * computing bounding volumes. All operations assume the box is axis-aligned
+ * in the current coordinate space.
+ *
+ * @note This class is `constexpr` where possible allowing Box3 instances to be
+ * constructed and manipulated at compile time.
  *
  * @ingroup MathGroup
  */
@@ -33,14 +37,16 @@ struct VGLX_EXPORT Box3 {
     /// @brief Maximum corner of the box.
     Vector3 max {std::numeric_limits<float>::lowest()};
 
-
     /**
-     * @brief Constructs a Box3 object.
+     * @brief Constructs an empty box.
+     *
+     * The box initializes to an invalid state. Expanding it with points or
+     * merging with other boxes produces valid bounds.
      */
     constexpr Box3() = default;
 
     /**
-     * @brief Constructs a Box3 object from minimum and maximum corners.
+     * @brief Constructs a box from minimum and maximum corners.
      *
      * @param v_min Minimum point.
      * @param v_max Maximum point.
@@ -50,62 +56,58 @@ struct VGLX_EXPORT Box3 {
         max(v_max) {}
 
     /**
-     * @brief Returns the center point of the box.
-     *
-     * @return vglx::Vector3 Center of the box.
+     * @brief Returns the geometric center of the box.
      */
-    [[nodiscard]] constexpr auto Center() const { return (min + max) * 0.5f; }
-
+    [[nodiscard]] constexpr auto Center() const -> Vector3 {
+        return (min + max) * 0.5f;
+    }
 
     /**
-     * @brief Checks whether the box is empty (invalid).
+     * @brief Checks whether the box is empty.
      *
-     * A box is considered empty if any component of `min` exceeds the corresponding
-     * component of `max`, which means it contains no volume.
-     *
-     * @return true if the box is empty, false otherwise.
+     * A box is empty when any component of @ref min exceeds the corresponding
+     * component of @ref max, meaning it encloses no volume.
      */
-    [[nodiscard]] constexpr auto IsEmpty() const {
+    [[nodiscard]] constexpr auto IsEmpty() const -> bool {
         return min.x > max.x || min.y > max.y || min.z > max.z;
     }
 
     /**
-     * @brief Expands the box to include the given point.
+     * @brief Expands the box to include a point.
      *
-     * If the point lies outside the current box bounds, the box is enlarged to
-     * include it.
+     * If the point lies outside the current bounds, @ref min and @ref max are
+     * adjusted to enclose it.
      *
-     * @param p Point to include in the box.
+     * @param point Point to include.
      */
-    constexpr auto ExpandWithPoint(const Vector3& p) {
-        if (p.x < min.x) min.x = p.x;
-        if (p.y < min.y) min.y = p.y;
-        if (p.z < min.z) min.z = p.z;
-        if (p.x > max.x) max.x = p.x;
-        if (p.y > max.y) max.y = p.y;
-        if (p.z > max.z) max.z = p.z;
+    constexpr auto ExpandWithPoint(const Vector3& point) -> void {
+        if (point.x < min.x) min.x = point.x;
+        if (point.y < min.y) min.y = point.y;
+        if (point.z < min.z) min.z = point.z;
+        if (point.x > max.x) max.x = point.x;
+        if (point.y > max.y) max.y = point.y;
+        if (point.z > max.z) max.z = point.z;
     }
 
     /**
      * @brief Resets the box to an empty state.
      *
-     * This sets `min` and `max` to extreme values such that any point expanded into it
-     * will become the new bounds.
+     * After calling this, the next expanded point will define the new bounds.
      */
-    constexpr auto Reset() {
+    constexpr auto Reset() -> void {
         min = Vector3(std::numeric_limits<float>::max());
         max = Vector3(std::numeric_limits<float>::lowest());
     }
 
     /**
-     * @brief Transforms the box by the given matrix.
+     * @brief Applies a transform to the box.
      *
-     * The resulting box is the axis-aligned bounding box that encloses the
-     * transformed corners of the original box.
+     * Computes the axis-aligned bounding box that encloses the transformed
+     * eight corners of the original box.
      *
-     * @param transform 4x4 matrix to apply to the box.
+     * @param transform Transformation matrix to apply.
      */
-    constexpr auto ApplyTransform(const Matrix4& transform) {
+    constexpr auto ApplyTransform(const Matrix4& transform) -> void {
         std::array<Vector3, 8> points_ {};
 
         points_[0] = transform * Vector3 {min.x, min.y, min.z};
@@ -123,21 +125,23 @@ struct VGLX_EXPORT Box3 {
     }
 
     /**
-     * @brief Translates the box by a constant vector.
+     * @brief Translates the box.
      *
-     * @param translation Vector to add to both `min` and `max`.
+     * Adds the translation vector to both @ref min and @ref max.
+     *
+     * @param translation Offset to apply.
      */
-    constexpr auto Translate(const Vector3& translation) {
+    constexpr auto Translate(const Vector3& translation) -> void {
         min += translation;
         max += translation;
     }
 
     /**
-     * @brief Expands this box to fully contain another box.
+     * @brief Expands this box to contain another box.
      *
-     * @param other The box to merge into this one.
+     * @param other Box to merge.
      */
-    constexpr auto Union(const Box3& other) {
+    constexpr auto Union(const Box3& other) -> void {
         min.Min(other.min);
         max.Max(other.max);
     }
