@@ -44,7 +44,7 @@ At the end of the process the installer runs a small demo application to verify 
 If you encounter issues, see the [Getting Help](#getting-help) section below.
 ## Creating a New Project
 
-The quickest way to get started is cloning the starter template:
+The quickest way to get started is cloning [the starter template](https://github.com/shlomnissan/vglx-starter):
 
 ```bash
  git clone https://github.com/shlomnissan/vglx-starter.git
