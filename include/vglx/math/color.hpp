@@ -18,21 +18,26 @@ namespace vglx {
 /**
  * @brief Represents an RGB color with floating-point components.
  *
+ * This class stores color values as three floating-point channels (red, green,
+ * blue), normalized to the range $[0.0, 1.0]$. It does not include an alpha
+ * component. Color supports construction from floats, hexadecimal values, and
+ * spans, as well as basic arithmetic operations.
+ *
  * @ingroup MathGroup
  */
 class VGLX_EXPORT Color  {
 public:
-    float r {1.0f}; ///< Red channel [0.0, 1.0].
-    float g {1.0f}; ///< Green channel [0.0, 1.0].
-    float b {1.0f}; ///< Blue channel [0.0, 1.0].
+    float r {1.0f}; ///< Red channel in $[0.0, 1.0]$.
+    float g {1.0f}; ///< Green channel in $[0.0, 1.0]$.
+    float b {1.0f}; ///< Blue channel in $[0.0, 1.0]$.
 
     /**
-     * @brief Constructs a Color object.
+     * @brief Constructs a color with default RGB values.
      */
     constexpr Color() = default;
 
     /**
-     * @brief Constructs a Color object from individual RGB components.
+     * @brief Constructs a color from individual RGB components.
      *
      * @param r Red component.
      * @param g Green component.
@@ -41,9 +46,9 @@ public:
     constexpr Color(float r, float g, float b) : r(r), g(g), b(b) {}
 
     /**
-     * @brief Constructs a Color object from a hexadecimal value.
+     * @brief Constructs a color from a hexadecimal value.
      *
-     * The hex format is 0xRRGGBB. Each channel is normalized to [0.0, 1.0].
+     * The format is `0xRRGGBB`, and all channels are normalized to $[0.0, 1.0]$.
      *
      * @param hex Hexadecimal color code.
      */
@@ -53,49 +58,46 @@ public:
         b(static_cast<float>(hex & 255) / 255.f) {}
 
     /**
-     * @brief Constructs a Color object from a span of 3 float values.
+     * @brief Constructs a color from a span of three float values.
      *
      * @param color Span containing red, green, and blue components.
      */
     constexpr Color(std::span<float> color) : r(color[0]), g(color[1]), b(color[2]) {}
 
     /**
-     * @brief Accesses color components by index.
+     * @brief Accesses a channel by index.
      *
-     * @param i Index (0 for r, 1 for g, 2 for b).
-     * @return Reference to the component.
+     * @param i Index: `0 → r`, `1 → g`, `2 → b`.
      */
-    [[nodiscard]] constexpr auto& operator[](int i) {
+    [[nodiscard]] constexpr auto operator[](int i) -> float& {
         assert(i >= 0 && i < 3);
         switch (i) {
             case 0: return r;
             case 1: return g;
             case 2: return b;
-            default: return r; // placeholder
+            default: return r; // unreachable
         }
     }
 
     /**
-     * @brief Accesses color components by index (const).
+     * @brief Accesses a channel by index (const).
      *
-     * @param i Index (0 for r, 1 for g, 2 for b).
-     * @return Const reference to the component.
+     * @param i Index: `0 → r`, `1 → g`, `2 → b`.
      */
-    [[nodiscard]] constexpr auto& operator[](int i) const {
+    [[nodiscard]] constexpr auto operator[](int i) const -> float {
         assert(i >= 0 && i < 3);
         switch (i) {
             case 0: return r;
             case 1: return g;
             case 2: return b;
-            default: return r; // placeholder
+            default: return r; // unreachable
         }
     }
 
     /**
      * @brief Assigns a new color from a hexadecimal value.
      *
-     * @param hex Hexadecimal color code in 0xRRGGBB format.
-     * @return Reference to this color.
+     * @param hex Hexadecimal color code in `0xRRGGBB` format.
      */
     constexpr auto operator=(unsigned int hex) -> Color& {
         r = static_cast<float>(hex >> 16 & 255) / 255.f;
@@ -108,7 +110,6 @@ public:
      * @brief Multiplies the color by a scalar in-place.
      *
      * @param n Scalar value.
-     * @return Reference to this color.
      */
     constexpr auto operator*=(float n) -> Color& {
         r = r * n;
@@ -118,16 +119,13 @@ public:
     }
 
 private:
-    /// @brief Equality comparison operator.
     [[nodiscard]] friend constexpr auto operator==(const Color& a, const Color& b) -> bool = default;
 
-    /// @brief Adds two colors component-wise.
-    [[nodiscard]] friend constexpr auto operator+(const Color& a, const Color& b) {
+    [[nodiscard]] friend constexpr auto operator+(const Color& a, const Color& b) -> Color {
         return Color {a.r + b.r, a.g + b.g, a.b + b.b};
     }
 
-    /// @brief Subtracts one color from another, clamped at 0.
-    [[nodiscard]] friend constexpr auto operator-(const Color& a, const Color& b) {
+    [[nodiscard]] friend constexpr auto operator-(const Color& a, const Color& b) -> Color {
         return Color {
             std::max(0.0f, a.r - b.r),
             std::max(0.0f, a.g - b.g),
@@ -135,27 +133,24 @@ private:
         };
     }
 
-    /// @brief Scalar multiplication (color * scalar).
-    [[nodiscard]] friend constexpr auto operator*(const Color& v, float n) {
+    [[nodiscard]] friend constexpr auto operator*(const Color& v, float n) -> Color {
         return Color {v.r * n, v.g * n, v.b * n};
     }
 
-    /// @brief Scalar multiplication (scalar * color).
-    [[nodiscard]] friend constexpr auto operator*(float n, const Color& v) {
+    [[nodiscard]] friend constexpr auto operator*(float n, const Color& v) -> Color {
         return v * n;
     }
 };
 
 /**
- * @brief Linearly interpolates between two vectors.
- * @relatesalso Color
+ * @brief Linearly interpolates between two colors.
+ * @related Color
  *
  * @param a Start color.
  * @param b End color.
- * @param f Interpolation factor [0, 1].
- * @return Interpolated color.
+ * @param f Interpolation factor in $[0, 1]$.
  */
-[[nodiscard]] constexpr auto Lerp(const Color& a, const Color& b, float f) {
+[[nodiscard]] constexpr auto Lerp(const Color& a, const Color& b, float f) -> Color {
     return Color {
         a.r + (b.r - a.r) * f,
         a.g + (b.g - a.g) * f,
