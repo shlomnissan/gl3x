@@ -34,7 +34,7 @@ git clone https://github.com/shlomnissan/vglx.git
 cd vglx
 
 # run the installer
-python3 -m tools.vglx_installer.main
+python3 -m tools.installer.main
 ```
 
 The installer checks for a working version of CMake, detects your compiler and asks for an installation prefix. If you plan to import optimized textures or models, enable the asset builder installation when prompted. The asset builder converts textures and meshes into GPU-friendly formats used by the engine. See [Importing Assets](/manual/importing_assets) to learn more.
