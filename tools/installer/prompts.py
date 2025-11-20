@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 def ask_choice(prompt: str, choices: list[str], default_index: int = 0):
-    print(f"\n{prompt}")
+    print(f"{prompt}")
     for i, choice in enumerate(choices, start = 1):
         default_mark = " (default)" if i - 1 == default_index else ""
         print(f"  {i}) {choice}{default_mark}")
@@ -18,7 +18,7 @@ def ask_choice(prompt: str, choices: list[str], default_index: int = 0):
 def ask_yes_no(prompt: str, default_yes: bool = True):
     default_str = "Y/n" if default_yes else "y/N"
     while True:
-        answer = input(f"\n{prompt} [{default_str}]: ").strip().lower()
+        answer = input(f"{prompt} [{default_str}]: ").strip().lower()
         if not answer:
             return default_yes
         if answer in ("y", "yes"):
