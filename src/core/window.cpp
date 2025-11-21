@@ -14,6 +14,10 @@ namespace vglx {
 Window::Window(const Window::Parameters& params)
   : impl_(std::make_unique<Impl>(params)) {}
 
+Window::Window(Window&&) noexcept = default;
+
+auto Window::operator=(Window&&) noexcept -> Window& = default;
+
 auto Window::Initialize() -> std::expected<void, std::string> {
     return impl_->Initialize();
 }

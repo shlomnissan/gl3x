@@ -14,6 +14,10 @@ namespace vglx {
 Renderer::Renderer(const Renderer::Parameters& params)
     : impl_(std::make_unique<Impl>(params)) {}
 
+Renderer::Renderer(Renderer&&) noexcept = default;
+
+auto Renderer::operator=(Renderer&&) noexcept -> Renderer& = default;
+
 auto Renderer::Initialize() -> std::expected<void, std::string> {
     return impl_->Initialize();
 }

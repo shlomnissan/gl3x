@@ -94,8 +94,8 @@ public:
     auto operator=(const Window&) -> Window& = delete;
 
     // Movable
-    Window(Window&&) noexcept = default;
-    auto operator=(Window&&) noexcept -> Window& = default;
+    Window(Window&&) noexcept;
+    auto operator=(Window&&) noexcept -> Window&;
 
     /**
      * @brief Initializes the underlying OS window and graphics context.
@@ -198,7 +198,7 @@ public:
      */
     auto OnResize(ResizeCallback callback) -> void;
 
-    virtual ~Window();
+    ~Window();
 
 private:
     /// @cond INTERNAL

@@ -72,8 +72,8 @@ public:
     auto operator=(const Renderer&) -> Renderer& = delete;
 
     // Movable
-    Renderer(Renderer&&) noexcept = default;
-    auto operator=(Renderer&&) noexcept -> Renderer& = default;
+    Renderer(Renderer&&) noexcept;
+    auto operator=(Renderer&&) noexcept -> Renderer&;
 
     /**
      * @brief Initializes GPU state and allocates required resources.
