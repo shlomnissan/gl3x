@@ -70,7 +70,7 @@ target_compile_options(MyApp PRIVATE
   $<$<CXX_COMPILER_ID:GNU>:-fno-rtti>
   $<$<CXX_COMPILER_ID:Clang>:-fno-rtti>
   $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti>
-  $<$<CXX_COMPILER_ID:MSVC>:/GR->
+  $<$<CXX_COMPILER_ID:MSVC>:/GR>
 )
 ```
 
