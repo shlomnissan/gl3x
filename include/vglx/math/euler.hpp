@@ -102,8 +102,10 @@ public:
         return pitch == 0.0f && yaw == 0.0f && roll == 0.0f;
     }
 
-private:
-    [[nodiscard]] friend constexpr auto operator==(const Euler& a, const Euler& b) -> bool = default;
+    /**
+     * @brief Compares two Euler objects for equality.
+     */
+    constexpr auto operator==(const Euler&) const -> bool = default;
 };
 
 }
