@@ -80,7 +80,7 @@ public:
     }
 
     /**
-     * @brief Accesses a channel by index (const).
+     * @brief Accesses a channel by index.
      *
      * @param i Index: `0 → r`, `1 → g`, `2 → b`.
      */
