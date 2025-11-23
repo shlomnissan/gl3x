@@ -59,13 +59,6 @@ def cmake_configure(
             "Please review the messages above and try again.",
         )
 
-    install_args = ["cmake", "--install", str(build_dir), "--config", build_type]
-    if run_command(install_args, cwd = build_dir) != 0:
-        make_error(
-            "Install step failed.",
-            "Check permissions for the installation prefix and try again.",
-        )
-
 def build_and_install(root_dir: Path, build_type: str):
     build_dir = root_dir / build_type.lower()
 
@@ -83,4 +76,11 @@ def build_and_install(root_dir: Path, build_type: str):
         make_error(
             "Build failed.",
             "Please review the compiler output above.",
+        )
+
+    install_args = ["cmake", "--install", str(build_dir), "--config", build_type]
+    if run_command(install_args, cwd = build_dir) != 0:
+        make_error(
+            "Install step failed.",
+            "Check permissions for the installation prefix and try again.",
         )

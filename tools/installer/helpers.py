@@ -30,7 +30,7 @@ def run_command(args: list[str], cwd: Path | None = None):
 
 def default_install_prefix(os_name: str) -> Path:
     if os_name == "Windows":
-        return Path(r"C:\Program Files\VGLX")
+        return Path(r"C:\Program Files\vglx")
     return Path("/usr/local")
 
 def get_os():
