@@ -80,7 +80,7 @@ public:
     }
 
     /**
-     * @brief Accesses a channel by index (const).
+     * @brief Accesses a channel by index.
      *
      * @param i Index: `0 → r`, `1 → g`, `2 → b`.
      */
@@ -118,29 +118,59 @@ public:
         return *this;
     }
 
-private:
-    [[nodiscard]] friend constexpr auto operator==(const Color& a, const Color& b) -> bool = default;
-
-    [[nodiscard]] friend constexpr auto operator+(const Color& a, const Color& b) -> Color {
-        return Color {a.r + b.r, a.g + b.g, a.b + b.b};
-    }
-
-    [[nodiscard]] friend constexpr auto operator-(const Color& a, const Color& b) -> Color {
-        return Color {
-            std::max(0.0f, a.r - b.r),
-            std::max(0.0f, a.g - b.g),
-            std::max(0.0f, a.b - b.b)
-        };
-    }
-
-    [[nodiscard]] friend constexpr auto operator*(const Color& v, float n) -> Color {
-        return Color {v.r * n, v.g * n, v.b * n};
-    }
-
-    [[nodiscard]] friend constexpr auto operator*(float n, const Color& v) -> Color {
-        return v * n;
-    }
+    /**
+     * @brief Compares two Color objects for equality.
+     */
+    constexpr auto operator==(const Color&) const -> bool = default;
 };
+
+/**
+ * @brief Adds two colors component-wise.
+ * @related Color
+ *
+ * @param a First color.
+ * @param b Second color.
+ */
+[[nodiscard]] constexpr auto operator+(const Color& a, const Color& b) -> Color {
+    return Color {a.r + b.r, a.g + b.g, a.b + b.b};
+}
+
+/**
+ * @brief Subtracts one color from another, clamped at zero.
+ * @related Color
+ *
+ * @param a First color.
+ * @param b Color to subtract.
+ */
+[[nodiscard]] constexpr auto operator-(const Color& a, const Color& b) -> Color {
+    return Color {
+        std::max(0.0f, a.r - b.r),
+        std::max(0.0f, a.g - b.g),
+        std::max(0.0f, a.b - b.b)
+    };
+}
+
+/**
+ * @brief Multiplies a color by a scalar.
+ * @related Color
+ *
+ * @param v Input color.
+ * @param n Scalar value.
+ */
+[[nodiscard]] constexpr auto operator*(const Color& v, float n) -> Color {
+    return Color {v.r * n, v.g * n, v.b * n};
+}
+
+/**
+ * @brief Multiplies a scalar by a color.
+ * @related Color
+ *
+ * @param n Scalar value.
+ * @param v Input color.
+ */
+[[nodiscard]] constexpr auto operator*(float n, const Color& v) -> Color {
+    return v * n;
+}
 
 /**
  * @brief Linearly interpolates between two colors.

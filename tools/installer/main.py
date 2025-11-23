@@ -1,76 +1,36 @@
 from __future__ import annotations
 
-import platform
-import shutil
-import subprocess
 import sys
 
 from pathlib import Path
-from dataclasses import dataclass
 
+from .cmake import get_cmake_version, cmake_configure, build_and_install
 from .prompts import ask_choice, ask_yes_no
+from .types import ConfigurationOptions
+from .helpers import (
+    make_error,
+    make_info,
+    make_warning,
+    get_os,
+    split_version,
+    default_install_prefix
+)
 
-INSTALLER_VERSION = "0.0.1"
 MIN_CMAKE_VERSION = "3.20.0"
-
-@dataclass
-class ConfigurationOptions:
-    os_name: str
-    install_prefix: Path
-    build_shared: bool
-    build_asset_builder: bool
-    build_imgui: bool
-
-def make_error(title: str, message: str | None = None):
-    print(f"→ [ERROR] {title}", file=sys.stderr)
-    if message: print(f"  {message}", file=sys.stderr)
-    print("\n")
-    sys.exit(1)
-
-def get_os():
-    system = platform.system()
-    if system == "Darwin": return "macOS"
-    if system == "Windows": return "Windows"
-    if system == "Linux": return "Linux"
-    return system or "Unknown"
-
-def get_cmake_version():
-    cmake_path = shutil.which("cmake")
-    if not cmake_path:
-        make_error(
-            "CMake was not found on your PATH.",
-            "Please install CMake 3.20 or newer and try again."
-        )
-
-    output = subprocess.run(
-        [cmake_path, "--version"],
-        capture_output = True,
-        text = True,
-        check = True,
-    )
-
-    line = output.stdout.splitlines()[0] if output.stdout else ""
-    tokens = line.strip().split()
-    return tokens[-1] if tokens else ""
-
-def split_version(s: str) -> tuple[int, ...]:
-    return tuple(int(part) for part in s.split('.'))
-
-def default_install_prefix(os_name: str):
-    if os_name == "Windows":
-        return Path("C:/Program Files/vglx")
-    return Path("/usr/local")
 
 def configuration_options(os_name: str):
     default_prefix = default_install_prefix(os_name)
     install_path_choice = ask_choice(
         "\nInstallation path:",
-        [f"Default path ({default_prefix})", "Custom path"]
+        [f"Default ({default_prefix})", "Custom path"],
     )
-    if install_path_choice.startswith("Default"):
-        install_prefix = default_prefix
-    else:
-        custom = input("Enter installation prefix: ").strip()
+
+    is_default_prefix = install_path_choice.startswith("Default")
+    install_prefix = default_prefix
+    if not is_default_prefix:
+        custom = input(
+            f"Enter installation prefix [{default_prefix}]: "
+        ).strip()
         install_prefix = Path(custom) if custom else default_prefix
 
     build_shared = ask_choice(
@@ -79,8 +39,8 @@ def configuration_options(os_name: str):
     ).startswith("Shared")
 
     print("\nAdditional components to install with VGLX:")
-    build_asset_builder = ask_yes_no("Asset Builder CLI: generates engine-optimized assets (recommended)")
-    build_imgui = ask_yes_no("ImGui: minimal UI library for tools and examples")
+    build_asset_builder = ask_yes_no("  *) Asset Builder CLI: generates engine-optimized assets (recommended)")
+    build_imgui = ask_yes_no("  *) ImGui: minimal UI library for tools and examples")
 
     components = []
     if build_asset_builder:
@@ -96,8 +56,12 @@ def configuration_options(os_name: str):
     print(f"  Library type: {'shared' if build_shared else 'static'}")
     print(f"  Components: {', '.join(components)}")
 
+    if is_default_prefix:
+        print()
+        make_warning("Default installation path may require admin/sudo privileges")
+
     if not ask_yes_no("\nProceed with installation?", default_yes=True):
-        print("→ [INFO] Installation cancelled by user.\n")
+        make_info("Installation cancelled by user.\n")
         sys.exit(0)
 
     return ConfigurationOptions(
@@ -109,9 +73,7 @@ def configuration_options(os_name: str):
     )
 
 def main():
-    print()
-    print(f"VGLX Installer v{INSTALLER_VERSION}")
-    print("---------------------\n")
+    print("\nVGLX Installer\n")
 
     root_dir = Path(__file__).resolve().parents[2]
     if not (root_dir / "CMakeLists.txt").exists():
@@ -120,7 +82,7 @@ def main():
             "Please run this installer from within the VGLX repository."
         )
 
-    print("1. Checking Operating System...")
+    make_info("Checking Operating System")
     os_name = get_os()
     if os_name == "Unknown":
         make_error(
@@ -128,7 +90,7 @@ def main():
             "VGLX currently supports Windows, macOS and Linux."
         )
 
-    print("2. Checking CMake...")
+    make_info("Checking CMake")
     cmake_version = get_cmake_version()
     if split_version(cmake_version) < split_version(MIN_CMAKE_VERSION):
        make_error(
@@ -136,10 +98,15 @@ def main():
             f"Found version {cmake_version}"
         )
 
-    print("3. Configuration Options...")
     config = configuration_options(os_name)
 
     print()
+    make_info("Configuring CMake")
+    cmake_configure(root_dir, config, "Release")
+
+    print()
+    make_info("Building and Installing VGLX")
+    build_and_install(root_dir, "Release")
 
 if __name__ == "__main__":
     main()
