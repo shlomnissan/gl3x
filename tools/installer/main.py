@@ -5,13 +5,34 @@ import sys
 from pathlib import Path
 
 from .cmake import get_cmake_version, cmake_configure, build_and_install
-from .helpers import make_error, make_info, get_os, split_version
 from .prompts import ask_choice, ask_yes_no
 from .types import ConfigurationOptions
+from .helpers import (
+    make_error,
+    make_info,
+    make_warning,
+    get_os,
+    split_version,
+    default_install_prefix
+)
 
 MIN_CMAKE_VERSION = "3.20.0"
 
 def configuration_options(os_name: str):
+    default_prefix = default_install_prefix(os_name)
+    install_path_choice = ask_choice(
+        "\nInstallation path:",
+        [f"Default ({default_prefix})", "Custom path"],
+    )
+
+    is_default_prefix = install_path_choice.startswith("Default")
+    install_prefix = default_prefix
+    if not is_default_prefix:
+        custom = input(
+            f"Enter installation prefix [{default_prefix}]: "
+        ).strip()
+        install_prefix = Path(custom) if custom else default_prefix
+
     build_shared = ask_choice(
         "\nLibrary target:",
         ["Shared library (recommended)", "Static library"]
@@ -31,8 +52,13 @@ def configuration_options(os_name: str):
 
     print("\nSummary:")
     print(f"  OS: {os_name}")
+    print(f"  Install prefix: {install_prefix}")
     print(f"  Library type: {'shared' if build_shared else 'static'}")
     print(f"  Components: {', '.join(components)}")
+
+    if is_default_prefix:
+        print()
+        make_warning("Default installation path may require admin/sudo privileges")
 
     if not ask_yes_no("\nProceed with installation?", default_yes=True):
         make_info("Installation cancelled by user.\n")
@@ -40,6 +66,7 @@ def configuration_options(os_name: str):
 
     return ConfigurationOptions(
         os_name = os_name,
+        install_prefix = install_prefix,
         build_shared = build_shared,
         build_asset_builder = build_asset_builder,
         build_imgui = build_imgui,

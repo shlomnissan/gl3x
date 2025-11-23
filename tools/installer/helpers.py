@@ -9,6 +9,9 @@ from pathlib import Path
 def make_info(message: str):
     print(f"→ [INFO] {message}")
 
+def make_warning(message: str):
+    print(f"→ [WARNING] {message}")
+
 def make_error(title: str, message: str | None = None):
     print(f"→ [ERROR] {title}", file=sys.stderr)
     if message: print(f"  {message}", file=sys.stderr)
@@ -24,6 +27,11 @@ def run_command(args: list[str], cwd: Path | None = None):
     except FileNotFoundError as exc:
         make_error("Failed to run command.", str(exc))
     return result.returncode
+
+def default_install_prefix(os_name: str) -> Path:
+    if os_name == "Windows":
+        return Path(r"C:\Program Files\VGLX")
+    return Path("/usr/local")
 
 def get_os():
     system = platform.system()
