@@ -103,10 +103,14 @@ def main():
     print()
     make_info("Configuring CMake")
     cmake_configure(root_dir, config, "Release")
+    if config.os_name == "Windows":
+        cmake_configure(root_dir, config, "Debug")
 
     print()
     make_info("Building and Installing VGLX")
     build_and_install(root_dir, "Release")
+    if config.os_name == "Windows":
+        build_and_install(root_dir, "Debug")
 
 if __name__ == "__main__":
     main()
