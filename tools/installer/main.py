@@ -112,5 +112,9 @@ def main():
     if config.os_name == "Windows":
         build_and_install(root_dir, "Debug")
 
+    print()
+    make_info("✅ Installation complete\n")
+
+
 if __name__ == "__main__":
     main()

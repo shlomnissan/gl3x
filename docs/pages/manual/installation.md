@@ -39,8 +39,6 @@ python3 -m tools.installer.main
 
 The installer checks for a working version of CMake, detects your compiler and asks for an installation prefix. If you plan to import optimized textures or models, enable the asset builder installation when prompted. The asset builder converts textures and meshes into GPU-friendly formats used by the engine. See [Importing Assets](/manual/importing_assets) to learn more.
 
-At the end of the process the installer runs a small demo application to verify that everything is working correctly.
-
 If you encounter issues, see the [Getting Help](#getting-help) section below.
 ## Creating a New Project
 
