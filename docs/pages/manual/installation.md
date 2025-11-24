@@ -61,17 +61,6 @@ target_link_libraries(MyApp PRIVATE vglx::vglx)
 
 CMake automatically picks the correct build configuration (Debug or Release) based on your project settings.
 
-VGLX disables RTTI by default. Your project needs to match that:
-
-```cmake
-target_compile_options(MyApp PRIVATE
-  $<$<CXX_COMPILER_ID:GNU>:-fno-rtti>
-  $<$<CXX_COMPILER_ID:Clang>:-fno-rtti>
-  $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti>
-  $<$<CXX_COMPILER_ID:MSVC>:/GR>
-)
-```
-
 On Windows you may need to copy the VGLX DLL next to your application. You can automate this with:
 
 ```cmake
@@ -89,13 +78,10 @@ endif()
 You can also link VGLX manually if you prefer using your compiler without CMake. The exact command depends on your platform and compiler. A minimal Linux example using `g++` might look like:
 
 ```bash
-g++ main.cpp -o MyApp \
-  -I/usr/local/include \
-  -L/usr/local/lib -lvglx \
-  -fno-rtti
+g++ main.cpp -o MyApp -I/usr/local/include -L/usr/local/lib -lvglx
 ```
 
-Adjust include paths, library paths and RTTI settings to match your system and compiler.
+Adjust include paths and library paths to match your system and compiler.
 ## Build From Source
 
 The project includes several presets that streamline the process:

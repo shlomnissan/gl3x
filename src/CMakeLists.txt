@@ -167,12 +167,12 @@ add_library(
     ${VENDOR_SOURCES}
 )
 
-# disable RTTI and exceptions
+# disable exceptions
 target_compile_options(${PROJECT_NAME} PRIVATE
-    $<$<CXX_COMPILER_ID:GNU>:-fno-rtti -fno-exceptions>
-    $<$<CXX_COMPILER_ID:Clang>:-fno-rtti -fno-exceptions>
-    $<$<CXX_COMPILER_ID:AppleClang>:-fno-rtti -fno-exceptions>
-    $<$<CXX_COMPILER_ID:MSVC>:/GR /EHsc>
+    $<$<CXX_COMPILER_ID:GNU>:-fno-exceptions>
+    $<$<CXX_COMPILER_ID:Clang>:-fno-exceptions>
+    $<$<CXX_COMPILER_ID:AppleClang>:-fno-exceptions>
+    $<$<CXX_COMPILER_ID:MSVC>:/EHsc>
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
