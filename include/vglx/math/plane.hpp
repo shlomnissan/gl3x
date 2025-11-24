@@ -16,66 +16,68 @@
 namespace vglx {
 
 /**
- * @brief A plane defined by a normal vector and a distance from the origin.
+ * @brief Represents a plane in 3D space.
  *
- * The plane equation is defined as: dot(normal, point) + distance = 0.
- * Used in collision tests, frustum culling, and geometry classification.
+ * Plane is stored in the implicit form $n · x + d = 0$, where @ref normal is
+ * the plane normal and @ref distance is the signed distance from the origin
+ * along that normal. It is commonly used for half-space tests, frustum planes,
+ * and simple clipping or culling operations.
  *
  * @ingroup MathGroup
  */
 struct VGLX_EXPORT Plane {
-    /// @brief The normal vector of the plane, pointing outward.
+    /// @brief Plane normal vector.
     Vector3 normal {Vector3::Up()};
 
-    /// @brief The signed distance from the origin to the plane along the normal.
+    /// @brief Signed distance from the origin to the plane along the normal.
     float distance {0.0f};
 
     /**
-     * @brief Constructs a Plane with an upward normal and zero distance.
+     * @brief Constructs a default plane with an upward normal.
      */
     constexpr Plane() = default;
 
     /**
-     * @brief Constructs a Plane from a normal vector and distance.
+     * @brief Constructs a plane from a normal and distance.
      *
-     * @param normal Normal vector of the plane.
-     * @param distance Signed distance from the origin.
+     * @param normal Plane normal.
+     * @param distance Signed distance from the origin along the normal.
      */
     constexpr Plane(const Vector3& normal, float distance) :
         normal(normal),
         distance(distance) {}
 
     /**
-     * @brief Returns the signed distance from a point to the plane.
+     * @brief Computes the signed distance from the plane to a point.
      *
-     * Positive values mean the point is in front of the plane (in the direction of the normal),
-     * negative values mean it's behind.
+     * Positive values are on the side pointed to by the normal, negative
+     * values are behind the plane, and zero lies on the plane.
      *
-     * @param point The point to measure.
-     * @return Signed distance from the point to the plane.
+     * @param point Point to test.
      */
-    [[nodiscard]] constexpr auto DistanceToPoint(const Vector3& point) const {
+    [[nodiscard]] constexpr auto DistanceToPoint(const Vector3& point) const -> float {
         return Dot(normal, point) + distance;
     }
 
     /**
-     * @brief Returns the signed distance from a sphere to the plane.
+     * @brief Computes the signed distance from the plane to a sphere surface.
      *
-     * A negative result means the sphere intersects or is behind the plane.
+     * The value is the distance from the plane to the closest point on the
+     * sphere. A negative value means the sphere penetrates the plane.
      *
-     * @param sphere The sphere to measure.
-     * @return Signed distance from the sphere to the plane.
+     * @param sphere Sphere to test.
      */
-    [[nodiscard]] constexpr auto DistanceToSphere(const Sphere& sphere) const {
+    [[nodiscard]] constexpr auto DistanceToSphere(const Sphere& sphere) const -> float {
         return DistanceToPoint(sphere.center) - sphere.radius;
     }
 
-     /**
-     * @brief Normalizes the plane equation.
+    /**
+     * @brief Normalizes the plane.
      *
-     * Ensures the normal is unit length and adjusts the distance accordingly.
+     * Scales @ref normal to unit length and adjusts @ref distance to preserve
+     * the plane equation.
      */
-    constexpr auto Normalize() {
+    constexpr auto Normalize() -> void {
         const auto inverse_length = math::InverseSqrt(Dot(normal, normal));
         normal *= inverse_length;
         distance *= inverse_length;
