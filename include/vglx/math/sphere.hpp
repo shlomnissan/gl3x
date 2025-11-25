@@ -18,73 +18,66 @@
 namespace vglx {
 
 /**
- * @brief A bounding sphere defined by a center point and radius.
+ * @brief Represents a bounding sphere in 3D space.
  *
- * Useful for fast intersection tests, frustum culling, and spatial bounds.
+ * Sphere stores a center point and a radius and is used as a simple bounding
+ * volume for intersection tests, culling, and spatial queries. A negative
+ * radius indicates an empty sphere. The class supports expansion with points,
+ * merging with other spheres, translation, and transformation by a matrix.
  *
  * @ingroup MathGroup
  */
 struct VGLX_EXPORT Sphere {
-    /// @brief Center of the sphere in 3D space.
+    /// @brief Sphere center in space.
     Vector3 center {Vector3::Zero()};
 
-    /// @brief Radius of the sphere. A negative value indicates an empty sphere.
+    /// @brief Sphere radius. A negative value indicates an empty sphere.
     float radius {-1.0f};
 
     /**
-     * @brief Constructs a Sphere with a negative (empty) radius.
+     * @brief Constructs an empty sphere.
      */
     constexpr Sphere() = default;
 
     /**
-     * @brief Constructs a Sphere from a center and a radius.
+     * @brief Constructs a sphere from a center and radius.
      *
-     * @param center Center position.
-     * @param radius Radius.
+     * @param center Sphere center.
+     * @param radius Sphere radius (negative indicates empty).
      */
     constexpr Sphere(const Vector3 center, float radius) :
         center(center),
         radius(radius) {}
 
     /**
-     * @brief Returns the current radius of the sphere.
-     *
-     * @return Radius of the sphere.
+     * @brief Returns the sphere radius.
      */
-    [[nodiscard]] constexpr auto Radius() const { return radius; }
+    [[nodiscard]] constexpr auto Radius() const -> float { return radius; }
 
     /**
      * @brief Resets the sphere to an empty state.
-     *
-     * Sets the center to (0, 0, 0) and the radius to -1.
      */
-    constexpr auto Reset() {
+    constexpr auto Reset() -> void {
         center = Vector3::Zero();
         radius = -1.0f;
     }
 
     /**
-     * @brief Checks if the sphere is empty.
-     *
-     * An empty sphere is defined by a negative radius.
-     *
-     * @return True if the sphere is empty, false otherwise.
+     * @brief Checks whether the sphere is empty.
      */
-    [[nodiscard]] constexpr auto IsEmpty() const {
+    [[nodiscard]] constexpr auto IsEmpty() const -> bool {
         return radius < 0.0f;
     }
 
     /**
-     * @brief Expands the sphere to include a given point.
+     * @brief Expands the sphere to include a point.
      *
-     * If the sphere is empty, it is initialized with the point.
-     * Otherwise, the sphere expands just enough to include the point.
+     * If the sphere is empty, it becomes a zero-radius sphere at the point.
+     * Otherwise, the sphere grows minimally to contain the point.
      *
-     * @param p Point to include in the sphere.
+     * @param p Point to include.
      */
-    constexpr auto ExpandWithPoint(const Vector3& p) {
-        // Handle the case where the sphere is empty (invalid).
-        // In this case, the sphere is centered at the point and has a radius of 0.
+    constexpr auto ExpandWithPoint(const Vector3& p) -> void {
         if (IsEmpty()) {
             center = p;
             radius = 0.0f;
@@ -95,8 +88,6 @@ struct VGLX_EXPORT Sphere {
         const auto length_sqr = delta.LengthSquared();
         if (length_sqr > radius * radius) {
             const auto length = math::Sqrt(length_sqr);
-            // Move the center halfway towards the new pointm and expand the radius
-            // by half the distance to the new point.
             const auto half_way = (length - radius) * 0.5f;
             center += delta * (half_way / length);
             radius += half_way;
@@ -104,14 +95,15 @@ struct VGLX_EXPORT Sphere {
     }
 
     /**
-     * @brief Transforms the sphere by the given matrix.
+     * @brief Applies a 4×4 transform to the sphere.
      *
-     * The center is transformed directly, and the radius is scaled
-     * by the maximum scale component of the matrix.
+     * The center is transformed directly, while the radius is scaled by the
+     * largest scale factor present in the matrix to ensure conservative
+     * bounding behavior.
      *
-     * @param transform 4x4 matrix to apply to the sphere.
+     * @param transform Matrix to apply.
      */
-    constexpr auto ApplyTransform(const Matrix4& transform) {
+    constexpr auto ApplyTransform(const Matrix4& transform) -> void {
         center = transform * center;
         auto& t0 = transform[0];
         auto& t1 = transform[1];
@@ -125,22 +117,23 @@ struct VGLX_EXPORT Sphere {
     }
 
     /**
-     * @brief Translates the sphere by a constant vector.
+     * @brief Translates the sphere by a vector.
      *
-     * @param translation Vector to translate by.
+     * @param translation Offset to apply.
      */
-    constexpr auto Translate(const Vector3& translation) {
+    constexpr auto Translate(const Vector3& translation) -> void {
         center += translation;
     }
 
     /**
      * @brief Expands this sphere to fully contain another sphere.
      *
-     * @param other The sphere to merge into this one.
+     * Handles empty spheres, identical centers, and general cases using two
+     * directional expansion points.
      *
-     * @see ExpandWithPoint
+     * @param other Sphere to merge.
      */
-    constexpr auto Union(const Sphere& other) {
+    constexpr auto Union(const Sphere& other) -> void {
         if (other.IsEmpty()) return;
 
         if (IsEmpty()) {

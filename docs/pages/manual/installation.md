@@ -144,6 +144,7 @@ cmake --install .
 ```
 
 On Windows you may need to install both Debug and Release configurations due to ABI differences.
+
 ## Getting Help
 
 If you run into issues, please [open an issue on GitHub](https://github.com/shlomnissan/vglx/issues). If possible include:
