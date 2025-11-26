@@ -35,12 +35,12 @@ TEST(Sphere, DefaultConstructor) {
 
 TEST(Spherical, MakeSafeClampsLowerBound) {
     constexpr auto phi = vglx::math::DegToRad(30.0f);
-    constexpr auto theta = vglx::math::pi_over_2 + vglx::math::eps;
+    constexpr auto theta = vglx::math::pi_over_2 + 0.001f;
 
     auto s = vglx::Spherical {2.0f, phi, theta};
     s.MakeSafe();
 
-    constexpr auto expected = vglx::math::pi_over_2 - vglx::math::eps;
+    constexpr auto expected = vglx::math::pi_over_2 - 0.001f;
 
     EXPECT_FLOAT_EQ(s.phi, vglx::math::DegToRad(30.0f));
     EXPECT_FLOAT_EQ(s.theta, expected);
@@ -55,12 +55,12 @@ TEST(Spherical, MakeSafeClampsLowerBound) {
 
 TEST(Spherical, MakeSafeClampsUpperBound) {
     constexpr auto phi = vglx::math::DegToRad(30.0f);
-    constexpr auto theta = -vglx::math::pi_over_2 - vglx::math::eps;
+    constexpr auto theta = -vglx::math::pi_over_2 - 0.001f;
 
     auto s = vglx::Spherical {2.0f, phi, theta};
     s.MakeSafe();
 
-    constexpr auto expected = -vglx::math::pi_over_2 + vglx::math::eps;
+    constexpr auto expected = -vglx::math::pi_over_2 + 0.001f;
 
     EXPECT_FLOAT_EQ(s.phi, vglx::math::DegToRad(30.0f));
     EXPECT_FLOAT_EQ(s.theta, expected);

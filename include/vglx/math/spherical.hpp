@@ -38,6 +38,11 @@ struct VGLX_EXPORT Spherical {
     float theta = 0.0f;
 
     /**
+     * @brief Constructs a spherical coordinate at the origin direction.
+     */
+    constexpr Spherical() = default;
+
+    /**
      * @brief Constructs a spherical coordinate from radius, phi, and theta.
      *
      * @param radius Radial distance from the origin.
