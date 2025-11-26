@@ -12,65 +12,63 @@
 #include "vglx/math/vector3.hpp"
 #include "vglx/math/utilities.hpp"
 
+constexpr float thetha_limit = vglx::math::pi_over_2 - 0.001f;
+
 namespace vglx {
 
 /**
- * @brief Spherical coordinates (radius, phi, theta).
+ * @brief Represents a point in spherical coordinates.
  *
- * Represents a point in 3D using spherical coordinates:
- * - `radius` is the distance from the origin.
- * - `phi` is the azimuth angle (yaw) in radians.
- * - `theta` is the polar angle (pitch) from the equator in radians.
- *
- * This is useful for orbital camera rigs, sampling directions on a sphere,
- * and converting to/from Cartesian coordinates.
+ * Spherical stores a 3D position using `(radius, phi, theta)` where `radius`
+ * is the distance from the origin, `phi` is the azimuth angle around the Y-axis,
+ * and `theta` is the polar angle measured from the equatorial plane. This
+ * representation is commonly used for orbital camera rigs, direction sampling,
+ * and converting between angular and Cartesian representations.
  *
  * @ingroup MathGroup
  */
 struct VGLX_EXPORT Spherical {
-    float radius = 1.0f; ///< Radial distance from the origin.
-    float phi = 0.0f; ///< Azimuth angle (yaw) in radians.
-    float theta = 0.0f; ///< Polar angle (pitch) in radians.
+    /// @brief Radial distance from the origin.
+    float radius = 1.0f;
 
-    /**
-     * @brief Default constructor.
-     */
-    constexpr Spherical() = default;
+    /// @brief Azimuth angle around the Y-axis in radians.
+    float phi = 0.0f;
+
+    /// @brief Polar angle from the equator in radians.
+    float theta = 0.0f;
 
     /**
      * @brief Constructs a spherical coordinate from radius, phi, and theta.
      *
      * @param radius Radial distance from the origin.
-     * @param phi Azimuth angle (yaw) in radians.
-     * @param theta Polar angle (pitch) in radians.
+     * @param phi Azimuth angle in radians.
+     * @param theta Polar angle in radians.
      */
     constexpr Spherical(float radius, float phi, float theta)
         : radius(radius), phi(phi), theta(theta) {}
 
     /**
-     * @brief Clamps @ref theta (polar) away from the poles.
+     * @brief Clamps the polar angle to avoid degeneracy at the poles.
      *
-     * Keeps `theta` within (-π/2 + ε, π/2 − ε) to avoid degeneracy
-     * where the azimuth angle becomes undefined and orientation calculations
-     * (e.g. cross products for basis vectors) can break down.
+     * Ensures @ref theta stays within a safe range so azimuth calculations
+     * remain well-defined. If @ref phi drifts outside $[-2π, 2π]$ it is
+     * wrapped back into range.
      */
-    constexpr auto MakeSafe() {
-        const float limit = math::pi_over_2 - math::eps;
-        theta = math::Clamp(theta, -limit, limit);
+    constexpr auto MakeSafe() -> void {
+        theta = math::Clamp(theta, -thetha_limit, thetha_limit);
+        if (phi > math::two_pi || phi < -math::two_pi) {
+            phi = std::fmod(phi, math::two_pi);
+        }
     }
 
-    /**
-     * @brief Converts spherical to Cartesian coordinates.
+/**
+     * @brief Converts this spherical coordinate to a @ref Vector3.
      *
-     * Convention:
-     * - `phi` (azimuth): 0 along +Z, increasing toward +X.
-     * - `theta` (polar): 0 on the equator, +π/2 at +Y.
-     *
-     * @return vglx::Vector3 Cartesian vector (x, y, z).
-     *
-     * @see MakeSafe
+     * In this convention, `phi` equals 0 along the +Z axis and increases toward +X.
+     * The polar angle `theta` is 0 on the equator, reaches $\frac{\pi}{2}$ at +Y,
+     * and $-\frac{\pi}{2}$ at -Y.
      */
-    [[nodiscard]] constexpr auto ToVector3() const {
+    [[nodiscard]] constexpr auto ToVector3() const -> Vector3 {
         const auto c = math::Cos(theta);
         return Vector3 {
             radius * math::Sin(phi) * c,
