@@ -9,10 +9,9 @@ By the end you’ll have a working scene and a clear sense of how the engine fit
 VGLX works best with [CMake](https://cmake.org/). In this section we create a small project so it can build cleanly on all platforms. To keep things simple we use a flat directory with just two files:
 
 ```text
-➜ hello-vglx
-.
-├── CMakeLists.txt
-└── main.cpp
+/hello-vglx
+  ├── CMakeLists.txt
+  └── main.cpp
 ```
 
 `CMakeLists.txt` holds a small build configuration:
@@ -48,7 +47,7 @@ The Windows block copies the VGLX DLL next to the executable after the build ste
 
 This looks simple but CMake is doing a lot behind the scenes. It checks the installation, pulls in the right configuration, and takes care of platform quirks for us.
 
-Our only source file stays true to the K&R tradition:
+Our only source file can stay true to the K&R tradition for now:
 
 ```cpp
 #include <print>
@@ -75,6 +74,54 @@ After the build completes you should see the executable in the build directory.
 
 Run it and you should be greeted by your application.
 
-If CMake reports that it cannot find `vglx`, return to the installation guide and verify that the library was installed to a prefix CMake can locate.
+If CMake reports that it cannot find `vglx` return to the [installation guide](/manual/installation) and verify that the library was installed to a prefix CMake can locate. Otherwise you are ready to move on to the application entrypoint.
 
-## Application Entrypoint
+## Application Runtime
+
+The preferred way to create a VGLX application is by using the application runtime. The runtime sets up the window, the rendering context, the main loop, and calls your hooks. You create a runtime instance by subclassing the [Application](/reference/core/application) class.
+
+We can add a runtime instance to our bare-bones `main.cpp` file:
+
+```cpp
+// main.cpp
+
+#include <vglx/vglx.hpp>
+
+struct MyApp : public vglx::Application {
+    auto Configure() ->  Application::Parameters override {
+        return {
+            .title = "Hello VGLX",
+            .clear_color = {0x000000},
+            .width = 1024,
+            .height = 768,
+            .antialiasing = 4,
+            .vsync = false,
+            .show_stats = true,
+        };
+    }
+
+    auto CreateScene() -> std::shared_ptr<vglx::Scene> override {
+        return vglx::Scene::Create();
+    }
+
+    auto Update([[maybe_unused]] float delta) -> bool override {
+        return true;
+    }
+};
+
+auto main() -> int {
+    auto app = MyApp {};
+    app.Start();
+    return 0;
+}
+```
+
+Our class overrides three functions that initialize the runtime. `Configure` is optional but you will often implement it. It returns a small data object that describes how the application should start up. Using designated initializers keeps each field clear and easy to read.
+
+`CreateScene` is required and returns the scene you want to render. At this stage we simply return an empty scene using its factory. VGLX uses shared pointers to store nodes in the scene graph and built-in nodes provide `Create()` helpers to construct them correctly.
+
+The last function, `Update`, is also required. It is called once per frame and is where you add per-frame logic at the application level. Returning `true` keeps the application running. Returning `false` exits the main loop.
+
+In `main` we create an instance of `MyApp` and call `Start` to launch it. If you build and run the project again you should see a window for your new VGLX application.
+
+## Your First Scene
