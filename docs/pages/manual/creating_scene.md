@@ -1,4 +1,4 @@
-# Making a Scene
+# Creating a Scene
 
 If you followed the [installation guide](/manual/installation) and verified your setup you are ready to build your first scene. This page walks you through writing a minimal VGLX application and assembling a simple world from a few core pieces. The example is small on purpose. It introduces the fundamentals without burying you in details.
 
@@ -43,11 +43,11 @@ The file starts by declaring the minimum CMake version, the project name and the
 
 If you followed the installation guide you can import VGLX with two commands. `find_package(vglx REQUIRED)` asks CMake to locate the library. If it is missing or incorrectly installed, configuration fails. `target_link_libraries` links our application to the VGLX binaries.
 
-The Windows block copies the VGLX DLL next to the executable after the build step. CMake selects the correct binary automatically based on your build type.
+The Windows-only section copies the VGLX DLL next to the executable after the build step. CMake selects the correct binary automatically based on your build type.
 
-This looks simple but CMake is doing a lot behind the scenes. It checks the installation, pulls in the right configuration, and takes care of platform quirks for us.
+This setup looks simple, but CMake is doing a lot behind the scenes. It verifies the installation, loads the correct configuration and handles platform-specific details for us.
 
-Our only source file can stay true to the K&R tradition for now:
+Before we move on, let’s add a minimal `main.cpp` to test that the project builds correctly:
 
 ```cpp
 #include <print>
@@ -59,9 +59,7 @@ auto main() -> int {
 }
 ```
 
-With `CMakeLists.txt` and `main.cpp` in place you can configure and build the project.
-
-From the project root:
+With both files in place you can configure and build the project from the project root:
 
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
@@ -74,11 +72,11 @@ After the build completes you should see the executable in the build directory.
 
 Run it and you should be greeted by your application.
 
-If CMake reports that it cannot find `vglx` return to the [installation guide](/manual/installation) and verify that the library was installed to a prefix CMake can locate. Otherwise you are ready to move on to the application entrypoint.
+If CMake reports that it cannot find VGLX return to the [installation guide](/manual/installation) and verify that the library was installed to a prefix CMake can locate. Otherwise you are ready to move on to the application entrypoint.
 
 ## Application Runtime
 
-The preferred way to create a VGLX application is by using the application runtime. The runtime sets up the window, the rendering context, the main loop, and calls your hooks. You create a runtime instance by subclassing the [Application](/reference/core/application) class.
+The preferred way to create a VGLX application is using the application runtime. The runtime sets up the window, the rendering context, the main loop, and calls your hooks. You create a runtime instance by subclassing the [Application](/reference/core/application) class.
 
 We can add a runtime instance to our bare-bones `main.cpp` file:
 
@@ -122,6 +120,6 @@ Our class overrides three functions that initialize the runtime. `Configure` is 
 
 The last function, `Update`, is also required. It is called once per frame and is where you add per-frame logic at the application level. Returning `true` keeps the application running. Returning `false` exits the main loop.
 
-In `main` we create an instance of `MyApp` and call `Start` to launch it. If you build and run the project again you should see a window for your new VGLX application.
+In `main` we create an instance of the app and call `Start` to launch it. If you build and run the project again you should see a window for your new VGLX application.
 
 ## Your First Scene
