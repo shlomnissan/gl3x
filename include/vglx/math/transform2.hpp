@@ -16,43 +16,46 @@
 namespace vglx {
 
 /**
- * @brief A 2D transformation class supporting translation, scaling, and rotation.
+ * @brief 2D affine transform with position, rotation, scale, and center.
  *
- * Internally manages position, scale, rotation, and center of transformation.
- * Lazily computes the final transformation matrix when accessed.
+ * Transform2 represents a 2D transform that combines translation, rotation,
+ * and non-uniform scaling around an arbitrary center point. It lazily builds
+ * a @ref Matrix3 suitable for use in 2D rendering pipelines and UI
+ * layouts.
  *
  * @ingroup MathGroup
  */
 class VGLX_EXPORT Transform2 {
 public:
-    /// @brief Indicates whether the transformation matrix needs to be recomputed.
+    /// @brief Dirty flag indicating the cached matrix needs to be recomputed.
     bool touched {true};
 
-    /// @brief World-space translation.
+    /// @brief Translation in 2D space.
     Vector2 position {0.0f, 0.0f};
 
-    /// @brief Local scale.
+    /// @brief Non-uniform scale in 2D.
     Vector2 scale {1.0f, 1.0f};
 
-    /// @brief Pivot for rotation and scaling.
+    /// @brief Pivot point for rotation and scaling.
     Vector2 center {0.0f, 0.0f};
 
     /// @brief Rotation angle in radians.
     float rotation {0.0f};
 
     /**
-     * @brief Constructs a Transform2 object with identity transform.
+     * @brief Constructs an identity transform.
      */
     constexpr Transform2() = default;
 
     /**
-     * @brief Applies a translation in local space.
+     * @brief Translates the transform in local space.
      *
-     * If rotation is non-zero, the translation is rotated accordingly.
+     * The input vector is rotated by the current rotation before being added
+     * to @ref position.
      *
      * @param value Translation vector.
      */
-    constexpr auto Translate(const Vector2& value) {
+    constexpr auto Translate(const Vector2& value) -> void {
         const float s = math::Sin(rotation);
         const float c = math::Cos(rotation);
         const Vector2 rotated_value = {
@@ -64,31 +67,31 @@ public:
     }
 
     /**
-     * @brief Applies a scale to the current scale.
+     * @brief Scales the transform.
      *
      * @param value Scale factors to apply.
      */
-    constexpr auto Scale(const Vector2& value) {
+    constexpr auto Scale(const Vector2& value) -> void {
         scale *= value;
         touched = true;
     }
 
     /**
-     * @brief Applies a rotation delta to the current rotation.
+     * @brief Applies an additional rotation.
      *
-     * @param angle Rotation angle in radians.
+     * @param angle Rotation angle in radians to add.
      */
-    constexpr auto Rotate(float angle) {
+    constexpr auto Rotate(float angle) -> void {
         rotation += angle;
         touched = true;
     }
 
     /**
-     * @brief Sets the world position of the transform.
+     * @brief Sets the translation component.
      *
-     * @param position New position vector.
+     * @param position New position.
      */
-    constexpr auto SetPosition(const Vector2& position) {
+    constexpr auto SetPosition(const Vector2& position) -> void {
         if (this->position != position) {
             this->position = position;
             touched = true;
@@ -96,11 +99,11 @@ public:
     }
 
     /**
-     * @brief Sets the local scale of the transform.
+     * @brief Sets the scale component.
      *
-     * @param scale New scale vector.
+     * @param scale New scale factors.
      */
-    constexpr auto SetScale(const Vector2& scale) {
+    constexpr auto SetScale(const Vector2& scale) -> void {
         if (this->scale != scale) {
             this->scale = scale;
             touched = true;
@@ -108,11 +111,11 @@ public:
     }
 
     /**
-     * @brief Sets the rotation angle of the transform.
+     * @brief Sets the rotation component.
      *
-     * @param rotation Rotation angle in radians.
+     * @param rotation New rotation angle in radians.
      */
-    constexpr auto SetRotation(float rotation) {
+    constexpr auto SetRotation(float rotation) -> void {
         if (this->rotation != rotation) {
             this->rotation = rotation;
             touched = true;
@@ -120,11 +123,11 @@ public:
     }
 
     /**
-     * @brief Sets the pivot point for rotation and scaling.
+     * @brief Sets the pivot point used for rotation and scaling.
      *
-     * @param center Pivot point in local space.
+     * @param center New pivot point.
      */
-    constexpr auto SetCenter(const Vector2& center) {
+    constexpr auto SetCenter(const Vector2& center) -> void {
         if (this->center !=center) {
             this->center = center;
             touched = true;
@@ -132,13 +135,12 @@ public:
     }
 
     /**
-     * @brief Returns the 3x3 transformation matrix.
+     * @brief Returns the 3×3 transform matrix.
      *
-     * Lazily recomputes the matrix if any component has changed since last access.
-     *
-     * @return Final transformation matrix.
+     * Recomputes the underlying matrix if any component has changed since the
+     * last call, then returns the cached @ref Matrix3.
      */
-    [[nodiscard]] constexpr auto Get() {
+    [[nodiscard]] constexpr auto Get() -> Matrix3 {
         if (touched) {
             touched = false;
             const float rc = math::Cos(rotation);
@@ -155,8 +157,9 @@ public:
     }
 
 private:
-    /// @brief Cached transformation matrix.
+    /// @cond INTERNAL
     Matrix3 transform_ {1.0f};
+    /// @endcond
 };
 
 }
