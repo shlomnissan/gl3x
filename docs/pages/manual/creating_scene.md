@@ -102,7 +102,7 @@ struct MyApp : public vglx::Application {
         return vglx::Scene::Create();
     }
 
-    auto Update([[maybe_unused]] float delta) -> bool override {
+    auto Update([[maybe_unused]] float dt) -> bool override {
         return true;
     }
 };

@@ -17,63 +17,66 @@
 namespace vglx {
 
 /**
- * @brief A 3D transformation class supporting translation, scaling, and rotation.
+ * @brief 3D affine transform with position, rotation, and scale.
  *
- * Internally manages position, scale, and rotation in Euler angles.
- * Lazily computes the final transformation matrix when accessed.
+ * Transform3 represents a 3D transform combining translation, non-uniform
+ * scaling, and Euler-based rotation. It lazily builds a @ref Matrix4
+ * suitable for use as a world transform in scene graphs and rendering code.
  *
  * @ingroup MathGroup
  */
 class VGLX_EXPORT Transform3 {
 public:
-    /// @brief Indicates whether the transformation matrix needs to be recomputed.
+    /// @brief Dirty flag indicating the cached matrix needs to be recomputed.
     bool touched {true};
 
-    /// @brief World-space translation.
+    /// @brief Translation in 3D space.
     Vector3 position {0.0f};
 
-    /// @brief Local scale.
+    /// @brief Non-uniform scale in 3D.
     Vector3 scale {1.0f};
 
-    /// @brief Euler rotation (pitch, yaw, roll).
+     /// @brief Rotation stored as Euler angles.
     Euler rotation {};
 
     /**
-     * @brief Constructs a Transform3 object with identity transform.
+     * @brief Constructs an identity transform.
      */
     constexpr Transform3() = default;
 
     /**
-     * @brief Applies a translation in local space.
+     * @brief Translates the transform in local space.
      *
-     * If rotation is non-zero, the translation is rotated accordingly.
+     * If the rotation is not empty, the input vector is rotated by the current
+     * orientation before being added to @ref position.
      *
      * @param value Translation vector.
      */
-    constexpr auto Translate(const Vector3& value) {
+    constexpr auto Translate(const Vector3& value) -> void {
         position += rotation.IsEmpty() ? value : rotation.GetMatrix() * value;
         touched = true;
     }
 
     /**
-     * @brief Applies a scale to the current scale.
+     * @brief Scales the transform.
      *
      * @param value Scale factors to apply.
      */
-    constexpr auto Scale(const Vector3& value) {
+    constexpr auto Scale(const Vector3& value) -> void {
         scale *= value;
         touched = true;
     }
 
     /**
-     * @brief Applies a rotation around a specific axis.
+     * @brief Applies an additional rotation around a principal axis.
      *
-     * Only cardinal axes (X, Y, Z) are supported.
+     * Only the canonical axes @ref Vector3::Right, @ref Vector3::Up, and
+     * @ref Vector3::Forward are supported.
      *
-     * @param axis Axis to rotate around (Right, Up, or Forward).
+     * @param axis Rotation axis.
      * @param angle Rotation angle in radians.
      */
-    constexpr auto Rotate(const Vector3& axis, float angle) {
+    constexpr auto Rotate(const Vector3& axis, float angle) -> void {
         assert(axis == Vector3::Right() || axis == Vector3::Up() || axis == Vector3::Forward());
         if (axis == Vector3::Right()) {
             rotation.pitch += angle;
@@ -86,16 +89,16 @@ public:
     }
 
     /**
-     * @brief Sets the rotation such that the object looks at the given target.
+     * @brief Sets the rotation such that the object looks at a target point.
      *
-     * Computes the Euler rotation needed to look from `position` to `target`,
-     * using the given world-up vector to determine orientation.
+     * Computes an orientation that looks from `position` toward `target`,
+     * using `world_up` to resolve roll and construct a stable basis.
      *
-     * @param position Position of the object.
+     * @param position Object position.
      * @param target Target point to look at.
      * @param world_up World up direction.
      */
-    constexpr auto LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) {
+    constexpr auto LookAt(const Vector3& position, const Vector3& target, const Vector3& world_up) -> void {
         auto forward = Normalize(target - position);
         if (forward == Vector3::Zero()) {
             // The position and target are the same,
@@ -130,11 +133,11 @@ public:
     }
 
     /**
-     * @brief Sets the world position of the transform.
+     * @brief Sets the translation component.
      *
-     * @param position New position vector.
+     * @param position New position.
      */
-    constexpr auto SetPosition(const Vector3& position) {
+    constexpr auto SetPosition(const Vector3& position) -> void {
         if (this->position != position) {
             this->position = position;
             touched = true;
@@ -142,11 +145,11 @@ public:
     }
 
     /**
-     * @brief Sets the local scale of the transform.
+     * @brief Sets the scale component.
      *
-     * @param scale New scale vector.
+     * @param scale New scale factors.
      */
-    constexpr auto SetScale(const Vector3& scale) {
+    constexpr auto SetScale(const Vector3& scale) -> void {
         if (this->scale != scale) {
             this->scale = scale;
             touched = true;
@@ -154,11 +157,11 @@ public:
     }
 
     /**
-     * @brief Sets the rotation of the transform.
+     * @brief Sets the rotation component.
      *
      * @param rotation New Euler rotation.
      */
-    constexpr auto SetRotation(const Euler& rotation) {
+    constexpr auto SetRotation(const Euler& rotation) -> void {
         if (this->rotation != rotation) {
             this->rotation = rotation;
             touched = true;
@@ -166,13 +169,12 @@ public:
     }
 
     /**
-     * @brief Returns the 4x4 transformation matrix.
+     * @brief Returns the 4×4 transform matrix.
      *
-     * Lazily recomputes the matrix if any component has changed since last access.
-     *
-     * @return Final transformation matrix.
+     * Recomputes the underlying matrix if any component has changed since the
+     * last call, then returns the cached @ref Matrix4.
      */
-    [[nodiscard]] constexpr auto Get() {
+    [[nodiscard]] constexpr auto Get() -> Matrix4 {
         if (touched) {
             const auto cos_p = math::Cos(rotation.pitch);
             const auto sin_p = math::Sin(rotation.pitch);
@@ -206,8 +208,9 @@ public:
     }
 
 private:
-    /// @brief Cached transformation matrix.
+    /// @cond INTERNAL
     Matrix4 transform_ {1.0f};
+    /// @endcond
 };
 
 }
