@@ -87,6 +87,10 @@
   font-weight: 400;
 }
 
+.vp-doc code {
+  color: var(--vp-c-text-1) !important;
+}
+
 .vp-doc table a:hover {
   color: var(--vp-c-text-1);
 }
